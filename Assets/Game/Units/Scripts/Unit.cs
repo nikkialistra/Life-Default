@@ -23,5 +23,9 @@ namespace Game.Units.Scripts
         }
 
         public void OnDeselect() => _selectionIndicator.SetActive(false);
+        
+        public class Factory : PlaceholderFactory<Unit>
+        {
+        }
     }
 }

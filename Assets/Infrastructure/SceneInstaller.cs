@@ -1,4 +1,5 @@
 ﻿using Game.Units.Scripts.Services;
+using Kernel.Targeting;
 using UnityEngine;
 using Zenject;
 
@@ -11,8 +12,8 @@ namespace Infrastructure
         
         [Header("Unit Handling")]
         [SerializeField] private UnitRepository _unitRepository;
-        // [SerializeField] private PointObjectPool _pool;
-        // [SerializeField] private GameObject _template;
+        [SerializeField] private PointObjectPool _pool;
+        [SerializeField] private GameObject _template;
         
         public override void InstallBindings()
         {
@@ -26,8 +27,8 @@ namespace Infrastructure
         private void BindUnitHandling()
         {
             Container.BindInstance(_unitRepository).AsSingle();
-            // Container.BindInstance(_pool).AsSingle();
-            // Container.BindInstance(_template).WhenInjectedInto<PointObjectPool>();
+            Container.BindInstance(_pool).AsSingle();
+            Container.BindInstance(_template).WhenInjectedInto<PointObjectPool>();
         }
     }
 }

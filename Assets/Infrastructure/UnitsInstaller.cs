@@ -1,4 +1,6 @@
-﻿using Kernel.Selection;
+﻿using Game.Units.Scripts;
+using Kernel.Selection;
+using Kernel.Targeting;
 using UnityEngine;
 using Zenject;
 
@@ -12,11 +14,11 @@ namespace Infrastructure
         [SerializeField] private RectTransform _selectionRect;
         [SerializeField] private Canvas _uiCanvas;
         
-        // [Header("Targeting")]
-        // [SerializeField] private MovementCommand _movementCommand;
+        [Header("Targeting")]
+        [SerializeField] private MovementCommand _movementCommand;
         
         [Header("Unit")] [SerializeField]
-        private GameObject _unitFacadePrefab;
+        private GameObject _unitPrefab;
         
         public override void InstallBindings()
         {
@@ -24,9 +26,9 @@ namespace Infrastructure
             
             Container.Bind<ProjectionSelector>().AsSingle();
             
-            // Container.BindInstance(_movementCommand);
+            Container.BindInstance(_movementCommand);
 
-            //BindUnit();
+            BindUnit();
         }
 
         private void BindUnitSelectionSystem()
@@ -36,16 +38,16 @@ namespace Infrastructure
             Container.Bind<SelectionArea>().AsSingle().WithArguments(_selectionRect, _uiCanvas);
         }
 
-        // private void BindUnit()
-        // {
-        //     Container.Bind<UnitFacade>().FromSubContainerResolve().ByMethod(InstallUnitFacade).AsSingle();
-        //     
-        //     Container.BindFactory<UnitFacade, UnitFacade.Factory>().FromSubContainerResolve()
-        //         .ByNewContextPrefab(_unitFacadePrefab);
-        //
-        //     Container.BindInterfacesTo<UnitGenerator>().AsSingle();
-        // }
+        private void BindUnit()
+        {
+            Container.Bind<Unit>().FromSubContainerResolve().ByMethod(InstallUnit).AsSingle();
+            
+            Container.BindFactory<Unit, Unit.Factory>().FromSubContainerResolve()
+                .ByNewContextPrefab(_unitPrefab);
+        
+            Container.BindInterfacesTo<UnitGenerator>().AsSingle();
+        }
 
-        // private void InstallUnitFacade(DiContainer subContainer) => subContainer.Bind<UnitFacade>().AsSingle();
+        private void InstallUnit(DiContainer subContainer) => subContainer.Bind<Unit>().AsSingle();
     }
 }

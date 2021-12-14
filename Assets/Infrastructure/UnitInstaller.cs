@@ -1,4 +1,4 @@
-﻿using Game.Units.Scripts;
+﻿using Game.Units;
 using UnityEngine;
 using Zenject;
 
@@ -9,11 +9,12 @@ namespace Infrastructure
         [SerializeField] private GameObject _selectionIndicator;
         [SerializeField] private float _distanceToGroup;
 
-        [SerializeField] private Unit _unit;
+        [SerializeField] private UnitFacade _unitFacade;
 
         public override void InstallBindings()
         {
-            Container.BindInstance(_selectionIndicator).WhenInjectedInto<Unit>();
+            Container.BindInstance(_unitFacade).AsSingle();
+            Container.BindInstance(_selectionIndicator).WhenInjectedInto<UnitFacade>();
             Container.BindInstance(_distanceToGroup).WhenInjectedInto<UnitMeshAgent>();
         }
     }

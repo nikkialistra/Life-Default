@@ -2,15 +2,15 @@
 using UnityEngine.InputSystem;
 using Zenject;
 
-namespace Game.Units.Scripts
+namespace Game.Units
 {
     public class UnitGenerator : ITickable
     {
-        private readonly Unit.Factory _factory;
+        private readonly UnitFacade.Factory _factory;
 
-        private Vector3 _lastUnitPosition;
+        private Vector3 _lastUnitPosition = Vector3.zero;
 
-        public UnitGenerator(Unit.Factory factory) => _factory = factory;
+        public UnitGenerator(UnitFacade.Factory factory) => _factory = factory;
 
         public void Tick()
         {

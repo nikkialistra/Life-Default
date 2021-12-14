@@ -1,4 +1,4 @@
-﻿using Game.Units.Scripts;
+﻿using Game.Units;
 using Kernel.Selection;
 using Kernel.Targeting;
 using UnityEngine;
@@ -40,14 +40,10 @@ namespace Infrastructure
 
         private void BindUnit()
         {
-            Container.Bind<Unit>().FromSubContainerResolve().ByMethod(InstallUnit).AsSingle();
-            
-            Container.BindFactory<Unit, Unit.Factory>().FromSubContainerResolve()
+            Container.BindFactory<UnitFacade, UnitFacade.Factory>().FromSubContainerResolve()
                 .ByNewContextPrefab(_unitPrefab);
         
-            Container.BindInterfacesTo<UnitGenerator>().AsSingle();
+            Container.BindInterfacesTo<UnitGenerator>().AsSingle().NonLazy();
         }
-
-        private void InstallUnit(DiContainer subContainer) => subContainer.Bind<Unit>().AsSingle();
     }
 }

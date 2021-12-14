@@ -4,7 +4,7 @@ using UnityEngine.AI;
 using Zenject;
 using Random = UnityEngine.Random;
 
-namespace Game.Units.Scripts
+namespace Game.Units
 {
     [RequireComponent(typeof(NavMeshAgent))]
     public class UnitMeshAgent : MonoBehaviour, ITargetable

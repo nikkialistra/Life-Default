@@ -1,4 +1,4 @@
-﻿using Game.Units.Scripts.Services;
+﻿using Game.Units.Services;
 using Kernel.Targeting;
 using UnityEngine;
 using Zenject;

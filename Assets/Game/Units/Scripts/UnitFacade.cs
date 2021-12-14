@@ -1,11 +1,10 @@
 ﻿using Kernel.Types;
 using UnityEngine;
-
 using Zenject;
 
-namespace Game.Units.Scripts
+namespace Game.Units
 {
-    public class Unit : MonoBehaviour, ISelectable
+    public class UnitFacade : MonoBehaviour, ISelectable
     {
         private GameObject _selectionIndicator;
 
@@ -24,7 +23,7 @@ namespace Game.Units.Scripts
 
         public void OnDeselect() => _selectionIndicator.SetActive(false);
         
-        public class Factory : PlaceholderFactory<Unit>
+        public class Factory : PlaceholderFactory<UnitFacade>
         {
         }
     }

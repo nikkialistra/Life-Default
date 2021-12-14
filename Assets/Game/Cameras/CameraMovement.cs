@@ -8,7 +8,7 @@ using UnityEngine.InputSystem;
 namespace Game.Cameras
 {
     [RequireComponent(typeof(Camera))]
-    public class CameraController : MonoBehaviour
+    public class CameraMovement : MonoBehaviour
     {
         [Header("Movement")] 
         [SerializeField] private float _movementNormalSpeed;

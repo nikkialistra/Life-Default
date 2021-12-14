@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace Game.Units.Scripts.Services
+namespace Game.Units.Services
 {
     public class UnitRepository : MonoBehaviour
     {
-        private IEnumerable<Unit> _gameObjects;
+        private IEnumerable<UnitFacade> _gameObjects;
 
-        public IEnumerable<Unit> GetObjects() => _gameObjects ??= FindObjectsOfType<Unit>();
+        public IEnumerable<UnitFacade> GetObjects() => _gameObjects ??= FindObjectsOfType<UnitFacade>();
 
         public void ResetObjects() => _gameObjects = null;
     }

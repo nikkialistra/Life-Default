@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using Game.Units.Scripts;
-using Game.Units.Scripts.Services;
+using Game.Units;
+using Game.Units.Services;
 using Kernel.Types;
 using UnityEngine;
 
@@ -12,7 +12,7 @@ namespace Kernel.Selection
         private readonly UnitRepository _unitRepository;
         private readonly Camera _camera;
 
-        private IEnumerable<Unit> _gameObjects;
+        private IEnumerable<UnitFacade> _gameObjects;
 
         public ProjectionSelector(UnitRepository unitRepository, Camera camera)
         {

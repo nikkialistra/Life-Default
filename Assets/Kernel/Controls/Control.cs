@@ -127,6 +127,15 @@ namespace Kernel.Controls
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""SetTarget"",
+                    ""type"": ""Button"",
+                    ""id"": ""c4cb563a-cce4-4986-ad62-135ea6b1147f"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -168,7 +177,7 @@ namespace Kernel.Controls
                     ""id"": ""99d3119b-4064-432f-900f-948f5de600c9"",
                     ""path"": ""<Keyboard>/leftCtrl"",
                     ""interactions"": """",
-                    ""processors"": """",
+                    ""processors"": ""Invert"",
                     ""groups"": ""PC"",
                     ""action"": ""Drag"",
                     ""isComposite"": false,
@@ -404,52 +413,15 @@ namespace Kernel.Controls
                     ""action"": ""Select"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
-                }
-            ]
-        },
-        {
-            ""name"": ""Targeting"",
-            ""id"": ""105cae15-13b2-4182-9dfc-b09591e954ac"",
-            ""actions"": [
-                {
-                    ""name"": ""SetTarget"",
-                    ""type"": ""Button"",
-                    ""id"": ""ecf34649-68ae-48ca-9108-199907908eb4"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Position"",
-                    ""type"": ""Value"",
-                    ""id"": ""186d512c-b03c-4c99-b582-1e8c561a6546"",
-                    ""expectedControlType"": ""Vector2"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": true
-                }
-            ],
-            ""bindings"": [
-                {
                     ""name"": """",
-                    ""id"": ""55b9c16e-ef7f-4fbf-9903-cc3a750fff18"",
+                    ""id"": ""b74507dd-c6f6-4d64-a198-aabfd1ffd290"",
                     ""path"": ""<Mouse>/middleButton"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""PC"",
                     ""action"": ""SetTarget"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""dd9dc82a-78e7-43a5-919f-5bc41915b499"",
-                    ""path"": ""<Mouse>/position"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""PC"",
-                    ""action"": ""Position"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -499,10 +471,7 @@ namespace Kernel.Controls
             m_Management_Movement = m_Management.FindAction("Movement", throwIfNotFound: true);
             m_Management_Rotate = m_Management.FindAction("Rotate", throwIfNotFound: true);
             m_Management_Zoom = m_Management.FindAction("Zoom", throwIfNotFound: true);
-            // Targeting
-            m_Targeting = asset.FindActionMap("Targeting", throwIfNotFound: true);
-            m_Targeting_SetTarget = m_Targeting.FindAction("SetTarget", throwIfNotFound: true);
-            m_Targeting_Position = m_Targeting.FindAction("Position", throwIfNotFound: true);
+            m_Management_SetTarget = m_Management.FindAction("SetTarget", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -573,6 +542,7 @@ namespace Kernel.Controls
         private readonly InputAction m_Management_Movement;
         private readonly InputAction m_Management_Rotate;
         private readonly InputAction m_Management_Zoom;
+        private readonly InputAction m_Management_SetTarget;
         public struct ManagementActions
         {
             private @Control m_Wrapper;
@@ -588,6 +558,7 @@ namespace Kernel.Controls
             public InputAction @Movement => m_Wrapper.m_Management_Movement;
             public InputAction @Rotate => m_Wrapper.m_Management_Rotate;
             public InputAction @Zoom => m_Wrapper.m_Management_Zoom;
+            public InputAction @SetTarget => m_Wrapper.m_Management_SetTarget;
             public InputActionMap Get() { return m_Wrapper.m_Management; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -630,6 +601,9 @@ namespace Kernel.Controls
                     @Zoom.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnZoom;
                     @Zoom.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnZoom;
                     @Zoom.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnZoom;
+                    @SetTarget.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnSetTarget;
+                    @SetTarget.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnSetTarget;
+                    @SetTarget.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnSetTarget;
                 }
                 m_Wrapper.m_ManagementActionsCallbackInterface = instance;
                 if (instance != null)
@@ -667,51 +641,13 @@ namespace Kernel.Controls
                     @Zoom.started += instance.OnZoom;
                     @Zoom.performed += instance.OnZoom;
                     @Zoom.canceled += instance.OnZoom;
+                    @SetTarget.started += instance.OnSetTarget;
+                    @SetTarget.performed += instance.OnSetTarget;
+                    @SetTarget.canceled += instance.OnSetTarget;
                 }
             }
         }
         public ManagementActions @Management => new ManagementActions(this);
-
-        // Targeting
-        private readonly InputActionMap m_Targeting;
-        private ITargetingActions m_TargetingActionsCallbackInterface;
-        private readonly InputAction m_Targeting_SetTarget;
-        private readonly InputAction m_Targeting_Position;
-        public struct TargetingActions
-        {
-            private @Control m_Wrapper;
-            public TargetingActions(@Control wrapper) { m_Wrapper = wrapper; }
-            public InputAction @SetTarget => m_Wrapper.m_Targeting_SetTarget;
-            public InputAction @Position => m_Wrapper.m_Targeting_Position;
-            public InputActionMap Get() { return m_Wrapper.m_Targeting; }
-            public void Enable() { Get().Enable(); }
-            public void Disable() { Get().Disable(); }
-            public bool enabled => Get().enabled;
-            public static implicit operator InputActionMap(TargetingActions set) { return set.Get(); }
-            public void SetCallbacks(ITargetingActions instance)
-            {
-                if (m_Wrapper.m_TargetingActionsCallbackInterface != null)
-                {
-                    @SetTarget.started -= m_Wrapper.m_TargetingActionsCallbackInterface.OnSetTarget;
-                    @SetTarget.performed -= m_Wrapper.m_TargetingActionsCallbackInterface.OnSetTarget;
-                    @SetTarget.canceled -= m_Wrapper.m_TargetingActionsCallbackInterface.OnSetTarget;
-                    @Position.started -= m_Wrapper.m_TargetingActionsCallbackInterface.OnPosition;
-                    @Position.performed -= m_Wrapper.m_TargetingActionsCallbackInterface.OnPosition;
-                    @Position.canceled -= m_Wrapper.m_TargetingActionsCallbackInterface.OnPosition;
-                }
-                m_Wrapper.m_TargetingActionsCallbackInterface = instance;
-                if (instance != null)
-                {
-                    @SetTarget.started += instance.OnSetTarget;
-                    @SetTarget.performed += instance.OnSetTarget;
-                    @SetTarget.canceled += instance.OnSetTarget;
-                    @Position.started += instance.OnPosition;
-                    @Position.performed += instance.OnPosition;
-                    @Position.canceled += instance.OnPosition;
-                }
-            }
-        }
-        public TargetingActions @Targeting => new TargetingActions(this);
         private int m_PCSchemeIndex = -1;
         public InputControlScheme PCScheme
         {
@@ -743,11 +679,7 @@ namespace Kernel.Controls
             void OnMovement(InputAction.CallbackContext context);
             void OnRotate(InputAction.CallbackContext context);
             void OnZoom(InputAction.CallbackContext context);
-        }
-        public interface ITargetingActions
-        {
             void OnSetTarget(InputAction.CallbackContext context);
-            void OnPosition(InputAction.CallbackContext context);
         }
     }
 }

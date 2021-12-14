@@ -17,13 +17,13 @@ namespace Game.Units
 
         public void Tick()
         {
-            if (Keyboard.current.spaceKey.wasPressedThisFrame)
-            {
-                var unit = _factory.Create();
-                unit.transform.position = _lastUnitPosition;
-
-                _lastUnitPosition += Vector3.forward * 2;
-            }
+            // if (Keyboard.current.spaceKey.wasPressedThisFrame)
+            // {
+            //     var unit = _factory.Create();
+            //     unit.transform.position = _lastUnitPosition;
+            //
+            //     _lastUnitPosition += Vector3.forward * 2;
+            // }
         }
     }
 }

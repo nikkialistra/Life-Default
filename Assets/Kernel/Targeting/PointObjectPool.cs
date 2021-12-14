@@ -11,33 +11,43 @@ namespace Kernel.Targeting
     {
         private GameObject _template;
         
-        private readonly Dictionary<GameObject, List<ITargetable>> _links = new Dictionary<GameObject, List<ITargetable>>();
+        private readonly Dictionary<GameObject, List<ITargetable>> _links = new();
         
         [Inject]
-        public void Construct(GameObject template) => _template = template;
+        public void Construct(GameObject template)
+        {
+            _template = template;
+        }
 
-        public GameObject PlaceTo(Vector3 coordinate)
+        public GameObject PlaceTo(Vector3 position)
         {
             var target = GetFromPullOrCreate();
 
-            target.transform.position = coordinate;
+            target.transform.position = position;
             target.gameObject.SetActive(true);
 
             return target;
         }
 
-        public void Link(GameObject point, ITargetable from)
+        public void Link(GameObject point, ITargetable target)
         {
             if (!_links.ContainsKey(point))
+            {
                 throw new InvalidOperationException();
+            }
 
+            RemoveFromOldLink(target);
+            
+            _links[point].Add(target);
+
+            OffAllWithoutLinks();
+        }
+
+        private void RemoveFromOldLink(ITargetable from)
+        {
             _links.Values
                 .FirstOrDefault(sources => sources.Contains(from))
                 ?.Remove(from);
-            
-            _links[point].Add(from);
-
-            OffAllWithoutLinks();
         }
 
         public void OffAll()
@@ -49,7 +59,9 @@ namespace Kernel.Targeting
         private GameObject GetFromPullOrCreate()
         {
             foreach (var target in _links.Keys.Where(target => !_links[target].Any()))
+            {
                 return target;
+            }
 
             return CreateNew();
         }
@@ -67,7 +79,9 @@ namespace Kernel.Targeting
         private void OffAllWithoutLinks()
         {
             foreach (var point in _links.Keys.Where(point => !_links[point].Any()))
+            {
                 point.gameObject.SetActive(false);
+            }
         }
     }
 }

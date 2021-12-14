@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections;
-using Kernel.Controls;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Zenject;
@@ -10,7 +9,7 @@ namespace Kernel.Selection
     public class SelectionInput : MonoBehaviour
     {
         public event Action<Rect> Selecting;
-        public event Action<Rect> SelectingEnded;
+        public event Action<Rect> SelectingEnd;
         
         private Vector2? _startPoint;
         
@@ -48,8 +47,10 @@ namespace Kernel.Selection
         private void StartArea(InputAction.CallbackContext context)
         {
             if (Keyboard.current.ctrlKey.isPressed)
+            {
                 return;
-            
+            }
+
             _startPoint = _positionAction.ReadValue<Vector2>();
             
             if (_areaUpdateCourotine != null)
@@ -72,13 +73,12 @@ namespace Kernel.Selection
 
         private void EndArea(InputAction.CallbackContext context)
         {
-            if (_startPoint == null)
-                return;
-            
-            if (_areaUpdateCourotine == null)
+            if (_startPoint == null || _areaUpdateCourotine == null)
+            {
                 throw new InvalidOperationException();
+            }
 
-            SelectingEnded?.Invoke(GetRect(_startPoint.Value, _positionAction.ReadValue<Vector2>()));
+            SelectingEnd?.Invoke(GetRect(_startPoint.Value, _positionAction.ReadValue<Vector2>()));
             
             _startPoint = null;
 

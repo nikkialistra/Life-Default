@@ -103,6 +103,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "SetTarget",
+                    "type": "Button",
+                    "id": "c4cb563a-cce4-4986-ad62-135ea6b1147f",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -144,7 +153,7 @@
                     "id": "99d3119b-4064-432f-900f-948f5de600c9",
                     "path": "<Keyboard>/leftCtrl",
                     "interactions": "",
-                    "processors": "",
+                    "processors": "Invert",
                     "groups": "PC",
                     "action": "Drag",
                     "isComposite": false,
@@ -380,52 +389,15 @@
                     "action": "Select",
                     "isComposite": false,
                     "isPartOfComposite": false
-                }
-            ]
-        },
-        {
-            "name": "Targeting",
-            "id": "105cae15-13b2-4182-9dfc-b09591e954ac",
-            "actions": [
-                {
-                    "name": "SetTarget",
-                    "type": "Button",
-                    "id": "ecf34649-68ae-48ca-9108-199907908eb4",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
                 },
                 {
-                    "name": "Position",
-                    "type": "Value",
-                    "id": "186d512c-b03c-4c99-b582-1e8c561a6546",
-                    "expectedControlType": "Vector2",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true
-                }
-            ],
-            "bindings": [
-                {
                     "name": "",
-                    "id": "55b9c16e-ef7f-4fbf-9903-cc3a750fff18",
+                    "id": "b74507dd-c6f6-4d64-a198-aabfd1ffd290",
                     "path": "<Mouse>/middleButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "PC",
                     "action": "SetTarget",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "dd9dc82a-78e7-43a5-919f-5bc41915b499",
-                    "path": "<Mouse>/position",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "PC",
-                    "action": "Position",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

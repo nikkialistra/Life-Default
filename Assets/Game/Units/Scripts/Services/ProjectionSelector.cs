@@ -1,10 +1,8 @@
 ﻿using System.Collections.Generic;
-using Game.Units;
-using Game.Units.Services;
 using Kernel.Types;
 using UnityEngine;
 
-namespace Kernel.Selection
+namespace Game.Units.Services
 {
     public class ProjectionSelector
     {

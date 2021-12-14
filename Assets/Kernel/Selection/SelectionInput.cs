@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections;
-using Selecting.Controls;
+using Kernel.Controls;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Zenject;
 
 namespace Kernel.Selection
 {
@@ -10,27 +11,38 @@ namespace Kernel.Selection
     {
         public event Action<Rect> Selecting;
         public event Action<Rect> SelectingEnded;
-
-        private Control _control;
-
+        
         private Vector2? _startPoint;
         
         private Coroutine _areaUpdateCourotine;
+        
+        private PlayerInput _playerInput;
+        
+        private InputAction _selectAction;
+        private InputAction _positionAction;
 
-        private void Awake() => _control = new Control();
+        [Inject]
+        public void Construct(PlayerInput playerInput)
+        {
+            _playerInput = playerInput;
+        }
+
+        private void Awake()
+        {
+            _selectAction = _playerInput.actions.FindAction("Select");
+            _positionAction = _playerInput.actions.FindAction("Position");
+        }
 
         private void OnEnable()
         {
-            _control.Enable();
-            _control.Selection.Select.started += StartArea;
-            _control.Selection.Select.canceled += EndArea;
+            _selectAction.started += StartArea;
+            _selectAction.canceled += EndArea;
         }
         
         private void OnDisable()
         {
-            _control.Selection.Select.started -= StartArea;
-            _control.Selection.Select.canceled -= EndArea;
-            _control.Disable();
+            _selectAction.started -= StartArea;
+            _selectAction.canceled -= EndArea;
         }
 
         private void StartArea(InputAction.CallbackContext context)
@@ -38,7 +50,7 @@ namespace Kernel.Selection
             if (Keyboard.current.ctrlKey.isPressed)
                 return;
             
-            _startPoint = _control.Selection.Position.ReadValue<Vector2>();
+            _startPoint = _positionAction.ReadValue<Vector2>();
             
             if (_areaUpdateCourotine != null)
                 StopCoroutine(_areaUpdateCourotine);
@@ -52,7 +64,7 @@ namespace Kernel.Selection
                 if (_startPoint == null)
                     throw new InvalidOperationException();
 
-                Selecting?.Invoke(GetRect(_startPoint.Value, _control.Selection.Position.ReadValue<Vector2>()));
+                Selecting?.Invoke(GetRect(_startPoint.Value, _positionAction.ReadValue<Vector2>()));
 
                 yield return null;
             }
@@ -66,7 +78,7 @@ namespace Kernel.Selection
             if (_areaUpdateCourotine == null)
                 throw new InvalidOperationException();
 
-            SelectingEnded?.Invoke(GetRect(_startPoint.Value, _control.Selection.Position.ReadValue<Vector2>()));
+            SelectingEnded?.Invoke(GetRect(_startPoint.Value, _positionAction.ReadValue<Vector2>()));
             
             _startPoint = null;
 

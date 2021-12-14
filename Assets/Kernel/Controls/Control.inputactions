@@ -2,79 +2,27 @@
     "name": "Control",
     "maps": [
         {
-            "name": "Selection",
-            "id": "937de7b6-160c-4f41-ab4c-3ba811c7a341",
+            "name": "Management",
+            "id": "4cc9433d-d740-4593-a299-245a457e2ffd",
             "actions": [
+                {
+                    "name": "Position",
+                    "type": "Value",
+                    "id": "8653e1ae-6cec-4d4d-b899-be655e768b2f",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
                 {
                     "name": "Select",
                     "type": "Button",
-                    "id": "8b08c837-1d52-420e-87fc-e37e0af2df12",
+                    "id": "6cb4cd5a-fe25-455c-8835-330c76a727e5",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
                 },
-                {
-                    "name": "Position",
-                    "type": "Value",
-                    "id": "aa850bc3-23c5-4dc9-918e-d377451e04d4",
-                    "expectedControlType": "Vector2",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true
-                }
-            ],
-            "bindings": [
-                {
-                    "name": "",
-                    "id": "f4bbf6a0-5bdf-48f4-a2dc-7a8c5066fc2b",
-                    "path": "<Touchscreen>/primaryTouch/press",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Phone",
-                    "action": "Select",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "00e3ec2b-0b5f-49aa-b9ea-2bc1ffa38571",
-                    "path": "<Mouse>/leftButton",
-                    "interactions": "Press(behavior=2)",
-                    "processors": "",
-                    "groups": "PC",
-                    "action": "Select",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "ceb758f8-e4dc-4bba-84a8-89bfead00da5",
-                    "path": "<Mouse>/position",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "PC",
-                    "action": "Position",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "f18367c8-e6df-476e-a1de-965768099c0f",
-                    "path": "<Touchscreen>/primaryTouch/position",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Phone",
-                    "action": "Position",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                }
-            ]
-        },
-        {
-            "name": "Management",
-            "id": "4cc9433d-d740-4593-a299-245a457e2ffd",
-            "actions": [
                 {
                     "name": "SetFollow",
                     "type": "Button",
@@ -94,16 +42,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Position",
-                    "type": "Value",
-                    "id": "5b30397d-7042-4124-b7a9-ab744acc472a",
-                    "expectedControlType": "Vector2",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true
-                },
-                {
-                    "name": "Scroll",
+                    "name": "ZoomScroll",
                     "type": "Value",
                     "id": "d6a2616d-3501-4776-b0e6-9bd0f48d43b4",
                     "expectedControlType": "",
@@ -179,57 +118,13 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "Button With One Modifier",
-                    "id": "7f23b91f-67a3-4631-bde7-07511c16f1f0",
-                    "path": "ButtonWithOneModifier",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "SetFollow",
-                    "isComposite": true,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "modifier",
-                    "id": "9e3f8d34-eb9a-4611-9be3-fea0cf5ba263",
-                    "path": "<Keyboard>/shift",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "PC",
-                    "action": "SetFollow",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "button",
-                    "id": "d57f1661-b86a-45d5-9174-a14ec713410f",
-                    "path": "<Mouse>/leftButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "PC",
-                    "action": "SetFollow",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "",
-                    "id": "05ce1a5d-637e-4c6c-971d-d426b07f44d3",
-                    "path": "<Mouse>/position",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "PC",
-                    "action": "Position",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
                     "name": "",
                     "id": "d268ebbb-6978-48b2-b70b-abcdc96a7c7d",
                     "path": "<Mouse>/scroll",
                     "interactions": "",
                     "processors": "",
                     "groups": "PC",
-                    "action": "Scroll",
+                    "action": "ZoomScroll",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -408,6 +303,83 @@
                     "action": "Zoom",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "110361ca-368d-4760-81f7-0e20e40eda38",
+                    "path": "<Mouse>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "PC",
+                    "action": "Position",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "854101b2-d0e3-4224-9b65-5b212b2dd351",
+                    "path": "<Touchscreen>/primaryTouch/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Phone",
+                    "action": "Position",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "Button With One Modifier",
+                    "id": "7f23b91f-67a3-4631-bde7-07511c16f1f0",
+                    "path": "ButtonWithOneModifier",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SetFollow",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "modifier",
+                    "id": "9e3f8d34-eb9a-4611-9be3-fea0cf5ba263",
+                    "path": "<Keyboard>/shift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "PC",
+                    "action": "SetFollow",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "button",
+                    "id": "d57f1661-b86a-45d5-9174-a14ec713410f",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "PC",
+                    "action": "SetFollow",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "25d38ff6-1a48-483a-89fc-6a8b8d553edb",
+                    "path": "<Touchscreen>/primaryTouch/press",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Phone",
+                    "action": "Select",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4405cb42-318b-4ec1-b034-87065b1316ac",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "Press(behavior=2)",
+                    "processors": "",
+                    "groups": "PC",
+                    "action": "Select",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },

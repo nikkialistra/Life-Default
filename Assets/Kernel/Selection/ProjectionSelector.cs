@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Game.Units;
 using Game.Units.Services;
 using Kernel.Types;
@@ -23,10 +22,7 @@ namespace Kernel.Selection
         public IEnumerable<ISelectable> SelectInScreenSpace(Rect rect)
         {
             _gameObjects = _unitRepository.GetObjects();
-            
-            if (_gameObjects == null)
-                throw new NullReferenceException();
-            
+
             foreach (var gameObject in _gameObjects)
             {
                 if (gameObject.GetComponent<ISelectable>() == null) continue;

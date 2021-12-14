@@ -15,7 +15,7 @@ using System.Collections.Generic;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Utilities;
 
-namespace Selecting.Controls
+namespace Kernel.Controls
 {
     public partial class @Control : IInputActionCollection2, IDisposable
     {
@@ -26,79 +26,27 @@ namespace Selecting.Controls
     ""name"": ""Control"",
     ""maps"": [
         {
-            ""name"": ""Selection"",
-            ""id"": ""937de7b6-160c-4f41-ab4c-3ba811c7a341"",
+            ""name"": ""Management"",
+            ""id"": ""4cc9433d-d740-4593-a299-245a457e2ffd"",
             ""actions"": [
+                {
+                    ""name"": ""Position"",
+                    ""type"": ""Value"",
+                    ""id"": ""8653e1ae-6cec-4d4d-b899-be655e768b2f"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
                 {
                     ""name"": ""Select"",
                     ""type"": ""Button"",
-                    ""id"": ""8b08c837-1d52-420e-87fc-e37e0af2df12"",
+                    ""id"": ""6cb4cd5a-fe25-455c-8835-330c76a727e5"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
                 },
-                {
-                    ""name"": ""Position"",
-                    ""type"": ""Value"",
-                    ""id"": ""aa850bc3-23c5-4dc9-918e-d377451e04d4"",
-                    ""expectedControlType"": ""Vector2"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": true
-                }
-            ],
-            ""bindings"": [
-                {
-                    ""name"": """",
-                    ""id"": ""f4bbf6a0-5bdf-48f4-a2dc-7a8c5066fc2b"",
-                    ""path"": ""<Touchscreen>/primaryTouch/press"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Phone"",
-                    ""action"": ""Select"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""00e3ec2b-0b5f-49aa-b9ea-2bc1ffa38571"",
-                    ""path"": ""<Mouse>/leftButton"",
-                    ""interactions"": ""Press(behavior=2)"",
-                    ""processors"": """",
-                    ""groups"": ""PC"",
-                    ""action"": ""Select"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""ceb758f8-e4dc-4bba-84a8-89bfead00da5"",
-                    ""path"": ""<Mouse>/position"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""PC"",
-                    ""action"": ""Position"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""f18367c8-e6df-476e-a1de-965768099c0f"",
-                    ""path"": ""<Touchscreen>/primaryTouch/position"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Phone"",
-                    ""action"": ""Position"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                }
-            ]
-        },
-        {
-            ""name"": ""Management"",
-            ""id"": ""4cc9433d-d740-4593-a299-245a457e2ffd"",
-            ""actions"": [
                 {
                     ""name"": ""SetFollow"",
                     ""type"": ""Button"",
@@ -118,16 +66,7 @@ namespace Selecting.Controls
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Position"",
-                    ""type"": ""Value"",
-                    ""id"": ""5b30397d-7042-4124-b7a9-ab744acc472a"",
-                    ""expectedControlType"": ""Vector2"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": true
-                },
-                {
-                    ""name"": ""Scroll"",
+                    ""name"": ""ZoomScroll"",
                     ""type"": ""Value"",
                     ""id"": ""d6a2616d-3501-4776-b0e6-9bd0f48d43b4"",
                     ""expectedControlType"": """",
@@ -203,57 +142,13 @@ namespace Selecting.Controls
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": ""Button With One Modifier"",
-                    ""id"": ""7f23b91f-67a3-4631-bde7-07511c16f1f0"",
-                    ""path"": ""ButtonWithOneModifier"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""SetFollow"",
-                    ""isComposite"": true,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""modifier"",
-                    ""id"": ""9e3f8d34-eb9a-4611-9be3-fea0cf5ba263"",
-                    ""path"": ""<Keyboard>/shift"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""PC"",
-                    ""action"": ""SetFollow"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""button"",
-                    ""id"": ""d57f1661-b86a-45d5-9174-a14ec713410f"",
-                    ""path"": ""<Mouse>/leftButton"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""PC"",
-                    ""action"": ""SetFollow"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""05ce1a5d-637e-4c6c-971d-d426b07f44d3"",
-                    ""path"": ""<Mouse>/position"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""PC"",
-                    ""action"": ""Position"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
                     ""name"": """",
                     ""id"": ""d268ebbb-6978-48b2-b70b-abcdc96a7c7d"",
                     ""path"": ""<Mouse>/scroll"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""PC"",
-                    ""action"": ""Scroll"",
+                    ""action"": ""ZoomScroll"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -432,6 +327,83 @@ namespace Selecting.Controls
                     ""action"": ""Zoom"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""110361ca-368d-4760-81f7-0e20e40eda38"",
+                    ""path"": ""<Mouse>/position"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""PC"",
+                    ""action"": ""Position"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""854101b2-d0e3-4224-9b65-5b212b2dd351"",
+                    ""path"": ""<Touchscreen>/primaryTouch/position"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Phone"",
+                    ""action"": ""Position"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""Button With One Modifier"",
+                    ""id"": ""7f23b91f-67a3-4631-bde7-07511c16f1f0"",
+                    ""path"": ""ButtonWithOneModifier"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SetFollow"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""modifier"",
+                    ""id"": ""9e3f8d34-eb9a-4611-9be3-fea0cf5ba263"",
+                    ""path"": ""<Keyboard>/shift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""PC"",
+                    ""action"": ""SetFollow"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""button"",
+                    ""id"": ""d57f1661-b86a-45d5-9174-a14ec713410f"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""PC"",
+                    ""action"": ""SetFollow"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""25d38ff6-1a48-483a-89fc-6a8b8d553edb"",
+                    ""path"": ""<Touchscreen>/primaryTouch/press"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Phone"",
+                    ""action"": ""Select"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4405cb42-318b-4ec1-b034-87065b1316ac"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": ""Press(behavior=2)"",
+                    ""processors"": """",
+                    ""groups"": ""PC"",
+                    ""action"": ""Select"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -514,16 +486,13 @@ namespace Selecting.Controls
         }
     ]
 }");
-            // Selection
-            m_Selection = asset.FindActionMap("Selection", throwIfNotFound: true);
-            m_Selection_Select = m_Selection.FindAction("Select", throwIfNotFound: true);
-            m_Selection_Position = m_Selection.FindAction("Position", throwIfNotFound: true);
             // Management
             m_Management = asset.FindActionMap("Management", throwIfNotFound: true);
+            m_Management_Position = m_Management.FindAction("Position", throwIfNotFound: true);
+            m_Management_Select = m_Management.FindAction("Select", throwIfNotFound: true);
             m_Management_SetFollow = m_Management.FindAction("SetFollow", throwIfNotFound: true);
             m_Management_ResetFollow = m_Management.FindAction("ResetFollow", throwIfNotFound: true);
-            m_Management_Position = m_Management.FindAction("Position", throwIfNotFound: true);
-            m_Management_Scroll = m_Management.FindAction("Scroll", throwIfNotFound: true);
+            m_Management_ZoomScroll = m_Management.FindAction("ZoomScroll", throwIfNotFound: true);
             m_Management_Drag = m_Management.FindAction("Drag", throwIfNotFound: true);
             m_Management_Rotation = m_Management.FindAction("Rotation", throwIfNotFound: true);
             m_Management_FastMovement = m_Management.FindAction("FastMovement", throwIfNotFound: true);
@@ -590,54 +559,14 @@ namespace Selecting.Controls
             return asset.FindBinding(bindingMask, out action);
         }
 
-        // Selection
-        private readonly InputActionMap m_Selection;
-        private ISelectionActions m_SelectionActionsCallbackInterface;
-        private readonly InputAction m_Selection_Select;
-        private readonly InputAction m_Selection_Position;
-        public struct SelectionActions
-        {
-            private @Control m_Wrapper;
-            public SelectionActions(@Control wrapper) { m_Wrapper = wrapper; }
-            public InputAction @Select => m_Wrapper.m_Selection_Select;
-            public InputAction @Position => m_Wrapper.m_Selection_Position;
-            public InputActionMap Get() { return m_Wrapper.m_Selection; }
-            public void Enable() { Get().Enable(); }
-            public void Disable() { Get().Disable(); }
-            public bool enabled => Get().enabled;
-            public static implicit operator InputActionMap(SelectionActions set) { return set.Get(); }
-            public void SetCallbacks(ISelectionActions instance)
-            {
-                if (m_Wrapper.m_SelectionActionsCallbackInterface != null)
-                {
-                    @Select.started -= m_Wrapper.m_SelectionActionsCallbackInterface.OnSelect;
-                    @Select.performed -= m_Wrapper.m_SelectionActionsCallbackInterface.OnSelect;
-                    @Select.canceled -= m_Wrapper.m_SelectionActionsCallbackInterface.OnSelect;
-                    @Position.started -= m_Wrapper.m_SelectionActionsCallbackInterface.OnPosition;
-                    @Position.performed -= m_Wrapper.m_SelectionActionsCallbackInterface.OnPosition;
-                    @Position.canceled -= m_Wrapper.m_SelectionActionsCallbackInterface.OnPosition;
-                }
-                m_Wrapper.m_SelectionActionsCallbackInterface = instance;
-                if (instance != null)
-                {
-                    @Select.started += instance.OnSelect;
-                    @Select.performed += instance.OnSelect;
-                    @Select.canceled += instance.OnSelect;
-                    @Position.started += instance.OnPosition;
-                    @Position.performed += instance.OnPosition;
-                    @Position.canceled += instance.OnPosition;
-                }
-            }
-        }
-        public SelectionActions @Selection => new SelectionActions(this);
-
         // Management
         private readonly InputActionMap m_Management;
         private IManagementActions m_ManagementActionsCallbackInterface;
+        private readonly InputAction m_Management_Position;
+        private readonly InputAction m_Management_Select;
         private readonly InputAction m_Management_SetFollow;
         private readonly InputAction m_Management_ResetFollow;
-        private readonly InputAction m_Management_Position;
-        private readonly InputAction m_Management_Scroll;
+        private readonly InputAction m_Management_ZoomScroll;
         private readonly InputAction m_Management_Drag;
         private readonly InputAction m_Management_Rotation;
         private readonly InputAction m_Management_FastMovement;
@@ -648,10 +577,11 @@ namespace Selecting.Controls
         {
             private @Control m_Wrapper;
             public ManagementActions(@Control wrapper) { m_Wrapper = wrapper; }
+            public InputAction @Position => m_Wrapper.m_Management_Position;
+            public InputAction @Select => m_Wrapper.m_Management_Select;
             public InputAction @SetFollow => m_Wrapper.m_Management_SetFollow;
             public InputAction @ResetFollow => m_Wrapper.m_Management_ResetFollow;
-            public InputAction @Position => m_Wrapper.m_Management_Position;
-            public InputAction @Scroll => m_Wrapper.m_Management_Scroll;
+            public InputAction @ZoomScroll => m_Wrapper.m_Management_ZoomScroll;
             public InputAction @Drag => m_Wrapper.m_Management_Drag;
             public InputAction @Rotation => m_Wrapper.m_Management_Rotation;
             public InputAction @FastMovement => m_Wrapper.m_Management_FastMovement;
@@ -667,18 +597,21 @@ namespace Selecting.Controls
             {
                 if (m_Wrapper.m_ManagementActionsCallbackInterface != null)
                 {
+                    @Position.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnPosition;
+                    @Position.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnPosition;
+                    @Position.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnPosition;
+                    @Select.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnSelect;
+                    @Select.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnSelect;
+                    @Select.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnSelect;
                     @SetFollow.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnSetFollow;
                     @SetFollow.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnSetFollow;
                     @SetFollow.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnSetFollow;
                     @ResetFollow.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnResetFollow;
                     @ResetFollow.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnResetFollow;
                     @ResetFollow.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnResetFollow;
-                    @Position.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnPosition;
-                    @Position.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnPosition;
-                    @Position.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnPosition;
-                    @Scroll.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnScroll;
-                    @Scroll.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnScroll;
-                    @Scroll.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnScroll;
+                    @ZoomScroll.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnZoomScroll;
+                    @ZoomScroll.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnZoomScroll;
+                    @ZoomScroll.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnZoomScroll;
                     @Drag.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnDrag;
                     @Drag.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnDrag;
                     @Drag.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnDrag;
@@ -701,18 +634,21 @@ namespace Selecting.Controls
                 m_Wrapper.m_ManagementActionsCallbackInterface = instance;
                 if (instance != null)
                 {
+                    @Position.started += instance.OnPosition;
+                    @Position.performed += instance.OnPosition;
+                    @Position.canceled += instance.OnPosition;
+                    @Select.started += instance.OnSelect;
+                    @Select.performed += instance.OnSelect;
+                    @Select.canceled += instance.OnSelect;
                     @SetFollow.started += instance.OnSetFollow;
                     @SetFollow.performed += instance.OnSetFollow;
                     @SetFollow.canceled += instance.OnSetFollow;
                     @ResetFollow.started += instance.OnResetFollow;
                     @ResetFollow.performed += instance.OnResetFollow;
                     @ResetFollow.canceled += instance.OnResetFollow;
-                    @Position.started += instance.OnPosition;
-                    @Position.performed += instance.OnPosition;
-                    @Position.canceled += instance.OnPosition;
-                    @Scroll.started += instance.OnScroll;
-                    @Scroll.performed += instance.OnScroll;
-                    @Scroll.canceled += instance.OnScroll;
+                    @ZoomScroll.started += instance.OnZoomScroll;
+                    @ZoomScroll.performed += instance.OnZoomScroll;
+                    @ZoomScroll.canceled += instance.OnZoomScroll;
                     @Drag.started += instance.OnDrag;
                     @Drag.performed += instance.OnDrag;
                     @Drag.canceled += instance.OnDrag;
@@ -794,17 +730,13 @@ namespace Selecting.Controls
                 return asset.controlSchemes[m_PhoneSchemeIndex];
             }
         }
-        public interface ISelectionActions
-        {
-            void OnSelect(InputAction.CallbackContext context);
-            void OnPosition(InputAction.CallbackContext context);
-        }
         public interface IManagementActions
         {
+            void OnPosition(InputAction.CallbackContext context);
+            void OnSelect(InputAction.CallbackContext context);
             void OnSetFollow(InputAction.CallbackContext context);
             void OnResetFollow(InputAction.CallbackContext context);
-            void OnPosition(InputAction.CallbackContext context);
-            void OnScroll(InputAction.CallbackContext context);
+            void OnZoomScroll(InputAction.CallbackContext context);
             void OnDrag(InputAction.CallbackContext context);
             void OnRotation(InputAction.CallbackContext context);
             void OnFastMovement(InputAction.CallbackContext context);

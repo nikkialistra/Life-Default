@@ -1636,7 +1636,7 @@ PrefabInstance:
     - target: {fileID: 7996144921925233923, guid: 90651bf613c54de4f987c24d0617a61b,
         type: 3}
       propertyPath: m_Name
-      value: UI
+      value: Selection UI
       objectReference: {fileID: 0}
     - target: {fileID: 7996144921925233929, guid: 90651bf613c54de4f987c24d0617a61b,
         type: 3}
@@ -4856,16 +4856,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29ab52dcbdef45de8b40c45341a6922b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _movementNormalSpeed: 120
-  _movementFastSpeed: 300
+  _minumumPositions: {x: -50, y: 8, z: -50}
+  _maximimPositions: {x: 50, y: 45, z: 50}
+  _movementNormalSpeed: 50
+  _movementFastSpeed: 120
   _dragMultiplier: 2
   _steppedRotationAmount: 70
   _touchRotationMultiplier: 0.1
-  _zoomAmount: {x: 0, y: -1, z: 1}
-  _zoomMultiplier: 0.1
-  _movementTime: 1.5
-  _rotationTime: 1.5
-  _zoomTime: 1.5
+  _buttonZoomMultiplier: 70
+  _scrollZoomMultiplier: 0.03
+  _movementTime: 2
+  _rotationTime: 2
+  _zoomTime: 2
 --- !u!1001 &1260573523
 PrefabInstance:
   m_ObjectHideFlags: 0

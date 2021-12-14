@@ -1,4 +1,5 @@
 ﻿using Kernel.Types;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using Zenject;
 
@@ -6,18 +7,13 @@ namespace Game.Units
 {
     public class UnitFacade : MonoBehaviour, ISelectable
     {
-        private GameObject _selectionIndicator;
-
-        [Inject]
-        public void Construct(GameObject selectionIndicator) => _selectionIndicator = selectionIndicator;
+        [Required]
+        [SerializeField] private GameObject _selectionIndicator;
 
         public GameObject GameObject => gameObject;
 
         public void OnSelect()
         {
-            if (_selectionIndicator == null)
-                return;
-            
             _selectionIndicator.SetActive(true);
         }
 

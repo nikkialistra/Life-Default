@@ -12,8 +12,6 @@ GameObject:
   - component: {fileID: 763308185140895837}
   - component: {fileID: 4506163664371613175}
   - component: {fileID: 1158468651039211146}
-  - component: {fileID: 7567246396196315193}
-  - component: {fileID: 3231311350510695205}
   - component: {fileID: 4807083641721281678}
   - component: {fileID: 5226791745306163455}
   - component: {fileID: 2308330324105463307}
@@ -93,39 +91,6 @@ NavMeshAgent:
   m_BaseOffset: -0.19
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &7567246396196315193
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4193433063631040808}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 08eca9f7688a0a24685b89133b020c8e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _scriptableObjectInstallers: []
-  _monoInstallers:
-  - {fileID: 3231311350510695205}
-  _installerPrefabs: []
-  _autoRun: 1
-  _kernel: {fileID: 0}
---- !u!114 &3231311350510695205
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4193433063631040808}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0a4e3c7c964746a0ac549d0b23ce3f65, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _selectionIndicator: {fileID: 4193433063766312865}
-  _distanceToGroup: 3
-  _unitFacade: {fileID: 4807083641721281678}
 --- !u!114 &4807083641721281678
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -138,6 +103,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c13c02dfe2a2416db1ccbb4496c2d54e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _selectionIndicator: {fileID: 4193433063766312865}
 --- !u!114 &5226791745306163455
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -163,6 +129,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 291bf88645ec4389addf4cb07f2cdedf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _distanceToGroup: 3
 --- !u!1 &4193433063766312865
 GameObject:
   m_ObjectHideFlags: 0

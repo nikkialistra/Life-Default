@@ -10,7 +10,10 @@ namespace Game.Units
 
         private Vector3 _lastUnitPosition = Vector3.zero;
 
-        public UnitGenerator(UnitFacade.Factory factory) => _factory = factory;
+        public UnitGenerator(UnitFacade.Factory factory)
+        {
+            _factory = factory;
+        }
 
         public void Tick()
         {

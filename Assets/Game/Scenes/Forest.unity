@@ -1209,7 +1209,6 @@ GameObject:
   m_Component:
   - component: {fileID: 321442406}
   - component: {fileID: 321442407}
-  - component: {fileID: 321442409}
   - component: {fileID: 321442408}
   m_Layer: 0
   m_Name: Zenject Scene Context
@@ -1248,7 +1247,6 @@ MonoBehaviour:
   _scriptableObjectInstallers: []
   _monoInstallers:
   - {fileID: 321442408}
-  - {fileID: 321442409}
   _installerPrefabs: []
   _autoRun: 1
   OnPreInstall:
@@ -1278,29 +1276,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a99c65031dff42eab2b38fdae536ea77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _camera: {fileID: 1257269096}
+  _playerInput: {fileID: 1763958284}
   _selectionInput: {fileID: 1002004461}
   _selectionRect: {fileID: 460316685}
   _uiCanvas: {fileID: 460316684}
   _movementCommand: {fileID: 985616193}
   _unitPrefab: {fileID: 4193433063631040808, guid: db5b5fa30fd502343942b922d62f32af,
     type: 3}
---- !u!114 &321442409
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 321442405}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 424378ad96a240748e36165ff3177ed7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _camera: {fileID: 1257269096}
-  _playerInput: {fileID: 1763958284}
   _unitRepository: {fileID: 2051572251}
   _pool: {fileID: 936167683}
-  _template: {fileID: 719698589249946672, guid: 2be09864b16f2074d9c7d85518d8cf0f,
+  _pointPrefab: {fileID: 719698589249946672, guid: 2be09864b16f2074d9c7d85518d8cf0f,
     type: 3}
 --- !u!1001 &321978266
 PrefabInstance:

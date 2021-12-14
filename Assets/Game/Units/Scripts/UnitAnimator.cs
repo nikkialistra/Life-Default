@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Sirenix.OdinInspector;
+using UnityEngine;
 using UnityEngine.AI;
 
 namespace Game.Units
@@ -6,6 +7,7 @@ namespace Game.Units
     [RequireComponent(typeof(NavMeshAgent))]
     public class UnitAnimator : MonoBehaviour
     {
+        [Required]
         [SerializeField] private Animator _animator;
         
         private NavMeshAgent _navMeshAgent;

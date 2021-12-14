@@ -11,7 +11,8 @@
                     "id": "8b08c837-1d52-420e-87fc-e37e0af2df12",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Position",
@@ -19,7 +20,8 @@
                     "id": "aa850bc3-23c5-4dc9-918e-d377451e04d4",
                     "expectedControlType": "Vector2",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -70,7 +72,7 @@
             ]
         },
         {
-            "name": "Camera",
+            "name": "Management",
             "id": "4cc9433d-d740-4593-a299-245a457e2ffd",
             "actions": [
                 {
@@ -79,7 +81,8 @@
                     "id": "3a2302e8-af2d-4adc-bae2-e850d2eaa14b",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "ResetFollow",
@@ -87,7 +90,8 @@
                     "id": "e72a7247-f0fc-4d95-826c-d8c03af268d7",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Position",
@@ -95,7 +99,8 @@
                     "id": "5b30397d-7042-4124-b7a9-ab744acc472a",
                     "expectedControlType": "Vector2",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": true
                 },
                 {
                     "name": "Scroll",
@@ -103,7 +108,8 @@
                     "id": "d6a2616d-3501-4776-b0e6-9bd0f48d43b4",
                     "expectedControlType": "",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": true
                 },
                 {
                     "name": "Drag",
@@ -111,7 +117,8 @@
                     "id": "d1531ab8-d879-4368-96bb-d14c4c98fe0b",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Rotation",
@@ -119,7 +126,8 @@
                     "id": "d1445202-5a7e-4b4c-864f-a13dd7c187d1",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "FastMovement",
@@ -127,7 +135,8 @@
                     "id": "0aa97f6a-e3f3-4d8f-8ead-af1cd626fdd2",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Movement",
@@ -135,7 +144,8 @@
                     "id": "a08e44b6-96db-4738-afa7-f075bafe4bdf",
                     "expectedControlType": "Vector2",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": true
                 },
                 {
                     "name": "Rotate",
@@ -143,7 +153,8 @@
                     "id": "862651f6-dc28-4bde-a835-01291b3077b5",
                     "expectedControlType": "Digital",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": true
                 },
                 {
                     "name": "Zoom",
@@ -151,7 +162,8 @@
                     "id": "141de89e-0dc4-4a48-bf02-3f6283acbf65",
                     "expectedControlType": "Digital",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -409,7 +421,8 @@
                     "id": "ecf34649-68ae-48ca-9108-199907908eb4",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Position",
@@ -417,7 +430,8 @@
                     "id": "186d512c-b03c-4c99-b582-1e8c561a6546",
                     "expectedControlType": "Vector2",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [

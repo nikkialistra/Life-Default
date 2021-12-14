@@ -1,38 +1,47 @@
 ﻿using System;
 using System.Collections;
 using Kernel.Types;
-using Selecting.Controls;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Zenject;
 
 namespace Game.Cameras
 {
     [RequireComponent(typeof(Camera))]
     public class CameraMovement : MonoBehaviour
     {
-        [Header("Movement")] 
+        [Title("Movement")] 
+        [MinValue(0)]
         [SerializeField] private float _movementNormalSpeed;
+        [MinValue(0)]
         [SerializeField] private float _movementFastSpeed;
+        [MinValue(0)]
         [SerializeField] private float _dragMultiplier;
 
-        [Header("Rotation")] 
+        [Title("Rotation")] 
+        [MinValue(0)]
         [SerializeField] private float _steppedRotationAmount;
+        [MinValue(0)]
         [SerializeField] private float _touchRotationMultiplier;
 
-        [Header("Zoom")] 
+        [Title("Zoom")] 
         [SerializeField] private Vector3 _zoomAmount;
+        [MinValue(0)]
         [SerializeField] private float _zoomMultiplier;
 
-        [Header("Multipliers")] 
+        [Title("Smooth multipliers")] 
+        [MinValue(0)]
         [SerializeField] private float _movementTime;
-
+        [MinValue(0)]
         [SerializeField] private float _rotationTime;
+        [MinValue(0)]
         [SerializeField] private float _zoomTime;
 
         private Camera _camera;
         private Transform _cameraTransform;
 
-        private Control _control;
+        private PlayerInput _playerInput;
 
         private float _movementSpeed;
 
@@ -52,57 +61,94 @@ namespace Game.Cameras
         private Coroutine _moveCoroutine;
         private Coroutine _rotateCoroutine;
         private Coroutine _zoomCoroutine;
+        
+        private InputAction _setFollowAction;
+        private InputAction _resetFollowAction;
+        private InputAction _scrollAction;
+        private InputAction _dragAction;
+        private InputAction _rotationAction;
+        private InputAction _movementAction;
+        private InputAction _fastMovementAction;
+        private InputAction _rotateAction;
+        private InputAction _zoomAction;
+        private InputAction _positionAction;
+
+        [Inject]
+        public void Construct(Camera camera, PlayerInput playerInput)
+        {
+            _camera = camera;
+            _cameraTransform = camera.transform;
+            _playerInput = playerInput;
+        }
 
         private void Awake()
         {
-            _control = new Control();
+            _setFollowAction = _playerInput.actions.FindAction("SetFollow");
+            _resetFollowAction = _playerInput.actions.FindAction("ResetFollow");
+            _scrollAction = _playerInput.actions.FindAction("Scroll");
+            _dragAction = _playerInput.actions.FindAction("Drag");
+            _rotationAction = _playerInput.actions.FindAction("Rotation");
+            _movementAction = _playerInput.actions.FindAction("Movement");
+            _fastMovementAction = _playerInput.actions.FindAction("FastMovement");
+            _rotateAction = _playerInput.actions.FindAction("Rotate");
+            _zoomAction = _playerInput.actions.FindAction("Zoom");
+            _positionAction = _playerInput.actions.FindAction("Position");
         }
 
         private void OnEnable()
         {
-            _control.Enable();
-            _control.Camera.SetFollow.started += SetFollow;
-            _control.Camera.ResetFollow.started += ResetFollow;
-            _control.Camera.Scroll.started += Scroll;
-            _control.Camera.Drag.started += DragStart;
-            _control.Camera.Drag.canceled += DragStop;
-            _control.Camera.Rotation.started += RotationStart;
-            _control.Camera.Rotation.canceled += RotationEnd;
-            _control.Camera.FastMovement.started += FastMovementOn;
-            _control.Camera.FastMovement.canceled += FastMovementOff;
-            _control.Camera.Movement.started += MovementStart;
-            _control.Camera.Movement.canceled += MovementStop;
-            _control.Camera.Rotate.started += RotateStart;
-            _control.Camera.Rotate.canceled += RotateStop;
-            _control.Camera.Zoom.started += ZoomStart;
-            _control.Camera.Zoom.canceled += ZoomStop;
-        }
+            _setFollowAction.started += SetFollow;
+            _resetFollowAction.started += ResetFollow;
+            
+            _scrollAction.started += Scroll;
 
-        private void OnDisable()
-        {
-            _control.Camera.SetFollow.started -= SetFollow;
-            _control.Camera.ResetFollow.started -= ResetFollow;
-            _control.Camera.Scroll.started -= Scroll;
-            _control.Camera.Drag.started -= DragStart;
-            _control.Camera.Drag.canceled -= DragStop;
-            _control.Camera.Rotation.started -= RotationStart;
-            _control.Camera.Rotation.canceled -= RotationEnd;
-            _control.Camera.FastMovement.started -= FastMovementOn;
-            _control.Camera.FastMovement.canceled -= FastMovementOff;
-            _control.Camera.Movement.started -= MovementStart;
-            _control.Camera.Movement.canceled -= MovementStop;
-            _control.Camera.Rotate.started -= RotateStart;
-            _control.Camera.Rotate.canceled -= RotateStop;
-            _control.Camera.Zoom.started -= ZoomStart;
-            _control.Camera.Zoom.canceled -= ZoomStop;
-            _control.Disable();
+            _dragAction.started += DragStart;
+            _dragAction.canceled += DragStop;
+
+            _rotationAction.started += RotationStart;
+            _rotationAction.canceled += RotationEnd;
+
+            _movementAction.started += MovementStart;
+            _movementAction.canceled += MovementStop;
+
+            _fastMovementAction.started += FastMovementOn;
+            _fastMovementAction.canceled += FastMovementOff;
+
+            _rotateAction.started += RotateStart;
+            _rotateAction.canceled += RotateStop;
+
+            _zoomAction.started += ZoomStart;
+            _zoomAction.canceled += ZoomStop;
         }
         
+        private void OnDisable ()
+        {
+            _setFollowAction.started -= SetFollow;
+            _resetFollowAction.started -= ResetFollow;
+            
+            _scrollAction.started -= Scroll;
+
+            _dragAction.started -= DragStart;
+            _dragAction.canceled -= DragStop;
+
+            _rotationAction.started -= RotationStart;
+            _rotationAction.canceled -= RotationEnd;
+
+            _movementAction.started -= MovementStart;
+            _movementAction.canceled -= MovementStop;
+
+            _fastMovementAction.started -= FastMovementOn;
+            _fastMovementAction.canceled -= FastMovementOff;
+
+            _rotateAction.started -= RotateStart;
+            _rotateAction.canceled -= RotateStop;
+
+            _zoomAction.started -= ZoomStart;
+            _zoomAction.canceled -= ZoomStop;
+        }
+
         private void Start()
         {
-            _camera = GetComponent<Camera>();
-            _cameraTransform = _camera.transform;
-
             _movementSpeed = _movementNormalSpeed;
 
             _newPosition = transform.position;
@@ -119,7 +165,7 @@ namespace Game.Cameras
 
         private void SetFollow(InputAction.CallbackContext context)
         {
-            var ray = _camera.ScreenPointToRay(_control.Camera.Position.ReadValue<Vector2>());
+            var ray = _camera.ScreenPointToRay(_positionAction.ReadValue<Vector2>());
 
             if (Physics.Raycast(ray, out var hit))
             {
@@ -130,15 +176,21 @@ namespace Game.Cameras
             }
         }
 
-        private void ResetFollow(InputAction.CallbackContext context) => _followTransform = null;
+        private void ResetFollow(InputAction.CallbackContext context)
+        {
+            _followTransform = null;
+        }
 
-        private void Scroll(InputAction.CallbackContext context) => _newZoom += _zoomAmount * (context.ReadValue<Vector2>().y * _zoomMultiplier);
+        private void Scroll(InputAction.CallbackContext context)
+        {
+            _newZoom += _zoomAmount * (context.ReadValue<Vector2>().y * _zoomMultiplier);
+        }
 
         private void DragStart(InputAction.CallbackContext context)
         {
             var plane = new Plane(Vector3.up, Vector3.zero);
 
-            var ray = _camera.ScreenPointToRay(_control.Camera.Position.ReadValue<Vector2>());
+            var ray = _camera.ScreenPointToRay(_positionAction.ReadValue<Vector2>());
 
             if (plane.Raycast(ray, out var entry))
             {
@@ -156,7 +208,7 @@ namespace Game.Cameras
             {
                 var plane = new Plane(Vector3.up, Vector3.zero);
 
-                var ray = _camera.ScreenPointToRay(_control.Camera.Position.ReadValue<Vector2>());
+                var ray = _camera.ScreenPointToRay(_positionAction.ReadValue<Vector2>());
 
                 if (plane.Raycast(ray, out var entry))
                 {
@@ -183,12 +235,12 @@ namespace Game.Cameras
 
         private void RotationStart(InputAction.CallbackContext context)
         {
-            _rotateStartPosition = _control.Camera.Position.ReadValue<Vector2>();
+            _rotateStartPosition = _positionAction.ReadValue<Vector2>();
         }
 
         private void RotationEnd(InputAction.CallbackContext context)
         {
-            _rotateCurrentPosition = _control.Camera.Position.ReadValue<Vector2>();
+            _rotateCurrentPosition = _positionAction.ReadValue<Vector2>();
 
             if (!_rotateStartPosition.HasValue)
                 throw new InvalidOperationException();
@@ -196,13 +248,19 @@ namespace Game.Cameras
             var difference = _rotateCurrentPosition - _rotateStartPosition.Value;
 
             _rotateStartPosition = _rotateCurrentPosition;
-
-            _newRotation *= Quaternion.Euler(Vector3.up * (difference.x * -_touchRotationMultiplier));
+            
+            UpdateNewRotation(difference.x * -_touchRotationMultiplier);
         }
 
-        private void FastMovementOn(InputAction.CallbackContext context) => _movementSpeed = _movementFastSpeed;
+        private void FastMovementOn(InputAction.CallbackContext context)
+        {
+            _movementSpeed = _movementFastSpeed;
+        }
 
-        private void FastMovementOff(InputAction.CallbackContext context) => _movementSpeed = _movementNormalSpeed;
+        private void FastMovementOff(InputAction.CallbackContext context)
+        {
+            _movementSpeed = _movementNormalSpeed;
+        }
 
         private void MovementStart(InputAction.CallbackContext context)
         {
@@ -215,7 +273,7 @@ namespace Game.Cameras
         {
             while (true)
             {
-                var movement = _control.Camera.Movement.ReadValue<Vector2>() * (_movementSpeed * Time.deltaTime);
+                var movement = _movementAction.ReadValue<Vector2>() * (_movementSpeed * Time.deltaTime);
                 _newPosition += new Vector3(movement.x, 0, movement.y);
 
                 yield return null;
@@ -240,11 +298,18 @@ namespace Game.Cameras
         {
             while (true)
             {
-                var rotation = _control.Camera.Rotate.ReadValue<float>();
-                _newRotation *= Quaternion.Euler(Vector3.up * (rotation * _steppedRotationAmount * Time.deltaTime));
-
+                var rotation = _rotateAction.ReadValue<float>();
+                UpdateNewRotation(rotation * _steppedRotationAmount * Time.deltaTime);
+                
                 yield return null;
             }
+        }
+
+        private void UpdateNewRotation(float amount)
+        {
+            var newRotationEulerAngles = _newRotation.eulerAngles;
+            newRotationEulerAngles.y += amount;
+            _newRotation = Quaternion.Euler(newRotationEulerAngles);
         }
 
         private void RotateStop(InputAction.CallbackContext context)
@@ -265,7 +330,7 @@ namespace Game.Cameras
         {
             while (true)
             {
-                if (_control.Camera.Zoom.ReadValue<float>() > 0)
+                if (_zoomAction.ReadValue<float>() > 0)
                     _newZoom += _zoomAmount * (_zoomMultiplier * Time.deltaTime);
                 else
                     _newZoom -= _zoomAmount * (_zoomMultiplier * Time.deltaTime);

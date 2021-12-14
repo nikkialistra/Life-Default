@@ -1,6 +1,7 @@
 ﻿using Game.Units.Services;
 using Kernel.Targeting;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using Zenject;
 
 namespace Infrastructure
@@ -9,6 +10,9 @@ namespace Infrastructure
     {
         [Header("Base")]
         [SerializeField] private Camera _camera;
+
+        [SerializeField] private PlayerInput _playerInput;
+        
         
         [Header("Unit Handling")]
         [SerializeField] private UnitRepository _unitRepository;
@@ -20,6 +24,7 @@ namespace Infrastructure
             SignalBusInstaller.Install(Container);
 
             Container.BindInstance(_camera).AsSingle();
+            Container.BindInstance(_playerInput).AsSingle();
             
             BindUnitHandling();
         }

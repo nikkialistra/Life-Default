@@ -96,7 +96,7 @@ namespace Selecting.Controls
             ]
         },
         {
-            ""name"": ""Camera"",
+            ""name"": ""Management"",
             ""id"": ""4cc9433d-d740-4593-a299-245a457e2ffd"",
             ""actions"": [
                 {
@@ -518,18 +518,18 @@ namespace Selecting.Controls
             m_Selection = asset.FindActionMap("Selection", throwIfNotFound: true);
             m_Selection_Select = m_Selection.FindAction("Select", throwIfNotFound: true);
             m_Selection_Position = m_Selection.FindAction("Position", throwIfNotFound: true);
-            // Camera
-            m_Camera = asset.FindActionMap("Camera", throwIfNotFound: true);
-            m_Camera_SetFollow = m_Camera.FindAction("SetFollow", throwIfNotFound: true);
-            m_Camera_ResetFollow = m_Camera.FindAction("ResetFollow", throwIfNotFound: true);
-            m_Camera_Position = m_Camera.FindAction("Position", throwIfNotFound: true);
-            m_Camera_Scroll = m_Camera.FindAction("Scroll", throwIfNotFound: true);
-            m_Camera_Drag = m_Camera.FindAction("Drag", throwIfNotFound: true);
-            m_Camera_Rotation = m_Camera.FindAction("Rotation", throwIfNotFound: true);
-            m_Camera_FastMovement = m_Camera.FindAction("FastMovement", throwIfNotFound: true);
-            m_Camera_Movement = m_Camera.FindAction("Movement", throwIfNotFound: true);
-            m_Camera_Rotate = m_Camera.FindAction("Rotate", throwIfNotFound: true);
-            m_Camera_Zoom = m_Camera.FindAction("Zoom", throwIfNotFound: true);
+            // Management
+            m_Management = asset.FindActionMap("Management", throwIfNotFound: true);
+            m_Management_SetFollow = m_Management.FindAction("SetFollow", throwIfNotFound: true);
+            m_Management_ResetFollow = m_Management.FindAction("ResetFollow", throwIfNotFound: true);
+            m_Management_Position = m_Management.FindAction("Position", throwIfNotFound: true);
+            m_Management_Scroll = m_Management.FindAction("Scroll", throwIfNotFound: true);
+            m_Management_Drag = m_Management.FindAction("Drag", throwIfNotFound: true);
+            m_Management_Rotation = m_Management.FindAction("Rotation", throwIfNotFound: true);
+            m_Management_FastMovement = m_Management.FindAction("FastMovement", throwIfNotFound: true);
+            m_Management_Movement = m_Management.FindAction("Movement", throwIfNotFound: true);
+            m_Management_Rotate = m_Management.FindAction("Rotate", throwIfNotFound: true);
+            m_Management_Zoom = m_Management.FindAction("Zoom", throwIfNotFound: true);
             // Targeting
             m_Targeting = asset.FindActionMap("Targeting", throwIfNotFound: true);
             m_Targeting_SetTarget = m_Targeting.FindAction("SetTarget", throwIfNotFound: true);
@@ -631,74 +631,74 @@ namespace Selecting.Controls
         }
         public SelectionActions @Selection => new SelectionActions(this);
 
-        // Camera
-        private readonly InputActionMap m_Camera;
-        private ICameraActions m_CameraActionsCallbackInterface;
-        private readonly InputAction m_Camera_SetFollow;
-        private readonly InputAction m_Camera_ResetFollow;
-        private readonly InputAction m_Camera_Position;
-        private readonly InputAction m_Camera_Scroll;
-        private readonly InputAction m_Camera_Drag;
-        private readonly InputAction m_Camera_Rotation;
-        private readonly InputAction m_Camera_FastMovement;
-        private readonly InputAction m_Camera_Movement;
-        private readonly InputAction m_Camera_Rotate;
-        private readonly InputAction m_Camera_Zoom;
-        public struct CameraActions
+        // Management
+        private readonly InputActionMap m_Management;
+        private IManagementActions m_ManagementActionsCallbackInterface;
+        private readonly InputAction m_Management_SetFollow;
+        private readonly InputAction m_Management_ResetFollow;
+        private readonly InputAction m_Management_Position;
+        private readonly InputAction m_Management_Scroll;
+        private readonly InputAction m_Management_Drag;
+        private readonly InputAction m_Management_Rotation;
+        private readonly InputAction m_Management_FastMovement;
+        private readonly InputAction m_Management_Movement;
+        private readonly InputAction m_Management_Rotate;
+        private readonly InputAction m_Management_Zoom;
+        public struct ManagementActions
         {
             private @Control m_Wrapper;
-            public CameraActions(@Control wrapper) { m_Wrapper = wrapper; }
-            public InputAction @SetFollow => m_Wrapper.m_Camera_SetFollow;
-            public InputAction @ResetFollow => m_Wrapper.m_Camera_ResetFollow;
-            public InputAction @Position => m_Wrapper.m_Camera_Position;
-            public InputAction @Scroll => m_Wrapper.m_Camera_Scroll;
-            public InputAction @Drag => m_Wrapper.m_Camera_Drag;
-            public InputAction @Rotation => m_Wrapper.m_Camera_Rotation;
-            public InputAction @FastMovement => m_Wrapper.m_Camera_FastMovement;
-            public InputAction @Movement => m_Wrapper.m_Camera_Movement;
-            public InputAction @Rotate => m_Wrapper.m_Camera_Rotate;
-            public InputAction @Zoom => m_Wrapper.m_Camera_Zoom;
-            public InputActionMap Get() { return m_Wrapper.m_Camera; }
+            public ManagementActions(@Control wrapper) { m_Wrapper = wrapper; }
+            public InputAction @SetFollow => m_Wrapper.m_Management_SetFollow;
+            public InputAction @ResetFollow => m_Wrapper.m_Management_ResetFollow;
+            public InputAction @Position => m_Wrapper.m_Management_Position;
+            public InputAction @Scroll => m_Wrapper.m_Management_Scroll;
+            public InputAction @Drag => m_Wrapper.m_Management_Drag;
+            public InputAction @Rotation => m_Wrapper.m_Management_Rotation;
+            public InputAction @FastMovement => m_Wrapper.m_Management_FastMovement;
+            public InputAction @Movement => m_Wrapper.m_Management_Movement;
+            public InputAction @Rotate => m_Wrapper.m_Management_Rotate;
+            public InputAction @Zoom => m_Wrapper.m_Management_Zoom;
+            public InputActionMap Get() { return m_Wrapper.m_Management; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
             public bool enabled => Get().enabled;
-            public static implicit operator InputActionMap(CameraActions set) { return set.Get(); }
-            public void SetCallbacks(ICameraActions instance)
+            public static implicit operator InputActionMap(ManagementActions set) { return set.Get(); }
+            public void SetCallbacks(IManagementActions instance)
             {
-                if (m_Wrapper.m_CameraActionsCallbackInterface != null)
+                if (m_Wrapper.m_ManagementActionsCallbackInterface != null)
                 {
-                    @SetFollow.started -= m_Wrapper.m_CameraActionsCallbackInterface.OnSetFollow;
-                    @SetFollow.performed -= m_Wrapper.m_CameraActionsCallbackInterface.OnSetFollow;
-                    @SetFollow.canceled -= m_Wrapper.m_CameraActionsCallbackInterface.OnSetFollow;
-                    @ResetFollow.started -= m_Wrapper.m_CameraActionsCallbackInterface.OnResetFollow;
-                    @ResetFollow.performed -= m_Wrapper.m_CameraActionsCallbackInterface.OnResetFollow;
-                    @ResetFollow.canceled -= m_Wrapper.m_CameraActionsCallbackInterface.OnResetFollow;
-                    @Position.started -= m_Wrapper.m_CameraActionsCallbackInterface.OnPosition;
-                    @Position.performed -= m_Wrapper.m_CameraActionsCallbackInterface.OnPosition;
-                    @Position.canceled -= m_Wrapper.m_CameraActionsCallbackInterface.OnPosition;
-                    @Scroll.started -= m_Wrapper.m_CameraActionsCallbackInterface.OnScroll;
-                    @Scroll.performed -= m_Wrapper.m_CameraActionsCallbackInterface.OnScroll;
-                    @Scroll.canceled -= m_Wrapper.m_CameraActionsCallbackInterface.OnScroll;
-                    @Drag.started -= m_Wrapper.m_CameraActionsCallbackInterface.OnDrag;
-                    @Drag.performed -= m_Wrapper.m_CameraActionsCallbackInterface.OnDrag;
-                    @Drag.canceled -= m_Wrapper.m_CameraActionsCallbackInterface.OnDrag;
-                    @Rotation.started -= m_Wrapper.m_CameraActionsCallbackInterface.OnRotation;
-                    @Rotation.performed -= m_Wrapper.m_CameraActionsCallbackInterface.OnRotation;
-                    @Rotation.canceled -= m_Wrapper.m_CameraActionsCallbackInterface.OnRotation;
-                    @FastMovement.started -= m_Wrapper.m_CameraActionsCallbackInterface.OnFastMovement;
-                    @FastMovement.performed -= m_Wrapper.m_CameraActionsCallbackInterface.OnFastMovement;
-                    @FastMovement.canceled -= m_Wrapper.m_CameraActionsCallbackInterface.OnFastMovement;
-                    @Movement.started -= m_Wrapper.m_CameraActionsCallbackInterface.OnMovement;
-                    @Movement.performed -= m_Wrapper.m_CameraActionsCallbackInterface.OnMovement;
-                    @Movement.canceled -= m_Wrapper.m_CameraActionsCallbackInterface.OnMovement;
-                    @Rotate.started -= m_Wrapper.m_CameraActionsCallbackInterface.OnRotate;
-                    @Rotate.performed -= m_Wrapper.m_CameraActionsCallbackInterface.OnRotate;
-                    @Rotate.canceled -= m_Wrapper.m_CameraActionsCallbackInterface.OnRotate;
-                    @Zoom.started -= m_Wrapper.m_CameraActionsCallbackInterface.OnZoom;
-                    @Zoom.performed -= m_Wrapper.m_CameraActionsCallbackInterface.OnZoom;
-                    @Zoom.canceled -= m_Wrapper.m_CameraActionsCallbackInterface.OnZoom;
+                    @SetFollow.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnSetFollow;
+                    @SetFollow.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnSetFollow;
+                    @SetFollow.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnSetFollow;
+                    @ResetFollow.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnResetFollow;
+                    @ResetFollow.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnResetFollow;
+                    @ResetFollow.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnResetFollow;
+                    @Position.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnPosition;
+                    @Position.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnPosition;
+                    @Position.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnPosition;
+                    @Scroll.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnScroll;
+                    @Scroll.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnScroll;
+                    @Scroll.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnScroll;
+                    @Drag.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnDrag;
+                    @Drag.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnDrag;
+                    @Drag.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnDrag;
+                    @Rotation.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnRotation;
+                    @Rotation.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnRotation;
+                    @Rotation.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnRotation;
+                    @FastMovement.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnFastMovement;
+                    @FastMovement.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnFastMovement;
+                    @FastMovement.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnFastMovement;
+                    @Movement.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnMovement;
+                    @Movement.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnMovement;
+                    @Movement.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnMovement;
+                    @Rotate.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnRotate;
+                    @Rotate.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnRotate;
+                    @Rotate.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnRotate;
+                    @Zoom.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnZoom;
+                    @Zoom.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnZoom;
+                    @Zoom.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnZoom;
                 }
-                m_Wrapper.m_CameraActionsCallbackInterface = instance;
+                m_Wrapper.m_ManagementActionsCallbackInterface = instance;
                 if (instance != null)
                 {
                     @SetFollow.started += instance.OnSetFollow;
@@ -734,7 +734,7 @@ namespace Selecting.Controls
                 }
             }
         }
-        public CameraActions @Camera => new CameraActions(this);
+        public ManagementActions @Management => new ManagementActions(this);
 
         // Targeting
         private readonly InputActionMap m_Targeting;
@@ -799,7 +799,7 @@ namespace Selecting.Controls
             void OnSelect(InputAction.CallbackContext context);
             void OnPosition(InputAction.CallbackContext context);
         }
-        public interface ICameraActions
+        public interface IManagementActions
         {
             void OnSetFollow(InputAction.CallbackContext context);
             void OnResetFollow(InputAction.CallbackContext context);

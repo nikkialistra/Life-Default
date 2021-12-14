@@ -4,14 +4,14 @@ using UnityEngine;
 
 namespace Game.Units.Services
 {
-    public class ProjectionSelector
+    public class UnitProjectionSelector
     {
         private readonly UnitRepository _unitRepository;
         private readonly Camera _camera;
 
         private IEnumerable<UnitFacade> _gameObjects;
 
-        public ProjectionSelector(UnitRepository unitRepository, Camera camera)
+        public UnitProjectionSelector(UnitRepository unitRepository, Camera camera)
         {
             _unitRepository = unitRepository;
             _camera = camera;

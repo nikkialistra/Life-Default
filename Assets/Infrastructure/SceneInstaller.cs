@@ -26,25 +26,29 @@ namespace Infrastructure
         [Title("Targeting")]
         [Required]
         [SerializeField] private MovementCommand _movementCommand;
+        [Required]
+        [SerializeField] private PointObjectPool _pool;
+        [Required]
+        [SerializeField] private GameObject _pointPrefab;
 
         [Title("Units")] 
         [Required]
         [SerializeField] private GameObject _unitPrefab;
 
-        [Title("Unit Handling")]
+        [Title("Services")]
         [Required]
         [SerializeField] private UnitRepository _unitRepository;
-        [Required]
-        [SerializeField] private PointObjectPool _pool;
-        [Required]
-        [SerializeField] private GameObject _pointPrefab;
-        
+
+        [Title("Spawning")] 
+        [Required] 
+        [SerializeField] private Transform _unitRoot;
+
         public override void InstallBindings()
         {
             BindBase();
             BindUnitSelectionSystem();
             BindTargeting();
-            BindUnitHandling();
+            BindUnitRepository();
             BindUnitSpawning();
         }
 
@@ -63,20 +67,21 @@ namespace Infrastructure
 
         private void BindTargeting()
         {
-            Container.Bind<ProjectionSelector>().AsSingle();
+            Container.Bind<UnitProjectionSelector>().AsSingle();
             Container.BindInstance(_movementCommand);
-        }
-
-        private void BindUnitHandling()
-        {
-            Container.BindInstance(_unitRepository).AsSingle();
             Container.BindInstance(_pool).AsSingle();
             Container.BindInstance(_pointPrefab).WhenInjectedInto<PointObjectPool>();
         }
 
+        private void BindUnitRepository()
+        {
+            Container.BindInstance(_unitRepository).AsSingle();
+        }
+
         private void BindUnitSpawning()
         {
-            Container.BindFactory<UnitFacade, UnitFacade.Factory>().FromComponentInNewPrefab(_unitPrefab);
+            Container.BindFactory<UnitFacade, UnitFacade.Factory>().FromComponentInNewPrefab(_unitPrefab)
+                .UnderTransform(_unitRoot);
             Container.BindInterfacesTo<UnitGenerator>().AsSingle().NonLazy();
         }
     }

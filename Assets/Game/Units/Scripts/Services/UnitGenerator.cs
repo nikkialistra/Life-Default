@@ -1,8 +1,7 @@
 ﻿using UnityEngine;
-using UnityEngine.InputSystem;
 using Zenject;
 
-namespace Game.Units
+namespace Game.Units.Services
 {
     public class UnitGenerator : ITickable
     {

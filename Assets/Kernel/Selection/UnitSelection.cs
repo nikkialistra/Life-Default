@@ -10,14 +10,14 @@ namespace Kernel.Selection
 {
     public class UnitSelection : IInitializable
     {
-        private ProjectionSelector _selector;
+        private UnitProjectionSelector _selector;
         private SelectionInput _selectionInput;
         private SelectionArea _selectionArea;
         
         public IEnumerable<ISelectable> Selected { get; private set; } = Array.Empty<ISelectable>();
         
         [Inject]
-        public void Construct(ProjectionSelector selector, SelectionInput selectionInput, SelectionArea selectionArea)
+        public void Construct(UnitProjectionSelector selector, SelectionInput selectionInput, SelectionArea selectionArea)
         {
             _selector = selector;
             _selectionInput = selectionInput;

@@ -27,9 +27,11 @@ namespace Infrastructure
         [Required]
         [SerializeField] private MovementCommand _movementCommand;
         [Required]
-        [SerializeField] private PointObjectPool _pool;
+        [SerializeField] private TargetObjectPool _pool;
         [Required]
-        [SerializeField] private GameObject _pointPrefab;
+        [SerializeField] private GameObject _targetPrefab;
+        [Required]
+        [SerializeField] private Transform _targetParent;
 
         [Title("Units")] 
         [Required]
@@ -70,7 +72,8 @@ namespace Infrastructure
             Container.Bind<UnitProjectionSelector>().AsSingle();
             Container.BindInstance(_movementCommand);
             Container.BindInstance(_pool).AsSingle();
-            Container.BindInstance(_pointPrefab).WhenInjectedInto<PointObjectPool>();
+            Container.BindInstance(_targetPrefab).WhenInjectedInto<TargetObjectPool>();
+            Container.BindInstance(_targetParent).WhenInjectedInto<TargetObjectPool>();
         }
 
         private void BindUnitRepository()

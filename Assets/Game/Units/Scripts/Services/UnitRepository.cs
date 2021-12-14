@@ -14,6 +14,9 @@ namespace Game.Units.Services
 
         public IEnumerable<UnitFacade> GetObjects() => _gameObjects ??= FindObjectsOfType<UnitFacade>();
 
-        public void ResetObjects() => _gameObjects = null;
+        public void ResetObjects()
+        {
+            _gameObjects = null;
+        }
     }
 }

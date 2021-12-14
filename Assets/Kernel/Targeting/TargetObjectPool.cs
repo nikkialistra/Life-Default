@@ -7,16 +7,18 @@ using Zenject;
 
 namespace Kernel.Targeting
 {
-    public class PointObjectPool : MonoBehaviour
+    public class TargetObjectPool : MonoBehaviour
     {
-        private GameObject _template;
-        
+        private GameObject _targetTemplate;
+        private Transform _targetParent;
+
         private readonly Dictionary<GameObject, List<ITargetable>> _links = new();
-        
+
         [Inject]
-        public void Construct(GameObject template)
+        public void Construct(GameObject targetTemplate, Transform targetParent)
         {
-            _template = template;
+            _targetParent = targetParent;
+            _targetTemplate = targetTemplate;
         }
 
         public GameObject PlaceTo(Vector3 position)
@@ -68,7 +70,7 @@ namespace Kernel.Targeting
 
         private GameObject CreateNew()
         {
-            var target = Instantiate(_template, Vector3.zero, Quaternion.identity);
+            var target = Instantiate(_targetTemplate, Vector3.zero, Quaternion.identity, _targetParent);
             target.SetActive(false);
             
             _links.Add(target, new List<ITargetable>());

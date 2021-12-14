@@ -3,18 +3,17 @@ using UnityEngine.AI;
 
 namespace Game.Units
 {
-    [RequireComponent(typeof(Animator))]
     [RequireComponent(typeof(NavMeshAgent))]
     public class UnitAnimator : MonoBehaviour
     {
-        private Animator _animator;
+        [SerializeField] private Animator _animator;
+        
         private NavMeshAgent _navMeshAgent;
 
         private readonly int _velocity = Animator.StringToHash("velocity");
 
         private void Awake()
         {
-            _animator = GetComponent<Animator>();
             _navMeshAgent = GetComponent<NavMeshAgent>();
         }
 

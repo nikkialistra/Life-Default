@@ -7,7 +7,7 @@ using Zenject;
 
 namespace Kernel.Targeting
 {
-    public class TargetObjectPool : MonoBehaviour
+    public class TargetPool : MonoBehaviour
     {
         private GameObject _targetTemplate;
         private Transform _targetParent;

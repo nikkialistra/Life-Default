@@ -9,7 +9,7 @@ namespace Kernel.Targeting
 {
     public class MovementCommand : MonoBehaviour
     {
-        private TargetObjectPool _pool;
+        private TargetPool _pool;
         private UnitSelection _unitSelection;
         
         private Camera _camera;
@@ -20,7 +20,7 @@ namespace Kernel.Targeting
         private InputAction _positionAction;
 
         [Inject]
-        public void Construct(PlayerInput playerInput, Camera camera, UnitSelection unitSelection, TargetObjectPool pool)
+        public void Construct(PlayerInput playerInput, Camera camera, UnitSelection unitSelection, TargetPool pool)
         {
             _playerInput = playerInput;
             _camera = camera;

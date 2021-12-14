@@ -5,7 +5,7 @@ using Zenject;
 
 namespace Game.Units.Services
 {
-    public class UnitsHandler : MonoBehaviour
+    public class UnitsSaveLoadHandler : MonoBehaviour
     {
         private UnitFacade.Factory _factory;
 
@@ -17,7 +17,7 @@ namespace Game.Units.Services
         
         public IEnumerable<UnitData> GetUnits()
         {
-            foreach (var unitHandler in FindObjectsOfType<UnitHandler>())
+            foreach (var unitHandler in FindObjectsOfType<UnitSaveLoadHandler>())
             {
                 var unitData = unitHandler.GetUnitData();
                 yield return unitData;
@@ -31,13 +31,13 @@ namespace Game.Units.Services
             foreach (var unitData in currentUnits)
             {
                 var unitFacade = _factory.Create();
-                unitFacade.UnitHandler.SetUnitData(unitData);
+                unitFacade.UnitSaveLoadHandler.SetUnitData(unitData);
             }
         }
 
         private void DestroyUnits()
         {
-            foreach (var unitHandler in FindObjectsOfType<UnitHandler>())
+            foreach (var unitHandler in FindObjectsOfType<UnitSaveLoadHandler>())
             {
                 unitHandler.DestroySelf();
             }

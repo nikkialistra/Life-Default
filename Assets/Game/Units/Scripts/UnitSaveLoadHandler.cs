@@ -4,7 +4,7 @@ using Random = UnityEngine.Random;
 
 namespace Game.Units
 {
-    public class UnitHandler : MonoBehaviour
+    public class UnitSaveLoadHandler : MonoBehaviour
     {
         [SerializeField] private UnitType _unitType;
 

@@ -6,19 +6,19 @@ using Zenject;
 
 namespace Game.Units
 {
-    [RequireComponent(typeof(UnitHandler))]
+    [RequireComponent(typeof(UnitSaveLoadHandler))]
     public class UnitFacade : MonoBehaviour, ISelectable
     {
         [Required]
         [SerializeField] private GameObject _selectionIndicator;
 
-        public UnitHandler UnitHandler { get; private set;  }
+        public UnitSaveLoadHandler UnitSaveLoadHandler { get; private set;  }
 
         public GameObject GameObject => gameObject;
 
         private void Awake()
         {
-            UnitHandler = GetComponent<UnitHandler>();
+            UnitSaveLoadHandler = GetComponent<UnitSaveLoadHandler>();
         }
 
         public void OnSelect()

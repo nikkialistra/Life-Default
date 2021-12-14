@@ -1,5 +1,6 @@
 ﻿using Game.Units;
 using Game.Units.Services;
+using Kernel.Saving;
 using Kernel.Selection;
 using Kernel.Targeting;
 using Sirenix.OdinInspector;
@@ -27,7 +28,7 @@ namespace Infrastructure
         [Required]
         [SerializeField] private MovementCommand _movementCommand;
         [Required]
-        [SerializeField] private TargetObjectPool _pool;
+        [SerializeField] private TargetPool _pool;
         [Required]
         [SerializeField] private GameObject _targetPrefab;
         [Required]
@@ -44,6 +45,12 @@ namespace Infrastructure
         [Title("Spawning")] 
         [Required] 
         [SerializeField] private Transform _unitRoot;
+        
+        [Title("Saving")]
+        [Required]
+        [SerializeField] private UnitsSaveLoadHandler _unitsSaveLoadHandler;
+        [Required] 
+        [SerializeField] private SavingLoadingGame _savingLoadingGame;
 
         public override void InstallBindings()
         {
@@ -52,6 +59,7 @@ namespace Infrastructure
             BindTargeting();
             BindUnitRepository();
             BindUnitSpawning();
+            BindSaving();
         }
 
         private void BindBase()
@@ -72,8 +80,8 @@ namespace Infrastructure
             Container.Bind<UnitProjectionSelector>().AsSingle();
             Container.BindInstance(_movementCommand);
             Container.BindInstance(_pool).AsSingle();
-            Container.BindInstance(_targetPrefab).WhenInjectedInto<TargetObjectPool>();
-            Container.BindInstance(_targetParent).WhenInjectedInto<TargetObjectPool>();
+            Container.BindInstance(_targetPrefab).WhenInjectedInto<TargetPool>();
+            Container.BindInstance(_targetParent).WhenInjectedInto<TargetPool>();
         }
 
         private void BindUnitRepository()
@@ -86,6 +94,13 @@ namespace Infrastructure
             Container.BindFactory<UnitFacade, UnitFacade.Factory>().FromComponentInNewPrefab(_unitPrefab)
                 .UnderTransform(_unitRoot);
             Container.BindInterfacesTo<UnitGenerator>().AsSingle().NonLazy();
+        }
+
+        private void BindSaving()
+        {
+            Container.Bind<SaveData>().AsSingle();
+            Container.BindInstance(_unitsSaveLoadHandler);
+            Container.BindInstance(_savingLoadingGame);
         }
     }
 }

@@ -7,11 +7,13 @@ using UnityEngine;
 
 namespace Kernel.Saving.Serialization
 {
-    public class SerializationManager
+    public class Serialization
     {
-        public static bool Save(string saveName, object saveData)
+        private BinaryFormatter _formatter;
+
+        public bool SaveToFile(string saveName, object saveData)
         {
-            var formatter = GetBinaryFormatter();
+            _formatter ??= GetBinaryFormatter();
 
             var basePath = Path.Combine(Application.persistentDataPath, "saves");
             if (!Directory.Exists(basePath))
@@ -24,7 +26,7 @@ namespace Kernel.Saving.Serialization
 
             try
             {
-                formatter.Serialize(file, saveData);
+                _formatter.Serialize(file, saveData);
             }
             catch (SerializationException exception)
             {
@@ -39,7 +41,7 @@ namespace Kernel.Saving.Serialization
             return true;
         }
 
-        public static object Load(string loadName)
+        public object LoadFromFile(string loadName)
         {
             var path = Path.Combine(Application.persistentDataPath, "saves", loadName);
 
@@ -48,13 +50,13 @@ namespace Kernel.Saving.Serialization
                 throw new ArgumentException(nameof(loadName));
             }
 
-            var formatter = GetBinaryFormatter();
+            _formatter ??= GetBinaryFormatter();
 
             var file = File.Open(path, FileMode.Open);
 
             try
             {
-                var save = formatter.Deserialize(file);
+                var save = _formatter.Deserialize(file);
                 return save;
             }
             catch

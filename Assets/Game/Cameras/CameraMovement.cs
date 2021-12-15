@@ -64,6 +64,7 @@ namespace Game.Cameras
         private Vector3 _rotateCurrentPosition;
 
         private Transform _followTransform;
+        private bool _following;
 
         private Coroutine _dragCoroutine;
         private Coroutine _moveCoroutine;
@@ -165,8 +166,10 @@ namespace Game.Cameras
 
         private void Update()
         {
-            if (_followTransform != null)
+            if (_following)
+            {
                 _newPosition = _followTransform.position;
+            }
             ComputeTransform();
         }
 
@@ -179,6 +182,7 @@ namespace Game.Cameras
                 if (hit.transform.gameObject.GetComponent<ISelectable>() != null)
                 {
                     _followTransform = hit.transform;
+                    _following = true;
                 }
             }
         }
@@ -186,6 +190,7 @@ namespace Game.Cameras
         private void ResetFollow(InputAction.CallbackContext context)
         {
             _followTransform = null;
+            _following = false;
         }
 
         private void ZoomScroll(InputAction.CallbackContext context)

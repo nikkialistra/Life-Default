@@ -1,6 +1,7 @@
 ﻿using Game.Units;
 using Game.Units.Services;
 using Kernel.Saving;
+using Kernel.Saving.Serialization;
 using Kernel.Selection;
 using Kernel.Targeting;
 using Sirenix.OdinInspector;
@@ -100,7 +101,9 @@ namespace Infrastructure
         {
             Container.Bind<SaveData>().AsSingle();
             Container.BindInstance(_unitsSaveLoadHandler);
+            Container.Bind<Serialization>().AsSingle();
             Container.BindInstance(_savingLoadingGame);
+            Container.BindInterfacesTo<UnitsResetting>().AsSingle().NonLazy();
         }
     }
 }

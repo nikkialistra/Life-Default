@@ -7,6 +7,6 @@ namespace Kernel.Saving
     [Serializable]
     public class SaveData
     {
-        public IEnumerable<UnitData> Units = new List<UnitData>();
+        public IList<UnitData> Units = new List<UnitData>();
     }
 }

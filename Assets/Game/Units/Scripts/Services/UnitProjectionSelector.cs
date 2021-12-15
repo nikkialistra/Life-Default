@@ -20,7 +20,7 @@ namespace Game.Units.Services
         public IEnumerable<ISelectable> SelectInScreenSpace(Rect rect)
         {
             _gameObjects = _unitRepository.GetObjects();
-
+            
             foreach (var gameObject in _gameObjects)
             {
                 if (gameObject.GetComponent<ISelectable>() == null) continue;

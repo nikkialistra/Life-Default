@@ -12,7 +12,10 @@ namespace Game.Units.Services
             _gameObjects = FindObjectsOfType<UnitFacade>();
         }
 
-        public IEnumerable<UnitFacade> GetObjects() => _gameObjects ??= FindObjectsOfType<UnitFacade>();
+        public IEnumerable<UnitFacade> GetObjects()
+        {
+            return _gameObjects ??= FindObjectsOfType<UnitFacade>();
+        }
 
         public void ResetObjects()
         {

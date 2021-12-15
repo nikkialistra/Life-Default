@@ -45,17 +45,13 @@ namespace Kernel.Targeting
             OffAllWithoutLinks();
         }
 
-        private void RemoveFromOldLink(ITargetable from)
-        {
-            _links.Values
-                .FirstOrDefault(sources => sources.Contains(from))
-                ?.Remove(from);
-        }
-
         public void OffAll()
         {
             foreach (var point in _links.Keys)
+            {
+                _links[point].Clear();
                 point.gameObject.SetActive(false);
+            }
         }
 
         private GameObject GetFromPullOrCreate()
@@ -66,6 +62,13 @@ namespace Kernel.Targeting
             }
 
             return CreateNew();
+        }
+
+        private void RemoveFromOldLink(ITargetable target)
+        {
+            _links.Values
+                .FirstOrDefault(sources => sources.Contains(target))
+                ?.Remove(target);
         }
 
         private GameObject CreateNew()

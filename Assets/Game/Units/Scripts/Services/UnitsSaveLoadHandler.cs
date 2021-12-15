@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Kernel.Saving;
 using UnityEngine;
 using Zenject;
 
@@ -15,13 +14,16 @@ namespace Game.Units.Services
             _factory = factory;
         }
         
-        public IEnumerable<UnitData> GetUnits()
+        public static List<UnitData> GetUnits()
         {
+            var units = new List<UnitData>();
             foreach (var unitHandler in FindObjectsOfType<UnitSaveLoadHandler>())
             {
                 var unitData = unitHandler.GetUnitData();
-                yield return unitData;
+                units.Add(unitData);
             }
+
+            return units;
         }
 
         public void SetUnits(IEnumerable<UnitData> currentUnits)

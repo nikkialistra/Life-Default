@@ -30,6 +30,11 @@ namespace Kernel.Selection
             _selectionInput.SelectingEnd += Select;
         }
 
+        public void ClearSelection()
+        {
+            Selected = Array.Empty<ISelectable>();
+        }
+
         private void Draw(Rect rect)
         {
             _selectionArea.Draw(rect);

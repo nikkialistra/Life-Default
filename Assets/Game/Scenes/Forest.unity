@@ -4850,6 +4850,9 @@ GameObject:
   - component: {fileID: 1257269096}
   - component: {fileID: 1257269093}
   - component: {fileID: 1257269098}
+  - component: {fileID: 1257269101}
+  - component: {fileID: 1257269102}
+  - component: {fileID: 1257269100}
   - component: {fileID: 1257269099}
   m_Layer: 0
   m_Name: Camera
@@ -4964,7 +4967,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1257269092}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 29ab52dcbdef45de8b40c45341a6922b, type: 3}
   m_Name: 
@@ -4975,10 +4978,50 @@ MonoBehaviour:
   _movementFastSpeed: 120
   _dragMultiplier: 2
   _steppedRotationAmount: 70
-  _buttonZoomMultiplier: 70
-  _scrollZoomMultiplier: 0.03
   _positionSmoothing: 2
   _rotationSmoothing: 2
+--- !u!114 &1257269100
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1257269092}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1fa64c533024e4d934522930ce2486b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _scrollZoomMultiplier: 0.03
+  _buttonZoomMultiplier: 70
+  _minimumPositionY: 8
+  _maximumPositionY: 45
+--- !u!114 &1257269101
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1257269092}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 475b404d580a4845bf6ab77656daed4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _positionSmoothing: 4
+  _rotationSmoothing: 2
+--- !u!114 &1257269102
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1257269092}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e456945016d14e5ab77c7ad5cd31197f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1260573523
 PrefabInstance:
   m_ObjectHideFlags: 0

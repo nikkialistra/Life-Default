@@ -67,7 +67,6 @@ namespace Infrastructure
         private void BindBase()
         {
             Container.BindInstance(_camera).AsSingle();
-            Container.Bind<CameraFollowing>().AsSingle();
             Container.BindInstance(_playerInput).AsSingle();
         }
 

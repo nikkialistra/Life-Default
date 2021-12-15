@@ -8,15 +8,16 @@ using Zenject;
 namespace Game.Cameras
 {
     [RequireComponent(typeof(Camera))]
+    [RequireComponent(typeof(CameraZooming))]
     public class CameraMovement : MonoBehaviour
     {
         [Title("Boundaries")] 
         [SerializeField] private Vector3 _minumumPositions;
         [SerializeField] private Vector3 _maximimPositions;
 
-        [Title("Movement")] [MinValue(0)] 
-        [SerializeField]
-        private float _movementNormalSpeed;
+        [Title("Movement")] 
+        [MinValue(0)] 
+        [SerializeField] private float _movementNormalSpeed;
 
         [MinValue(0)] 
         [SerializeField] private float _movementFastSpeed;
@@ -27,13 +28,6 @@ namespace Game.Cameras
         [Title("Rotation")] 
         [MinValue(0)] 
         [SerializeField] private float _steppedRotationAmount;
-
-        [Title("Zoom")]
-        [MinValue(0)] 
-        [SerializeField] private float _buttonZoomMultiplier;
-
-        [MinValue(0)] 
-        [SerializeField] private float _scrollZoomMultiplier;
 
         [Title("Smooth multipliers")] 
         [MinValue(0)] 
@@ -53,20 +47,15 @@ namespace Game.Cameras
 
         private Vector3? _rotateStartPosition;
         private Vector3 _rotateCurrentPosition;
-        
-        private CameraFollowing _cameraFollowing;
+
+        private CameraZooming _cameraZooming;
 
         private Coroutine _dragCoroutine;
         private Coroutine _moveCoroutine;
         private Coroutine _rotateCoroutine;
-        private Coroutine _zoomCoroutine;
 
         private PlayerInput _playerInput;
-
-        private InputAction _setFollowAction;
-        private InputAction _resetFollowAction;
-        private InputAction _zoomScrollAction;
-        private InputAction _zoomAction;
+        
         private InputAction _rotationAction;
         private InputAction _rotateAction;
         private InputAction _dragAction;
@@ -75,20 +64,16 @@ namespace Game.Cameras
         private InputAction _positionAction;
 
         [Inject]
-        public void Construct(CameraFollowing cameraFollowing, PlayerInput playerInput)
+        public void Construct(PlayerInput playerInput)
         {
-            _cameraFollowing = cameraFollowing;
             _playerInput = playerInput;
         }
 
         private void Awake()
         {
             _camera = GetComponent<Camera>();
+            _cameraZooming = GetComponent<CameraZooming>();
             
-            _setFollowAction = _playerInput.actions.FindAction("SetFollow");
-            _resetFollowAction = _playerInput.actions.FindAction("ResetFollow");
-            _zoomScrollAction = _playerInput.actions.FindAction("ZoomScroll");
-            _zoomAction = _playerInput.actions.FindAction("Zoom");
             _rotateAction = _playerInput.actions.FindAction("Rotate");
             _dragAction = _playerInput.actions.FindAction("Drag");
             _movementAction = _playerInput.actions.FindAction("Movement");
@@ -98,12 +83,7 @@ namespace Game.Cameras
 
         private void OnEnable()
         {
-            _setFollowAction.started += SetFollow;
-            _resetFollowAction.started += ResetFollow;
-
-            _zoomScrollAction.started += ZoomScroll;
-            _zoomAction.started += ZoomStart;
-            _zoomAction.canceled += ZoomStop;
+            _cameraZooming.PositionUpdate += ApplyZoom;
 
             _dragAction.started += DragStart;
             _dragAction.canceled += DragStop;
@@ -120,12 +100,7 @@ namespace Game.Cameras
 
         private void OnDisable()
         {
-            _setFollowAction.started -= SetFollow;
-            _resetFollowAction.started -= ResetFollow;
-
-            _zoomScrollAction.started -= ZoomScroll;
-            _zoomAction.started -= ZoomStart;
-            _zoomAction.canceled -= ZoomStop;
+            _cameraZooming.PositionUpdate -= ApplyZoom;
 
             _dragAction.started -= DragStart;
             _dragAction.canceled -= DragStop;
@@ -140,6 +115,11 @@ namespace Game.Cameras
             _fastMovementAction.canceled -= FastMovementOff;
         }
 
+        private void ApplyZoom(Vector3 position)
+        {
+            _newPosition = position;
+        }
+
         private void Start()
         {
             _movementSpeed = _movementNormalSpeed;
@@ -151,92 +131,6 @@ namespace Game.Cameras
         private void Update()
         {
             ComputeTransform();
-            if (_cameraFollowing.Following)
-            {
-                _newPosition += _cameraFollowing.GetDeltaFollowPosition();
-            }
-        }
-        
-        private void SetFollow(InputAction.CallbackContext context)
-        {
-            var screenPoint = _positionAction.ReadValue<Vector2>();
-            if (!_cameraFollowing.TryFollow(screenPoint))
-            {
-                _cameraFollowing.Reset();
-            }
-        }
-
-        private void ResetFollow(InputAction.CallbackContext context)
-        {
-            _cameraFollowing.Reset();
-        }
-
-        private void ZoomScroll(InputAction.CallbackContext context)
-        {
-            var zoomPosition = _newPosition;
-            var zooming = context.ReadValue<Vector2>().y;
-            if (zooming == 0)
-            {
-                return;
-            }
-
-            var localZoomAmount = transform.forward * zooming;
-            zoomPosition += localZoomAmount * _scrollZoomMultiplier ;
-            ClampZoomByConstraints(zoomPosition);
-        }
-
-        private void ZoomStart(InputAction.CallbackContext context)
-        {
-            if (_zoomCoroutine != null)
-                StopCoroutine(_zoomCoroutine);
-            _zoomCoroutine = StartCoroutine(Zoom());
-        }
-
-        private IEnumerator Zoom()
-        {
-            while (true)
-            {
-                var zooming = _zoomAction.ReadValue<float>();
-                if (zooming != 0)
-                {
-                    UpdateZoom(zooming);
-                }
-
-                yield return null;
-            }
-        }
-
-        private void UpdateZoom(float zooming)
-        {
-            var zoomPosition = _newPosition;
-            var localZoomAmount = transform.forward * zooming;
-            zoomPosition += localZoomAmount * _buttonZoomMultiplier * Time.deltaTime;
-            
-            ClampZoomByConstraints(zoomPosition);
-        }
-
-        private void ClampZoomByConstraints(Vector3 zoomPosition)
-        {
-            if (zoomPosition.y < _minumumPositions.y)
-            {
-                zoomPosition = _newPosition;
-                zoomPosition.y = _minumumPositions.y;
-            }
-
-            if (zoomPosition.y > _maximimPositions.y)
-            {
-                zoomPosition = _newPosition;
-                zoomPosition.y = _maximimPositions.y;
-            }
-
-            _newPosition = zoomPosition;
-        }
-
-        private void ZoomStop(InputAction.CallbackContext context)
-        {
-            if (_zoomCoroutine == null)
-                throw new InvalidOperationException();
-            StopCoroutine(_zoomCoroutine);
         }
 
         private void DragStart(InputAction.CallbackContext context)

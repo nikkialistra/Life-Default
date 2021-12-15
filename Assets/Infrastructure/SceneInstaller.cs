@@ -1,4 +1,5 @@
-﻿using Game.Units;
+﻿using Game.Cameras;
+using Game.Units;
 using Game.Units.Services;
 using Kernel.Saving;
 using Kernel.Saving.Serialization;
@@ -66,6 +67,7 @@ namespace Infrastructure
         private void BindBase()
         {
             Container.BindInstance(_camera).AsSingle();
+            Container.Bind<CameraFollowing>().AsSingle();
             Container.BindInstance(_playerInput).AsSingle();
         }
 

@@ -4975,12 +4975,10 @@ MonoBehaviour:
   _movementFastSpeed: 120
   _dragMultiplier: 2
   _steppedRotationAmount: 70
-  _touchRotationMultiplier: 0.1
   _buttonZoomMultiplier: 70
   _scrollZoomMultiplier: 0.03
-  _movementTime: 2
-  _rotationTime: 2
-  _zoomTime: 2
+  _positionSmoothing: 2
+  _rotationSmoothing: 2
 --- !u!1001 &1260573523
 PrefabInstance:
   m_ObjectHideFlags: 0

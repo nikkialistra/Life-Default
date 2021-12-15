@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections;
-using Kernel.Types;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -29,9 +28,6 @@ namespace Game.Cameras
         [MinValue(0)] 
         [SerializeField] private float _steppedRotationAmount;
 
-        [MinValue(0)] 
-        [SerializeField] private float _touchRotationMultiplier;
-
         [Title("Zoom")]
         [MinValue(0)] 
         [SerializeField] private float _buttonZoomMultiplier;
@@ -41,16 +37,11 @@ namespace Game.Cameras
 
         [Title("Smooth multipliers")] 
         [MinValue(0)] 
-        [SerializeField] private float _movementTime;
-
+        [SerializeField] private float _positionSmoothing;
         [MinValue(0)]
-        [SerializeField] private float _rotationTime;
-
-        [MinValue(0)] 
-        [SerializeField] private float _zoomTime;
+        [SerializeField] private float _rotationSmoothing;
 
         private Camera _camera;
-        private Transform _cameraTransform;
 
         private float _movementSpeed;
 
@@ -62,10 +53,8 @@ namespace Game.Cameras
 
         private Vector3? _rotateStartPosition;
         private Vector3 _rotateCurrentPosition;
-
-        private Transform _followTransform;
-        private bool _following;
-        private Vector3 _followingOffset;
+        
+        private CameraFollowing _cameraFollowing;
 
         private Coroutine _dragCoroutine;
         private Coroutine _moveCoroutine;
@@ -86,15 +75,16 @@ namespace Game.Cameras
         private InputAction _positionAction;
 
         [Inject]
-        public void Construct(Camera camera, PlayerInput playerInput)
+        public void Construct(CameraFollowing cameraFollowing, PlayerInput playerInput)
         {
-            _camera = camera;
-            _cameraTransform = camera.transform;
+            _cameraFollowing = cameraFollowing;
             _playerInput = playerInput;
         }
 
         private void Awake()
         {
+            _camera = GetComponent<Camera>();
+            
             _setFollowAction = _playerInput.actions.FindAction("SetFollow");
             _resetFollowAction = _playerInput.actions.FindAction("ResetFollow");
             _zoomScrollAction = _playerInput.actions.FindAction("ZoomScroll");
@@ -160,32 +150,25 @@ namespace Game.Cameras
 
         private void Update()
         {
-            if (_following)
-            {
-                _newPosition = _followTransform.position + _followingOffset;
-            }
             ComputeTransform();
+            if (_cameraFollowing.Following)
+            {
+                _newPosition += _cameraFollowing.GetDeltaFollowPosition();
+            }
         }
-
+        
         private void SetFollow(InputAction.CallbackContext context)
         {
-            var ray = _camera.ScreenPointToRay(_positionAction.ReadValue<Vector2>());
-
-            if (Physics.Raycast(ray, out var hit))
+            var screenPoint = _positionAction.ReadValue<Vector2>();
+            if (!_cameraFollowing.TryFollow(screenPoint))
             {
-                if (hit.transform.gameObject.GetComponent<ISelectable>() != null)
-                {
-                    _followTransform = hit.transform;
-                    _following = true;
-                    _followingOffset = transform.position - _followTransform.position;
-                }
+                _cameraFollowing.Reset();
             }
         }
 
         private void ResetFollow(InputAction.CallbackContext context)
         {
-            _followTransform = null;
-            _following = false;
+            _cameraFollowing.Reset();
         }
 
         private void ZoomScroll(InputAction.CallbackContext context)
@@ -405,12 +388,11 @@ namespace Game.Cameras
             _movementSpeed = _movementNormalSpeed;
         }
 
+
         private void ComputeTransform()
         {
-            transform.position = Vector3.Lerp(transform.position, _newPosition, _movementTime * Time.deltaTime);
-            transform.rotation = Quaternion.Lerp(transform.rotation, _newRotation, _rotationTime * Time.deltaTime);
-            _cameraTransform.position =
-                Vector3.Lerp(_cameraTransform.position, _newPosition, _zoomTime * Time.deltaTime);
+            transform.position = Vector3.Lerp(transform.position, _newPosition, _positionSmoothing * Time.deltaTime);
+            transform.rotation = Quaternion.Lerp(transform.rotation, _newRotation, _rotationSmoothing * Time.deltaTime);
         }
     }
 }

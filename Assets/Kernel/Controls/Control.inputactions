@@ -60,15 +60,6 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Rotation",
-                    "type": "Button",
-                    "id": "d1445202-5a7e-4b4c-864f-a13dd7c187d1",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "FastMovement",
                     "type": "Button",
                     "id": "0aa97f6a-e3f3-4d8f-8ead-af1cd626fdd2",
@@ -121,7 +112,7 @@
                     "path": "<Keyboard>/escape",
                     "interactions": "",
                     "processors": "",
-                    "groups": "PC",
+                    "groups": "",
                     "action": "ResetFollow",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -132,52 +123,19 @@
                     "path": "<Mouse>/scroll",
                     "interactions": "",
                     "processors": "",
-                    "groups": "PC",
+                    "groups": "",
                     "action": "ZoomScroll",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "Button With One Modifier",
-                    "id": "66bb381d-0e91-4112-b826-c05ed77cb14a",
-                    "path": "ButtonWithOneModifier",
+                    "name": "",
+                    "id": "1ce75ced-74d6-4161-88f0-0f9da41aed35",
+                    "path": "<Mouse>/middleButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Drag",
-                    "isComposite": true,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "modifier",
-                    "id": "99d3119b-4064-432f-900f-948f5de600c9",
-                    "path": "<Keyboard>/leftCtrl",
-                    "interactions": "",
-                    "processors": "Invert",
-                    "groups": "PC",
-                    "action": "Drag",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "button",
-                    "id": "7c25853f-7e67-4e00-b2fd-d9f9a5f4265f",
-                    "path": "<Mouse>/leftButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "PC",
-                    "action": "Drag",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "",
-                    "id": "fe5b6366-da1c-414a-a473-4014542b175d",
-                    "path": "<Mouse>/rightButton",
-                    "interactions": "Press(behavior=2)",
-                    "processors": "",
-                    "groups": "PC",
-                    "action": "Rotation",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -187,7 +145,7 @@
                     "path": "<Keyboard>/leftShift",
                     "interactions": "Press(behavior=2)",
                     "processors": "",
-                    "groups": "PC",
+                    "groups": "",
                     "action": "FastMovement",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -209,7 +167,7 @@
                     "path": "<Keyboard>/w",
                     "interactions": "",
                     "processors": "",
-                    "groups": "PC",
+                    "groups": "",
                     "action": "Movement",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -220,7 +178,7 @@
                     "path": "<Keyboard>/s",
                     "interactions": "",
                     "processors": "",
-                    "groups": "PC",
+                    "groups": "",
                     "action": "Movement",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -231,7 +189,7 @@
                     "path": "<Keyboard>/a",
                     "interactions": "",
                     "processors": "",
-                    "groups": "PC",
+                    "groups": "",
                     "action": "Movement",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -242,7 +200,7 @@
                     "path": "<Keyboard>/d",
                     "interactions": "",
                     "processors": "",
-                    "groups": "PC",
+                    "groups": "",
                     "action": "Movement",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -264,7 +222,7 @@
                     "path": "<Keyboard>/q",
                     "interactions": "",
                     "processors": "",
-                    "groups": "PC",
+                    "groups": "",
                     "action": "Rotate",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -275,7 +233,7 @@
                     "path": "<Keyboard>/e",
                     "interactions": "",
                     "processors": "",
-                    "groups": "PC",
+                    "groups": "",
                     "action": "Rotate",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -286,7 +244,7 @@
                     "path": "1DAxis",
                     "interactions": "",
                     "processors": "",
-                    "groups": "PC",
+                    "groups": "",
                     "action": "Zoom",
                     "isComposite": true,
                     "isPartOfComposite": false
@@ -297,7 +255,7 @@
                     "path": "<Keyboard>/f",
                     "interactions": "",
                     "processors": "",
-                    "groups": "PC",
+                    "groups": "",
                     "action": "Zoom",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -308,7 +266,7 @@
                     "path": "<Keyboard>/r",
                     "interactions": "",
                     "processors": "",
-                    "groups": "PC",
+                    "groups": "",
                     "action": "Zoom",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -319,7 +277,7 @@
                     "path": "<Mouse>/position",
                     "interactions": "",
                     "processors": "",
-                    "groups": "PC",
+                    "groups": "",
                     "action": "Position",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -330,7 +288,7 @@
                     "path": "<Touchscreen>/primaryTouch/position",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Phone",
+                    "groups": "",
                     "action": "Position",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -349,10 +307,10 @@
                 {
                     "name": "modifier",
                     "id": "9e3f8d34-eb9a-4611-9be3-fea0cf5ba263",
-                    "path": "<Keyboard>/shift",
+                    "path": "<Keyboard>/ctrl",
                     "interactions": "",
                     "processors": "",
-                    "groups": "PC",
+                    "groups": "",
                     "action": "SetFollow",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -363,21 +321,10 @@
                     "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",
-                    "groups": "PC",
+                    "groups": "",
                     "action": "SetFollow",
                     "isComposite": false,
                     "isPartOfComposite": true
-                },
-                {
-                    "name": "",
-                    "id": "25d38ff6-1a48-483a-89fc-6a8b8d553edb",
-                    "path": "<Touchscreen>/primaryTouch/press",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Phone",
-                    "action": "Select",
-                    "isComposite": false,
-                    "isPartOfComposite": false
                 },
                 {
                     "name": "",
@@ -385,7 +332,18 @@
                     "path": "<Mouse>/leftButton",
                     "interactions": "Press(behavior=2)",
                     "processors": "",
-                    "groups": "PC",
+                    "groups": "",
+                    "action": "Select",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "25d38ff6-1a48-483a-89fc-6a8b8d553edb",
+                    "path": "<Touchscreen>/primaryTouch/press",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
                     "action": "Select",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -393,10 +351,10 @@
                 {
                     "name": "",
                     "id": "b74507dd-c6f6-4d64-a198-aabfd1ffd290",
-                    "path": "<Mouse>/middleButton",
+                    "path": "<Mouse>/rightButton",
                     "interactions": "",
                     "processors": "",
-                    "groups": "PC",
+                    "groups": "",
                     "action": "SetTarget",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -404,33 +362,5 @@
             ]
         }
     ],
-    "controlSchemes": [
-        {
-            "name": "PC",
-            "bindingGroup": "PC",
-            "devices": [
-                {
-                    "devicePath": "<Mouse>",
-                    "isOptional": false,
-                    "isOR": false
-                },
-                {
-                    "devicePath": "<Keyboard>",
-                    "isOptional": true,
-                    "isOR": false
-                }
-            ]
-        },
-        {
-            "name": "Phone",
-            "bindingGroup": "Phone",
-            "devices": [
-                {
-                    "devicePath": "<Touchscreen>",
-                    "isOptional": true,
-                    "isOR": false
-                }
-            ]
-        }
-    ]
+    "controlSchemes": []
 }

@@ -65,6 +65,7 @@ namespace Game.Cameras
 
         private Transform _followTransform;
         private bool _following;
+        private Vector3 _followingOffset;
 
         private Coroutine _dragCoroutine;
         private Coroutine _moveCoroutine;
@@ -98,7 +99,6 @@ namespace Game.Cameras
             _resetFollowAction = _playerInput.actions.FindAction("ResetFollow");
             _zoomScrollAction = _playerInput.actions.FindAction("ZoomScroll");
             _zoomAction = _playerInput.actions.FindAction("Zoom");
-            _rotationAction = _playerInput.actions.FindAction("Rotation");
             _rotateAction = _playerInput.actions.FindAction("Rotate");
             _dragAction = _playerInput.actions.FindAction("Drag");
             _movementAction = _playerInput.actions.FindAction("Movement");
@@ -117,9 +117,6 @@ namespace Game.Cameras
 
             _dragAction.started += DragStart;
             _dragAction.canceled += DragStop;
-
-            _rotationAction.started += RotationStart;
-            _rotationAction.canceled += RotationEnd;
 
             _rotateAction.started += RotateStart;
             _rotateAction.canceled += RotateStop;
@@ -143,9 +140,6 @@ namespace Game.Cameras
             _dragAction.started -= DragStart;
             _dragAction.canceled -= DragStop;
 
-            _rotationAction.started -= RotationStart;
-            _rotationAction.canceled -= RotationEnd;
-
             _rotateAction.started -= RotateStart;
             _rotateAction.canceled -= RotateStop;
 
@@ -168,7 +162,7 @@ namespace Game.Cameras
         {
             if (_following)
             {
-                _newPosition = _followTransform.position;
+                _newPosition = _followTransform.position + _followingOffset;
             }
             ComputeTransform();
         }
@@ -183,6 +177,7 @@ namespace Game.Cameras
                 {
                     _followTransform = hit.transform;
                     _following = true;
+                    _followingOffset = transform.position - _followTransform.position;
                 }
             }
         }
@@ -306,25 +301,6 @@ namespace Game.Cameras
                 throw new InvalidOperationException();
             StopCoroutine(_dragCoroutine);
             _dragStartPosition = null;
-        }
-
-        private void RotationStart(InputAction.CallbackContext context)
-        {
-            _rotateStartPosition = _positionAction.ReadValue<Vector2>();
-        }
-
-        private void RotationEnd(InputAction.CallbackContext context)
-        {
-            _rotateCurrentPosition = _positionAction.ReadValue<Vector2>();
-
-            if (!_rotateStartPosition.HasValue)
-                throw new InvalidOperationException();
-
-            var difference = _rotateCurrentPosition - _rotateStartPosition.Value;
-
-            _rotateStartPosition = _rotateCurrentPosition;
-
-            UpdateNewRotation(difference.x * -_touchRotationMultiplier);
         }
 
         private void RotateStart(InputAction.CallbackContext context)

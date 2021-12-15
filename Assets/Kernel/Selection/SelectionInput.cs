@@ -73,6 +73,11 @@ namespace Kernel.Selection
 
         private void EndArea(InputAction.CallbackContext context)
         {
+            if (Keyboard.current.ctrlKey.isPressed)
+            {
+                return;
+            }
+            
             if (_startPoint == null || _areaUpdateCourotine == null)
             {
                 throw new InvalidOperationException();

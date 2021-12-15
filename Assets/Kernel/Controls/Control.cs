@@ -84,15 +84,6 @@ namespace Kernel.Controls
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Rotation"",
-                    ""type"": ""Button"",
-                    ""id"": ""d1445202-5a7e-4b4c-864f-a13dd7c187d1"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
                     ""name"": ""FastMovement"",
                     ""type"": ""Button"",
                     ""id"": ""0aa97f6a-e3f3-4d8f-8ead-af1cd626fdd2"",
@@ -145,7 +136,7 @@ namespace Kernel.Controls
                     ""path"": ""<Keyboard>/escape"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""PC"",
+                    ""groups"": """",
                     ""action"": ""ResetFollow"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -156,52 +147,19 @@ namespace Kernel.Controls
                     ""path"": ""<Mouse>/scroll"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""PC"",
+                    ""groups"": """",
                     ""action"": ""ZoomScroll"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": ""Button With One Modifier"",
-                    ""id"": ""66bb381d-0e91-4112-b826-c05ed77cb14a"",
-                    ""path"": ""ButtonWithOneModifier"",
+                    ""name"": """",
+                    ""id"": ""1ce75ced-74d6-4161-88f0-0f9da41aed35"",
+                    ""path"": ""<Mouse>/middleButton"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Drag"",
-                    ""isComposite"": true,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""modifier"",
-                    ""id"": ""99d3119b-4064-432f-900f-948f5de600c9"",
-                    ""path"": ""<Keyboard>/leftCtrl"",
-                    ""interactions"": """",
-                    ""processors"": ""Invert"",
-                    ""groups"": ""PC"",
-                    ""action"": ""Drag"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""button"",
-                    ""id"": ""7c25853f-7e67-4e00-b2fd-d9f9a5f4265f"",
-                    ""path"": ""<Mouse>/leftButton"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""PC"",
-                    ""action"": ""Drag"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""fe5b6366-da1c-414a-a473-4014542b175d"",
-                    ""path"": ""<Mouse>/rightButton"",
-                    ""interactions"": ""Press(behavior=2)"",
-                    ""processors"": """",
-                    ""groups"": ""PC"",
-                    ""action"": ""Rotation"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -211,7 +169,7 @@ namespace Kernel.Controls
                     ""path"": ""<Keyboard>/leftShift"",
                     ""interactions"": ""Press(behavior=2)"",
                     ""processors"": """",
-                    ""groups"": ""PC"",
+                    ""groups"": """",
                     ""action"": ""FastMovement"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -233,7 +191,7 @@ namespace Kernel.Controls
                     ""path"": ""<Keyboard>/w"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""PC"",
+                    ""groups"": """",
                     ""action"": ""Movement"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -244,7 +202,7 @@ namespace Kernel.Controls
                     ""path"": ""<Keyboard>/s"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""PC"",
+                    ""groups"": """",
                     ""action"": ""Movement"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -255,7 +213,7 @@ namespace Kernel.Controls
                     ""path"": ""<Keyboard>/a"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""PC"",
+                    ""groups"": """",
                     ""action"": ""Movement"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -266,7 +224,7 @@ namespace Kernel.Controls
                     ""path"": ""<Keyboard>/d"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""PC"",
+                    ""groups"": """",
                     ""action"": ""Movement"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -288,7 +246,7 @@ namespace Kernel.Controls
                     ""path"": ""<Keyboard>/q"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""PC"",
+                    ""groups"": """",
                     ""action"": ""Rotate"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -299,7 +257,7 @@ namespace Kernel.Controls
                     ""path"": ""<Keyboard>/e"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""PC"",
+                    ""groups"": """",
                     ""action"": ""Rotate"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -310,7 +268,7 @@ namespace Kernel.Controls
                     ""path"": ""1DAxis"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""PC"",
+                    ""groups"": """",
                     ""action"": ""Zoom"",
                     ""isComposite"": true,
                     ""isPartOfComposite"": false
@@ -321,7 +279,7 @@ namespace Kernel.Controls
                     ""path"": ""<Keyboard>/f"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""PC"",
+                    ""groups"": """",
                     ""action"": ""Zoom"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -332,7 +290,7 @@ namespace Kernel.Controls
                     ""path"": ""<Keyboard>/r"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""PC"",
+                    ""groups"": """",
                     ""action"": ""Zoom"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -343,7 +301,7 @@ namespace Kernel.Controls
                     ""path"": ""<Mouse>/position"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""PC"",
+                    ""groups"": """",
                     ""action"": ""Position"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -354,7 +312,7 @@ namespace Kernel.Controls
                     ""path"": ""<Touchscreen>/primaryTouch/position"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Phone"",
+                    ""groups"": """",
                     ""action"": ""Position"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -373,10 +331,10 @@ namespace Kernel.Controls
                 {
                     ""name"": ""modifier"",
                     ""id"": ""9e3f8d34-eb9a-4611-9be3-fea0cf5ba263"",
-                    ""path"": ""<Keyboard>/shift"",
+                    ""path"": ""<Keyboard>/ctrl"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""PC"",
+                    ""groups"": """",
                     ""action"": ""SetFollow"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -387,21 +345,10 @@ namespace Kernel.Controls
                     ""path"": ""<Mouse>/leftButton"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""PC"",
+                    ""groups"": """",
                     ""action"": ""SetFollow"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""25d38ff6-1a48-483a-89fc-6a8b8d553edb"",
-                    ""path"": ""<Touchscreen>/primaryTouch/press"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Phone"",
-                    ""action"": ""Select"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
@@ -409,7 +356,18 @@ namespace Kernel.Controls
                     ""path"": ""<Mouse>/leftButton"",
                     ""interactions"": ""Press(behavior=2)"",
                     ""processors"": """",
-                    ""groups"": ""PC"",
+                    ""groups"": """",
+                    ""action"": ""Select"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""25d38ff6-1a48-483a-89fc-6a8b8d553edb"",
+                    ""path"": ""<Touchscreen>/primaryTouch/press"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
                     ""action"": ""Select"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -417,10 +375,10 @@ namespace Kernel.Controls
                 {
                     ""name"": """",
                     ""id"": ""b74507dd-c6f6-4d64-a198-aabfd1ffd290"",
-                    ""path"": ""<Mouse>/middleButton"",
+                    ""path"": ""<Mouse>/rightButton"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""PC"",
+                    ""groups"": """",
                     ""action"": ""SetTarget"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -428,35 +386,7 @@ namespace Kernel.Controls
             ]
         }
     ],
-    ""controlSchemes"": [
-        {
-            ""name"": ""PC"",
-            ""bindingGroup"": ""PC"",
-            ""devices"": [
-                {
-                    ""devicePath"": ""<Mouse>"",
-                    ""isOptional"": false,
-                    ""isOR"": false
-                },
-                {
-                    ""devicePath"": ""<Keyboard>"",
-                    ""isOptional"": true,
-                    ""isOR"": false
-                }
-            ]
-        },
-        {
-            ""name"": ""Phone"",
-            ""bindingGroup"": ""Phone"",
-            ""devices"": [
-                {
-                    ""devicePath"": ""<Touchscreen>"",
-                    ""isOptional"": true,
-                    ""isOR"": false
-                }
-            ]
-        }
-    ]
+    ""controlSchemes"": []
 }");
             // Management
             m_Management = asset.FindActionMap("Management", throwIfNotFound: true);
@@ -466,7 +396,6 @@ namespace Kernel.Controls
             m_Management_ResetFollow = m_Management.FindAction("ResetFollow", throwIfNotFound: true);
             m_Management_ZoomScroll = m_Management.FindAction("ZoomScroll", throwIfNotFound: true);
             m_Management_Drag = m_Management.FindAction("Drag", throwIfNotFound: true);
-            m_Management_Rotation = m_Management.FindAction("Rotation", throwIfNotFound: true);
             m_Management_FastMovement = m_Management.FindAction("FastMovement", throwIfNotFound: true);
             m_Management_Movement = m_Management.FindAction("Movement", throwIfNotFound: true);
             m_Management_Rotate = m_Management.FindAction("Rotate", throwIfNotFound: true);
@@ -537,7 +466,6 @@ namespace Kernel.Controls
         private readonly InputAction m_Management_ResetFollow;
         private readonly InputAction m_Management_ZoomScroll;
         private readonly InputAction m_Management_Drag;
-        private readonly InputAction m_Management_Rotation;
         private readonly InputAction m_Management_FastMovement;
         private readonly InputAction m_Management_Movement;
         private readonly InputAction m_Management_Rotate;
@@ -553,7 +481,6 @@ namespace Kernel.Controls
             public InputAction @ResetFollow => m_Wrapper.m_Management_ResetFollow;
             public InputAction @ZoomScroll => m_Wrapper.m_Management_ZoomScroll;
             public InputAction @Drag => m_Wrapper.m_Management_Drag;
-            public InputAction @Rotation => m_Wrapper.m_Management_Rotation;
             public InputAction @FastMovement => m_Wrapper.m_Management_FastMovement;
             public InputAction @Movement => m_Wrapper.m_Management_Movement;
             public InputAction @Rotate => m_Wrapper.m_Management_Rotate;
@@ -586,9 +513,6 @@ namespace Kernel.Controls
                     @Drag.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnDrag;
                     @Drag.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnDrag;
                     @Drag.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnDrag;
-                    @Rotation.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnRotation;
-                    @Rotation.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnRotation;
-                    @Rotation.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnRotation;
                     @FastMovement.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnFastMovement;
                     @FastMovement.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnFastMovement;
                     @FastMovement.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnFastMovement;
@@ -626,9 +550,6 @@ namespace Kernel.Controls
                     @Drag.started += instance.OnDrag;
                     @Drag.performed += instance.OnDrag;
                     @Drag.canceled += instance.OnDrag;
-                    @Rotation.started += instance.OnRotation;
-                    @Rotation.performed += instance.OnRotation;
-                    @Rotation.canceled += instance.OnRotation;
                     @FastMovement.started += instance.OnFastMovement;
                     @FastMovement.performed += instance.OnFastMovement;
                     @FastMovement.canceled += instance.OnFastMovement;
@@ -648,24 +569,6 @@ namespace Kernel.Controls
             }
         }
         public ManagementActions @Management => new ManagementActions(this);
-        private int m_PCSchemeIndex = -1;
-        public InputControlScheme PCScheme
-        {
-            get
-            {
-                if (m_PCSchemeIndex == -1) m_PCSchemeIndex = asset.FindControlSchemeIndex("PC");
-                return asset.controlSchemes[m_PCSchemeIndex];
-            }
-        }
-        private int m_PhoneSchemeIndex = -1;
-        public InputControlScheme PhoneScheme
-        {
-            get
-            {
-                if (m_PhoneSchemeIndex == -1) m_PhoneSchemeIndex = asset.FindControlSchemeIndex("Phone");
-                return asset.controlSchemes[m_PhoneSchemeIndex];
-            }
-        }
         public interface IManagementActions
         {
             void OnPosition(InputAction.CallbackContext context);
@@ -674,7 +577,6 @@ namespace Kernel.Controls
             void OnResetFollow(InputAction.CallbackContext context);
             void OnZoomScroll(InputAction.CallbackContext context);
             void OnDrag(InputAction.CallbackContext context);
-            void OnRotation(InputAction.CallbackContext context);
             void OnFastMovement(InputAction.CallbackContext context);
             void OnMovement(InputAction.CallbackContext context);
             void OnRotate(InputAction.CallbackContext context);

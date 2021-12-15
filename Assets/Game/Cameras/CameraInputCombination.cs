@@ -2,17 +2,16 @@
 
 namespace Game.Cameras
 {
-    [RequireComponent(typeof(Camera))]
     [RequireComponent(typeof(CameraFollowing))]
+    [RequireComponent(typeof(CameraMoving))]
     [RequireComponent(typeof(CameraZooming))]
     public class CameraInputCombination : MonoBehaviour
     {
         [SerializeField] private float _positionSmoothing;
         [SerializeField] private float _rotationSmoothing;
-
-        private Camera _camera;
-
+        
         private CameraFollowing _cameraFollowing;
+        private CameraMoving _cameraMoving;
         private CameraZooming _cameraZooming;
 
         private Vector3 _newPosition;
@@ -20,8 +19,8 @@ namespace Game.Cameras
 
         private void Awake()
         {
-            _camera = GetComponent<Camera>();
             _cameraFollowing = GetComponent<CameraFollowing>();
+            _cameraMoving = GetComponent<CameraMoving>();
             _cameraZooming = GetComponent<CameraZooming>();
         }
 
@@ -35,12 +34,14 @@ namespace Game.Cameras
 
         private void OnEnable()
         {
-            _cameraZooming.PositionUpdate += ApplyZoom;
+            _cameraMoving.PositionUpdate += ApplyMoving;
+            _cameraZooming.PositionUpdate += ApplyZooming;
         }
 
         private void OnDisable()
         {
-            _cameraZooming.PositionUpdate -= ApplyZoom;
+            _cameraMoving.PositionUpdate -= ApplyMoving;
+            _cameraZooming.PositionUpdate -= ApplyZooming;
         }
 
         private void Update()
@@ -60,10 +61,17 @@ namespace Game.Cameras
 
         private void UpdateInputValues()
         {
+            _cameraMoving.Position = _newPosition;
             _cameraZooming.Position = _newPosition;
         }
 
-        private void ApplyZoom(Vector3 position)
+        private void ApplyMoving(Vector3 position)
+        {
+            _newPosition = position;
+            UpdateInputValues();
+        }
+
+        private void ApplyZooming(Vector3 position)
         {
             _newPosition = position;
             UpdateInputValues();

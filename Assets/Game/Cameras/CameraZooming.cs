@@ -17,10 +17,9 @@ namespace Game.Cameras
         [SerializeField] private float _buttonZoomMultiplier;
 
         [Title("Boundaries")]
-        [MinValue(0)]
+        [ValidateInput("@_minimumPositionY < _maximumPositionY", "Minimum position should be less than maximum position")]
         [SerializeField] private float _minimumPositionY;
-
-        [MinValue(0)]
+        [ValidateInput("@_minimumPositionY < _maximumPositionY", "Minimum position should be less than maximum position")]
         [SerializeField] private float _maximumPositionY;
 
         public event Action<Vector3> PositionUpdate;

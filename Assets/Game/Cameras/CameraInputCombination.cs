@@ -4,6 +4,7 @@ namespace Game.Cameras
 {
     [RequireComponent(typeof(CameraFollowing))]
     [RequireComponent(typeof(CameraMoving))]
+    [RequireComponent(typeof(CameraRotating))]
     [RequireComponent(typeof(CameraZooming))]
     public class CameraInputCombination : MonoBehaviour
     {
@@ -12,6 +13,7 @@ namespace Game.Cameras
         
         private CameraFollowing _cameraFollowing;
         private CameraMoving _cameraMoving;
+        private CameraRotating _cameraRotating;
         private CameraZooming _cameraZooming;
 
         private Vector3 _newPosition;
@@ -21,6 +23,7 @@ namespace Game.Cameras
         {
             _cameraFollowing = GetComponent<CameraFollowing>();
             _cameraMoving = GetComponent<CameraMoving>();
+            _cameraRotating = GetComponent<CameraRotating>();
             _cameraZooming = GetComponent<CameraZooming>();
         }
 
@@ -29,18 +32,20 @@ namespace Game.Cameras
             _newPosition = transform.position;
             _newRotation = transform.rotation;
             
-            UpdateInputValues(); 
+            InitializeInputComponents(); 
         }
 
         private void OnEnable()
         {
             _cameraMoving.PositionUpdate += ApplyMoving;
+            _cameraRotating.RotationUpdate += ApplyRotating;
             _cameraZooming.PositionUpdate += ApplyZooming;
         }
 
         private void OnDisable()
         {
             _cameraMoving.PositionUpdate -= ApplyMoving;
+            _cameraRotating.RotationUpdate -= ApplyRotating;
             _cameraZooming.PositionUpdate -= ApplyZooming;
         }
 
@@ -59,22 +64,28 @@ namespace Game.Cameras
             transform.rotation = Quaternion.Lerp(transform.rotation, _newRotation, _rotationSmoothing * Time.deltaTime);
         }
 
-        private void UpdateInputValues()
+        private void InitializeInputComponents()
         {
             _cameraMoving.Position = _newPosition;
+            _cameraRotating.Rotation = _newRotation;
             _cameraZooming.Position = _newPosition;
         }
 
         private void ApplyMoving(Vector3 position)
         {
             _newPosition = position;
-            UpdateInputValues();
+            _cameraZooming.Position = _newPosition;
+        }
+
+        private void ApplyRotating(Quaternion rotation)
+        {
+            _newRotation = rotation;
         }
 
         private void ApplyZooming(Vector3 position)
         {
             _newPosition = position;
-            UpdateInputValues();
+            _cameraMoving.Position = _newPosition;
         }
     }
 }

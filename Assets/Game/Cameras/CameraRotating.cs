@@ -7,15 +7,14 @@ using Zenject;
 
 namespace Game.Cameras
 {
-    [RequireComponent(typeof(Camera))]
-    [RequireComponent(typeof(CameraZooming))]
-    public class CameraMovement : MonoBehaviour
+    public class CameraRotating : MonoBehaviour
     {
-        [Title("Rotation")] 
         [MinValue(0)] 
         [SerializeField] private float _steppedRotationAmount;
         
-        private Quaternion _newRotation;
+        public event Action<Quaternion> RotationUpdate;
+        
+        public Quaternion Rotation { get; set; }
 
         private Vector3? _rotateStartPosition;
         private Vector3 _rotateCurrentPosition;
@@ -26,12 +25,13 @@ namespace Game.Cameras
         
         private InputAction _rotationAction;
         private InputAction _rotateAction;
+        
         [Inject]
         public void Construct(PlayerInput playerInput)
         {
             _playerInput = playerInput;
         }
-
+        
         private void Awake()
         {
             _rotateAction = _playerInput.actions.FindAction("Rotate");
@@ -48,16 +48,13 @@ namespace Game.Cameras
             _rotateAction.started -= RotateStart;
             _rotateAction.canceled -= RotateStop;
         }
-
-        private void Start()
-        {
-            _newRotation = transform.rotation;
-        }
-
+        
         private void RotateStart(InputAction.CallbackContext context)
         {
             if (_rotateCoroutine != null)
+            {
                 StopCoroutine(_rotateCoroutine);
+            }
             _rotateCoroutine = StartCoroutine(Rotate());
         }
 
@@ -74,18 +71,19 @@ namespace Game.Cameras
 
         private void UpdateNewRotation(float amount)
         {
-            var newRotationEulerAngles = _newRotation.eulerAngles;
+            var newRotationEulerAngles = Rotation.eulerAngles;
             newRotationEulerAngles.y += amount;
-            _newRotation = Quaternion.Euler(newRotationEulerAngles);
+            Rotation = Quaternion.Euler(newRotationEulerAngles);
+            RotationUpdate?.Invoke(Rotation);
         }
 
         private void RotateStop(InputAction.CallbackContext context)
         {
             if (_rotateCoroutine == null)
+            {
                 throw new InvalidOperationException();
+            }
             StopCoroutine(_rotateCoroutine);
         }
-
-        
     }
 }

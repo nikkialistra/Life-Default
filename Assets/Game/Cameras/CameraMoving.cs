@@ -125,8 +125,6 @@ namespace Game.Cameras
 
         private void ClampPositionByConstraints(Vector3 position)
         {
-            
-            
             if (position.x < _minimumPositionX)
             {
                 position.x = _minimumPositionX;
@@ -205,8 +203,8 @@ namespace Game.Cameras
                         throw new InvalidOperationException();
                     }
 
-                    Position = transform.position + (_dragStartPosition.Value - _dragCurrentPosition) * _dragMultiplier;
-                    PositionUpdate?.Invoke(Position);
+                    var position = transform.position + (_dragStartPosition.Value - _dragCurrentPosition) * _dragMultiplier;
+                    ClampPositionByConstraints(position);
                 }
 
                 yield return null;

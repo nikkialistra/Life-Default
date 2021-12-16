@@ -32,11 +32,14 @@ namespace Game.Cameras
             _newPosition = transform.position;
             _newRotation = transform.rotation;
             
-            InitializeInputComponents(); 
+            _cameraRotating.Rotation = _newRotation;
+            
+            SetInputPositionComponents(); 
         }
 
         private void OnEnable()
         {
+            _cameraFollowing.PositionUpdate += ApplyFollowing;
             _cameraMoving.PositionUpdate += ApplyMoving;
             _cameraRotating.RotationUpdate += ApplyRotating;
             _cameraZooming.PositionUpdate += ApplyZooming;
@@ -44,17 +47,19 @@ namespace Game.Cameras
 
         private void OnDisable()
         {
+            _cameraFollowing.PositionUpdate += ApplyFollowing;
             _cameraMoving.PositionUpdate -= ApplyMoving;
             _cameraRotating.RotationUpdate -= ApplyRotating;
             _cameraZooming.PositionUpdate -= ApplyZooming;
         }
 
-        private void Update()
+        private void LateUpdate()
         {
             ComputeTransform();
             if (_cameraFollowing.Following)
             {
                 _newPosition += _cameraFollowing.GetDeltaFollowPosition();
+                SetInputPositionComponents();
             }
         }
 
@@ -64,28 +69,35 @@ namespace Game.Cameras
             transform.rotation = Quaternion.Lerp(transform.rotation, _newRotation, _rotationSmoothing * Time.deltaTime);
         }
 
-        private void InitializeInputComponents()
+        private void SetInputPositionComponents()
         {
             _cameraMoving.Position = _newPosition;
-            _cameraRotating.Rotation = _newRotation;
             _cameraZooming.Position = _newPosition;
+        }
+
+        private void ApplyFollowing(Vector3 position)
+        {
+            _newPosition = position;
+            SetInputPositionComponents();
         }
 
         private void ApplyMoving(Vector3 position)
         {
             _newPosition = position;
-            _cameraZooming.Position = _newPosition;
+            _cameraFollowing.ResetFollow();
+            SetInputPositionComponents();
         }
 
         private void ApplyRotating(Quaternion rotation)
         {
             _newRotation = rotation;
+            _cameraFollowing.ResetFollow();
         }
 
         private void ApplyZooming(Vector3 position)
         {
             _newPosition = position;
-            _cameraMoving.Position = _newPosition;
+            SetInputPositionComponents();
         }
     }
 }

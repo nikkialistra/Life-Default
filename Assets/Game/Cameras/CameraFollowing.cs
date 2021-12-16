@@ -9,6 +9,8 @@ namespace Game.Cameras
     [RequireComponent(typeof(Camera))]
     public class CameraFollowing : MonoBehaviour
     {
+        public event Action<Vector3> PositionUpdate;
+        
         public bool Following { get; private set; }
         
         private Transform _followTransform;
@@ -68,17 +70,28 @@ namespace Game.Cameras
                 if (hit.transform.gameObject.GetComponent<ISelectable>() != null)
                 {
                     _followTransform = hit.transform;
+                    UpdateCameraPosition();
                     _followLastPosition = _followTransform.position;
                     Following = true;
                 }
-            }
-            else
-            {
-                ResetFollow();
+                else
+                {
+                    ResetFollow();
+                }
             }
         }
 
-        private void ResetFollow()
+        private void UpdateCameraPosition()
+        {
+            var yDifference = transform.position.y - _followTransform.position.y;
+            var yChangeWhenLookingOnUnit = (transform.rotation * Vector3.back).y;
+            var distanceMultiplier = yDifference /  yChangeWhenLookingOnUnit;
+            
+            var cameraPosition = _followTransform.position - (transform.rotation * Vector3.forward * distanceMultiplier);
+            PositionUpdate?.Invoke(cameraPosition);
+        }
+
+        public void ResetFollow()
         {
             _followTransform = null;
             Following = false;

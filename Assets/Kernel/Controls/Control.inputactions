@@ -60,7 +60,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "FastMovement",
+                    "name": "FastCamera",
                     "type": "Button",
                     "id": "0aa97f6a-e3f3-4d8f-8ead-af1cd626fdd2",
                     "expectedControlType": "Button",
@@ -146,7 +146,7 @@
                     "interactions": "Press(behavior=2)",
                     "processors": "",
                     "groups": "",
-                    "action": "FastMovement",
+                    "action": "FastCamera",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

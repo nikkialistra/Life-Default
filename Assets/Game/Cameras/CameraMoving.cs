@@ -55,7 +55,7 @@ namespace Game.Cameras
         private PlayerInput _playerInput;
 
         private InputAction _movementAction;
-        private InputAction _fastMovementAction;
+        private InputAction _fastCameraAction;
         private InputAction _dragAction;
         private InputAction _positionAction;
 
@@ -70,7 +70,7 @@ namespace Game.Cameras
             _camera = GetComponent<Camera>();
             
             _movementAction = _playerInput.actions.FindAction("Movement");
-            _fastMovementAction = _playerInput.actions.FindAction("FastMovement");
+            _fastCameraAction = _playerInput.actions.FindAction("FastCamera");
             _dragAction = _playerInput.actions.FindAction("Drag");
             _positionAction = _playerInput.actions.FindAction("Position");
         }
@@ -80,8 +80,8 @@ namespace Game.Cameras
             _movementAction.started += MovementStart;
             _movementAction.canceled += MovementStop;
 
-            _fastMovementAction.started += FastMovementOn;
-            _fastMovementAction.canceled += FastMovementOff;
+            _fastCameraAction.started += FastMovementOn;
+            _fastCameraAction.canceled += FastMovementOff;
             
             _dragAction.started += DragStart;
             _dragAction.canceled += DragStop;
@@ -92,8 +92,8 @@ namespace Game.Cameras
             _movementAction.started -= MovementStart;
             _movementAction.canceled -= MovementStop;
 
-            _fastMovementAction.started -= FastMovementOn;
-            _fastMovementAction.canceled -= FastMovementOff;
+            _fastCameraAction.started -= FastMovementOn;
+            _fastCameraAction.canceled -= FastMovementOff;
             
             _dragAction.started -= DragStart;
             _dragAction.canceled -= DragStop;

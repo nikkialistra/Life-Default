@@ -5026,7 +5026,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _movementNormalSpeed: 50
-  _movementFastSpeed: 120
+  _movementFastSpeed: 100
   _dragMultiplier: 2
   _positionMoveXThreshold: 0.95
   _positionMoveYThreshold: 0.95
@@ -5046,7 +5046,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b14a7634f0a54838ab9cb43c108e8f1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _steppedRotationAmount: 70
+  _rotationNormalSpeed: 70
+  _rotationFastSpeed: 140
 --- !u!1001 &1260573523
 PrefabInstance:
   m_ObjectHideFlags: 0

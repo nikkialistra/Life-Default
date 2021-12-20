@@ -84,7 +84,7 @@ namespace Kernel.Controls
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""FastMovement"",
+                    ""name"": ""FastCamera"",
                     ""type"": ""Button"",
                     ""id"": ""0aa97f6a-e3f3-4d8f-8ead-af1cd626fdd2"",
                     ""expectedControlType"": ""Button"",
@@ -170,7 +170,7 @@ namespace Kernel.Controls
                     ""interactions"": ""Press(behavior=2)"",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""FastMovement"",
+                    ""action"": ""FastCamera"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -396,7 +396,7 @@ namespace Kernel.Controls
             m_Management_ResetFollow = m_Management.FindAction("ResetFollow", throwIfNotFound: true);
             m_Management_ZoomScroll = m_Management.FindAction("ZoomScroll", throwIfNotFound: true);
             m_Management_Drag = m_Management.FindAction("Drag", throwIfNotFound: true);
-            m_Management_FastMovement = m_Management.FindAction("FastMovement", throwIfNotFound: true);
+            m_Management_FastCamera = m_Management.FindAction("FastCamera", throwIfNotFound: true);
             m_Management_Movement = m_Management.FindAction("Movement", throwIfNotFound: true);
             m_Management_Rotate = m_Management.FindAction("Rotate", throwIfNotFound: true);
             m_Management_Zoom = m_Management.FindAction("Zoom", throwIfNotFound: true);
@@ -466,7 +466,7 @@ namespace Kernel.Controls
         private readonly InputAction m_Management_ResetFollow;
         private readonly InputAction m_Management_ZoomScroll;
         private readonly InputAction m_Management_Drag;
-        private readonly InputAction m_Management_FastMovement;
+        private readonly InputAction m_Management_FastCamera;
         private readonly InputAction m_Management_Movement;
         private readonly InputAction m_Management_Rotate;
         private readonly InputAction m_Management_Zoom;
@@ -481,7 +481,7 @@ namespace Kernel.Controls
             public InputAction @ResetFollow => m_Wrapper.m_Management_ResetFollow;
             public InputAction @ZoomScroll => m_Wrapper.m_Management_ZoomScroll;
             public InputAction @Drag => m_Wrapper.m_Management_Drag;
-            public InputAction @FastMovement => m_Wrapper.m_Management_FastMovement;
+            public InputAction @FastCamera => m_Wrapper.m_Management_FastCamera;
             public InputAction @Movement => m_Wrapper.m_Management_Movement;
             public InputAction @Rotate => m_Wrapper.m_Management_Rotate;
             public InputAction @Zoom => m_Wrapper.m_Management_Zoom;
@@ -513,9 +513,9 @@ namespace Kernel.Controls
                     @Drag.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnDrag;
                     @Drag.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnDrag;
                     @Drag.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnDrag;
-                    @FastMovement.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnFastMovement;
-                    @FastMovement.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnFastMovement;
-                    @FastMovement.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnFastMovement;
+                    @FastCamera.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnFastCamera;
+                    @FastCamera.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnFastCamera;
+                    @FastCamera.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnFastCamera;
                     @Movement.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnMovement;
                     @Movement.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnMovement;
                     @Movement.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnMovement;
@@ -550,9 +550,9 @@ namespace Kernel.Controls
                     @Drag.started += instance.OnDrag;
                     @Drag.performed += instance.OnDrag;
                     @Drag.canceled += instance.OnDrag;
-                    @FastMovement.started += instance.OnFastMovement;
-                    @FastMovement.performed += instance.OnFastMovement;
-                    @FastMovement.canceled += instance.OnFastMovement;
+                    @FastCamera.started += instance.OnFastCamera;
+                    @FastCamera.performed += instance.OnFastCamera;
+                    @FastCamera.canceled += instance.OnFastCamera;
                     @Movement.started += instance.OnMovement;
                     @Movement.performed += instance.OnMovement;
                     @Movement.canceled += instance.OnMovement;
@@ -577,7 +577,7 @@ namespace Kernel.Controls
             void OnResetFollow(InputAction.CallbackContext context);
             void OnZoomScroll(InputAction.CallbackContext context);
             void OnDrag(InputAction.CallbackContext context);
-            void OnFastMovement(InputAction.CallbackContext context);
+            void OnFastCamera(InputAction.CallbackContext context);
             void OnMovement(InputAction.CallbackContext context);
             void OnRotate(InputAction.CallbackContext context);
             void OnZoom(InputAction.CallbackContext context);

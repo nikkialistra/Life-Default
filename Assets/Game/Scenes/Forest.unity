@@ -122,7 +122,7 @@ NavMeshSettings:
     preserveTilesOutsideBounds: 0
     debug:
       m_Flags: 0
-  m_NavMeshData: {fileID: 23800000, guid: f6871f400a6e85c41be29ee351ff2acc, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: 18c2219d9e9e79e45a39eefede1ae2b0, type: 2}
 --- !u!1001 &29860910
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -130,6 +130,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1496406937}
     m_Modifications:
+    - target: {fileID: 1158468651039211146, guid: db5b5fa30fd502343942b922d62f32af,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4193433063631040808, guid: db5b5fa30fd502343942b922d62f32af,
         type: 3}
       propertyPath: m_Name
@@ -1382,6 +1387,11 @@ PrefabInstance:
     - target: {fileID: 4209018105610702, guid: ef140beec582a5a46a6362fcfc31784d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 64868549691657868, guid: ef140beec582a5a46a6362fcfc31784d,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ef140beec582a5a46a6362fcfc31784d, type: 3}
@@ -5018,6 +5028,8 @@ MonoBehaviour:
   _movementNormalSpeed: 50
   _movementFastSpeed: 120
   _dragMultiplier: 2
+  _positionMoveXThreshold: 0.95
+  _positionMoveYThreshold: 0.95
   _minimumPositionX: -50
   _maximumPositionX: 50
   _minimumPositionZ: -50
@@ -6184,7 +6196,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1496406936}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.84, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -6633,6 +6645,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1496406937}
     m_Modifications:
+    - target: {fileID: 1158468651039211146, guid: db5b5fa30fd502343942b922d62f32af,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4193433063631040808, guid: db5b5fa30fd502343942b922d62f32af,
         type: 3}
       propertyPath: m_Name
@@ -6826,6 +6843,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1496406937}
     m_Modifications:
+    - target: {fileID: 1158468651039211146, guid: db5b5fa30fd502343942b922d62f32af,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4193433063631040808, guid: db5b5fa30fd502343942b922d62f32af,
         type: 3}
       propertyPath: m_Name

@@ -10,33 +10,42 @@ namespace Game.Cameras
     [RequireComponent(typeof(Camera))]
     public class CameraMoving : MonoBehaviour
     {
-        [Title("Movement")] 
+        [Title("Speed")] 
         [MinValue(0)] 
         [SerializeField] private float _movementNormalSpeed;
         [MinValue(0)] 
         [SerializeField] private float _movementFastSpeed;
         [MinValue(0)] 
         [SerializeField] private float _dragMultiplier;
-        
+
+        [Title("Mouse thresholds")]
+        [Range(0.5f, 1f)]
+        [SerializeField] private float _positionMoveXThreshold;
+        [Range(0.5f, 1f)]
+        [SerializeField] private float _positionMoveYThreshold;
+
         [Title("Boundaries")]
         [ValidateInput("@_minimumPositionX < _maximumPositionX", "Minimum position should be less than maximum position")]
         [SerializeField] private float _minimumPositionX;
+
         [ValidateInput("@_minimumPositionX < _maximumPositionX", "Minimum position should be less than maximum position")]
         [SerializeField] private float _maximumPositionX;
+
         [Space]
         [ValidateInput("@_minimumPositionZ < _maximumPositionZ", "Minimum position should be less than maximum position")]
         [SerializeField] private float _minimumPositionZ;
+
         [ValidateInput("@_minimumPositionZ < _maximumPositionZ", "Minimum position should be less than maximum position")]
         [SerializeField] private float _maximumPositionZ;
-        
+
         public event Action<Vector3> PositionUpdate;
-        
+
         public Vector3 Position { get; set; }
 
         private Camera _camera;
-        
+
         private float _movementSpeed;
-        
+
         private Vector3? _dragStartPosition;
         private Vector3 _dragCurrentPosition;
 
@@ -93,6 +102,40 @@ namespace Game.Cameras
         private void Start()
         {
             _movementSpeed = _movementNormalSpeed;
+        }
+
+        private void Update()
+        {
+            UpdatePositionFromMouseThresholdMovement();
+        }
+
+        private void UpdatePositionFromMouseThresholdMovement()
+        {
+            var position = _positionAction.ReadValue<Vector2>();
+            var normalisedPosition = GetNormalisedPosition(position);
+            var movement = Vector2.zero;
+
+            if (Mathf.Abs(normalisedPosition.x) > _positionMoveXThreshold)
+            {
+                movement.x = Mathf.Sign(normalisedPosition.x) * _movementSpeed * Time.deltaTime;
+            }
+
+            if (Mathf.Abs(normalisedPosition.y) > _positionMoveYThreshold)
+            {
+                movement.y = Mathf.Sign(normalisedPosition.y) * _movementSpeed * Time.deltaTime;
+            }
+
+            if (movement != Vector2.zero)
+            {
+                UpdatePosition(movement);
+            }
+        }
+
+        //Result between -1 and 1 is the result between 0 and 1 subtracted with 0.5 and multiplied by 2
+        private Vector2 GetNormalisedPosition(Vector2 position)
+        {
+            var result = new Vector2(((position.x / Screen.width) - 0.5f) * 2f, ((position.y / Screen.height) - 0.5f) * 2f);
+            return result;
         }
 
         private void MovementStart(InputAction.CallbackContext context)

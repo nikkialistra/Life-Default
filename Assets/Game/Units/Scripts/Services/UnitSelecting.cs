@@ -1,17 +1,16 @@
 ﻿using System.Collections.Generic;
-using Kernel.Types;
 using UnityEngine;
 
 namespace Game.Units.Services
 {
-    public class UnitSelector
+    public class UnitSelecting
     {
         private readonly UnitRepository _unitRepository;
         private readonly Camera _camera;
 
         private IEnumerable<UnitFacade> _units;
 
-        public UnitSelector(UnitRepository unitRepository, Camera camera)
+        public UnitSelecting(UnitRepository unitRepository, Camera camera)
         {
             _unitRepository = unitRepository;
             _camera = camera;

@@ -1,0 +1,7 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement name="unit_types" style="position: absolute; right: 50px; bottom: 50px; width: 310px; height: 70px; background-color: rgb(130, 130, 130); flex-direction: row; align-items: center;">
+        <ui:VisualElement name="traveler_type" style="width: 50px; height: 50px; justify-content: flex-end; align-items: flex-end;">
+            <ui:Label text="0" display-tooltip-when-elided="true" name="traveler_type_count" style="padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0; background-color: rgb(0, 0, 0); width: 20px; height: 20px; -unity-text-align: middle-center; border-top-left-radius: 20px; border-bottom-left-radius: 20px; border-top-right-radius: 20px; border-bottom-right-radius: 20px; color: rgba(255, 255, 255, 255);" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

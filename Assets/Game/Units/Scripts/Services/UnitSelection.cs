@@ -11,7 +11,7 @@ namespace Game.Units.Services
     {
         [SerializeField] private float _doubleClickDeltaTime;
         
-        private UnitSelector _selector;
+        private UnitSelecting _selecting;
         private SelectionInput _selectionInput;
         private SelectionArea _selectionArea;
 
@@ -20,9 +20,9 @@ namespace Game.Units.Services
         public IEnumerable<UnitFacade> Selected { get; private set; } = Array.Empty<UnitFacade>();
         
         [Inject]
-        public void Construct(UnitSelector selector, SelectionInput selectionInput, SelectionArea selectionArea)
+        public void Construct(UnitSelecting selecting, SelectionInput selectionInput, SelectionArea selectionArea)
         {
-            _selector = selector;
+            _selecting = selecting;
             _selectionInput = selectionInput;
             _selectionArea = selectionArea;
         }
@@ -77,7 +77,7 @@ namespace Game.Units.Services
             }
             else
             {
-                return _selector.SelectFromRect(rect);
+                return _selecting.SelectFromRect(rect);
             }
         }
 
@@ -90,7 +90,7 @@ namespace Game.Units.Services
             else
             {
                 _lastClickTime = Time.time;
-                return _selector.SelectFromPoint(rect.center);
+                return _selecting.SelectFromPoint(rect.center);
             }
         }
 
@@ -106,7 +106,7 @@ namespace Game.Units.Services
                 throw new InvalidOperationException("After the second click must be one selected unit");
             }
             
-            return _selector.SelectByType(Selected.First().UnitType);
+            return _selecting.SelectByType(Selected.First().UnitType);
         }
 
         private bool WasDoubleClick()

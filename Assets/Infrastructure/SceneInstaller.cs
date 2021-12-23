@@ -81,7 +81,7 @@ namespace Infrastructure
 
         private void BindTargeting()
         {
-            Container.Bind<UnitSelector>().AsSingle();
+            Container.Bind<UnitSelecting>().AsSingle();
             Container.BindInstance(_movementCommand);
             Container.BindInstance(_pool).AsSingle();
             Container.BindInstance(_targetPrefab).WhenInjectedInto<TargetPool>();

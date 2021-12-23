@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Kernel.UI;
 using Sirenix.OdinInspector;
@@ -19,7 +20,10 @@ namespace Game.Units.Services
         {
             _units = _unitRepository.GetObjects();
             
-            ShowUnitTypeCount(UnitType.Traveler);
+            foreach (UnitType unitType in Enum.GetValues(typeof(UnitType)))
+            {
+                ShowUnitTypeCount(unitType);
+            }
         }
 
         private void ShowUnitTypeCount(UnitType unitType)

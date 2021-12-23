@@ -103,7 +103,7 @@ namespace Game.Units.Services
         {
             if (Selected.Count() != 1)
             {
-                throw new InvalidOperationException("After the second click must be one selected unit");
+                return Enumerable.Empty<UnitFacade>();
             }
             
             return _selecting.SelectByType(Selected.First().UnitType);

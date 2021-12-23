@@ -20,6 +20,10 @@ namespace Kernel.UI
             _rootVisualElement = GetComponent<UIDocument>().rootVisualElement;
             
             _unitTypeLabels.Add(UnitType.Traveler, _rootVisualElement.Q<Label>("traveler_type_count"));
+            _unitTypeLabels.Add(UnitType.Lumberjack, _rootVisualElement.Q<Label>("lumberjack_type_count"));
+            _unitTypeLabels.Add(UnitType.Mason, _rootVisualElement.Q<Label>("mason_type_count"));
+            _unitTypeLabels.Add(UnitType.Melee, _rootVisualElement.Q<Label>("melee_type_count"));
+            _unitTypeLabels.Add(UnitType.Archer, _rootVisualElement.Q<Label>("archer_type_count"));
         }
 
         public void ChangeUnitTypeCount(UnitType unitType, float count)

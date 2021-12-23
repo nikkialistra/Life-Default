@@ -1,4 +1,5 @@
 ﻿using System;
+using Game.Units;
 using Kernel.Types;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -67,7 +68,7 @@ namespace Game.Cameras
 
             if (Physics.Raycast(ray, out var hit))
             {
-                if (hit.transform.gameObject.GetComponent<ISelectable>() != null)
+                if (hit.transform.gameObject.GetComponent<UnitFacade>() != null)
                 {
                     _followTransform = hit.transform;
                     UpdateCameraPosition();

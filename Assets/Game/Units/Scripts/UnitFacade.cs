@@ -6,7 +6,7 @@ using Zenject;
 namespace Game.Units
 {
     [RequireComponent(typeof(UnitSaveLoadHandler))]
-    public class UnitFacade : MonoBehaviour, ISelectable
+    public class UnitFacade : MonoBehaviour
     {
         [SerializeField] private UnitType _unitType;
         [Required]

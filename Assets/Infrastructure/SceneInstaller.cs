@@ -20,6 +20,8 @@ namespace Infrastructure
 
         [Title("Selection")] 
         [Required]
+        [SerializeField] private UnitSelection _unitSelection;
+        [Required]
         [SerializeField] private SelectionInput _selectionInput;
         [Required]
         [SerializeField] private RectTransform _selectionRect;
@@ -72,14 +74,14 @@ namespace Infrastructure
 
         private void BindUnitSelectionSystem()
         {
-            Container.BindInterfacesAndSelfTo<UnitSelection>().AsSingle().NonLazy();
+            Container.BindInstance(_unitSelection);
             Container.BindInstance(_selectionInput);
             Container.Bind<SelectionArea>().AsSingle().WithArguments(_selectionRect, _uiCanvas);
         }
 
         private void BindTargeting()
         {
-            Container.Bind<UnitProjectionSelector>().AsSingle();
+            Container.Bind<UnitSelector>().AsSingle();
             Container.BindInstance(_movementCommand);
             Container.BindInstance(_pool).AsSingle();
             Container.BindInstance(_targetPrefab).WhenInjectedInto<TargetPool>();

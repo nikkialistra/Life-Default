@@ -10,14 +10,11 @@ namespace Game.Cameras
     public class CameraRotating : MonoBehaviour
     {
         [MinValue(0)] 
-        [SerializeField] private float _rotationNormalSpeed;
-        [SerializeField] private float _rotationFastSpeed;
-        
+        [SerializeField] private float _rotationSpeed;
+
         public event Action<Quaternion> RotationUpdate;
         
         public Quaternion Rotation { get; set; }
-
-        private float _rotationSpeed;
 
         private Vector3? _rotateStartPosition;
         private Vector3 _rotateCurrentPosition;
@@ -28,7 +25,6 @@ namespace Game.Cameras
         
         private InputAction _rotationAction;
         private InputAction _rotateAction;
-        private InputAction _fastCameraAction;
 
         [Inject]
         public void Construct(PlayerInput playerInput)
@@ -39,30 +35,18 @@ namespace Game.Cameras
         private void Awake()
         {
             _rotateAction = _playerInput.actions.FindAction("Rotate");
-            _fastCameraAction = _playerInput.actions.FindAction("FastCamera");
         }
 
         private void OnEnable()
         {
             _rotateAction.started += RotateStart;
             _rotateAction.canceled += RotateStop;
-            
-            _fastCameraAction.started += FastRotationOn;
-            _fastCameraAction.canceled += FastRotationOff;
         }
 
         private void OnDisable()
         {
             _rotateAction.started -= RotateStart;
             _rotateAction.canceled -= RotateStop;
-            
-            _fastCameraAction.started -= FastRotationOn;
-            _fastCameraAction.canceled -= FastRotationOff;
-        }
-
-        private void Start()
-        {
-            _rotationSpeed = _rotationNormalSpeed;
         }
 
         private void RotateStart(InputAction.CallbackContext context)
@@ -100,16 +84,6 @@ namespace Game.Cameras
                 throw new InvalidOperationException();
             }
             StopCoroutine(_rotateCoroutine);
-        }
-
-        private void FastRotationOn(InputAction.CallbackContext context)
-        {
-            _rotationSpeed = _rotationFastSpeed;
-        }
-
-        private void FastRotationOff(InputAction.CallbackContext context)
-        {
-            _rotationSpeed = _rotationNormalSpeed;
         }
     }
 }

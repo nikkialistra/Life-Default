@@ -12,9 +12,7 @@ namespace Game.Cameras
     {
         [Title("Speed")] 
         [MinValue(0)] 
-        [SerializeField] private float _movementNormalSpeed;
-        [MinValue(0)] 
-        [SerializeField] private float _movementFastSpeed;
+        [SerializeField] private float _movementSpeed;
         [MinValue(0)] 
         [SerializeField] private float _dragMultiplier;
 
@@ -44,8 +42,6 @@ namespace Game.Cameras
 
         private Camera _camera;
 
-        private float _movementSpeed;
-
         private Vector3? _dragStartPosition;
         private Vector3 _dragCurrentPosition;
 
@@ -55,7 +51,6 @@ namespace Game.Cameras
         private PlayerInput _playerInput;
 
         private InputAction _movementAction;
-        private InputAction _fastCameraAction;
         private InputAction _dragAction;
         private InputAction _positionAction;
 
@@ -70,7 +65,6 @@ namespace Game.Cameras
             _camera = GetComponent<Camera>();
             
             _movementAction = _playerInput.actions.FindAction("Movement");
-            _fastCameraAction = _playerInput.actions.FindAction("FastCamera");
             _dragAction = _playerInput.actions.FindAction("Drag");
             _positionAction = _playerInput.actions.FindAction("Position");
         }
@@ -80,9 +74,6 @@ namespace Game.Cameras
             _movementAction.started += MovementStart;
             _movementAction.canceled += MovementStop;
 
-            _fastCameraAction.started += FastMovementOn;
-            _fastCameraAction.canceled += FastMovementOff;
-            
             _dragAction.started += DragStart;
             _dragAction.canceled += DragStop;
         }
@@ -92,16 +83,8 @@ namespace Game.Cameras
             _movementAction.started -= MovementStart;
             _movementAction.canceled -= MovementStop;
 
-            _fastCameraAction.started -= FastMovementOn;
-            _fastCameraAction.canceled -= FastMovementOff;
-            
             _dragAction.started -= DragStart;
             _dragAction.canceled -= DragStop;
-        }
-
-        private void Start()
-        {
-            _movementSpeed = _movementNormalSpeed;
         }
 
         private void Update()
@@ -201,16 +184,6 @@ namespace Game.Cameras
             StopCoroutine(_moveCoroutine);
         }
 
-        private void FastMovementOn(InputAction.CallbackContext context)
-        {
-            _movementSpeed = _movementFastSpeed;
-        }
-
-        private void FastMovementOff(InputAction.CallbackContext context)
-        {
-            _movementSpeed = _movementNormalSpeed;
-        }
-        
         private void DragStart(InputAction.CallbackContext context)
         {
             var plane = new Plane(Vector3.up, Vector3.zero);

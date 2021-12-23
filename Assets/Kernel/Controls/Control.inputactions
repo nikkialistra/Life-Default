@@ -60,15 +60,6 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "FastCamera",
-                    "type": "Button",
-                    "id": "0aa97f6a-e3f3-4d8f-8ead-af1cd626fdd2",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "Movement",
                     "type": "Value",
                     "id": "a08e44b6-96db-4738-afa7-f075bafe4bdf",
@@ -136,17 +127,6 @@
                     "processors": "",
                     "groups": "",
                     "action": "Drag",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "331cbbc5-8353-4066-9c37-2ee23c53ef15",
-                    "path": "<Keyboard>/leftShift",
-                    "interactions": "Press(behavior=2)",
-                    "processors": "",
-                    "groups": "",
-                    "action": "FastCamera",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

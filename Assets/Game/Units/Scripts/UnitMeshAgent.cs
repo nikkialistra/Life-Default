@@ -21,11 +21,7 @@ namespace Game.Units
         public bool TryAcceptPoint(GameObject point)
         {
             var destinationSet = _navMeshAgent.SetDestination(point.transform.position + Random.insideUnitSphere * _distanceToGroup);
-            if (!destinationSet)
-            {
-                return false;
-            }
-            return true;
+            return destinationSet;
         }
     }
 }

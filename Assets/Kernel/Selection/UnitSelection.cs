@@ -43,9 +43,14 @@ namespace Kernel.Selection
         private void Select(Rect rect)
         {
             var newSelected = Enumerable.Empty<ISelectable>();
+            
             if (rect.size != Vector2.zero)
             {
-                newSelected = _selector.SelectInScreenSpace(rect);
+                newSelected = _selector.SelectFromRect(rect);
+            }
+            else
+            {
+                newSelected = _selector.SelectFromPoint(rect.center);
             }
 
             var newSelectedArray = newSelected as ISelectable[] ?? newSelected.ToArray();

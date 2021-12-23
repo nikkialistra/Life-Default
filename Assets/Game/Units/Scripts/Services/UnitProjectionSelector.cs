@@ -17,7 +17,7 @@ namespace Game.Units.Services
             _camera = camera;
         }
 
-        public IEnumerable<ISelectable> SelectInScreenSpace(Rect rect)
+        public IEnumerable<ISelectable> SelectFromRect(Rect rect)
         {
             _gameObjects = _unitRepository.GetObjects();
             
@@ -33,5 +33,17 @@ namespace Game.Units.Services
                 }
             }
         }
+        public IEnumerable<ISelectable> SelectFromPoint(Vector2 point)
+        {
+            var ray = _camera.ScreenPointToRay(point);
+            if (Physics.Raycast(ray, out var hit))
+            {
+                if (hit.transform.TryGetComponent(out ISelectable selectable))
+                {
+                    yield return selectable;
+                }
+            }
+        }
+
     }
 }

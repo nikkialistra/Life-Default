@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4193433063631040809}
   - component: {fileID: 763308185140895837}
   - component: {fileID: 4506163664371613175}
+  - component: {fileID: 5287909917484254944}
   - component: {fileID: 1158468651039211146}
   - component: {fileID: 4807083641721281678}
   - component: {fileID: 5226791745306163455}
@@ -70,6 +71,20 @@ CapsuleCollider:
   m_Height: 3.6
   m_Direction: 1
   m_Center: {x: 0, y: 2.1, z: 0}
+--- !u!136 &5287909917484254944
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4193433063631040808}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 1
+  m_Height: 4.5
+  m_Direction: 1
+  m_Center: {x: 0, y: 2.1, z: 0}
 --- !u!195 &1158468651039211146
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -104,6 +119,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c13c02dfe2a2416db1ccbb4496c2d54e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _unitType: 0
   _selectionIndicator: {fileID: 4193433063766312865}
 --- !u!114 &5226791745306163455
 MonoBehaviour:
@@ -143,7 +159,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef7b5d5e2801465dae8669c4264d5734, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _unitType: 0
 --- !u!1 &4193433063766312865
 GameObject:
   m_ObjectHideFlags: 0

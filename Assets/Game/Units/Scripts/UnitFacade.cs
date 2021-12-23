@@ -9,8 +9,11 @@ namespace Game.Units
     [RequireComponent(typeof(UnitSaveLoadHandler))]
     public class UnitFacade : MonoBehaviour, ISelectable
     {
+        [SerializeField] private UnitType _unitType;
         [Required]
         [SerializeField] private GameObject _selectionIndicator;
+
+        public UnitType UnitType => _unitType;
 
         public UnitSaveLoadHandler UnitSaveLoadHandler { get; private set;  }
 

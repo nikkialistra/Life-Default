@@ -4,12 +4,6 @@ using UnityEngine;
 namespace Game.Units
 {
     [Serializable]
-    public enum UnitType
-    {
-        Regular
-    }
-    
-    [Serializable]
     public struct UnitData
     {
         public string Id;

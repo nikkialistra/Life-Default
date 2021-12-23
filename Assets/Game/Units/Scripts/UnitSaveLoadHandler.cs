@@ -4,11 +4,17 @@ using Random = UnityEngine.Random;
 
 namespace Game.Units
 {
+    [RequireComponent(typeof(UnitFacade))]
     public class UnitSaveLoadHandler : MonoBehaviour
     {
-        [SerializeField] private UnitType _unitType;
+        private UnitFacade _unitFacade;
 
         private UnitData _unitData;
+
+        private void Awake()
+        {
+            _unitFacade = GetComponent<UnitFacade>();
+        }
 
         private void Start()
         {
@@ -20,7 +26,7 @@ namespace Game.Units
             _unitData.Id = DateTimeOffset.Now.ToUnixTimeMilliseconds().ToString() +
                            Random.Range(0, int.MaxValue);
 
-            _unitData.Type = _unitType;
+            _unitData.Type = _unitFacade.UnitType;
         }
 
         public void DestroySelf()

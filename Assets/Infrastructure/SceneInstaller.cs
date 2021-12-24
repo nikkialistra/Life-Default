@@ -5,6 +5,7 @@ using Kernel.Saving;
 using Kernel.Saving.Serialization;
 using Kernel.Selection;
 using Kernel.Targeting;
+using Kernel.UI.GameViews;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -52,6 +53,10 @@ namespace Infrastructure
         [Required] 
         [SerializeField] private Transform _unitRoot;
         
+        [Title("UI")]
+        [Required]
+        [SerializeField] private UnitTypesView _unitTypesView;
+
         [Title("Saving")]
         [Required]
         [SerializeField] private UnitsSaveLoadHandler _unitsSaveLoadHandler;
@@ -66,6 +71,7 @@ namespace Infrastructure
             BindUnitRepository();
             BindUnitTypeCounts();
             BindUnitSpawning();
+            BindUi();
             BindSaving();
         }
 
@@ -106,6 +112,11 @@ namespace Infrastructure
             Container.BindFactory<UnitFacade, UnitFacade.Factory>().FromComponentInNewPrefab(_unitPrefab)
                 .UnderTransform(_unitRoot);
             Container.BindInterfacesTo<UnitGenerator>().AsSingle().NonLazy();
+        }
+
+        private void BindUi()
+        {
+            Container.BindInstance(_unitTypesView);
         }
 
         private void BindSaving()

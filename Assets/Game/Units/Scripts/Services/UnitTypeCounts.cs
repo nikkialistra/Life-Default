@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Kernel.UI;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -9,8 +8,8 @@ namespace Game.Units.Services
 {
     public class UnitTypeCounts : MonoBehaviour
     {
-        [Required]
-        [SerializeField] private UnitTypesView _unitTypesView;
+        public event Action<UnitType, float> UnitTypeCountChange; 
+        
         [Required] 
         [SerializeField] private UnitRepository _unitRepository;
 
@@ -30,7 +29,7 @@ namespace Game.Units.Services
         {
             var count = _units.Count(unit => unit.UnitType == unitType);
 
-            _unitTypesView.ChangeUnitTypeCount(unitType, count);
+            UnitTypeCountChange?.Invoke(unitType, count);
         }
     }
 }

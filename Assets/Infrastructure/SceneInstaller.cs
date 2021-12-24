@@ -41,7 +41,9 @@ namespace Infrastructure
         [Title("Units")] 
         [Required]
         [SerializeField] private GameObject _unitPrefab;
-
+        [Required]
+        [SerializeField] private UnitTypeCounts _unitTypeCounts;
+        
         [Title("Services")]
         [Required]
         [SerializeField] private UnitRepository _unitRepository;
@@ -62,6 +64,7 @@ namespace Infrastructure
             BindUnitSelectionSystem();
             BindTargeting();
             BindUnitRepository();
+            BindUnitTypeCounts();
             BindUnitSpawning();
             BindSaving();
         }
@@ -91,6 +94,11 @@ namespace Infrastructure
         private void BindUnitRepository()
         {
             Container.BindInstance(_unitRepository).AsSingle();
+        }
+
+        private void BindUnitTypeCounts()
+        {
+            Container.BindInstance(_unitTypeCounts);
         }
 
         private void BindUnitSpawning()

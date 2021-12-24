@@ -1,17 +1,25 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace Kernel.UI.MenuViews
 {
-    public class GameMenuView : MonoBehaviour, IMenuView
+    public class GameMenuView : IMenuView
     {
-        private TemplateContainer _tree;
+        public event Action Resuming;
+        public bool Shown { get; private set; }
         
+        private VisualElement _root;
+
+        private TemplateContainer _tree;
+
         private Button _resume;
         private Button _exitGame;
 
-        private void Awake()
+        public GameMenuView(VisualElement root)
         {
+            _root = root;
+            
             var template = Resources.Load<VisualTreeAsset>("UI/Markup/GameMenu");
             _tree = template.CloneTree();
 
@@ -21,12 +29,34 @@ namespace Kernel.UI.MenuViews
 
         public void ShowSelf()
         {
-            throw new System.NotImplementedException();
+            _root.Add(_tree);
+            Shown = true;
+            Time.timeScale = 0;
+
+            _resume.clicked += Resume;
+            _exitGame.clicked += ExitGame;
         }
 
         public void HideSelf()
         {
-            throw new System.NotImplementedException();
+            _root.Remove(_tree);
+            Shown = false;
+            Time.timeScale = 1;
+
+            _resume.clicked -= Resume;
+            _exitGame.clicked -= ExitGame;
+        }
+
+        private void Resume()
+        {
+            Resuming?.Invoke();
+            Time.timeScale = 1;
+            HideSelf();
+        }
+
+        private void ExitGame()
+        {
+            Application.Quit();
         }
     }
 }

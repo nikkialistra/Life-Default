@@ -118,6 +118,15 @@ namespace Kernel.Controls
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ShowMenu"",
+                    ""type"": ""Button"",
+                    ""id"": ""bb7a1b1a-bb06-4025-af3c-a2ac225e6f9c"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -362,6 +371,45 @@ namespace Kernel.Controls
                     ""action"": ""SetTarget"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""42e513ea-3ea2-4a20-951d-41e7c34124cc"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ShowMenu"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""Menus"",
+            ""id"": ""2a18fe8d-6421-4bed-bce6-1abde9ee45bc"",
+            ""actions"": [
+                {
+                    ""name"": ""HideMenu"",
+                    ""type"": ""Button"",
+                    ""id"": ""e2cd4319-5092-4863-abc8-b2054a5cd28f"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""fb4bff77-1002-4636-a206-46a7ec082234"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""HideMenu"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -380,6 +428,10 @@ namespace Kernel.Controls
             m_Management_Rotate = m_Management.FindAction("Rotate", throwIfNotFound: true);
             m_Management_Zoom = m_Management.FindAction("Zoom", throwIfNotFound: true);
             m_Management_SetTarget = m_Management.FindAction("SetTarget", throwIfNotFound: true);
+            m_Management_ShowMenu = m_Management.FindAction("ShowMenu", throwIfNotFound: true);
+            // Menus
+            m_Menus = asset.FindActionMap("Menus", throwIfNotFound: true);
+            m_Menus_HideMenu = m_Menus.FindAction("HideMenu", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -449,6 +501,7 @@ namespace Kernel.Controls
         private readonly InputAction m_Management_Rotate;
         private readonly InputAction m_Management_Zoom;
         private readonly InputAction m_Management_SetTarget;
+        private readonly InputAction m_Management_ShowMenu;
         public struct ManagementActions
         {
             private @Control m_Wrapper;
@@ -463,6 +516,7 @@ namespace Kernel.Controls
             public InputAction @Rotate => m_Wrapper.m_Management_Rotate;
             public InputAction @Zoom => m_Wrapper.m_Management_Zoom;
             public InputAction @SetTarget => m_Wrapper.m_Management_SetTarget;
+            public InputAction @ShowMenu => m_Wrapper.m_Management_ShowMenu;
             public InputActionMap Get() { return m_Wrapper.m_Management; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -502,6 +556,9 @@ namespace Kernel.Controls
                     @SetTarget.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnSetTarget;
                     @SetTarget.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnSetTarget;
                     @SetTarget.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnSetTarget;
+                    @ShowMenu.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnShowMenu;
+                    @ShowMenu.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnShowMenu;
+                    @ShowMenu.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnShowMenu;
                 }
                 m_Wrapper.m_ManagementActionsCallbackInterface = instance;
                 if (instance != null)
@@ -536,10 +593,46 @@ namespace Kernel.Controls
                     @SetTarget.started += instance.OnSetTarget;
                     @SetTarget.performed += instance.OnSetTarget;
                     @SetTarget.canceled += instance.OnSetTarget;
+                    @ShowMenu.started += instance.OnShowMenu;
+                    @ShowMenu.performed += instance.OnShowMenu;
+                    @ShowMenu.canceled += instance.OnShowMenu;
                 }
             }
         }
         public ManagementActions @Management => new ManagementActions(this);
+
+        // Menus
+        private readonly InputActionMap m_Menus;
+        private IMenusActions m_MenusActionsCallbackInterface;
+        private readonly InputAction m_Menus_HideMenu;
+        public struct MenusActions
+        {
+            private @Control m_Wrapper;
+            public MenusActions(@Control wrapper) { m_Wrapper = wrapper; }
+            public InputAction @HideMenu => m_Wrapper.m_Menus_HideMenu;
+            public InputActionMap Get() { return m_Wrapper.m_Menus; }
+            public void Enable() { Get().Enable(); }
+            public void Disable() { Get().Disable(); }
+            public bool enabled => Get().enabled;
+            public static implicit operator InputActionMap(MenusActions set) { return set.Get(); }
+            public void SetCallbacks(IMenusActions instance)
+            {
+                if (m_Wrapper.m_MenusActionsCallbackInterface != null)
+                {
+                    @HideMenu.started -= m_Wrapper.m_MenusActionsCallbackInterface.OnHideMenu;
+                    @HideMenu.performed -= m_Wrapper.m_MenusActionsCallbackInterface.OnHideMenu;
+                    @HideMenu.canceled -= m_Wrapper.m_MenusActionsCallbackInterface.OnHideMenu;
+                }
+                m_Wrapper.m_MenusActionsCallbackInterface = instance;
+                if (instance != null)
+                {
+                    @HideMenu.started += instance.OnHideMenu;
+                    @HideMenu.performed += instance.OnHideMenu;
+                    @HideMenu.canceled += instance.OnHideMenu;
+                }
+            }
+        }
+        public MenusActions @Menus => new MenusActions(this);
         public interface IManagementActions
         {
             void OnPosition(InputAction.CallbackContext context);
@@ -552,6 +645,11 @@ namespace Kernel.Controls
             void OnRotate(InputAction.CallbackContext context);
             void OnZoom(InputAction.CallbackContext context);
             void OnSetTarget(InputAction.CallbackContext context);
+            void OnShowMenu(InputAction.CallbackContext context);
+        }
+        public interface IMenusActions
+        {
+            void OnHideMenu(InputAction.CallbackContext context);
         }
     }
 }

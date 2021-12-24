@@ -4,6 +4,7 @@ using Kernel.UI.GameViews;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.UIElements;
+using Zenject;
 
 namespace Kernel.UI
 {
@@ -12,8 +13,14 @@ namespace Kernel.UI
     {
         [Required]
         [SerializeField] private UnitTypesView _unitTypesView;
-        [Required]
-        [SerializeField] private UnitTypeCounts _unitTypeCounts;
+        
+        private UnitTypeCounts _unitTypeCounts;
+
+        [Inject]
+        public void Construct(UnitTypeCounts unitTypeCounts)
+        {
+            _unitTypeCounts = unitTypeCounts;
+        }
 
         private void OnEnable()
         {

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Game.Units;
 using UnityEngine;
 using UnityEngine.UIElements;
+using UnityEngine.UIElements.Experimental;
 
 namespace Kernel.UI.GameViews
 {
@@ -22,8 +23,20 @@ namespace Kernel.UI.GameViews
         private VisualElement _meleeType;
         private VisualElement _archerType;
 
+        private struct EventArgs
+        {
+            public VisualElement Sender;
+            public UnitType UnitType;
+        }
+
         private void Awake()
         {
+            var args = new EventArgs
+            {
+                Sender = _travelerType,
+                UnitType = UnitType.Traveler
+            };
+            
             _tree = GetComponent<UIDocument>().rootVisualElement;
 
             FillInTypes();
@@ -32,20 +45,20 @@ namespace Kernel.UI.GameViews
 
         private void OnEnable()
         {
-            _travelerType.RegisterCallback<MouseDownEvent, UnitType>(OnMouseDownEvent, UnitType.Traveler);
-            _lumberjackType.RegisterCallback<MouseDownEvent, UnitType>(OnMouseDownEvent, UnitType.Lumberjack);
-            _masonType.RegisterCallback<MouseDownEvent, UnitType>(OnMouseDownEvent, UnitType.Mason);
-            _meleeType.RegisterCallback<MouseDownEvent, UnitType>(OnMouseDownEvent, UnitType.Melee);
-            _archerType.RegisterCallback<MouseDownEvent, UnitType>(OnMouseDownEvent, UnitType.Archer);
+            _travelerType.RegisterCallback<MouseDownEvent, EventArgs>(OnMouseDownEvent, new EventArgs { Sender = _travelerType, UnitType = UnitType.Traveler });
+            _lumberjackType.RegisterCallback<MouseDownEvent, EventArgs>(OnMouseDownEvent, new EventArgs { Sender = _travelerType, UnitType = UnitType.Lumberjack });
+            _masonType.RegisterCallback<MouseDownEvent, EventArgs>(OnMouseDownEvent, new EventArgs { Sender = _travelerType, UnitType = UnitType.Mason });
+            _meleeType.RegisterCallback<MouseDownEvent, EventArgs>(OnMouseDownEvent, new EventArgs { Sender = _travelerType, UnitType = UnitType.Melee });
+            _archerType.RegisterCallback<MouseDownEvent, EventArgs>(OnMouseDownEvent, new EventArgs { Sender = _travelerType, UnitType = UnitType.Archer });
         }
 
         private void OnDisable()
         {
-            _travelerType.UnregisterCallback<MouseDownEvent, UnitType>(OnMouseDownEvent);
-            _lumberjackType.UnregisterCallback<MouseDownEvent, UnitType>(OnMouseDownEvent);
-            _masonType.UnregisterCallback<MouseDownEvent, UnitType>(OnMouseDownEvent);
-            _meleeType.UnregisterCallback<MouseDownEvent, UnitType>(OnMouseDownEvent);
-            _archerType.UnregisterCallback<MouseDownEvent, UnitType>(OnMouseDownEvent);
+            _travelerType.UnregisterCallback<MouseDownEvent, EventArgs>(OnMouseDownEvent);
+            _lumberjackType.UnregisterCallback<MouseDownEvent, EventArgs>(OnMouseDownEvent);
+            _masonType.UnregisterCallback<MouseDownEvent, EventArgs>(OnMouseDownEvent);
+            _meleeType.UnregisterCallback<MouseDownEvent, EventArgs>(OnMouseDownEvent);
+            _archerType.UnregisterCallback<MouseDownEvent, EventArgs>(OnMouseDownEvent);
         }
 
         public void ChangeUnitTypeCount(UnitType unitType, float count)
@@ -54,20 +67,23 @@ namespace Kernel.UI.GameViews
             {
                 throw new ArgumentException($"Dictionary doesn't contain key {unitType}");
             }
+
+            var label = _unitTypeLabels[unitType];
             
-            _unitTypeLabels[unitType].text = $"{count}";
+            label.text = $"{count}";
+            label.parent.style.opacity = count == 0 ? .5f : 1f;
         }
 
-        private void OnMouseDownEvent(MouseDownEvent mouseDownEvent, UnitType unitType)
+        private void OnMouseDownEvent(MouseDownEvent mouseDownEvent, EventArgs eventArgs)
         {
             if (mouseDownEvent.button == 0)
             {
-                LeftClick?.Invoke(unitType);
+                LeftClick?.Invoke(eventArgs.UnitType);
             }
 
             if (mouseDownEvent.button == 1)
             {
-                RightClick?.Invoke(unitType);
+                RightClick?.Invoke(eventArgs.UnitType);
             }
         }
 

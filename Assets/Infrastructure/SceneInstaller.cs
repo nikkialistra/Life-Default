@@ -83,6 +83,7 @@ namespace Infrastructure
 
         private void BindUnitSelectionSystem()
         {
+            Container.Bind<SelectedUnits>().AsSingle();
             Container.BindInstance(_unitSelection);
             Container.BindInstance(_selectionInput);
             Container.Bind<SelectionArea>().AsSingle().WithArguments(_selectionRect, _uiCanvas);

@@ -10,18 +10,18 @@ namespace Game.Units.Services
     public class UnitSelection : MonoBehaviour
     {
         [SerializeField] private float _doubleClickDeltaTime;
-        
+
         private UnitSelecting _selecting;
         private SelectionInput _selectionInput;
         private SelectionArea _selectionArea;
+        private SelectedUnits _selectedUnits;
 
         private float _lastClickTime;
 
-        public IEnumerable<UnitFacade> Selected { get; private set; } = Array.Empty<UnitFacade>();
-        
         [Inject]
-        public void Construct(UnitSelecting selecting, SelectionInput selectionInput, SelectionArea selectionArea)
+        public void Construct(UnitSelecting selecting, SelectionInput selectionInput, SelectionArea selectionArea, SelectedUnits selectedUnits)
         {
+            _selectedUnits = selectedUnits;
             _selecting = selecting;
             _selectionInput = selectionInput;
             _selectionArea = selectionArea;
@@ -41,7 +41,7 @@ namespace Game.Units.Services
 
         public void ClearSelection()
         {
-            Selected = Array.Empty<UnitFacade>();
+            _selectedUnits.Clear();
         }
 
         private void Draw(Rect rect)
@@ -54,7 +54,7 @@ namespace Game.Units.Services
             var newSelected = GetSelected(rect);
 
             var newSelectedArray = newSelected as UnitFacade[] ?? newSelected.ToArray();
-            foreach (var willDeselect in Selected.Except(newSelectedArray))
+            foreach (var willDeselect in _selectedUnits.Units.Except(newSelectedArray))
             {
                 willDeselect.OnDeselect();
             }
@@ -64,7 +64,7 @@ namespace Game.Units.Services
                 selected.OnSelect();
             }
 
-            Selected = newSelectedArray;
+            _selectedUnits.Set(newSelectedArray);
 
             _selectionArea.StopDrawing();
         }
@@ -101,12 +101,12 @@ namespace Game.Units.Services
 
         private IEnumerable<UnitFacade> SelectWithSameType()
         {
-            if (Selected.Count() != 1)
+            if (_selectedUnits.Units.Count() != 1)
             {
                 return Enumerable.Empty<UnitFacade>();
             }
             
-            return _selecting.SelectByType(Selected.First().UnitType);
+            return _selecting.SelectByType(_selectedUnits.Units.First().UnitType);
         }
 
         private bool WasDoubleClick()

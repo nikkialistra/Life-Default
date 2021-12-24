@@ -1,6 +1,5 @@
 ﻿using System;
 using Kernel.Saving;
-using Kernel.Selection;
 using Kernel.Targeting;
 
 namespace Game.Units.Services

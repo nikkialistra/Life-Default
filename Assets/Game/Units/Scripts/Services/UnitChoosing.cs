@@ -1,5 +1,4 @@
-﻿using System;
-using Kernel.UI.GameViews;
+﻿using Kernel.UI.GameViews;
 using UnityEngine;
 using Zenject;
 
@@ -8,10 +7,14 @@ namespace Game.Units.Services
     public class UnitChoosing : MonoBehaviour
     {
         private UnitTypesView _unitTypesView;
+        private UnitRepository _unitRepository;
+        private SelectedUnits _selectedUnits;
 
         [Inject]
-        public void Construct(UnitTypesView unitTypesView)
+        public void Construct(UnitTypesView unitTypesView, UnitRepository unitRepository, SelectedUnits selectedUnits)
         {
+            _selectedUnits = selectedUnits;
+            _unitRepository = unitRepository;
             _unitTypesView = unitTypesView;
         }
 
@@ -34,7 +37,8 @@ namespace Game.Units.Services
 
         private void ChooseUnits(UnitType unitType)
         {
-            Debug.Log("choosing all " + unitType);
+            var units = _unitRepository.GetObjectsByType(unitType);
+            _selectedUnits.Set(units);
         }
     }
 }

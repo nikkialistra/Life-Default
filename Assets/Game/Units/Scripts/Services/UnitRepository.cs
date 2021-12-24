@@ -5,21 +5,47 @@ namespace Game.Units.Services
 {
     public class UnitRepository : MonoBehaviour
     {
-        private IEnumerable<UnitFacade> _gameObjects;
+        private IEnumerable<UnitFacade> _units;
 
         private void Start()
         {
-            _gameObjects = FindObjectsOfType<UnitFacade>();
+            SetUpRepository();
         }
 
         public IEnumerable<UnitFacade> GetObjects()
         {
-            return _gameObjects ??= FindObjectsOfType<UnitFacade>();
+            if (_units == null)
+            {
+                SetUpRepository();
+            }
+
+            return _units;
         }
 
         public void ResetObjects()
         {
-            _gameObjects = null;
+            _units = null;
+        }
+
+        public IEnumerable<UnitFacade> GetObjectsByType(UnitType unitType)
+        {
+            if (_units == null)
+            {
+                SetUpRepository();
+            }
+            
+            foreach (var unit in _units)
+            {
+                if (unit.UnitType == unitType)
+                {
+                    yield return unit;
+                }
+            }
+        }
+
+        private void SetUpRepository()
+        {
+            _units = FindObjectsOfType<UnitFacade>();
         }
     }
 }

@@ -11,21 +11,21 @@ namespace Kernel.Targeting
     public class MovementCommand : MonoBehaviour
     {
         private TargetPool _pool;
-        private UnitSelection _unitSelection;
-        
+        private SelectedUnits _selectedUnits;
+
         private Camera _camera;
-        
+
         private PlayerInput _playerInput;
-        
+
         private InputAction _setTargetAction;
         private InputAction _positionAction;
 
         [Inject]
-        public void Construct(PlayerInput playerInput, Camera camera, UnitSelection unitSelection, TargetPool pool)
+        public void Construct(PlayerInput playerInput, Camera camera, SelectedUnits selectedUnits, TargetPool pool)
         {
             _playerInput = playerInput;
             _camera = camera;
-            _unitSelection = unitSelection;
+            _selectedUnits = selectedUnits;
             _pool = pool;
         }
 
@@ -47,7 +47,7 @@ namespace Kernel.Targeting
 
         private void SetTarget(InputAction.CallbackContext context)
         {
-            if (!_unitSelection.Selected.Any())
+            if (!_selectedUnits.Units.Any())
             {
                 return;
             }
@@ -79,7 +79,7 @@ namespace Kernel.Targeting
 
         private void MoveAllTo(GameObject point)
         {
-            foreach (var unit in _unitSelection.Selected)
+            foreach (var unit in _selectedUnits.Units)
             {
                 var targetable = unit.GameObject.GetComponent<ITargetable>();
                 if (targetable == null)

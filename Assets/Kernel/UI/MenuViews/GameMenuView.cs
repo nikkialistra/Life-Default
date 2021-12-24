@@ -9,12 +9,12 @@ namespace Kernel.UI.MenuViews
         public event Action Resuming;
         public bool Shown { get; private set; }
         
-        private VisualElement _root;
+        private readonly VisualElement _root;
 
-        private TemplateContainer _tree;
+        private readonly TemplateContainer _tree;
 
-        private Button _resume;
-        private Button _exitGame;
+        private readonly Button _resume;
+        private readonly Button _exitGame;
 
         public GameMenuView(VisualElement root)
         {

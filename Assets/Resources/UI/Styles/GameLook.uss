@@ -1,4 +1,4 @@
-.unit_types {
+.unit-types {
     width: 310px;
     height: 80px;
     background-color: rgba(255, 255, 255, 0);
@@ -8,14 +8,14 @@
     justify-content: center;
 }
 
-.unit_type {
+.unit-type {
     width: 60px;
     height: 60px;
     justify-content: flex-end;
     align-items: flex-end;
 }
 
-.unit_type__count {
+.unit-type__count {
     background-color: rgb(0, 0, 0);
     width: 15px;
     height: 15px;
@@ -29,13 +29,6 @@
     -unity-font-definition: none;
     margin-right: 8px;
     -unity-text-align: middle-center;
-}
-
-.unity-button {
-    border-width: 0;
-    margin: 0;
-    padding: 0;
-    background-color: rgba(0, 0, 0, 0);
 }
 
 .missing {
@@ -102,7 +95,7 @@
     background-image: resource('UI/Sprites/UnitTypes/Archer');
 }
 
-.info_panel {
+.info-panel {
     width: 520px;
     height: 180px;
     background-image: resource('UI/Sprites/Panels/InfoPanel');
@@ -114,11 +107,11 @@
     padding-bottom: 5px;
 }
 
-.not_displayed {
+.not-displayed {
     display: none;
 }
 
-.bottom_panel {
+.bottom-panel {
     width: 1920px;
     height: 400px;
     align-items: flex-end;
@@ -129,7 +122,7 @@
     padding-left: 50px;
 }
 
-.minimap {
+.mini-map {
     width: 300px;
     height: 300px;
 }
@@ -160,18 +153,18 @@
     background-color: rgb(44, 93, 135);
 }
 
-.info_image {
+.info-image {
     width: 170px;
     height: 170px;
 }
 
-.info_description {
+.info-description {
     height: 170px;
     width: 260px;
     margin-left: 10px;
 }
 
-.description_top {
+.description-top {
     height: 45px;
 }
 
@@ -188,7 +181,7 @@
     justify-content: center;
 }
 
-.entity_type {
+.nomination__type {
     width: 100px;
     -unity-font: resource('Fonts/Dosis-Bold');
     font-size: 18px;
@@ -205,7 +198,7 @@
     padding-bottom: 0;
 }
 
-.entity_name {
+.nomination__name {
     width: 100px;
     -unity-font: resource('Fonts/Dosis-Bold');
     font-size: 16px;

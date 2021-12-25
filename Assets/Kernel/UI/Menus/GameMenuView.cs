@@ -24,7 +24,7 @@ namespace Kernel.UI.Menus
             _tree = template.CloneTree();
 
             _resume = _tree.Q<Button>("resume");
-            _exitGame = _tree.Q<Button>("exit_game");
+            _exitGame = _tree.Q<Button>("exit-game");
         }
 
         public void ShowSelf()

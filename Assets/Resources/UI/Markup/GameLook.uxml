@@ -1,37 +1,37 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/Resources/UI/Styles/GameLook.uss?fileID=7433441132597879392&amp;guid=295c2b0dcdb1e5f4fbcbc0c651a015ef&amp;type=3#GameLook" />
     <ui:VisualElement name="root" picking-mode="Ignore" style="width: 1920px; height: 1080px; justify-content: flex-end;">
-        <ui:VisualElement name="bottom_panel" picking-mode="Ignore" class="bottom_panel">
-            <ui:VisualElement name="minimap" picking-mode="Ignore" class="minimap" />
-            <ui:VisualElement name="info_panel" class="info_panel">
-                <ui:VisualElement name="info_image" class="info_image" />
-                <ui:VisualElement name="info_description" class="info_description">
-                    <ui:VisualElement name="description_top" class="description_top">
+        <ui:VisualElement name="bottom-panel" picking-mode="Ignore" class="bottom-panel">
+            <ui:VisualElement name="mini-map" picking-mode="Ignore" class="mini-map" />
+            <ui:VisualElement name="info-panel" class="info-panel">
+                <ui:VisualElement name="info-image" class="info-image" />
+                <ui:VisualElement name="info-description" class="info-description">
+                    <ui:VisualElement name="description-top" class="description-top">
                         <ui:VisualElement name="nomination" class="nomination">
-                            <ui:Label text="Type" display-tooltip-when-elided="true" name="entity_type" class="entity_type" />
-                            <ui:Label text="Name" display-tooltip-when-elided="true" name="entity_name" class="entity_name" />
+                            <ui:Label text="Type" display-tooltip-when-elided="true" name="nomination__type" class="nomination__type" />
+                            <ui:Label text="Name" display-tooltip-when-elided="true" name="nomination__name" class="nomination__name" />
                         </ui:VisualElement>
                         <ui:VisualElement name="health" class="health">
-                            <ui:ProgressBar title="Health" name="health_progress_bar" style="-unity-font: resource(&apos;Fonts/Dosis-Bold&apos;); -unity-font-definition: none;" />
+                            <ui:ProgressBar title="Health" name="health__progress-bar" style="-unity-font: resource(&apos;Fonts/Dosis-Bold&apos;); -unity-font-definition: none;" />
                         </ui:VisualElement>
                     </ui:VisualElement>
                 </ui:VisualElement>
             </ui:VisualElement>
-            <ui:VisualElement name="unit_types" class="unit_types">
-                <ui:VisualElement name="traveler_type" focusable="true" class="unit_type traveler">
-                    <ui:Label text="0" display-tooltip-when-elided="true" name="traveler_type_count" class="unit_type__count" />
+            <ui:VisualElement name="unit-types" class="unit-types">
+                <ui:VisualElement name="traveler-type" focusable="true" class="unit-type traveler">
+                    <ui:Label text="0" display-tooltip-when-elided="true" name="traveler-type__count" class="unit-type__count" />
                 </ui:VisualElement>
-                <ui:VisualElement name="lumberjack_type" class="unit_type lumberjack">
-                    <ui:Label text="0" display-tooltip-when-elided="true" name="lumberjack_type_count" class="unit_type__count" />
+                <ui:VisualElement name="lumberjack-type" class="unit-type lumberjack">
+                    <ui:Label text="0" display-tooltip-when-elided="true" name="lumberjack-type__count" class="unit-type__count" />
                 </ui:VisualElement>
-                <ui:VisualElement name="mason_type" class="unit_type mason">
-                    <ui:Label text="0" display-tooltip-when-elided="true" name="mason_type_count" class="unit_type__count" />
+                <ui:VisualElement name="mason-type" class="unit-type mason">
+                    <ui:Label text="0" display-tooltip-when-elided="true" name="mason-type__count" class="unit-type__count" />
                 </ui:VisualElement>
-                <ui:VisualElement name="melee_type" class="unit_type melee">
-                    <ui:Label text="0" display-tooltip-when-elided="true" name="melee_type_count" class="unit_type__count" />
+                <ui:VisualElement name="melee-type" class="unit-type melee">
+                    <ui:Label text="0" display-tooltip-when-elided="true" name="melee-type__count" class="unit-type__count" />
                 </ui:VisualElement>
-                <ui:VisualElement name="archer_type" class="unit_type archer">
-                    <ui:Label text="0" display-tooltip-when-elided="true" name="archer_type_count" class="unit_type__count" />
+                <ui:VisualElement name="archer-type" class="unit-type archer">
+                    <ui:Label text="0" display-tooltip-when-elided="true" name="archer-type__count" class="unit-type__count" />
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>

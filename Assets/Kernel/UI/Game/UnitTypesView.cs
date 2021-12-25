@@ -90,20 +90,20 @@ namespace Kernel.UI.Game
 
         private void FillInTypes()
         {
-            _travelerType = _tree.Q<VisualElement>("traveler_type");
-            _lumberjackType = _tree.Q<VisualElement>("lumberjack_type");
-            _masonType = _tree.Q<VisualElement>("mason_type");
-            _meleeType = _tree.Q<VisualElement>("melee_type");
-            _archerType = _tree.Q<VisualElement>("archer_type");
+            _travelerType = _tree.Q<VisualElement>("traveler-type");
+            _lumberjackType = _tree.Q<VisualElement>("lumberjack-type");
+            _masonType = _tree.Q<VisualElement>("mason-type");
+            _meleeType = _tree.Q<VisualElement>("melee-type");
+            _archerType = _tree.Q<VisualElement>("archer-type");
         }
 
         private void FillInLabels()
         {
-            _unitTypeLabels.Add(UnitType.Traveler, _tree.Q<Label>("traveler_type_count"));
-            _unitTypeLabels.Add(UnitType.Lumberjack, _tree.Q<Label>("lumberjack_type_count"));
-            _unitTypeLabels.Add(UnitType.Mason, _tree.Q<Label>("mason_type_count"));
-            _unitTypeLabels.Add(UnitType.Melee, _tree.Q<Label>("melee_type_count"));
-            _unitTypeLabels.Add(UnitType.Archer, _tree.Q<Label>("archer_type_count"));
+            _unitTypeLabels.Add(UnitType.Traveler, _tree.Q<Label>("traveler-type__count"));
+            _unitTypeLabels.Add(UnitType.Lumberjack, _tree.Q<Label>("lumberjack-type__count"));
+            _unitTypeLabels.Add(UnitType.Mason, _tree.Q<Label>("mason-type__count"));
+            _unitTypeLabels.Add(UnitType.Melee, _tree.Q<Label>("melee-type__count"));
+            _unitTypeLabels.Add(UnitType.Archer, _tree.Q<Label>("archer-type__count"));
         }
     }
 }

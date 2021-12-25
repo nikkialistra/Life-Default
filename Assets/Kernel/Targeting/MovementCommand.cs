@@ -2,6 +2,7 @@
 using Game.Units.Services;
 using Kernel.Selection;
 using Kernel.Types;
+using Kernel.UI;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Zenject;
@@ -19,14 +20,16 @@ namespace Kernel.Targeting
 
         private InputAction _setTargetAction;
         private InputAction _positionAction;
+        private GameViews _gameViews;
 
         [Inject]
-        public void Construct(PlayerInput playerInput, Camera camera, SelectedUnits selectedUnits, TargetPool pool)
+        public void Construct(PlayerInput playerInput, Camera camera, SelectedUnits selectedUnits, TargetPool pool, GameViews gameViews)
         {
             _playerInput = playerInput;
             _camera = camera;
             _selectedUnits = selectedUnits;
             _pool = pool;
+            _gameViews = gameViews;
         }
 
         private void Awake()
@@ -65,6 +68,11 @@ namespace Kernel.Targeting
 
         private Vector3? TryGetWorldPointUnderMouse()
         {
+            if (_gameViews.MouseOverUi)
+            {
+                return null;
+            }
+            
             var mousePosition = _positionAction.ReadValue<Vector2>();
             var rayIntoScene =
                 _camera.ScreenPointToRay(new Vector3(mousePosition.x, mousePosition.y, _camera.nearClipPlane));

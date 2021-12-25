@@ -1,4 +1,4 @@
-﻿using Kernel.UI.MenuViews;
+﻿using Kernel.UI.Menus;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
@@ -7,7 +7,7 @@ using Zenject;
 namespace Kernel.UI
 {
     [RequireComponent(typeof(UIDocument))]
-    public class MenuViewsManager : MonoBehaviour
+    public class MenuViews : MonoBehaviour
     {
         private VisualElement _root;
 

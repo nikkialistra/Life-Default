@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using Game.Units;
 using UnityEngine;
 using UnityEngine.UIElements;
-using UnityEngine.UIElements.Experimental;
 
-namespace Kernel.UI.GameViews
+namespace Kernel.UI.Game
 {
     [RequireComponent(typeof(UIDocument))]
     public class UnitTypesView : MonoBehaviour

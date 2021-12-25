@@ -1,4 +1,5 @@
-﻿using Kernel.UI.GameViews;
+﻿using System.Linq;
+using Kernel.UI.Game;
 using UnityEngine;
 using Zenject;
 
@@ -37,8 +38,12 @@ namespace Game.Units.Services
 
         private void ChooseUnits(UnitType unitType)
         {
-            var units = _unitRepository.GetObjectsByType(unitType);
-            _selectedUnits.Set(units);
+            var units = _unitRepository.GetObjectsByType(unitType).ToArray();
+
+            if (units.Count() != 0)
+            {
+                _selectedUnits.Set(units);
+            }
         }
     }
 }

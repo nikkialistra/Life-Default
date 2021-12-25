@@ -5,7 +5,8 @@ using Kernel.Saving;
 using Kernel.Saving.Serialization;
 using Kernel.Selection;
 using Kernel.Targeting;
-using Kernel.UI.GameViews;
+using Kernel.UI;
+using Kernel.UI.Game;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -54,6 +55,8 @@ namespace Infrastructure
         [SerializeField] private Transform _unitRoot;
         
         [Title("UI")]
+        [Required]
+        [SerializeField] private GameViews _gameViews;
         [Required]
         [SerializeField] private UnitTypesView _unitTypesView;
 
@@ -117,6 +120,7 @@ namespace Infrastructure
 
         private void BindUi()
         {
+            Container.BindInstance(_gameViews);
             Container.BindInstance(_unitTypesView);
         }
 

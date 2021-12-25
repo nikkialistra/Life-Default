@@ -1,4 +1,4 @@
-﻿namespace Kernel.UI.MenuViews
+﻿namespace Kernel.UI.Menus
 {
     public interface IMenuView
     {

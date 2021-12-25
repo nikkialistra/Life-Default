@@ -1424,6 +1424,7 @@ MonoBehaviour:
   _unitTypeCounts: {fileID: 764602377}
   _unitRepository: {fileID: 2051572251}
   _unitRoot: {fileID: 1496406937}
+  _gameViews: {fileID: 1502504551}
   _unitTypesView: {fileID: 1502504550}
   _unitsSaveLoadHandler: {fileID: 692575793}
   _savingLoadingGame: {fileID: 2126507202}

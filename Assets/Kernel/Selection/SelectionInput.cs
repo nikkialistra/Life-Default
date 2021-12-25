@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections;
+using Kernel.UI;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using Zenject;
 
@@ -12,18 +14,21 @@ namespace Kernel.Selection
         public event Action<Rect> SelectingEnd;
         
         private Vector2? _startPoint;
-        
+        private bool _updatingArea;
+
         private Coroutine _areaUpdateCourotine;
-        
+
         private PlayerInput _playerInput;
-        
+
         private InputAction _selectAction;
         private InputAction _positionAction;
+        private GameViews _gameViews;
 
         [Inject]
-        public void Construct(PlayerInput playerInput)
+        public void Construct(PlayerInput playerInput, GameViews gameViews)
         {
             _playerInput = playerInput;
+            _gameViews = gameViews;
         }
 
         private void Awake()
@@ -46,20 +51,24 @@ namespace Kernel.Selection
 
         private void StartArea(InputAction.CallbackContext context)
         {
-            if (Keyboard.current.ctrlKey.isPressed)
+            if (Keyboard.current.ctrlKey.isPressed || _gameViews.MouseOverUi)
             {
                 return;
             }
 
             _startPoint = _positionAction.ReadValue<Vector2>();
-            
+
             if (_areaUpdateCourotine != null)
+            {
                 StopCoroutine(_areaUpdateCourotine);
+            }
             _areaUpdateCourotine = StartCoroutine(UpdateArea());
         }
 
         private IEnumerator UpdateArea()
         {
+            _updatingArea = true;
+            
             while (true)
             {
                 if (_startPoint == null)
@@ -73,7 +82,7 @@ namespace Kernel.Selection
 
         private void EndArea(InputAction.CallbackContext context)
         {
-            if (Keyboard.current.ctrlKey.isPressed)
+            if (Keyboard.current.ctrlKey.isPressed || !_updatingArea)
             {
                 return;
             }
@@ -86,6 +95,7 @@ namespace Kernel.Selection
             SelectingEnd?.Invoke(GetRect(_startPoint.Value, _positionAction.ReadValue<Vector2>()));
             
             _startPoint = null;
+            _updatingArea = false;
 
             StopCoroutine(_areaUpdateCourotine);
         }

@@ -71,7 +71,15 @@ namespace Kernel.UI.GameViews
             var label = _unitTypeLabels[unitType];
             
             label.text = $"{count}";
-            label.parent.style.opacity = count == 0 ? .5f : 1f;
+            
+            if (count == 0)
+            {
+                label.parent.AddToClassList("missing");
+            }
+            else
+            {
+                label.parent.RemoveFromClassList("missing");
+            }
         }
 
         private void OnMouseDownEvent(MouseDownEvent mouseDownEvent, EventArgs eventArgs)

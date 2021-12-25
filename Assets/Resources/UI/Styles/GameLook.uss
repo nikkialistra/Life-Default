@@ -103,7 +103,7 @@
 }
 
 .info_panel {
-    width: 400px;
+    width: 450px;
     height: 180px;
     background-image: resource('UI/Sprites/Panels/InfoPanel');
 }
@@ -122,4 +122,36 @@
 .minimap {
     width: 300px;
     height: 300px;
+}
+
+.unity-progress-bar__background {
+    height: 15px;
+}
+
+.info_image {
+    width: 170px;
+    height: 170px;
+}
+
+.info_description {
+    height: 170px;
+    width: 260px;
+    margin-left: 10px;
+}
+
+.description_top {
+    height: 45px;
+}
+
+.nomination {
+    height: 20px;
+    width: 140px;
+    flex-direction: row;
+    padding-bottom: 2px;
+}
+
+.health {
+    height: 25px;
+    width: 140px;
+    justify-content: center;
 }

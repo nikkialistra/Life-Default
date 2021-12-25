@@ -30,12 +30,6 @@ namespace Kernel.UI.Game
 
         private void Awake()
         {
-            var args = new EventArgs
-            {
-                Sender = _travelerType,
-                UnitType = UnitType.Traveler
-            };
-            
             _tree = GetComponent<UIDocument>().rootVisualElement;
 
             FillInTypes();

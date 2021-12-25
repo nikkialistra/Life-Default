@@ -3,7 +3,20 @@
     <ui:VisualElement name="root" picking-mode="Ignore" style="width: 1920px; height: 1080px; justify-content: flex-end;">
         <ui:VisualElement name="bottom_panel" picking-mode="Ignore" class="bottom_panel">
             <ui:VisualElement name="minimap" picking-mode="Ignore" class="minimap" />
-            <ui:VisualElement name="info_panel" class="info_panel" />
+            <ui:VisualElement name="info_panel" class="info_panel" style="flex-direction: row; align-items: center; padding-left: 5px; padding-right: 5px; padding-top: 5px; padding-bottom: 5px;">
+                <ui:VisualElement name="info_image" class="info_image" />
+                <ui:VisualElement name="info_description" class="info_description">
+                    <ui:VisualElement name="description_top" class="description_top">
+                        <ui:VisualElement name="nomination" class="nomination">
+                            <ui:Label text="Type" display-tooltip-when-elided="true" name="entity_type" style="width: 70px; -unity-font: resource(&apos;Fonts/Dosis-Bold&apos;); font-size: 18px; -unity-text-align: middle-center; color: rgb(0, 0, 0); -unity-font-definition: none;" />
+                            <ui:Label text="Name" display-tooltip-when-elided="true" name="entity_name" style="width: 70px; -unity-font: resource(&apos;Fonts/Dosis-Bold&apos;); font-size: 16px; -unity-text-align: middle-center; color: rgb(60, 60, 60); -unity-font-definition: none;" />
+                        </ui:VisualElement>
+                        <ui:VisualElement name="health" class="health">
+                            <ui:ProgressBar title="Health" name="health_progress_bar" style="-unity-font: resource(&apos;Fonts/Dosis-Bold&apos;); -unity-font-definition: none;" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
             <ui:VisualElement name="unit_types" class="unit_types">
                 <ui:VisualElement name="traveler_type" focusable="true" class="unit_type traveler">
                     <ui:Label text="0" display-tooltip-when-elided="true" name="traveler_type_count" class="unit_type__count" />

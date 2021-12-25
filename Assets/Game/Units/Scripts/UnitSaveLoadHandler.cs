@@ -7,13 +7,13 @@ namespace Game.Units
     [RequireComponent(typeof(UnitFacade))]
     public class UnitSaveLoadHandler : MonoBehaviour
     {
-        private UnitFacade _unitFacade;
+        private UnitFacade _unit;
 
         private UnitData _unitData;
 
         private void Awake()
         {
-            _unitFacade = GetComponent<UnitFacade>();
+            _unit = GetComponent<UnitFacade>();
         }
 
         private void Start()
@@ -26,7 +26,7 @@ namespace Game.Units
             _unitData.Id = DateTimeOffset.Now.ToUnixTimeMilliseconds().ToString() +
                            Random.Range(0, int.MaxValue);
 
-            _unitData.Type = _unitFacade.UnitType;
+            _unitData.Type = _unit.UnitType;
         }
 
         public void DestroySelf()

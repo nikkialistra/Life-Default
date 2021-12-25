@@ -1,20 +1,26 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/Resources/UI/Styles/GameLook.uss?fileID=7433441132597879392&amp;guid=295c2b0dcdb1e5f4fbcbc0c651a015ef&amp;type=3#GameLook" />
-    <ui:VisualElement name="unit_types" class="unit_types">
-        <ui:VisualElement name="traveler_type" focusable="true" class="unit_type traveler">
-            <ui:Label text="0" display-tooltip-when-elided="true" name="traveler_type_count" class="unit_type__count" />
-        </ui:VisualElement>
-        <ui:VisualElement name="lumberjack_type" class="unit_type lumberjack">
-            <ui:Label text="0" display-tooltip-when-elided="true" name="lumberjack_type_count" class="unit_type__count" />
-        </ui:VisualElement>
-        <ui:VisualElement name="mason_type" class="unit_type mason">
-            <ui:Label text="0" display-tooltip-when-elided="true" name="mason_type_count" class="unit_type__count" />
-        </ui:VisualElement>
-        <ui:VisualElement name="melee_type" class="unit_type melee">
-            <ui:Label text="0" display-tooltip-when-elided="true" name="melee_type_count" class="unit_type__count" />
-        </ui:VisualElement>
-        <ui:VisualElement name="archer_type" class="unit_type archer">
-            <ui:Label text="0" display-tooltip-when-elided="true" name="archer_type_count" class="unit_type__count" />
+    <ui:VisualElement name="root" picking-mode="Ignore" style="width: 1920px; height: 1080px; justify-content: flex-end;">
+        <ui:VisualElement name="bottom_panel" picking-mode="Ignore" class="bottom_panel">
+            <ui:VisualElement name="minimap" picking-mode="Ignore" class="minimap" />
+            <ui:VisualElement name="info_panel" class="info_panel" />
+            <ui:VisualElement name="unit_types" class="unit_types">
+                <ui:VisualElement name="traveler_type" focusable="true" class="unit_type traveler">
+                    <ui:Label text="0" display-tooltip-when-elided="true" name="traveler_type_count" class="unit_type__count" />
+                </ui:VisualElement>
+                <ui:VisualElement name="lumberjack_type" class="unit_type lumberjack">
+                    <ui:Label text="0" display-tooltip-when-elided="true" name="lumberjack_type_count" class="unit_type__count" />
+                </ui:VisualElement>
+                <ui:VisualElement name="mason_type" class="unit_type mason">
+                    <ui:Label text="0" display-tooltip-when-elided="true" name="mason_type_count" class="unit_type__count" />
+                </ui:VisualElement>
+                <ui:VisualElement name="melee_type" class="unit_type melee">
+                    <ui:Label text="0" display-tooltip-when-elided="true" name="melee_type_count" class="unit_type__count" />
+                </ui:VisualElement>
+                <ui:VisualElement name="archer_type" class="unit_type archer">
+                    <ui:Label text="0" display-tooltip-when-elided="true" name="archer_type_count" class="unit_type__count" />
+                </ui:VisualElement>
+            </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

@@ -1,7 +1,4 @@
 .unit_types {
-    position: absolute;
-    right: 50px;
-    bottom: 50px;
     width: 310px;
     height: 80px;
     background-color: rgba(255, 255, 255, 0);
@@ -103,4 +100,26 @@
 
 .archer.missing:hover {
     background-image: resource('UI/Sprites/UnitTypes/Archer');
+}
+
+.info_panel {
+    width: 400px;
+    height: 180px;
+    background-image: resource('UI/Sprites/Panels/InfoPanel');
+}
+
+.bottom_panel {
+    width: 1920px;
+    height: 400px;
+    align-items: flex-end;
+    justify-content: space-between;
+    flex-direction: row;
+    padding-right: 50px;
+    padding-bottom: 50px;
+    padding-left: 50px;
+}
+
+.minimap {
+    width: 300px;
+    height: 300px;
 }

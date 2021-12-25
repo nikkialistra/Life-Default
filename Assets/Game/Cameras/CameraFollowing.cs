@@ -1,5 +1,6 @@
 ﻿using System;
 using Game.Units;
+using Game.Units.Services;
 using Kernel.Types;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -19,15 +20,18 @@ namespace Game.Cameras
         
         private Camera _camera;
         private Vector3 _followLastPosition;
+
+        private UnitChoosing _unitChoosing;
         
         private PlayerInput _playerInput;
-        
+
         private InputAction _setFollowAction;
         private InputAction _positionAction;
 
         [Inject]
-        public void Construct(PlayerInput playerInput)
+        public void Construct(UnitChoosing unitChoosing, PlayerInput playerInput)
         {
+            _unitChoosing = unitChoosing;
             _playerInput = playerInput;
         }
         
@@ -42,11 +46,39 @@ namespace Game.Cameras
         private void OnEnable()
         {
             _setFollowAction.started += TryFollow;
+            _unitChoosing.UnitChosen += SetFollow;
         }
 
         private void OnDisable()
         {
             _setFollowAction.started -= TryFollow;
+            _unitChoosing.UnitChosen -= SetFollow;
+        }
+
+        private void TryFollow(InputAction.CallbackContext context)
+        {
+            var screenPoint = _positionAction.ReadValue<Vector2>();
+            var ray = _camera.ScreenPointToRay(screenPoint);
+
+            if (Physics.Raycast(ray, out var hit))
+            {
+                if (hit.transform.gameObject.TryGetComponent<UnitFacade>(out var unit))
+                {
+                    SetFollow(unit);
+                }
+                else
+                {
+                    ResetFollow();
+                }
+            }
+        }
+
+        private void SetFollow(UnitFacade unit)
+        {
+            _followTransform = unit.transform;
+            UpdateCameraPosition();
+            _followLastPosition = _followTransform.position;
+            Following = true;
         }
 
         public Vector3 GetDeltaFollowPosition()
@@ -59,27 +91,6 @@ namespace Game.Cameras
             var delta = _followTransform.position - _followLastPosition;
             _followLastPosition = _followTransform.position;
             return delta;
-        }
-
-        private void TryFollow(InputAction.CallbackContext context)
-        {
-            var screenPoint = _positionAction.ReadValue<Vector2>();
-            var ray = _camera.ScreenPointToRay(screenPoint);
-
-            if (Physics.Raycast(ray, out var hit))
-            {
-                if (hit.transform.gameObject.GetComponent<UnitFacade>() != null)
-                {
-                    _followTransform = hit.transform;
-                    UpdateCameraPosition();
-                    _followLastPosition = _followTransform.position;
-                    Following = true;
-                }
-                else
-                {
-                    ResetFollow();
-                }
-            }
         }
 
         private void UpdateCameraPosition()

@@ -23,12 +23,12 @@ namespace Game.Units
             UnitSaveLoadHandler = GetComponent<UnitSaveLoadHandler>();
         }
 
-        public void OnSelect()
+        public void Select()
         {
             _selectionIndicator.SetActive(true);
         }
 
-        public void OnDeselect()
+        public void Deselect()
         {
             _selectionIndicator.SetActive(false);
         }

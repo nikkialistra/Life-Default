@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
 
 namespace Game.Units.Services
 {
@@ -23,24 +22,34 @@ namespace Game.Units.Services
             var allUnits = _unitRepository.GetObjects();
             foreach (var unit in allUnits)
             {
-                unit.OnDeselect();
+                unit.Deselect();
             }
         }
 
         public void Set(IEnumerable<UnitFacade> units)
         {
             Units = units as UnitFacade[] ?? units.ToArray();
-            
+            UpdateSelectionStatuses();
+        }
+
+        public void Set(UnitFacade unit)
+        {
+            Units = new[] { unit };
+            UpdateSelectionStatuses();
+        }
+
+        private void UpdateSelectionStatuses()
+        {
             var allUnits = _unitRepository.GetObjects();
-            
+
             foreach (var deselected in allUnits.Except(Units))
             {
-                deselected.OnDeselect();
+                deselected.Deselect();
             }
 
             foreach (var selected in Units)
             {
-                selected.OnSelect();
+                selected.Select();
             }
         }
     }

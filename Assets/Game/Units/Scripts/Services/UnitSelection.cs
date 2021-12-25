@@ -56,12 +56,12 @@ namespace Game.Units.Services
             var newSelectedArray = newSelected as UnitFacade[] ?? newSelected.ToArray();
             foreach (var willDeselect in _selectedUnits.Units.Except(newSelectedArray))
             {
-                willDeselect.OnDeselect();
+                willDeselect.Deselect();
             }
 
             foreach (var selected in newSelectedArray)
             {
-                selected.OnSelect();
+                selected.Select();
             }
 
             _selectedUnits.Set(newSelectedArray);

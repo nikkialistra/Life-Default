@@ -27,6 +27,8 @@ namespace Infrastructure
         [SerializeField] private SelectionInput _selectionInput;
         [Required]
         [SerializeField] private RectTransform _selectionRect;
+        [Required] 
+        [SerializeField] private UnitChoosing _unitChoosing;
         [Required]
         [SerializeField] private Canvas _uiCanvas;
 
@@ -90,6 +92,7 @@ namespace Infrastructure
             Container.BindInstance(_unitSelection);
             Container.BindInstance(_selectionInput);
             Container.Bind<SelectionArea>().AsSingle().WithArguments(_selectionRect, _uiCanvas);
+            Container.BindInstance(_unitChoosing);
         }
 
         private void BindTargeting()

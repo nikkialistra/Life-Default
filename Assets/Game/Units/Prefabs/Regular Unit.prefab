@@ -120,6 +120,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _unitType: 0
+  _name: 
+  _maxHealth: 100
   _selectionIndicator: {fileID: 4193433063766312865}
 --- !u!114 &5226791745306163455
 MonoBehaviour:

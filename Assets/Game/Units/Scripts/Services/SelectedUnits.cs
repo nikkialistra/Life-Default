@@ -1,16 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Kernel.UI.Game;
 
 namespace Game.Units.Services
 {
     public class SelectedUnits
     {
         private readonly UnitRepository _unitRepository;
+        private InfoPanelView _infoPanelView;
 
-        public SelectedUnits(UnitRepository unitRepository)
+        public SelectedUnits(UnitRepository unitRepository, InfoPanelView infoPanelView)
         {
             _unitRepository = unitRepository;
+            _infoPanelView = infoPanelView;
         }
         
         public IEnumerable<UnitFacade> Units { get; private set; } = Array.Empty<UnitFacade>();
@@ -35,6 +38,7 @@ namespace Game.Units.Services
         public void Set(UnitFacade unit)
         {
             Units = new[] { unit };
+            _infoPanelView.SetUnit(unit);
             UpdateSelectionStatuses();
         }
 

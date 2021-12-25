@@ -103,9 +103,19 @@
 }
 
 .info_panel {
-    width: 450px;
+    width: 520px;
     height: 180px;
     background-image: resource('UI/Sprites/Panels/InfoPanel');
+    flex-direction: row;
+    align-items: center;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.not_displayed {
+    display: none;
 }
 
 .bottom_panel {
@@ -125,7 +135,29 @@
 }
 
 .unity-progress-bar__background {
-    height: 15px;
+    background-color: rgb(48, 48, 48);
+    border-color: rgb(37, 37, 37);
+}
+
+.unity-progress-bar__container {
+    min-height: 19px;
+    max-height: 19px;
+}
+
+.unity-progress-bar__title {
+    padding: 0;
+}
+
+.unity-progress-bar Label {
+    color: white;
+    padding-bottom: 3px;
+    font-size: 11px;
+    -unity-text-align: middle-center;
+}
+
+.unity-progress-bar__progress {
+    margin: 1px;
+    background-color: rgb(44, 93, 135);
 }
 
 .info_image {
@@ -145,13 +177,47 @@
 
 .nomination {
     height: 20px;
-    width: 140px;
+    width: 200px;
     flex-direction: row;
-    padding-bottom: 2px;
+    padding-bottom: 4px;
 }
 
 .health {
     height: 25px;
-    width: 140px;
+    width: 200px;
     justify-content: center;
+}
+
+.entity_type {
+    width: 100px;
+    -unity-font: resource('Fonts/Dosis-Bold');
+    font-size: 18px;
+    -unity-text-align: middle-left;
+    color: rgb(0, 0, 0);
+    -unity-font-definition: none;
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-left: 4px;
+    padding-right: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.entity_name {
+    width: 100px;
+    -unity-font: resource('Fonts/Dosis-Bold');
+    font-size: 16px;
+    -unity-text-align: middle-left;
+    color: rgb(60, 60, 60);
+    -unity-font-definition: none;
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-left: 4px;
+    padding-right: 0;
+    padding-top: 0;
+    padding-bottom: 0;
 }

@@ -89,7 +89,7 @@ namespace Kernel.Targeting
         {
             foreach (var unit in _selectedUnits.Units)
             {
-                var targetable = unit.GameObject.GetComponent<ITargetable>();
+                var targetable = unit.GetComponent<ITargetable>();
                 if (targetable == null)
                 {
                     continue;

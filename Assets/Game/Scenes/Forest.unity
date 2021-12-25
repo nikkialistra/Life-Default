@@ -1427,6 +1427,7 @@ MonoBehaviour:
   _unitRoot: {fileID: 1496406937}
   _gameViews: {fileID: 1502504551}
   _unitTypesView: {fileID: 1502504550}
+  _infoPanelView: {fileID: 1502504552}
   _unitsSaveLoadHandler: {fileID: 692575793}
   _savingLoadingGame: {fileID: 2126507202}
 --- !u!1001 &321978266
@@ -6613,6 +6614,7 @@ GameObject:
   - component: {fileID: 1502504549}
   - component: {fileID: 1502504551}
   - component: {fileID: 1502504550}
+  - component: {fileID: 1502504552}
   m_Layer: 0
   m_Name: GameLook
   m_TagString: Untagged
@@ -6677,6 +6679,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _unitTypesView: {fileID: 1502504550}
+--- !u!114 &1502504552
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1502504547}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90b9eb5d5ab942fbba236e496dde8596, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1503406661
 GameObject:
   m_ObjectHideFlags: 0

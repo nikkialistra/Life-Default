@@ -17,14 +17,16 @@ namespace Game.Units.Selecting
         private UnitsRepository _unitsRepository;
         private SelectedUnits _selectedUnits;
 
-        private readonly Dictionary<UnitType, int> _lastSelectedUnitByType = new(); 
+        private readonly Dictionary<UnitType, int> _lastSelectedUnitByType = new();
+        private InfoPanelView _infoPanelView;
 
         [Inject]
-        public void Construct(UnitTypesView unitTypesView, UnitsRepository unitsRepository, SelectedUnits selectedUnits)
+        public void Construct(UnitTypesView unitTypesView, InfoPanelView infoPanelView, UnitsRepository unitsRepository, SelectedUnits selectedUnits)
         {
-            _selectedUnits = selectedUnits;
-            _unitsRepository = unitsRepository;
             _unitTypesView = unitTypesView;
+            _infoPanelView = infoPanelView;
+            _unitsRepository = unitsRepository;
+            _selectedUnits = selectedUnits;
         }
 
         private void Awake()
@@ -34,13 +36,17 @@ namespace Game.Units.Selecting
 
         private void OnEnable()
         {
-            _unitTypesView.LeftClick += ChooseUnit;
+            _infoPanelView.UnitIconClick += ChooseUnit;
+            
+            _unitTypesView.LeftClick += ChooseUnitByType;
             _unitTypesView.RightClick += ChooseUnits;
         }
 
         private void OnDisable()
         {
-            _unitTypesView.LeftClick -= ChooseUnit;
+            _infoPanelView.UnitIconClick -= ChooseUnit;
+            
+            _unitTypesView.LeftClick -= ChooseUnitByType;
             _unitTypesView.RightClick -= ChooseUnits;
         }
 
@@ -52,7 +58,12 @@ namespace Game.Units.Selecting
             }
         }
 
-        private void ChooseUnit(UnitType unitType)
+        private void ChooseUnit(UnitFacade unit)
+        {
+            _selectedUnits.Set(unit);
+        }
+
+        private void ChooseUnitByType(UnitType unitType)
         {
             var units = _unitsRepository.GetObjectsByType(unitType).ToArray();
             

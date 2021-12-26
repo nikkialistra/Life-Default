@@ -38,20 +38,20 @@ namespace Game.UI.Game
 
         private void OnEnable()
         {
-            _travelerType.RegisterCallback<MouseDownEvent, EventArgs>(OnMouseDownEvent, new EventArgs { Sender = _travelerType, UnitType = UnitType.Traveler });
-            _lumberjackType.RegisterCallback<MouseDownEvent, EventArgs>(OnMouseDownEvent, new EventArgs { Sender = _travelerType, UnitType = UnitType.Lumberjack });
-            _masonType.RegisterCallback<MouseDownEvent, EventArgs>(OnMouseDownEvent, new EventArgs { Sender = _travelerType, UnitType = UnitType.Mason });
-            _meleeType.RegisterCallback<MouseDownEvent, EventArgs>(OnMouseDownEvent, new EventArgs { Sender = _travelerType, UnitType = UnitType.Melee });
-            _archerType.RegisterCallback<MouseDownEvent, EventArgs>(OnMouseDownEvent, new EventArgs { Sender = _travelerType, UnitType = UnitType.Archer });
+            _travelerType.RegisterCallback<MouseDownEvent, EventArgs>(TypeOnMouseDownEvent, new EventArgs { Sender = _travelerType, UnitType = UnitType.Traveler });
+            _lumberjackType.RegisterCallback<MouseDownEvent, EventArgs>(TypeOnMouseDownEvent, new EventArgs { Sender = _travelerType, UnitType = UnitType.Lumberjack });
+            _masonType.RegisterCallback<MouseDownEvent, EventArgs>(TypeOnMouseDownEvent, new EventArgs { Sender = _travelerType, UnitType = UnitType.Mason });
+            _meleeType.RegisterCallback<MouseDownEvent, EventArgs>(TypeOnMouseDownEvent, new EventArgs { Sender = _travelerType, UnitType = UnitType.Melee });
+            _archerType.RegisterCallback<MouseDownEvent, EventArgs>(TypeOnMouseDownEvent, new EventArgs { Sender = _travelerType, UnitType = UnitType.Archer });
         }
 
         private void OnDisable()
         {
-            _travelerType.UnregisterCallback<MouseDownEvent, EventArgs>(OnMouseDownEvent);
-            _lumberjackType.UnregisterCallback<MouseDownEvent, EventArgs>(OnMouseDownEvent);
-            _masonType.UnregisterCallback<MouseDownEvent, EventArgs>(OnMouseDownEvent);
-            _meleeType.UnregisterCallback<MouseDownEvent, EventArgs>(OnMouseDownEvent);
-            _archerType.UnregisterCallback<MouseDownEvent, EventArgs>(OnMouseDownEvent);
+            _travelerType.UnregisterCallback<MouseDownEvent, EventArgs>(TypeOnMouseDownEvent);
+            _lumberjackType.UnregisterCallback<MouseDownEvent, EventArgs>(TypeOnMouseDownEvent);
+            _masonType.UnregisterCallback<MouseDownEvent, EventArgs>(TypeOnMouseDownEvent);
+            _meleeType.UnregisterCallback<MouseDownEvent, EventArgs>(TypeOnMouseDownEvent);
+            _archerType.UnregisterCallback<MouseDownEvent, EventArgs>(TypeOnMouseDownEvent);
         }
 
         public void ChangeUnitTypeCount(UnitType unitType, float count)
@@ -75,7 +75,7 @@ namespace Game.UI.Game
             }
         }
 
-        private void OnMouseDownEvent(MouseDownEvent mouseDownEvent, EventArgs eventArgs)
+        private void TypeOnMouseDownEvent(MouseDownEvent mouseDownEvent, EventArgs eventArgs)
         {
             if (mouseDownEvent.button == 0)
             {

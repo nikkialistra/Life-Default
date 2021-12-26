@@ -10,6 +10,8 @@ namespace Game.UI.Game
     [RequireComponent(typeof(UIDocument))]
     public class InfoPanelView : MonoBehaviour
     {
+        public event Action<UnitFacade> UnitIconClick;
+        
         [Title("Previews")]
         [Required]
         [SerializeField] private Texture2D _travelerPreview;
@@ -54,8 +56,12 @@ namespace Game.UI.Game
         private ProgressBar _oneUnitHealth;
 
         private Label _multipleUnitsCount;
-        
+
         private List<TemplateContainer> _unitIconComponents;
+        private List<VisualElement> _unitIconRoots;
+        private List<VisualElement> _unitIconImages;
+        private List<VisualElement> _unitIconHealths;
+        private List<ProgressBar> _unitIconProgressBars;
 
         private UnitFacade _unit;
         private List<UnitFacade> _units;
@@ -79,6 +85,15 @@ namespace Game.UI.Game
             _infoPanel.AddToClassList("not-displayed");
             _oneUnitDescription.AddToClassList("not-displayed");
             _multipleUnitsDescription.AddToClassList("not-displayed");
+        }
+
+        private void OnDestroy()
+        {
+            for (int i = 0; i < _maximumUnitIconsShowing; i++)
+            {
+                var iconRoot = _unitIconRoots[i];
+                iconRoot.UnregisterCallback<MouseDownEvent, UnitFacade>(IconOnMouseDownEvent);
+            }
         }
 
         public void SetUnits(List<UnitFacade> units)
@@ -127,11 +142,20 @@ namespace Game.UI.Game
         private void InitializeUnitIconComponentPool()
         {
             _unitIconComponents = new List<TemplateContainer>(_maximumUnitIconsShowing);
+            _unitIconRoots = new List<VisualElement>(_maximumUnitIconsShowing);
+            _unitIconImages = new List<VisualElement>(_maximumUnitIconsShowing);
+            _unitIconHealths = new List<VisualElement>(_maximumUnitIconsShowing);
+            _unitIconProgressBars = new List<ProgressBar>(_maximumUnitIconsShowing);
 
             var unitIconComponent = Resources.Load<VisualTreeAsset>("UI/Markup/Components/UnitIcon");
             for (var i = 0; i < _maximumUnitIconsShowing; i++)
             {
-                _unitIconComponents.Add(unitIconComponent.CloneTree());
+                var tree = unitIconComponent.CloneTree();
+                _unitIconComponents.Add(tree);
+                _unitIconRoots.Add(tree.Q<VisualElement>("icon"));
+                _unitIconImages.Add(tree.Q<VisualElement>("icon__image"));
+                _unitIconHealths.Add(tree.Q<VisualElement>("icon__health"));
+                _unitIconProgressBars.Add(tree.Q<ProgressBar>("multiple-units-health__progress-bar"));
             }
         }
 
@@ -209,22 +233,42 @@ namespace Game.UI.Game
             _units.Sort((x,y) =>
                 x.UnitType.CompareTo(y.UnitType));
             
+            ShowUnitsIcons();
+        }
+
+        private void ShowUnitsIcons()
+        {
             _multipleUnitsDescriptionBottom.Clear();
 
-            for (var i = 0; i < _units.Count; i++)
+            var iconsToShow = _units.Count <= _maximumUnitIconsShowing ? _units.Count : _maximumUnitIconsShowing;
+
+            for (var i = 0; i < iconsToShow; i++)
             {
                 var unit = _units[i];
                 var icon = _unitIconComponents[i];
-                
-                SetUpIcon(icon, unit);
+
+                SetUpIcon(icon);
+                SetUpIconClickEvent(unit, i);
+                SetUpIconImage(unit, i);
+                SetUpIconHealth(unit, i);
             }
         }
 
-        private void SetUpIcon(TemplateContainer icon, UnitFacade unit)
+        private void SetUpIcon(TemplateContainer icon)
         {
             _multipleUnitsDescriptionBottom.Add(icon);
-            
-            var iconImage = icon.Q<VisualElement>("icon__image");
+        }
+
+        private void SetUpIconClickEvent(UnitFacade unit, int index)
+        {
+            var iconRoot = _unitIconRoots[index];
+            iconRoot.UnregisterCallback<MouseDownEvent, UnitFacade>(IconOnMouseDownEvent);
+            iconRoot.RegisterCallback<MouseDownEvent, UnitFacade>(IconOnMouseDownEvent, unit);
+        }
+
+        private void SetUpIconImage(UnitFacade unit, int index)
+        {
+            var iconImage = _unitIconImages[index];
             iconImage.style.backgroundImage = unit.UnitType switch
             {
                 UnitType.Traveler => new StyleBackground(_travelerIcon),
@@ -234,9 +278,17 @@ namespace Game.UI.Game
                 UnitType.Archer => new StyleBackground(_archerIcon),
                 _ => throw new ArgumentOutOfRangeException()
             };
-            
-            var iconHealth = icon.Q<ProgressBar>("multiple-units-health__progress-bar");
+        }
+
+        private void SetUpIconHealth(UnitFacade unit, int index)
+        {
+            var iconHealth = _unitIconProgressBars[index];
             iconHealth.value = unit.Health;
+        }
+
+        private void IconOnMouseDownEvent(MouseDownEvent mouseDownEvent, UnitFacade unit)
+        {
+            UnitIconClick?.Invoke(unit);
         }
     }
 }

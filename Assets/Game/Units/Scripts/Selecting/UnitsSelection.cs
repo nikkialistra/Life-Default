@@ -1,17 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using Game.Units.Unit;
 using Kernel.Selection;
 using UnityEngine;
 using Zenject;
 
-namespace Game.Units.Services
+namespace Game.Units.Selecting
 {
-    public class UnitSelection : MonoBehaviour
+    public class UnitsSelection : MonoBehaviour
     {
         [SerializeField] private float _doubleClickDeltaTime;
 
-        private UnitSelecting _selecting;
+        private UnitsSelecting _selecting;
         private SelectionInput _selectionInput;
         private SelectionArea _selectionArea;
         private SelectedUnits _selectedUnits;
@@ -19,7 +19,7 @@ namespace Game.Units.Services
         private float _lastClickTime;
 
         [Inject]
-        public void Construct(UnitSelecting selecting, SelectionInput selectionInput, SelectionArea selectionArea, SelectedUnits selectedUnits)
+        public void Construct(UnitsSelecting selecting, SelectionInput selectionInput, SelectionArea selectionArea, SelectedUnits selectedUnits)
         {
             _selectedUnits = selectedUnits;
             _selecting = selecting;

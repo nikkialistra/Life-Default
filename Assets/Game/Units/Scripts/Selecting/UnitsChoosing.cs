@@ -1,27 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Game.Units.Services;
+using Game.Units.Unit;
 using Kernel.UI.Game;
 using UnityEngine;
 using Zenject;
 
-namespace Game.Units.Services
+namespace Game.Units.Selecting
 {
-    public class UnitChoosing : MonoBehaviour
+    public class UnitsChoosing : MonoBehaviour
     {
         public Action<UnitFacade> UnitChosen;
 
         private UnitTypesView _unitTypesView;
-        private UnitRepository _unitRepository;
+        private UnitsRepository _unitsRepository;
         private SelectedUnits _selectedUnits;
 
         private readonly Dictionary<UnitType, int> _lastSelectedUnitByType = new(); 
 
         [Inject]
-        public void Construct(UnitTypesView unitTypesView, UnitRepository unitRepository, SelectedUnits selectedUnits)
+        public void Construct(UnitTypesView unitTypesView, UnitsRepository unitsRepository, SelectedUnits selectedUnits)
         {
             _selectedUnits = selectedUnits;
-            _unitRepository = unitRepository;
+            _unitsRepository = unitsRepository;
             _unitTypesView = unitTypesView;
         }
 
@@ -52,7 +54,7 @@ namespace Game.Units.Services
 
         private void ChooseUnit(UnitType unitType)
         {
-            var units = _unitRepository.GetObjectsByType(unitType).ToArray();
+            var units = _unitsRepository.GetObjectsByType(unitType).ToArray();
             
             if (units.Length == 0)
             {
@@ -85,7 +87,7 @@ namespace Game.Units.Services
 
         private void ChooseUnits(UnitType unitType)
         {
-            var units = _unitRepository.GetObjectsByType(unitType).ToArray();
+            var units = _unitsRepository.GetObjectsByType(unitType).ToArray();
 
             if (units.Length != 0)
             {

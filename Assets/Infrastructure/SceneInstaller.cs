@@ -1,6 +1,8 @@
 ﻿using Game.Cameras;
 using Game.Units;
+using Game.Units.Selecting;
 using Game.Units.Services;
+using Game.Units.Unit;
 using Kernel.Saving;
 using Kernel.Saving.Serialization;
 using Kernel.Selection;
@@ -22,13 +24,13 @@ namespace Infrastructure
 
         [Title("Selection")] 
         [Required]
-        [SerializeField] private UnitSelection _unitSelection;
+        [SerializeField] private UnitsSelection _unitsSelection;
         [Required]
         [SerializeField] private SelectionInput _selectionInput;
         [Required]
         [SerializeField] private RectTransform _selectionRect;
         [Required] 
-        [SerializeField] private UnitChoosing _unitChoosing;
+        [SerializeField] private UnitsChoosing _unitsChoosing;
         [Required]
         [SerializeField] private Canvas _uiCanvas;
 
@@ -46,11 +48,11 @@ namespace Infrastructure
         [Required]
         [SerializeField] private GameObject _unitPrefab;
         [Required]
-        [SerializeField] private UnitTypeCounts _unitTypeCounts;
+        [SerializeField] private UnitsTypeCounts _unitsTypeCounts;
         
         [Title("Services")]
         [Required]
-        [SerializeField] private UnitRepository _unitRepository;
+        [SerializeField] private UnitsRepository _unitsRepository;
 
         [Title("Spawning")] 
         [Required] 
@@ -91,15 +93,15 @@ namespace Infrastructure
         private void BindUnitSelectionSystem()
         {
             Container.Bind<SelectedUnits>().AsSingle();
-            Container.BindInstance(_unitSelection);
+            Container.BindInstance(_unitsSelection);
             Container.BindInstance(_selectionInput);
             Container.Bind<SelectionArea>().AsSingle().WithArguments(_selectionRect, _uiCanvas);
-            Container.BindInstance(_unitChoosing);
+            Container.BindInstance(_unitsChoosing);
         }
 
         private void BindTargeting()
         {
-            Container.Bind<UnitSelecting>().AsSingle();
+            Container.Bind<UnitsSelecting>().AsSingle();
             Container.BindInstance(_movementCommand);
             Container.BindInstance(_pool).AsSingle();
             Container.BindInstance(_targetPrefab).WhenInjectedInto<TargetPool>();
@@ -108,19 +110,19 @@ namespace Infrastructure
 
         private void BindUnitRepository()
         {
-            Container.BindInstance(_unitRepository).AsSingle();
+            Container.BindInstance(_unitsRepository).AsSingle();
         }
 
         private void BindUnitTypeCounts()
         {
-            Container.BindInstance(_unitTypeCounts);
+            Container.BindInstance(_unitsTypeCounts);
         }
 
         private void BindUnitSpawning()
         {
             Container.BindFactory<UnitFacade, UnitFacade.Factory>().FromComponentInNewPrefab(_unitPrefab)
                 .UnderTransform(_unitRoot);
-            Container.BindInterfacesTo<UnitGenerator>().AsSingle().NonLazy();
+            Container.BindInterfacesTo<UnitsGenerator>().AsSingle().NonLazy();
         }
 
         private void BindUi()

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Game.Units;
+using Game.Units.Unit;
 
 namespace Kernel.Saving
 {

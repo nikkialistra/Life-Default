@@ -1,18 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Game.Units.Services;
+using Game.Units.Unit;
 using Kernel.UI.Game;
 
-namespace Game.Units.Services
+namespace Game.Units.Selecting
 {
     public class SelectedUnits
     {
-        private readonly UnitRepository _unitRepository;
+        private readonly UnitsRepository _unitsRepository;
         private InfoPanelView _infoPanelView;
 
-        public SelectedUnits(UnitRepository unitRepository, InfoPanelView infoPanelView)
+        public SelectedUnits(UnitsRepository unitsRepository, InfoPanelView infoPanelView)
         {
-            _unitRepository = unitRepository;
+            _unitsRepository = unitsRepository;
             _infoPanelView = infoPanelView;
         }
         
@@ -22,7 +24,7 @@ namespace Game.Units.Services
         {
             Units = Array.Empty<UnitFacade>();
             
-            var allUnits = _unitRepository.GetObjects();
+            var allUnits = _unitsRepository.GetObjects();
             foreach (var unit in allUnits)
             {
                 unit.Deselect();
@@ -44,7 +46,7 @@ namespace Game.Units.Services
 
         private void UpdateSelectionStatuses()
         {
-            var allUnits = _unitRepository.GetObjects();
+            var allUnits = _unitsRepository.GetObjects();
 
             foreach (var deselected in allUnits.Except(Units))
             {

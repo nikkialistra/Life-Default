@@ -1328,10 +1328,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _camera: {fileID: 1257269096}
   _playerInput: {fileID: 1763958284}
-  _unitSelection: {fileID: 1654018683}
+  _unitsSelection: {fileID: 1654018683}
   _selectionInput: {fileID: 1002004461}
   _selectionRect: {fileID: 460316685}
-  _unitChoosing: {fileID: 787613333}
+  _unitsChoosing: {fileID: 787613333}
   _uiCanvas: {fileID: 460316684}
   _movementCommand: {fileID: 985616193}
   _pool: {fileID: 936167683}
@@ -1340,8 +1340,8 @@ MonoBehaviour:
   _targetParent: {fileID: 1516199747}
   _unitPrefab: {fileID: 5254883410760144400, guid: e2dfc762404c44f428ced3bb4fb85999,
     type: 3}
-  _unitTypeCounts: {fileID: 764602377}
-  _unitRepository: {fileID: 2051572251}
+  _unitsTypeCounts: {fileID: 764602377}
+  _unitsRepository: {fileID: 2051572251}
   _unitRoot: {fileID: 1496406937}
   _gameViews: {fileID: 1502504551}
   _unitTypesView: {fileID: 1502504550}
@@ -3157,7 +3157,7 @@ GameObject:
   - component: {fileID: 764602376}
   - component: {fileID: 764602377}
   m_Layer: 0
-  m_Name: Unit Types Counts
+  m_Name: Units Types Counts
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3190,7 +3190,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5bd3b5b728c44b798b7477d30c66067, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _unitRepository: {fileID: 2051572251}
+  _unitsRepository: {fileID: 0}
 --- !u!1 &783972465
 GameObject:
   m_ObjectHideFlags: 0
@@ -3261,7 +3261,7 @@ GameObject:
   - component: {fileID: 787613332}
   - component: {fileID: 787613333}
   m_Layer: 0
-  m_Name: Unit Choosing
+  m_Name: Units Choosing
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7301,7 +7301,7 @@ GameObject:
   - component: {fileID: 1654018682}
   - component: {fileID: 1654018683}
   m_Layer: 0
-  m_Name: Unit Selection
+  m_Name: Units Selection
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9173,7 +9173,7 @@ GameObject:
   - component: {fileID: 2051572250}
   - component: {fileID: 2051572251}
   m_Layer: 0
-  m_Name: Unit Repository
+  m_Name: Units Repository
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

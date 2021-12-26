@@ -1,5 +1,6 @@
 ﻿using Game.Units;
 using Game.Units.Services;
+using Game.Units.Unit;
 using Kernel.UI.Game;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -16,14 +17,14 @@ namespace Kernel.UI
 
         public bool MouseOverUi { get; private set; }
 
-        private UnitTypeCounts _unitTypeCounts;
+        private UnitsTypeCounts _unitsTypeCounts;
 
         private VisualElement _root;
 
         [Inject]
-        public void Construct(UnitTypeCounts unitTypeCounts)
+        public void Construct(UnitsTypeCounts unitsTypeCounts)
         {
-            _unitTypeCounts = unitTypeCounts;
+            _unitsTypeCounts = unitsTypeCounts;
         }
 
         private void Awake()
@@ -33,7 +34,7 @@ namespace Kernel.UI
 
         private void OnEnable()
         {
-            _unitTypeCounts.UnitTypeCountChange += ChangeUnitTypeCount;
+            _unitsTypeCounts.UnitTypeCountChange += ChangeUnitsTypeCount;
             
             _root.RegisterCallback<MouseOverEvent, bool>(SetMouseOverUi, true);
             _root.RegisterCallback<MouseLeaveEvent, bool>(SetMouseOverUi, false);
@@ -41,7 +42,7 @@ namespace Kernel.UI
 
         private void OnDisable()
         {
-            _unitTypeCounts.UnitTypeCountChange -= ChangeUnitTypeCount;
+            _unitsTypeCounts.UnitTypeCountChange -= ChangeUnitsTypeCount;
             
             _root.UnregisterCallback<MouseOverEvent, bool>(SetMouseOverUi);
             _root.UnregisterCallback<MouseLeaveEvent, bool>(SetMouseOverUi);
@@ -52,7 +53,7 @@ namespace Kernel.UI
             MouseOverUi = value;
         }
 
-        private void ChangeUnitTypeCount(UnitType unitType, float count)
+        private void ChangeUnitsTypeCount(UnitType unitType, float count)
         {
             _unitTypesView.ChangeUnitTypeCount(unitType, count);
         }

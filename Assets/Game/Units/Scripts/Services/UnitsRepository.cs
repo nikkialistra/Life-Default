@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
+using Game.Units.Unit;
 using UnityEngine;
 
 namespace Game.Units.Services
 {
-    public class UnitRepository : MonoBehaviour
+    public class UnitsRepository : MonoBehaviour
     {
         private IEnumerable<UnitFacade> _units;
 

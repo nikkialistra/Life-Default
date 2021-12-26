@@ -1,4 +1,5 @@
 ﻿using System;
+using Game.Units.Selecting;
 using Kernel.Saving;
 using Kernel.Targeting;
 
@@ -7,15 +8,15 @@ namespace Game.Units.Services
     public class UnitsResetting : IDisposable
     {
         private SavingLoadingGame _savingLoadingGame;
-        private UnitRepository _unitRepository;
-        private UnitSelection _unitSelection;
+        private UnitsRepository _unitsRepository;
+        private UnitsSelection _unitsSelection;
         private TargetPool _targetPool;
 
-        public UnitsResetting(SavingLoadingGame savingLoadingGame, UnitRepository unitRepository, UnitSelection unitSelection, TargetPool targetPool)
+        public UnitsResetting(SavingLoadingGame savingLoadingGame, UnitsRepository unitsRepository, UnitsSelection unitsSelection, TargetPool targetPool)
         {
-            _unitSelection = unitSelection;
+            _unitsSelection = unitsSelection;
             _targetPool = targetPool;
-            _unitRepository = unitRepository;
+            _unitsRepository = unitsRepository;
             _savingLoadingGame = savingLoadingGame;
 
             _savingLoadingGame.Loading += Reset;
@@ -24,8 +25,8 @@ namespace Game.Units.Services
         private void Reset()
         {
             _targetPool.OffAll();
-            _unitSelection.ClearSelection();
-            _unitRepository.ResetObjects();
+            _unitsSelection.ClearSelection();
+            _unitsRepository.ResetObjects();
         }
 
         public void Dispose()

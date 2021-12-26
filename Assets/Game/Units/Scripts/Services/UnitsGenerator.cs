@@ -1,15 +1,16 @@
-﻿using UnityEngine;
+﻿using Game.Units.Unit;
+using UnityEngine;
 using Zenject;
 
 namespace Game.Units.Services
 {
-    public class UnitGenerator : ITickable
+    public class UnitsGenerator : ITickable
     {
         private readonly UnitFacade.Factory _factory;
 
         private Vector3 _lastUnitPosition = Vector3.zero;
 
-        public UnitGenerator(UnitFacade.Factory factory)
+        public UnitsGenerator(UnitFacade.Factory factory)
         {
             _factory = factory;
         }

@@ -1,24 +1,26 @@
 ﻿using System.Collections.Generic;
+using Game.Units.Services;
+using Game.Units.Unit;
 using UnityEngine;
 
-namespace Game.Units.Services
+namespace Game.Units.Selecting
 {
-    public class UnitSelecting
+    public class UnitsSelecting
     {
-        private readonly UnitRepository _unitRepository;
+        private readonly UnitsRepository _unitsRepository;
         private readonly Camera _camera;
 
         private IEnumerable<UnitFacade> _units;
 
-        public UnitSelecting(UnitRepository unitRepository, Camera camera)
+        public UnitsSelecting(UnitsRepository unitsRepository, Camera camera)
         {
-            _unitRepository = unitRepository;
+            _unitsRepository = unitsRepository;
             _camera = camera;
         }
 
         public IEnumerable<UnitFacade> SelectFromRect(Rect rect)
         {
-            _units = _unitRepository.GetObjects();
+            _units = _unitsRepository.GetObjects();
             
             foreach (var unit in _units)
             {
@@ -45,7 +47,7 @@ namespace Game.Units.Services
 
         public IEnumerable<UnitFacade> SelectByType(UnitType unitType)
         {
-            _units = _unitRepository.GetObjects();
+            _units = _unitsRepository.GetObjects();
 
             foreach (var unit in _units)
             {

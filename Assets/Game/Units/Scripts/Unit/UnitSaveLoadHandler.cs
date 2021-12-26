@@ -2,7 +2,7 @@
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace Game.Units
+namespace Game.Units.Unit
 {
     [RequireComponent(typeof(UnitFacade))]
     public class UnitSaveLoadHandler : MonoBehaviour

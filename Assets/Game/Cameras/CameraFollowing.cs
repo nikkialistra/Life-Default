@@ -1,6 +1,8 @@
 ﻿using System;
 using Game.Units;
+using Game.Units.Selecting;
 using Game.Units.Services;
+using Game.Units.Unit;
 using Kernel.Types;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -21,7 +23,7 @@ namespace Game.Cameras
         private Camera _camera;
         private Vector3 _followLastPosition;
 
-        private UnitChoosing _unitChoosing;
+        private UnitsChoosing _unitsChoosing;
         
         private PlayerInput _playerInput;
 
@@ -29,9 +31,9 @@ namespace Game.Cameras
         private InputAction _positionAction;
 
         [Inject]
-        public void Construct(UnitChoosing unitChoosing, PlayerInput playerInput)
+        public void Construct(UnitsChoosing unitsChoosing, PlayerInput playerInput)
         {
-            _unitChoosing = unitChoosing;
+            _unitsChoosing = unitsChoosing;
             _playerInput = playerInput;
         }
         
@@ -46,13 +48,13 @@ namespace Game.Cameras
         private void OnEnable()
         {
             _setFollowAction.started += TryFollow;
-            _unitChoosing.UnitChosen += SetFollow;
+            _unitsChoosing.UnitChosen += SetFollow;
         }
 
         private void OnDisable()
         {
             _setFollowAction.started -= TryFollow;
-            _unitChoosing.UnitChosen -= SetFollow;
+            _unitsChoosing.UnitChosen -= SetFollow;
         }
 
         private void TryFollow(InputAction.CallbackContext context)

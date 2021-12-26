@@ -1,10 +1,10 @@
-﻿using Kernel.UI.Menus;
+﻿using Game.UI.Menus;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
 using Zenject;
 
-namespace Kernel.UI
+namespace Game.UI
 {
     [RequireComponent(typeof(UIDocument))]
     public class MenuViews : MonoBehaviour

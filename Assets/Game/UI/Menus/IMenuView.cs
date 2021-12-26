@@ -1,4 +1,4 @@
-﻿namespace Kernel.UI.Menus
+﻿namespace Game.UI.Menus
 {
     public interface IMenuView
     {

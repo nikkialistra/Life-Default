@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections;
-using Kernel.UI;
+using Game.UI;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;

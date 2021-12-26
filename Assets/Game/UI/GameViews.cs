@@ -1,13 +1,12 @@
-﻿using Game.Units;
+﻿using Game.UI.Game;
 using Game.Units.Services;
 using Game.Units.Unit;
-using Kernel.UI.Game;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.UIElements;
 using Zenject;
 
-namespace Kernel.UI
+namespace Game.UI
 {
     [RequireComponent(typeof(UIDocument))]
     public class GameViews : MonoBehaviour

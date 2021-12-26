@@ -1,11 +1,10 @@
 using System;
 using System.Collections.Generic;
-using Game.Units;
 using Game.Units.Unit;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace Kernel.UI.Game
+namespace Game.UI.Game
 {
     [RequireComponent(typeof(UIDocument))]
     public class UnitTypesView : MonoBehaviour

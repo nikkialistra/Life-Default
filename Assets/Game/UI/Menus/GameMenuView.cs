@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace Kernel.UI.Menus
+namespace Game.UI.Menus
 {
     public class GameMenuView : IMenuView
     {

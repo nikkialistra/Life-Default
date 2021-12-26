@@ -1,9 +1,9 @@
 ﻿using System.Linq;
+using Game.UI;
 using Game.Units.Selecting;
 using Game.Units.Services;
 using Kernel.Selection;
 using Kernel.Types;
-using Kernel.UI;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Zenject;

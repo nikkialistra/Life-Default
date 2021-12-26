@@ -1,4 +1,6 @@
 ﻿using Game.Cameras;
+using Game.UI;
+using Game.UI.Game;
 using Game.Units;
 using Game.Units.Selecting;
 using Game.Units.Services;
@@ -7,8 +9,6 @@ using Kernel.Saving;
 using Kernel.Saving.Serialization;
 using Kernel.Selection;
 using Kernel.Targeting;
-using Kernel.UI;
-using Kernel.UI.Game;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.InputSystem;

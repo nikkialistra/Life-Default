@@ -100,7 +100,6 @@
     height: 180px;
     background-image: resource('UI/Sprites/Panels/InfoPanel');
     flex-direction: row;
-    align-items: center;
     padding-left: 5px;
     padding-right: 5px;
     padding-top: 5px;
@@ -132,23 +131,36 @@
     border-color: rgb(37, 37, 37);
 }
 
-.unity-progress-bar__container {
+.health .unity-progress-bar__container {
     min-height: 19px;
     max-height: 19px;
 }
 
-.unity-progress-bar__title {
+.icon__health .unity-progress-bar__container {
+    min-height: 12px;
+    max-height: 12px;
+}
+
+.health .unity-progress-bar__title {
     padding: 0;
 }
 
 .unity-progress-bar Label {
     color: white;
-    padding-bottom: 3px;
-    font-size: 11px;
     -unity-text-align: middle-center;
 }
 
-.unity-progress-bar__progress {
+.health .unity-progress-bar Label {
+    font-size: 11px;
+    padding-bottom: 3px;
+}
+
+.icon__health .unity-progress-bar Label {
+    font-size: 9px;
+    padding: 0;
+}
+
+.health .unity-progress-bar__progress {
     margin: 1px;
     background-color: rgb(44, 93, 135);
 }
@@ -171,7 +183,6 @@
     width: 260px;
     margin-left: 10px;
     align-items: center;
-    justify-content: center;
 }
 
 .description-top {
@@ -232,4 +243,24 @@
 .multiple-units-description {
     height: 80px;
     width: 200px;
+}
+
+.icon__health {
+    position: absolute;
+    bottom: 2px;
+    right: 2px;
+    width: 60px;
+    height: 15px;
+}
+
+.multiple-units-description__bottom {
+    flex-direction: row;
+    max-width: 320px;
+    flex-wrap: wrap;
+    min-height: 64px;
+}
+
+.icon-image {
+    width: 64px;
+    height: 64px;
 }

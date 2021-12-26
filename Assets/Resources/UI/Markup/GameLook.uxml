@@ -7,7 +7,7 @@
                 <ui:VisualElement name="info-image" class="info-image" />
                 <ui:VisualElement name="info-description" class="info-description">
                     <ui:VisualElement name="one-unit-description" class="one-unit-description">
-                        <ui:VisualElement name="one-unit-description-top" class="description-top">
+                        <ui:VisualElement name="one-unit-description__top" class="description-top">
                             <ui:VisualElement name="one-unit-nomination" class="one-unit-nomination">
                                 <ui:Label text="Type" display-tooltip-when-elided="true" name="one-unit-nomination__type" class="nomination__type" />
                                 <ui:Label text="Name" display-tooltip-when-elided="true" name="one-unit-nomination__name" class="nomination__name" />
@@ -18,11 +18,12 @@
                         </ui:VisualElement>
                     </ui:VisualElement>
                     <ui:VisualElement name="multiple-units-description" class="multiple-units-description">
-                        <ui:VisualElement name="multiple-units-description-top" class="description-top">
+                        <ui:VisualElement name="multiple-units-description__top" class="description-top">
                             <ui:VisualElement name="multiple-units-nomination" class="nomination">
-                                <ui:Label text="Type" display-tooltip-when-elided="true" name="multiple-units-nomination__type-and-count" class="nomination__type" />
+                                <ui:Label text="Type" display-tooltip-when-elided="true" name="multiple-units-nomination__count" class="nomination__type" />
                             </ui:VisualElement>
                         </ui:VisualElement>
+                        <ui:VisualElement name="multiple-units-description__bottom" class="multiple-units-description__bottom" />
                     </ui:VisualElement>
                 </ui:VisualElement>
             </ui:VisualElement>

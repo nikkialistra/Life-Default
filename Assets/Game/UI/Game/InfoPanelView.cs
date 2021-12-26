@@ -215,18 +215,28 @@ namespace Game.UI.Game
             {
                 var unit = _units[i];
                 var icon = _unitIconComponents[i];
-                _multipleUnitsDescriptionBottom.Add(icon);
-                var iconImage = icon.Q<VisualElement>("icon__image");
-                iconImage.style.backgroundImage = unit.UnitType switch
-                {
-                    UnitType.Traveler => new StyleBackground(_travelerIcon),
-                    UnitType.Lumberjack => new StyleBackground(_lumberjackIcon),
-                    UnitType.Mason => new StyleBackground(_masonIcon),
-                    UnitType.Melee => new StyleBackground(_meleeIcon),
-                    UnitType.Archer => new StyleBackground(_archerIcon),
-                    _ => throw new ArgumentOutOfRangeException()
-                };
+                
+                SetUpIcon(icon, unit);
             }
+        }
+
+        private void SetUpIcon(TemplateContainer icon, UnitFacade unit)
+        {
+            _multipleUnitsDescriptionBottom.Add(icon);
+            
+            var iconImage = icon.Q<VisualElement>("icon__image");
+            iconImage.style.backgroundImage = unit.UnitType switch
+            {
+                UnitType.Traveler => new StyleBackground(_travelerIcon),
+                UnitType.Lumberjack => new StyleBackground(_lumberjackIcon),
+                UnitType.Mason => new StyleBackground(_masonIcon),
+                UnitType.Melee => new StyleBackground(_meleeIcon),
+                UnitType.Archer => new StyleBackground(_archerIcon),
+                _ => throw new ArgumentOutOfRangeException()
+            };
+            
+            var iconHealth = icon.Q<ProgressBar>("multiple-units-health__progress-bar");
+            iconHealth.value = unit.Health;
         }
     }
 }

@@ -156,13 +156,15 @@
 }
 
 .icon__health .unity-progress-bar Label {
-    font-size: 9px;
-    padding: 0;
+    display: none;
+}
+
+.unity-progress-bar__progress {
+    background-color: rgb(44, 93, 135);
 }
 
 .health .unity-progress-bar__progress {
     margin: 1px;
-    background-color: rgb(44, 93, 135);
 }
 
 .info-image {
@@ -249,18 +251,41 @@
     position: absolute;
     bottom: 2px;
     right: 2px;
-    width: 60px;
-    height: 15px;
+    width: 42px;
+    height: 12px;
 }
 
 .multiple-units-description__bottom {
     flex-direction: row;
     max-width: 320px;
     flex-wrap: wrap;
-    min-height: 64px;
+    min-height: 46px;
+    align-items: center;
 }
 
 .icon-image {
-    width: 64px;
-    height: 64px;
+    width: 42px;
+    height: 42px;
+}
+
+.icon {
+    width: 46px;
+    height: 46px;
+    padding-left: 2px;
+    padding-right: 2px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+
+.multiple-units-health__progress-bar {
+    -unity-font: resource('Fonts/Dosis-Bold');
+    -unity-font-definition: none;
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.multiple-units-nomination {
+    margin-bottom: 5px;
 }

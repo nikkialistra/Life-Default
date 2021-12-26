@@ -19,7 +19,7 @@
                     </ui:VisualElement>
                     <ui:VisualElement name="multiple-units-description" class="multiple-units-description">
                         <ui:VisualElement name="multiple-units-description__top" class="description-top">
-                            <ui:VisualElement name="multiple-units-nomination" class="nomination">
+                            <ui:VisualElement name="multiple-units-nomination" class="multiple-units-nomination">
                                 <ui:Label text="Type" display-tooltip-when-elided="true" name="multiple-units-nomination__count" class="nomination__type" />
                             </ui:VisualElement>
                         </ui:VisualElement>

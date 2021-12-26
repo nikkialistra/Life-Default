@@ -87,9 +87,9 @@ namespace Game.Units.Selecting
 
         private void ChooseUnits(UnitType unitType)
         {
-            var units = _unitsRepository.GetObjectsByType(unitType).ToArray();
+            var units = _unitsRepository.GetObjectsByType(unitType).ToList();
 
-            if (units.Length != 0)
+            if (units.Count != 0)
             {
                 _selectedUnits.Set(units);
             }

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Game.UI.Game;
 using Game.Units.Services;
@@ -17,12 +16,12 @@ namespace Game.Units.Selecting
             _unitsRepository = unitsRepository;
             _infoPanelView = infoPanelView;
         }
-        
-        public IEnumerable<UnitFacade> Units { get; private set; } = Array.Empty<UnitFacade>();
+
+        public List<UnitFacade> Units { get; private set; } = new();
 
         public void Clear()
         {
-            Units = Array.Empty<UnitFacade>();
+            Units.Clear();
             
             var allUnits = _unitsRepository.GetObjects();
             foreach (var unit in allUnits)
@@ -31,17 +30,18 @@ namespace Game.Units.Selecting
             }
         }
 
-        public void Set(IEnumerable<UnitFacade> units)
+        public void Set(List<UnitFacade> units)
         {
-            Units = units as UnitFacade[] ?? units.ToArray();
+            Units = units.ToList();
             UpdateSelectionStatuses();
+            _infoPanelView.SetUnits(Units);
         }
 
         public void Set(UnitFacade unit)
         {
-            Units = new[] { unit };
-            _infoPanelView.SetUnit(unit);
+            Units = new List<UnitFacade>() { unit };
             UpdateSelectionStatuses();
+            _infoPanelView.SetUnit(unit);
         }
 
         private void UpdateSelectionStatuses()

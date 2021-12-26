@@ -64,7 +64,7 @@ namespace Game.Units.Selecting
                 selected.Select();
             }
 
-            _selectedUnits.Set(newSelectedArray);
+            _selectedUnits.Set(newSelectedArray.ToList());
 
             _selectionArea.StopDrawing();
         }

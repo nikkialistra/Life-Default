@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Game.Units.Unit;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -13,17 +14,25 @@ namespace Game.UI.Game
         [SerializeField] private Texture2D _masonPreview;
         [SerializeField] private Texture2D _meleePreview;
         [SerializeField] private Texture2D _archerPreview;
+        [SerializeField] private Texture2D _multipleUnitsPreview;
+        
 
         private VisualElement _tree;
 
         private VisualElement _infoPanel;
         private VisualElement _infoImage;
 
-        private Label _type;
-        private Label _name;
-        private ProgressBar _health;
+        private VisualElement _oneUnitDescription;
+        private VisualElement _multipleUnitsDescription;
 
+        private Label _oneUnitType;
+        private Label _oneUnitName;
+        private ProgressBar _oneUnitHealth;
+
+        private Label _multipleUnitsTypeAndCount;
+        
         private UnitFacade _unit;
+        private List<UnitFacade> _units;
 
         private void Awake()
         {
@@ -32,31 +41,90 @@ namespace Game.UI.Game
             _infoPanel = _tree.Q<VisualElement>("info-panel");
             _infoImage = _tree.Q<VisualElement>("info-image");
 
-            _type = _tree.Q<Label>("nomination__type");
-            _name = _tree.Q<Label>("nomination__name");
-            _health = _tree.Q<ProgressBar>("health__progress-bar");
+            _oneUnitDescription = _tree.Q<VisualElement>("one-unit-description");
+            _multipleUnitsDescription = _tree.Q<VisualElement>("multiple-units-description");
+
+            _oneUnitType = _tree.Q<Label>("one-unit-nomination__type");
+            _oneUnitName = _tree.Q<Label>("one-unit-nomination__name");
+            _oneUnitHealth = _tree.Q<ProgressBar>("one-unit-health__progress-bar");
+
+            _multipleUnitsTypeAndCount = _tree.Q<Label>("multiple-units-nomination__type-and-count");
         }
 
         private void Start()
         {
             _infoPanel.AddToClassList("not-displayed");
+            _oneUnitDescription.AddToClassList("not-displayed");
+            _multipleUnitsDescription.AddToClassList("not-displayed");
         }
 
-        public void SetUnit(UnitFacade unitFacade)
+        public void SetUnits(List<UnitFacade> units)
         {
-            _unit = unitFacade;
-
-            FillIn();
+            if (units.Count == 0)
+            {
+                HideInfoPanel();
+            }
+            else if (units.Count == 1)
+            {
+                SetUnit(units[0]);
+            }
+            else
+            {
+                SetMultipleUnits(units);
+            }
         }
 
-        private void FillIn()
+        public void SetUnit(UnitFacade unit)
+        {
+            _unit = unit;
+            ShowInfoPanel();
+            ShowOneUnitDescription();
+            FillInUnitDescription();
+        }
+
+        private void SetMultipleUnits(List<UnitFacade> units)
+        {
+            _units = units;
+            ShowInfoPanel();
+            ShowMultipleUnitsDescription();
+            FillInMultipleUnitsDescription();
+        }
+
+        private void ShowInfoPanel()
         {
             _infoPanel.RemoveFromClassList("not-displayed");
-            FillInPreview();
-            FillInProperties();
         }
 
-        private void FillInPreview()
+        private void HideInfoPanel()
+        {
+            _infoPanel.AddToClassList("not-displayed");
+        }
+
+        private void ShowOneUnitDescription()
+        {
+            _oneUnitDescription.RemoveFromClassList("not-displayed");
+            _multipleUnitsDescription.AddToClassList("not-displayed");
+        }
+
+        private void ShowMultipleUnitsDescription()
+        {
+            _multipleUnitsDescription.RemoveFromClassList("not-displayed");
+            _oneUnitDescription.AddToClassList("not-displayed");
+        }
+
+        private void FillInUnitDescription()
+        {
+            FillInUnitPreview();
+            FillInUnitProperties();
+        }
+
+        private void FillInMultipleUnitsDescription()
+        {
+            FillInUnitsPreview();
+            FillInUnitsProperties();
+        }
+
+        private void FillInUnitPreview()
         {
             _infoImage.style.backgroundImage = _unit.UnitType switch
             {
@@ -69,11 +137,21 @@ namespace Game.UI.Game
             };
         }
 
-        private void FillInProperties()
+        private void FillInUnitsPreview()
         {
-            _type.text = _unit.UnitType.ToString();
-            _name.text = _unit.Name;
-            _health.value = _unit.Health;
+            _infoImage.style.backgroundImage = new StyleBackground(_multipleUnitsPreview);
+        }
+
+        private void FillInUnitProperties()
+        {
+            _oneUnitType.text = _unit.UnitType.ToString();
+            _oneUnitName.text = _unit.Name;
+            _oneUnitHealth.value = _unit.Health;
+        }
+
+        private void FillInUnitsProperties()
+        {
+            _multipleUnitsTypeAndCount.text = $"Units ({_units.Count})";
         }
     }
 }

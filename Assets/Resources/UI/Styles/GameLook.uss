@@ -96,7 +96,7 @@
 }
 
 .info-panel {
-    width: 520px;
+    width: 440px;
     height: 180px;
     background-image: resource('UI/Sprites/Panels/InfoPanel');
     flex-direction: row;
@@ -170,17 +170,19 @@
     height: 170px;
     width: 260px;
     margin-left: 10px;
+    align-items: center;
+    justify-content: center;
 }
 
 .description-top {
     height: 45px;
 }
 
-.nomination {
+.one-unit-nomination {
     height: 20px;
     width: 200px;
     flex-direction: row;
-    padding-bottom: 4px;
+    margin-bottom: 5px;
 }
 
 .health {
@@ -221,4 +223,13 @@
     padding-right: 0;
     padding-top: 0;
     padding-bottom: 0;
+}
+
+.one-unit-description {
+    height: 50px;
+}
+
+.multiple-units-description {
+    height: 80px;
+    width: 200px;
 }

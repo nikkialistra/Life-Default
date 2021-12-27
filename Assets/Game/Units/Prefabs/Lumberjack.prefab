@@ -173,6 +173,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Axe
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: d6d3ca7871d5d69478fd269164951570,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d6d3ca7871d5d69478fd269164951570, type: 3}
 --- !u!1001 &4899528080042471755
@@ -185,6 +190,10 @@ PrefabInstance:
     - target: {fileID: 100000, guid: d9aeebba27e53874c90e7e92ed274cb5, type: 3}
       propertyPath: m_Name
       value: hairPonytail
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: d9aeebba27e53874c90e7e92ed274cb5, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: d9aeebba27e53874c90e7e92ed274cb5, type: 3}
       propertyPath: m_RootOrder
@@ -262,6 +271,10 @@ PrefabInstance:
     - target: {fileID: 100000, guid: 5be757b89246fb7438d20452490a0a34, type: 3}
       propertyPath: m_Name
       value: beard
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 5be757b89246fb7438d20452490a0a34, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 5be757b89246fb7438d20452490a0a34, type: 3}
       propertyPath: m_RootOrder

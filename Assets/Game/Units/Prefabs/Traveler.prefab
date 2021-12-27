@@ -11,6 +11,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: cap
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: b2f404572101a74439495f54d04a68be, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: b2f404572101a74439495f54d04a68be, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -83,7 +87,7 @@ PrefabInstance:
     - target: {fileID: 4193433063631040808, guid: a84f4c16705cba24790ac82fb366010b,
         type: 3}
       propertyPath: m_Name
-      value: Travel
+      value: Traveler
       objectReference: {fileID: 0}
     - target: {fileID: 4193433063631040809, guid: a84f4c16705cba24790ac82fb366010b,
         type: 3}

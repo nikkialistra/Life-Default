@@ -11,6 +11,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: sword
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 3f7c0b3a36b27724a96bb038b8a6a3c0, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 3f7c0b3a36b27724a96bb038b8a6a3c0, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -83,6 +87,10 @@ PrefabInstance:
     - target: {fileID: 100000, guid: e9da7b56b68046742a074cda1101cd0a, type: 3}
       propertyPath: m_Name
       value: farmerCap
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: e9da7b56b68046742a074cda1101cd0a, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: e9da7b56b68046742a074cda1101cd0a, type: 3}
       propertyPath: m_RootOrder

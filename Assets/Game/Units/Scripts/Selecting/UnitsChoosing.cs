@@ -14,17 +14,17 @@ namespace Game.Units.Selecting
         public Action<UnitFacade> UnitChosen;
 
         private UnitTypesView _unitTypesView;
+        private UnitsDescriptionView _unitsDescriptionView;
         private UnitsRepository _unitsRepository;
         private SelectedUnits _selectedUnits;
 
         private readonly Dictionary<UnitType, int> _lastSelectedUnitByType = new();
-        private InfoPanelView _infoPanelView;
 
         [Inject]
-        public void Construct(UnitTypesView unitTypesView, InfoPanelView infoPanelView, UnitsRepository unitsRepository, SelectedUnits selectedUnits)
+        public void Construct(UnitTypesView unitTypesView, UnitsDescriptionView unitsDescriptionView, UnitsRepository unitsRepository, SelectedUnits selectedUnits)
         {
             _unitTypesView = unitTypesView;
-            _infoPanelView = infoPanelView;
+            _unitsDescriptionView = unitsDescriptionView;
             _unitsRepository = unitsRepository;
             _selectedUnits = selectedUnits;
         }
@@ -36,7 +36,7 @@ namespace Game.Units.Selecting
 
         private void OnEnable()
         {
-            _infoPanelView.UnitIconClick += ChooseUnit;
+            _unitsDescriptionView.UnitIconClick += ChooseUnit;
             
             _unitTypesView.LeftClick += ChooseUnitByType;
             _unitTypesView.RightClick += ChooseUnits;
@@ -44,7 +44,7 @@ namespace Game.Units.Selecting
 
         private void OnDisable()
         {
-            _infoPanelView.UnitIconClick -= ChooseUnit;
+            _unitsDescriptionView.UnitIconClick -= ChooseUnit;
             
             _unitTypesView.LeftClick -= ChooseUnitByType;
             _unitTypesView.RightClick -= ChooseUnits;

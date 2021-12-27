@@ -40,7 +40,7 @@ namespace Game.UI.Game
         {
             _tree = Resources.Load<VisualTreeAsset>("UI/Markup/Components/UnitInfo").CloneTree();
 
-            _image = _tree.Q<VisualElement>("image");
+            _image = _tree.Q<VisualElement>("info-image");
             
             _nominationType = _tree.Q<Label>("unit-nomination__type");
             _nominationName = _tree.Q<Label>("unit-nomination__name");
@@ -54,7 +54,10 @@ namespace Game.UI.Game
 
         public void HideSelf()
         {
-            _parent.Root.Remove(_tree);
+            if (_parent.Root.Contains(_tree))
+            {
+                _parent.Root.Remove(_tree);
+            }
         }
 
         public void FillIn(UnitFacade unit)

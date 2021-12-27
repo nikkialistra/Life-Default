@@ -7221,7 +7221,7 @@ MonoBehaviour:
   _masonIcon: {fileID: 2800000, guid: 97ac836899ac235449dca86aff814380, type: 3}
   _meleeIcon: {fileID: 2800000, guid: ae8131d96bf02ba43bfdb1301c135bf7, type: 3}
   _archerIcon: {fileID: 2800000, guid: d8ce462c9c33035408b04af673817f61, type: 3}
-  _maximumUnitIconsShowing: 12
+  _maximumUnitIconsShowing: 16
 --- !u!1 &1503406661
 GameObject:
   m_ObjectHideFlags: 0

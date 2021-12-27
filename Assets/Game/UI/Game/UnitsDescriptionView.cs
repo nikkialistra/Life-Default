@@ -4,10 +4,10 @@ using Game.Units.Unit;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.UIElements;
-using Zenject;
 
 namespace Game.UI.Game
 {
+    [RequireComponent(typeof(InfoPanelView))]
     public class UnitsDescriptionView : MonoBehaviour
     {
         public event Action<UnitFacade> UnitIconClick;
@@ -37,7 +37,6 @@ namespace Game.UI.Game
         
         private VisualElement _image;
         
-        private VisualElement _description;
         private VisualElement _descriptionBottom;
         private Label _count;
         
@@ -47,22 +46,17 @@ namespace Game.UI.Game
         private List<VisualElement> _unitIconHealths;
         private List<ProgressBar> _unitIconProgressBars;
         
-        [Inject]
-        public void Construct(InfoPanelView infoPanelView)
-        {
-            _parent = infoPanelView;
-        }
-
         private void Awake()
         {
+            _parent = GetComponent<InfoPanelView>();
+            
             _tree = Resources.Load<VisualTreeAsset>("UI/Markup/Components/UnitsInfo").CloneTree();
 
             _image = _tree.Q<VisualElement>("info-image");
             
-            _description = _tree.Q<VisualElement>("units-description");
             _descriptionBottom = _tree.Q<VisualElement>("units-description__bottom");
             
-            _count = _tree.Q<Label>("units-nomination__count");
+            _count = _tree.Q<Label>("units-nomination-count");
             
             InitializeUnitIconComponentPool();
         }
@@ -90,9 +84,9 @@ namespace Game.UI.Game
                 var tree = unitIconComponent.CloneTree();
                 _unitIconComponents.Add(tree);
                 _unitIconRoots.Add(tree.Q<VisualElement>("icon"));
-                _unitIconImages.Add(tree.Q<VisualElement>("icon__image"));
-                _unitIconHealths.Add(tree.Q<VisualElement>("icon__health"));
-                _unitIconProgressBars.Add(tree.Q<ProgressBar>("multiple-units-health__progress-bar"));
+                _unitIconImages.Add(tree.Q<VisualElement>("image"));
+                _unitIconHealths.Add(tree.Q<VisualElement>("health"));
+                _unitIconProgressBars.Add(tree.Q<ProgressBar>("health__progress-bar"));
             }
         }
 

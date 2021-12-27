@@ -3,10 +3,10 @@ using Game.Units.Unit;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.UIElements;
-using Zenject;
 
 namespace Game.UI.Game
 {
+    [RequireComponent(typeof(InfoPanelView))]
     public class UnitDescriptionView : MonoBehaviour
     {
         [Title("Previews")]
@@ -29,15 +29,11 @@ namespace Game.UI.Game
         private Label _nominationType;
         private Label _nominationName;
         private ProgressBar _health;
-
-        [Inject]
-        public void Construct(InfoPanelView infoPanelView)
-        {
-            _parent = infoPanelView;
-        }
-
+        
         private void Awake()
         {
+            _parent = GetComponent<InfoPanelView>();
+                
             _tree = Resources.Load<VisualTreeAsset>("UI/Markup/Components/UnitInfo").CloneTree();
 
             _image = _tree.Q<VisualElement>("info-image");

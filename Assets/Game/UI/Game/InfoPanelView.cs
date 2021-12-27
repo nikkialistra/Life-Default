@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using Game.Units.Unit;
 using UnityEngine;
 using UnityEngine.UIElements;
-using Zenject;
 
 namespace Game.UI.Game
 {
     [RequireComponent(typeof(UIDocument))]
+    [RequireComponent(typeof(UnitDescriptionView))]
+    [RequireComponent(typeof(UnitsDescriptionView))]
     public class InfoPanelView : MonoBehaviour
     {
         public VisualElement Root => _infoPanel;
@@ -18,19 +19,20 @@ namespace Game.UI.Game
         private UnitsDescriptionView _unitsDescriptionView;
 
         private VisualElement _infoPanel;
-
-        [Inject]
-        public void Construct(UnitDescriptionView unitDescriptionView, UnitsDescriptionView unitsDescriptionView)
-        {
-            _unitDescriptionView = unitDescriptionView;
-            _unitsDescriptionView = unitsDescriptionView;
-        }
-
+        
         private void Awake()
         {
+            _unitDescriptionView = GetComponent<UnitDescriptionView>();
+            _unitsDescriptionView = GetComponent<UnitsDescriptionView>();
+            
             _tree = GetComponent<UIDocument>().rootVisualElement;
 
             _infoPanel = _tree.Q<VisualElement>("info-panel");
+        }
+
+        private void Start()
+        {
+            HideInfoPanel();
         }
 
         public void SetUnits(List<UnitFacade> units)

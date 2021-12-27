@@ -130,8 +130,8 @@
 }
 
 .units-description {
-    height: 80px;
-    width: 200px;
+    height: 170px;
+    width: 260px;
 }
 
 .units-description__bottom {
@@ -140,8 +140,23 @@
     flex-wrap: wrap;
     min-height: 46px;
     align-items: center;
+    width: 260px;
+    padding-left: 15px;
+    padding-right: 15px;
+    height: 138px;
 }
 
 .units-nomination {
-    margin-bottom: 5px;
+}
+
+.multiple-units-description {
+}
+
+.units-description__top {
+    width: 260px;
+    height: 28px;
+}
+
+.units-nomination {
+    padding-bottom: 6px;
 }

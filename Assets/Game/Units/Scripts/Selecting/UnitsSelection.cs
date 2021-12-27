@@ -7,24 +7,30 @@ using Zenject;
 
 namespace Game.Units.Selecting
 {
+    [RequireComponent(typeof(SelectionArea))]
     public class UnitsSelection : MonoBehaviour
     {
         [SerializeField] private float _doubleClickDeltaTime;
 
+        private SelectionArea _selectionArea;
+        
         private UnitsSelecting _selecting;
         private SelectionInput _selectionInput;
-        private SelectionArea _selectionArea;
         private SelectedUnits _selectedUnits;
 
         private float _lastClickTime;
 
         [Inject]
-        public void Construct(UnitsSelecting selecting, SelectionInput selectionInput, SelectionArea selectionArea, SelectedUnits selectedUnits)
+        public void Construct(UnitsSelecting selecting, SelectionInput selectionInput, SelectedUnits selectedUnits)
         {
             _selectedUnits = selectedUnits;
             _selecting = selecting;
             _selectionInput = selectionInput;
-            _selectionArea = selectionArea;
+        }
+
+        private void Awake()
+        {
+            _selectionArea = GetComponent<SelectionArea>();
         }
 
         public void OnEnable()

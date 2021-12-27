@@ -1,7 +1,5 @@
-﻿using Game.Cameras;
-using Game.UI;
+﻿using Game.UI;
 using Game.UI.Game;
-using Game.Units;
 using Game.Units.Selecting;
 using Game.Units.Services;
 using Game.Units.Unit;
@@ -96,6 +94,7 @@ namespace Infrastructure
 
         private void BindUnitSelectionSystem()
         {
+            Container.Bind<UnitsSelecting>().AsSingle();
             Container.Bind<SelectedUnits>().AsSingle();
             Container.BindInstance(_unitsSelection);
             Container.BindInstance(_selectionInput);
@@ -105,7 +104,6 @@ namespace Infrastructure
 
         private void BindTargeting()
         {
-            Container.Bind<UnitsSelecting>().AsSingle();
             Container.BindInstance(_movementCommand);
             Container.BindInstance(_pool).AsSingle();
             Container.BindInstance(_targetPrefab).WhenInjectedInto<TargetPool>();

@@ -57,20 +57,9 @@ namespace Game.Units.Selecting
 
         private void Select(Rect rect)
         {
-            var newSelected = GetSelected(rect);
+            var newSelected = GetSelected(rect).ToList();
 
-            var newSelectedArray = newSelected as UnitFacade[] ?? newSelected.ToArray();
-            foreach (var willDeselect in _selectedUnits.Units.Except(newSelectedArray))
-            {
-                willDeselect.Deselect();
-            }
-
-            foreach (var selected in newSelectedArray)
-            {
-                selected.Select();
-            }
-
-            _selectedUnits.Set(newSelectedArray.ToList());
+            _selectedUnits.Set(newSelected.ToList());
 
             _selectionArea.StopDrawing();
         }

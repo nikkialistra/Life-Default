@@ -43,7 +43,6 @@ namespace Game.UI.Game
         private List<TemplateContainer> _unitIconComponents;
         private List<VisualElement> _unitIconRoots;
         private List<VisualElement> _unitIconImages;
-        private List<VisualElement> _unitIconHealths;
         private List<ProgressBar> _unitIconProgressBars;
         
         private void Awake()
@@ -75,7 +74,6 @@ namespace Game.UI.Game
             _unitIconComponents = new List<TemplateContainer>(_maximumUnitIconsShowing);
             _unitIconRoots = new List<VisualElement>(_maximumUnitIconsShowing);
             _unitIconImages = new List<VisualElement>(_maximumUnitIconsShowing);
-            _unitIconHealths = new List<VisualElement>(_maximumUnitIconsShowing);
             _unitIconProgressBars = new List<ProgressBar>(_maximumUnitIconsShowing);
 
             var unitIconComponent = Resources.Load<VisualTreeAsset>("UI/Markup/Components/UnitIcon");
@@ -85,7 +83,6 @@ namespace Game.UI.Game
                 _unitIconComponents.Add(tree);
                 _unitIconRoots.Add(tree.Q<VisualElement>("icon"));
                 _unitIconImages.Add(tree.Q<VisualElement>("image"));
-                _unitIconHealths.Add(tree.Q<VisualElement>("health"));
                 _unitIconProgressBars.Add(tree.Q<ProgressBar>("health__progress-bar"));
             }
         }

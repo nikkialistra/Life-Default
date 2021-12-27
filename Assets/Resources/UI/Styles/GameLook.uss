@@ -1,3 +1,40 @@
+.game-look {
+    width: 1920px;
+    height: 1080px;
+    justify-content: flex-end;
+}
+
+.bottom-panel {
+    width: 1920px;
+    height: 400px;
+    align-items: flex-end;
+    justify-content: space-between;
+    flex-direction: row;
+    padding-right: 30px;
+    padding-bottom: 30px;
+    padding-left: 30px;
+}
+
+.mini-map {
+    width: 300px;
+    height: 300px;
+}
+
+.info-panel {
+    width: 440px;
+    height: 180px;
+    background-image: resource('UI/Sprites/Panels/InfoPanel');
+    flex-direction: row;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.not-displayed {
+    display: none;
+}
+
 .unit-types {
     width: 310px;
     height: 80px;
@@ -93,37 +130,6 @@
 
 .archer.missing:hover {
     background-image: resource('UI/Sprites/UnitTypes/Archer');
-}
-
-.info-panel {
-    width: 440px;
-    height: 180px;
-    background-image: resource('UI/Sprites/Panels/InfoPanel');
-    flex-direction: row;
-    padding-left: 5px;
-    padding-right: 5px;
-    padding-top: 5px;
-    padding-bottom: 5px;
-}
-
-.not-displayed {
-    display: none;
-}
-
-.bottom-panel {
-    width: 1920px;
-    height: 400px;
-    align-items: flex-end;
-    justify-content: space-between;
-    flex-direction: row;
-    padding-right: 50px;
-    padding-bottom: 50px;
-    padding-left: 50px;
-}
-
-.mini-map {
-    width: 300px;
-    height: 300px;
 }
 
 .unity-progress-bar__background {

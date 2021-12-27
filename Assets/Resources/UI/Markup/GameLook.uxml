@@ -1,32 +1,9 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/Resources/UI/Styles/GameLook.uss?fileID=7433441132597879392&amp;guid=295c2b0dcdb1e5f4fbcbc0c651a015ef&amp;type=3#GameLook" />
-    <ui:VisualElement name="root" picking-mode="Ignore" style="width: 1920px; height: 1080px; justify-content: flex-end;">
+    <ui:VisualElement name="game-look" picking-mode="Ignore" class="game-look">
         <ui:VisualElement name="bottom-panel" picking-mode="Ignore" class="bottom-panel">
             <ui:VisualElement name="mini-map" picking-mode="Ignore" class="mini-map" />
-            <ui:VisualElement name="info-panel" class="info-panel">
-                <ui:VisualElement name="info-image" class="info-image" />
-                <ui:VisualElement name="info-description" class="info-description">
-                    <ui:VisualElement name="one-unit-description" class="one-unit-description">
-                        <ui:VisualElement name="one-unit-description__top" class="description-top">
-                            <ui:VisualElement name="one-unit-nomination" class="one-unit-nomination">
-                                <ui:Label text="Type" display-tooltip-when-elided="true" name="one-unit-nomination__type" class="nomination__type" />
-                                <ui:Label text="Name" display-tooltip-when-elided="true" name="one-unit-nomination__name" class="nomination__name" />
-                            </ui:VisualElement>
-                            <ui:VisualElement name="one-unit-health" class="health">
-                                <ui:ProgressBar title="Health" name="one-unit-health__progress-bar" style="-unity-font: resource(&apos;Fonts/Dosis-Bold&apos;); -unity-font-definition: none;" />
-                            </ui:VisualElement>
-                        </ui:VisualElement>
-                    </ui:VisualElement>
-                    <ui:VisualElement name="multiple-units-description" class="multiple-units-description">
-                        <ui:VisualElement name="multiple-units-description__top" class="description-top">
-                            <ui:VisualElement name="multiple-units-nomination" class="multiple-units-nomination">
-                                <ui:Label text="Type" display-tooltip-when-elided="true" name="multiple-units-nomination__count" class="nomination__type" />
-                            </ui:VisualElement>
-                        </ui:VisualElement>
-                        <ui:VisualElement name="multiple-units-description__bottom" class="multiple-units-description__bottom" />
-                    </ui:VisualElement>
-                </ui:VisualElement>
-            </ui:VisualElement>
+            <ui:VisualElement name="info-panel" class="info-panel" />
             <ui:VisualElement name="unit-types" class="unit-types">
                 <ui:VisualElement name="traveler-type" focusable="true" class="unit-type traveler">
                     <ui:Label text="0" display-tooltip-when-elided="true" name="traveler-type__count" class="unit-type__count" />

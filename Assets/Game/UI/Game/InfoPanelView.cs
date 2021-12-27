@@ -8,24 +8,17 @@ using UnityEngine.UIElements;
 namespace Game.UI.Game
 {
     [RequireComponent(typeof(UIDocument))]
+    [RequireComponent(typeof(UnitDescriptionView))]
     public class InfoPanelView : MonoBehaviour
     {
         public event Action<UnitFacade> UnitIconClick;
+
+        public VisualElement Root => _infoPanel;
         
         [Title("Previews")]
         [Required]
-        [SerializeField] private Texture2D _travelerPreview;
-        [Required]
-        [SerializeField] private Texture2D _lumberjackPreview;
-        [Required]
-        [SerializeField] private Texture2D _masonPreview;
-        [Required]
-        [SerializeField] private Texture2D _meleePreview;
-        [Required]
-        [SerializeField] private Texture2D _archerPreview;
-        [Required]
         [SerializeField] private Texture2D _multipleUnitsPreview;
-        
+
         [Title("Icons")]
         [Required]
         [SerializeField] private Texture2D _travelerIcon;
@@ -37,23 +30,19 @@ namespace Game.UI.Game
         [SerializeField] private Texture2D _meleeIcon;
         [Required]
         [SerializeField] private Texture2D _archerIcon;
-        
+
         [Title("Other")] 
         [SerializeField] private int _maximumUnitIconsShowing;
-
+        
         private VisualElement _tree;
+        
+        private UnitDescriptionView _unitDescriptionView;
 
         private VisualElement _infoPanel;
         private VisualElement _infoImage;
 
-        private VisualElement _oneUnitDescription;
-        
         private VisualElement _multipleUnitsDescription;
         private VisualElement _multipleUnitsDescriptionBottom;
-
-        private Label _oneUnitType;
-        private Label _oneUnitName;
-        private ProgressBar _oneUnitHealth;
 
         private Label _multipleUnitsCount;
 
@@ -70,11 +59,12 @@ namespace Game.UI.Game
         {
             _tree = GetComponent<UIDocument>().rootVisualElement;
 
+            _unitDescriptionView = GetComponent<UnitDescriptionView>();
+
             _infoPanel = _tree.Q<VisualElement>("info-panel");
             _infoImage = _tree.Q<VisualElement>("info-image");
 
             GetDescriptionBlocks();
-            GetOneUnitBlockElements();
             GetMultipleUnitsBlockElements();
 
             InitializeUnitIconComponentPool();
@@ -83,8 +73,6 @@ namespace Game.UI.Game
         private void Start()
         {
             _infoPanel.AddToClassList("not-displayed");
-            _oneUnitDescription.AddToClassList("not-displayed");
-            _multipleUnitsDescription.AddToClassList("not-displayed");
         }
 
         private void OnDestroy()
@@ -117,21 +105,12 @@ namespace Game.UI.Game
             _unit = unit;
             ShowInfoPanel();
             ShowOneUnitDescription();
-            FillInUnitDescription();
         }
 
         private void GetDescriptionBlocks()
         {
-            _oneUnitDescription = _tree.Q<VisualElement>("one-unit-description");
             _multipleUnitsDescription = _tree.Q<VisualElement>("multiple-units-description");
             _multipleUnitsDescriptionBottom = _tree.Q<VisualElement>("multiple-units-description__bottom");
-        }
-
-        private void GetOneUnitBlockElements()
-        {
-            _oneUnitType = _tree.Q<Label>("one-unit-nomination__type");
-            _oneUnitName = _tree.Q<Label>("one-unit-nomination__name");
-            _oneUnitHealth = _tree.Q<ProgressBar>("one-unit-health__progress-bar");
         }
 
         private void GetMultipleUnitsBlockElements()
@@ -179,51 +158,25 @@ namespace Game.UI.Game
 
         private void ShowOneUnitDescription()
         {
-            _oneUnitDescription.RemoveFromClassList("not-displayed");
-            _multipleUnitsDescription.AddToClassList("not-displayed");
+            _unitDescriptionView.ShowSelf();
+            _unitDescriptionView.FillIn(_unit);
         }
 
         private void ShowMultipleUnitsDescription()
         {
             _multipleUnitsDescription.RemoveFromClassList("not-displayed");
-            _oneUnitDescription.AddToClassList("not-displayed");
+            _unitDescriptionView.HideSelf();
         }
-
-        private void FillInUnitDescription()
-        {
-            FillInUnitPreview();
-            FillInUnitProperties();
-        }
-
+        
         private void FillInMultipleUnitsDescription()
         {
             FillInUnitsPreview();
             FillInUnitsProperties();
         }
-
-        private void FillInUnitPreview()
-        {
-            _infoImage.style.backgroundImage = _unit.UnitType switch
-            {
-                UnitType.Traveler => new StyleBackground(_travelerPreview),
-                UnitType.Lumberjack => new StyleBackground(_lumberjackPreview),
-                UnitType.Mason => new StyleBackground(_masonPreview),
-                UnitType.Melee => new StyleBackground(_meleePreview),
-                UnitType.Archer => new StyleBackground(_archerPreview),
-                _ => throw new ArgumentOutOfRangeException()
-            };
-        }
-
+        
         private void FillInUnitsPreview()
         {
             _infoImage.style.backgroundImage = new StyleBackground(_multipleUnitsPreview);
-        }
-
-        private void FillInUnitProperties()
-        {
-            _oneUnitType.text = _unit.UnitType.ToString();
-            _oneUnitName.text = _unit.Name;
-            _oneUnitHealth.value = _unit.Health;
         }
 
         private void FillInUnitsProperties()

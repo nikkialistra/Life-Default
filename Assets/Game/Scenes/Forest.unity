@@ -7105,6 +7105,7 @@ GameObject:
   - component: {fileID: 1502504551}
   - component: {fileID: 1502504550}
   - component: {fileID: 1502504552}
+  - component: {fileID: 1502504553}
   m_Layer: 0
   m_Name: Game Look
   m_TagString: Untagged
@@ -7181,11 +7182,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90b9eb5d5ab942fbba236e496dde8596, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _travelerPreview: {fileID: 2800000, guid: dd4b8bc9665852847a6ed842ade075b4, type: 3}
-  _lumberjackPreview: {fileID: 2800000, guid: 9f0c0628b556fa242b12d1f14a2c2398, type: 3}
-  _masonPreview: {fileID: 2800000, guid: 963178da7aa7b4946b71b514962c1ec1, type: 3}
-  _meleePreview: {fileID: 2800000, guid: 48b30d2af327d2245adf5cc2d7936db7, type: 3}
-  _archerPreview: {fileID: 2800000, guid: d5425443dfa96484fbce05acce7e4c77, type: 3}
   _multipleUnitsPreview: {fileID: 2800000, guid: 8f2d1db0a1467234f8fcbbffbce11d15,
     type: 3}
   _travelerIcon: {fileID: 2800000, guid: e2aff44eadb2a32418f448f7c502143b, type: 3}
@@ -7194,6 +7190,23 @@ MonoBehaviour:
   _meleeIcon: {fileID: 2800000, guid: ae8131d96bf02ba43bfdb1301c135bf7, type: 3}
   _archerIcon: {fileID: 2800000, guid: d8ce462c9c33035408b04af673817f61, type: 3}
   _maximumUnitIconsShowing: 12
+--- !u!114 &1502504553
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1502504547}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e64df655116348b08ed645f4ad0d4fa8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _travelerPreview: {fileID: 2800000, guid: dd4b8bc9665852847a6ed842ade075b4, type: 3}
+  _lumberjackPreview: {fileID: 2800000, guid: 9f0c0628b556fa242b12d1f14a2c2398, type: 3}
+  _masonPreview: {fileID: 2800000, guid: 963178da7aa7b4946b71b514962c1ec1, type: 3}
+  _meleePreview: {fileID: 2800000, guid: 48b30d2af327d2245adf5cc2d7936db7, type: 3}
+  _archerPreview: {fileID: 2800000, guid: d5425443dfa96484fbce05acce7e4c77, type: 3}
 --- !u!1 &1503406661
 GameObject:
   m_ObjectHideFlags: 0

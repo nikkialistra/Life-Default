@@ -9,8 +9,7 @@ namespace Game.UI.Game
     {
         private VisualElement _tree;
         private ProgressBar _health;
-
-        private bool _isInitialized;
+        
         private bool _shown;
 
         private WorldSpaceUIDocument _worldSpaceUIDocument;
@@ -26,7 +25,20 @@ namespace Game.UI.Game
         private void Awake()
         {
              _worldSpaceUIDocument = GetComponent<WorldSpaceUIDocument>();
-             _worldSpaceUIDocument.RebuildFinish += Initialize;
+             if (_worldSpaceUIDocument.Initialized)
+             {
+                 Initialize();
+             }
+        }
+
+        private void OnEnable()
+        {
+            _worldSpaceUIDocument.RebuildFinish += Initialize;
+        }
+
+        private void OnDisable()
+        {
+            _worldSpaceUIDocument.RebuildFinish -= Initialize;
         }
 
         void Update() 
@@ -40,11 +52,6 @@ namespace Game.UI.Game
 
         public void SetHealth(int value)
         {
-            if (!_isInitialized)
-            {
-                return;
-            }
-            
             _health.value = value;
         }
 
@@ -66,8 +73,6 @@ namespace Game.UI.Game
             _health = _tree.Q<ProgressBar>("world-health__progress-bar");
             
             Hide();
-            
-            _isInitialized = true;
         }
     }
 }

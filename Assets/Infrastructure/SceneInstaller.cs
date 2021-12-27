@@ -25,12 +25,8 @@ namespace Infrastructure
         [SerializeField] private UnitsSelection _unitsSelection;
         [Required]
         [SerializeField] private SelectionInput _selectionInput;
-        [Required]
-        [SerializeField] private RectTransform _selectionRect;
         [Required] 
         [SerializeField] private UnitsChoosing _unitsChoosing;
-        [Required]
-        [SerializeField] private Canvas _uiCanvas;
 
         [Title("Targeting")]
         [Required]
@@ -47,14 +43,15 @@ namespace Infrastructure
         [SerializeField] private GameObject _unitPrefab;
         [Required]
         [SerializeField] private UnitsTypeCounts _unitsTypeCounts;
-        
+
         [Title("Services")]
         [Required]
         [SerializeField] private UnitsRepository _unitsRepository;
 
         [Title("Spawning")] 
-        [Required] 
-        [SerializeField] private Transform _unitRoot;
+        [Required]
+        [SerializeField] private int _unitPoolSize;
+        [SerializeField] private Transform _unitsParent;
         
         [Title("UI")]
         [Required]
@@ -98,7 +95,6 @@ namespace Infrastructure
             Container.Bind<SelectedUnits>().AsSingle();
             Container.BindInstance(_unitsSelection);
             Container.BindInstance(_selectionInput);
-            Container.Bind<SelectionArea>().AsSingle().WithArguments(_selectionRect, _uiCanvas);
             Container.BindInstance(_unitsChoosing);
         }
 
@@ -122,8 +118,12 @@ namespace Infrastructure
 
         private void BindUnitSpawning()
         {
-            Container.BindFactory<UnitFacade, UnitFacade.Factory>().FromComponentInNewPrefab(_unitPrefab)
-                .UnderTransform(_unitRoot);
+            Container.BindFactory<Vector3, UnitFacade, UnitFacade.Factory>()
+                .FromPoolableMemoryPool<Vector3, UnitFacade, UnitFacadePool>(pool => pool
+                    .WithInitialSize(_unitPoolSize)
+                    .FromComponentInNewPrefab(_unitPrefab)
+                    .UnderTransform(_unitsParent));
+            
             Container.BindInterfacesTo<UnitsGenerator>().AsSingle().NonLazy();
         }
 
@@ -143,6 +143,10 @@ namespace Infrastructure
             Container.Bind<Serialization>().AsSingle();
             Container.BindInstance(_savingLoadingGame);
             Container.BindInterfacesTo<UnitsResetting>().AsSingle().NonLazy();
+        }
+        
+        private class UnitFacadePool : MonoPoolableMemoryPool<Vector3, IMemoryPool, UnitFacade>
+        {
         }
     }
 }

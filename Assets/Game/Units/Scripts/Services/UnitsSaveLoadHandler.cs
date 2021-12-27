@@ -33,7 +33,7 @@ namespace Game.Units.Services
             
             foreach (var unitData in currentUnits)
             {
-                var unitFacade = _factory.Create();
+                var unitFacade = _factory.Create(Vector3.zero);
                 unitFacade.UnitSaveLoadHandler.SetUnitData(unitData);
             }
         }

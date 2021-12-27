@@ -4,26 +4,18 @@ using Zenject;
 
 namespace Game.Units.Services
 {
-    public class UnitsGenerator : ITickable
+    public class UnitsGenerator : IInitializable
     {
         private readonly UnitFacade.Factory _factory;
-
-        private Vector3 _lastUnitPosition = Vector3.zero;
-
+        
         public UnitsGenerator(UnitFacade.Factory factory)
         {
             _factory = factory;
         }
 
-        public void Tick()
+        public void Initialize()
         {
-            // if (Keyboard.current.spaceKey.wasPressedThisFrame)
-            // {
-            //     var unit = _factory.Create();
-            //     unit.transform.position = _lastUnitPosition;
-            //
-            //     _lastUnitPosition += Vector3.forward * 2;
-            // }
+            _factory.Create(Vector3.zero);
         }
     }
 }

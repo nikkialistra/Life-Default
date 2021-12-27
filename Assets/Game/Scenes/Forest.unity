@@ -1470,11 +1470,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _camera: {fileID: 1257269096}
   _playerInput: {fileID: 1763958284}
-  _unitsSelection: {fileID: 0}
+  _unitsSelection: {fileID: 5372196}
   _selectionInput: {fileID: 1002004461}
-  _selectionRect: {fileID: 0}
   _unitsChoosing: {fileID: 787613333}
-  _uiCanvas: {fileID: 0}
   _movementCommand: {fileID: 985616193}
   _pool: {fileID: 936167683}
   _targetPrefab: {fileID: 719698589249946672, guid: 2be09864b16f2074d9c7d85518d8cf0f,
@@ -1484,7 +1482,8 @@ MonoBehaviour:
     type: 3}
   _unitsTypeCounts: {fileID: 764602377}
   _unitsRepository: {fileID: 2051572251}
-  _unitRoot: {fileID: 1496406937}
+  _unitPoolSize: 1
+  _unitsParent: {fileID: 1496406937}
   _gameViews: {fileID: 1502504551}
   _unitTypesView: {fileID: 1502504550}
   _infoPanelView: {fileID: 1502504552}
@@ -5921,7 +5920,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1257269092}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 475b404d580a4845bf6ab77656daed4f, type: 3}
   m_Name: 
@@ -8241,7 +8240,7 @@ PrefabInstance:
     - target: {fileID: 5254883410760144401, guid: e2dfc762404c44f428ced3bb4fb85999,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 5.37
       objectReference: {fileID: 0}
     - target: {fileID: 5254883410760144401, guid: e2dfc762404c44f428ced3bb4fb85999,
         type: 3}

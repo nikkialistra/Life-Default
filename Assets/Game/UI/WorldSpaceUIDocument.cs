@@ -8,10 +8,6 @@ namespace Game.UI
     // class from internet while waiting for official unity ui toolkit world space panels
     public class WorldSpaceUIDocument : MonoBehaviour
     {
-        public event Action RebuildFinish;
-        
-        public UIDocument UiDocument => _uiDocument;
-        
         [SerializeField] private int _panelWidth = 1280;
         [SerializeField] private int _panelHeight = 720;
         [SerializeField] private float _panelScale = 1.0f;
@@ -19,15 +15,21 @@ namespace Game.UI
         [SerializeField] private VisualTreeAsset _visualTreeAsset;
         [SerializeField] private PanelSettings _panelSettingsPrefab;
         [SerializeField] private RenderTexture _renderTexturePrefab;
+        
+        public event Action RebuildFinish;
+        public UIDocument UiDocument => _uiDocument;
+        public bool Initialized { get; private set; }
 
         private MeshRenderer _meshRenderer;
         private PanelEventHandler _panelEventHandler;
-        
+
+
         // runtime rebuildable stuff
         private UIDocument _uiDocument;
         private PanelSettings _panelSettings;
         private RenderTexture _renderTexture;
         private Material _material;
+
 
         void Awake ()
         {
@@ -52,14 +54,11 @@ namespace Game.UI
             GameObject quadGo = GameObject.CreatePrimitive(PrimitiveType.Quad);
             meshFilter.sharedMesh = quadGo.GetComponent<MeshFilter>().sharedMesh;
             Destroy(quadGo);
-        }
-
-        void Start()
-        {
+            
             RebuildPanel();
         }
-        
-        private void RebuildPanel ()
+
+        private void RebuildPanel()
         {
             DestroyGeneratedAssets();
 
@@ -109,7 +108,8 @@ namespace Game.UI
                     break;
                 }
             }
-            
+
+            Initialized = true;
             RebuildFinish?.Invoke();
         }
 

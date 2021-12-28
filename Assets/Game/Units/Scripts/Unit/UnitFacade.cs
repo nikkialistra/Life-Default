@@ -23,13 +23,15 @@ namespace Game.Units.Unit
         [Required]
         [SerializeField] private GameObject _selectionIndicator;
 
-        public event Action<int> HealthChange; 
+        public event Action<int> HealthChange;
+        public event Action Die;
 
         public UnitSaveLoadHandler UnitSaveLoadHandler { get; private set;  }
 
         public UnitType UnitType => _unitType;
         public string Name => _name;
         public int Health => _health.Health;
+        public int MaxHealth => _health.MaxHealth;
         
         private EntityHealth _health;
 
@@ -43,13 +45,13 @@ namespace Game.Units.Unit
 
         private void OnEnable()
         {
-            _health.Died += Dispose;
+            _health.Die += Dispose;
             _health.HealthChange += OnHealthChange;
         }
 
         private void OnDisable()
         {
-            _health.Died -= Dispose;
+            _health.Die -= Dispose;
             _health.HealthChange -= OnHealthChange;
         }
 
@@ -106,6 +108,7 @@ namespace Game.Units.Unit
 
         public void Dispose()
         {
+            Die?.Invoke();
             if (_pool == null)
             {
                 Destroy(gameObject);

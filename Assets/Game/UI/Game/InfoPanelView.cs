@@ -6,23 +6,25 @@ using UnityEngine.UIElements;
 namespace Game.UI.Game
 {
     [RequireComponent(typeof(UIDocument))]
-    [RequireComponent(typeof(UnitDescriptionView))]
-    [RequireComponent(typeof(UnitsDescriptionView))]
+    [RequireComponent(typeof(UnitInfoView))]
+    [RequireComponent(typeof(UnitsInfoView))]
     public class InfoPanelView : MonoBehaviour
     {
         public VisualElement Root => _infoPanel;
+        
+        private UnitFacade _lastUnit;
 
         private VisualElement _tree;
 
-        private UnitDescriptionView _unitDescriptionView;
-        private UnitsDescriptionView _unitsDescriptionView;
+        private UnitInfoView _unitInfoView;
+        private UnitsInfoView _unitsInfoView;
 
         private VisualElement _infoPanel;
         
         private void Awake()
         {
-            _unitDescriptionView = GetComponent<UnitDescriptionView>();
-            _unitsDescriptionView = GetComponent<UnitsDescriptionView>();
+            _unitInfoView = GetComponent<UnitInfoView>();
+            _unitsInfoView = GetComponent<UnitsInfoView>();
             
             _tree = GetComponent<UIDocument>().rootVisualElement;
 
@@ -74,16 +76,29 @@ namespace Game.UI.Game
 
         private void ShowOneUnitDescription(UnitFacade unit)
         {
-            _unitsDescriptionView.HideSelf();
-            _unitDescriptionView.ShowSelf();
-            _unitDescriptionView.FillIn(unit);
+            UnsubscribeFromLastUnit();
+            unit.Die += HideInfoPanel;
+            
+            _unitsInfoView.HideSelf();
+            _unitInfoView.ShowSelf();
+            _unitInfoView.FillIn(unit);
+            
+            _lastUnit = unit;
         }
 
         private void ShowUnitsDescription(List<UnitFacade> units)
         {
-            _unitDescriptionView.HideSelf();
-            _unitsDescriptionView.ShowSelf();
-            _unitsDescriptionView.FillIn(units);
+            _unitInfoView.HideSelf();
+            _unitsInfoView.ShowSelf();
+            _unitsInfoView.FillIn(units);
+        }
+        
+        private void UnsubscribeFromLastUnit()
+        {
+            if (_lastUnit != null)
+            {
+                _lastUnit.Die -= HideInfoPanel;
+            }
         }
     }
 }

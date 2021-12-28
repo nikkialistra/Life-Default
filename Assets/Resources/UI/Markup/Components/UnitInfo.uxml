@@ -9,7 +9,7 @@
                     <ui:Label text="Name" display-tooltip-when-elided="true" name="unit-nomination__name" class="nomination__name" />
                 </ui:VisualElement>
                 <ui:VisualElement name="unit-health" class="unit-health">
-                    <ui:ProgressBar title="Health" name="unit-health__progress-bar" style="-unity-font: resource(&apos;Fonts/Dosis-Bold&apos;); -unity-font-definition: none;" />
+                    <ui:ProgressBar title="Health" name="unit-health__progress-bar" high-value="1" style="-unity-font: resource(&apos;Fonts/Dosis-Bold&apos;); -unity-font-definition: none;" />
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>

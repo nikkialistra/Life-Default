@@ -8,7 +8,7 @@ using UnityEngine.UIElements;
 namespace Game.UI.Game
 {
     [RequireComponent(typeof(InfoPanelView))]
-    public class UnitsDescriptionView : MonoBehaviour
+    public class UnitsInfoView : MonoBehaviour
     {
         public event Action<UnitFacade> UnitIconClick;
         

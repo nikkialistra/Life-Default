@@ -61,9 +61,9 @@ namespace Infrastructure
         [Required] 
         [SerializeField] private InfoPanelView _infoPanelView;
         [Required] 
-        [SerializeField] private UnitDescriptionView _unitDescriptionView;
+        [SerializeField] private UnitInfoView _unitInfoView;
         [Required] 
-        [SerializeField] private UnitsDescriptionView _unitsDescriptionView;
+        [SerializeField] private UnitsInfoView _unitsInfoView;
 
         [Title("Saving")]
         [Required]
@@ -132,8 +132,8 @@ namespace Infrastructure
             Container.BindInstance(_gameViews);
             Container.BindInstance(_unitTypesView);
             Container.BindInstance(_infoPanelView);
-            Container.BindInstance(_unitDescriptionView);
-            Container.BindInstance(_unitsDescriptionView);
+            Container.BindInstance(_unitInfoView);
+            Container.BindInstance(_unitsInfoView);
         }
 
         private void BindSaving()

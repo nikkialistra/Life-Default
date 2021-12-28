@@ -78,6 +78,14 @@
     background-color: rgb(44, 93, 135);
 }
 
+.middle-health .unity-progress-bar__progress {
+    background-color: rgb(188, 184, 24);
+}
+
+.low-health .unity-progress-bar__progress {
+    background-color: rgb(188, 24, 24);
+}
+
 .unit-health .unity-progress-bar__progress {
     margin: 1px;
 }

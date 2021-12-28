@@ -16,15 +16,16 @@ namespace Game.Cameras
         public event Action<Vector3> PositionUpdate;
         
         public bool Following { get; private set; }
-        
+
+        private UnitFacade _unit;
         private Transform _followTransform;
         private Vector3 _followOffset;
-        
+
         private Camera _camera;
         private Vector3 _followLastPosition;
 
         private UnitsChoosing _unitsChoosing;
-        
+
         private PlayerInput _playerInput;
 
         private InputAction _setFollowAction;
@@ -57,6 +58,11 @@ namespace Game.Cameras
             _unitsChoosing.UnitChosen -= SetFollow;
         }
 
+        private void OnDestroy()
+        {
+            UnsubscribeFromLastUnit();
+        }
+
         private void TryFollow(InputAction.CallbackContext context)
         {
             var screenPoint = _positionAction.ReadValue<Vector2>();
@@ -77,7 +83,13 @@ namespace Game.Cameras
 
         private void SetFollow(UnitFacade unit)
         {
+            UnsubscribeFromLastUnit();
+            
+            _unit = unit;
             _followTransform = unit.transform;
+            
+            unit.Die += ResetFollow;
+            
             UpdateCameraPosition();
             _followLastPosition = _followTransform.position;
             Following = true;
@@ -95,6 +107,20 @@ namespace Game.Cameras
             return delta;
         }
 
+        public void ResetFollow()
+        {
+            _followTransform = null;
+            Following = false;
+        }
+        
+        private void UnsubscribeFromLastUnit()
+        {
+            if (_unit != null)
+            {
+                _unit.Die -= ResetFollow;
+            }
+        }
+
         private void UpdateCameraPosition()
         {
             var yDifference = transform.position.y - _followTransform.position.y;
@@ -103,12 +129,6 @@ namespace Game.Cameras
             
             var cameraPosition = _followTransform.position - (transform.rotation * Vector3.forward * distanceMultiplier);
             PositionUpdate?.Invoke(cameraPosition);
-        }
-
-        public void ResetFollow()
-        {
-            _followTransform = null;
-            Following = false;
         }
     }
 }

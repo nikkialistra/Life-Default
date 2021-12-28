@@ -1412,8 +1412,8 @@ MonoBehaviour:
   _gameViews: {fileID: 1502504551}
   _unitTypesView: {fileID: 1502504550}
   _infoPanelView: {fileID: 1502504552}
-  _unitDescriptionView: {fileID: 1502504553}
-  _unitsDescriptionView: {fileID: 1502504554}
+  _unitInfoView: {fileID: 1502504553}
+  _unitsInfoView: {fileID: 1502504554}
   _unitsSaveLoadHandler: {fileID: 692575793}
   _savingLoadingGame: {fileID: 2126507202}
 --- !u!1001 &321978266
@@ -7109,6 +7109,8 @@ MonoBehaviour:
   _masonPreview: {fileID: 2800000, guid: 963178da7aa7b4946b71b514962c1ec1, type: 3}
   _meleePreview: {fileID: 2800000, guid: 48b30d2af327d2245adf5cc2d7936db7, type: 3}
   _archerPreview: {fileID: 2800000, guid: d5425443dfa96484fbce05acce7e4c77, type: 3}
+  _middleFraction: 0.45
+  _lowFraction: 0.15
 --- !u!114 &1502504554
 MonoBehaviour:
   m_ObjectHideFlags: 0

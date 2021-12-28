@@ -13,7 +13,7 @@ namespace Kernel.Entities
         [MinValue(0), ValidateInput("@_startHealth <= _maxHealth", "Start health cannon be greater than max health")]
         [SerializeField] private int _startHealth;
 
-        public event Action Died;
+        public event Action Die;
         public event Action<int> HealthChange; 
         
         public int Health
@@ -62,7 +62,7 @@ namespace Kernel.Entities
             if (!IsAlive)
             {
                 StopTakingDamage();
-                Died?.Invoke();
+                Die?.Invoke();
             }
         }
 

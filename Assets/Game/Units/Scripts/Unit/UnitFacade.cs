@@ -9,8 +9,9 @@ using Zenject;
 
 namespace Game.Units.Unit
 {
-    [RequireComponent(typeof(UnitSaveLoadHandler))]
     [RequireComponent(typeof(EntityHealth))]
+    [RequireComponent(typeof(UnitAnimator))]
+    [RequireComponent(typeof(UnitSaveLoadHandler))]
     public class UnitFacade : MonoBehaviour, IPoolable<Vector3, IMemoryPool>, IDisposable
     {
         [Title("Properties")]
@@ -22,7 +23,7 @@ namespace Game.Units.Unit
         [SerializeField] private HealthIndicatorView _healthIndicatorView;
         [Required]
         [SerializeField] private GameObject _selectionIndicator;
-
+        
         public event Action<int> HealthChange;
         public event Action Die;
 
@@ -32,7 +33,10 @@ namespace Game.Units.Unit
         public string Name => _name;
         public int Health => _health.Health;
         public int MaxHealth => _health.MaxHealth;
+
+        private bool _died;
         
+        private UnitAnimator _unitAnimator;
         private EntityHealth _health;
 
         private IMemoryPool _pool;
@@ -40,6 +44,7 @@ namespace Game.Units.Unit
         private void Awake()
         {
             _health = GetComponent<EntityHealth>();
+            _unitAnimator = GetComponent<UnitAnimator>();
             UnitSaveLoadHandler = GetComponent<UnitSaveLoadHandler>();
         }
 
@@ -47,12 +52,14 @@ namespace Game.Units.Unit
         {
             _health.Die += Dispose;
             _health.HealthChange += OnHealthChange;
+            _unitAnimator.DeathFinish += DestroySelf;
         }
 
         private void OnDisable()
         {
             _health.Die -= Dispose;
             _health.HealthChange -= OnHealthChange;
+            _unitAnimator.DeathFinish -= DestroySelf;
         }
 
         private void Start()
@@ -71,6 +78,11 @@ namespace Game.Units.Unit
         [Button(ButtonSizes.Large)]
         public void TakeDamage(int value)
         {
+            if (_died)
+            {
+                return;
+            }
+            
             _health.TakeDamage(value);
         }
 
@@ -78,7 +90,7 @@ namespace Game.Units.Unit
         {
             while (true)
             {
-                _health.TakeDamage(15);
+                TakeDamage(15);
                 yield return new WaitForSeconds(1f);
             }
         }
@@ -109,6 +121,13 @@ namespace Game.Units.Unit
         public void Dispose()
         {
             Die?.Invoke();
+            _died = true;
+        }
+
+        private void DestroySelf()
+        {
+            _unitAnimator.DeathFinish -= DestroySelf;
+
             if (_pool == null)
             {
                 Destroy(gameObject);

@@ -46,7 +46,7 @@ namespace Kernel.Entities
         {
             if (!IsAlive)
             {
-                throw new InvalidOperationException("Healing cannon be applied to the died entity");
+                throw new InvalidOperationException("Healing cannot be applied to the died entity");
             }
 
             _health = Math.Min(_health + _maxHealth, _maxHealth);
@@ -105,7 +105,7 @@ namespace Kernel.Entities
 
             if (!IsAlive)
             {
-                throw new InvalidOperationException("Damage cannon be applied to the died entity");
+                throw new InvalidOperationException("Damage cannot be applied to the died entity");
             }
         }
     }

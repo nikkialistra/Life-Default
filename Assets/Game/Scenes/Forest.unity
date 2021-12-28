@@ -1532,6 +1532,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _camera: {fileID: 1257269096}
+  _cameraInputCombination: {fileID: 1257269101}
   _playerInput: {fileID: 1763958284}
   _unitsSelection: {fileID: 5372196}
   _selectionInput: {fileID: 1002004461}
@@ -1545,7 +1546,7 @@ MonoBehaviour:
     type: 3}
   _unitsTypeCounts: {fileID: 764602377}
   _unitsRepository: {fileID: 2051572251}
-  _unitPoolSize: 1
+  _unitPoolSize: 5
   _unitsParent: {fileID: 1496406937}
   _gameViews: {fileID: 1502504551}
   _unitTypesView: {fileID: 1502504550}

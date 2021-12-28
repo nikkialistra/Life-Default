@@ -127,6 +127,24 @@ namespace Kernel.Controls
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""TestingGenerateUnit"",
+                    ""type"": ""Button"",
+                    ""id"": ""4aa3bf57-7c70-4755-8237-394a0ee4ffa0"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""TestingToggleCameraMovement"",
+                    ""type"": ""Button"",
+                    ""id"": ""0afbacf9-ee1c-4490-ab98-6bb1dd20f9b4"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -382,6 +400,72 @@ namespace Kernel.Controls
                     ""action"": ""ShowMenu"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""One Modifier"",
+                    ""id"": ""57e44d36-c7db-4d50-ada6-5f081466df09"",
+                    ""path"": ""OneModifier"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""TestingGenerateUnit"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""modifier"",
+                    ""id"": ""292d32de-32af-4da2-9238-c720eb758b1f"",
+                    ""path"": ""<Keyboard>/alt"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""TestingGenerateUnit"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""binding"",
+                    ""id"": ""688d456f-62f2-410b-8768-fba57b891491"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""TestingGenerateUnit"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""One Modifier"",
+                    ""id"": ""c082c388-40f0-407c-9b18-4634a15e6a0b"",
+                    ""path"": ""OneModifier"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""TestingToggleCameraMovement"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""modifier"",
+                    ""id"": ""a51b8287-0d56-405d-b6f0-0face5f5e5b3"",
+                    ""path"": ""<Keyboard>/alt"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""TestingToggleCameraMovement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""binding"",
+                    ""id"": ""4b4a3ee5-ea25-4cbb-b8c0-82e9a409b4e8"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""TestingToggleCameraMovement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 }
             ]
         },
@@ -429,6 +513,8 @@ namespace Kernel.Controls
             m_Management_Zoom = m_Management.FindAction("Zoom", throwIfNotFound: true);
             m_Management_SetTarget = m_Management.FindAction("SetTarget", throwIfNotFound: true);
             m_Management_ShowMenu = m_Management.FindAction("ShowMenu", throwIfNotFound: true);
+            m_Management_TestingGenerateUnit = m_Management.FindAction("TestingGenerateUnit", throwIfNotFound: true);
+            m_Management_TestingToggleCameraMovement = m_Management.FindAction("TestingToggleCameraMovement", throwIfNotFound: true);
             // Menus
             m_Menus = asset.FindActionMap("Menus", throwIfNotFound: true);
             m_Menus_HideMenu = m_Menus.FindAction("HideMenu", throwIfNotFound: true);
@@ -502,6 +588,8 @@ namespace Kernel.Controls
         private readonly InputAction m_Management_Zoom;
         private readonly InputAction m_Management_SetTarget;
         private readonly InputAction m_Management_ShowMenu;
+        private readonly InputAction m_Management_TestingGenerateUnit;
+        private readonly InputAction m_Management_TestingToggleCameraMovement;
         public struct ManagementActions
         {
             private @Control m_Wrapper;
@@ -517,6 +605,8 @@ namespace Kernel.Controls
             public InputAction @Zoom => m_Wrapper.m_Management_Zoom;
             public InputAction @SetTarget => m_Wrapper.m_Management_SetTarget;
             public InputAction @ShowMenu => m_Wrapper.m_Management_ShowMenu;
+            public InputAction @TestingGenerateUnit => m_Wrapper.m_Management_TestingGenerateUnit;
+            public InputAction @TestingToggleCameraMovement => m_Wrapper.m_Management_TestingToggleCameraMovement;
             public InputActionMap Get() { return m_Wrapper.m_Management; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -559,6 +649,12 @@ namespace Kernel.Controls
                     @ShowMenu.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnShowMenu;
                     @ShowMenu.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnShowMenu;
                     @ShowMenu.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnShowMenu;
+                    @TestingGenerateUnit.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnTestingGenerateUnit;
+                    @TestingGenerateUnit.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnTestingGenerateUnit;
+                    @TestingGenerateUnit.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnTestingGenerateUnit;
+                    @TestingToggleCameraMovement.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnTestingToggleCameraMovement;
+                    @TestingToggleCameraMovement.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnTestingToggleCameraMovement;
+                    @TestingToggleCameraMovement.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnTestingToggleCameraMovement;
                 }
                 m_Wrapper.m_ManagementActionsCallbackInterface = instance;
                 if (instance != null)
@@ -596,6 +692,12 @@ namespace Kernel.Controls
                     @ShowMenu.started += instance.OnShowMenu;
                     @ShowMenu.performed += instance.OnShowMenu;
                     @ShowMenu.canceled += instance.OnShowMenu;
+                    @TestingGenerateUnit.started += instance.OnTestingGenerateUnit;
+                    @TestingGenerateUnit.performed += instance.OnTestingGenerateUnit;
+                    @TestingGenerateUnit.canceled += instance.OnTestingGenerateUnit;
+                    @TestingToggleCameraMovement.started += instance.OnTestingToggleCameraMovement;
+                    @TestingToggleCameraMovement.performed += instance.OnTestingToggleCameraMovement;
+                    @TestingToggleCameraMovement.canceled += instance.OnTestingToggleCameraMovement;
                 }
             }
         }
@@ -646,6 +748,8 @@ namespace Kernel.Controls
             void OnZoom(InputAction.CallbackContext context);
             void OnSetTarget(InputAction.CallbackContext context);
             void OnShowMenu(InputAction.CallbackContext context);
+            void OnTestingGenerateUnit(InputAction.CallbackContext context);
+            void OnTestingToggleCameraMovement(InputAction.CallbackContext context);
         }
         public interface IMenusActions
         {

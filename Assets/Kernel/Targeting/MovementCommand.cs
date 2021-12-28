@@ -75,10 +75,9 @@ namespace Kernel.Targeting
             }
             
             var mousePosition = _positionAction.ReadValue<Vector2>();
-            var rayIntoScene =
-                _camera.ScreenPointToRay(new Vector3(mousePosition.x, mousePosition.y, _camera.nearClipPlane));
+            var ray = _camera.ScreenPointToRay(new Vector3(mousePosition.x, mousePosition.y, _camera.nearClipPlane));
 
-            if (Physics.Raycast(rayIntoScene, out var hit))
+            if (Physics.Raycast(ray, out var hit))
             {
                 return hit.point;
             }

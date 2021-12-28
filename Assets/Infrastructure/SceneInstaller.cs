@@ -1,4 +1,6 @@
-﻿using Game.UI;
+﻿using Game.Cameras;
+using Game.Testing;
+using Game.UI;
 using Game.UI.Game;
 using Game.Units.Selecting;
 using Game.Units.Services;
@@ -16,8 +18,12 @@ namespace Infrastructure
 {
     public class SceneInstaller : MonoInstaller
     {
-        [Title("Base")]
+        [Title("Input")]
+        [Required]
         [SerializeField] private Camera _camera;
+        [Required]
+        [SerializeField] private CameraInputCombination _cameraInputCombination;
+        [Required]
         [SerializeField] private PlayerInput _playerInput;
 
         [Title("Selection")] 
@@ -73,7 +79,7 @@ namespace Infrastructure
 
         public override void InstallBindings()
         {
-            BindBase();
+            BindInput();
             BindUnitSelectionSystem();
             BindTargeting();
             BindUnitRepository();
@@ -81,11 +87,13 @@ namespace Infrastructure
             BindUnitSpawning();
             BindUi();
             BindSaving();
+            BindTesting();
         }
 
-        private void BindBase()
+        private void BindInput()
         {
             Container.BindInstance(_camera).AsSingle();
+            Container.BindInstance(_cameraInputCombination).AsSingle();
             Container.BindInstance(_playerInput).AsSingle();
         }
 
@@ -143,6 +151,11 @@ namespace Infrastructure
             Container.Bind<Serialization>().AsSingle();
             Container.BindInstance(_savingLoadingGame);
             Container.BindInterfacesTo<UnitsResetting>().AsSingle().NonLazy();
+        }
+
+        private void BindTesting()
+        {
+            Container.BindInterfacesAndSelfTo<TogglingCameraMovement>().AsSingle().NonLazy();
         }
         
         private class UnitFacadePool : MonoPoolableMemoryPool<Vector3, IMemoryPool, UnitFacade> {}

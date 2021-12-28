@@ -1,6 +1,0 @@
-<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <Style src="project://database/Assets/Resources/UI/Styles/WorldIndicators.uss?fileID=7433441132597879392&amp;guid=c32bdeab6ac615c4eb96850d55f73d5a&amp;type=3#WorldIndicators" />
-    <ui:VisualElement name="world-health" class="world-health">
-        <ui:ProgressBar title="Health" name="world-health__progress-bar" class="world-health__progress-bar" />
-    </ui:VisualElement>
-</ui:UXML>

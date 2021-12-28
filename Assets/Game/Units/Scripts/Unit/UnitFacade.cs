@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using Game.UI.Game;
 using Kernel.Entities;
 using Kernel.Utils;
@@ -21,6 +22,8 @@ namespace Game.Units.Unit
         [SerializeField] private HealthIndicatorView _healthIndicatorView;
         [Required]
         [SerializeField] private GameObject _selectionIndicator;
+
+        public event Action<int> HealthChange; 
 
         public UnitSaveLoadHandler UnitSaveLoadHandler { get; private set;  }
 
@@ -57,13 +60,25 @@ namespace Game.Units.Unit
                 _name = NameGenerator.GetRandomName();
             }
 
+            _healthIndicatorView.SetMaxHealth(_health.MaxHealth);
             _healthIndicatorView.SetHealth(_health.Health);
+            
+            StartCoroutine(TakingDamage());
         }
 
         [Button(ButtonSizes.Large)]
         public void TakeDamage(int value)
         {
             _health.TakeDamage(value);
+        }
+
+        private IEnumerator TakingDamage()
+        {
+            while (true)
+            {
+                _health.TakeDamage(15);
+                yield return new WaitForSeconds(1f);
+            }
         }
 
         public void Select()
@@ -104,6 +119,7 @@ namespace Game.Units.Unit
         private void OnHealthChange(int value)
         {
             _healthIndicatorView.SetHealth(value);
+            HealthChange?.Invoke(value);
         }
 
         public class Factory : PlaceholderFactory<Vector3, UnitFacade>

@@ -3,7 +3,6 @@ using System.Linq;
 using Game.UI.Game;
 using Game.Units.Services;
 using Game.Units.Unit;
-using UnityEngine;
 
 namespace Game.Units.Selecting
 {
@@ -19,6 +18,7 @@ namespace Game.Units.Selecting
         }
 
         public List<UnitFacade> Units { get; private set; } = new();
+        private List<UnitFacade> _lastSelectedUnits = new();
 
         public void Clear()
         {
@@ -47,17 +47,17 @@ namespace Game.Units.Selecting
 
         private void UpdateSelectionStatuses()
         {
-            var allUnits = _unitsRepository.GetObjects();
-
-            foreach (var deselected in allUnits.Except(Units))
-            {
-                deselected.Deselect();
-            }
-
             foreach (var selected in Units)
             {
                 selected.Select();
             }
+
+            foreach (var deselected in _lastSelectedUnits.Except(Units))
+            {
+                deselected.Deselect();
+            }
+
+            _lastSelectedUnits = new List<UnitFacade>(Units);
         }
     }
 }

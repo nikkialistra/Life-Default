@@ -29,7 +29,8 @@ namespace Game.UI.Game
         private Label _nominationType;
         private Label _nominationName;
         private ProgressBar _health;
-        
+        private UnitFacade _lastUnit;
+
         private void Awake()
         {
             _parent = GetComponent<InfoPanelView>();
@@ -41,6 +42,11 @@ namespace Game.UI.Game
             _nominationType = _tree.Q<Label>("unit-nomination__type");
             _nominationName = _tree.Q<Label>("unit-nomination__name");
             _health = _tree.Q<ProgressBar>("unit-health__progress-bar");
+        }
+
+        private void OnDestroy()
+        {
+            UnsubscribeFromUnit();
         }
 
         public void ShowSelf()
@@ -80,6 +86,24 @@ namespace Game.UI.Game
             _nominationType.text = unit.UnitType.ToString();
             _nominationName.text = unit.Name;
             _health.value = unit.Health;
+
+            UnsubscribeFromUnit();
+            unit.HealthChange += ChangeHealth;
+            
+            _lastUnit = unit;
+        }
+
+        private void UnsubscribeFromUnit()
+        {
+            if (_lastUnit != null)
+            {
+                _lastUnit.HealthChange -= ChangeHealth;
+            }
+        }
+
+        private void ChangeHealth(int value)
+        {
+            _health.value = value;
         }
     }
 }

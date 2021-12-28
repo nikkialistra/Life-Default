@@ -9,8 +9,8 @@ namespace Kernel.Entities
     public class EntityHealth : MonoBehaviour, IDamageable
     {
         [MinValue(0)]
-        [SerializeField] private int _fullHealth;
-        [MinValue(0), ValidateInput("@_startHealth <= _fullHealth", "Start health cannon be greater than full health")]
+        [SerializeField] private int _maxHealth;
+        [MinValue(0), ValidateInput("@_startHealth <= _maxHealth", "Start health cannon be greater than max health")]
         [SerializeField] private int _startHealth;
 
         public event Action Died;
@@ -30,6 +30,8 @@ namespace Kernel.Entities
             }
         }
 
+        public int MaxHealth => _maxHealth;
+
         private int _health;
         private bool IsAlive => _health > 0;
         
@@ -47,7 +49,7 @@ namespace Kernel.Entities
                 throw new InvalidOperationException("Healing cannon be applied to the died entity");
             }
 
-            _health = Math.Min(_health + _fullHealth, _fullHealth);
+            _health = Math.Min(_health + _maxHealth, _maxHealth);
         }
 
         public void TakeDamage(int value)
@@ -56,7 +58,6 @@ namespace Kernel.Entities
 
             _health -= value;
             HealthChange?.Invoke(_health);
-            Debug.Log(_health);
 
             if (!IsAlive)
             {

@@ -1,78 +1,58 @@
 ﻿using UnityEngine;
-using UnityEngine.UIElements;
+using UnityEngine.UI;
 using Zenject;
 
 namespace Game.UI.Game
 {
-    [RequireComponent(typeof(WorldSpaceUIDocument))]
     public class HealthIndicatorView : MonoBehaviour
     {
-        private VisualElement _tree;
-        private ProgressBar _health;
-        
+        [SerializeField] private Slider _slider;
+        [SerializeField] private Image _fill;
+        [SerializeField] private Gradient _fillGradient;
+
         private bool _shown;
 
-        private WorldSpaceUIDocument _worldSpaceUIDocument;
-        
-        private Camera _camera;
+        private GameObject _sliderGameObject;
+        private Transform _cameraTransform;
 
         [Inject]
         public void Construct(Camera camera)
         {
-            _camera = camera;
+            _cameraTransform = camera.transform;
         }
 
         private void Awake()
         {
-             _worldSpaceUIDocument = GetComponent<WorldSpaceUIDocument>();
-             if (_worldSpaceUIDocument.Initialized)
-             {
-                 Initialize();
-             }
+            _sliderGameObject = _slider.gameObject;
         }
 
-        private void OnEnable()
+        private void LateUpdate()
         {
-            _worldSpaceUIDocument.RebuildFinish += Initialize;
-        }
-
-        private void OnDisable()
-        {
-            _worldSpaceUIDocument.RebuildFinish -= Initialize;
-        }
-
-        void Update() 
-        {
-            if (_shown)
-            {
-                transform.LookAt(transform.position + _camera.transform.rotation * Vector3.forward,
-                    _camera.transform.rotation * Vector3.up);
-            }
+            transform.LookAt(transform.position + _cameraTransform.forward);
         }
 
         public void SetHealth(int value)
         {
-            _health.value = value;
+            _slider.value = value;
+            _fill.color = _fillGradient.Evaluate(_slider.normalizedValue);
+        }
+
+        public void SetMaxHealth(int health)
+        {
+            _slider.maxValue = health;
+            _slider.value = health;
+
+            _fill.color = _fillGradient.Evaluate(1f);
         }
 
         public void Show()
         {
-            _tree.RemoveFromClassList("not-displayed");
-            _shown = true;
+            _sliderGameObject.SetActive(true);
         }
 
         public void Hide()
         {
-            _tree.AddToClassList("not-displayed");
-            _shown = false;
-        }
-
-        private void Initialize()
-        {
-            _tree = _worldSpaceUIDocument.UiDocument.rootVisualElement;
-            _health = _tree.Q<ProgressBar>("world-health__progress-bar");
-            
-            Hide();
+            _sliderGameObject.SetActive(false);
         }
     }
 }

@@ -69,6 +69,11 @@ namespace Game.UI.Game
             }
         }
 
+        private void HidePanel()
+        {
+            _parent.HideSelf();
+        }
+
         public void FillIn(UnitFacade unit)
         {
             FillInPreview(unit);
@@ -104,6 +109,7 @@ namespace Game.UI.Game
         private void SubscribeToUnit(UnitFacade unit)
         {
             unit.HealthChange += ChangeHealth;
+            unit.Die += HidePanel;
         }
 
         private void UnsubscribeFromLastUnit()
@@ -111,6 +117,7 @@ namespace Game.UI.Game
             if (_lastUnit != null)
             {
                 _lastUnit.HealthChange -= ChangeHealth;
+                _lastUnit.Die -= HidePanel;
             }
         }
 

@@ -11,8 +11,6 @@ namespace Game.UI.Game
     public class InfoPanelView : MonoBehaviour
     {
         public VisualElement Root => _infoPanel;
-        
-        private UnitFacade _lastUnit;
 
         private VisualElement _tree;
 
@@ -33,14 +31,14 @@ namespace Game.UI.Game
 
         private void Start()
         {
-            HideInfoPanel();
+            HideSelf();
         }
 
         public void SetUnits(List<UnitFacade> units)
         {
             if (units.Count == 0)
             {
-                HideInfoPanel();
+                HideSelf();
             }
             else if (units.Count == 1)
             {
@@ -54,36 +52,31 @@ namespace Game.UI.Game
 
         public void SetUnit(UnitFacade unit)
         {
-            ShowInfoPanel();
+            ShowSelf();
             ShowOneUnitDescription(unit);
         }
 
-        private void SetMultipleUnits(List<UnitFacade> units)
-        {
-            ShowInfoPanel();
-            ShowUnitsDescription(units);
-        }
-
-        private void ShowInfoPanel()
-        {
-            _infoPanel.RemoveFromClassList("not-displayed");
-        }
-
-        private void HideInfoPanel()
+        public void HideSelf()
         {
             _infoPanel.AddToClassList("not-displayed");
         }
 
+        private void SetMultipleUnits(List<UnitFacade> units)
+        {
+            ShowSelf();
+            ShowUnitsDescription(units);
+        }
+
+        private void ShowSelf()
+        {
+            _infoPanel.RemoveFromClassList("not-displayed");
+        }
+
         private void ShowOneUnitDescription(UnitFacade unit)
         {
-            UnsubscribeFromLastUnit();
-            unit.Die += HideInfoPanel;
-            
             _unitsInfoView.HideSelf();
             _unitInfoView.ShowSelf();
             _unitInfoView.FillIn(unit);
-            
-            _lastUnit = unit;
         }
 
         private void ShowUnitsDescription(List<UnitFacade> units)
@@ -91,14 +84,6 @@ namespace Game.UI.Game
             _unitInfoView.HideSelf();
             _unitsInfoView.ShowSelf();
             _unitsInfoView.FillIn(units);
-        }
-        
-        private void UnsubscribeFromLastUnit()
-        {
-            if (_lastUnit != null)
-            {
-                _lastUnit.Die -= HideInfoPanel;
-            }
         }
     }
 }

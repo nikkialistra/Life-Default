@@ -110,6 +110,11 @@ namespace Game.Units.Unit
 
         public void Deselect()
         {
+            if (_died)
+            {
+                return;
+            }
+            
             _selectionIndicator.SetActive(false);
             _healthIndicatorView.Hide();
         }

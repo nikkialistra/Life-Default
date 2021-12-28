@@ -38,14 +38,16 @@ namespace Game.UI.Game
         [Title("Other")] 
         [SerializeField] private int _maximumUnitIconsShowing;
 
+        private int _count;
+        
         private InfoPanelView _parent;
         private TemplateContainer _tree;
-        
+
         private VisualElement _image;
-        
+
         private VisualElement _descriptionBottom;
-        private Label _count;
-        
+        private Label _unitCount;
+
         private List<UnitFacade> _lastUnits;
 
         private List<TemplateContainer> _unitIconComponents;
@@ -54,6 +56,7 @@ namespace Game.UI.Game
         private List<ProgressBar> _unitIconProgressBars;
 
         private List<Action<int>> _changeHealthAtIndexActions;
+        private List<Action> _removeUnitAtIndexActions;
 
         private void Awake()
         {
@@ -65,7 +68,7 @@ namespace Game.UI.Game
             
             _descriptionBottom = _tree.Q<VisualElement>("units-description__bottom");
             
-            _count = _tree.Q<Label>("units-nomination-count");
+            _unitCount = _tree.Q<Label>("units-nomination-count");
             
             InitializeUnitIconComponentPool();
         }
@@ -83,6 +86,7 @@ namespace Game.UI.Game
         {
             _lastUnits = new List<UnitFacade>(_maximumUnitIconsShowing);
             InitializeChangeHealthActions();
+            InitializeRemoveUnitActions();
 
             _unitIconComponents = new List<TemplateContainer>(_maximumUnitIconsShowing);
             _unitIconRoots = new List<VisualElement>(_maximumUnitIconsShowing);
@@ -116,6 +120,28 @@ namespace Game.UI.Game
             }
         }
 
+        private void InitializeRemoveUnitActions()
+        {
+            _removeUnitAtIndexActions = new List<Action>();
+
+            for (var i = 0; i < _maximumUnitIconsShowing; i++)
+            {
+                var index = i;
+                var action = new Action(delegate
+                {
+                    RemoveUnit(index);
+                });
+                _removeUnitAtIndexActions.Add(action);
+            }
+        }
+
+        private void RemoveUnit(int index)
+        {
+            _count--;
+            UpdateCountText();
+            _unitIconRoots[index].AddToClassList("not-displayed");
+        }
+
         public void ShowSelf()
         {
             _parent.Root.Add(_tree);
@@ -127,6 +153,11 @@ namespace Game.UI.Game
             {
                 _parent.Root.Remove(_tree);
             }
+        }
+        
+        private void HidePanel()
+        {
+            _parent.HideSelf();
         }
 
         public void FillIn(List<UnitFacade> units)
@@ -142,12 +173,23 @@ namespace Game.UI.Game
 
         private void FillInProperties(List<UnitFacade> units)
         {
-            _count.text = $"Units ({units.Count})";
+            _count = units.Count;
+            UpdateCountText();
             
             units.Sort((x,y) =>
                 x.UnitType.CompareTo(y.UnitType));
             
             ShowUnitIcons(units);
+        }
+
+        private void UpdateCountText()
+        {
+            if (_count == 0)
+            {
+                HidePanel();
+            }
+            
+            _unitCount.text = $"Units ({_count})";
         }
 
         private void ShowUnitIcons(List<UnitFacade> units)
@@ -175,6 +217,7 @@ namespace Game.UI.Game
         private void SubscribeToUnit(UnitFacade unit, int i)
         {
             unit.HealthChange += _changeHealthAtIndexActions[i];
+            unit.Die += _removeUnitAtIndexActions[i];
             
             if (_lastUnits.Count > i)
             {
@@ -191,6 +234,7 @@ namespace Game.UI.Game
             for (var i = 0; i < _lastUnits.Count; i++)
             {
                 _lastUnits[i].HealthChange -= _changeHealthAtIndexActions[i];
+                _lastUnits[i].Die -= _removeUnitAtIndexActions[i];
             }
         }
 
@@ -202,6 +246,7 @@ namespace Game.UI.Game
         private void SetUpIconClickEvent(UnitFacade unit, int index)
         {
             var iconRoot = _unitIconRoots[index];
+            iconRoot.RemoveFromClassList("not-displayed");
             iconRoot.UnregisterCallback<MouseDownEvent, UnitFacade>(IconOnMouseDownEvent);
             iconRoot.RegisterCallback<MouseDownEvent, UnitFacade>(IconOnMouseDownEvent, unit);
         }

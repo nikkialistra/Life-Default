@@ -66,7 +66,7 @@ namespace Kernel.Entities
             }
         }
 
-        public void TakeDamageContinuously(int value, float interval, float time)
+        public void TakeDamageContinuously(int value, float interval, float time = float.PositiveInfinity)
         {
             if (_takingDamage != null)
             {

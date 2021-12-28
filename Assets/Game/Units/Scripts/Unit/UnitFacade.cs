@@ -2,6 +2,7 @@
 using System.Collections;
 using Game.UI.Game;
 using Kernel.Entities;
+using Kernel.Types;
 using Kernel.Utils;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -74,8 +75,6 @@ namespace Game.Units.Unit
 
             _healthIndicatorView.SetMaxHealth(_health.MaxHealth);
             _healthIndicatorView.SetHealth(_health.Health);
-            
-            StartCoroutine(TakingDamage());
         }
 
         [Button(ButtonSizes.Large)]
@@ -89,13 +88,34 @@ namespace Game.Units.Unit
             _health.TakeDamage(value);
         }
 
-        private IEnumerator TakingDamage()
+        private void TakeDamageContinuously(int value, float interval)
         {
-            var damage = Random.Range(10, 16);
-            while (true)
+            if (_died)
             {
-                TakeDamage(damage);
-                yield return new WaitForSeconds(1f);
+                return;
+            }
+            
+            _health.TakeDamageContinuously(value, interval);
+        }
+
+        private void StopTakingDamage()
+        {
+            _health.StopTakingDamage();
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.TryGetComponent(out IHittable hittable))
+            {
+                TakeDamageContinuously(hittable.Damage, hittable.Interval);
+            }
+        }
+
+        private void OnTriggerExit(Collider other)
+        {
+            if (other.TryGetComponent(out IHittable _))
+            {
+                StopTakingDamage();
             }
         }
 

@@ -97,6 +97,11 @@ namespace Game.Units.Unit
 
         public void Select()
         {
+            if (_died)
+            {
+                return;
+            }
+            
             _selectionIndicator.SetActive(true);
             _healthIndicatorView.Show();
         }
@@ -120,6 +125,7 @@ namespace Game.Units.Unit
 
         public void Dispose()
         {
+            Deselect();
             Die?.Invoke();
             _died = true;
         }

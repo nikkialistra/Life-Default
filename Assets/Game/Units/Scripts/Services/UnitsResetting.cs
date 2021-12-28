@@ -7,16 +7,14 @@ namespace Game.Units.Services
 {
     public class UnitsResetting : IDisposable
     {
-        private SavingLoadingGame _savingLoadingGame;
-        private UnitsRepository _unitsRepository;
-        private UnitsSelection _unitsSelection;
-        private TargetPool _targetPool;
+        private readonly SavingLoadingGame _savingLoadingGame;
+        private readonly UnitsSelection _unitsSelection;
+        private readonly TargetPool _targetPool;
 
-        public UnitsResetting(SavingLoadingGame savingLoadingGame, UnitsRepository unitsRepository, UnitsSelection unitsSelection, TargetPool targetPool)
+        public UnitsResetting(SavingLoadingGame savingLoadingGame, UnitsSelection unitsSelection, TargetPool targetPool)
         {
             _unitsSelection = unitsSelection;
             _targetPool = targetPool;
-            _unitsRepository = unitsRepository;
             _savingLoadingGame = savingLoadingGame;
 
             _savingLoadingGame.Loading += Reset;
@@ -26,7 +24,6 @@ namespace Game.Units.Services
         {
             _targetPool.OffAll();
             _unitsSelection.ClearSelection();
-            _unitsRepository.ResetObjects();
         }
 
         public void Dispose()

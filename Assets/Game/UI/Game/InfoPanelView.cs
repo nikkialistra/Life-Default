@@ -10,7 +10,7 @@ namespace Game.UI.Game
     [RequireComponent(typeof(UnitsInfoView))]
     public class InfoPanelView : MonoBehaviour
     {
-        public VisualElement Root => _infoPanel;
+        public VisualElement Info => _infoPanel;
 
         private VisualElement _tree;
 

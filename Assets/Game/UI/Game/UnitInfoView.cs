@@ -7,6 +7,7 @@ using UnityEngine.UIElements;
 namespace Game.UI.Game
 {
     [RequireComponent(typeof(InfoPanelView))]
+    [RequireComponent(typeof(ChangeColorFractions))]
     public class UnitInfoView : MonoBehaviour
     {
         [Title("Previews")]
@@ -21,17 +22,13 @@ namespace Game.UI.Game
         [Required]
         [SerializeField] private Texture2D _archerPreview;
 
-        [Title("Health Changing Color Fractions")] 
-        [Range(0, 1)]
-        [SerializeField] private float _middleFraction;
-        [Range(0, 1)]
-        [SerializeField] private float _lowFraction;
-
         private UnitFacade _lastUnit;
         
         private InfoPanelView _parent;
         private TemplateContainer _tree;
 
+        private ChangeColorFractions _changeColorFractions;
+        
         private VisualElement _image;
 
         private Label _nominationType;
@@ -41,6 +38,7 @@ namespace Game.UI.Game
         private void Awake()
         {
             _parent = GetComponent<InfoPanelView>();
+            _changeColorFractions = GetComponent<ChangeColorFractions>();
                 
             _tree = Resources.Load<VisualTreeAsset>("UI/Markup/Components/UnitInfo").CloneTree();
 
@@ -58,14 +56,14 @@ namespace Game.UI.Game
 
         public void ShowSelf()
         {
-            _parent.Root.Add(_tree);
+            _parent.Info.Add(_tree);
         }
 
         public void HideSelf()
         {
-            if (_parent.Root.Contains(_tree))
+            if (_parent.Info.Contains(_tree))
             {
-                _parent.Root.Remove(_tree);
+                _parent.Info.Remove(_tree);
             }
         }
 
@@ -101,7 +99,7 @@ namespace Game.UI.Game
             _nominationType.text = unit.UnitType.ToString();
             _nominationName.text = unit.Name;
             
-            ChangeHealth(unit.Health);
+            ChangeHealth();
 
             SubscribeToUnit(unit);
         }
@@ -121,9 +119,9 @@ namespace Game.UI.Game
             }
         }
 
-        private void ChangeHealth(int value)
+        private void ChangeHealth()
         {
-            _health.value = (float) value / _lastUnit.MaxHealth;
+            _health.value = (float) _lastUnit.Health / _lastUnit.MaxHealth;
 
             SetHealthColor();
         }
@@ -131,12 +129,12 @@ namespace Game.UI.Game
         private void SetHealthColor()
         {
             var fraction = _health.value;
-            if (fraction > _middleFraction)
+            if (fraction > _changeColorFractions.Middle)
             {
                 _health.RemoveFromClassList("middle-health");
                 _health.RemoveFromClassList("low-health");
             }
-            else if (fraction > _lowFraction)
+            else if (fraction > _changeColorFractions.Low)
             {
                 _health.AddToClassList("middle-health");
                 _health.RemoveFromClassList("low-health");

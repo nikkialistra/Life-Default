@@ -3,10 +3,10 @@
     <ui:VisualElement name="units-info" class="info">
         <ui:VisualElement name="info-image" class="info-image" />
         <ui:VisualElement name="units-description" class="units-description">
-            <ui:VisualElement name="units-description__top" class="units-description__top">
-                <ui:Label text="Type" display-tooltip-when-elided="true" name="units-nomination-count" class="units-count nomination__type" />
+            <ui:VisualElement name="units-description__nomination" class="units-description__top">
+                <ui:Label text="Type" display-tooltip-when-elided="true" name="units-description__nomination__count" class="units-count nomination__type" />
             </ui:VisualElement>
-            <ui:VisualElement name="units-description__bottom" class="units-description__bottom" style="height: 142px;" />
+            <ui:VisualElement name="units-description__icon-container" class="units-description__bottom" style="height: 142px;" />
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

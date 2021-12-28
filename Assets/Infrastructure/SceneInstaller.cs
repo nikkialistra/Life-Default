@@ -145,8 +145,6 @@ namespace Infrastructure
             Container.BindInterfacesTo<UnitsResetting>().AsSingle().NonLazy();
         }
         
-        private class UnitFacadePool : MonoPoolableMemoryPool<Vector3, IMemoryPool, UnitFacade>
-        {
-        }
+        private class UnitFacadePool : MonoPoolableMemoryPool<Vector3, IMemoryPool, UnitFacade> {}
     }
 }

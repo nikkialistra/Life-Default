@@ -25,7 +25,7 @@ namespace Game.Units.Unit
         [Required]
         [SerializeField] private GameObject _selectionIndicator;
         
-        public event Action<int> HealthChange;
+        public event Action HealthChange;
         public event Action Die;
 
         public UnitSaveLoadHandler UnitSaveLoadHandler { get; private set;  }
@@ -154,7 +154,7 @@ namespace Game.Units.Unit
         private void OnHealthChange(int value)
         {
             _healthIndicatorView.SetHealth(value);
-            HealthChange?.Invoke(value);
+            HealthChange?.Invoke();
         }
 
         public class Factory : PlaceholderFactory<Vector3, UnitFacade>

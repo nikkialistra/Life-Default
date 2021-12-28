@@ -36,7 +36,7 @@ namespace Game.Units.Selecting
 
         private void OnEnable()
         {
-            _unitsInfoView.UnitIconClick += ChooseUnit;
+            _unitsInfoView.SelectUnit += ChooseUnit;
             
             _unitTypesView.LeftClick += ChooseUnitByType;
             _unitTypesView.RightClick += ChooseUnits;
@@ -44,7 +44,7 @@ namespace Game.Units.Selecting
 
         private void OnDisable()
         {
-            _unitsInfoView.UnitIconClick -= ChooseUnit;
+            _unitsInfoView.SelectUnit -= ChooseUnit;
             
             _unitTypesView.LeftClick -= ChooseUnitByType;
             _unitTypesView.RightClick -= ChooseUnits;

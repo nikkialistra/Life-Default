@@ -8,7 +8,14 @@ namespace Game.Units.Services
     {
         public IEnumerable<UnitFacade> GetObjects()
         {
-            return FindObjectsOfType<UnitFacade>();
+            IEnumerable<UnitFacade> units = FindObjectsOfType<UnitFacade>();
+            foreach (var unit in units)
+            {
+                if (unit.Alive)
+                {
+                    yield return unit;
+                }
+            }
         }
 
         public IEnumerable<UnitFacade> GetObjectsByType(UnitType unitType)

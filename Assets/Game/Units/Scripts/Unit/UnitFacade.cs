@@ -35,8 +35,10 @@ namespace Game.Units.Unit
         public int Health => _health.Health;
         public int MaxHealth => _health.MaxHealth;
 
+        public bool Alive => !_died;
+
         private bool _died;
-        
+
         private UnitAnimator _unitAnimator;
         private EntityHealth _health;
 

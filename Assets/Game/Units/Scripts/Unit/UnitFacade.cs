@@ -6,6 +6,7 @@ using Kernel.Utils;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using Zenject;
+using Random = UnityEngine.Random;
 
 namespace Game.Units.Unit
 {
@@ -88,9 +89,10 @@ namespace Game.Units.Unit
 
         private IEnumerator TakingDamage()
         {
+            var damage = Random.Range(10, 16);
             while (true)
             {
-                TakeDamage(15);
+                TakeDamage(damage);
                 yield return new WaitForSeconds(1f);
             }
         }

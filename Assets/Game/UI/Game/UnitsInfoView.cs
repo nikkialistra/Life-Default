@@ -28,6 +28,12 @@ namespace Game.UI.Game
 
         [Required]
         [SerializeField] private Texture2D _archerIcon;
+        
+        [Title("Health Changing Color Fractions")] 
+        [Range(0, 1)]
+        [SerializeField] private float _middleFraction;
+        [Range(0, 1)]
+        [SerializeField] private float _lowFraction;
 
         [Title("Other")] 
         [SerializeField] private int _maximumUnitIconsShowing;
@@ -40,11 +46,15 @@ namespace Game.UI.Game
         private VisualElement _descriptionBottom;
         private Label _count;
         
+        private List<UnitFacade> _lastUnits;
+
         private List<TemplateContainer> _unitIconComponents;
         private List<VisualElement> _unitIconRoots;
         private List<VisualElement> _unitIconImages;
         private List<ProgressBar> _unitIconProgressBars;
-        
+
+        private List<Action<int>> _changeHealthAtIndexActions;
+
         private void Awake()
         {
             _parent = GetComponent<InfoPanelView>();
@@ -71,6 +81,9 @@ namespace Game.UI.Game
         
         private void InitializeUnitIconComponentPool()
         {
+            _lastUnits = new List<UnitFacade>(_maximumUnitIconsShowing);
+            InitializeChangeHealthActions();
+
             _unitIconComponents = new List<TemplateContainer>(_maximumUnitIconsShowing);
             _unitIconRoots = new List<VisualElement>(_maximumUnitIconsShowing);
             _unitIconImages = new List<VisualElement>(_maximumUnitIconsShowing);
@@ -79,11 +92,27 @@ namespace Game.UI.Game
             var unitIconComponent = Resources.Load<VisualTreeAsset>("UI/Markup/Components/UnitIcon");
             for (var i = 0; i < _maximumUnitIconsShowing; i++)
             {
+
                 var tree = unitIconComponent.CloneTree();
                 _unitIconComponents.Add(tree);
                 _unitIconRoots.Add(tree.Q<VisualElement>("icon"));
                 _unitIconImages.Add(tree.Q<VisualElement>("image"));
                 _unitIconProgressBars.Add(tree.Q<ProgressBar>("health__progress-bar"));
+            }
+        }
+
+        private void InitializeChangeHealthActions()
+        {
+            _changeHealthAtIndexActions = new List<Action<int>>();
+            
+            for (var i = 0; i < _maximumUnitIconsShowing; i++)
+            {
+                var index = i;
+                var action = new Action<int>(delegate(int health)
+                {
+                    ChangeHealth(_unitIconProgressBars[index], health, index);
+                });
+                _changeHealthAtIndexActions.Add(action);
             }
         }
 
@@ -118,11 +147,13 @@ namespace Game.UI.Game
             units.Sort((x,y) =>
                 x.UnitType.CompareTo(y.UnitType));
             
-            ShowUnitsIcons(units);
+            ShowUnitIcons(units);
         }
 
-        private void ShowUnitsIcons(List<UnitFacade> units)
+        private void ShowUnitIcons(List<UnitFacade> units)
         {
+            UnsubscribeFromUnits();
+            
             _descriptionBottom.Clear();
 
             var iconsToShow = units.Count <= _maximumUnitIconsShowing ? units.Count : _maximumUnitIconsShowing;
@@ -131,11 +162,35 @@ namespace Game.UI.Game
             {
                 var unit = units[i];
                 var icon = _unitIconComponents[i];
+                
+                SubscribeToUnit(unit, i);
 
                 SetUpIcon(icon);
                 SetUpIconClickEvent(unit, i);
                 SetUpIconImage(unit, i);
                 SetUpIconHealth(unit, i);
+            }
+        }
+
+        private void SubscribeToUnit(UnitFacade unit, int i)
+        {
+            unit.HealthChange += _changeHealthAtIndexActions[i];
+            
+            if (_lastUnits.Count > i)
+            {
+                _lastUnits[i] = unit;
+            }
+            else
+            {
+                _lastUnits.Add(unit);
+            }
+        }
+
+        private void UnsubscribeFromUnits()
+        {
+            for (var i = 0; i < _lastUnits.Count; i++)
+            {
+                _lastUnits[i].HealthChange -= _changeHealthAtIndexActions[i];
             }
         }
 
@@ -169,7 +224,36 @@ namespace Game.UI.Game
         {
             var iconHealth = _unitIconProgressBars[index];
             iconHealth.value = unit.Health;
+            ChangeHealth(iconHealth, unit.Health, index);
         }
+        
+        private void ChangeHealth(ProgressBar iconHealth, int health, int index)
+        {
+            iconHealth.value = (float) health / _lastUnits[index].MaxHealth;
+
+            SetHealthColor(iconHealth);
+        }
+
+        private void SetHealthColor(ProgressBar iconHealth)
+        {
+            var fraction = iconHealth.value;
+            if (fraction > _middleFraction)
+            {
+                iconHealth.RemoveFromClassList("middle-health");
+                iconHealth.RemoveFromClassList("low-health");
+            }
+            else if (fraction > _lowFraction)
+            {
+                iconHealth.AddToClassList("middle-health");
+                iconHealth.RemoveFromClassList("low-health");
+            }
+            else
+            {
+                iconHealth.RemoveFromClassList("middle-health");
+                iconHealth.AddToClassList("low-health");
+            }
+
+        } 
 
         private void IconOnMouseDownEvent(MouseDownEvent mouseDownEvent, UnitFacade unit)
         {

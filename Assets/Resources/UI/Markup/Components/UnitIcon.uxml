@@ -3,7 +3,7 @@
     <ui:VisualElement name="icon" class="icon">
         <ui:VisualElement name="image" class="icon-image" />
         <ui:VisualElement name="health" class="icon__health">
-            <ui:ProgressBar title="Health" name="health__progress-bar" class="multiple-units-health__progress-bar" />
+            <ui:ProgressBar title="Health" name="health__progress-bar" high-value="1" class="multiple-units-health__progress-bar" />
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

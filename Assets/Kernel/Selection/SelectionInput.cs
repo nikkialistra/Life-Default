@@ -73,7 +73,9 @@ namespace Kernel.Selection
             while (true)
             {
                 if (_startPoint == null)
+                {
                     throw new InvalidOperationException();
+                }
 
                 Selecting?.Invoke(GetRect(_startPoint.Value, _positionAction.ReadValue<Vector2>()));
 
@@ -83,7 +85,7 @@ namespace Kernel.Selection
 
         private void EndArea(InputAction.CallbackContext context)
         {
-            if (Keyboard.current.IsModifierKeyPressed() || !_updatingArea)
+            if (!_updatingArea)
             {
                 return;
             }

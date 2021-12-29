@@ -36,6 +36,22 @@ namespace Kernel.Entities
         private bool IsAlive => _health > 0;
         
         private Coroutine _takingDamage;
+        
+        private void OnTriggerEnter(Collider other)
+        { 
+            if (other.TryGetComponent(out IHittable hittable))
+            {
+                TakeDamageContinuously(hittable.Damage, hittable.Interval);
+            }
+        }
+
+        private void OnTriggerExit(Collider other)
+        {
+            if (other.TryGetComponent(out IHittable _))
+            {
+                StopTakingDamage();
+            }
+        }
 
         public void Initialize()
         {

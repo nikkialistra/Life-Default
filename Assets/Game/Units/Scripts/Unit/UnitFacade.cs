@@ -96,37 +96,6 @@ namespace Game.Units.Unit
             _health.TakeDamage(value);
         }
 
-        private void TakeDamageContinuously(int value, float interval)
-        {
-            if (_died)
-            {
-                return;
-            }
-            
-            _health.TakeDamageContinuously(value, interval);
-        }
-
-        private void StopTakingDamage()
-        {
-            _health.StopTakingDamage();
-        }
-
-        private void OnTriggerEnter(Collider other)
-        { 
-            if (other.TryGetComponent(out IHittable hittable))
-            {
-                TakeDamageContinuously(hittable.Damage, hittable.Interval);
-            }
-        }
-
-        private void OnTriggerExit(Collider other)
-        {
-            if (other.TryGetComponent(out IHittable _))
-            {
-                StopTakingDamage();
-            }
-        }
-
         public void Select()
         {
             if (_died)

@@ -6,16 +6,12 @@ using UnityEngine.AI;
 
 namespace Game.Units.Unit
 {
-    [RequireComponent(typeof(UnitFacade))]
     [RequireComponent(typeof(NavMeshAgent))]
     public class UnitAnimator : MonoBehaviour
     {
         [Required]
         [SerializeField] private Animator _animator;
-        
-        public event Action DeathFinish;
 
-        private UnitFacade _unitFacade;
         private NavMeshAgent _navMeshAgent;
 
         private readonly int _velocity = Animator.StringToHash("velocity");
@@ -23,7 +19,6 @@ namespace Game.Units.Unit
 
         private void Awake()
         {
-            _unitFacade = GetComponent<UnitFacade>();
             _navMeshAgent = GetComponent<NavMeshAgent>();
         }
 
@@ -32,32 +27,25 @@ namespace Game.Units.Unit
             SetAnimatorVelocity();
         }
 
-        private void OnEnable()
-        {
-            _unitFacade.Die += Die;
-        }
-
-        private void OnDisable()
-        {
-            _unitFacade.Die -= Die;
-        }
-
-        private void Die()
+        public void Die(Action died)
         {
             _animator.SetTrigger(_death);
-            StartCoroutine(WaitDeathFinish());
+            StartCoroutine(WaitDeathFinish(died));
         }
 
-        private IEnumerator WaitDeathFinish()
+        private IEnumerator WaitDeathFinish(Action died)
         {
-            yield return null;
+            if (!_animator.GetCurrentAnimatorStateInfo(0).IsName("Death"))
+            {
+                yield return null;
+            }
             
             while (_animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.5f)
             {
                 yield return null;
             }
-            
-            DeathFinish?.Invoke();
+
+            died();
         }
 
         private void SetAnimatorVelocity()

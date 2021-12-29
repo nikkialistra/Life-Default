@@ -10,10 +10,21 @@ namespace Game.UI.Game
         [SerializeField] private Image _fill;
         [SerializeField] private Gradient _fillGradient;
 
+        public bool Selected
+        {
+            get => _selected;
+            set
+            {
+                _selected = value;
+                UpdateShowStatus();
+            }
+        }
+
         private bool _shown;
 
         private GameObject _sliderGameObject;
         private Transform _cameraTransform;
+        private bool _selected;
 
         [Inject]
         public void Construct(Camera camera)
@@ -35,6 +46,37 @@ namespace Game.UI.Game
         {
             _slider.value = value;
             _fill.color = _fillGradient.Evaluate(_slider.normalizedValue);
+
+            UpdateShowStatus();
+        }
+
+        private void UpdateShowStatus()
+        {
+            if (Dead())
+            {
+                Hide();
+            }
+            else
+            {
+                ShowIfSelectedOrHit();
+            }
+        }
+
+        private bool Dead()
+        {
+            return _slider.normalizedValue == 0;
+        }
+
+        private void ShowIfSelectedOrHit()
+        {
+            if (Selected || _slider.normalizedValue != 1)
+            {
+                Show();
+            }
+            else
+            {
+                Hide();
+            }
         }
 
         public void SetMaxHealth(int health)
@@ -45,12 +87,12 @@ namespace Game.UI.Game
             _fill.color = _fillGradient.Evaluate(1f);
         }
 
-        public void Show()
+        private void Show()
         {
             _sliderGameObject.SetActive(true);
         }
 
-        public void Hide()
+        private void Hide()
         {
             _sliderGameObject.SetActive(false);
         }

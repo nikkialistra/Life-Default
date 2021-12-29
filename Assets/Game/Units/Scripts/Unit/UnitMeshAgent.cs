@@ -12,6 +12,8 @@ namespace Game.Units.Unit
         [MinValue(0)]
         [SerializeField] private float _distanceToGroup;
 
+        private bool _activated;
+        
         private UnitFacade _unitFacade;
         private NavMeshAgent _navMeshAgent;
 
@@ -25,29 +27,36 @@ namespace Game.Units.Unit
         {
             _navMeshAgent.enabled = false;
             _unitFacade.Spawn += ActivateSelf;
-            _unitFacade.Die += Stop;
+            _unitFacade.Die += Deactivate;
         }
 
         private void OnDisable()
         {
             _unitFacade.Spawn -= ActivateSelf;
-            _unitFacade.Die -= Stop;
+            _unitFacade.Die -= Deactivate;
         }
 
         private void ActivateSelf()
         {
+            _activated = true;
             _navMeshAgent.enabled = true;
         }
 
         public bool TryAcceptPoint(GameObject point)
         {
+            if (!_activated)
+            {
+                return false;
+            }
+            
             var destinationSet = _navMeshAgent.SetDestination(point.transform.position + Random.insideUnitSphere * _distanceToGroup);
             return destinationSet;
         }
 
-        private void Stop()
+        private void Deactivate()
         {
             _navMeshAgent.ResetPath();
+            _activated = false;
         }
     }
 }

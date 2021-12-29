@@ -38,7 +38,7 @@ namespace Game.Units.Selecting
             var ray = _camera.ScreenPointToRay(point);
             if (Physics.Raycast(ray, out var hit))
             {
-                if (hit.transform.TryGetComponent(out UnitFacade unit))
+                if (hit.transform.TryGetComponent(out UnitFacade unit) && unit.Alive)
                 {
                     yield return unit;
                 }

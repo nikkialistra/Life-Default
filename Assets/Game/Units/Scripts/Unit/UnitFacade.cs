@@ -55,14 +55,12 @@ namespace Game.Units.Unit
         {
             _health.Die += Dispose;
             _health.HealthChange += OnHealthChange;
-            _unitAnimator.DeathFinish += DestroySelf;
         }
 
         private void OnDisable()
         {
             _health.Die -= Dispose;
             _health.HealthChange -= OnHealthChange;
-            _unitAnimator.DeathFinish -= DestroySelf;
         }
 
         private void Start()
@@ -104,7 +102,7 @@ namespace Game.Units.Unit
             }
             
             _selectionIndicator.SetActive(true);
-            _healthIndicatorView.Show();
+            _healthIndicatorView.Selected = true;
         }
 
         public void Deselect()
@@ -115,7 +113,7 @@ namespace Game.Units.Unit
             }
             
             _selectionIndicator.SetActive(false);
-            _healthIndicatorView.Hide();
+            _healthIndicatorView.Selected = false;
         }
 
         public void OnSpawned(Vector3 position, IMemoryPool pool)
@@ -133,15 +131,15 @@ namespace Game.Units.Unit
 
         public void Dispose()
         {
-            Deselect();
             Die?.Invoke();
+            
+            Deselect();
             _died = true;
+            _unitAnimator.Die(DestroySelf);
         }
 
         private void DestroySelf()
         {
-            _unitAnimator.DeathFinish -= DestroySelf;
-
             if (_pool == null)
             {
                 Destroy(gameObject);

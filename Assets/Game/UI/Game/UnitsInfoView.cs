@@ -143,8 +143,7 @@ namespace Game.UI.Game
             {
                 unitIconView.Unbind();
             }
-            IconContainer.Clear();
-            
+
             var iconsToShow = units.Count <= _maximumUnitIconsShowing ? units.Count : _maximumUnitIconsShowing;
 
             for (var i = 0; i < iconsToShow; i++)

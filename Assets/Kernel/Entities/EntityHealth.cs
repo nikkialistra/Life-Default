@@ -71,15 +71,16 @@ namespace Kernel.Entities
         public void TakeDamage(int value)
         {
             CheckTakeDamageValidity(value);
-
+            
             _health -= value;
-            HealthChange?.Invoke(_health);
-
+            
             if (!IsAlive)
             {
                 StopTakingDamage();
                 Die?.Invoke();
             }
+            
+            HealthChange?.Invoke(_health);
         }
 
         public void TakeDamageContinuously(int value, float interval, float time = float.PositiveInfinity)
@@ -117,11 +118,6 @@ namespace Kernel.Entities
             if (value <= 0)
             {
                 throw new ArgumentException("Damage must be more than zero");
-            }
-
-            if (!IsAlive)
-            {
-                throw new InvalidOperationException("Damage cannot be applied to the died entity");
             }
         }
     }

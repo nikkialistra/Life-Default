@@ -1,7 +1,7 @@
 ﻿using System;
 using Game.UI.Game;
+using Game.Units.UnitTypes;
 using Kernel.Entities;
-using Kernel.Types;
 using Kernel.Utils;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -12,6 +12,7 @@ namespace Game.Units.Unit
     [RequireComponent(typeof(EntityHealth))]
     [RequireComponent(typeof(UnitAnimator))]
     [RequireComponent(typeof(UnitSaveLoadHandler))]
+    [RequireComponent(typeof(UnitTraveler))]
     public class UnitFacade : MonoBehaviour, IPoolable<Vector3, IMemoryPool>, IDisposable
     {
         [Title("Properties")]
@@ -39,8 +40,9 @@ namespace Game.Units.Unit
 
         private bool _died;
 
-        private UnitAnimator _unitAnimator;
         private EntityHealth _health;
+        private UnitAnimator _unitAnimator;
+        private UnitTraveler _unitTraveler;
 
         private IMemoryPool _pool;
 
@@ -48,6 +50,8 @@ namespace Game.Units.Unit
         {
             _health = GetComponent<EntityHealth>();
             _unitAnimator = GetComponent<UnitAnimator>();
+            _unitTraveler = GetComponent<UnitTraveler>();
+            
             UnitSaveLoadHandler = GetComponent<UnitSaveLoadHandler>();
         }
 
@@ -66,21 +70,6 @@ namespace Game.Units.Unit
         private void Start()
         {
             Initialize();
-        }
-
-        private void Initialize()
-        {
-            _died = false;
-            
-            if (_name == "")
-            {
-                _name = NameGenerator.GetRandomName();
-            }
-            
-            _health.Initialize();
-
-            _healthIndicatorView.SetMaxHealth(_health.MaxHealth);
-            _healthIndicatorView.SetHealth(_health.Health);
         }
 
         [Button(ButtonSizes.Large)]
@@ -121,7 +110,6 @@ namespace Game.Units.Unit
             _pool = pool;
             transform.position = position;
             Initialize();
-            Spawn?.Invoke();
         }
 
         public void OnDespawned()
@@ -136,6 +124,45 @@ namespace Game.Units.Unit
             Deselect();
             _died = true;
             _unitAnimator.Die(DestroySelf);
+        }
+
+        private void Initialize()
+        {
+            _died = false;
+            
+            if (_name == "")
+            {
+                _name = NameGenerator.GetRandomName();
+            }
+            
+            _health.Initialize();
+
+            _healthIndicatorView.SetMaxHealth(_health.MaxHealth);
+            _healthIndicatorView.SetHealth(_health.Health);
+
+            SetUpTypeAppearance();
+            
+            Spawn?.Invoke();
+        }
+
+        private void SetUpTypeAppearance()
+        {
+            switch (UnitType)
+            {
+                case UnitType.Traveler:
+                    _unitTraveler.Initialize();
+                    break;
+                case UnitType.Lumberjack:
+                    break;
+                case UnitType.Mason:
+                    break;
+                case UnitType.Melee:
+                    break;
+                case UnitType.Archer:
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
         }
 
         private void DestroySelf()

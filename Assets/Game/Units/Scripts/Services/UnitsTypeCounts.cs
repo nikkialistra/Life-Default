@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Game.Units.Unit;
+using Game.Units.UnitTypes;
 using UnityEngine;
 using Zenject;
 

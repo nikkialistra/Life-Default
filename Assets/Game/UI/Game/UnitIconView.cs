@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Game.Units.Unit;
+using Game.Units.UnitTypes;
 using UnityEngine;
 using UnityEngine.UIElements;
 

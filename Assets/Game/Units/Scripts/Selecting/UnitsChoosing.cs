@@ -4,6 +4,7 @@ using System.Linq;
 using Game.UI.Game;
 using Game.Units.Services;
 using Game.Units.Unit;
+using Game.Units.UnitTypes;
 using UnityEngine;
 using Zenject;
 

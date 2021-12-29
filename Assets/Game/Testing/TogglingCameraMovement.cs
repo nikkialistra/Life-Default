@@ -33,7 +33,6 @@ namespace Game.Testing
         private void ToggleCameraMovement(InputAction.CallbackContext context)
         {
             _cameraInputCombination.enabled = !_cameraInputCombination.enabled;
-            throw new Exception("sdf");
         }
     }
 }

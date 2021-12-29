@@ -1,6 +1,7 @@
 ﻿using Game.UI.Game;
 using Game.Units.Services;
 using Game.Units.Unit;
+using Game.Units.UnitTypes;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.UIElements;

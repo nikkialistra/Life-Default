@@ -1,9 +1,7 @@
-﻿using System;
-using Kernel.Types;
+﻿using Kernel.Types;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.AI;
-using Random = UnityEngine.Random;
 
 namespace Game.Units.Unit
 {
@@ -25,12 +23,20 @@ namespace Game.Units.Unit
 
         private void OnEnable()
         {
+            _navMeshAgent.enabled = false;
+            _unitFacade.Spawn += ActivateSelf;
             _unitFacade.Die += Stop;
         }
 
         private void OnDisable()
         {
+            _unitFacade.Spawn -= ActivateSelf;
             _unitFacade.Die -= Stop;
+        }
+
+        private void ActivateSelf()
+        {
+            _navMeshAgent.enabled = true;
         }
 
         public bool TryAcceptPoint(GameObject point)

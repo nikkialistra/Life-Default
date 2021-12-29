@@ -37,7 +37,7 @@ namespace Kernel.Entities
         
         private Coroutine _takingDamage;
 
-        private void Awake()
+        public void Initialize()
         {
             _health = _startHealth;
         }

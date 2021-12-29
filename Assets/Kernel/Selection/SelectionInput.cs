@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using Game.UI;
+using Kernel.Utils;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -51,7 +52,7 @@ namespace Kernel.Selection
 
         private void StartArea(InputAction.CallbackContext context)
         {
-            if (Keyboard.current.ctrlKey.isPressed || _gameViews.MouseOverUi)
+            if (Keyboard.current.IsModifierKeyPressed() || _gameViews.MouseOverUi)
             {
                 return;
             }
@@ -82,7 +83,7 @@ namespace Kernel.Selection
 
         private void EndArea(InputAction.CallbackContext context)
         {
-            if (Keyboard.current.ctrlKey.isPressed || !_updatingArea)
+            if (Keyboard.current.IsModifierKeyPressed() || !_updatingArea)
             {
                 return;
             }

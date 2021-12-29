@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using Game.UI.Game;
 using Kernel.Entities;
 using Kernel.Types;
@@ -7,7 +6,6 @@ using Kernel.Utils;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using Zenject;
-using Random = UnityEngine.Random;
 
 namespace Game.Units.Unit
 {
@@ -25,7 +23,8 @@ namespace Game.Units.Unit
         [SerializeField] private HealthIndicatorView _healthIndicatorView;
         [Required]
         [SerializeField] private GameObject _selectionIndicator;
-        
+
+        public event Action Spawn;
         public event Action HealthChange;
         public event Action Die;
 
@@ -68,10 +67,19 @@ namespace Game.Units.Unit
 
         private void Start()
         {
+            Initialize();
+        }
+
+        private void Initialize()
+        {
+            _died = false;
+            
             if (_name == "")
             {
                 _name = NameGenerator.GetRandomName();
             }
+            
+            _health.Initialize();
 
             _healthIndicatorView.SetMaxHealth(_health.MaxHealth);
             _healthIndicatorView.SetHealth(_health.Health);
@@ -104,7 +112,7 @@ namespace Game.Units.Unit
         }
 
         private void OnTriggerEnter(Collider other)
-        {
+        { 
             if (other.TryGetComponent(out IHittable hittable))
             {
                 TakeDamageContinuously(hittable.Damage, hittable.Interval);
@@ -145,6 +153,8 @@ namespace Game.Units.Unit
         {
             _pool = pool;
             transform.position = position;
+            Initialize();
+            Spawn?.Invoke();
         }
 
         public void OnDespawned()

@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Units.Unit;
 using Units.UnitTypes;
 using UnityEngine;
@@ -7,10 +9,18 @@ namespace Units.Services
 {
     public class UnitsRepository : MonoBehaviour
     {
-        public IEnumerable<UnitFacade> GetObjects()
+        public event Action Update;
+        
+        private List<UnitFacade> _units = new();
+
+        private void Start()
         {
-            var units = FindObjectsOfType<UnitFacade>();
-            foreach (var unit in units)
+            _units = FindObjectsOfType<UnitFacade>().ToList();
+        }
+
+        public IEnumerable<UnitFacade> GetUnits()
+        {
+            foreach (var unit in _units)
             {
                 if (unit.Alive)
                 {
@@ -19,17 +29,27 @@ namespace Units.Services
             }
         }
 
-        public IEnumerable<UnitFacade> GetObjectsByType(UnitType unitType)
+        public IEnumerable<UnitFacade> GetUnitsByType(UnitType unitType)
         {
-            var units = FindObjectsOfType<UnitFacade>();
-            
-            foreach (var unit in units)
+            foreach (var unit in _units)
             {
-                if (unit.UnitType == unitType)
+                if (unit.Alive && unit.UnitType == unitType)
                 {
                     yield return unit;
                 }
             }
+        }
+
+        public void Add(UnitFacade unit)
+        {
+            _units.Add(unit);
+            Update?.Invoke();
+        }
+
+        public void Remove(UnitFacade unit)
+        {
+            var result = _units.Remove(unit);
+            Update?.Invoke();
         }
     }
 }

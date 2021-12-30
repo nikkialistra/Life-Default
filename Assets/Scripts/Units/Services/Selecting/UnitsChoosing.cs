@@ -65,7 +65,7 @@ namespace Units.Services.Selecting
 
         private void ChooseUnitByType(UnitType unitType)
         {
-            var units = _unitsRepository.GetObjectsByType(unitType).ToArray();
+            var units = _unitsRepository.GetUnitsByType(unitType).ToArray();
             
             if (units.Length == 0)
             {
@@ -98,7 +98,7 @@ namespace Units.Services.Selecting
 
         private void ChooseUnits(UnitType unitType)
         {
-            var units = _unitsRepository.GetObjectsByType(unitType).ToList();
+            var units = _unitsRepository.GetUnitsByType(unitType).ToList();
 
             if (units.Count != 0)
             {

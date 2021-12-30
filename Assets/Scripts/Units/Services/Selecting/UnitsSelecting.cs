@@ -20,7 +20,7 @@ namespace Units.Services.Selecting
 
         public IEnumerable<UnitFacade> SelectFromRect(Rect rect)
         {
-            _units = _unitsRepository.GetObjects();
+            _units = _unitsRepository.GetUnits();
             
             foreach (var unit in _units)
             {
@@ -47,7 +47,7 @@ namespace Units.Services.Selecting
 
         public IEnumerable<UnitFacade> SelectByType(UnitType unitType)
         {
-            _units = _unitsRepository.GetObjects();
+            _units = _unitsRepository.GetUnits();
 
             foreach (var unit in _units)
             {

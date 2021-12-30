@@ -16,15 +16,7 @@ namespace UI
 
         public bool MouseOverUi { get; private set; }
 
-        private UnitsTypeCounts _unitsTypeCounts;
-
         private VisualElement _root;
-
-        [Inject]
-        public void Construct(UnitsTypeCounts unitsTypeCounts)
-        {
-            _unitsTypeCounts = unitsTypeCounts;
-        }
 
         private void Awake()
         {
@@ -33,16 +25,12 @@ namespace UI
 
         private void OnEnable()
         {
-            _unitsTypeCounts.UnitTypeCountChange += ChangeUnitsTypeCount;
-            
             _root.RegisterCallback<MouseOverEvent, bool>(SetMouseOverUi, true);
             _root.RegisterCallback<MouseLeaveEvent, bool>(SetMouseOverUi, false);
         }
 
         private void OnDisable()
         {
-            _unitsTypeCounts.UnitTypeCountChange -= ChangeUnitsTypeCount;
-            
             _root.UnregisterCallback<MouseOverEvent, bool>(SetMouseOverUi);
             _root.UnregisterCallback<MouseLeaveEvent, bool>(SetMouseOverUi);
         }

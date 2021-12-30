@@ -29,7 +29,7 @@ namespace Units.Unit
         public event Action HealthChange;
         public event Action Die;
 
-        public UnitSaveLoadHandler UnitSaveLoadHandler { get; private set;  }
+        public UnitSaveLoadHandler UnitSaveLoadHandler { get; private set; }
 
         public UnitType UnitType => _unitType;
         public string Name => _name;
@@ -69,7 +69,10 @@ namespace Units.Unit
 
         private void Start()
         {
-            Initialize();
+            if (_pool == null)
+            {
+                Initialize();
+            }
         }
 
         [Button(ButtonSizes.Large)]
@@ -111,7 +114,7 @@ namespace Units.Unit
             
             _unitType = unitType;
             transform.position = position;
-            
+
             Initialize();
         }
 

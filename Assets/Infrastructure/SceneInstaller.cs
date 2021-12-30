@@ -5,6 +5,7 @@ using Game.UI.Game;
 using Game.Units.Selecting;
 using Game.Units.Services;
 using Game.Units.Unit;
+using Game.Units.UnitTypes;
 using Kernel.Saving;
 using Kernel.Saving.Serialization;
 using Kernel.Selection;
@@ -126,8 +127,8 @@ namespace Infrastructure
 
         private void BindUnitSpawning()
         {
-            Container.BindFactory<Vector3, UnitFacade, UnitFacade.Factory>()
-                .FromPoolableMemoryPool<Vector3, UnitFacade, UnitFacadePool>(pool => pool
+            Container.BindFactory<UnitType, Vector3, UnitFacade, UnitFacade.Factory>()
+                .FromPoolableMemoryPool<UnitType, Vector3, UnitFacade, UnitFacadePool>(pool => pool
                     .WithInitialSize(_unitPoolSize)
                     .FromComponentInNewPrefab(_unitPrefab)
                     .UnderTransform(_unitsParent));
@@ -158,6 +159,6 @@ namespace Infrastructure
             Container.BindInterfacesAndSelfTo<TogglingCameraMovement>().AsSingle().NonLazy();
         }
         
-        private class UnitFacadePool : MonoPoolableMemoryPool<Vector3, IMemoryPool, UnitFacade> {}
+        private class UnitFacadePool : MonoPoolableMemoryPool<UnitType, Vector3, IMemoryPool, UnitFacade> {}
     }
 }

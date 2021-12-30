@@ -11,9 +11,9 @@ namespace Game.Units.Unit
 {
     [RequireComponent(typeof(EntityHealth))]
     [RequireComponent(typeof(UnitAnimator))]
+    [RequireComponent(typeof(UnitModelElements))]
     [RequireComponent(typeof(UnitSaveLoadHandler))]
-    [RequireComponent(typeof(UnitTraveler))]
-    public class UnitFacade : MonoBehaviour, IPoolable<Vector3, IMemoryPool>, IDisposable
+    public class UnitFacade : MonoBehaviour, IPoolable<UnitType, Vector3, IMemoryPool>, IDisposable
     {
         [Title("Properties")]
         [SerializeField] private UnitType _unitType;
@@ -42,7 +42,7 @@ namespace Game.Units.Unit
 
         private EntityHealth _health;
         private UnitAnimator _unitAnimator;
-        private UnitTraveler _unitTraveler;
+        private UnitModelElements _unitModelElements;
 
         private IMemoryPool _pool;
 
@@ -50,7 +50,7 @@ namespace Game.Units.Unit
         {
             _health = GetComponent<EntityHealth>();
             _unitAnimator = GetComponent<UnitAnimator>();
-            _unitTraveler = GetComponent<UnitTraveler>();
+            _unitModelElements = GetComponent<UnitModelElements>();
             
             UnitSaveLoadHandler = GetComponent<UnitSaveLoadHandler>();
         }
@@ -105,10 +105,13 @@ namespace Game.Units.Unit
             _healthIndicatorView.Selected = false;
         }
 
-        public void OnSpawned(Vector3 position, IMemoryPool pool)
+        public void OnSpawned(UnitType unitType, Vector3 position, IMemoryPool pool)
         {
             _pool = pool;
+            
+            _unitType = unitType;
             transform.position = position;
+            
             Initialize();
         }
 
@@ -140,29 +143,9 @@ namespace Game.Units.Unit
             _healthIndicatorView.SetMaxHealth(_health.MaxHealth);
             _healthIndicatorView.SetHealth(_health.Health);
 
-            SetUpTypeAppearance();
+            _unitModelElements.SwitchTo(_unitType);
             
             Spawn?.Invoke();
-        }
-
-        private void SetUpTypeAppearance()
-        {
-            switch (UnitType)
-            {
-                case UnitType.Traveler:
-                    _unitTraveler.Initialize();
-                    break;
-                case UnitType.Lumberjack:
-                    break;
-                case UnitType.Mason:
-                    break;
-                case UnitType.Melee:
-                    break;
-                case UnitType.Archer:
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
         }
 
         private void DestroySelf()
@@ -183,7 +166,7 @@ namespace Game.Units.Unit
             HealthChange?.Invoke();
         }
 
-        public class Factory : PlaceholderFactory<Vector3, UnitFacade>
+        public class Factory : PlaceholderFactory<UnitType, Vector3, UnitFacade>
         {
         }
     }

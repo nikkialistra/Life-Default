@@ -1,8 +1,11 @@
 ﻿using System;
 using Game.Units.Unit;
+using Game.Units.UnitTypes;
+using Kernel.Utils;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Zenject;
+using Random = System.Random;
 
 namespace Game.Units.Services
 {
@@ -30,8 +33,14 @@ namespace Game.Units.Services
             var ray = _camera.ScreenPointToRay(new Vector3(mousePosition.x, mousePosition.y, _camera.nearClipPlane));
             if (Physics.Raycast(ray, out var hit))
             {
-                _factory.Create(hit.point);
+                var unitType = GetUnitType();
+                _factory.Create(unitType, hit.point);
             }
+        }
+
+        private UnitType GetUnitType()
+        {
+            return EnumUtils.RandomEnumValue<UnitType>();
         }
 
         public void Initialize()

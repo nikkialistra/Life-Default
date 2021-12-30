@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Units.UnitTypes
+namespace Units.Unit.UnitTypes
 {
     [Serializable]
     public enum UnitType

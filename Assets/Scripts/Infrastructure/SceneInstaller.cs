@@ -10,7 +10,7 @@ using UnitManagement.Targeting;
 using Units.Services;
 using Units.Services.Selecting;
 using Units.Unit;
-using Units.UnitTypes;
+using Units.Unit.UnitTypes;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Zenject;
@@ -44,22 +44,23 @@ namespace Infrastructure
         [SerializeField] private GameObject _targetPrefab;
         [Required]
         [SerializeField] private Transform _targetParent;
-
-        [Title("Units")] 
+        
+        [Title("Spawning")] 
         [Required]
         [SerializeField] private GameObject _unitPrefab;
         [Required]
-        [SerializeField] private UnitsTypeCounts _unitsTypeCounts;
+        [SerializeField] private int _unitPoolSize;
+        [Required]
+        [SerializeField] private Transform _unitsParent;
 
         [Title("Services")]
         [Required]
         [SerializeField] private UnitsRepository _unitsRepository;
-
-        [Title("Spawning")] 
         [Required]
-        [SerializeField] private int _unitPoolSize;
-        [SerializeField] private Transform _unitsParent;
-        
+        [SerializeField] private UnitsTypeCounts _unitsTypeCounts;
+        [Required] 
+        [SerializeField] private UnitTypeAppearanceRegistry _unitTypeAppearanceRegistry;
+
         [Title("UI")]
         [Required]
         [SerializeField] private GameViews _gameViews;
@@ -83,8 +84,7 @@ namespace Infrastructure
             BindInput();
             BindUnitSelectionSystem();
             BindTargeting();
-            BindUnitRepository();
-            BindUnitTypeCounts();
+            BindUnitServices();
             BindUnitSpawning();
             BindUi();
             BindSaving();
@@ -115,16 +115,13 @@ namespace Infrastructure
             Container.BindInstance(_targetParent).WhenInjectedInto<TargetPool>();
         }
 
-        private void BindUnitRepository()
+        private void BindUnitServices()
         {
             Container.BindInstance(_unitsRepository).AsSingle();
+            Container.BindInstance(_unitsTypeCounts).AsSingle();
+            Container.BindInstance(_unitTypeAppearanceRegistry).AsSingle();
         }
-
-        private void BindUnitTypeCounts()
-        {
-            Container.BindInstance(_unitsTypeCounts);
-        }
-
+        
         private void BindUnitSpawning()
         {
             Container.BindFactory<UnitType, Vector3, UnitFacade, UnitFacade.Factory>()

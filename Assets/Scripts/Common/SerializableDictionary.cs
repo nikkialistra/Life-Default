@@ -8,33 +8,36 @@ namespace Common
     public class SerializableDictionary<TKey, TValue> : Dictionary<TKey, TValue>, ISerializationCallbackReceiver
     {
         [SerializeField]
-        private List<TKey> keys = new List<TKey>();
+        private List<TKey> _keys = new();
      
         [SerializeField]
-        private List<TValue> values = new List<TValue>();
+        private List<TValue> _values = new();
      
-        // save the dictionary to lists
         public void OnBeforeSerialize()
         {
-            keys.Clear();
-            values.Clear();
-            foreach(KeyValuePair<TKey, TValue> pair in this)
+            _keys.Clear();
+            _values.Clear();
+            
+            foreach(var (key, value) in this)
             {
-                keys.Add(pair.Key);
-                values.Add(pair.Value);
+                _keys.Add(key);
+                _values.Add(value);
             }
         }
      
-        // load dictionary from lists
         public void OnAfterDeserialize()
         {
-            this.Clear();
- 
-            if(keys.Count != values.Count)
-                throw new System.Exception(string.Format("there are {0} keys and {1} values after deserialization. Make sure that both key and value types are serializable."));
- 
-            for(int i = 0; i < keys.Count; i++)
-                this.Add(keys[i], values[i]);
+            Clear();
+
+            if (_keys.Count != _values.Count)
+            {
+                throw new Exception(string.Format("there are {0} keys and {1} values after deserialization. Make sure that both key and value types are serializable."));
+            }
+
+            for (var i = 0; i < _keys.Count; i++)
+            {
+                Add(_keys[i], _values[i]);
+            }
         }
     }
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Common;
 using Sirenix.OdinInspector;
 using Units.Unit;
-using Units.UnitTypes;
+using Units.Unit.UnitTypes;
 using UnityEngine;
 using UnityEngine.UIElements;
 

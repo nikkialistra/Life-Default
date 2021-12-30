@@ -1,5 +1,5 @@
 ﻿using System;
-using Units.UnitTypes;
+using Units.Unit.UnitTypes;
 using UnityEngine;
 
 namespace Units.Unit

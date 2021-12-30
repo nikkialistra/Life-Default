@@ -3,7 +3,7 @@ using Common;
 using Entities;
 using Sirenix.OdinInspector;
 using UI.Game;
-using Units.UnitTypes;
+using Units.Unit.UnitTypes;
 using UnityEngine;
 using Zenject;
 
@@ -73,6 +73,13 @@ namespace Units.Unit
             {
                 Initialize();
             }
+        }
+        
+        [Button(ButtonSizes.Large)]
+        public void ChangeUnitType(UnitType unitType)
+        {
+            _unitType = unitType;
+            _unitModelElements.SwitchTo(unitType);
         }
 
         [Button(ButtonSizes.Large)]

@@ -10,11 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cd0eb02e13c641b5a064fab47ba5a9bb, type: 3}
-  m_Name: Archer
+  m_Name: LumberjackWithoutBeard
   m_EditorClassIdentifier: 
   _skin: {fileID: 2100000, guid: 813f01be7c1d68e46bf06a313a7053c1, type: 2}
   _headEndAccessory: {fileID: 0}
-  _headAccessory: {fileID: 0}
-  _rightHandAccessory: {fileID: 7403135740000871275, guid: 570b0f7d19cb3814ca638e13ec17c5b7,
+  _headAccessory: {fileID: 862742055671921850, guid: 0fa2bb01ac9836240b4d202975a04446,
+    type: 3}
+  _rightHandAccessory: {fileID: 7498711202156013793, guid: 1b63fcfaa252cd143bc4705f9d179c57,
     type: 3}
   _upperChestAccessory: {fileID: 0}

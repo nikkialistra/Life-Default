@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using Units.Unit;
-using Units.UnitTypes;
+using Units.Unit.UnitTypes;
 using UnityEngine;
 
 namespace Units.Services.Selecting

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UI.Game;
 using Units.Unit;
-using Units.UnitTypes;
+using Units.Unit.UnitTypes;
 using UnityEngine;
 using Zenject;
 

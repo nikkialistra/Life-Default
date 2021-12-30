@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using Units.UnitTypes;
+using Units.Unit.UnitTypes;
 using UnityEngine;
 using UnityEngine.UIElements;
 

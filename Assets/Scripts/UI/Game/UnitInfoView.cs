@@ -1,7 +1,7 @@
 ﻿using System;
 using Sirenix.OdinInspector;
 using Units.Unit;
-using Units.UnitTypes;
+using Units.Unit.UnitTypes;
 using UnityEngine;
 using UnityEngine.UIElements;
 

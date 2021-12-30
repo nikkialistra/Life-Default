@@ -23,7 +23,7 @@
 .info-panel {
     width: 440px;
     height: 180px;
-    background-image: resource('UI/Sprites/Panels/InfoPanel');
+    background-image: resource('UI/Textures/Panels/InfoPanel');
     flex-direction: row;
     padding-left: 5px;
     padding-right: 5px;
@@ -41,7 +41,7 @@
     background-color: rgba(255, 255, 255, 0);
     flex-direction: row;
     align-items: center;
-    background-image: resource('UI/Sprites/Panels/UnitsPanel');
+    background-image: resource('UI/Textures/Panels/UnitsPanel');
     justify-content: center;
 }
 
@@ -73,63 +73,63 @@
 }
 
 .traveler {
-    background-image: resource('UI/Sprites/UnitTypes/Traveler');
+    background-image: resource('UI/Textures/UnitTypes/Traveler');
 }
 
 .traveler:hover {
-    background-image: resource('UI/Sprites/UnitTypes/TravelerHover');
+    background-image: resource('UI/Textures/UnitTypes/TravelerHover');
 }
 
 .traveler.missing:hover {
-    background-image: resource('UI/Sprites/UnitTypes/Traveler');
+    background-image: resource('UI/Textures/UnitTypes/Traveler');
 }
 
 .lumberjack {
-    background-image: resource('UI/Sprites/UnitTypes/Lumberjack');
+    background-image: resource('UI/Textures/UnitTypes/Lumberjack');
 }
 
 .lumberjack:hover {
-    background-image: resource('UI/Sprites/UnitTypes/LumberjackHover');
+    background-image: resource('UI/Textures/UnitTypes/LumberjackHover');
 }
 
 .lumberjack.missing:hover {
-    background-image: resource('UI/Sprites/UnitTypes/Lumberjack');
+    background-image: resource('UI/Textures/UnitTypes/Lumberjack');
 }
 
 .mason {
-    background-image: resource('UI/Sprites/UnitTypes/Mason');
+    background-image: resource('UI/Textures/UnitTypes/Mason');
 }
 
 .mason:hover {
-    background-image: resource('UI/Sprites/UnitTypes/MasonHover');
+    background-image: resource('UI/Textures/UnitTypes/MasonHover');
 }
 
 .mason.missing:hover {
-    background-image: resource('UI/Sprites/UnitTypes/Mason');
+    background-image: resource('UI/Textures/UnitTypes/Mason');
 }
 
 .melee {
-    background-image: resource('UI/Sprites/UnitTypes/Melee');
+    background-image: resource('UI/Textures/UnitTypes/Melee');
 }
 
 .melee:hover {
-    background-image: resource('UI/Sprites/UnitTypes/MeleeHover');
+    background-image: resource('UI/Textures/UnitTypes/MeleeHover');
 }
 
 .melee.missing:hover {
-    background-image: resource('UI/Sprites/UnitTypes/Melee');
+    background-image: resource('UI/Textures/UnitTypes/Melee');
 }
 
 .archer {
-    background-image: resource('UI/Sprites/UnitTypes/Archer');
+    background-image: resource('UI/Textures/UnitTypes/Archer');
 }
 
 .archer:hover {
-    background-image: resource('UI/Sprites/UnitTypes/ArcherHover');
+    background-image: resource('UI/Textures/UnitTypes/ArcherHover');
 }
 
 .archer.missing:hover {
-    background-image: resource('UI/Sprites/UnitTypes/Archer');
+    background-image: resource('UI/Textures/UnitTypes/Archer');
 }
 
 .unity-progress-bar__background {

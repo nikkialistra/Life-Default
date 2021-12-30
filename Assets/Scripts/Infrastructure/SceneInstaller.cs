@@ -129,8 +129,6 @@ namespace Infrastructure
                     .WithInitialSize(_unitPoolSize)
                     .FromComponentInNewPrefab(_unitPrefab)
                     .UnderTransform(_unitsParent));
-            
-            Container.BindInterfacesTo<UnitsGenerator>().AsSingle().NonLazy();
         }
 
         private void BindUi()
@@ -153,6 +151,7 @@ namespace Infrastructure
 
         private void BindTesting()
         {
+            Container.BindInterfacesTo<UnitsGenerator>().AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<TogglingCameraMovement>().AsSingle().NonLazy();
         }
         

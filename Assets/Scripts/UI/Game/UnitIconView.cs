@@ -60,6 +60,7 @@ namespace UI.Game
 
         private void HideSelf()
         {
+            Unbind();
             _parent.IconContainer.Remove(_tree);
             Remove?.Invoke();
         }
@@ -139,9 +140,10 @@ namespace UI.Game
             {
                 return;
             }
-            
+
             _unit.HealthChange -= SetHealth;
             _unit.Die -= HideSelf;
+            _unit = null;
         }
     }
 }

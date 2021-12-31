@@ -2,9 +2,9 @@
 using UnityEngine.UI;
 using Zenject;
 
-namespace UI.Game
+namespace Entities
 {
-    public class HealthIndicatorView : MonoBehaviour
+    public class HealthBar : MonoBehaviour
     {
         [SerializeField] private Slider _slider;
         [SerializeField] private Image _fill;

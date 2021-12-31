@@ -47,7 +47,10 @@ namespace Units.Services.Selecting
 
         private void Draw(Rect rect)
         {
-            _selectionArea.Draw(rect);
+            if (!WasClick(rect))
+            {
+                _selectionArea.Draw(rect);
+            }
         }
 
         private void Select(Rect rect)
@@ -86,7 +89,7 @@ namespace Units.Services.Selecting
 
         private static bool WasClick(Rect rect)
         {
-            return rect.size == Vector2.zero;
+            return (rect.width <= 8f && rect.height <= 8f);
         }
 
         private IEnumerable<UnitFacade> SelectWithSameType()

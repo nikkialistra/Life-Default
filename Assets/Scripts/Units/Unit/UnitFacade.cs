@@ -16,15 +16,16 @@ namespace Units.Unit
     [RequireComponent(typeof(UnitSaveLoadHandler))]
     public class UnitFacade : MonoBehaviour, IPoolable<UnitType, Vector3, IMemoryPool>, IDisposable
     {
+        [Required] 
+        [SerializeField] private HealthBar _healthBar;
+        [Required]
+        [SerializeField] private GameObject _selectionIndicator;
+        [Required] 
+        [SerializeField] private Transform _center;
+        
         [Title("Properties")]
         [SerializeField] private UnitType _unitType;
         [SerializeField] private string _name;
-
-        [Title("Indicators")]
-        [Required] 
-        [SerializeField] private HealthIndicatorView _healthIndicatorView;
-        [Required]
-        [SerializeField] private GameObject _selectionIndicator;
 
         public event Action Spawn;
         public event Action HealthChange;
@@ -40,6 +41,7 @@ namespace Units.Unit
         public int MaxHealth => _health.MaxHealth;
 
         public bool Alive => !_died;
+        public Vector3 Center => _center.position;
 
         private bool _died;
 
@@ -106,7 +108,7 @@ namespace Units.Unit
             }
             
             _selectionIndicator.SetActive(true);
-            _healthIndicatorView.Selected = true;
+            _healthBar.Selected = true;
         }
 
         public void Deselect()
@@ -117,7 +119,7 @@ namespace Units.Unit
             }
             
             _selectionIndicator.SetActive(false);
-            _healthIndicatorView.Selected = false;
+            _healthBar.Selected = false;
         }
 
         public void OnSpawned(UnitType unitType, Vector3 position, IMemoryPool pool)
@@ -155,8 +157,8 @@ namespace Units.Unit
             
             _health.Initialize();
 
-            _healthIndicatorView.SetMaxHealth(_health.MaxHealth);
-            _healthIndicatorView.SetHealth(_health.Health);
+            _healthBar.SetMaxHealth(_health.MaxHealth);
+            _healthBar.SetHealth(_health.Health);
 
             _unitModelElements.SwitchTo(_unitType);
             
@@ -177,7 +179,7 @@ namespace Units.Unit
 
         private void OnHealthChange(int value)
         {
-            _healthIndicatorView.SetHealth(value);
+            _healthBar.SetHealth(value);
             HealthChange?.Invoke();
         }
 

@@ -25,7 +25,7 @@ namespace Units.Services.Selecting
             
             foreach (var unit in _units)
             {
-                var screenPoint = _camera.WorldToScreenPoint(unit.transform.position);
+                var screenPoint = _camera.WorldToScreenPoint(unit.Center);
 
                 if (rect.Contains(screenPoint))
                 {

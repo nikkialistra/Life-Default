@@ -2,6 +2,7 @@
 using Entities;
 using Sirenix.OdinInspector;
 using UI.Game;
+using UnitManagement.Targeting;
 using Units.Unit.UnitTypes;
 using UnityEngine;
 using Zenject;
@@ -11,6 +12,7 @@ namespace Units.Unit
     [RequireComponent(typeof(EntityHealth))]
     [RequireComponent(typeof(UnitAnimator))]
     [RequireComponent(typeof(UnitModelElements))]
+    [RequireComponent(typeof(UnitMeshAgent))]
     [RequireComponent(typeof(UnitSaveLoadHandler))]
     public class UnitFacade : MonoBehaviour, IPoolable<UnitType, Vector3, IMemoryPool>, IDisposable
     {
@@ -28,6 +30,8 @@ namespace Units.Unit
         public event Action HealthChange;
         public event Action Die;
 
+        public ITargetable Targetable => _unitMeshAgent;
+
         public UnitSaveLoadHandler UnitSaveLoadHandler { get; private set; }
 
         public UnitType UnitType => _unitType;
@@ -42,6 +46,7 @@ namespace Units.Unit
         private EntityHealth _health;
         private UnitAnimator _unitAnimator;
         private UnitModelElements _unitModelElements;
+        private UnitMeshAgent _unitMeshAgent;
 
         private IMemoryPool _pool;
 
@@ -50,6 +55,7 @@ namespace Units.Unit
             _health = GetComponent<EntityHealth>();
             _unitAnimator = GetComponent<UnitAnimator>();
             _unitModelElements = GetComponent<UnitModelElements>();
+            _unitMeshAgent = GetComponent<UnitMeshAgent>();
             
             UnitSaveLoadHandler = GetComponent<UnitSaveLoadHandler>();
         }

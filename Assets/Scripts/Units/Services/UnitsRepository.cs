@@ -9,7 +9,8 @@ namespace Units.Services
 {
     public class UnitsRepository : MonoBehaviour
     {
-        public event Action Update;
+        public event Action<UnitFacade> Add;
+        public event Action<UnitFacade> Remove;
         
         private List<UnitFacade> _units = new();
 
@@ -40,16 +41,16 @@ namespace Units.Services
             }
         }
 
-        public void Add(UnitFacade unit)
+        public void AddUnit(UnitFacade unit)
         {
             _units.Add(unit);
-            Update?.Invoke();
+            Add?.Invoke(unit);
         }
 
-        public void Remove(UnitFacade unit)
+        public void RemoveUnit(UnitFacade unit)
         {
-            var result = _units.Remove(unit);
-            Update?.Invoke();
+            _units.Remove(unit);
+            Remove?.Invoke(unit);
         }
     }
 }

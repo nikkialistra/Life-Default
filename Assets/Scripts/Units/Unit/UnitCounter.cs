@@ -36,12 +36,12 @@ namespace Units.Unit
 
         private void OnSpawn()
         {
-            _unitsRepository.Add(_unitFacade);
+            _unitsRepository.AddUnit(_unitFacade);
         }
 
         private void OnDie()
         {
-            _unitsRepository.Remove(_unitFacade);
+            _unitsRepository.RemoveUnit(_unitFacade);
         }
     }
 }

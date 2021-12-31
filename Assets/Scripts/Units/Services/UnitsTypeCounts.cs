@@ -30,12 +30,14 @@ namespace Units.Services
 
         private void OnEnable()
         {
-            _unitsRepository.Update += Show;
+            _unitsRepository.Add += IncreaseUnitTypeCount;
+            _unitsRepository.Remove += DecreaseUnitTypeCount;
         }
 
         private void OnDisable()
         {
-            _unitsRepository.Update -= Show;
+            _unitsRepository.Add -= IncreaseUnitTypeCount;
+            _unitsRepository.Remove -= DecreaseUnitTypeCount;
         }
 
         private void Show()
@@ -53,6 +55,16 @@ namespace Units.Services
             var count = _units.Count(unit => unit.UnitType == unitType);
 
             _unitTypesView.ChangeUnitTypeCount(unitType, count);
+        }
+
+        private void IncreaseUnitTypeCount(UnitFacade unit)
+        {
+            _unitTypesView.IncreaseUnitTypeCount(unit.UnitType);
+        }
+
+        private void DecreaseUnitTypeCount(UnitFacade unit)
+        {
+            _unitTypesView.DecreaseFromUnitTypeCount(unit.UnitType);
         }
     }
 }

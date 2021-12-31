@@ -1,19 +1,11 @@
-﻿using Sirenix.OdinInspector;
-using UI.Game;
-using Units.Services;
-using Units.Unit.UnitTypes;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UIElements;
-using Zenject;
 
 namespace UI
 {
     [RequireComponent(typeof(UIDocument))]
     public class GameViews : MonoBehaviour
     {
-        [Required]
-        [SerializeField] private UnitTypesView _unitTypesView;
-
         public bool MouseOverUi { get; private set; }
 
         private VisualElement _root;
@@ -38,11 +30,6 @@ namespace UI
         private void SetMouseOverUi(IMouseEvent mouseEvent, bool value)
         {
             MouseOverUi = value;
-        }
-
-        private void ChangeUnitsTypeCount(UnitType unitType, float count)
-        {
-            _unitTypesView.ChangeUnitTypeCount(unitType, count);
         }
     }
 }

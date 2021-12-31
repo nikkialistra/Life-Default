@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Units.Services;
+using Units.Unit;
 using UnityEngine;
 using Zenject;
 
@@ -12,12 +14,25 @@ namespace UnitManagement.Targeting
         private Transform _targetParent;
 
         private readonly Dictionary<GameObject, List<ITargetable>> _links = new();
+        
+        private UnitsRepository _unitsRepository;
 
         [Inject]
-        public void Construct(GameObject targetTemplate, Transform targetParent)
+        public void Construct(GameObject targetTemplate, Transform targetParent, UnitsRepository unitsRepository)
         {
             _targetTemplate = targetTemplate;
             _targetParent = targetParent;
+            _unitsRepository = unitsRepository;
+        }
+
+        private void OnEnable()
+        {
+            _unitsRepository.Remove += OnRemove;
+        }
+
+        private void OnDisable()
+        {
+            _unitsRepository.Remove -= OnRemove;
         }
 
         public GameObject PlaceTo(Vector3 position)
@@ -56,6 +71,12 @@ namespace UnitManagement.Targeting
                 _links.Remove(target);
                 Destroy(target.gameObject);
             }
+        }
+
+        private void OnRemove(UnitFacade unit)
+        {
+            RemoveFromOldTarget(unit.Targetable);
+            UpdateTargetShowing();
         }
 
         private GameObject GetFromPoolOrCreate()

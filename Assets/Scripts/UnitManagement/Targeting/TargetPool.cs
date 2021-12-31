@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using Units.Services;
 using Units.Unit;
 using UnityEngine;
@@ -13,7 +12,7 @@ namespace UnitManagement.Targeting
         private Target _template;
         private Transform _targetParent;
 
-        private readonly Dictionary<Target, List<ITargetable>> _links = new();
+        private readonly List<Target> _targets = new();
         
         private UnitsRepository _unitsRepository;
 
@@ -38,7 +37,6 @@ namespace UnitManagement.Targeting
         public Target PlaceTo(Vector3 position)
         {
             var target = GetFromPoolOrCreate();
-
             target.transform.position = position;
             target.gameObject.SetActive(false);
 
@@ -47,28 +45,21 @@ namespace UnitManagement.Targeting
 
         public void Link(Target target, ITargetable targetable)
         {
-            if (!_links.ContainsKey(target))
+            if (!_targets.Contains(target))
             {
                 throw new InvalidOperationException();
             }
             
             RemoveFromOldTarget(targetable);
             AddTarget(target, targetable);
-
-            UpdateTargetShowing();
         }
 
         public void OffAll()
         {
-            foreach (var target in _links.Keys)
+            foreach (var target in _targets)
             {
-                foreach (var targetable in _links[target])
-                {
-                    targetable.TargetReach -= OnTargetReach;
-                }
-                _links[target].Clear();
-                
-                _links.Remove(target);
+                target.Clear();
+                _targets.Remove(target);
                 Destroy(target.gameObject);
             }
         }
@@ -76,14 +67,13 @@ namespace UnitManagement.Targeting
         private void OnRemove(UnitFacade unit)
         {
             RemoveFromOldTarget(unit.Targetable);
-            UpdateTargetShowing();
         }
 
         private Target GetFromPoolOrCreate()
         {
-            foreach (var target in _links.Keys)
+            foreach (var target in _targets)
             {
-                if (!_links[target].Any())
+                if (target.Empty)
                 {
                     return target;
                 }
@@ -94,34 +84,16 @@ namespace UnitManagement.Targeting
 
         private void RemoveFromOldTarget(ITargetable targetable)
         {
-            var link = _links.Values
-                .FirstOrDefault(target => target.Contains(targetable));
-
-            if (link != null)
+            foreach (var target in _targets)
             {
-                link.Remove(targetable);
-                targetable.TargetReach -= OnTargetReach;
+                target.Remove(targetable);
             }
         }
 
         private void AddTarget(Target target, ITargetable targetable)
         {
-            _links[target].Add(targetable);
-            targetable.TargetReach += OnTargetReach;
-        }
-
-        private void OnTargetReach(ITargetable targetable, Target target)
-        {
-            if (!_links[target].Contains(targetable))
-            {
-                throw new InvalidOperationException();
-            }
-
-            _links[target].Remove(targetable);
-            
-            targetable.TargetReach -= OnTargetReach;
-
-            UpdateTargetShowing();
+            _targets.Add(target);
+            target.Add(targetable);
         }
 
         private Target CreateNew()
@@ -129,17 +101,9 @@ namespace UnitManagement.Targeting
             var target = Instantiate(_template, Vector3.zero, Quaternion.identity, _targetParent);
             target.gameObject.SetActive(false);
             
-            _links.Add(target, new List<ITargetable>());
+            _targets.Add(target);
 
             return target;
-        }
-
-        private void UpdateTargetShowing()
-        {
-            foreach (var target in _links.Keys)
-            {
-                target.gameObject.SetActive(_links[target].Any());
-            }
         }
     }
 }

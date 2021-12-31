@@ -15,16 +15,17 @@ namespace Units.Unit
         [MinValue(0)]
         [SerializeField] private float _distanceToGroup;
 
-        public event Action<ITargetable, Target> TargetReach;
-        
+        public event Action<ITargetable> TargetReach;
+
+        public GameObject GameObject => gameObject;
+
         private bool _activated;
 
-        private Target _target;
-        
         private Coroutine _movingCoroutine;
 
         private UnitFacade _unitFacade;
         private NavMeshAgent _navMeshAgent;
+
 
         private void Awake()
         {
@@ -62,7 +63,6 @@ namespace Units.Unit
                 _navMeshAgent.SetDestination(target.transform.position + Random.insideUnitSphere * _distanceToGroup);
             if (destinationSet)
             {
-                _target = target;
                 Move();
             }
             
@@ -86,7 +86,7 @@ namespace Units.Unit
                 yield return null;
             }
             
-            TargetReach?.Invoke(this, _target);
+            TargetReach?.Invoke(this);
         }
 
         private bool NavMeshAgentWorking()

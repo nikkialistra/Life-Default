@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using UnitManagement.Targeting;
 using Units.Unit;
 using Units.Unit.UnitTypes;
 using UnityEngine;
@@ -36,11 +37,30 @@ namespace Units.Services.Selecting
         public IEnumerable<UnitFacade> SelectFromPoint(Vector2 point)
         {
             var ray = _camera.ScreenPointToRay(point);
+            
             if (Physics.Raycast(ray, out var hit))
             {
-                if (hit.transform.TryGetComponent(out UnitFacade unit) && unit.Alive)
+                foreach (var unitFacade in GetUnitsFromHit(hit))
                 {
-                    yield return unit;
+                    yield return unitFacade;
+                }
+            }
+        }
+
+        private static IEnumerable<UnitFacade> GetUnitsFromHit(RaycastHit hit)
+        {
+            if (hit.transform.TryGetComponent(out UnitFacade clickedUnit) && clickedUnit.Alive)
+            {
+                yield return clickedUnit;
+            }
+            else if (hit.transform.TryGetComponent(out Target target))
+            {
+                foreach (var targetable in target.Targetables)
+                {
+                    if (targetable.GameObject.TryGetComponent(out UnitFacade targetableUnit) && targetableUnit.Alive)
+                    {
+                        yield return targetableUnit;
+                    }
                 }
             }
         }

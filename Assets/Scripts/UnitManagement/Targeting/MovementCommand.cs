@@ -48,38 +48,41 @@ namespace UnitManagement.Targeting
 
         private void SetTarget(InputAction.CallbackContext context)
         {
-            if (!_selectedUnits.Units.Any())
-            {
-                return;
-            }
-
-            var worldPoint = TryGetWorldPointUnderMouse();
-
-            if (!worldPoint.HasValue)
+            if (!_selectedUnits.Units.Any() || _gameViews.MouseOverUi)
             {
                 return;
             }
             
-            var target = _pool.PlaceTo(worldPoint.Value);
-            MoveAllTo(target);
-        }
-
-        private Vector3? TryGetWorldPointUnderMouse()
-        {
-            if (_gameViews.MouseOverUi)
-            {
-                return null;
-            }
-            
-            var mousePosition = _positionAction.ReadValue<Vector2>();
-            var ray = _camera.ScreenPointToRay(new Vector3(mousePosition.x, mousePosition.y, _camera.nearClipPlane));
-
+            var ray = GetRay();
             if (Physics.Raycast(ray, out var hit))
             {
-                return hit.point;
+                if (hit.transform.TryGetComponent(out TargetObject targetObject))
+                {
+                    MoveAll(targetObject, hit);
+                }
             }
-            
-            return null;
+        }
+
+        private Ray GetRay()
+        {
+            var mousePosition = _positionAction.ReadValue<Vector2>();
+            var ray = _camera.ScreenPointToRay(new Vector3(mousePosition.x, mousePosition.y, _camera.nearClipPlane));
+            return ray;
+        }
+
+        private void MoveAll(TargetObject targetObject, RaycastHit hit)
+        {
+            if (targetObject.HasDestinationPoint)
+            {
+                var destinationPoint = targetObject.GetDestinationPoint();
+                var target = _pool.PlaceTo(destinationPoint);
+                MoveAllTo(target);
+            }
+            else
+            {
+                var target = _pool.PlaceTo(hit.point);
+                MoveAllTo(target);
+            }
         }
 
         private void MoveAllTo(Target target)

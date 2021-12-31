@@ -16,58 +16,91 @@ namespace UnitManagement.Targeting
         [Inject]
         public void Construct(GameObject targetTemplate, Transform targetParent)
         {
-            _targetParent = targetParent;
             _targetTemplate = targetTemplate;
+            _targetParent = targetParent;
         }
 
         public GameObject PlaceTo(Vector3 position)
         {
-            var target = GetFromPullOrCreate();
+            var target = GetFromPoolOrCreate();
 
             target.transform.position = position;
-            target.gameObject.SetActive(true);
+            target.gameObject.SetActive(false);
 
             return target;
         }
 
-        public void Link(GameObject point, ITargetable target)
+        public void Link(GameObject target, ITargetable targetable)
         {
-            if (!_links.ContainsKey(point))
+            if (!_links.ContainsKey(target))
             {
                 throw new InvalidOperationException();
             }
-
-            RemoveFromOldLink(target);
             
-            _links[point].Add(target);
+            RemoveFromOldTarget(targetable);
+            AddTarget(target, targetable);
 
-            OffAllWithoutLinks();
+            UpdateTargetShowing();
         }
 
         public void OffAll()
         {
-            foreach (var point in _links.Keys)
+            foreach (var target in _links.Keys)
             {
-                _links[point].Clear();
-                point.gameObject.SetActive(false);
+                foreach (var targetable in _links[target])
+                {
+                    targetable.TargetReach -= OnTargetReach;
+                }
+                _links[target].Clear();
+                
+                _links.Remove(target);
+                Destroy(target.gameObject);
             }
         }
 
-        private GameObject GetFromPullOrCreate()
+        private GameObject GetFromPoolOrCreate()
         {
-            foreach (var target in _links.Keys.Where(target => !_links[target].Any()))
+            foreach (var target in _links.Keys)
             {
-                return target;
+                if (!_links[target].Any())
+                {
+                    return target;
+                }
             }
 
             return CreateNew();
         }
 
-        private void RemoveFromOldLink(ITargetable target)
+        private void RemoveFromOldTarget(ITargetable targetable)
         {
-            _links.Values
-                .FirstOrDefault(sources => sources.Contains(target))
-                ?.Remove(target);
+            var link = _links.Values
+                .FirstOrDefault(target => target.Contains(targetable));
+
+            if (link != null)
+            {
+                link.Remove(targetable);
+                targetable.TargetReach -= OnTargetReach;
+            }
+        }
+
+        private void AddTarget(GameObject target, ITargetable targetable)
+        {
+            _links[target].Add(targetable);
+            targetable.TargetReach += OnTargetReach;
+        }
+
+        private void OnTargetReach(ITargetable targetable, GameObject target)
+        {
+            if (!_links[target].Contains(targetable))
+            {
+                throw new InvalidOperationException();
+            }
+
+            _links[target].Remove(targetable);
+            
+            targetable.TargetReach -= OnTargetReach;
+
+            UpdateTargetShowing();
         }
 
         private GameObject CreateNew()
@@ -80,11 +113,11 @@ namespace UnitManagement.Targeting
             return target;
         }
 
-        private void OffAllWithoutLinks()
+        private void UpdateTargetShowing()
         {
-            foreach (var point in _links.Keys.Where(point => !_links[point].Any()))
+            foreach (var target in _links.Keys)
             {
-                point.gameObject.SetActive(false);
+                target.SetActive(_links[target].Any());
             }
         }
     }

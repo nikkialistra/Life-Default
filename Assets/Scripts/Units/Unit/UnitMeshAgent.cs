@@ -1,7 +1,10 @@
-﻿using Sirenix.OdinInspector;
+﻿using System;
+using System.Collections;
+using Sirenix.OdinInspector;
 using UnitManagement.Targeting;
 using UnityEngine;
 using UnityEngine.AI;
+using Random = UnityEngine.Random;
 
 namespace Units.Unit
 {
@@ -12,8 +15,14 @@ namespace Units.Unit
         [MinValue(0)]
         [SerializeField] private float _distanceToGroup;
 
-        private bool _activated;
+        public event Action<ITargetable, GameObject> TargetReach;
         
+        private bool _activated;
+
+        private GameObject _target;
+        
+        private Coroutine _movingCoroutine;
+
         private UnitFacade _unitFacade;
         private NavMeshAgent _navMeshAgent;
 
@@ -48,9 +57,41 @@ namespace Units.Unit
             {
                 return false;
             }
+
+            var destinationSet =
+                _navMeshAgent.SetDestination(point.transform.position + Random.insideUnitSphere * _distanceToGroup);
+            if (destinationSet)
+            {
+                _target = point;
+                Move();
+            }
             
-            var destinationSet = _navMeshAgent.SetDestination(point.transform.position + Random.insideUnitSphere * _distanceToGroup);
             return destinationSet;
+        }
+
+        private void Move()
+        {
+            if (_movingCoroutine != null)
+            {
+                StopCoroutine(_movingCoroutine);
+            }
+
+            _movingCoroutine = StartCoroutine(Moving());
+        }
+
+        private IEnumerator Moving()
+        {
+            while (NavMeshAgentWorking())
+            {
+                yield return null;
+            }
+            
+            TargetReach?.Invoke(this, _target);
+        }
+
+        private bool NavMeshAgentWorking()
+        {
+            return _navMeshAgent.pathPending || _navMeshAgent.remainingDistance > _navMeshAgent.stoppingDistance;
         }
 
         private void Deactivate()

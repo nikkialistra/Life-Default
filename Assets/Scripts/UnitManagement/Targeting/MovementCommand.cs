@@ -60,8 +60,8 @@ namespace UnitManagement.Targeting
                 return;
             }
             
-            var targetPoint = _pool.PlaceTo(worldPoint.Value);
-            MoveAllTo(targetPoint);
+            var target = _pool.PlaceTo(worldPoint.Value);
+            MoveAllTo(target);
         }
 
         private Vector3? TryGetWorldPointUnderMouse()
@@ -82,7 +82,7 @@ namespace UnitManagement.Targeting
             return null;
         }
 
-        private void MoveAllTo(GameObject point)
+        private void MoveAllTo(Target target)
         {
             foreach (var unit in _selectedUnits.Units)
             {
@@ -92,9 +92,9 @@ namespace UnitManagement.Targeting
                     continue;
                 }
 
-                if (targetable.TryAcceptPoint(point))
+                if (targetable.TryAcceptTarget(target))
                 {
-                    _pool.Link(point, targetable);
+                    _pool.Link(target, targetable);
                 }
             }
         }

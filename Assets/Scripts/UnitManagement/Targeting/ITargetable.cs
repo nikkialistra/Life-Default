@@ -1,12 +1,11 @@
 ﻿using System;
-using UnityEngine;
 
 namespace UnitManagement.Targeting
 {
     public interface ITargetable
     {
-        public event Action<ITargetable, GameObject> TargetReach;
+        public event Action<ITargetable, Target> TargetReach;
         
-        bool TryAcceptPoint(GameObject point);
+        bool TryAcceptTarget(Target target);
     }
 }

@@ -10,17 +10,17 @@ namespace UnitManagement.Targeting
 {
     public class TargetPool : MonoBehaviour
     {
-        private GameObject _targetTemplate;
+        private Target _template;
         private Transform _targetParent;
 
-        private readonly Dictionary<GameObject, List<ITargetable>> _links = new();
+        private readonly Dictionary<Target, List<ITargetable>> _links = new();
         
         private UnitsRepository _unitsRepository;
 
         [Inject]
-        public void Construct(GameObject targetTemplate, Transform targetParent, UnitsRepository unitsRepository)
+        public void Construct(Target template, Transform targetParent, UnitsRepository unitsRepository)
         {
-            _targetTemplate = targetTemplate;
+            _template = template;
             _targetParent = targetParent;
             _unitsRepository = unitsRepository;
         }
@@ -35,7 +35,7 @@ namespace UnitManagement.Targeting
             _unitsRepository.Remove -= OnRemove;
         }
 
-        public GameObject PlaceTo(Vector3 position)
+        public Target PlaceTo(Vector3 position)
         {
             var target = GetFromPoolOrCreate();
 
@@ -45,7 +45,7 @@ namespace UnitManagement.Targeting
             return target;
         }
 
-        public void Link(GameObject target, ITargetable targetable)
+        public void Link(Target target, ITargetable targetable)
         {
             if (!_links.ContainsKey(target))
             {
@@ -79,7 +79,7 @@ namespace UnitManagement.Targeting
             UpdateTargetShowing();
         }
 
-        private GameObject GetFromPoolOrCreate()
+        private Target GetFromPoolOrCreate()
         {
             foreach (var target in _links.Keys)
             {
@@ -104,13 +104,13 @@ namespace UnitManagement.Targeting
             }
         }
 
-        private void AddTarget(GameObject target, ITargetable targetable)
+        private void AddTarget(Target target, ITargetable targetable)
         {
             _links[target].Add(targetable);
             targetable.TargetReach += OnTargetReach;
         }
 
-        private void OnTargetReach(ITargetable targetable, GameObject target)
+        private void OnTargetReach(ITargetable targetable, Target target)
         {
             if (!_links[target].Contains(targetable))
             {
@@ -124,10 +124,10 @@ namespace UnitManagement.Targeting
             UpdateTargetShowing();
         }
 
-        private GameObject CreateNew()
+        private Target CreateNew()
         {
-            var target = Instantiate(_targetTemplate, Vector3.zero, Quaternion.identity, _targetParent);
-            target.SetActive(false);
+            var target = Instantiate(_template, Vector3.zero, Quaternion.identity, _targetParent);
+            target.gameObject.SetActive(false);
             
             _links.Add(target, new List<ITargetable>());
 
@@ -138,7 +138,7 @@ namespace UnitManagement.Targeting
         {
             foreach (var target in _links.Keys)
             {
-                target.SetActive(_links[target].Any());
+                target.gameObject.SetActive(_links[target].Any());
             }
         }
     }

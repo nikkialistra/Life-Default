@@ -41,7 +41,7 @@ namespace Infrastructure
         [Required]
         [SerializeField] private TargetPool _pool;
         [Required]
-        [SerializeField] private GameObject _targetPrefab;
+        [SerializeField] private Target _targetPrefab;
         [Required]
         [SerializeField] private Transform _targetParent;
         
@@ -93,9 +93,9 @@ namespace Infrastructure
 
         private void BindInput()
         {
-            Container.BindInstance(_camera).AsSingle();
-            Container.BindInstance(_cameraInputCombination).AsSingle();
-            Container.BindInstance(_playerInput).AsSingle();
+            Container.BindInstance(_camera);
+            Container.BindInstance(_cameraInputCombination);
+            Container.BindInstance(_playerInput);
         }
 
         private void BindUnitSelectionSystem()
@@ -110,16 +110,16 @@ namespace Infrastructure
         private void BindTargeting()
         {
             Container.BindInstance(_movementCommand);
-            Container.BindInstance(_pool).AsSingle();
+            Container.BindInstance(_pool);
             Container.BindInstance(_targetPrefab).WhenInjectedInto<TargetPool>();
             Container.BindInstance(_targetParent).WhenInjectedInto<TargetPool>();
         }
 
         private void BindUnitServices()
         {
-            Container.BindInstance(_unitsRepository).AsSingle();
-            Container.BindInstance(_unitsTypeCounts).AsSingle();
-            Container.BindInstance(_unitTypeAppearanceRegistry).AsSingle();
+            Container.BindInstance(_unitsRepository);
+            Container.BindInstance(_unitsTypeCounts);
+            Container.BindInstance(_unitTypeAppearanceRegistry);
         }
         
         private void BindUnitSpawning()

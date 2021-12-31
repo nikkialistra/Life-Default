@@ -1401,7 +1401,7 @@ MonoBehaviour:
   _unitsChoosing: {fileID: 787613333}
   _movementCommand: {fileID: 985616193}
   _pool: {fileID: 936167683}
-  _targetPrefab: {fileID: 719698589249946672, guid: 2be09864b16f2074d9c7d85518d8cf0f,
+  _targetPrefab: {fileID: 4825986323994969602, guid: 2be09864b16f2074d9c7d85518d8cf0f,
     type: 3}
   _targetParent: {fileID: 1516199747}
   _unitPrefab: {fileID: 4193433063631040808, guid: a84f4c16705cba24790ac82fb366010b,
@@ -7435,7 +7435,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1154ea8ec7d4144931d660139bc8152, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _unitTypesView: {fileID: 1502504550}
 --- !u!114 &1502504552
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -56,7 +56,8 @@ namespace UnitManagement.Targeting
             var ray = GetRay();
             if (Physics.Raycast(ray, out var hit))
             {
-                if (hit.transform.TryGetComponent(out TargetObject targetObject))
+                var targetObject = hit.transform.GetComponentInParent<TargetObject>();
+                if (targetObject != null)
                 {
                     MoveAll(targetObject, hit);
                 }

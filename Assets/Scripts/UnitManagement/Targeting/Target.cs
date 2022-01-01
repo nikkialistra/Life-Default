@@ -9,7 +9,10 @@ namespace UnitManagement.Targeting
         public bool Empty => _targetables.Count == 0;
         public IEnumerable<ITargetable> Targetables => _targetables;
 
+        [SerializeField] private GameObject _targetIndicator;
+
         private List<ITargetable> _targetables = new();
+        private TargetObject _targetObject;
 
         public void Add(ITargetable targetable)
         {
@@ -43,6 +46,45 @@ namespace UnitManagement.Targeting
             _targetables.Clear();
         }
 
+        public void SetTargetObject(TargetObject targetObject)
+        {
+            _targetObject = targetObject;
+        }
+
+        public void Deactivate()
+        {
+            if (_targetObject != null)
+            {
+                RemoveTargetObject();
+            }
+            else
+            {
+                _targetIndicator.SetActive(false);
+            }
+        }
+
+        private void RemoveTargetObject()
+        {
+            if (_targetObject.HasDestinationPoint)
+            {
+                _targetObject.HideIndicator();
+            }
+
+            _targetObject = null;
+        }
+
+        private void UpdateState()
+        {
+            if (!Empty)
+            {
+                Activate();
+            }
+            else
+            {
+                Deactivate();
+            }
+        }
+
         private void OnTargetReach(ITargetable targetable)
         {
             if (!_targetables.Contains(targetable))
@@ -57,15 +99,15 @@ namespace UnitManagement.Targeting
             UpdateState();
         }
 
-        private void UpdateState()
+        private void Activate()
         {
-            if (!Empty)
+            if (_targetObject != null && _targetObject.HasDestinationPoint)
             {
-                gameObject.SetActive(true);
+                _targetObject.ShowIndicator();
             }
             else
             {
-                gameObject.SetActive(false);
+                _targetIndicator.SetActive(true);
             }
         }
     }

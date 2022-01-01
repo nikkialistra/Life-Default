@@ -34,11 +34,15 @@ namespace UnitManagement.Targeting
             _unitsRepository.Remove -= OnRemove;
         }
 
-        public Target PlaceTo(Vector3 position)
+        public Target PlaceTo(Vector3 position, TargetObject targetObject = null)
         {
             var target = GetFromPoolOrCreate();
+            if (targetObject)
+            {
+                target.SetTargetObject(targetObject);
+            }
+            
             target.transform.position = position;
-            target.gameObject.SetActive(false);
 
             return target;
         }
@@ -99,7 +103,7 @@ namespace UnitManagement.Targeting
         private Target CreateNew()
         {
             var target = Instantiate(_template, Vector3.zero, Quaternion.identity, _targetParent);
-            target.gameObject.SetActive(false);
+            target.Deactivate();
             
             _targets.Add(target);
 

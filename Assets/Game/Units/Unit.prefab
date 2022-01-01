@@ -2401,6 +2401,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4193433063631040809}
     m_Modifications:
+    - target: {fileID: 6241910357246859301, guid: 913322246f662fd4dbbe41ec891db6fa,
+        type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 6241910357395849221, guid: 913322246f662fd4dbbe41ec891db6fa,
         type: 3}
       propertyPath: m_Pivot.x
@@ -2506,16 +2511,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6241910357395849222, guid: 913322246f662fd4dbbe41ec891db6fa,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6241910357395849223, guid: 913322246f662fd4dbbe41ec891db6fa,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 6241910357395849225, guid: 913322246f662fd4dbbe41ec891db6fa,
         type: 3}
       propertyPath: m_Name
@@ -2523,78 +2518,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6241910357395849225, guid: 913322246f662fd4dbbe41ec891db6fa,
         type: 3}
-      propertyPath: m_IsActive
-      value: 1
+      propertyPath: m_Layer
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6241910357500236744, guid: 913322246f662fd4dbbe41ec891db6fa,
         type: 3}
-      propertyPath: m_Name
-      value: Slider
+      propertyPath: m_Layer
+      value: 5
       objectReference: {fileID: 0}
-    - target: {fileID: 6241910357500236744, guid: 913322246f662fd4dbbe41ec891db6fa,
+    - target: {fileID: 6241910358025274542, guid: 913322246f662fd4dbbe41ec891db6fa,
         type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6241910358025274541, guid: 913322246f662fd4dbbe41ec891db6fa,
-        type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0.0183
-      objectReference: {fileID: 0}
-    - target: {fileID: 6241910358025274541, guid: 913322246f662fd4dbbe41ec891db6fa,
-        type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7658276042284526958, guid: 913322246f662fd4dbbe41ec891db6fa,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7658276042284526958, guid: 913322246f662fd4dbbe41ec891db6fa,
-        type: 3}
-      propertyPath: _fillGradient.key0.b
-      value: 0.093022406
-      objectReference: {fileID: 0}
-    - target: {fileID: 7658276042284526958, guid: 913322246f662fd4dbbe41ec891db6fa,
-        type: 3}
-      propertyPath: _fillGradient.key0.g
-      value: 0.093022406
-      objectReference: {fileID: 0}
-    - target: {fileID: 7658276042284526958, guid: 913322246f662fd4dbbe41ec891db6fa,
-        type: 3}
-      propertyPath: _fillGradient.key0.r
-      value: 0.735849
-      objectReference: {fileID: 0}
-    - target: {fileID: 7658276042284526958, guid: 913322246f662fd4dbbe41ec891db6fa,
-        type: 3}
-      propertyPath: _fillGradient.key1.b
-      value: 0.093022406
-      objectReference: {fileID: 0}
-    - target: {fileID: 7658276042284526958, guid: 913322246f662fd4dbbe41ec891db6fa,
-        type: 3}
-      propertyPath: _fillGradient.key1.g
-      value: 0.72039646
-      objectReference: {fileID: 0}
-    - target: {fileID: 7658276042284526958, guid: 913322246f662fd4dbbe41ec891db6fa,
-        type: 3}
-      propertyPath: _fillGradient.key1.r
-      value: 0.735849
-      objectReference: {fileID: 0}
-    - target: {fileID: 7658276042284526958, guid: 913322246f662fd4dbbe41ec891db6fa,
-        type: 3}
-      propertyPath: _fillGradient.key2.b
-      value: 0.5294118
-      objectReference: {fileID: 0}
-    - target: {fileID: 7658276042284526958, guid: 913322246f662fd4dbbe41ec891db6fa,
-        type: 3}
-      propertyPath: _fillGradient.key2.g
-      value: 0.3647059
-      objectReference: {fileID: 0}
-    - target: {fileID: 7658276042284526958, guid: 913322246f662fd4dbbe41ec891db6fa,
-        type: 3}
-      propertyPath: _fillGradient.key2.r
-      value: 0.17254902
+      propertyPath: m_Layer
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 913322246f662fd4dbbe41ec891db6fa, type: 3}

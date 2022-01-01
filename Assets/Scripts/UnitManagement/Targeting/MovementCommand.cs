@@ -75,9 +75,8 @@ namespace UnitManagement.Targeting
         {
             if (targetObject.HasDestinationPoint)
             {
-                targetObject.ShowIndicator();
                 var destinationPoint = targetObject.GetDestinationPoint();
-                var target = _pool.PlaceTo(destinationPoint);
+                var target = _pool.PlaceTo(destinationPoint, targetObject);
                 MoveAllTo(target);
             }
             else

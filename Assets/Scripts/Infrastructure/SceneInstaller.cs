@@ -27,12 +27,12 @@ namespace Infrastructure
         [Required]
         [SerializeField] private PlayerInput _playerInput;
 
-        [Title("Selection")] 
+        [Title("Selection")]
         [Required]
         [SerializeField] private UnitsSelection _unitsSelection;
         [Required]
         [SerializeField] private SelectionInput _selectionInput;
-        [Required] 
+        [Required]
         [SerializeField] private UnitsChoosing _unitsChoosing;
 
         [Title("Targeting")]
@@ -44,8 +44,8 @@ namespace Infrastructure
         [SerializeField] private Target _targetPrefab;
         [Required]
         [SerializeField] private Transform _targetParent;
-        
-        [Title("Spawning")] 
+
+        [Title("Spawning")]
         [Required]
         [SerializeField] private GameObject _unitPrefab;
         [Required]
@@ -58,7 +58,7 @@ namespace Infrastructure
         [SerializeField] private UnitsRepository _unitsRepository;
         [Required]
         [SerializeField] private UnitsTypeCounts _unitsTypeCounts;
-        [Required] 
+        [Required]
         [SerializeField] private UnitTypeAppearanceRegistry _unitTypeAppearanceRegistry;
 
         [Title("UI")]
@@ -66,17 +66,17 @@ namespace Infrastructure
         [SerializeField] private GameViews _gameViews;
         [Required]
         [SerializeField] private UnitTypesView _unitTypesView;
-        [Required] 
+        [Required]
         [SerializeField] private InfoPanelView _infoPanelView;
-        [Required] 
+        [Required]
         [SerializeField] private UnitInfoView _unitInfoView;
-        [Required] 
+        [Required]
         [SerializeField] private UnitsInfoView _unitsInfoView;
 
         [Title("Saving")]
         [Required]
         [SerializeField] private UnitsSaveLoadHandler _unitsSaveLoadHandler;
-        [Required] 
+        [Required]
         [SerializeField] private SavingLoadingGame _savingLoadingGame;
 
         public override void InstallBindings()
@@ -121,7 +121,7 @@ namespace Infrastructure
             Container.BindInstance(_unitsTypeCounts);
             Container.BindInstance(_unitTypeAppearanceRegistry);
         }
-        
+
         private void BindUnitSpawning()
         {
             Container.BindFactory<UnitType, Vector3, UnitFacade, UnitFacade.Factory>()
@@ -154,7 +154,9 @@ namespace Infrastructure
             Container.BindInterfacesTo<UnitsGenerator>().AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<TogglingCameraMovement>().AsSingle().NonLazy();
         }
-        
-        private class UnitFacadePool : MonoPoolableMemoryPool<UnitType, Vector3, IMemoryPool, UnitFacade> {}
+
+        private class UnitFacadePool : MonoPoolableMemoryPool<UnitType, Vector3, IMemoryPool, UnitFacade>
+        {
+        }
     }
 }

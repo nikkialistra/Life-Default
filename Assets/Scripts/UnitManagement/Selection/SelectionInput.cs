@@ -12,7 +12,7 @@ namespace UnitManagement.Selection
     {
         public event Action<Rect> Selecting;
         public event Action<Rect> SelectingEnd;
-        
+
         private Vector2? _startPoint;
         private bool _updatingArea;
 
@@ -42,7 +42,7 @@ namespace UnitManagement.Selection
             _selectAction.started += StartArea;
             _selectAction.canceled += EndArea;
         }
-        
+
         private void OnDisable()
         {
             _selectAction.started -= StartArea;
@@ -62,13 +62,14 @@ namespace UnitManagement.Selection
             {
                 StopCoroutine(_areaUpdateCourotine);
             }
+
             _areaUpdateCourotine = StartCoroutine(UpdateArea());
         }
 
         private IEnumerator UpdateArea()
         {
             _updatingArea = true;
-            
+
             while (true)
             {
                 if (_startPoint == null)
@@ -88,26 +89,26 @@ namespace UnitManagement.Selection
             {
                 return;
             }
-            
+
             if (_startPoint == null || _areaUpdateCourotine == null)
             {
                 throw new InvalidOperationException();
             }
 
             SelectingEnd?.Invoke(GetRect(_startPoint.Value, _positionAction.ReadValue<Vector2>()));
-            
+
             _startPoint = null;
             _updatingArea = false;
 
             StopCoroutine(_areaUpdateCourotine);
         }
-        
+
         private Rect GetRect(Vector2 a, Vector2 b)
         {
             var minCorner = new Vector2(a.x < b.x ? a.x : b.x, a.y < b.y ? a.y : b.y);
             var maxCorner = new Vector2(a.x > b.x ? a.x : b.x, a.y > b.y ? a.y : b.y);
             var size = new Vector2(maxCorner.x - minCorner.x, maxCorner.y - minCorner.y);
-            
+
             return new Rect(minCorner, size);
         }
     }

@@ -10,10 +10,10 @@ namespace Cameras
     [RequireComponent(typeof(Camera))]
     public class CameraMoving : MonoBehaviour
     {
-        [Title("Speed")] 
-        [MinValue(0)] 
+        [Title("Speed")]
+        [MinValue(0)]
         [SerializeField] private float _movementSpeed;
-        [MinValue(0)] 
+        [MinValue(0)]
         [SerializeField] private float _dragMultiplier;
 
         [Title("Mouse thresholds")]
@@ -23,17 +23,21 @@ namespace Cameras
         [SerializeField] private float _positionMoveYThreshold;
 
         [Title("Boundaries")]
-        [ValidateInput("@_minimumPositionX < _maximumPositionX", "Minimum position should be less than maximum position")]
+        [ValidateInput("@_minimumPositionX < _maximumPositionX",
+            "Minimum position should be less than maximum position")]
         [SerializeField] private float _minimumPositionX;
 
-        [ValidateInput("@_minimumPositionX < _maximumPositionX", "Minimum position should be less than maximum position")]
+        [ValidateInput("@_minimumPositionX < _maximumPositionX",
+            "Minimum position should be less than maximum position")]
         [SerializeField] private float _maximumPositionX;
 
         [Space]
-        [ValidateInput("@_minimumPositionZ < _maximumPositionZ", "Minimum position should be less than maximum position")]
+        [ValidateInput("@_minimumPositionZ < _maximumPositionZ",
+            "Minimum position should be less than maximum position")]
         [SerializeField] private float _minimumPositionZ;
 
-        [ValidateInput("@_minimumPositionZ < _maximumPositionZ", "Minimum position should be less than maximum position")]
+        [ValidateInput("@_minimumPositionZ < _maximumPositionZ",
+            "Minimum position should be less than maximum position")]
         [SerializeField] private float _maximumPositionZ;
 
         public event Action<Vector3> PositionUpdate;
@@ -59,16 +63,16 @@ namespace Cameras
         {
             _playerInput = playerInput;
         }
-        
+
         private void Awake()
         {
             _camera = GetComponent<Camera>();
-            
+
             _movementAction = _playerInput.actions.FindAction("Movement");
             _dragAction = _playerInput.actions.FindAction("Drag");
             _positionAction = _playerInput.actions.FindAction("Position");
         }
-        
+
         private void OnEnable()
         {
             _movementAction.started += MovementStart;
@@ -77,7 +81,7 @@ namespace Cameras
             _dragAction.started += DragStart;
             _dragAction.canceled += DragStop;
         }
-        
+
         private void OnDisable()
         {
             _movementAction.started -= MovementStart;
@@ -117,7 +121,8 @@ namespace Cameras
         //Result between -1 and 1 is the result between 0 and 1 subtracted with 0.5 and multiplied by 2
         private Vector2 GetNormalisedPosition(Vector2 position)
         {
-            var result = new Vector2(((position.x / Screen.width) - 0.5f) * 2f, ((position.y / Screen.height) - 0.5f) * 2f);
+            var result = new Vector2(((position.x / Screen.width) - 0.5f) * 2f,
+                ((position.y / Screen.height) - 0.5f) * 2f);
             return result;
         }
 
@@ -135,7 +140,7 @@ namespace Cameras
                 var movementInput = _movementAction.ReadValue<Vector2>();
                 var movement = movementInput * (_movementSpeed * Time.deltaTime);
                 UpdatePosition(movement);
-                
+
                 yield return null;
             }
         }
@@ -155,22 +160,22 @@ namespace Cameras
             {
                 position.x = _minimumPositionX;
             }
-            
+
             if (position.x > _maximumPositionX)
             {
                 position.x = _maximumPositionX;
             }
-            
+
             if (position.z < _minimumPositionZ)
             {
                 position.z = _minimumPositionZ;
             }
-            
+
             if (position.z > _maximumPositionZ)
             {
                 position.z = _maximumPositionZ;
             }
-            
+
             Position = position;
             PositionUpdate?.Invoke(Position);
         }
@@ -181,6 +186,7 @@ namespace Cameras
             {
                 throw new InvalidOperationException();
             }
+
             StopCoroutine(_moveCoroutine);
         }
 
@@ -198,6 +204,7 @@ namespace Cameras
                 {
                     StopCoroutine(_dragCoroutine);
                 }
+
                 _dragCoroutine = StartCoroutine(Drag());
             }
         }
@@ -219,7 +226,8 @@ namespace Cameras
                         throw new InvalidOperationException();
                     }
 
-                    var position = transform.position + (_dragStartPosition.Value - _dragCurrentPosition) * _dragMultiplier;
+                    var position = transform.position +
+                                   (_dragStartPosition.Value - _dragCurrentPosition) * _dragMultiplier;
                     ClampPositionByConstraints(position);
                 }
 

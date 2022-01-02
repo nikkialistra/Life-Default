@@ -22,7 +22,7 @@ namespace Units.Services.Selecting
         public IEnumerable<UnitFacade> SelectFromRect(Rect rect)
         {
             _units = _unitsRepository.GetUnits();
-            
+
             foreach (var unit in _units)
             {
                 var screenPoint = _camera.WorldToScreenPoint(unit.Center);
@@ -33,11 +33,11 @@ namespace Units.Services.Selecting
                 }
             }
         }
-        
+
         public IEnumerable<UnitFacade> SelectFromPoint(Vector2 point)
         {
             var ray = _camera.ScreenPointToRay(point);
-            
+
             if (Physics.Raycast(ray, out var hit))
             {
                 foreach (var unitFacade in GetUnitsFromHit(hit))

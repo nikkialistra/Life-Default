@@ -65,7 +65,7 @@ namespace Units.Unit
             {
                 Move();
             }
-            
+
             return destinationSet;
         }
 
@@ -85,7 +85,7 @@ namespace Units.Unit
             {
                 yield return null;
             }
-            
+
             TargetReach?.Invoke(this);
         }
 

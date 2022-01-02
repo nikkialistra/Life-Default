@@ -15,7 +15,7 @@ namespace Units.Services
         {
             _factory = factory;
         }
-        
+
         public static List<UnitData> GetUnits()
         {
             var units = new List<UnitData>();
@@ -31,7 +31,7 @@ namespace Units.Services
         public void SetUnits(IEnumerable<UnitData> currentUnits)
         {
             DestroyUnits();
-            
+
             foreach (var unitData in currentUnits)
             {
                 var unitFacade = _factory.Create(UnitType.Traveler, Vector3.zero);

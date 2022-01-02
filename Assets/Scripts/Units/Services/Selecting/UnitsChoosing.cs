@@ -21,7 +21,8 @@ namespace Units.Services.Selecting
         private readonly Dictionary<UnitType, int> _lastSelectedUnitByType = new();
 
         [Inject]
-        public void Construct(UnitTypesView unitTypesView, UnitsInfoView unitsInfoView, UnitsRepository unitsRepository, SelectedUnits selectedUnits)
+        public void Construct(UnitTypesView unitTypesView, UnitsInfoView unitsInfoView, UnitsRepository unitsRepository,
+            SelectedUnits selectedUnits)
         {
             _unitTypesView = unitTypesView;
             _unitsInfoView = unitsInfoView;
@@ -37,7 +38,7 @@ namespace Units.Services.Selecting
         private void OnEnable()
         {
             _unitsInfoView.SelectUnit += ChooseUnit;
-            
+
             _unitTypesView.LeftClick += ChooseUnitByType;
             _unitTypesView.RightClick += ChooseUnits;
         }
@@ -45,7 +46,7 @@ namespace Units.Services.Selecting
         private void OnDisable()
         {
             _unitsInfoView.SelectUnit -= ChooseUnit;
-            
+
             _unitTypesView.LeftClick -= ChooseUnitByType;
             _unitTypesView.RightClick -= ChooseUnits;
         }
@@ -66,7 +67,7 @@ namespace Units.Services.Selecting
         private void ChooseUnitByType(UnitType unitType)
         {
             var units = _unitsRepository.GetUnitsByType(unitType).ToArray();
-            
+
             if (units.Length == 0)
             {
                 return;

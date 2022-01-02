@@ -8,7 +8,7 @@ namespace UI.Menus
     {
         public event Action Resuming;
         public bool Shown { get; private set; }
-        
+
         private readonly VisualElement _root;
 
         private readonly TemplateContainer _tree;
@@ -19,7 +19,7 @@ namespace UI.Menus
         public GameMenuView(VisualElement root)
         {
             _root = root;
-            
+
             var template = Resources.Load<VisualTreeAsset>("UI/Markup/GameMenu");
             _tree = template.CloneTree();
 

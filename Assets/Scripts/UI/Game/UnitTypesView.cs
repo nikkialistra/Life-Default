@@ -11,12 +11,12 @@ namespace UI.Game
     {
         public event Action<UnitType> LeftClick;
         public event Action<UnitType> RightClick;
-        
+
         private VisualElement _tree;
-        
+
         private readonly Dictionary<UnitType, Label> _unitTypeLabels = new();
         private readonly Dictionary<UnitType, int> _unitTypeCounts = new();
-        
+
         private VisualElement _travelerType;
         private VisualElement _lumberjackType;
         private VisualElement _masonType;
@@ -40,11 +40,16 @@ namespace UI.Game
 
         private void OnEnable()
         {
-            _travelerType.RegisterCallback<MouseDownEvent, EventArgs>(TypeOnMouseDownEvent, new EventArgs { Sender = _travelerType, UnitType = UnitType.Traveler });
-            _lumberjackType.RegisterCallback<MouseDownEvent, EventArgs>(TypeOnMouseDownEvent, new EventArgs { Sender = _travelerType, UnitType = UnitType.Lumberjack });
-            _masonType.RegisterCallback<MouseDownEvent, EventArgs>(TypeOnMouseDownEvent, new EventArgs { Sender = _travelerType, UnitType = UnitType.Mason });
-            _meleeType.RegisterCallback<MouseDownEvent, EventArgs>(TypeOnMouseDownEvent, new EventArgs { Sender = _travelerType, UnitType = UnitType.Melee });
-            _archerType.RegisterCallback<MouseDownEvent, EventArgs>(TypeOnMouseDownEvent, new EventArgs { Sender = _travelerType, UnitType = UnitType.Archer });
+            _travelerType.RegisterCallback<MouseDownEvent, EventArgs>(TypeOnMouseDownEvent,
+                new EventArgs { Sender = _travelerType, UnitType = UnitType.Traveler });
+            _lumberjackType.RegisterCallback<MouseDownEvent, EventArgs>(TypeOnMouseDownEvent,
+                new EventArgs { Sender = _travelerType, UnitType = UnitType.Lumberjack });
+            _masonType.RegisterCallback<MouseDownEvent, EventArgs>(TypeOnMouseDownEvent,
+                new EventArgs { Sender = _travelerType, UnitType = UnitType.Mason });
+            _meleeType.RegisterCallback<MouseDownEvent, EventArgs>(TypeOnMouseDownEvent,
+                new EventArgs { Sender = _travelerType, UnitType = UnitType.Melee });
+            _archerType.RegisterCallback<MouseDownEvent, EventArgs>(TypeOnMouseDownEvent,
+                new EventArgs { Sender = _travelerType, UnitType = UnitType.Archer });
         }
 
         private void OnDisable()
@@ -61,33 +66,33 @@ namespace UI.Game
             CheckUnitTypeExistence(unitType);
 
             _unitTypeCounts[unitType] = value;
-            
+
             var label = _unitTypeLabels[unitType];
             label.text = $"{value}";
-            
+
             UpdateUnitTypeStyles(value, label);
         }
 
         public void IncreaseUnitTypeCount(UnitType unitType)
         {
             CheckUnitTypeExistence(unitType);
-            
+
             _unitTypeCounts[unitType] += 1;
             var value = _unitTypeCounts[unitType];
 
             var label = _unitTypeLabels[unitType];
             label.text = $"{_unitTypeCounts[unitType]}";
-            
+
             UpdateUnitTypeStyles(value, label);
         }
 
         public void DecreaseFromUnitTypeCount(UnitType unitType)
         {
             CheckUnitTypeExistence(unitType);
-            
+
             _unitTypeCounts[unitType] -= 1;
             var value = _unitTypeCounts[unitType];
-            
+
             if (value < 0)
             {
                 throw new InvalidOperationException("UnitType cannot be less than zero");
@@ -95,7 +100,7 @@ namespace UI.Game
 
             var label = _unitTypeLabels[unitType];
             label.text = $"{_unitTypeCounts[unitType]}";
-            
+
             UpdateUnitTypeStyles(value, label);
         }
 
@@ -149,7 +154,7 @@ namespace UI.Game
             _unitTypeLabels.Add(UnitType.Melee, _tree.Q<Label>("melee-type__count"));
             _unitTypeLabels.Add(UnitType.Archer, _tree.Q<Label>("archer-type__count"));
         }
-        
+
         private void FillInLabelCounts()
         {
             _unitTypeCounts.Add(UnitType.Traveler, 0);

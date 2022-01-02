@@ -17,9 +17,11 @@ namespace Cameras
         [SerializeField] private float _buttonZoomMultiplier;
 
         [Title("Boundaries")]
-        [ValidateInput("@_minimumPositionY < _maximumPositionY", "Minimum position should be less than maximum position")]
+        [ValidateInput("@_minimumPositionY < _maximumPositionY",
+            "Minimum position should be less than maximum position")]
         [SerializeField] private float _minimumPositionY;
-        [ValidateInput("@_minimumPositionY < _maximumPositionY", "Minimum position should be less than maximum position")]
+        [ValidateInput("@_minimumPositionY < _maximumPositionY",
+            "Minimum position should be less than maximum position")]
         [SerializeField] private float _maximumPositionY;
 
         public event Action<Vector3> PositionUpdate;
@@ -27,7 +29,7 @@ namespace Cameras
         public Vector3 Position { get; set; }
 
         private Coroutine _zoomCoroutine;
-        
+
         private PlayerInput _playerInput;
 
         private InputAction _zoomScrollAction;
@@ -65,7 +67,7 @@ namespace Cameras
 
             var localZoomAmount = transform.forward * zooming;
             var zoomPosition = Position + localZoomAmount * _scrollZoomMultiplier;
-            
+
             ClampZoomByConstraints(zoomPosition);
         }
 
@@ -75,6 +77,7 @@ namespace Cameras
             {
                 StopCoroutine(_zoomCoroutine);
             }
+
             _zoomCoroutine = StartCoroutine(Zoom());
         }
 
@@ -98,7 +101,7 @@ namespace Cameras
             {
                 throw new InvalidOperationException();
             }
-            
+
             StopCoroutine(_zoomCoroutine);
         }
 
@@ -130,27 +133,27 @@ namespace Cameras
         {
             var allowedDistanceY = Position.y - _minimumPositionY;
             var actualDistanceY = Position.y - zoomPosition.y;
-            
+
             var allowedDistancePercent = allowedDistanceY / actualDistanceY;
 
             var actualDistance = Position - zoomPosition;
-            
+
             var zoomAllowedDelta = actualDistance * allowedDistancePercent;
-            
+
             return Position - zoomAllowedDelta;
         }
-        
+
         private Vector3 CalculateAllowedPositionAtMaximum(Vector3 zoomPosition)
         {
             var allowedDistanceY = _maximumPositionY - Position.y;
             var actualDistanceY = zoomPosition.y - Position.y;
-            
+
             var allowedDistancePercent = allowedDistanceY / actualDistanceY;
 
             var actualDistance = zoomPosition - Position;
-            
+
             var zoomAllowedDelta = actualDistance * allowedDistancePercent;
-            
+
             return Position + zoomAllowedDelta;
         }
     }

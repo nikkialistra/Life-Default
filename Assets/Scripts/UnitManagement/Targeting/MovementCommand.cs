@@ -21,7 +21,8 @@ namespace UnitManagement.Targeting
         private GameViews _gameViews;
 
         [Inject]
-        public void Construct(PlayerInput playerInput, Camera camera, SelectedUnits selectedUnits, TargetPool pool, GameViews gameViews)
+        public void Construct(PlayerInput playerInput, Camera camera, SelectedUnits selectedUnits, TargetPool pool,
+            GameViews gameViews)
         {
             _playerInput = playerInput;
             _camera = camera;
@@ -52,7 +53,7 @@ namespace UnitManagement.Targeting
             {
                 return;
             }
-            
+
             var ray = GetRay();
             if (Physics.Raycast(ray, out var hit))
             {

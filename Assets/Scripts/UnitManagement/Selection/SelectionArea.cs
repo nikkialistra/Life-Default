@@ -14,8 +14,8 @@ namespace UnitManagement.Selection
         {
             var uiDocument = GetComponent<UIDocument>();
             _root = uiDocument.rootVisualElement;
-            _scale = (float) uiDocument.panelSettings.referenceResolution.x / Screen.width;
-            
+            _scale = (float)uiDocument.panelSettings.referenceResolution.x / Screen.width;
+
             _selection = _root.Q<VisualElement>("selection");
         }
 
@@ -25,7 +25,7 @@ namespace UnitManagement.Selection
             {
                 _selection.RemoveFromClassList("not-displayed");
             }
-            
+
             _selection.style.left = rect.xMin * _scale;
             _selection.style.bottom = rect.yMin * _scale;
             _selection.style.width = rect.width * _scale;

@@ -39,7 +39,7 @@ namespace Units.Unit
             {
                 yield return null;
             }
-            
+
             while (_animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.5f)
             {
                 yield return null;

@@ -16,13 +16,13 @@ namespace Units.Unit
     [RequireComponent(typeof(UnitSaveLoadHandler))]
     public class UnitFacade : MonoBehaviour, IPoolable<UnitType, Vector3, IMemoryPool>, IDisposable
     {
-        [Required] 
+        [Required]
         [SerializeField] private HealthBar _healthBar;
         [Required]
         [SerializeField] private GameObject _selectionIndicator;
-        [Required] 
+        [Required]
         [SerializeField] private Transform _center;
-        
+
         [Title("Properties")]
         [SerializeField] private UnitType _unitType;
         [SerializeField] private string _name;
@@ -58,7 +58,7 @@ namespace Units.Unit
             _unitAnimator = GetComponent<UnitAnimator>();
             _unitModelElements = GetComponent<UnitModelElements>();
             _unitMeshAgent = GetComponent<UnitMeshAgent>();
-            
+
             UnitSaveLoadHandler = GetComponent<UnitSaveLoadHandler>();
         }
 
@@ -81,7 +81,7 @@ namespace Units.Unit
                 Initialize();
             }
         }
-        
+
         [Button(ButtonSizes.Large)]
         public void ChangeUnitType(UnitType unitType)
         {
@@ -96,7 +96,7 @@ namespace Units.Unit
             {
                 return;
             }
-            
+
             _health.TakeDamage(value);
         }
 
@@ -106,7 +106,7 @@ namespace Units.Unit
             {
                 return;
             }
-            
+
             _selectionIndicator.SetActive(true);
             _healthBar.Selected = true;
         }
@@ -117,7 +117,7 @@ namespace Units.Unit
             {
                 return;
             }
-            
+
             _selectionIndicator.SetActive(false);
             _healthBar.Selected = false;
         }
@@ -125,7 +125,7 @@ namespace Units.Unit
         public void OnSpawned(UnitType unitType, Vector3 position, IMemoryPool pool)
         {
             _pool = pool;
-            
+
             _unitType = unitType;
             transform.position = position;
 
@@ -140,7 +140,7 @@ namespace Units.Unit
         public void Dispose()
         {
             Die?.Invoke();
-            
+
             Deselect();
             _died = true;
             _unitAnimator.Die(DestroySelf);
@@ -149,19 +149,19 @@ namespace Units.Unit
         private void Initialize()
         {
             _died = false;
-            
+
             if (_name == "")
             {
                 _name = UnitNameGenerator.GetRandomName();
             }
-            
+
             _health.Initialize();
 
             _healthBar.SetMaxHealth(_health.MaxHealth);
             _healthBar.SetHealth(_health.Health);
 
             _unitModelElements.SwitchTo(_unitType);
-            
+
             Spawn?.Invoke();
         }
 

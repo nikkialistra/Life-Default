@@ -24,12 +24,12 @@ namespace UI.Game
         [SerializeField] private Texture2D _archerPreview;
 
         private UnitFacade _lastUnit;
-        
+
         private InfoPanelView _parent;
         private TemplateContainer _tree;
 
         private ChangeColorFractions _changeColorFractions;
-        
+
         private VisualElement _image;
 
         private Label _nominationType;
@@ -40,11 +40,11 @@ namespace UI.Game
         {
             _parent = GetComponent<InfoPanelView>();
             _changeColorFractions = GetComponent<ChangeColorFractions>();
-                
+
             _tree = Resources.Load<VisualTreeAsset>("UI/Markup/Components/UnitInfo").CloneTree();
 
             _image = _tree.Q<VisualElement>("info-image");
-            
+
             _nominationType = _tree.Q<Label>("unit-nomination__type");
             _nominationName = _tree.Q<Label>("unit-nomination__name");
             _health = _tree.Q<ProgressBar>("unit-health__progress-bar");
@@ -96,10 +96,10 @@ namespace UI.Game
         {
             UnsubscribeFromLastUnit();
             _lastUnit = unit;
-            
+
             _nominationType.text = unit.UnitType.ToString();
             _nominationName.text = unit.Name;
-            
+
             ChangeHealth();
 
             SubscribeToUnit(unit);
@@ -122,7 +122,7 @@ namespace UI.Game
 
         private void ChangeHealth()
         {
-            _health.value = (float) _lastUnit.Health / _lastUnit.MaxHealth;
+            _health.value = (float)_lastUnit.Health / _lastUnit.MaxHealth;
 
             SetHealthColor();
         }

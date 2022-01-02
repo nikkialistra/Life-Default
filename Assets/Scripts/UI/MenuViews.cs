@@ -12,9 +12,9 @@ namespace UI
         private VisualElement _root;
 
         private GameMenuView _gameMenuView;
-        
+
         private PlayerInput _playerInput;
-        
+
         private InputAction _showMenuAction;
         private InputAction _hideMenuAction;
 

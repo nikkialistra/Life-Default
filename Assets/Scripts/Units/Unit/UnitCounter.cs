@@ -8,7 +8,7 @@ namespace Units.Unit
     public class UnitCounter : MonoBehaviour
     {
         private UnitFacade _unitFacade;
-        
+
         private UnitsRepository _unitsRepository;
 
         [Inject]

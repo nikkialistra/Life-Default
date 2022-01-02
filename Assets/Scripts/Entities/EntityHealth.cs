@@ -13,8 +13,8 @@ namespace Entities
         [SerializeField] private int _startHealth;
 
         public event Action Die;
-        public event Action<int> HealthChange; 
-        
+        public event Action<int> HealthChange;
+
         public int Health
         {
             get => _health;
@@ -33,11 +33,11 @@ namespace Entities
 
         private int _health;
         private bool IsAlive => _health > 0;
-        
+
         private Coroutine _takingDamage;
-        
+
         private void OnTriggerEnter(Collider other)
-        { 
+        {
             if (other.TryGetComponent(out IHittable hittable))
             {
                 TakeDamageContinuously(hittable.Damage, hittable.Interval);
@@ -70,15 +70,15 @@ namespace Entities
         public void TakeDamage(int value)
         {
             CheckTakeDamageValidity(value);
-            
+
             _health -= value;
-            
+
             if (!IsAlive)
             {
                 StopTakingDamage();
                 Die?.Invoke();
             }
-            
+
             HealthChange?.Invoke(_health);
         }
 
@@ -99,11 +99,11 @@ namespace Entities
                 StopCoroutine(_takingDamage);
             }
         }
-        
+
         private IEnumerator TakingDamage(int value, float interval, float time)
         {
             var elapsedTime = 0.0f;
-            
+
             while (elapsedTime < time)
             {
                 TakeDamage(value);

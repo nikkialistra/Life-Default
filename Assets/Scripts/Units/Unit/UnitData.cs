@@ -8,9 +8,9 @@ namespace Units.Unit
     public struct UnitData
     {
         public string Id;
-        
+
         public UnitType Type;
-        
+
         public Vector3 Position;
         public Quaternion Rotation;
     }

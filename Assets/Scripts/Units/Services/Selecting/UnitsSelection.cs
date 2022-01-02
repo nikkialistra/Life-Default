@@ -13,7 +13,7 @@ namespace Units.Services.Selecting
         [SerializeField] private float _doubleClickDeltaTime;
 
         private SelectionArea _selectionArea;
-        
+
         private UnitsSelecting _selecting;
         private SelectionInput _selectionInput;
         private SelectedUnits _selectedUnits;
@@ -38,7 +38,7 @@ namespace Units.Services.Selecting
             _selectionInput.Selecting += Draw;
             _selectionInput.SelectingEnd += Select;
         }
-        
+
         public void OnDisable()
         {
             _selectionInput.Selecting -= Draw;
@@ -98,7 +98,7 @@ namespace Units.Services.Selecting
             {
                 return Enumerable.Empty<UnitFacade>();
             }
-            
+
             return _selecting.SelectByType(_selectedUnits.Units.First().UnitType);
         }
 

@@ -24,7 +24,7 @@ namespace Units.Unit.UnitTypes
         private GameObject _headAccessory;
         private GameObject _rightHandAccessory;
         private GameObject _upperChestAccessory;
-        
+
         private UnitTypeAppearanceRegistry _unitTypeAppearanceRegistry;
 
         [Inject]
@@ -32,13 +32,13 @@ namespace Units.Unit.UnitTypes
         {
             _unitTypeAppearanceRegistry = unitTypeAppearanceRegistry;
         }
-        
+
         public void SwitchTo(UnitType unitType)
         {
             var appearance = _unitTypeAppearanceRegistry.GetForType(unitType);
 
             SetAccessory(ref _headEndAccessory, appearance.HeadEndAccessory, _headEnd);
-            SetAccessory(ref _headAccessory,appearance.HeadAccessory, _head);
+            SetAccessory(ref _headAccessory, appearance.HeadAccessory, _head);
             SetAccessory(ref _rightHandAccessory, appearance.RightHandAccessory, _rightHand);
             SetAccessory(ref _upperChestAccessory, appearance.UpperChestAccessory, _upperChest);
 

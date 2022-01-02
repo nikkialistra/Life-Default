@@ -7,9 +7,9 @@ namespace UnitManagement.Targeting
     public class TargetObject : MonoBehaviour
     {
         public bool HasDestinationPoint => _hasDestinationPoint;
-        
+
         [SerializeField] private bool _hasDestinationPoint;
-        
+
         [ShowIf("_hasDestinationPoint")]
         [SerializeField] private Transform _destinationPoint;
         [ShowIf("_hasDestinationPoint")]
@@ -25,14 +25,14 @@ namespace UnitManagement.Targeting
         public void ShowIndicator()
         {
             CheckHavingDestinationPoint();
-            
+
             _targetIndicator.SetActive(true);
         }
 
         public void HideIndicator()
         {
             CheckHavingDestinationPoint();
-            
+
             _targetIndicator.SetActive(false);
         }
 

@@ -8,7 +8,7 @@ namespace Testing
     public class TogglingCameraMovement : IInitializable, IDisposable
     {
         private readonly CameraInputCombination _cameraInputCombination;
-        
+
         private readonly PlayerInput _playerInput;
 
         private InputAction _toggleCameraMovementAction;

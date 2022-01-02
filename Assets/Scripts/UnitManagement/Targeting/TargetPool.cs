@@ -13,7 +13,7 @@ namespace UnitManagement.Targeting
         private Transform _targetParent;
 
         private readonly List<Target> _targets = new();
-        
+
         private UnitsRepository _unitsRepository;
 
         [Inject]
@@ -41,7 +41,7 @@ namespace UnitManagement.Targeting
             {
                 target.SetTargetObject(targetObject);
             }
-            
+
             target.transform.position = position;
 
             return target;
@@ -53,7 +53,7 @@ namespace UnitManagement.Targeting
             {
                 throw new InvalidOperationException();
             }
-            
+
             RemoveFromOldTarget(targetable);
             AddTarget(target, targetable);
         }
@@ -104,7 +104,7 @@ namespace UnitManagement.Targeting
         {
             var target = Instantiate(_template, Vector3.zero, Quaternion.identity, _targetParent);
             target.Deactivate();
-            
+
             _targets.Add(target);
 
             return target;

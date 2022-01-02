@@ -9,7 +9,7 @@ namespace Units.Unit.UnitTypes
         [Title("Required Skin")]
         [Required]
         [SerializeField] private Material _skin;
-        
+
         [Title("Optional Accessories")]
         [SerializeField] private GameObject _headEndAccessory;
         [SerializeField] private GameObject _headAccessory;

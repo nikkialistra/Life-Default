@@ -31,7 +31,7 @@ namespace UnitManagement.Targeting
             }
 
             _targetables.Remove(targetable);
-            
+
             UpdateState();
 
             targetable.TargetReach -= OnTargetReach;
@@ -43,6 +43,7 @@ namespace UnitManagement.Targeting
             {
                 targetable.TargetReach -= OnTargetReach;
             }
+
             _targetables.Clear();
         }
 

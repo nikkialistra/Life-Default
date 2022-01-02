@@ -72,14 +72,15 @@ namespace Saving.Serialization
         private static BinaryFormatter GetBinaryFormatter()
         {
             var formatter = new BinaryFormatter();
-            
+
             var selector = new SurrogateSelector();
-            
+
             var vector3Surrogate = new Vector3SerializationSurrogate();
             var quaternionSurrogate = new QuaternionSerializationSurrogate();
-            
+
             selector.AddSurrogate(typeof(Vector3), new StreamingContext(StreamingContextStates.All), vector3Surrogate);
-            selector.AddSurrogate(typeof(Quaternion), new StreamingContext(StreamingContextStates.All), quaternionSurrogate);
+            selector.AddSurrogate(typeof(Quaternion), new StreamingContext(StreamingContextStates.All),
+                quaternionSurrogate);
 
             formatter.SurrogateSelector = selector;
 

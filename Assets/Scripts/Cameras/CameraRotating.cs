@@ -9,20 +9,20 @@ namespace Cameras
 {
     public class CameraRotating : MonoBehaviour
     {
-        [MinValue(0)] 
+        [MinValue(0)]
         [SerializeField] private float _rotationSpeed;
 
         public event Action<Quaternion> RotationUpdate;
-        
+
         public Quaternion Rotation { get; set; }
 
         private Vector3? _rotateStartPosition;
         private Vector3 _rotateCurrentPosition;
-        
+
         private Coroutine _rotateCoroutine;
 
         private PlayerInput _playerInput;
-        
+
         private InputAction _rotationAction;
         private InputAction _rotateAction;
 
@@ -31,7 +31,7 @@ namespace Cameras
         {
             _playerInput = playerInput;
         }
-        
+
         private void Awake()
         {
             _rotateAction = _playerInput.actions.FindAction("Rotate");
@@ -55,6 +55,7 @@ namespace Cameras
             {
                 StopCoroutine(_rotateCoroutine);
             }
+
             _rotateCoroutine = StartCoroutine(Rotate());
         }
 
@@ -83,6 +84,7 @@ namespace Cameras
             {
                 throw new InvalidOperationException();
             }
+
             StopCoroutine(_rotateCoroutine);
         }
     }

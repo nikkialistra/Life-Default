@@ -15,7 +15,7 @@ namespace Testing
         private readonly Camera _camera;
 
         private UnitType? _generationType;
-        
+
         private readonly PlayerInput _playerInput;
 
         private InputAction _generateUnitAction;
@@ -49,7 +49,7 @@ namespace Testing
         {
             if (_generationType != null)
             {
-                return (UnitType) _generationType;
+                return (UnitType)_generationType;
             }
             else
             {
@@ -64,11 +64,12 @@ namespace Testing
 
             _changeGenerationToRandomAction = _playerInput.actions.FindAction("TestingChangeGenerationToRandom");
             _changeGenerationToTravelersAction = _playerInput.actions.FindAction("TestingChangeGenerationToTravelers");
-            _changeGenerationToLumberjacksAction = _playerInput.actions.FindAction("TestingChangeGenerationToLumberjacks");
+            _changeGenerationToLumberjacksAction =
+                _playerInput.actions.FindAction("TestingChangeGenerationToLumberjacks");
             _changeGenerationToMasonsAction = _playerInput.actions.FindAction("TestingChangeGenerationToMasons");
             _changeGenerationToMeleesAction = _playerInput.actions.FindAction("TestingChangeGenerationToMelees");
             _changeGenerationToArchersAction = _playerInput.actions.FindAction("TestingChangeGenerationToArchers");
-            
+
             _generateUnitAction.started += GenerateUnit;
 
             _changeGenerationToRandomAction.started += ChangeGenerationToRandom;
@@ -82,7 +83,7 @@ namespace Testing
         public void Dispose()
         {
             _generateUnitAction.started -= GenerateUnit;
-            
+
             _changeGenerationToRandomAction.started -= ChangeGenerationToRandom;
             _changeGenerationToTravelersAction.started -= ChangeGenerationToTravelers;
             _changeGenerationToLumberjacksAction.started -= ChangeGenerationToLumberjacks;

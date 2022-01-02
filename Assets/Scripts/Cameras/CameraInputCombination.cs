@@ -10,7 +10,7 @@ namespace Cameras
     {
         [SerializeField] private float _positionSmoothing;
         [SerializeField] private float _rotationSmoothing;
-        
+
         private CameraFollowing _cameraFollowing;
         private CameraMoving _cameraMoving;
         private CameraRotating _cameraRotating;
@@ -31,10 +31,10 @@ namespace Cameras
         {
             _newPosition = transform.position;
             _newRotation = transform.rotation;
-            
+
             _cameraRotating.Rotation = _newRotation;
-            
-            SetInputPositionComponents(); 
+
+            SetInputPositionComponents();
         }
 
         private void OnEnable()

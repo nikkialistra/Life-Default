@@ -18,12 +18,12 @@ namespace UI.Game
         private UnitsInfoView _unitsInfoView;
 
         private VisualElement _infoPanel;
-        
+
         private void Awake()
         {
             _unitInfoView = GetComponent<UnitInfoView>();
             _unitsInfoView = GetComponent<UnitsInfoView>();
-            
+
             _tree = GetComponent<UIDocument>().rootVisualElement;
 
             _infoPanel = _tree.Q<VisualElement>("info-panel");

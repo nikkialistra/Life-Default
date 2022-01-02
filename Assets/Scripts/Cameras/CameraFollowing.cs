@@ -11,7 +11,7 @@ namespace Cameras
     public class CameraFollowing : MonoBehaviour
     {
         public event Action<Vector3> PositionUpdate;
-        
+
         public bool Following { get; private set; }
 
         private UnitFacade _unit;
@@ -34,11 +34,11 @@ namespace Cameras
             _unitsChoosing = unitsChoosing;
             _playerInput = playerInput;
         }
-        
+
         private void Awake()
         {
             _camera = GetComponent<Camera>();
-            
+
             _setFollowAction = _playerInput.actions.FindAction("SetFollow");
             _positionAction = _playerInput.actions.FindAction("Position");
         }
@@ -81,12 +81,12 @@ namespace Cameras
         private void SetFollow(UnitFacade unit)
         {
             UnsubscribeFromLastUnit();
-            
+
             _unit = unit;
             _followTransform = unit.transform;
-            
+
             unit.Die += ResetFollow;
-            
+
             UpdateCameraPosition();
             _followLastPosition = _followTransform.position;
             Following = true;
@@ -109,7 +109,7 @@ namespace Cameras
             _followTransform = null;
             Following = false;
         }
-        
+
         private void UnsubscribeFromLastUnit()
         {
             if (_unit != null)
@@ -122,9 +122,10 @@ namespace Cameras
         {
             var yDifference = transform.position.y - _followTransform.position.y;
             var yChangeWhenLookingOnUnit = (transform.rotation * Vector3.back).y;
-            var distanceMultiplier = yDifference /  yChangeWhenLookingOnUnit;
-            
-            var cameraPosition = _followTransform.position - (transform.rotation * Vector3.forward * distanceMultiplier);
+            var distanceMultiplier = yDifference / yChangeWhenLookingOnUnit;
+
+            var cameraPosition =
+                _followTransform.position - (transform.rotation * Vector3.forward * distanceMultiplier);
             PositionUpdate?.Invoke(cameraPosition);
         }
     }

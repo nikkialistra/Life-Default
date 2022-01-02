@@ -22,7 +22,7 @@ namespace Units.Services.Selecting
         public void Clear()
         {
             Units.Clear();
-            
+
             var allUnits = _unitsRepository.GetUnits();
             foreach (var unit in allUnits)
             {

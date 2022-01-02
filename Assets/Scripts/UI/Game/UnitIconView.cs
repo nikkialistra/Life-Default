@@ -13,7 +13,7 @@ namespace UI.Game
         public event Action Remove;
 
         private UnitFacade _unit;
-        
+
         private readonly UnitsInfoView _parent;
         private readonly Dictionary<UnitType, Texture2D> _previews;
 
@@ -23,10 +23,11 @@ namespace UI.Game
         private readonly ProgressBar _health;
         private readonly ChangeColorFractions _changeColorFractions;
 
-        public UnitIconView(UnitsInfoView parent, Dictionary<UnitType, Texture2D> previews, ChangeColorFractions changeColorFractions)
+        public UnitIconView(UnitsInfoView parent, Dictionary<UnitType, Texture2D> previews,
+            ChangeColorFractions changeColorFractions)
         {
             _parent = parent;
-            
+
             if (previews.Count != 5)
             {
                 throw new ArgumentException("Preview dictionary should have 5 elements for all 5 unit types");
@@ -45,7 +46,7 @@ namespace UI.Game
         public void Bind(UnitFacade unit)
         {
             _unit = unit;
-            
+
             ShowSelf();
             RegisterToClicks();
             SetIconImage();
@@ -113,7 +114,6 @@ namespace UI.Game
                 _health.RemoveFromClassList("middle-health");
                 _health.AddToClassList("low-health");
             }
-
         }
 
         private void SubscribeToEvents()
@@ -128,7 +128,7 @@ namespace UI.Game
             {
                 return;
             }
-            
+
             _root.UnregisterCallback<MouseDownEvent, UnitFacade>(IconOnMouseDownEvent);
             _unit.HealthChange -= SetHealth;
             _unit.Die -= HideSelf;

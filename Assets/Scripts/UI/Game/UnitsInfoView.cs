@@ -18,18 +18,20 @@ namespace UI.Game
 
         [MinValue(0)]
         [SerializeField] private int _maximumUnitIconsShowing;
-        
+
         [ValidateInput("@_iconPreviews.Count == 5", "Preview dictionary should have 5 elements for all 5 unit types.")]
         [SerializeField] private IconPreviewsDictionary _iconPreviews;
-        
-        [Serializable] public class IconPreviewsDictionary : SerializableDictionary<UnitType, Texture2D> {}
-        
-        public event Action<UnitFacade> SelectUnit; 
-        
+
+        [Serializable] public class IconPreviewsDictionary : SerializableDictionary<UnitType, Texture2D>
+        {
+        }
+
+        public event Action<UnitFacade> SelectUnit;
+
         public VisualElement IconContainer { get; private set; }
 
         private int _count;
-        
+
         private ChangeColorFractions _changeColorFractions;
 
         private InfoPanelView _parent;
@@ -44,7 +46,7 @@ namespace UI.Game
         {
             _parent = GetComponent<InfoPanelView>();
             _changeColorFractions = GetComponent<ChangeColorFractions>();
-            
+
             _tree = Resources.Load<VisualTreeAsset>("UI/Markup/Components/UnitsInfo").CloneTree();
 
             _image = _tree.Q<VisualElement>("info-image");
@@ -53,18 +55,18 @@ namespace UI.Game
 
             InitializeUnitIconViews();
         }
-        
+
         private void OnDestroy()
         {
             foreach (var unitIconView in _unitIconViews)
             {
                 unitIconView.Click -= OnUnitIconClick;
                 unitIconView.Remove -= OnUnitIconRemove;
-                
+
                 unitIconView.Dispose();
             }
         }
-        
+
         private void InitializeUnitIconViews()
         {
             for (var i = 0; i < _maximumUnitIconsShowing; i++)
@@ -72,7 +74,7 @@ namespace UI.Game
                 var unitIconView = new UnitIconView(this, _iconPreviews, _changeColorFractions);
                 unitIconView.Click += OnUnitIconClick;
                 unitIconView.Remove += OnUnitIconRemove;
-                
+
                 _unitIconViews.Add(unitIconView);
             }
         }
@@ -100,7 +102,7 @@ namespace UI.Game
                 _parent.Info.Remove(_tree);
             }
         }
-        
+
         private void HidePanel()
         {
             _parent.HideSelf();
@@ -121,10 +123,10 @@ namespace UI.Game
         {
             _count = units.Count;
             UpdateCountText();
-            
-            units.Sort((x,y) =>
+
+            units.Sort((x, y) =>
                 x.UnitType.CompareTo(y.UnitType));
-            
+
             ShowUnitIcons(units);
         }
 
@@ -134,7 +136,7 @@ namespace UI.Game
             {
                 HidePanel();
             }
-            
+
             _unitCount.text = $"Units ({_count})";
         }
 

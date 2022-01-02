@@ -8,7 +8,7 @@ namespace UnitManagement.Targeting
         public event Action<ITargetable> TargetReach;
 
         public GameObject GameObject { get; }
-        
+
         bool TryAcceptTarget(Target target);
     }
 }

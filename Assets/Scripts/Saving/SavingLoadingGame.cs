@@ -9,13 +9,14 @@ namespace Saving
     public class SavingLoadingGame : MonoBehaviour
     {
         public event Action Loading;
-        
+
         private SaveData _saveData;
         private UnitsSaveLoadHandler _unitsSaveLoadHandler;
         private Serialization.Serialization _serialization;
 
         [Inject]
-        public void Construct(SaveData saveData, UnitsSaveLoadHandler unitsSaveLoadHandler, Serialization.Serialization serialization)
+        public void Construct(SaveData saveData, UnitsSaveLoadHandler unitsSaveLoadHandler,
+            Serialization.Serialization serialization)
         {
             _saveData = saveData;
             _unitsSaveLoadHandler = unitsSaveLoadHandler;
@@ -36,7 +37,7 @@ namespace Saving
         {
             Loading?.Invoke();
 
-            _saveData = (SaveData) _serialization.LoadFromFile("save");
+            _saveData = (SaveData)_serialization.LoadFromFile("save");
             _unitsSaveLoadHandler.SetUnits(_saveData.Units);
         }
     }

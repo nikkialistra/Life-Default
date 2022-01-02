@@ -1,36 +1,39 @@
-﻿using System;
-using Cameras;
+﻿using Cameras;
 using UnityEngine.InputSystem;
 using Zenject;
 
 namespace Testing
 {
-    public class TogglingCameraMovement : IInitializable, IDisposable
+    public class TogglingCameraMovement : ITickable
     {
         private readonly CameraInputCombination _cameraInputCombination;
 
-        private readonly PlayerInput _playerInput;
-
         private InputAction _toggleCameraMovementAction;
 
-        public TogglingCameraMovement(CameraInputCombination cameraInputCombination, PlayerInput playerInput)
+        public TogglingCameraMovement(CameraInputCombination cameraInputCombination)
         {
             _cameraInputCombination = cameraInputCombination;
-            _playerInput = playerInput;
         }
 
-        public void Initialize()
+        public void Tick()
         {
-            _toggleCameraMovementAction = _playerInput.actions.FindAction("TestingToggleCameraMovement");
-            _toggleCameraMovementAction.started += ToggleCameraMovement;
+            if (!Keyboard.current.altKey.isPressed)
+            {
+                return;
+            }
+
+            CheckForToggleCommand();
         }
 
-        public void Dispose()
+        private void CheckForToggleCommand()
         {
-            _toggleCameraMovementAction.started -= ToggleCameraMovement;
+            if (Keyboard.current.qKey.wasPressedThisFrame)
+            {
+                ToggleCameraMovement();
+            }
         }
 
-        private void ToggleCameraMovement(InputAction.CallbackContext context)
+        private void ToggleCameraMovement()
         {
             _cameraInputCombination.enabled = !_cameraInputCombination.enabled;
         }

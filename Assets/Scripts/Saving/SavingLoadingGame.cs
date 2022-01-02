@@ -8,8 +8,6 @@ namespace Saving
 {
     public class SavingLoadingGame : MonoBehaviour
     {
-        public event Action Loading;
-
         private SaveData _saveData;
         private UnitsSaveLoadHandler _unitsSaveLoadHandler;
         private Serialization.Serialization _serialization;
@@ -22,6 +20,8 @@ namespace Saving
             _unitsSaveLoadHandler = unitsSaveLoadHandler;
             _serialization = serialization;
         }
+
+        public event Action Loading;
 
         [Button(ButtonSizes.Large)]
         [ButtonGroup]

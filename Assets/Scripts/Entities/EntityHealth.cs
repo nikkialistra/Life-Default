@@ -12,6 +12,10 @@ namespace Entities
         [MinValue(0), ValidateInput("@_startHealth <= _maxHealth", "Start health cannon be greater than max health")]
         [SerializeField] private int _startHealth;
 
+        private int _health;
+
+        private Coroutine _takingDamage;
+
         public event Action Die;
         public event Action<int> HealthChange;
 
@@ -30,11 +34,7 @@ namespace Entities
         }
 
         public int MaxHealth => _maxHealth;
-
-        private int _health;
         private bool IsAlive => _health > 0;
-
-        private Coroutine _takingDamage;
 
         private void OnTriggerEnter(Collider other)
         {

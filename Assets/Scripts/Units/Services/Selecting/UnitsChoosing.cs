@@ -11,8 +11,6 @@ namespace Units.Services.Selecting
 {
     public class UnitsChoosing : MonoBehaviour
     {
-        public Action<UnitFacade> UnitChosen;
-
         private UnitTypesView _unitTypesView;
         private UnitsInfoView _unitsInfoView;
         private UnitsRepository _unitsRepository;
@@ -34,6 +32,8 @@ namespace Units.Services.Selecting
         {
             InitializeUnitByTypeDictionary();
         }
+
+        public Action<UnitFacade> UnitChosen;
 
         private void OnEnable()
         {

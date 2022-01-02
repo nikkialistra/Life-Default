@@ -9,10 +9,10 @@ namespace Units.Services
 {
     public class UnitsRepository : MonoBehaviour
     {
+        private List<UnitFacade> _units = new();
+
         public event Action<UnitFacade> Add;
         public event Action<UnitFacade> Remove;
-
-        private List<UnitFacade> _units = new();
 
         private void Start()
         {

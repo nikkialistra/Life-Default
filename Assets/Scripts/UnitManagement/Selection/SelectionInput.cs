@@ -10,9 +10,6 @@ namespace UnitManagement.Selection
 {
     public class SelectionInput : MonoBehaviour
     {
-        public event Action<Rect> Selecting;
-        public event Action<Rect> SelectingEnd;
-
         private Vector2? _startPoint;
         private bool _updatingArea;
 
@@ -36,6 +33,9 @@ namespace UnitManagement.Selection
             _selectAction = _playerInput.actions.FindAction("Select");
             _positionAction = _playerInput.actions.FindAction("Position");
         }
+
+        public event Action<Rect> Selecting;
+        public event Action<Rect> SelectingEnd;
 
         private void OnEnable()
         {

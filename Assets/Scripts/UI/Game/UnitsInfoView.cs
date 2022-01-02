@@ -26,10 +26,6 @@ namespace UI.Game
         {
         }
 
-        public event Action<UnitFacade> SelectUnit;
-
-        public VisualElement IconContainer { get; private set; }
-
         private int _count;
 
         private ChangeColorFractions _changeColorFractions;
@@ -55,6 +51,10 @@ namespace UI.Game
 
             InitializeUnitIconViews();
         }
+
+        public event Action<UnitFacade> SelectUnit;
+
+        public VisualElement IconContainer { get; private set; }
 
         private void OnDestroy()
         {
@@ -92,14 +92,14 @@ namespace UI.Game
 
         public void ShowSelf()
         {
-            _parent.Info.Add(_tree);
+            _parent.InfoPanel.Add(_tree);
         }
 
         public void HideSelf()
         {
-            if (_parent.Info.Contains(_tree))
+            if (_parent.InfoPanel.Contains(_tree))
             {
-                _parent.Info.Remove(_tree);
+                _parent.InfoPanel.Remove(_tree);
             }
         }
 

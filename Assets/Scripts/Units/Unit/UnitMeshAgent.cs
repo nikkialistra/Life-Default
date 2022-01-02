@@ -15,10 +15,6 @@ namespace Units.Unit
         [MinValue(0)]
         [SerializeField] private float _distanceToGroup;
 
-        public event Action<ITargetable> TargetReach;
-
-        public GameObject GameObject => gameObject;
-
         private bool _activated;
 
         private Coroutine _movingCoroutine;
@@ -32,6 +28,10 @@ namespace Units.Unit
             _unitFacade = GetComponent<UnitFacade>();
             _navMeshAgent = GetComponent<NavMeshAgent>();
         }
+
+        public event Action<ITargetable> TargetReach;
+
+        public GameObject GameObject => gameObject;
 
         private void OnEnable()
         {

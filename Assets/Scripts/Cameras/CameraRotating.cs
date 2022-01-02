@@ -12,10 +12,6 @@ namespace Cameras
         [MinValue(0)]
         [SerializeField] private float _rotationSpeed;
 
-        public event Action<Quaternion> RotationUpdate;
-
-        public Quaternion Rotation { get; set; }
-
         private Vector3? _rotateStartPosition;
         private Vector3 _rotateCurrentPosition;
 
@@ -36,6 +32,10 @@ namespace Cameras
         {
             _rotateAction = _playerInput.actions.FindAction("Rotate");
         }
+
+        public event Action<Quaternion> RotationUpdate;
+
+        public Quaternion Rotation { get; set; }
 
         private void OnEnable()
         {

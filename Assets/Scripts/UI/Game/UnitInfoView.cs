@@ -57,14 +57,14 @@ namespace UI.Game
 
         public void ShowSelf()
         {
-            _parent.Info.Add(_tree);
+            _parent.InfoPanel.Add(_tree);
         }
 
         public void HideSelf()
         {
-            if (_parent.Info.Contains(_tree))
+            if (_parent.InfoPanel.Contains(_tree))
             {
-                _parent.Info.Remove(_tree);
+                _parent.InfoPanel.Remove(_tree);
             }
         }
 

@@ -10,6 +10,7 @@ namespace Testing
         [SerializeField] private int _damage;
         [MinValue(0)]
         [SerializeField] private float _interval;
+
         public int Damage => _damage;
         public float Interval => _interval;
     }

@@ -24,10 +24,6 @@ namespace Cameras
             "Minimum position should be less than maximum position")]
         [SerializeField] private float _maximumPositionY;
 
-        public event Action<Vector3> PositionUpdate;
-
-        public Vector3 Position { get; set; }
-
         private Coroutine _zoomCoroutine;
 
         private PlayerInput _playerInput;
@@ -46,6 +42,10 @@ namespace Cameras
             _zoomScrollAction = _playerInput.actions.FindAction("ZoomScroll");
             _zoomAction = _playerInput.actions.FindAction("Zoom");
         }
+
+        public event Action<Vector3> PositionUpdate;
+
+        public Vector3 Position { get; set; }
 
         private void OnEnable()
         {

@@ -9,9 +9,6 @@ namespace UI.Game
 {
     public class UnitIconView : IDisposable
     {
-        public event Action<UnitFacade> Click;
-        public event Action Remove;
-
         private UnitFacade _unit;
 
         private readonly UnitsInfoView _parent;
@@ -42,6 +39,9 @@ namespace UI.Game
             _image = _tree.Q<VisualElement>("image");
             _health = _tree.Q<ProgressBar>("health__progress-bar");
         }
+
+        public event Action<UnitFacade> Click;
+        public event Action Remove;
 
         public void Bind(UnitFacade unit)
         {

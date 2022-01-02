@@ -10,14 +10,10 @@ namespace UI.Game
     [RequireComponent(typeof(UnitsInfoView))]
     public class InfoPanelView : MonoBehaviour
     {
-        public VisualElement Info => _infoPanel;
-
         private VisualElement _tree;
 
         private UnitInfoView _unitInfoView;
         private UnitsInfoView _unitsInfoView;
-
-        private VisualElement _infoPanel;
 
         private void Awake()
         {
@@ -26,8 +22,10 @@ namespace UI.Game
 
             _tree = GetComponent<UIDocument>().rootVisualElement;
 
-            _infoPanel = _tree.Q<VisualElement>("info-panel");
+            InfoPanel = _tree.Q<VisualElement>("info-panel");
         }
+
+        public VisualElement InfoPanel { get; private set; }
 
         private void Start()
         {
@@ -58,7 +56,7 @@ namespace UI.Game
 
         public void HideSelf()
         {
-            _infoPanel.AddToClassList("not-displayed");
+            InfoPanel.AddToClassList("not-displayed");
         }
 
         private void SetMultipleUnits(List<UnitFacade> units)
@@ -69,7 +67,7 @@ namespace UI.Game
 
         private void ShowSelf()
         {
-            _infoPanel.RemoveFromClassList("not-displayed");
+            InfoPanel.RemoveFromClassList("not-displayed");
         }
 
         private void ShowOneUnitDescription(UnitFacade unit)

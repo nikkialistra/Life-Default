@@ -6,9 +6,6 @@ namespace UI.Menus
 {
     public class GameMenuView : IMenuView
     {
-        public event Action Resuming;
-        public bool Shown { get; private set; }
-
         private readonly VisualElement _root;
 
         private readonly TemplateContainer _tree;
@@ -26,6 +23,10 @@ namespace UI.Menus
             _resume = _tree.Q<Button>("resume");
             _exitGame = _tree.Q<Button>("exit-game");
         }
+
+        public event Action Resuming;
+
+        public bool Shown { get; private set; }
 
         public void ShowSelf()
         {

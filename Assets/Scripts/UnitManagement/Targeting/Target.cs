@@ -6,13 +6,13 @@ namespace UnitManagement.Targeting
 {
     public class Target : MonoBehaviour
     {
-        public bool Empty => _targetables.Count == 0;
-        public IEnumerable<ITargetable> Targetables => _targetables;
-
         [SerializeField] private GameObject _targetIndicator;
 
         private List<ITargetable> _targetables = new();
         private TargetObject _targetObject;
+
+        public bool Empty => _targetables.Count == 0;
+        public IEnumerable<ITargetable> Targetables => _targetables;
 
         public void Add(ITargetable targetable)
         {

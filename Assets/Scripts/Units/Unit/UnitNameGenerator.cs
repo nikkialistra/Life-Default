@@ -4,7 +4,7 @@ namespace Units.Unit
 {
     public class UnitNameGenerator
     {
-        private static string[] _names = new[]
+        private static string[] _names =
         {
             "Tiffany",
             "James",

@@ -11,7 +11,7 @@ namespace Saving.Serialization
     {
         private BinaryFormatter _formatter;
 
-        public bool SaveToFile(string saveName, object saveData)
+        public void SaveToFile(string saveName, object saveData)
         {
             _formatter ??= GetBinaryFormatter();
 
@@ -31,14 +31,12 @@ namespace Saving.Serialization
             catch (SerializationException exception)
             {
                 Debug.Log("Failed to serialize. Reason: " + exception.Message);
-                return false;
+                return;
             }
             finally
             {
                 file.Close();
             }
-
-            return true;
         }
 
         public object LoadFromFile(string loadName)

@@ -6,14 +6,14 @@ namespace UI
     [RequireComponent(typeof(UIDocument))]
     public class GameViews : MonoBehaviour
     {
-        public bool MouseOverUi { get; private set; }
-
         private VisualElement _root;
 
         private void Awake()
         {
             _root = GetComponent<UIDocument>().rootVisualElement;
         }
+
+        public bool MouseOverUi { get; private set; }
 
         private void OnEnable()
         {

@@ -10,10 +10,6 @@ namespace Cameras
     [RequireComponent(typeof(Camera))]
     public class CameraFollowing : MonoBehaviour
     {
-        public event Action<Vector3> PositionUpdate;
-
-        public bool Following { get; private set; }
-
         private UnitFacade _unit;
         private Transform _followTransform;
         private Vector3 _followOffset;
@@ -42,6 +38,10 @@ namespace Cameras
             _setFollowAction = _playerInput.actions.FindAction("SetFollow");
             _positionAction = _playerInput.actions.FindAction("Position");
         }
+
+        public event Action<Vector3> PositionUpdate;
+
+        public bool Following { get; private set; }
 
         private void OnEnable()
         {

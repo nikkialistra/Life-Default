@@ -6,14 +6,14 @@ namespace UnitManagement.Targeting
 {
     public class TargetObject : MonoBehaviour
     {
-        public bool HasDestinationPoint => _hasDestinationPoint;
-
         [SerializeField] private bool _hasDestinationPoint;
 
         [ShowIf("_hasDestinationPoint")]
         [SerializeField] private Transform _destinationPoint;
         [ShowIf("_hasDestinationPoint")]
         [SerializeField] private GameObject _targetIndicator;
+
+        public bool HasDestinationPoint => _hasDestinationPoint;
 
         public Vector3 GetDestinationPoint()
         {

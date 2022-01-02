@@ -9,9 +9,6 @@ namespace UI.Game
     [RequireComponent(typeof(UIDocument))]
     public class UnitTypesView : MonoBehaviour
     {
-        public event Action<UnitType> LeftClick;
-        public event Action<UnitType> RightClick;
-
         private VisualElement _tree;
 
         private readonly Dictionary<UnitType, Label> _unitTypeLabels = new();
@@ -37,6 +34,9 @@ namespace UI.Game
             FillInLabels();
             FillInLabelCounts();
         }
+
+        public event Action<UnitType> LeftClick;
+        public event Action<UnitType> RightClick;
 
         private void OnEnable()
         {

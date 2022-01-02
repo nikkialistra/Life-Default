@@ -1,7 +1,6 @@
 ﻿using System;
 using Entities;
 using Sirenix.OdinInspector;
-using UI.Game;
 using UnitManagement.Targeting;
 using Units.Unit.UnitTypes;
 using UnityEngine;
@@ -27,22 +26,6 @@ namespace Units.Unit
         [SerializeField] private UnitType _unitType;
         [SerializeField] private string _name;
 
-        public event Action Spawn;
-        public event Action HealthChange;
-        public event Action Die;
-
-        public ITargetable Targetable => _unitMeshAgent;
-
-        public UnitSaveLoadHandler UnitSaveLoadHandler { get; private set; }
-
-        public UnitType UnitType => _unitType;
-        public string Name => _name;
-        public int Health => _health.Health;
-        public int MaxHealth => _health.MaxHealth;
-
-        public bool Alive => !_died;
-        public Vector3 Center => _center.position;
-
         private bool _died;
 
         private EntityHealth _health;
@@ -61,6 +44,23 @@ namespace Units.Unit
 
             UnitSaveLoadHandler = GetComponent<UnitSaveLoadHandler>();
         }
+
+        public event Action Spawn;
+        public event Action HealthChange;
+        public event Action Die;
+
+        public ITargetable Targetable => _unitMeshAgent;
+
+        public UnitSaveLoadHandler UnitSaveLoadHandler { get; private set; }
+
+        public UnitType UnitType => _unitType;
+        public string Name => _name;
+
+        public int Health => _health.Health;
+        public int MaxHealth => _health.MaxHealth;
+        public bool Alive => !_died;
+
+        public Vector3 Center => _center.position;
 
         private void OnEnable()
         {

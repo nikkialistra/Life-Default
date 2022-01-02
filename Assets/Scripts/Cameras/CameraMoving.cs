@@ -40,10 +40,6 @@ namespace Cameras
             "Minimum position should be less than maximum position")]
         [SerializeField] private float _maximumPositionZ;
 
-        public event Action<Vector3> PositionUpdate;
-
-        public Vector3 Position { get; set; }
-
         private Camera _camera;
 
         private Vector3? _dragStartPosition;
@@ -72,6 +68,10 @@ namespace Cameras
             _dragAction = _playerInput.actions.FindAction("Drag");
             _positionAction = _playerInput.actions.FindAction("Position");
         }
+
+        public event Action<Vector3> PositionUpdate;
+
+        public Vector3 Position { get; set; }
 
         private void OnEnable()
         {

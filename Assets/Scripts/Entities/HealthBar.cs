@@ -10,16 +10,6 @@ namespace Entities
         [SerializeField] private Image _fill;
         [SerializeField] private Gradient _fillGradient;
 
-        public bool Selected
-        {
-            get => _selected;
-            set
-            {
-                _selected = value;
-                UpdateShowStatus();
-            }
-        }
-
         private bool _shown;
 
         private GameObject _sliderGameObject;
@@ -35,6 +25,16 @@ namespace Entities
         private void Awake()
         {
             _sliderGameObject = _slider.gameObject;
+        }
+
+        public bool Selected
+        {
+            get => _selected;
+            set
+            {
+                _selected = value;
+                UpdateShowStatus();
+            }
         }
 
         private void LateUpdate()

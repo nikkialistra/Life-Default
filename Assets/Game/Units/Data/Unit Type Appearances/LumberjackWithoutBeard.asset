@@ -16,6 +16,6 @@ MonoBehaviour:
   _headEndAccessory: {fileID: 0}
   _headAccessory: {fileID: 862742055671921850, guid: 0fa2bb01ac9836240b4d202975a04446,
     type: 3}
-  _rightHandAccessory: {fileID: 7498711202156013793, guid: 1b63fcfaa252cd143bc4705f9d179c57,
+  _rightHandAccessory: {fileID: 9061245669740814738, guid: f44e489b5448058459ffd5d9c1546c64,
     type: 3}
   _upperChestAccessory: {fileID: 0}

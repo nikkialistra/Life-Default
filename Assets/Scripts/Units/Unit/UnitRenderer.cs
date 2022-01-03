@@ -10,7 +10,7 @@ namespace Units.Unit
     public class UnitRenderer : MonoBehaviour, IHoverable
     {
         [Required]
-        [SerializeField] private SkinnedMeshRenderer _skinnedMeshRenderer;
+        [SerializeField] private SkinnedMeshRenderer _outlineRenderer;
         [Required]
         [SerializeField] private Material _outline;
         [MinValue(0)]
@@ -42,14 +42,6 @@ namespace Units.Unit
             _unitFacade.Deselected -= OnDeselected;
         }
 
-        private void Start()
-        {
-            if (_skinnedMeshRenderer.materials.Length != 2)
-            {
-                AddPlaceForOutlineMaterial();
-            }
-        }
-
         private void OnSelected()
         {
             _selected = true;
@@ -66,14 +58,6 @@ namespace Units.Unit
             HideAccessoriesOutline();
         }
 
-        private void AddPlaceForOutlineMaterial()
-        {
-            var materials = _skinnedMeshRenderer.materials;
-            var materialsArray = new Material[2];
-            materialsArray[0] = materials[0];
-            _skinnedMeshRenderer.materials = materialsArray;
-        }
-
         public void OnHover()
         {
             if (_selected)
@@ -87,7 +71,6 @@ namespace Units.Unit
             }
 
             ShowUnitOutline();
-
             ShowAccessoriesOutline();
 
             _hideOutlineCoroutine = StartCoroutine(HideOutline());
@@ -108,9 +91,12 @@ namespace Units.Unit
 
         private void ShowUnitOutline()
         {
-            var materials = _skinnedMeshRenderer.materials;
-            materials[1] = _outline;
-            _skinnedMeshRenderer.materials = materials;
+            _outlineRenderer.gameObject.SetActive(true);
+        }
+
+        private void HideUnitOutline()
+        {
+            _outlineRenderer.gameObject.SetActive(false);
         }
 
         private void ShowAccessoriesOutline()
@@ -129,13 +115,6 @@ namespace Units.Unit
             {
                 accessory.Deactivate();
             }
-        }
-
-        private void HideUnitOutline()
-        {
-            var materials = _skinnedMeshRenderer.materials;
-            materials[1] = null;
-            _skinnedMeshRenderer.materials = materials;
         }
     }
 }

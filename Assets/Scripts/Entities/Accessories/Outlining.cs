@@ -4,8 +4,6 @@ namespace Entities.Accessories
 {
     public class Outlining : MonoBehaviour
     {
-        [SerializeField] private Material _outline;
-
         private GameObject _outlineCopy;
 
         public void Activate()
@@ -17,7 +15,6 @@ namespace Entities.Accessories
             }
 
             CreateOutlineCopy();
-            ChangeOutlineCopyMaterials();
         }
 
         public void Deactivate()
@@ -33,23 +30,8 @@ namespace Entities.Accessories
         private void CreateOutlineCopy()
         {
             _outlineCopy = Instantiate(gameObject, transform.position, transform.rotation, transform);
+            _outlineCopy.layer = LayerMask.NameToLayer("Outlines");
             Destroy(_outlineCopy.GetComponent<Outlining>());
-        }
-
-        private void ChangeOutlineCopyMaterials()
-        {
-            var renderers = _outlineCopy.GetComponents<Renderer>();
-
-            foreach (var renderer in renderers)
-            {
-                var materials = renderer.materials;
-                for (var i = 0; i < materials.Length; i++)
-                {
-                    materials[i] = _outline;
-                }
-
-                renderer.materials = materials;
-            }
         }
     }
 }

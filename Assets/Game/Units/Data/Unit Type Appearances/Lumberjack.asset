@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd0eb02e13c641b5a064fab47ba5a9bb, type: 3}
   m_Name: Lumberjack
   m_EditorClassIdentifier: 
+  _skin: {fileID: 2100000, guid: 813f01be7c1d68e46bf06a313a7053c1, type: 2}
   _headEndAccessory: {fileID: 0}
   _headAccessory: {fileID: 1996111486021023654, guid: d0275cfd48800e84c9750b0213be24e1,
     type: 3}
-  _rightHandAccessory: {fileID: 7498711202156013793, guid: 1b63fcfaa252cd143bc4705f9d179c57,
+  _rightHandAccessory: {fileID: 9061245669740814738, guid: f44e489b5448058459ffd5d9c1546c64,
     type: 3}
   _upperChestAccessory: {fileID: 0}
-  _skin: {fileID: 2100000, guid: 813f01be7c1d68e46bf06a313a7053c1, type: 2}

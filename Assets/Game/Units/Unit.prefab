@@ -2149,7 +2149,7 @@ CapsuleCollider:
   m_Radius: 0.7
   m_Height: 3.6
   m_Direction: 1
-  m_Center: {x: 0, y: 2.1, z: 0}
+  m_Center: {x: 0, y: 2, z: 0}
 --- !u!136 &5287909917484254944
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -2183,7 +2183,7 @@ NavMeshAgent:
   m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 3.55
-  m_BaseOffset: -0.19
+  m_BaseOffset: 0.05
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
 --- !u!114 &4807083641721281678
@@ -2298,6 +2298,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _skinnedMeshRenderer: {fileID: 2433883250139472052}
   _outline: {fileID: 2100000, guid: f89ffeb9a34c1d14b952559a12b7b013, type: 2}
+  _waitingTimeValue: 0.05
 --- !u!1 &5716974408050622466
 GameObject:
   m_ObjectHideFlags: 0

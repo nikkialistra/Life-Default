@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using Entities;
+using Entities.Accessories;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -50,7 +51,27 @@ namespace Units.Unit
             materials[1] = _outline;
             _skinnedMeshRenderer.materials = materials;
 
+            ShowAccessoriesOutline();
+
             _hideOutlineCoroutine = StartCoroutine(HideOutline());
+        }
+
+        private void ShowAccessoriesOutline()
+        {
+            var accessories = GetComponentsInChildren<Outlining>();
+            foreach (var accessory in accessories)
+            {
+                accessory.Activate();
+            }
+        }
+
+        private void HideAccessoriesOutline()
+        {
+            var accessories = GetComponentsInChildren<Outlining>();
+            foreach (var accessory in accessories)
+            {
+                accessory.Deactivate();
+            }
         }
 
         private IEnumerator HideOutline()
@@ -60,6 +81,8 @@ namespace Units.Unit
             var materials = _skinnedMeshRenderer.materials;
             materials[1] = null;
             _skinnedMeshRenderer.materials = materials;
+
+            HideAccessoriesOutline();
         }
     }
 }

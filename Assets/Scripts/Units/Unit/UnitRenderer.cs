@@ -6,6 +6,7 @@ using UnityEngine;
 
 namespace Units.Unit
 {
+    [RequireComponent(typeof(UnitFacade))]
     public class UnitRenderer : MonoBehaviour, IHoverable
     {
         [Required]
@@ -17,11 +18,28 @@ namespace Units.Unit
 
         private WaitForSeconds _waitingTime;
 
+        private UnitFacade _unitFacade;
+
+        private bool _selected;
+
         private Coroutine _hideOutlineCoroutine;
 
         private void Awake()
         {
+            _unitFacade = GetComponent<UnitFacade>();
             _waitingTime = new WaitForSeconds(_waitingTimeValue);
+        }
+
+        private void OnEnable()
+        {
+            _unitFacade.Selected += OnSelected;
+            _unitFacade.Deselected += OnDeselected;
+        }
+
+        private void OnDisable()
+        {
+            _unitFacade.Selected -= OnSelected;
+            _unitFacade.Deselected -= OnDeselected;
         }
 
         private void Start()
@@ -30,6 +48,22 @@ namespace Units.Unit
             {
                 AddPlaceForOutlineMaterial();
             }
+        }
+
+        private void OnSelected()
+        {
+            _selected = true;
+
+            ShowUnitOutline();
+            ShowAccessoriesOutline();
+        }
+
+        private void OnDeselected()
+        {
+            _selected = false;
+
+            HideUnitOutline();
+            HideAccessoriesOutline();
         }
 
         private void AddPlaceForOutlineMaterial()
@@ -42,18 +76,41 @@ namespace Units.Unit
 
         public void OnHover()
         {
+            if (_selected)
+            {
+                return;
+            }
+
             if (_hideOutlineCoroutine != null)
             {
                 StopCoroutine(_hideOutlineCoroutine);
             }
 
-            var materials = _skinnedMeshRenderer.materials;
-            materials[1] = _outline;
-            _skinnedMeshRenderer.materials = materials;
+            ShowUnitOutline();
 
             ShowAccessoriesOutline();
 
             _hideOutlineCoroutine = StartCoroutine(HideOutline());
+        }
+
+        private IEnumerator HideOutline()
+        {
+            yield return _waitingTime;
+
+            if (_selected)
+            {
+                yield break;
+            }
+
+            HideUnitOutline();
+            HideAccessoriesOutline();
+        }
+
+        private void ShowUnitOutline()
+        {
+            var materials = _skinnedMeshRenderer.materials;
+            materials[1] = _outline;
+            _skinnedMeshRenderer.materials = materials;
         }
 
         private void ShowAccessoriesOutline()
@@ -74,15 +131,11 @@ namespace Units.Unit
             }
         }
 
-        private IEnumerator HideOutline()
+        private void HideUnitOutline()
         {
-            yield return _waitingTime;
-
             var materials = _skinnedMeshRenderer.materials;
             materials[1] = null;
             _skinnedMeshRenderer.materials = materials;
-
-            HideAccessoriesOutline();
         }
     }
 }

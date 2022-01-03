@@ -32,7 +32,7 @@ namespace Entities.Accessories
 
         private void CreateOutlineCopy()
         {
-            _outlineCopy = Instantiate(this.gameObject, transform.position, transform.rotation, transform);
+            _outlineCopy = Instantiate(gameObject, transform.position, transform.rotation, transform);
             Destroy(_outlineCopy.GetComponent<Outlining>());
         }
 

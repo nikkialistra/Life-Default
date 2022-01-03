@@ -49,27 +49,27 @@ namespace Testing
                 _generationType = UnitType.Traveler;
             }
 
-            if (Keyboard.current.digit1Key.isPressed)
+            if (Keyboard.current.digit2Key.isPressed)
             {
                 _generationType = UnitType.Lumberjack;
             }
 
-            if (Keyboard.current.digit2Key.isPressed)
+            if (Keyboard.current.digit3Key.isPressed)
             {
                 _generationType = UnitType.Mason;
             }
 
-            if (Keyboard.current.digit3Key.isPressed)
+            if (Keyboard.current.digit4Key.isPressed)
             {
                 _generationType = UnitType.Melee;
             }
 
-            if (Keyboard.current.digit4Key.isPressed)
+            if (Keyboard.current.digit5Key.isPressed)
             {
                 _generationType = UnitType.Archer;
             }
 
-            if (Keyboard.current.digit5Key.isPressed)
+            if (Keyboard.current.digit6Key.isPressed)
             {
                 _generationType = null;
             }

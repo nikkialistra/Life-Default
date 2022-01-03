@@ -49,6 +49,9 @@ namespace Units.Unit
         public event Action HealthChange;
         public event Action Die;
 
+        public event Action Selected;
+        public event Action Deselected;
+
         public ITargetable Targetable => _unitMeshAgent;
 
         public UnitSaveLoadHandler UnitSaveLoadHandler { get; private set; }
@@ -107,6 +110,8 @@ namespace Units.Unit
                 return;
             }
 
+            Selected?.Invoke();
+
             _selectionIndicator.SetActive(true);
             _healthBar.Selected = true;
         }
@@ -117,6 +122,8 @@ namespace Units.Unit
             {
                 return;
             }
+
+            Deselected?.Invoke();
 
             _selectionIndicator.SetActive(false);
             _healthBar.Selected = false;

@@ -10,7 +10,7 @@ namespace Testing
     public class UnitsGenerator : ITickable
     {
         private UnitType? _generationType;
-        private LayerMask _layerMask = LayerMask.GetMask("Terrain");
+        private LayerMask _terrainMask = LayerMask.GetMask("Terrain");
 
         private readonly UnitFacade.Factory _factory;
 
@@ -78,7 +78,7 @@ namespace Testing
         private void GenerateUnit(Vector2 position)
         {
             var ray = _camera.ScreenPointToRay(new Vector3(position.x, position.y, _camera.nearClipPlane));
-            if (Physics.Raycast(ray, out var hit, float.PositiveInfinity, _layerMask))
+            if (Physics.Raycast(ray, out var hit, float.PositiveInfinity, _terrainMask))
             {
                 var unitType = GetUnitType();
                 _factory.Create(unitType, hit.point);

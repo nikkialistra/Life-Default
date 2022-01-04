@@ -5,6 +5,7 @@ using UnityEngine;
 
 namespace MapGeneration.Generators
 {
+    [RequireComponent(typeof(TreeGenerator))]
     public class TerrainGenerator : MonoBehaviour
     {
         private const float ViewerMoveThresholdForChunkUpdate = 25f;
@@ -28,6 +29,13 @@ namespace MapGeneration.Generators
 
         private readonly Dictionary<Vector2, TerrainChunk> _terrainChunkDictionary = new();
         private readonly List<TerrainChunk> _visibleTerrainChunks = new();
+
+        private TreeGenerator _treeGenerator;
+
+        private void Awake()
+        {
+            _treeGenerator = GetComponent<TreeGenerator>();
+        }
 
         private void Start()
         {
@@ -85,7 +93,8 @@ namespace MapGeneration.Generators
                             var newChunk = new TerrainChunk(viewedChunkCoord, _heightMapSettings, _meshSettings,
                                 _detailLevels, _colliderLODIndex, transform, _viewer, _mapMaterial);
                             _terrainChunkDictionary.Add(viewedChunkCoord, newChunk);
-                            newChunk.VisibilityChange += TerrainChunkVisibilityChange;
+                            newChunk.MeshSet += OnTerrainChunkMeshSet;
+                            newChunk.VisibilityChange += OnTerrainChunkVisibilityChange;
                             newChunk.Load();
                         }
                     }
@@ -93,7 +102,12 @@ namespace MapGeneration.Generators
             }
         }
 
-        private void TerrainChunkVisibilityChange(TerrainChunk chunk, bool isVisible)
+        private void OnTerrainChunkMeshSet()
+        {
+            _treeGenerator.Generate();
+        }
+
+        private void OnTerrainChunkVisibilityChange(TerrainChunk chunk, bool isVisible)
         {
             if (isVisible)
             {

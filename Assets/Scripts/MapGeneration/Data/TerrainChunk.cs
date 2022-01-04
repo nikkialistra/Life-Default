@@ -1,4 +1,5 @@
-﻿using MapGeneration.Generators;
+﻿using System;
+using MapGeneration.Generators;
 using MapGeneration.Settings;
 using UnityEngine;
 
@@ -73,7 +74,8 @@ namespace MapGeneration.Data
             _maxViewDst = detailLevels[detailLevels.Length - 1].VisibleDistanceThreshold;
         }
 
-        public event System.Action<TerrainChunk, bool> VisibilityChange;
+        public event Action MeshSet;
+        public event Action<TerrainChunk, bool> VisibilityChange;
 
         public Vector2 Coord => _coord;
 
@@ -107,6 +109,7 @@ namespace MapGeneration.Data
                 {
                     _meshCollider.sharedMesh = _lodMeshes[_colliderLODIndex].Mesh;
                     _hasSetCollider = true;
+                    MeshSet?.Invoke();
                 }
             }
         }

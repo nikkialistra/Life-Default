@@ -16,14 +16,25 @@ namespace MapGeneration.Generators
 
         [Title("Parameters")]
         [Range(0, 1)]
-        [SerializeField] private float _spawnProbability;
-        [Range(0, 0.5f)]
-        [SerializeField] private float _density;
-        [SerializeField] private float _offset;
-        [SerializeField] private int _seed;
+        [SerializeField] private float _probability;
+        [SerializeField] private int _probabilitySeed;
         [Space]
+        [Range(0, 0.1f)]
+        [SerializeField] private float _dispersion;
+        [SerializeField] private float _dispersionOffset;
+        [Space]
+        [Range(5, 10f)]
+        [SerializeField] private float _pointInterval;
+        [Range(0, 5f)]
+        [SerializeField] private float _pointVariation;
+        [Range(0, 360f)]
+        [SerializeField] private float _rotationVariation;
+
+        [Title("Objects")]
         [Required]
-        [SerializeField] private GameObject _treePrefab;
+        [SerializeField] private List<GameObject> _treePrefabs;
+        [Required]
+        [SerializeField] private Transform _treeParent;
 
         private readonly List<GameObject> _trees = new();
 
@@ -38,11 +49,11 @@ namespace MapGeneration.Generators
         public void Generate()
         {
             RemoveTrees();
-            Random.InitState(_seed);
+            Random.InitState(_probabilitySeed);
 
-            for (var z = -_zBounds; z < _zBounds; z += 10f)
+            for (var z = -_zBounds; z < _zBounds; z += _pointInterval)
             {
-                for (var x = -_xBounds; x < _xBounds; x += 10f)
+                for (var x = -_xBounds; x < _xBounds; x += _pointInterval)
                 {
                     TrySpawnTree(x, z);
                 }
@@ -61,19 +72,19 @@ namespace MapGeneration.Generators
 
         private bool ShouldSpawn(float x, float z)
         {
-            var sample = Mathf.PerlinNoise((x * _density) + _offset, (z * _density) + _offset);
+            var sample = Mathf.PerlinNoise((x * _dispersion) + _dispersionOffset,
+                (z * _dispersion) + _dispersionOffset);
             var gauss = 8f * Random.Range(0f, 1f);
 
-            return sample < _spawnProbability || gauss < _spawnProbability;
+            return sample < _probability || gauss < _probability;
         }
 
         private void CheckForBoundaries(float x, float z)
         {
-            var origin = new Vector3(x, 100f, z);
+            var origin = new Vector3(x, 1000f, z);
 
             if (Physics.Raycast(origin, Vector3.down, out var hit, Mathf.Infinity, _terrainMask))
             {
-                Debug.Log(1);
                 if (hit.point.y > _minHeight && hit.point.y < _maxHeight)
                 {
                     SpawnTree(hit);
@@ -83,10 +94,14 @@ namespace MapGeneration.Generators
 
         private void SpawnTree(RaycastHit hit)
         {
-            var position = new Vector3(hit.point.x + Random.Range(-3.33f, 3.33f), hit.point.y - 0.5f,
-                hit.point.z + Random.Range(-3.33f, 3.33f));
+            var prefab = _treePrefabs[Random.Range(0, _treePrefabs.Count)];
 
-            var tree = Instantiate(_treePrefab, position, Quaternion.identity);
+            var position = new Vector3(hit.point.x + Random.Range(-_pointVariation, _pointVariation),
+                hit.point.y - 0.5f,
+                hit.point.z + Random.Range(-_pointVariation, _pointVariation));
+            var rotation = Quaternion.Euler(0, Random.Range(0, _rotationVariation), 0);
+
+            var tree = Instantiate(prefab, position, rotation, _treeParent);
 
             _trees.Add(tree);
         }

@@ -72,7 +72,6 @@ namespace MapGeneration
             _meshMaterial.SetFloat(HeightMultiplier, _heightMapSettings.MaxHeight - _heightMapSettings.MinHeight);
         }
 
-
         private void OnValuesUpdated()
         {
             if (!Application.isPlaying)

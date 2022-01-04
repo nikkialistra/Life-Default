@@ -6,6 +6,8 @@ namespace MapGeneration.Generators
 {
     public class TerrainObjectGenerator : MonoBehaviour
     {
+        [SerializeField] private bool _autoUpdate;
+
         [Title("Boundaries")]
         [MinValue(0)]
         [SerializeField] private float _xBounds;
@@ -44,6 +46,14 @@ namespace MapGeneration.Generators
         private void Awake()
         {
             _terrainMask = LayerMask.GetMask("Terrain");
+        }
+
+        private void OnValidate()
+        {
+            if (_autoUpdate)
+            {
+                Generate();
+            }
         }
 
         [Button(ButtonSizes.Large)]
@@ -111,7 +121,7 @@ namespace MapGeneration.Generators
         {
             foreach (var terrainObject in _terrainObjects)
             {
-                DestroyImmediate(terrainObject);
+                Destroy(terrainObject);
             }
 
             _terrainObjects.Clear();

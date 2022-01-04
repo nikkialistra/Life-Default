@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace MapGeneration.Generators
 {
-    public class TreeGenerator : MonoBehaviour
+    public class TerrainObjectGenerator : MonoBehaviour
     {
         [Title("Boundaries")]
         [MinValue(0)]
@@ -23,20 +23,21 @@ namespace MapGeneration.Generators
         [SerializeField] private float _dispersion;
         [SerializeField] private float _dispersionOffset;
         [Space]
-        [Range(5, 10f)]
+        [Range(5, 20f)]
         [SerializeField] private float _pointInterval;
-        [Range(0, 5f)]
+        [Range(0, 10f)]
         [SerializeField] private float _pointVariation;
         [Range(0, 360f)]
         [SerializeField] private float _rotationVariation;
+        [SerializeField] private float _heightSetCorrection;
 
         [Title("Objects")]
         [Required]
-        [SerializeField] private List<GameObject> _treePrefabs;
+        [SerializeField] private List<GameObject> _prefabs;
         [Required]
-        [SerializeField] private Transform _treeParent;
+        [SerializeField] private Transform _prefabParent;
 
-        private readonly List<GameObject> _trees = new();
+        private readonly List<GameObject> _terrainObjects = new();
 
         private LayerMask _terrainMask;
 
@@ -48,19 +49,19 @@ namespace MapGeneration.Generators
         [Button(ButtonSizes.Large)]
         public void Generate()
         {
-            RemoveTrees();
+            RemoveTerrainObjects();
             Random.InitState(_probabilitySeed);
 
             for (var z = -_zBounds; z < _zBounds; z += _pointInterval)
             {
                 for (var x = -_xBounds; x < _xBounds; x += _pointInterval)
                 {
-                    TrySpawnTree(x, z);
+                    TrySpawn(x, z);
                 }
             }
         }
 
-        private void TrySpawnTree(float x, float z)
+        private void TrySpawn(float x, float z)
         {
             if (!ShouldSpawn(x, z))
             {
@@ -87,33 +88,33 @@ namespace MapGeneration.Generators
             {
                 if (hit.point.y > _minHeight && hit.point.y < _maxHeight)
                 {
-                    SpawnTree(hit);
+                    Spawn(hit);
                 }
             }
         }
 
-        private void SpawnTree(RaycastHit hit)
+        private void Spawn(RaycastHit hit)
         {
-            var prefab = _treePrefabs[Random.Range(0, _treePrefabs.Count)];
+            var prefab = _prefabs[Random.Range(0, _prefabs.Count)];
 
             var position = new Vector3(hit.point.x + Random.Range(-_pointVariation, _pointVariation),
-                hit.point.y - 0.5f,
+                hit.point.y + _heightSetCorrection,
                 hit.point.z + Random.Range(-_pointVariation, _pointVariation));
             var rotation = Quaternion.Euler(0, Random.Range(0, _rotationVariation), 0);
 
-            var tree = Instantiate(prefab, position, rotation, _treeParent);
+            var terrainObject = Instantiate(prefab, position, rotation, _prefabParent);
 
-            _trees.Add(tree);
+            _terrainObjects.Add(terrainObject);
         }
 
-        private void RemoveTrees()
+        private void RemoveTerrainObjects()
         {
-            foreach (var tree in _trees)
+            foreach (var terrainObject in _terrainObjects)
             {
-                DestroyImmediate(tree);
+                DestroyImmediate(terrainObject);
             }
 
-            _trees.Clear();
+            _terrainObjects.Clear();
         }
     }
 }

@@ -1,17 +1,18 @@
 ﻿using System.Collections.Generic;
 using MapGeneration.Data;
 using MapGeneration.Settings;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace MapGeneration.Generators
 {
-    [RequireComponent(typeof(TreeGenerator))]
     public class TerrainGenerator : MonoBehaviour
     {
         private const float ViewerMoveThresholdForChunkUpdate = 25f;
         private const float SqrViewerMoveThresholdForChunkUpdate =
             ViewerMoveThresholdForChunkUpdate * ViewerMoveThresholdForChunkUpdate;
 
+        [Title("Terrain Settings")]
         [SerializeField] private int _colliderLODIndex;
         [SerializeField] private LODInfo[] _detailLevels;
 
@@ -21,6 +22,9 @@ namespace MapGeneration.Generators
         [SerializeField] private Transform _viewer;
         [SerializeField] private Material _mapMaterial;
 
+        [Title("Generators")]
+        [SerializeField] private List<TerrainObjectGenerator> _terrainObjectGenerators;
+
         private Vector2 _viewerPosition;
         private Vector2 _viewerPositionOld;
 
@@ -29,13 +33,6 @@ namespace MapGeneration.Generators
 
         private readonly Dictionary<Vector2, TerrainChunk> _terrainChunkDictionary = new();
         private readonly List<TerrainChunk> _visibleTerrainChunks = new();
-
-        private TreeGenerator _treeGenerator;
-
-        private void Awake()
-        {
-            _treeGenerator = GetComponent<TreeGenerator>();
-        }
 
         private void Start()
         {
@@ -104,7 +101,10 @@ namespace MapGeneration.Generators
 
         private void OnTerrainChunkMeshSet()
         {
-            _treeGenerator.Generate();
+            foreach (var terrainObjectGenerator in _terrainObjectGenerators)
+            {
+                terrainObjectGenerator.Generate();
+            }
         }
 
         private void OnTerrainChunkVisibilityChange(TerrainChunk chunk, bool isVisible)

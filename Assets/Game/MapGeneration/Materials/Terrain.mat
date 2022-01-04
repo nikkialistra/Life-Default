@@ -123,9 +123,9 @@ Material:
     - _GlossMapScale: 1
     - _Glossiness: 0
     - _GlossyReflections: 1
-    - _Grass_Height: 0.085
+    - _Grass_Height: 0.06
     - _Grass_Texture_Scale: 0
-    - _Height_Multiplier: 30
+    - _Height_Multiplier: 28.245304
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
@@ -133,8 +133,8 @@ Material:
     - _QueueControl: 0
     - _QueueOffset: 0
     - _Rock_Texture_Scale: 0
-    - _Rocks_Height: 0.2
-    - _Sand_Height: 0.03
+    - _Rocks_Height: 0.1
+    - _Sand_Height: 0.01
     - _Sand_Texture_Scale: 0
     - _SmoothnessTextureChannel: 0
     - _Snow_Height: 0.55

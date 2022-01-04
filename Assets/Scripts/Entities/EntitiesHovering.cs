@@ -9,9 +9,9 @@ namespace Entities
     {
         private bool _canHover = true;
 
-        private LayerMask _entitiesMask;
         private Camera _camera;
         private SelectionInput _selectionInput;
+        private LayerMask _entitiesMask;
 
         private PlayerInput _playerInput;
 

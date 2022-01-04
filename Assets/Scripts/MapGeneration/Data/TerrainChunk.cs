@@ -8,6 +8,8 @@ namespace MapGeneration.Data
     {
         private const float ColliderGenerationDistanceThreshold = 5;
 
+        private readonly LayerMask _terrainMask = LayerMask.NameToLayer("Terrain");
+
         private Vector2 _coord;
 
         private readonly GameObject _meshObject;
@@ -46,8 +48,8 @@ namespace MapGeneration.Data
             var position = coord * meshSettings.MeshWorldSize;
             _bounds = new Bounds(position, Vector2.one * meshSettings.MeshWorldSize);
 
-
             _meshObject = new GameObject("Terrain Chunk");
+            _meshObject.layer = _terrainMask;
             _meshRenderer = _meshObject.AddComponent<MeshRenderer>();
             _meshFilter = _meshObject.AddComponent<MeshFilter>();
             _meshCollider = _meshObject.AddComponent<MeshCollider>();

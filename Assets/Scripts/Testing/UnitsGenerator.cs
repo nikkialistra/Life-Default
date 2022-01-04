@@ -10,7 +10,7 @@ namespace Testing
     public class UnitsGenerator : ITickable
     {
         private UnitType? _generationType;
-        private LayerMask _terrainMask = LayerMask.GetMask("Terrain");
+        private readonly LayerMask _terrainMask = LayerMask.GetMask("Terrain");
 
         private readonly UnitFacade.Factory _factory;
 

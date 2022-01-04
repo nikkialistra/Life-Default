@@ -1,57 +1,61 @@
-﻿using System.Collections;
+﻿using System;
 using System.Collections.Generic;
-using UnityEngine;
-using System;
 using System.Threading;
+using UnityEngine;
 
-public class ThreadedDataRequester : MonoBehaviour
+namespace MapGeneration
 {
-    static ThreadedDataRequester instance;
-    Queue<ThreadInfo> dataQueue = new Queue<ThreadInfo>();
-
-    void Awake()
+    public class ThreadedDataRequester : MonoBehaviour
     {
-        instance = FindObjectOfType<ThreadedDataRequester>();
-    }
+        private static ThreadedDataRequester _instance;
+        private readonly Queue<ThreadInfo> _dataQueue = new();
 
-    public static void RequestData(Func<object> generateData, Action<object> callback)
-    {
-        ThreadStart threadStart = delegate { instance.DataThread(generateData, callback); };
-
-        new Thread(threadStart).Start();
-    }
-
-    void DataThread(Func<object> generateData, Action<object> callback)
-    {
-        object data = generateData();
-        lock (dataQueue)
+        private void Awake()
         {
-            dataQueue.Enqueue(new ThreadInfo(callback, data));
+            _instance = FindObjectOfType<ThreadedDataRequester>();
         }
-    }
 
-
-    void Update()
-    {
-        if (dataQueue.Count > 0)
+        private void Update()
         {
-            for (int i = 0; i < dataQueue.Count; i++)
+            if (_dataQueue.Count == 0)
             {
-                ThreadInfo threadInfo = dataQueue.Dequeue();
-                threadInfo.callback(threadInfo.parameter);
+                return;
+            }
+
+            for (var i = 0; i < _dataQueue.Count; i++)
+            {
+                var threadInfo = _dataQueue.Dequeue();
+                threadInfo.Callback(threadInfo.Parameter);
             }
         }
-    }
 
-    struct ThreadInfo
-    {
-        public readonly Action<object> callback;
-        public readonly object parameter;
-
-        public ThreadInfo(Action<object> callback, object parameter)
+        public static void RequestData(Func<object> generateData, Action<object> callback)
         {
-            this.callback = callback;
-            this.parameter = parameter;
+            ThreadStart threadStart = delegate { _instance.DataThread(generateData, callback); };
+
+            new Thread(threadStart).Start();
+        }
+
+        private void DataThread(Func<object> generateData, Action<object> callback)
+        {
+            var data = generateData();
+            lock (_dataQueue)
+            {
+                _dataQueue.Enqueue(new ThreadInfo(callback, data));
+            }
+        }
+
+
+        private struct ThreadInfo
+        {
+            public readonly Action<object> Callback;
+            public readonly object Parameter;
+
+            public ThreadInfo(Action<object> callback, object parameter)
+            {
+                Callback = callback;
+                Parameter = parameter;
+            }
         }
     }
 }

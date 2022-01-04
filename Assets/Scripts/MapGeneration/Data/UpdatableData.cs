@@ -1,29 +1,28 @@
 ﻿using UnityEngine;
-using System.Collections;
 
-public class UpdatableData : ScriptableObject
+namespace MapGeneration.Data
 {
-    public event System.Action OnValuesUpdated;
-    public bool autoUpdate;
+    public class UpdatableData : ScriptableObject
+    {
+        [SerializeField] private bool _autoUpdate;
+        public event System.Action OnValuesUpdated;
 
 #if UNITY_EDITOR
 
-    protected virtual void OnValidate()
-    {
-        if (autoUpdate)
+        protected virtual void OnValidate()
         {
-            UnityEditor.EditorApplication.update += NotifyOfUpdatedValues;
+            if (_autoUpdate)
+            {
+                UnityEditor.EditorApplication.update += NotifyOfUpdatedValues;
+            }
         }
-    }
 
-    public void NotifyOfUpdatedValues()
-    {
-        UnityEditor.EditorApplication.update -= NotifyOfUpdatedValues;
-        if (OnValuesUpdated != null)
+        public void NotifyOfUpdatedValues()
         {
-            OnValuesUpdated();
+            UnityEditor.EditorApplication.update -= NotifyOfUpdatedValues;
+            OnValuesUpdated?.Invoke();
         }
-    }
 
 #endif
+    }
 }

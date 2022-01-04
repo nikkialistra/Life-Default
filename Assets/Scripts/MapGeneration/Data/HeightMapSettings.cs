@@ -1,32 +1,31 @@
 ﻿using UnityEngine;
-using System.Collections;
 
-[CreateAssetMenu()]
-public class HeightMapSettings : UpdatableData
+namespace MapGeneration.Data
 {
-    public NoiseSettings noiseSettings;
-
-    public bool useFalloff;
-
-    public float heightMultiplier;
-    public AnimationCurve heightCurve;
-
-    public float minHeight
+    [CreateAssetMenu]
+    public class HeightMapSettings : UpdatableData
     {
-        get { return heightMultiplier * heightCurve.Evaluate(0); }
-    }
+        [SerializeField] private NoiseSettings _noiseSettings;
 
-    public float maxHeight
-    {
-        get { return heightMultiplier * heightCurve.Evaluate(1); }
-    }
+        [SerializeField] private bool _useFalloff;
+
+        [SerializeField] private float _heightMultiplier;
+        [SerializeField] private AnimationCurve _heightCurve;
+
+        public NoiseSettings NoiseSettings => _noiseSettings;
+        public float HeightMultiplier => _heightMultiplier;
+        public AnimationCurve HeightCurve => _heightCurve;
+
+        public float MinHeight => _heightMultiplier * _heightCurve.Evaluate(0);
+        public float MaxHeight => _heightMultiplier * _heightCurve.Evaluate(1);
 
 #if UNITY_EDITOR
 
-    protected override void OnValidate()
-    {
-        noiseSettings.ValidateValues();
-        base.OnValidate();
-    }
+        protected override void OnValidate()
+        {
+            _noiseSettings.ValidateValues();
+            base.OnValidate();
+        }
 #endif
+    }
 }

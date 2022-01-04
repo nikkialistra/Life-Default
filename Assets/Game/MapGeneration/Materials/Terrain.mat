@@ -123,17 +123,17 @@ Material:
     - _GlossMapScale: 1
     - _Glossiness: 0
     - _GlossyReflections: 1
-    - _Grass_Texture_Scale: 0.8
+    - _Grass_Texture_Scale: 0
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _Rock_Texture_Scale: 0.04
-    - _Sand_Texture_Scale: 0.7
+    - _Rock_Texture_Scale: 0
+    - _Sand_Texture_Scale: 0
     - _SmoothnessTextureChannel: 0
-    - _Snow_Texture_Scale: 0.1
+    - _Snow_Texture_Scale: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _Texture_Scale: 0.1
@@ -145,5 +145,9 @@ Material:
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _Grass_Color: {r: 0.15917882, g: 0.5377358, b: 0.0933428, a: 0}
+    - _Rock_Color: {r: 0.4528302, g: 0.25954902, b: 0, a: 0}
+    - _Sand_Color: {r: 1, g: 0.7732754, b: 0.27735847, a: 0}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
+    - _Water_Color: {r: 0.56981134, g: 0.9174637, b: 1, a: 0}
   m_BuildTextureStacks: []

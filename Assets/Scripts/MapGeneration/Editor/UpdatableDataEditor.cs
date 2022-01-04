@@ -1,20 +1,23 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿using MapGeneration.Data;
 using UnityEditor;
+using UnityEngine;
 
-[CustomEditor(typeof(UpdatableData), true)]
-public class UpdatableDataEditor : Editor
+namespace MapGeneration.Editor
 {
-    public override void OnInspectorGUI()
+    [CustomEditor(typeof(UpdatableData), true)]
+    public class UpdatableDataEditor : UnityEditor.Editor
     {
-        base.OnInspectorGUI();
-
-        UpdatableData data = (UpdatableData)target;
-
-        if (GUILayout.Button("Update"))
+        public override void OnInspectorGUI()
         {
-            data.NotifyOfUpdatedValues();
-            EditorUtility.SetDirty(target);
+            base.OnInspectorGUI();
+
+            var data = (UpdatableData)target;
+
+            if (GUILayout.Button("Update"))
+            {
+                data.NotifyOfUpdatedValues();
+                EditorUtility.SetDirty(target);
+            }
         }
     }
 }

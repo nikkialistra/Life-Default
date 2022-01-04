@@ -12,46 +12,55 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb49c415c73a941729b11c3076268f15, type: 3}
   m_Name: Height Map Settings
   m_EditorClassIdentifier: 
-  autoUpdate: 1
-  noiseSettings:
-    normalizeMode: 1
-    scale: 50
-    octaves: 3
-    persistance: 0.36
-    lacunarity: 1.4
-    seed: 27
-    offset: {x: 0, y: 0}
-  useFalloff: 0
-  heightMultiplier: 12.55
-  heightCurve:
+  _autoUpdate: 1
+  _noiseSettings:
+    _normalizeMode: 1
+    _scale: 100
+    _octaves: 6
+    _persistence: 0.5
+    _lacunarity: 1.7
+    _seed: 0
+    _offset: {x: 0, y: 0}
+  _useFalloff: 0
+  _heightMultiplier: 70
+  _heightCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 1.6440442
-      outSlope: 1.6440442
-      tangentMode: 34
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
       weightedMode: 0
       inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.09770496
+      value: 0.1018371
+      inSlope: 0.3787433
+      outSlope: 0.3787433
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 0.41603416
-      value: 0.68397856
-      inSlope: 1.0926042
-      outSlope: 1.0926042
-      tangentMode: 34
+      time: 0.6500531
+      value: 0.46868014
+      inSlope: 1.0949225
+      outSlope: 1.0949225
+      tangentMode: 0
       weightedMode: 0
       inWeight: 0.33333334
       outWeight: 0.33333334
     - serializedVersion: 3
       time: 1
       value: 1
-      inSlope: 0.5411643
-      outSlope: 0.5411643
-      tangentMode: 34
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
       weightedMode: 0
-      inWeight: 0.33333334
+      inWeight: 0
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2

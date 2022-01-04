@@ -10,6 +10,7 @@ namespace MapGeneration
     {
         [SerializeField] private Renderer _textureRender;
         [SerializeField] private MeshFilter _meshFilter;
+        [SerializeField] private Material _meshMaterial;
 
         [SerializeField] private DrawMode _drawMode;
 
@@ -19,6 +20,8 @@ namespace MapGeneration
         [Range(0, MeshSettings.NumSupportedLODs - 1)]
         [SerializeField] private int _editorPreviewLOD;
         [SerializeField] private bool _autoUpdate;
+
+        private static readonly int HeightMultiplier = Shader.PropertyToID("_Height_Multiplier");
 
         private enum DrawMode
         {
@@ -66,6 +69,7 @@ namespace MapGeneration
 
             _textureRender.gameObject.SetActive(false);
             _meshFilter.gameObject.SetActive(true);
+            _meshMaterial.SetFloat(HeightMultiplier, _heightMapSettings.MaxHeight - _heightMapSettings.MinHeight);
         }
 
 

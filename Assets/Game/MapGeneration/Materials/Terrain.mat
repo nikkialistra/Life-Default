@@ -123,9 +123,9 @@ Material:
     - _GlossMapScale: 1
     - _Glossiness: 0
     - _GlossyReflections: 1
-    - _Grass_Height: 0.055
+    - _Grass_Height: 0.085
     - _Grass_Texture_Scale: 0
-    - _Height_Multiplier: 70
+    - _Height_Multiplier: 30
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
@@ -152,7 +152,7 @@ Material:
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _Grass_Color: {r: 0.15917882, g: 0.5377358, b: 0.0933428, a: 0}
+    - _Grass_Color: {r: 0.14095318, g: 0.6603774, b: 0.046101794, a: 0}
     - _Rock_Color: {r: 0.4528302, g: 0.25954902, b: 0, a: 0}
     - _Sand_Color: {r: 1, g: 0.7732754, b: 0.27735847, a: 0}
     - _Snow_Color: {r: 0.9433962, g: 0.9433962, b: 0.9433962, a: 0}

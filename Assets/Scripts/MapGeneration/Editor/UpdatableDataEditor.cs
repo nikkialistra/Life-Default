@@ -1,4 +1,4 @@
-﻿using MapGeneration.Data;
+﻿using MapGeneration.Settings;
 using UnityEditor;
 using UnityEngine;
 

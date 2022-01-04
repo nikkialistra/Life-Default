@@ -1,5 +1,7 @@
 ﻿using System;
 using MapGeneration.Data;
+using MapGeneration.Generators;
+using MapGeneration.Settings;
 using UnityEngine;
 
 namespace MapGeneration

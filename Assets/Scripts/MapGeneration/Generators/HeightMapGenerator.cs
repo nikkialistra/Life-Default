@@ -13,6 +13,8 @@ namespace MapGeneration.Generators
 
             var heightCurveThreadSafe = new AnimationCurve(settings.HeightCurve.keys);
 
+            var falloffMap = FalloffGenerator.GenerateFalloffMap(width);
+
             var minValue = float.MaxValue;
             var maxValue = float.MinValue;
 
@@ -20,7 +22,12 @@ namespace MapGeneration.Generators
             {
                 for (var j = 0; j < height; j++)
                 {
-                    values[i, j] *= heightCurveThreadSafe.Evaluate(values[i, j]) * settings.HeightMultiplier;
+                    if (settings.UseFalloff)
+                    {
+                        values[i, j] = Mathf.Clamp01(values[i, j] - falloffMap[i, j]);
+                    }
+
+                    values[i, j] = heightCurveThreadSafe.Evaluate(values[i, j]) * settings.HeightMultiplier;
 
                     if (values[i, j] > maxValue)
                     {

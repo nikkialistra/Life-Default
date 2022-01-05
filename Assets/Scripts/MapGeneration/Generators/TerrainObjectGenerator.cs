@@ -48,6 +48,8 @@ namespace MapGeneration.Generators
             _terrainMask = LayerMask.GetMask("Terrain");
         }
 
+        public Transform PrefabParent => _prefabParent;
+
         private void OnValidate()
         {
             if (_autoUpdate)

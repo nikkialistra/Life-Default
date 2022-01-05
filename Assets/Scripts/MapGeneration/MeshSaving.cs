@@ -1,4 +1,5 @@
-﻿using MapGeneration.Generators;
+﻿using System.IO;
+using Common;
 using UnityEditor;
 using UnityEngine;
 
@@ -11,8 +12,10 @@ namespace MapGeneration
             var meshFilter = GetComponent<MeshFilter>();
             if (meshFilter)
             {
-                var savePath = $"{MapGenerator.SavePath}/{gameObject.name} Mesh.asset";
-                AssetDatabase.CreateAsset(meshFilter.mesh, savePath);
+                SaveUtils.CreateBaseDirectoriesTo(SaveUtils.SavedAssetsPath);
+
+                var path = Path.Combine(SaveUtils.SavedAssetsPath, $"{gameObject.name} Mesh.asset");
+                AssetDatabase.CreateAsset(meshFilter.mesh, path);
             }
         }
     }

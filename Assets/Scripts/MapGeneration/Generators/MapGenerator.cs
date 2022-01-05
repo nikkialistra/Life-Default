@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.IO;
+using Common;
 using MapGeneration.Data;
 using MapGeneration.Settings;
 using Sirenix.OdinInspector;
@@ -26,8 +28,6 @@ namespace MapGeneration.Generators
 
         [Title("Generators")]
         [SerializeField] private List<TerrainObjectGenerator> _terrainObjectGenerators;
-
-        public const string SavePath = "Resources/SavedAssets";
 
         private const float ViewerMoveThresholdForChunkUpdate = 25f;
         private const float SqrViewerMoveThresholdForChunkUpdate =
@@ -83,21 +83,6 @@ namespace MapGeneration.Generators
             }
         }
 
-        private bool TryLoad()
-        {
-            var prefabSavePath = $"{SavePath}/{gameObject.name}.prefab";
-            var prefab = AssetDatabase.LoadAssetAtPath<GameObject>(prefabSavePath);
-
-            if (prefab != null)
-            {
-                Instantiate(prefab);
-                Destroy(gameObject);
-                return true;
-            }
-
-            return false;
-        }
-
         [Button(ButtonSizes.Large)]
         public void SaveMap()
         {
@@ -106,8 +91,30 @@ namespace MapGeneration.Generators
                 terrainChunk.SaveMesh();
             }
 
-            var prefabSavePath = $"{SavePath}/{gameObject.name}.prefab";
-            PrefabUtility.SaveAsPrefabAsset(gameObject, prefabSavePath);
+            SaveUtils.CreateBaseDirectoriesTo(SaveUtils.SavedAssetsPath);
+
+            var path = Path.Combine(SaveUtils.SavedAssetsPath, $"{gameObject.name}.prefab");
+            PrefabUtility.SaveAsPrefabAsset(gameObject, path);
+        }
+
+        private bool TryLoad()
+        {
+            var path = Path.Combine(SaveUtils.SavedAssetsPath, $"{gameObject.name}.prefab");
+            var prefab = AssetDatabase.LoadAssetAtPath<GameObject>(path);
+
+            if (prefab != null)
+            {
+                ReplaceSelf(prefab);
+                return true;
+            }
+
+            return false;
+        }
+
+        private void ReplaceSelf(GameObject prefab)
+        {
+            Instantiate(prefab);
+            Destroy(gameObject);
         }
 
         private void UpdateVisibleChunks()

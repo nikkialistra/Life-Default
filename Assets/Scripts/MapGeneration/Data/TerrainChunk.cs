@@ -17,6 +17,7 @@ namespace MapGeneration.Data
         private readonly Vector2 _sampleCenter;
         private Bounds _bounds;
 
+        private readonly MeshSaving _meshSaving;
         private readonly MeshRenderer _meshRenderer;
         private readonly MeshFilter _meshFilter;
         private readonly MeshCollider _meshCollider;
@@ -55,6 +56,7 @@ namespace MapGeneration.Data
 
             _meshObject = new GameObject("Terrain Chunk");
             _meshObject.layer = _terrainMask;
+            _meshSaving = _meshObject.AddComponent<MeshSaving>();
             _meshRenderer = _meshObject.AddComponent<MeshRenderer>();
             _meshFilter = _meshObject.AddComponent<MeshFilter>();
             _meshCollider = _meshObject.AddComponent<MeshCollider>();
@@ -180,6 +182,11 @@ namespace MapGeneration.Data
                 SetVisible(visible);
                 VisibilityChange?.Invoke(this, visible);
             }
+        }
+
+        public void SaveMesh()
+        {
+            _meshSaving.Save();
         }
 
         private void OnHeightMapReceived(object heightMapObject)

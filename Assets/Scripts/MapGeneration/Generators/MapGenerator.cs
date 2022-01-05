@@ -2,6 +2,7 @@
 using MapGeneration.Data;
 using MapGeneration.Settings;
 using Sirenix.OdinInspector;
+using UnityEditor;
 using UnityEngine;
 
 namespace MapGeneration.Generators
@@ -9,10 +10,6 @@ namespace MapGeneration.Generators
     [RequireComponent(typeof(NavMeshGenerator))]
     public class MapGenerator : MonoBehaviour
     {
-        private const float ViewerMoveThresholdForChunkUpdate = 25f;
-        private const float SqrViewerMoveThresholdForChunkUpdate =
-            ViewerMoveThresholdForChunkUpdate * ViewerMoveThresholdForChunkUpdate;
-
         [Title("Terrain Settings")]
         [SerializeField] private int _colliderLODIndex;
         [SerializeField] private LODInfo[] _detailLevels;
@@ -23,11 +20,18 @@ namespace MapGeneration.Generators
         [SerializeField] private Transform _viewer;
         [SerializeField] private Material _mapMaterial;
 
-        [Space]
+        [Title("Other")]
+        [SerializeField] private bool _tryLoadFromSaved;
         [SerializeField] private bool _loadAsync;
 
         [Title("Generators")]
         [SerializeField] private List<TerrainObjectGenerator> _terrainObjectGenerators;
+
+        public const string SavePath = "Resources/SavedAssets";
+
+        private const float ViewerMoveThresholdForChunkUpdate = 25f;
+        private const float SqrViewerMoveThresholdForChunkUpdate =
+            ViewerMoveThresholdForChunkUpdate * ViewerMoveThresholdForChunkUpdate;
 
         private Vector2 _viewerPosition;
         private Vector2 _viewerPositionOld;
@@ -43,10 +47,16 @@ namespace MapGeneration.Generators
         private void Awake()
         {
             _navMeshGenerator = GetComponent<NavMeshGenerator>();
+            _viewer = Camera.main.transform;
         }
 
         private void Start()
         {
+            if (_tryLoadFromSaved && TryLoad())
+            {
+                return;
+            }
+
             var maxViewDst = _detailLevels[^1].VisibleDistanceThreshold;
             _meshWorldSize = _meshSettings.MeshWorldSize;
             _chunksVisibleInViewDst = Mathf.RoundToInt(maxViewDst / _meshWorldSize);
@@ -71,6 +81,33 @@ namespace MapGeneration.Generators
                 _viewerPositionOld = _viewerPosition;
                 UpdateVisibleChunks();
             }
+        }
+
+        private bool TryLoad()
+        {
+            var prefabSavePath = $"{SavePath}/{gameObject.name}.prefab";
+            var prefab = AssetDatabase.LoadAssetAtPath<GameObject>(prefabSavePath);
+
+            if (prefab != null)
+            {
+                Instantiate(prefab);
+                Destroy(gameObject);
+                return true;
+            }
+
+            return false;
+        }
+
+        [Button(ButtonSizes.Large)]
+        public void SaveMap()
+        {
+            foreach (var terrainChunk in _terrainChunkDictionary.Values)
+            {
+                terrainChunk.SaveMesh();
+            }
+
+            var prefabSavePath = $"{SavePath}/{gameObject.name}.prefab";
+            PrefabUtility.SaveAsPrefabAsset(gameObject, prefabSavePath);
         }
 
         private void UpdateVisibleChunks()

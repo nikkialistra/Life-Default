@@ -35,8 +35,11 @@ namespace MapGeneration.Data
         private readonly MeshSettings _meshSettings;
         private readonly Transform _viewer;
 
+        private readonly bool _asyncMode;
+
         public TerrainChunk(Vector2 coord, HeightMapSettings heightMapSettings, MeshSettings meshSettings,
-            LODInfo[] detailLevels, int colliderLODIndex, Transform parent, Transform viewer, Material material)
+            LODInfo[] detailLevels, int colliderLODIndex, Transform parent, Transform viewer, Material material,
+            bool asyncMode)
         {
             _coord = coord;
             _detailLevels = detailLevels;
@@ -44,6 +47,7 @@ namespace MapGeneration.Data
             _heightMapSettings = heightMapSettings;
             _meshSettings = meshSettings;
             _viewer = viewer;
+            _asyncMode = asyncMode;
 
             _sampleCenter = coord * meshSettings.MeshWorldSize / meshSettings.MeshScale;
             var position = coord * meshSettings.MeshWorldSize;
@@ -99,7 +103,14 @@ namespace MapGeneration.Data
             {
                 if (!_lodMeshes[_colliderLODIndex].HasRequestedMesh)
                 {
-                    _lodMeshes[_colliderLODIndex].RequestMesh(_heightMap, _meshSettings);
+                    if (_asyncMode)
+                    {
+                        _lodMeshes[_colliderLODIndex].RequestMeshAsync(_heightMap, _meshSettings);
+                    }
+                    else
+                    {
+                        _lodMeshes[_colliderLODIndex].RequestMesh(_heightMap, _meshSettings);
+                    }
                 }
             }
 
@@ -152,7 +163,14 @@ namespace MapGeneration.Data
                     }
                     else if (!lodMesh.HasRequestedMesh)
                     {
-                        lodMesh.RequestMesh(_heightMap, _meshSettings);
+                        if (_asyncMode)
+                        {
+                            lodMesh.RequestMeshAsync(_heightMap, _meshSettings);
+                        }
+                        else
+                        {
+                            lodMesh.RequestMesh(_heightMap, _meshSettings);
+                        }
                     }
                 }
             }
@@ -197,22 +215,28 @@ namespace MapGeneration.Data
                 _lod = lod;
             }
 
-            public event System.Action UpdateCallback;
+            public event Action UpdateCallback;
 
-            void OnMeshDataReceived(object meshDataObject)
-            {
-                Mesh = ((MeshData)meshDataObject).CreateMesh();
-                HasMesh = true;
-
-                UpdateCallback?.Invoke();
-            }
-
-            public void RequestMesh(HeightMap heightMap, MeshSettings meshSettings)
+            public void RequestMeshAsync(HeightMap heightMap, MeshSettings meshSettings)
             {
                 HasRequestedMesh = true;
                 ThreadedDataRequester.RequestData(
                     () => MeshGenerator.GenerateTerrainMesh(heightMap.Values, meshSettings, _lod),
                     OnMeshDataReceived);
+            }
+
+            public void RequestMesh(HeightMap heightMap, MeshSettings meshSettings)
+            {
+                HasRequestedMesh = true;
+                OnMeshDataReceived(MeshGenerator.GenerateTerrainMesh(heightMap.Values, meshSettings, _lod));
+            }
+
+            private void OnMeshDataReceived(object meshDataObject)
+            {
+                Mesh = ((MeshData)meshDataObject).CreateMesh();
+                HasMesh = true;
+
+                UpdateCallback?.Invoke();
             }
         }
     }

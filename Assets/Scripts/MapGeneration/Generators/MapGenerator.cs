@@ -23,6 +23,9 @@ namespace MapGeneration.Generators
         [SerializeField] private Transform _viewer;
         [SerializeField] private Material _mapMaterial;
 
+        [Space]
+        [SerializeField] private bool _loadAsync;
+
         [Title("Generators")]
         [SerializeField] private List<TerrainObjectGenerator> _terrainObjectGenerators;
 
@@ -96,7 +99,7 @@ namespace MapGeneration.Generators
                         else
                         {
                             var newChunk = new TerrainChunk(viewedChunkCoord, _heightMapSettings, _meshSettings,
-                                _detailLevels, _colliderLODIndex, transform, _viewer, _mapMaterial);
+                                _detailLevels, _colliderLODIndex, transform, _viewer, _mapMaterial, _loadAsync);
                             _terrainChunkDictionary.Add(viewedChunkCoord, newChunk);
                             newChunk.MeshSet += OnTerrainChunkMeshSet;
                             newChunk.VisibilityChange += OnTerrainChunkVisibilityChange;

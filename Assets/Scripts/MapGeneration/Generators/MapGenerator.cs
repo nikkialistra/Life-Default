@@ -11,6 +11,7 @@ namespace MapGeneration.Generators
     public class MapGenerator : MonoBehaviour
     {
         [SerializeField] private bool _tryLoadFromSaved;
+        [SerializeField] private bool _autoSave;
 
         [Title("Generators")]
         [Required]
@@ -71,8 +72,14 @@ namespace MapGeneration.Generators
 
         private void OnChunkGenerated()
         {
+            Debug.Log(1);
             GenerateTerrainObjects();
             GenerateNavMesh();
+
+            if (_autoSave)
+            {
+                TrySave();
+            }
         }
 
         private void GenerateTerrainObjects()
@@ -90,16 +97,32 @@ namespace MapGeneration.Generators
 
         private bool TryLoad()
         {
-            var path = Path.Combine(SaveUtils.SavedAssetsPath, $"{gameObject.name}.prefab");
-            var prefab = AssetDatabase.LoadAssetAtPath<GameObject>(path);
+            var savedPrefab = GetSavedPrefab();
 
-            if (prefab != null)
+            if (savedPrefab != null)
             {
-                ReplaceSelf(prefab);
+                ReplaceSelf(savedPrefab);
                 return true;
             }
 
             return false;
+        }
+
+        private void TrySave()
+        {
+            var savedPrefab = GetSavedPrefab();
+
+            if (savedPrefab == null)
+            {
+                SaveMap();
+            }
+        }
+
+        private GameObject GetSavedPrefab()
+        {
+            var path = Path.Combine(SaveUtils.SavedAssetsPath, "Map.prefab");
+            var prefab = AssetDatabase.LoadAssetAtPath<GameObject>(path);
+            return prefab;
         }
 
         private void ReplaceSelf(GameObject prefab)

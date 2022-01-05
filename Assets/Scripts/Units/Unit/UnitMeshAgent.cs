@@ -22,7 +22,6 @@ namespace Units.Unit
         private UnitFacade _unitFacade;
         private NavMeshAgent _navMeshAgent;
 
-
         private void Awake()
         {
             _unitFacade = GetComponent<UnitFacade>();

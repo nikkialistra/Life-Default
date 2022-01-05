@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using Zenject;
 
 namespace Cameras
 {
@@ -6,6 +7,7 @@ namespace Cameras
     [RequireComponent(typeof(CameraMoving))]
     [RequireComponent(typeof(CameraRotating))]
     [RequireComponent(typeof(CameraZooming))]
+    [RequireComponent(typeof(Camera))]
     public class CameraInputCombination : MonoBehaviour
     {
         [SerializeField] private float _positionSmoothing;
@@ -19,16 +21,33 @@ namespace Cameras
         private Vector3 _newPosition;
         private Quaternion _newRotation;
 
+        private Camera _camera;
+
+        private bool _isSetUpSession;
+
+        [Inject]
+        public void Construct(bool isSetUpSession)
+        {
+            _isSetUpSession = isSetUpSession;
+        }
+
         private void Awake()
         {
             _cameraFollowing = GetComponent<CameraFollowing>();
             _cameraMoving = GetComponent<CameraMoving>();
             _cameraRotating = GetComponent<CameraRotating>();
             _cameraZooming = GetComponent<CameraZooming>();
+            _camera = GetComponent<Camera>();
         }
 
         private void Start()
         {
+            if (_isSetUpSession)
+            {
+                _camera.enabled = false;
+                enabled = false;
+            }
+
             _newPosition = transform.position;
             _newRotation = transform.rotation;
 

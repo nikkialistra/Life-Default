@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
+using Zenject;
 
 namespace Testing
 {
@@ -15,6 +16,21 @@ namespace Testing
 
         [SerializeField] private Vector3 _velocity;
 
+        private Camera _camera;
+
+        private bool _isSetUpSession;
+
+        [Inject]
+        public void Construct(bool isSetUpSession)
+        {
+            _isSetUpSession = isSetUpSession;
+        }
+
+        private void Awake()
+        {
+            _camera = GetComponent<Camera>();
+        }
+
         private static bool Focused
         {
             get => Cursor.lockState == CursorLockMode.Locked;
@@ -22,6 +38,15 @@ namespace Testing
             {
                 Cursor.lockState = value ? CursorLockMode.Locked : CursorLockMode.None;
                 Cursor.visible = value == false;
+            }
+        }
+
+        private void Start()
+        {
+            if (!_isSetUpSession)
+            {
+                _camera.enabled = false;
+                enabled = false;
             }
         }
 
@@ -66,7 +91,7 @@ namespace Testing
 
             transform.rotation = horizontal * rotation * vertical;
 
-            if (Keyboard.current.escapeKey.isPressed)
+            if (Keyboard.current.altKey.isPressed && Keyboard.current.qKey.wasPressedThisFrame)
             {
                 Focused = false;
             }

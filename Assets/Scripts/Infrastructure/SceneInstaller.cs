@@ -19,11 +19,16 @@ namespace Infrastructure
 {
     public class SceneInstaller : MonoInstaller
     {
+        [Title("Set Up")]
+        [SerializeField] private bool _isSetUpSession;
+
         [Title("Input")]
         [Required]
         [SerializeField] private Camera _camera;
         [Required]
         [SerializeField] private CameraInputCombination _cameraInputCombination;
+        [Required]
+        [SerializeField] private FlyCamera _flyCamera;
         [Required]
         [SerializeField] private PlayerInput _playerInput;
 
@@ -94,7 +99,13 @@ namespace Infrastructure
         private void BindInput()
         {
             Container.BindInstance(_camera);
+
             Container.BindInstance(_cameraInputCombination);
+            Container.BindInstance(_isSetUpSession).WhenInjectedInto<CameraInputCombination>();
+
+            Container.BindInstance(_flyCamera);
+            Container.BindInstance(_isSetUpSession).WhenInjectedInto<FlyCamera>();
+
             Container.BindInstance(_playerInput);
         }
 

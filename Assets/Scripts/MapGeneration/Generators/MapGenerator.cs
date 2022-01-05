@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using Common;
 using Sirenix.OdinInspector;
@@ -24,6 +25,8 @@ namespace MapGeneration.Generators
         {
             _navMeshGenerator = GetComponent<NavMeshGenerator>();
         }
+
+        public event Action Load;
 
         private void Start()
         {
@@ -72,9 +75,10 @@ namespace MapGeneration.Generators
 
         private void OnChunkGenerated()
         {
-            Debug.Log(1);
             GenerateTerrainObjects();
             GenerateNavMesh();
+
+            Load?.Invoke();
 
             if (_autoSave)
             {

@@ -295,3 +295,12 @@
 .multiple-units-nomination {
     margin-bottom: 5px;
 }
+
+.loading-screen {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('project://database/Assets/Game/Entities/Skins/Textures/Animals/AnimalA.png?fileID=2800000&guid=876b90c94d25e534ebebc4cb0563871e&type=3#AnimalA');
+}

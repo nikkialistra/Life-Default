@@ -9,12 +9,12 @@ namespace Units.Unit
     {
         private UnitFacade _unitFacade;
 
-        private UnitsRepository _unitsRepository;
+        private UnitRepository _unitRepository;
 
         [Inject]
-        public void Construct(UnitsRepository unitsRepository)
+        public void Construct(UnitRepository unitRepository)
         {
-            _unitsRepository = unitsRepository;
+            _unitRepository = unitRepository;
         }
 
         private void Awake()
@@ -36,12 +36,12 @@ namespace Units.Unit
 
         private void OnSpawn()
         {
-            _unitsRepository.AddUnit(_unitFacade);
+            _unitRepository.AddUnit(_unitFacade);
         }
 
         private void OnDie()
         {
-            _unitsRepository.RemoveUnit(_unitFacade);
+            _unitRepository.RemoveUnit(_unitFacade);
         }
     }
 }

@@ -14,24 +14,24 @@ namespace UnitManagement.Targeting
 
         private readonly List<Target> _targets = new();
 
-        private UnitsRepository _unitsRepository;
+        private UnitRepository _unitRepository;
 
         [Inject]
-        public void Construct(Target template, Transform targetParent, UnitsRepository unitsRepository)
+        public void Construct(Target template, Transform targetParent, UnitRepository unitRepository)
         {
             _template = template;
             _targetParent = targetParent;
-            _unitsRepository = unitsRepository;
+            _unitRepository = unitRepository;
         }
 
         private void OnEnable()
         {
-            _unitsRepository.Remove += OnRemove;
+            _unitRepository.Remove += OnRemove;
         }
 
         private void OnDisable()
         {
-            _unitsRepository.Remove -= OnRemove;
+            _unitRepository.Remove -= OnRemove;
         }
 
         public Target PlaceTo(Vector3 position, TargetObject targetObject = null)

@@ -17,7 +17,7 @@ namespace Cameras
         private Camera _camera;
         private Vector3 _followLastPosition;
 
-        private UnitsChoosing _unitsChoosing;
+        private UnitChoosing _unitChoosing;
 
         private PlayerInput _playerInput;
 
@@ -25,9 +25,9 @@ namespace Cameras
         private InputAction _positionAction;
 
         [Inject]
-        public void Construct(UnitsChoosing unitsChoosing, PlayerInput playerInput)
+        public void Construct(UnitChoosing unitChoosing, PlayerInput playerInput)
         {
-            _unitsChoosing = unitsChoosing;
+            _unitChoosing = unitChoosing;
             _playerInput = playerInput;
         }
 
@@ -46,13 +46,13 @@ namespace Cameras
         private void OnEnable()
         {
             _setFollowAction.started += TryFollow;
-            _unitsChoosing.UnitChosen += SetFollow;
+            _unitChoosing.UnitChosen += SetFollow;
         }
 
         private void OnDisable()
         {
             _setFollowAction.started -= TryFollow;
-            _unitsChoosing.UnitChosen -= SetFollow;
+            _unitChoosing.UnitChosen -= SetFollow;
         }
 
         private void OnDestroy()

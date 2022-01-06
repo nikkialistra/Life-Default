@@ -7,12 +7,12 @@ namespace Units.Services.Selecting
 {
     public class SelectedUnits
     {
-        private readonly UnitsRepository _unitsRepository;
+        private readonly UnitRepository _unitRepository;
         private InfoPanelView _infoPanelView;
 
-        public SelectedUnits(UnitsRepository unitsRepository, InfoPanelView infoPanelView)
+        public SelectedUnits(UnitRepository unitRepository, InfoPanelView infoPanelView)
         {
-            _unitsRepository = unitsRepository;
+            _unitRepository = unitRepository;
             _infoPanelView = infoPanelView;
         }
 
@@ -23,7 +23,7 @@ namespace Units.Services.Selecting
         {
             Units.Clear();
 
-            var allUnits = _unitsRepository.GetUnits();
+            var allUnits = _unitRepository.GetUnits();
             foreach (var unit in allUnits)
             {
                 unit.Deselect();

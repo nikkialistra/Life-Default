@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using Common;
+using MapGeneration.Saving;
 using Sirenix.OdinInspector;
-using UnityEditor;
 using UnityEngine;
 using Zenject;
 
@@ -12,7 +10,6 @@ namespace MapGeneration.Generators
     [RequireComponent(typeof(NavMeshGenerator))]
     public class MapGenerator : MonoBehaviour
     {
-        [SerializeField] private bool _tryLoadFromSaved;
         [SerializeField] private bool _autoSave;
 
         [Title("Generators")]
@@ -21,6 +18,8 @@ namespace MapGeneration.Generators
         [SerializeField] private List<TerrainObjectGenerator> _terrainObjectGenerators;
 
         private NavMeshGenerator _navMeshGenerator;
+
+        private bool _generated;
 
         private void Awake()
         {
@@ -31,9 +30,10 @@ namespace MapGeneration.Generators
 
         private void Start()
         {
-            if (!_tryLoadFromSaved || !TryLoad())
+            if (!_generated)
             {
                 _terrainGenerator.Generate();
+                _generated = true;
             }
         }
 
@@ -58,22 +58,20 @@ namespace MapGeneration.Generators
                 terrainChunk.SaveMesh();
             }
 
-            SaveUtils.CreateBaseDirectoriesTo(SaveUtils.SavedAssetsPath);
+            var gameObjectContext = GetComponent<GameObjectContext>();
+            var defaultGameObjectKernel = GetComponent<DefaultGameObjectKernel>();
 
-            var path = Path.Combine(SaveUtils.SavedAssetsPath, $"{gameObject.name}.prefab");
-            PrefabUtility.SaveAsPrefabAsset(gameObject, path);
+            DestroyImmediate(gameObjectContext);
+            DestroyImmediate(defaultGameObjectKernel);
+
+            MapSaving.SavePrefab(gameObject, "Map.prefab");
         }
 
         [Button(ButtonSizes.Large)]
         [ButtonGroup]
         public void DeleteMap()
         {
-            if (Directory.Exists(SaveUtils.SavedAssetsPath))
-            {
-                Directory.Delete(SaveUtils.SavedAssetsPath, true);
-            }
-
-            Directory.CreateDirectory(SaveUtils.SavedAssetsPath);
+            MapSaving.ClearSavedAssets();
         }
 
 #endif
@@ -89,7 +87,7 @@ namespace MapGeneration.Generators
 
             if (_autoSave)
             {
-                var savedPrefab = GetSavedPrefab();
+                var savedPrefab = MapSaving.GetSavedPrefab("Map");
                 if (savedPrefab == null)
                 {
                     SaveMap();
@@ -110,32 +108,6 @@ namespace MapGeneration.Generators
         private void GenerateNavMesh()
         {
             _navMeshGenerator.Build();
-        }
-
-        private bool TryLoad()
-        {
-            var savedPrefab = GetSavedPrefab();
-
-            if (savedPrefab != null)
-            {
-                ReplaceSelf(savedPrefab);
-                return true;
-            }
-
-            return false;
-        }
-
-        private GameObject GetSavedPrefab()
-        {
-            var path = Path.Combine(SaveUtils.SavedResourcesPath, "Map.prefab");
-            var prefab = Resources.Load<GameObject>(path);
-            return prefab;
-        }
-
-        private void ReplaceSelf(GameObject prefab)
-        {
-            Instantiate(prefab, transform.parent);
-            Destroy(gameObject);
         }
 
         public class Factory : PlaceholderFactory<MapGenerator>

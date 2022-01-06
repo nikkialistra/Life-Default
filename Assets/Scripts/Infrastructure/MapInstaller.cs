@@ -1,5 +1,6 @@
-﻿using MapGeneration;
-using MapGeneration.Generators;
+﻿using MapGeneration.Generators;
+using MapGeneration.Map;
+using MapGeneration.Saving;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using Zenject;
@@ -18,7 +19,7 @@ namespace Infrastructure
 
         public override void InstallBindings()
         {
-            Container.BindInterfacesTo<Map>().AsSingle();
+            Container.BindInterfacesAndSelfTo<Map>().AsSingle();
 
             Container.BindFactory<MapGenerator, MapGenerator.Factory>().FromSubContainerResolve()
                 .ByNewPrefabMethod(GetMapGeneratorPrefab, InstallerMethod).UnderTransform(_mapParent);
@@ -28,15 +29,29 @@ namespace Infrastructure
         {
             if (_tryLoadFromSaved)
             {
-                return _mapGeneratorPrefab;
+                var prefab = TryLoad();
+                if (prefab != null)
+                {
+                    return prefab;
+                }
             }
-            else
-            {
-                return _mapGeneratorPrefab;
-            }
+
+            return _mapGeneratorPrefab;
         }
 
-        private void InstallerMethod(DiContainer subContainer)
+        private static GameObject TryLoad()
+        {
+            var savedPrefab = MapSaving.GetSavedPrefab("Map");
+
+            if (savedPrefab != null)
+            {
+                return savedPrefab;
+            }
+
+            return null;
+        }
+
+        private static void InstallerMethod(DiContainer subContainer)
         {
             subContainer.Bind<MapGenerator>().FromComponentOnRoot();
         }

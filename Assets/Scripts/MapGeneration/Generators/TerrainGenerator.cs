@@ -42,7 +42,6 @@ namespace MapGeneration.Generators
         public void Construct(Camera camera)
         {
             _viewer = camera.transform;
-            Debug.Log(_viewer);
         }
 
         public event Action ChunkGenerated;

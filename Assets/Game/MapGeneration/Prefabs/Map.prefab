@@ -208,7 +208,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _tryLoadFromSaved: 0
-  _autoSave: 0
+  _autoSave: 1
   _terrainGenerator: {fileID: 5052065525742440262}
   _terrainObjectGenerators:
   - {fileID: 5052065527054891186}

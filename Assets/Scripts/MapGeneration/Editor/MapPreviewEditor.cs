@@ -1,4 +1,5 @@
-﻿using UnityEditor;
+﻿using MapGeneration.Map;
+using UnityEditor;
 using UnityEngine;
 
 namespace MapGeneration.Editor

@@ -7,6 +7,8 @@ namespace MapGeneration
 {
     public class MeshSaving : MonoBehaviour
     {
+#if UNITY_EDITOR
+
         public void Save()
         {
             var meshFilter = GetComponent<MeshFilter>();
@@ -18,5 +20,7 @@ namespace MapGeneration
                 AssetDatabase.CreateAsset(meshFilter.mesh, path);
             }
         }
+
+#endif
     }
 }

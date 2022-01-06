@@ -12,10 +12,12 @@
                               class="unit-type__count"/>
                 </ui:VisualElement>
                 <ui:VisualElement name="lumberjack-type" class="unit-type lumberjack">
-                    <ui:Label text="0" display-tooltip-when-elided="true" name="lumberjack-type__count" class="unit-type__count" />
+                    <ui:Label text="0" display-tooltip-when-elided="true" name="lumberjack-type__count"
+                              class="unit-type__count"/>
                 </ui:VisualElement>
                 <ui:VisualElement name="mason-type" class="unit-type mason">
-                    <ui:Label text="0" display-tooltip-when-elided="true" name="mason-type__count" class="unit-type__count" />
+                    <ui:Label text="0" display-tooltip-when-elided="true" name="mason-type__count"
+                              class="unit-type__count"/>
                 </ui:VisualElement>
                 <ui:VisualElement name="melee-type" class="unit-type melee">
                     <ui:Label text="0" display-tooltip-when-elided="true" name="melee-type__count"
@@ -30,6 +32,7 @@
     </ui:VisualElement>
     <ui:VisualElement name="loading-screen" class="loading-screen"
                       style="background-image: resource(&apos;UI/Textures/LoadingScreen&apos;);">
-        <ui:Label text="Loading..." display-tooltip-when-elided="true" name="loading" class="loading"/>
+        <ui:Label text="Loading..." display-tooltip-when-elided="true" name="loading" class="loading"
+                  style="letter-spacing: 5px;"/>
     </ui:VisualElement>
 </ui:UXML>

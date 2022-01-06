@@ -5,9 +5,10 @@ namespace MapGeneration.Settings
     public class UpdatableData : ScriptableObject
     {
         [SerializeField] private bool _autoUpdate;
-        public event System.Action OnValuesUpdated;
 
 #if UNITY_EDITOR
+
+        public event System.Action OnValuesUpdated;
 
         protected virtual void OnValidate()
         {

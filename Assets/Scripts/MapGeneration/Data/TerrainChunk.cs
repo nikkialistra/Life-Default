@@ -85,6 +85,15 @@ namespace MapGeneration.Data
 
         public Vector2 Coord => _coord;
 
+#if UNITY_EDITOR
+
+        public void SaveMesh()
+        {
+            _meshSaving.Save();
+        }
+
+#endif
+
         public void Load()
         {
             ThreadedDataRequester.RequestData(
@@ -182,11 +191,6 @@ namespace MapGeneration.Data
                 SetVisible(visible);
                 VisibilityChange?.Invoke(this, visible);
             }
-        }
-
-        public void SaveMesh()
-        {
-            _meshSaving.Save();
         }
 
         private void OnHeightMapReceived(object heightMapObject)

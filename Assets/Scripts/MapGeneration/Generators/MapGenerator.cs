@@ -46,6 +46,8 @@ namespace MapGeneration.Generators
             _terrainGenerator.ChunkGenerated -= OnChunkGenerated;
         }
 
+#if UNITY_EDITOR
+
         [Button(ButtonSizes.Large)]
         [ButtonGroup]
         public void SaveMap()
@@ -73,6 +75,8 @@ namespace MapGeneration.Generators
             Directory.CreateDirectory(SaveUtils.SavedAssetsPath);
         }
 
+#endif
+
         private void OnChunkGenerated()
         {
             GenerateTerrainObjects();
@@ -80,10 +84,18 @@ namespace MapGeneration.Generators
 
             Load?.Invoke();
 
+#if UNITY_EDITOR
+
             if (_autoSave)
             {
-                TrySave();
+                var savedPrefab = GetSavedPrefab();
+                if (savedPrefab == null)
+                {
+                    SaveMap();
+                }
             }
+
+#endif
         }
 
         private void GenerateTerrainObjects()
@@ -112,20 +124,10 @@ namespace MapGeneration.Generators
             return false;
         }
 
-        private void TrySave()
-        {
-            var savedPrefab = GetSavedPrefab();
-
-            if (savedPrefab == null)
-            {
-                SaveMap();
-            }
-        }
-
         private GameObject GetSavedPrefab()
         {
-            var path = Path.Combine(SaveUtils.SavedAssetsPath, "Map.prefab");
-            var prefab = AssetDatabase.LoadAssetAtPath<GameObject>(path);
+            var path = Path.Combine(SaveUtils.SavedResourcesPath, "Map.prefab");
+            var prefab = Resources.Load<GameObject>(path);
             return prefab;
         }
 

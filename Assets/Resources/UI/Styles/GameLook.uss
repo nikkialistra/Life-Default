@@ -304,3 +304,17 @@
     bottom: 0;
     background-image: url('project://database/Assets/Game/Entities/Skins/Textures/Animals/AnimalA.png?fileID=2800000&guid=876b90c94d25e534ebebc4cb0563871e&type=3#AnimalA');
 }
+
+.loading {
+    align-items: center;
+    justify-content: center;
+    -unity-font-definition: none;
+    -unity-font: resource('Fonts/Mukta-Medium');
+    font-size: 120px;
+    color: rgba(255, 255, 255, 255);
+}
+
+.loading-screen {
+    align-items: center;
+    justify-content: center;
+}

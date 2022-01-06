@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections;
-using UI;
+using UI.Game;
 using UnitManagement.Extensions;
 using UnityEngine;
 using UnityEngine.InputSystem;

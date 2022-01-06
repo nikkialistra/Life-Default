@@ -1,7 +1,6 @@
 ﻿using MapGeneration.Generators;
 using UnityEngine;
 using UnityEngine.UIElements;
-using Zenject;
 
 namespace UI.Game
 {
@@ -13,28 +12,29 @@ namespace UI.Game
 
         private MapGenerator _mapGenerator;
 
-        [Inject]
-        public void Construct(MapGenerator mapGenerator)
-        {
-            _mapGenerator = mapGenerator;
-        }
+        // [Inject]
+        // public void Construct(MapGenerator mapGenerator)
+        // {
+        //     _mapGenerator = mapGenerator;
+        // }
 
         private void Awake()
         {
             _root = GetComponent<UIDocument>().rootVisualElement;
 
             _loadingScreen = _root.Q<VisualElement>("loading-screen");
+            Hide();
         }
 
-        private void OnEnable()
-        {
-            _mapGenerator.Load += Hide;
-        }
-
-        private void OnDisable()
-        {
-            _mapGenerator.Load -= Hide;
-        }
+        // private void OnEnable()
+        // {
+        //     _mapGenerator.Load += Hide;
+        // }
+        //
+        // private void OnDisable()
+        // {
+        //     _mapGenerator.Load -= Hide;
+        // }
 
         private void Hide()
         {

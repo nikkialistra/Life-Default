@@ -5,6 +5,7 @@ using Common;
 using Sirenix.OdinInspector;
 using UnityEditor;
 using UnityEngine;
+using Zenject;
 
 namespace MapGeneration.Generators
 {
@@ -135,6 +136,10 @@ namespace MapGeneration.Generators
         {
             Instantiate(prefab, transform.parent);
             Destroy(gameObject);
+        }
+
+        public class Factory : PlaceholderFactory<MapGenerator>
+        {
         }
     }
 }

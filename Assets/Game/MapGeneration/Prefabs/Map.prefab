@@ -207,7 +207,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8fdaa08c20844229c1293f79aeb2295, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _tryLoadFromSaved: 1
+  _tryLoadFromSaved: 0
   _autoSave: 0
   _terrainGenerator: {fileID: 5052065525742440262}
   _terrainObjectGenerators:

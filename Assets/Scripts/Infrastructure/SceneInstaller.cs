@@ -1,10 +1,8 @@
 ﻿using Cameras;
-using MapGeneration.Generators;
 using Saving;
 using Saving.Serialization;
 using Sirenix.OdinInspector;
 using Testing;
-using UI;
 using UI.Game;
 using UnitManagement.Selection;
 using UnitManagement.Targeting;
@@ -85,10 +83,6 @@ namespace Infrastructure
         [Required]
         [SerializeField] private SavingLoadingGame _savingLoadingGame;
 
-        [Title("Map")]
-        [Required]
-        [SerializeField] private MapGenerator _mapGenerator;
-
         public override void InstallBindings()
         {
             BindTesting();
@@ -99,7 +93,6 @@ namespace Infrastructure
             BindUnitSpawning();
             BindUi();
             BindSaving();
-            BindMap();
         }
 
         private void BindTesting()
@@ -170,11 +163,6 @@ namespace Infrastructure
             Container.Bind<Serialization>().AsSingle();
             Container.BindInstance(_savingLoadingGame);
             Container.BindInterfacesTo<UnitsResetting>().AsSingle().NonLazy();
-        }
-
-        private void BindMap()
-        {
-            Container.BindInstance(_mapGenerator);
         }
 
         private class UnitFacadePool : MonoPoolableMemoryPool<UnitType, Vector3, IMemoryPool, UnitFacade>

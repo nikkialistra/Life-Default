@@ -4,6 +4,7 @@ using MapGeneration.Data;
 using MapGeneration.Settings;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using Zenject;
 
 namespace MapGeneration.Generators
 {
@@ -37,9 +38,11 @@ namespace MapGeneration.Generators
 
         private bool _chunkGenerated;
 
-        private void Awake()
+        [Inject]
+        public void Construct(Camera camera)
         {
-            _viewer = Camera.main.transform;
+            _viewer = camera.transform;
+            Debug.Log(_viewer);
         }
 
         public event Action ChunkGenerated;

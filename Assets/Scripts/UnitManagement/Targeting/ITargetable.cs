@@ -9,6 +9,6 @@ namespace UnitManagement.Targeting
 
         public GameObject GameObject { get; }
 
-        bool TryAcceptTarget(Target target);
+        bool AcceptTarget(Target target);
     }
 }

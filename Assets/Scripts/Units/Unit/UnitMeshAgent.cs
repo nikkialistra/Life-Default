@@ -48,7 +48,7 @@ namespace Units.Unit
             _activated = true;
         }
 
-        public bool TryAcceptTarget(Target target)
+        public bool AcceptTarget(Target target)
         {
             if (!_activated)
             {
@@ -56,14 +56,9 @@ namespace Units.Unit
             }
 
             _aiPath.destination = target.transform.position;
-            var destinationSet = _aiPath.hasPath;
-            
-            if (destinationSet)
-            {
-                Move();
-            }
-
-            return destinationSet;
+            _aiPath.OnTargetReached();
+            Move();
+            return true;
         }
 
         private void Move()

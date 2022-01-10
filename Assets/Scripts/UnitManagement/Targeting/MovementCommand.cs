@@ -97,7 +97,7 @@ namespace UnitManagement.Targeting
                     continue;
                 }
 
-                if (targetable.TryAcceptTarget(target))
+                if (targetable.AcceptTarget(target))
                 {
                     _pool.Link(target, targetable);
                 }

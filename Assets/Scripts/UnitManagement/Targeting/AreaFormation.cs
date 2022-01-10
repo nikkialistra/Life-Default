@@ -25,12 +25,24 @@ namespace UnitManagement.Targeting
         private float _offsetUpDown;
         private float _offsetLeftRight;
 
+        private Vector3[] _areaFormationPositions;
+
         public Vector3[] CalculatePositions(int count, Quaternion rotation, Vector3 targetPoint, float height)
         {
             Initialize(count, rotation, targetPoint, height);
 
-            var areaFormationPositions = new Vector3[count];
+            _areaFormationPositions = new Vector3[count];
 
+            SetStartingRow();
+
+            var lastIndex = CalculateFormationPositions();
+            CalculateBehindFormationPositionsFrom(lastIndex);
+
+            return _areaFormationPositions;
+        }
+
+        private void SetStartingRow()
+        {
             if (_startFromMiddleRow)
             {
                 _offsetUpDown = _rowsCount % 2 == 1 ? 0f : -0.5f;
@@ -39,7 +51,10 @@ namespace UnitManagement.Targeting
             {
                 _offsetUpDown = (float)_rowsTotalCount / 2 - 0.5f;
             }
+        }
 
+        private int CalculateFormationPositions()
+        {
             var currentPosition = 0;
             for (var i = 0; i < _rowsCount; i++)
             {
@@ -54,7 +69,7 @@ namespace UnitManagement.Targeting
 
                 for (var j = 0; j < _columnsCount; j++)
                 {
-                    areaFormationPositions[currentPosition] = GetUnitPositionInFormation(
+                    _areaFormationPositions[currentPosition] = GetUnitPositionInFormation(
                         _targetPointFlat, _rotation, _offsetUpDown, _offsetLeftRight);
 
                     if (_startFromMiddleColumn)
@@ -79,6 +94,11 @@ namespace UnitManagement.Targeting
                 }
             }
 
+            return currentPosition;
+        }
+
+        private void CalculateBehindFormationPositionsFrom(int currentPosition)
+        {
             if (_behindFormation > 0)
             {
                 if (_startFromMiddleRow)
@@ -99,7 +119,7 @@ namespace UnitManagement.Targeting
 
                 for (var j = 0; j < _behindFormation; j++)
                 {
-                    areaFormationPositions[currentPosition] = GetUnitPositionInFormation(
+                    _areaFormationPositions[currentPosition] = GetUnitPositionInFormation(
                         _targetPointFlat, _rotation, _offsetUpDown, _offsetLeftRight
                     );
 
@@ -115,8 +135,6 @@ namespace UnitManagement.Targeting
                     currentPosition++;
                 }
             }
-
-            return areaFormationPositions;
         }
 
         private void Initialize(int count, Quaternion rotation, Vector3 targetPoint, float height)

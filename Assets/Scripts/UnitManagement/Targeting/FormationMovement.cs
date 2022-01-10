@@ -5,13 +5,13 @@ using Zenject;
 
 namespace UnitManagement.Targeting
 {
-    public class FormationComposing : MonoBehaviour
+    public class FormationMovement : MonoBehaviour
     {
         [SerializeField] private FormationType _formationType;
-        
+
         private List<ITargetable> _targetables;
         private Target _target;
-        
+
         private TargetPool _targetPool;
 
         [Inject]
@@ -25,29 +25,28 @@ namespace UnitManagement.Targeting
             _targetables = targetables;
             _target = target;
 
-            CalculateUnitPositions(GenerateFormation(target.transform.position));
+            MoveUnitsToPositions(GenerateFormation(target.transform.position));
         }
 
-        private void CalculateUnitPositions(Vector3[] formationPositions)
+        private void MoveUnitsToPositions(Vector3[] formationPositions)
         {
-            var assignedSpots = new bool[formationPositions.Length];
-            var assignedUnits = new bool[formationPositions.Length];
+            var assignedPositionsBitmask = new bool[formationPositions.Length];
+            var assignedUnitsBitmask = new bool[formationPositions.Length];
 
-            var currentMiddlePoint = FindMiddlePointBetweenUnits();
+            var middlePoint = FindMiddlePointBetweenUnits();
 
-            for(var i = 0; i < formationPositions.Length; i++)
+            for (var i = 0; i < formationPositions.Length; i++)
             {
-                var farthestSpotIndex = _formationType == FormationType.Free
-                    ? FarthestSpotIndexFrom(formationPositions, assignedSpots, currentMiddlePoint)
+                var formationIndex = _formationType == FormationType.Free
+                    ? FarthestPointIndexFrom(formationPositions, assignedPositionsBitmask, middlePoint)
                     : i;
 
-                var closestUnitIndex = ClosestUnitIndexTo(formationPositions[farthestSpotIndex], assignedUnits);
+                var closestUnitIndex = ClosestUnitIndexTo(formationPositions[formationIndex], assignedUnitsBitmask);
 
-                assignedSpots[farthestSpotIndex] = true;
-                assignedUnits[closestUnitIndex] = true;
-                
+                assignedPositionsBitmask[formationIndex] = true;
+                assignedUnitsBitmask[closestUnitIndex] = true;
 
-                var accepted = _targetables[closestUnitIndex].AcceptTargetPoint(formationPositions[farthestSpotIndex]);
+                var accepted = _targetables[closestUnitIndex].AcceptTargetPoint(formationPositions[formationIndex]);
                 if (accepted)
                 {
                     _targetPool.Link(_target, _targetables[closestUnitIndex]);
@@ -55,46 +54,49 @@ namespace UnitManagement.Targeting
             }
         }
 
-        private static int FarthestSpotIndexFrom(Vector3[] formationPositions, bool[] assignedSpots, Vector3 relativeSpot)
+        private static int FarthestPointIndexFrom(Vector3[] formationPositions, bool[] assignedPositionsBitmask,
+            Vector3 origin)
         {
-            var farthestSpotDistance = 0f;
-            var farthestSpotIndex = 0;
-            for(var i = 0; i < assignedSpots.Length; i++)
+            var farthestPointDistance = 0f;
+            var farthestPointIndex = 0;
+            for (var i = 0; i < assignedPositionsBitmask.Length; i++)
             {
-                if (assignedSpots[i])
+                if (assignedPositionsBitmask[i])
                 {
                     continue;
                 }
 
-                var distanceToSpot = Vector3.Distance(relativeSpot, formationPositions[i]);
-                if(distanceToSpot > farthestSpotDistance)
+                var distanceToPoint = Vector3.Distance(origin, formationPositions[i]);
+                if (distanceToPoint > farthestPointDistance)
                 {
-                    farthestSpotDistance = distanceToSpot;
-                    farthestSpotIndex = i;
+                    farthestPointDistance = distanceToPoint;
+                    farthestPointIndex = i;
                 }
             }
-            return farthestSpotIndex;
+
+            return farthestPointIndex;
         }
 
-        private int ClosestUnitIndexTo(Vector3 targetSpot, bool[] assignedUnits)
+        private int ClosestUnitIndexTo(Vector3 targetPoint, bool[] assignedUnitsBitmask)
         {
             var closestUnitDistance = 1000f;
-            float distanceToSpot;
+            float distanceToPoint;
             var closestUnitIndex = 0;
-            for(var i = 0; i < assignedUnits.Length; i++)
+            for (var i = 0; i < assignedUnitsBitmask.Length; i++)
             {
-                if (assignedUnits[i])
+                if (assignedUnitsBitmask[i])
                 {
                     continue;
                 }
 
-                distanceToSpot = Vector3.Distance(_targetables[i].Position, targetSpot);
-                if (distanceToSpot < closestUnitDistance)
+                distanceToPoint = Vector3.Distance(_targetables[i].Position, targetPoint);
+                if (distanceToPoint < closestUnitDistance)
                 {
-                    closestUnitDistance = distanceToSpot;
+                    closestUnitDistance = distanceToPoint;
                     closestUnitIndex = i;
                 }
             }
+
             return closestUnitIndex;
         }
 
@@ -104,7 +106,7 @@ namespace UnitManagement.Targeting
             {
                 return Array.Empty<Vector3>();
             }
-            
+
             return _formationType switch
             {
                 FormationType.Free => GenerateFreeFormation(targetPoint),
@@ -119,11 +121,11 @@ namespace UnitManagement.Targeting
         private Vector3[] GenerateFreeFormation(Vector3 targetPoint)
         {
             var originPoint = FindMiddlePointBetweenUnits();
-            
+
             var difference = targetPoint - originPoint;
 
             var freeFormationPositions = new Vector3[_targetables.Count];
-            for(var i = 0; i < _targetables.Count; i++)
+            for (var i = 0; i < _targetables.Count; i++)
             {
                 var targetUnitPosition = _targetables[i].Position + difference;
                 freeFormationPositions[i] = new Vector3(
@@ -156,6 +158,7 @@ namespace UnitManagement.Targeting
             {
                 noFormationPositions[i] = targetPoint;
             }
+
             return noFormationPositions;
         }
 
@@ -176,9 +179,9 @@ namespace UnitManagement.Targeting
                 maxPositionZ = Mathf.Max(maxPositionZ, unit.Position.z);
             }
 
-            var middleSpot = new Vector3(
+            var middlePoint = new Vector3(
                 (minPositionX + maxPositionX) / 2, 0f, (minPositionZ + maxPositionZ) / 2);
-            return middleSpot;
+            return middlePoint;
         }
     }
 }

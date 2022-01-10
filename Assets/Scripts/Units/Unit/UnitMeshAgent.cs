@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections;
 using Pathfinding;
-using Sirenix.OdinInspector;
 using UnitManagement.Targeting;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 namespace Units.Unit
 {

@@ -1,39 +1,42 @@
-﻿using UI.Game;
+﻿using System;
+using System.Linq;
+using UI.Game;
+using Units.Services.Selecting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Zenject;
 
 namespace UnitManagement.Targeting
 {
-    [RequireComponent(typeof(MovementCommand))]
     public class MovementInput : MonoBehaviour
     {
         private Camera _camera;
         
         private GameViews _gameViews;
-        
-        private MovementCommand _movementCommand;
 
+        private SelectedUnits _selectedUnits;
+        
         private PlayerInput _playerInput;
 
         private InputAction _setTargetAction;
         private InputAction _positionAction;
 
         [Inject]
-        public void Construct(PlayerInput playerInput, Camera camera, GameViews gameViews)
+        public void Construct(PlayerInput playerInput, Camera camera, GameViews gameViews, SelectedUnits selectedUnits)
         {
             _playerInput = playerInput;
             _camera = camera;
             _gameViews = gameViews;
+            _selectedUnits = selectedUnits;
         }
 
         private void Awake()
         {
-            _movementCommand = GetComponent<MovementCommand>();
-            
             _setTargetAction = _playerInput.actions.FindAction("SetTarget");
             _positionAction = _playerInput.actions.FindAction("Position");
         }
+
+        public event Action<TargetObject, RaycastHit> TargetSet;
 
         private void OnEnable()
         {
@@ -47,7 +50,7 @@ namespace UnitManagement.Targeting
 
         private void SetTarget(InputAction.CallbackContext context)
         {
-            if (!_movementCommand.CanAcceptCommand || _gameViews.MouseOverUi)
+            if (!_selectedUnits.Units.Any() || _gameViews.MouseOverUi)
             {
                 return;
             }
@@ -58,7 +61,7 @@ namespace UnitManagement.Targeting
                 var targetObject = hit.transform.GetComponentInParent<TargetObject>();
                 if (targetObject != null)
                 {
-                    _movementCommand.MoveAll(targetObject, hit);
+                    TargetSet?.Invoke(targetObject, hit);
                 }
             }
         }

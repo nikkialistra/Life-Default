@@ -28,6 +28,7 @@ namespace Units.Unit
         public event Action<ITargetable> TargetReach;
 
         public GameObject GameObject => gameObject;
+        public Vector3 Position => transform.position;
         public float Velocity => _aiPath.velocity.magnitude;
 
         private void OnEnable()

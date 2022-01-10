@@ -8,6 +8,7 @@ namespace UnitManagement.Targeting
         public event Action<ITargetable> TargetReach;
 
         public GameObject GameObject { get; }
+        public Vector3 Position { get; }
 
         bool AcceptTargetPoint(Vector3 position);
     }

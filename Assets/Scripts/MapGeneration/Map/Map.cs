@@ -1,5 +1,6 @@
 ﻿using System;
 using MapGeneration.Generators;
+using UnityEngine;
 using Zenject;
 
 namespace MapGeneration.Map
@@ -9,10 +10,14 @@ namespace MapGeneration.Map
         private readonly MapGenerator.Factory _mapGeneratorFactory;
 
         private MapGenerator _mapGenerator;
+        private AstarPath _astarPath;
+        private TextAsset _graphData;
 
-        public Map(MapGenerator.Factory mapGeneratorFactory)
+        public Map(MapGenerator.Factory mapGeneratorFactory, AstarPath astarPath, TextAsset graphData)
         {
             _mapGeneratorFactory = mapGeneratorFactory;
+            _astarPath = astarPath;
+            _graphData = graphData;
         }
 
         public event Action Load;
@@ -32,6 +37,8 @@ namespace MapGeneration.Map
 
         private void OnLoad()
         {
+            _astarPath.data.DeserializeGraphs(_graphData.bytes);
+
             Load?.Invoke();
         }
     }

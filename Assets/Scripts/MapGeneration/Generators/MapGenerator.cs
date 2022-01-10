@@ -7,7 +7,6 @@ using Zenject;
 
 namespace MapGeneration.Generators
 {
-    [RequireComponent(typeof(NavMeshGenerator))]
     public class MapGenerator : MonoBehaviour
     {
         [SerializeField] private bool _autoSave;
@@ -17,17 +16,11 @@ namespace MapGeneration.Generators
         [SerializeField] private TerrainGenerator _terrainGenerator;
         [SerializeField] private List<TerrainObjectGenerator> _terrainObjectGenerators;
 
-        private NavMeshGenerator _navMeshGenerator;
-
         private bool _generated;
-
-        private void Awake()
-        {
-            _navMeshGenerator = GetComponent<NavMeshGenerator>();
-        }
+        private AstarPath _astarPath1;
 
         public event Action Load;
-
+        
         private void Start()
         {
             if (!_generated)
@@ -79,7 +72,6 @@ namespace MapGeneration.Generators
         private void OnChunkGenerated()
         {
             GenerateTerrainObjects();
-            GenerateNavMesh();
 
             Load?.Invoke();
 
@@ -95,6 +87,7 @@ namespace MapGeneration.Generators
             }
 
 #endif
+            
         }
 
         private void GenerateTerrainObjects()
@@ -103,11 +96,6 @@ namespace MapGeneration.Generators
             {
                 terrainObjectGenerator.Generate();
             }
-        }
-
-        private void GenerateNavMesh()
-        {
-            _navMeshGenerator.Build();
         }
 
         public class Factory : PlaceholderFactory<MapGenerator>

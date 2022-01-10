@@ -1,54 +1,51 @@
 ﻿using System;
 using System.Collections;
+using Pathfinding;
 using Sirenix.OdinInspector;
 using UnitManagement.Targeting;
 using UnityEngine;
-using UnityEngine.AI;
 using Random = UnityEngine.Random;
 
 namespace Units.Unit
 {
     [RequireComponent(typeof(UnitFacade))]
-    [RequireComponent(typeof(NavMeshAgent))]
+    [RequireComponent(typeof(AIPath))]
     public class UnitMeshAgent : MonoBehaviour, ITargetable
     {
-        [MinValue(0)]
-        [SerializeField] private float _distanceToGroup;
-
         private bool _activated;
 
         private Coroutine _movingCoroutine;
 
         private UnitFacade _unitFacade;
-        private NavMeshAgent _navMeshAgent;
+        private AIPath _aiPath;
 
         private void Awake()
         {
             _unitFacade = GetComponent<UnitFacade>();
-            _navMeshAgent = GetComponent<NavMeshAgent>();
+            _aiPath = GetComponent<AIPath>();
         }
 
         public event Action<ITargetable> TargetReach;
 
         public GameObject GameObject => gameObject;
+        public float Velocity => _aiPath.velocity.magnitude;
 
         private void OnEnable()
         {
-            _navMeshAgent.enabled = false;
-            _unitFacade.Spawn += ActivateSelf;
+            _unitFacade.Spawn += Activate;
             _unitFacade.Die += Deactivate;
         }
 
         private void OnDisable()
         {
-            _unitFacade.Spawn -= ActivateSelf;
+            _unitFacade.Spawn -= Activate;
             _unitFacade.Die -= Deactivate;
         }
 
-        private void ActivateSelf()
+        private void Activate()
         {
+            _aiPath.isStopped = false;
             _activated = true;
-            _navMeshAgent.enabled = true;
         }
 
         public bool TryAcceptTarget(Target target)
@@ -58,8 +55,9 @@ namespace Units.Unit
                 return false;
             }
 
-            var destinationSet =
-                _navMeshAgent.SetDestination(target.transform.position + Random.insideUnitSphere * _distanceToGroup);
+            _aiPath.destination = target.transform.position;
+            var destinationSet = _aiPath.hasPath;
+            
             if (destinationSet)
             {
                 Move();
@@ -80,7 +78,7 @@ namespace Units.Unit
 
         private IEnumerator Moving()
         {
-            while (NavMeshAgentWorking())
+            while (IsMoving())
             {
                 yield return null;
             }
@@ -88,14 +86,14 @@ namespace Units.Unit
             TargetReach?.Invoke(this);
         }
 
-        private bool NavMeshAgentWorking()
+        private bool IsMoving()
         {
-            return _navMeshAgent.pathPending || _navMeshAgent.remainingDistance > _navMeshAgent.stoppingDistance;
+            return !_aiPath.reachedDestination;
         }
 
         private void Deactivate()
         {
-            _navMeshAgent.ResetPath();
+            _aiPath.isStopped = true;
             _activated = false;
         }
     }

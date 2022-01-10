@@ -6,20 +6,20 @@ using UnityEngine.AI;
 
 namespace Units.Unit
 {
-    [RequireComponent(typeof(NavMeshAgent))]
+    [RequireComponent(typeof(UnitMeshAgent))]
     public class UnitAnimator : MonoBehaviour
     {
         [Required]
         [SerializeField] private Animator _animator;
 
-        private NavMeshAgent _navMeshAgent;
+        private UnitMeshAgent _unitMeshAgent;
 
         private readonly int _velocity = Animator.StringToHash("velocity");
         private readonly int _death = Animator.StringToHash("death");
 
         private void Awake()
         {
-            _navMeshAgent = GetComponent<NavMeshAgent>();
+            _unitMeshAgent = GetComponent<UnitMeshAgent>();
         }
 
         private void Update()
@@ -50,8 +50,7 @@ namespace Units.Unit
 
         private void SetAnimatorVelocity()
         {
-            var velocity = _navMeshAgent.velocity.magnitude;
-            _animator.SetFloat(_velocity, velocity);
+            _animator.SetFloat(_velocity, _unitMeshAgent.Velocity);
         }
     }
 }

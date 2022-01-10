@@ -156,7 +156,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5052065526676053635}
-  - component: {fileID: 5052065526676053633}
   - component: {fileID: 5052065526676053632}
   m_Layer: 0
   m_Name: Map
@@ -173,7 +172,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5052065526676053634}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.9228516, y: -21.280136, z: 40.40191}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -183,18 +182,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5052065526676053633
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5052065526676053634}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 49f655e7cbec4dc48343fba4878cc0b3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &5052065526676053632
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -207,8 +194,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8fdaa08c20844229c1293f79aeb2295, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _tryLoadFromSaved: 0
-  _autoSave: 1
+  _autoSave: 0
   _terrainGenerator: {fileID: 5052065525742440262}
   _terrainObjectGenerators:
   - {fileID: 5052065527054891186}

@@ -22,8 +22,6 @@ namespace Infrastructure
 
         [Title("Targeting")]
         [Required]
-        [SerializeField] private MovementCommand _movementCommand;
-        [Required]
         [SerializeField] private TargetPool _pool;
         [Required]
         [SerializeField] private Target _targetPrefab;
@@ -65,7 +63,6 @@ namespace Infrastructure
 
         private void BindTargeting()
         {
-            Container.BindInstance(_movementCommand);
             Container.BindInstance(_pool);
             Container.BindInstance(_targetPrefab).WhenInjectedInto<TargetPool>();
             Container.BindInstance(_targetParent).WhenInjectedInto<TargetPool>();

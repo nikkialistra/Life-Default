@@ -1,78 +1,45 @@
-﻿using System.Linq;
-using UI.Game;
+﻿using System.Collections.Generic;
+using System.Linq;
+using MapGeneration.Map;
+using Pathfinding;
 using Units.Services.Selecting;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using Zenject;
 
 namespace UnitManagement.Targeting
 {
     public class MovementCommand : MonoBehaviour
     {
-        private TargetPool _pool;
         private SelectedUnits _selectedUnits;
+        private TargetPool _pool;
 
-        private Camera _camera;
-
-        private PlayerInput _playerInput;
-
-        private InputAction _setTargetAction;
-        private InputAction _positionAction;
-        private GameViews _gameViews;
+        private Map _map;
+        
+        private AstarPath _astarPath;
+        private GridGraph _graph;
 
         [Inject]
-        public void Construct(PlayerInput playerInput, Camera camera, SelectedUnits selectedUnits, TargetPool pool,
-            GameViews gameViews)
+        public void Construct(SelectedUnits selectedUnits, TargetPool pool, Map map, AstarPath astarPath)
         {
-            _playerInput = playerInput;
-            _camera = camera;
             _selectedUnits = selectedUnits;
             _pool = pool;
-            _gameViews = gameViews;
+            _map = map;
+            _astarPath = astarPath;
         }
 
-        private void Awake()
-        {
-            _setTargetAction = _playerInput.actions.FindAction("SetTarget");
-            _positionAction = _playerInput.actions.FindAction("Position");
-        }
+        public bool CanAcceptCommand => _selectedUnits.Units.Any();
 
         private void OnEnable()
         {
-            _setTargetAction.started += SetTarget;
+            _map.Load += OnMapLoad;
         }
 
         private void OnDisable()
         {
-            _setTargetAction.started -= SetTarget;
+            _map.Load -= OnMapLoad;
         }
 
-        private void SetTarget(InputAction.CallbackContext context)
-        {
-            if (!_selectedUnits.Units.Any() || _gameViews.MouseOverUi)
-            {
-                return;
-            }
-
-            var ray = GetRay();
-            if (Physics.Raycast(ray, out var hit))
-            {
-                var targetObject = hit.transform.GetComponentInParent<TargetObject>();
-                if (targetObject != null)
-                {
-                    MoveAll(targetObject, hit);
-                }
-            }
-        }
-
-        private Ray GetRay()
-        {
-            var mousePosition = _positionAction.ReadValue<Vector2>();
-            var ray = _camera.ScreenPointToRay(new Vector3(mousePosition.x, mousePosition.y, _camera.nearClipPlane));
-            return ray;
-        }
-
-        private void MoveAll(TargetObject targetObject, RaycastHit hit)
+        public void MoveAll(TargetObject targetObject, RaycastHit hit)
         {
             if (targetObject.HasDestinationPoint)
             {
@@ -87,7 +54,19 @@ namespace UnitManagement.Targeting
             }
         }
 
+        private void OnMapLoad()
+        {
+            _graph = _astarPath.data.gridGraph;
+        }
+
         private void MoveAllTo(Target target)
+        {
+            var targetables = GetTargetables().ToList();
+
+            CalculateMovingPositions(targetables, target);
+        }
+
+        private IEnumerable<ITargetable> GetTargetables()
         {
             foreach (var unit in _selectedUnits.Units)
             {
@@ -97,11 +76,45 @@ namespace UnitManagement.Targeting
                     continue;
                 }
 
-                if (targetable.AcceptTarget(target))
+                yield return targetable;
+            }
+        }
+
+        private void CalculateMovingPositions(List<ITargetable> targetables, Target target)
+        {
+            if (_graph == null)
+            {
+                return;
+            }
+
+            var positions = GetPossiblePositions(target, targetables.Count);
+
+            foreach (var targetable in targetables)
+            {
+                if (targetable.AcceptTargetPoint(positions.Dequeue()))
                 {
                     _pool.Link(target, targetable);
                 }
             }
+        }
+
+        private Queue<Vector3> GetPossiblePositions(Target target, int count)
+        {
+            var node = _graph.GetNearest(target.transform.position).node;
+            
+            var positions = new Queue<Vector3>();
+            
+            positions.Enqueue((Vector3)node.position);
+
+            node.GetConnections(otherNode =>
+            {
+                if (otherNode.Walkable)
+                {
+                    positions.Enqueue((Vector3)otherNode.position);
+                }
+            });
+
+            return positions;
         }
     }
 }

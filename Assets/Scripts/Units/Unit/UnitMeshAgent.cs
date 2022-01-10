@@ -48,14 +48,14 @@ namespace Units.Unit
             _activated = true;
         }
 
-        public bool AcceptTarget(Target target)
+        public bool AcceptTargetPoint(Vector3 position)
         {
             if (!_activated)
             {
                 return false;
             }
 
-            _aiPath.destination = target.transform.position;
+            _aiPath.destination = position;
             _aiPath.OnTargetReached();
             Move();
             return true;

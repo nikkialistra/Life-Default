@@ -2,7 +2,31 @@
          xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements"
          noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/Resources/UI/Styles/GameLook.uss?fileID=7433441132597879392&amp;guid=295c2b0dcdb1e5f4fbcbc0c651a015ef&amp;type=3#GameLook"/>
-    <ui:VisualElement name="game-look" picking-mode="Ignore" class="game-look">
+    <ui:VisualElement name="game-look" picking-mode="Ignore" class="game-look" style="justify-content: space-between;">
+        <ui:VisualElement name="top-panel" style="align-items: flex-end;">
+            <ui:VisualElement name="resources" class="resources">
+                <ui:VisualElement name="wood" class="resources__element">
+                    <ui:VisualElement name="wood__icon" class="resources__element__icon wood__icon"/>
+                    <ui:Label text="0" display-tooltip-when-elided="true" name="wood__count"
+                              class="resources__element_count"/>
+                </ui:VisualElement>
+                <ui:VisualElement name="stone" class="resources__element">
+                    <ui:VisualElement name="stone__icon" class="resources__element__icon stone__icon"/>
+                    <ui:Label text="0" display-tooltip-when-elided="true" name="stone__count"
+                              class="resources__element_count"/>
+                </ui:VisualElement>
+                <ui:VisualElement name="emerald" class="resources__element">
+                    <ui:VisualElement name="emerald__icon" class="resources__element__icon emerald__icon"/>
+                    <ui:Label text="0" display-tooltip-when-elided="true" name="emerald__count"
+                              class="resources__element_count"/>
+                </ui:VisualElement>
+                <ui:VisualElement name="crystal" class="resources__element">
+                    <ui:VisualElement name="crystal__icon" class="resources__element__icon crystal__icon"/>
+                    <ui:Label text="0" display-tooltip-when-elided="true" name="crystal__count"
+                              class="resources__element_count"/>
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
         <ui:VisualElement name="bottom-panel" picking-mode="Ignore" class="bottom-panel">
             <ui:VisualElement name="mini-map" picking-mode="Ignore" class="mini-map"/>
             <ui:VisualElement name="info-panel" class="info-panel"/>
@@ -30,9 +54,7 @@
             </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>
-    <ui:VisualElement name="loading-screen" class="loading-screen"
-                      style="background-image: resource(&apos;UI/Textures/LoadingScreen&apos;);">
-        <ui:Label text="Loading..." display-tooltip-when-elided="true" name="loading" class="loading"
-                  style="letter-spacing: 5px;"/>
+    <ui:VisualElement name="loading-screen" class="loading-screen" style="visibility: hidden;">
+        <ui:Label text="Loading..." display-tooltip-when-elided="true" name="loading" class="loading"/>
     </ui:VisualElement>
 </ui:UXML>

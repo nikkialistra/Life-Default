@@ -302,7 +302,7 @@
     top: 0;
     right: 0;
     bottom: 0;
-    background-image: url('project://database/Assets/Game/Entities/Skins/Textures/Animals/AnimalA.png?fileID=2800000&guid=876b90c94d25e534ebebc4cb0563871e&type=3#AnimalA');
+    background-image: resource('UI/Textures/LoadingScreen');
 }
 
 .loading {
@@ -311,10 +311,59 @@
     -unity-font-definition: none;
     -unity-font: resource('Fonts/Mukta-Medium');
     font-size: 120px;
-    color: rgba(255, 255, 255, 255);
+    color: rgb(255, 255, 255);
 }
 
 .loading-screen {
     align-items: center;
     justify-content: center;
+}
+
+.resources {
+    height: 50px;
+    width: 400px;
+    flex-direction: row;
+}
+
+.resources__element {
+    width: 100px;
+    height: 50px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;
+}
+
+.resources__element__icon {
+    width: 50px;
+    height: 50px;
+    background-color: rgba(255, 255, 255, 0);
+}
+
+.resources__element_count {
+    -unity-font: resource('Fonts/Mukta-Medium');
+    -unity-font-definition: none;
+    font-size: 20px;
+    padding-left: 3px;
+    padding-right: 3px;
+    width: 40px;
+    height: 50px;
+    -unity-text-align: middle-center;
+    color: rgb(255, 255, 255);
+}
+
+.wood__icon {
+    background-image: resource('UI/Textures/ResourceIcons/Wood');
+}
+
+.stone__icon {
+    background-image: resource('UI/Textures/ResourceIcons/Stone');
+}
+
+.emerald__icon {
+    background-image: resource('UI/Textures/ResourceIcons/Emerald');
+}
+
+.crystal__icon {
+    background-image: resource('UI/Textures/ResourceIcons/Crystal');
 }

@@ -16,6 +16,8 @@ namespace Units.Services
 
         private IEnumerable<UnitFacade> _units;
 
+        private readonly Dictionary<UnitType, int> _unitTypeCounts = new();
+
         [Inject]
         public void Construct(UnitRepository unitRepository, UnitTypesView unitTypesView)
         {
@@ -25,6 +27,7 @@ namespace Units.Services
 
         private void Start()
         {
+            FillInCounts();
             Show();
         }
 
@@ -38,6 +41,15 @@ namespace Units.Services
         {
             _unitRepository.Add -= IncreaseUnitTypeCount;
             _unitRepository.Remove -= DecreaseUnitTypeCount;
+        }
+
+        private void FillInCounts()
+        {
+            _unitTypeCounts.Add(UnitType.Traveler, 0);
+            _unitTypeCounts.Add(UnitType.Lumberjack, 0);
+            _unitTypeCounts.Add(UnitType.Mason, 0);
+            _unitTypeCounts.Add(UnitType.Melee, 0);
+            _unitTypeCounts.Add(UnitType.Archer, 0);
         }
 
         private void Show()
@@ -54,17 +66,40 @@ namespace Units.Services
         {
             var count = _units.Count(unit => unit.UnitType == unitType);
 
-            _unitTypesView.ChangeUnitTypeCount(unitType, count);
+            _unitTypesView.UpdateUnitTypeCount(unitType, count);
         }
 
         private void IncreaseUnitTypeCount(UnitFacade unit)
         {
-            _unitTypesView.IncreaseUnitTypeCount(unit.UnitType);
+            CheckUnitTypeExistence(unit.UnitType);
+
+            _unitTypeCounts[unit.UnitType] += 1;
+            var value = _unitTypeCounts[unit.UnitType];
+
+            _unitTypesView.UpdateUnitTypeCount(unit.UnitType, _unitTypeCounts[unit.UnitType]);
         }
 
         private void DecreaseUnitTypeCount(UnitFacade unit)
         {
-            _unitTypesView.DecreaseFromUnitTypeCount(unit.UnitType);
+            CheckUnitTypeExistence(unit.UnitType);
+
+            _unitTypeCounts[unit.UnitType] -= 1;
+            var value = _unitTypeCounts[unit.UnitType];
+
+            if (value < 0)
+            {
+                throw new InvalidOperationException($"{unit.UnitType} cannot be less than zero");
+            }
+
+            _unitTypesView.UpdateUnitTypeCount(unit.UnitType, _unitTypeCounts[unit.UnitType]);
+        }
+
+        private void CheckUnitTypeExistence(UnitType unitType)
+        {
+            if (!_unitTypeCounts.ContainsKey(unitType))
+            {
+                throw new ArgumentException($"Dictionary doesn't contain key {unitType}");
+            }
         }
     }
 }

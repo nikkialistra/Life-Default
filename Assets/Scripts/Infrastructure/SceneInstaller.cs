@@ -1,4 +1,5 @@
 ﻿using Cameras;
+using ResourceManagement;
 using Saving;
 using Saving.Serialization;
 using Sirenix.OdinInspector;
@@ -37,6 +38,12 @@ namespace Infrastructure
         [SerializeField] private UnitInfoView _unitInfoView;
         [Required]
         [SerializeField] private UnitsInfoView _unitsInfoView;
+        [Required]
+        [SerializeField] private ResourcesView _resourcesView;
+
+        [Title("Resources")]
+        [Required]
+        [SerializeField] private ResourcesCounts _resourcesCounts;
 
         [Title("Saving")]
         [Required]
@@ -49,6 +56,7 @@ namespace Infrastructure
             BindTesting();
             BindInput();
             BindUi();
+            BindResources();
             BindSaving();
         }
 
@@ -71,7 +79,6 @@ namespace Infrastructure
             Container.BindInstance(_playerInput);
         }
 
-
         private void BindUi()
         {
             Container.BindInstance(_gameViews);
@@ -79,6 +86,12 @@ namespace Infrastructure
             Container.BindInstance(_infoPanelView);
             Container.BindInstance(_unitInfoView);
             Container.BindInstance(_unitsInfoView);
+            Container.BindInstance(_resourcesView);
+        }
+
+        private void BindResources()
+        {
+            Container.BindInstance(_resourcesCounts);
         }
 
         private void BindSaving()

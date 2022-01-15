@@ -12,7 +12,6 @@ namespace UI.Game
         private VisualElement _tree;
 
         private readonly Dictionary<UnitType, Label> _unitTypeLabels = new();
-        private readonly Dictionary<UnitType, int> _unitTypeCounts = new();
 
         private VisualElement _travelerType;
         private VisualElement _lumberjackType;
@@ -32,7 +31,6 @@ namespace UI.Game
 
             FillInTypes();
             FillInLabels();
-            FillInCounts();
         }
 
         public event Action<UnitType> LeftClick;
@@ -61,45 +59,12 @@ namespace UI.Game
             _archerType.UnregisterCallback<MouseDownEvent, EventArgs>(TypeOnMouseDownEvent);
         }
 
-        public void ChangeUnitTypeCount(UnitType unitType, int value)
+        public void UpdateUnitTypeCount(UnitType unitType, int value)
         {
             CheckUnitTypeExistence(unitType);
-
-            _unitTypeCounts[unitType] = value;
 
             var label = _unitTypeLabels[unitType];
             label.text = $"{value}";
-
-            UpdateUnitTypeStyles(value, label);
-        }
-
-        public void IncreaseUnitTypeCount(UnitType unitType)
-        {
-            CheckUnitTypeExistence(unitType);
-
-            _unitTypeCounts[unitType] += 1;
-            var value = _unitTypeCounts[unitType];
-
-            var label = _unitTypeLabels[unitType];
-            label.text = $"{_unitTypeCounts[unitType]}";
-
-            UpdateUnitTypeStyles(value, label);
-        }
-
-        public void DecreaseFromUnitTypeCount(UnitType unitType)
-        {
-            CheckUnitTypeExistence(unitType);
-
-            _unitTypeCounts[unitType] -= 1;
-            var value = _unitTypeCounts[unitType];
-
-            if (value < 0)
-            {
-                throw new InvalidOperationException("UnitType cannot be less than zero");
-            }
-
-            var label = _unitTypeLabels[unitType];
-            label.text = $"{_unitTypeCounts[unitType]}";
 
             UpdateUnitTypeStyles(value, label);
         }
@@ -153,15 +118,6 @@ namespace UI.Game
             _unitTypeLabels.Add(UnitType.Mason, _tree.Q<Label>("mason-type__count"));
             _unitTypeLabels.Add(UnitType.Melee, _tree.Q<Label>("melee-type__count"));
             _unitTypeLabels.Add(UnitType.Archer, _tree.Q<Label>("archer-type__count"));
-        }
-
-        private void FillInCounts()
-        {
-            _unitTypeCounts.Add(UnitType.Traveler, 0);
-            _unitTypeCounts.Add(UnitType.Lumberjack, 0);
-            _unitTypeCounts.Add(UnitType.Mason, 0);
-            _unitTypeCounts.Add(UnitType.Melee, 0);
-            _unitTypeCounts.Add(UnitType.Archer, 0);
         }
     }
 }

@@ -340,7 +340,7 @@
     background-color: rgba(255, 255, 255, 0);
 }
 
-.resources__element_count {
+.resources__element__count {
     -unity-font: resource('Fonts/Mukta-Medium');
     -unity-font-definition: none;
     font-size: 20px;

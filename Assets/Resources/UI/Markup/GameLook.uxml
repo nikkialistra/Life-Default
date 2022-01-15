@@ -8,22 +8,22 @@
                 <ui:VisualElement name="wood" class="resources__element">
                     <ui:VisualElement name="wood__icon" class="resources__element__icon wood__icon"/>
                     <ui:Label text="0" display-tooltip-when-elided="true" name="wood__count"
-                              class="resources__element_count"/>
+                              class="resources__element__count"/>
                 </ui:VisualElement>
                 <ui:VisualElement name="stone" class="resources__element">
                     <ui:VisualElement name="stone__icon" class="resources__element__icon stone__icon"/>
                     <ui:Label text="0" display-tooltip-when-elided="true" name="stone__count"
-                              class="resources__element_count"/>
+                              class="resources__element__count"/>
                 </ui:VisualElement>
                 <ui:VisualElement name="emerald" class="resources__element">
                     <ui:VisualElement name="emerald__icon" class="resources__element__icon emerald__icon"/>
                     <ui:Label text="0" display-tooltip-when-elided="true" name="emerald__count"
-                              class="resources__element_count"/>
+                              class="resources__element__count"/>
                 </ui:VisualElement>
                 <ui:VisualElement name="crystal" class="resources__element">
                     <ui:VisualElement name="crystal__icon" class="resources__element__icon crystal__icon"/>
                     <ui:Label text="0" display-tooltip-when-elided="true" name="crystal__count"
-                              class="resources__element_count"/>
+                              class="resources__element__count"/>
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>

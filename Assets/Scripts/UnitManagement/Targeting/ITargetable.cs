@@ -10,6 +10,6 @@ namespace UnitManagement.Targeting
         public GameObject GameObject { get; }
         public Vector3 Position { get; }
 
-        bool AcceptTargetPoint(Vector3 position);
+        bool TryAcceptTargetPoint(Vector3 position);
     }
 }

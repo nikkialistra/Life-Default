@@ -13,6 +13,7 @@ namespace Units.Unit
     [RequireComponent(typeof(UnitModelElements))]
     [RequireComponent(typeof(UnitMeshAgent))]
     [RequireComponent(typeof(UnitSaveLoadHandler))]
+    [RequireComponent(typeof(UnitBehavior))]
     public class UnitFacade : MonoBehaviour, IPoolable<UnitType, Vector3, IMemoryPool>, IDisposable
     {
         [Required]
@@ -32,6 +33,7 @@ namespace Units.Unit
         private UnitAnimator _unitAnimator;
         private UnitModelElements _unitModelElements;
         private UnitMeshAgent _unitMeshAgent;
+        private UnitBehavior _unitBehavior;
 
         private IMemoryPool _pool;
 
@@ -41,6 +43,7 @@ namespace Units.Unit
             _unitAnimator = GetComponent<UnitAnimator>();
             _unitModelElements = GetComponent<UnitModelElements>();
             _unitMeshAgent = GetComponent<UnitMeshAgent>();
+            _unitBehavior = GetComponent<UnitBehavior>();
 
             UnitSaveLoadHandler = GetComponent<UnitSaveLoadHandler>();
         }
@@ -52,7 +55,7 @@ namespace Units.Unit
         public event Action Selected;
         public event Action Deselected;
 
-        public ITargetable Targetable => _unitMeshAgent;
+        public ITargetable Targetable => _unitBehavior;
 
         public UnitSaveLoadHandler UnitSaveLoadHandler { get; private set; }
 

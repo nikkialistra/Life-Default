@@ -56,7 +56,7 @@ namespace UnitManagement.Targeting
                 assignedTargetablesBitmask[closestTargetableIndex] = true;
 
                 var accepted = _targetables[closestTargetableIndex]
-                    .AcceptTargetPoint(formationPositions[formationIndex]);
+                    .TryAcceptTargetPoint(formationPositions[formationIndex]);
                 if (accepted)
                 {
                     _targetPool.Link(_target, _targetables[closestTargetableIndex]);

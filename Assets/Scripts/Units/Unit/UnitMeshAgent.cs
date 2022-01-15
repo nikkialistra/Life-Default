@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Collections;
 using Pathfinding;
-using UnitManagement.Targeting;
 using UnityEngine;
 
 namespace Units.Unit
 {
     [RequireComponent(typeof(UnitFacade))]
     [RequireComponent(typeof(AIPath))]
-    public class UnitMeshAgent : MonoBehaviour, ITargetable
+    public class UnitMeshAgent : MonoBehaviour
     {
         private bool _activated;
 
@@ -23,11 +22,11 @@ namespace Units.Unit
             _aiPath = GetComponent<AIPath>();
         }
 
-        public event Action<ITargetable> TargetReach;
-
-        public GameObject GameObject => gameObject;
-        public Vector3 Position => transform.position;
+        public event Action TargetReach;
+        
         public float Velocity => _aiPath.velocity.magnitude;
+
+        public bool CanAcceptTargetPoint => _activated;
 
         private void OnEnable()
         {
@@ -41,23 +40,16 @@ namespace Units.Unit
             _unitFacade.Die -= Deactivate;
         }
 
+        public void SetDestination(Vector3 position)
+        {
+            _aiPath.destination = position;
+            Move();
+        }
+
         private void Activate()
         {
             _aiPath.isStopped = false;
             _activated = true;
-        }
-
-        public bool AcceptTargetPoint(Vector3 position)
-        {
-            if (!_activated)
-            {
-                return false;
-            }
-
-            _aiPath.destination = position;
-            _aiPath.OnTargetReached();
-            Move();
-            return true;
         }
 
         private void Move()
@@ -77,7 +69,7 @@ namespace Units.Unit
                 yield return null;
             }
 
-            TargetReach?.Invoke(this);
+            TargetReach?.Invoke();
         }
 
         private bool IsMoving()

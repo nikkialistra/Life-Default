@@ -9,9 +9,13 @@ namespace Units.Unit
     [RequireComponent(typeof(UnitMeshAgent))]
     public class UnitBehavior : MonoBehaviour, ITargetable
     {
+        private const string MovingToTarget = "movingToTarget";
+        
         private Root _behaviorTree;
         
         private UnitMeshAgent _unitMeshAgent;
+        
+        private Vector3 _desiredPosition;
 
         private void Awake()
         {
@@ -37,6 +41,12 @@ namespace Units.Unit
         private void Start()
         {
             ConstructBehaviorTree();
+
+#if UNITY_EDITOR
+            var debugger = (Debugger)gameObject.AddComponent(typeof(Debugger));
+            debugger.BehaviorTree = _behaviorTree;
+#endif
+            
             _behaviorTree.Start();
         }
         
@@ -44,7 +54,7 @@ namespace Units.Unit
         {
             StopBehaviorTree();
         }
-        
+
         public bool TryAcceptTargetPoint(Vector3 position)
         {
             if (!_unitMeshAgent.CanAcceptTargetPoint)
@@ -52,23 +62,42 @@ namespace Units.Unit
                 return false;
             }
 
-            _unitMeshAgent.SetDestination(position);
-            
+            _desiredPosition = position;
+            _behaviorTree.Blackboard.Set(MovingToTarget, true);
+
             return true;
         }
 
         private void ConstructBehaviorTree()
         {
             _behaviorTree = new Root(
-                new Sequence(
-                    new Action(() => Debug.Log("Hello World!")),
-                    new WaitUntilStopped()
+                new Selector(
+                    new BlackboardCondition(MovingToTarget, Operator.IS_SET, Stops.LOWER_PRIORITY,
+                        new Action(MoveToPosition)
+                    ),
+                    new Repeater(
+                        new Sequence(
+                            new Wait(1.0f),
+                            new Action(ShowIdleState)
+                        )
+                    )
                 )
             );
         }
 
+        private void MoveToPosition()
+        {
+            _unitMeshAgent.SetDestination(_desiredPosition);
+        }
+
+        private void ShowIdleState()
+        {
+            Debug.Log("Hello world");
+        }
+
         private void OnMeshAgentTargetReach()
         {
+            _behaviorTree.Blackboard.Unset(MovingToTarget);
             TargetReach?.Invoke(this);
         }
 

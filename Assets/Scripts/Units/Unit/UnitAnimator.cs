@@ -2,7 +2,6 @@
 using System.Collections;
 using Sirenix.OdinInspector;
 using UnityEngine;
-using UnityEngine.AI;
 
 namespace Units.Unit
 {

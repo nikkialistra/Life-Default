@@ -19,7 +19,7 @@ namespace UnitManagement.Targeting
             _targetables.Add(targetable);
 
             targetable.TargetReach += OnTargetReach;
-            
+
             UpdateState();
         }
 

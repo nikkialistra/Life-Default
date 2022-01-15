@@ -190,8 +190,6 @@ namespace Units.Unit
             HealthChange?.Invoke();
         }
 
-        public class Factory : PlaceholderFactory<UnitType, Vector3, UnitFacade>
-        {
-        }
+        public class Factory : PlaceholderFactory<UnitType, Vector3, UnitFacade> { }
     }
 }

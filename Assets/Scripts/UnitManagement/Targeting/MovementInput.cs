@@ -11,11 +11,11 @@ namespace UnitManagement.Targeting
     public class MovementInput : MonoBehaviour
     {
         private Camera _camera;
-        
+
         private GameViews _gameViews;
 
         private SelectedUnits _selectedUnits;
-        
+
         private PlayerInput _playerInput;
 
         private InputAction _setTargetAction;

@@ -32,7 +32,7 @@ namespace UI.Game
 
             FillInTypes();
             FillInLabels();
-            FillInLabelCounts();
+            FillInCounts();
         }
 
         public event Action<UnitType> LeftClick;
@@ -43,13 +43,13 @@ namespace UI.Game
             _travelerType.RegisterCallback<MouseDownEvent, EventArgs>(TypeOnMouseDownEvent,
                 new EventArgs { Sender = _travelerType, UnitType = UnitType.Traveler });
             _lumberjackType.RegisterCallback<MouseDownEvent, EventArgs>(TypeOnMouseDownEvent,
-                new EventArgs { Sender = _travelerType, UnitType = UnitType.Lumberjack });
+                new EventArgs { Sender = _lumberjackType, UnitType = UnitType.Lumberjack });
             _masonType.RegisterCallback<MouseDownEvent, EventArgs>(TypeOnMouseDownEvent,
-                new EventArgs { Sender = _travelerType, UnitType = UnitType.Mason });
+                new EventArgs { Sender = _masonType, UnitType = UnitType.Mason });
             _meleeType.RegisterCallback<MouseDownEvent, EventArgs>(TypeOnMouseDownEvent,
-                new EventArgs { Sender = _travelerType, UnitType = UnitType.Melee });
+                new EventArgs { Sender = _meleeType, UnitType = UnitType.Melee });
             _archerType.RegisterCallback<MouseDownEvent, EventArgs>(TypeOnMouseDownEvent,
-                new EventArgs { Sender = _travelerType, UnitType = UnitType.Archer });
+                new EventArgs { Sender = _archerType, UnitType = UnitType.Archer });
         }
 
         private void OnDisable()
@@ -155,7 +155,7 @@ namespace UI.Game
             _unitTypeLabels.Add(UnitType.Archer, _tree.Q<Label>("archer-type__count"));
         }
 
-        private void FillInLabelCounts()
+        private void FillInCounts()
         {
             _unitTypeCounts.Add(UnitType.Traveler, 0);
             _unitTypeCounts.Add(UnitType.Lumberjack, 0);

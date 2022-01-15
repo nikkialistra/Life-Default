@@ -84,8 +84,6 @@ namespace Infrastructure
                     .UnderTransform(_unitsParent));
         }
 
-        private class UnitFacadePool : MonoPoolableMemoryPool<UnitType, Vector3, IMemoryPool, UnitFacade>
-        {
-        }
+        private class UnitFacadePool : MonoPoolableMemoryPool<UnitType, Vector3, IMemoryPool, UnitFacade> { }
     }
 }

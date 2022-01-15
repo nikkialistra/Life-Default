@@ -11,7 +11,7 @@ namespace Infrastructure
     {
         [SerializeField] private bool _tryLoadFromSaved;
         [SerializeField] private TextAsset _graphData;
-        
+
         [Space]
         [Required]
         [SerializeField] private AstarPath _astarPath;
@@ -24,7 +24,7 @@ namespace Infrastructure
         {
             Container.BindInstance(_astarPath);
             Container.BindInstance(_graphData);
-            
+
             Container.BindInterfacesAndSelfTo<Map>().AsSingle();
 
             Container.BindFactory<MapGenerator, MapGenerator.Factory>().FromSubContainerResolve()

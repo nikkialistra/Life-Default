@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using MapGeneration.Map;
 using Units.Services.Selecting;
@@ -17,7 +16,7 @@ namespace UnitManagement.Targeting
 
         private AstarPath _astarPath;
         private FormationMovement _formationMovement;
-        
+
         private MovementInput _movementInput;
 
         [Inject]

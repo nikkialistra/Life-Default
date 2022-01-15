@@ -20,7 +20,7 @@ namespace MapGeneration.Generators
         private AstarPath _astarPath1;
 
         public event Action Load;
-        
+
         private void Start()
         {
             if (!_generated)
@@ -87,7 +87,6 @@ namespace MapGeneration.Generators
             }
 
 #endif
-            
         }
 
         private void GenerateTerrainObjects()
@@ -98,8 +97,6 @@ namespace MapGeneration.Generators
             }
         }
 
-        public class Factory : PlaceholderFactory<MapGenerator>
-        {
-        }
+        public class Factory : PlaceholderFactory<MapGenerator> { }
     }
 }

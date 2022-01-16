@@ -1,6 +1,7 @@
 ﻿using System;
 using NPBehave;
 using UnitManagement.Targeting;
+using Units.Unit.BehaviorNodes;
 using UnityEngine;
 using Action = NPBehave.Action;
 
@@ -9,12 +10,13 @@ namespace Units.Unit
     [RequireComponent(typeof(UnitMeshAgent))]
     public class UnitBehavior : MonoBehaviour, ITargetable
     {
-        private const string MovingToTarget = "movingToTarget";
+        private const string DesiredPosition = "desiredPosition";
         
         private Root _behaviorTree;
         
         private UnitMeshAgent _unitMeshAgent;
-        
+
+        private Target _currentTarget;
         private Vector3 _desiredPosition;
 
         private void Awake()
@@ -28,21 +30,12 @@ namespace Units.Unit
 
         public Vector3 Position => transform.position;
 
-        private void OnEnable()
-        {
-            _unitMeshAgent.TargetReach += OnMeshAgentTargetReach;
-        }
-
-        private void OnDisable()
-        {
-            _unitMeshAgent.TargetReach -= OnMeshAgentTargetReach;
-        }
-
         private void Start()
         {
             ConstructBehaviorTree();
 
 #if UNITY_EDITOR
+            
             var debugger = (Debugger)gameObject.AddComponent(typeof(Debugger));
             debugger.BehaviorTree = _behaviorTree;
 #endif
@@ -55,15 +48,17 @@ namespace Units.Unit
             StopBehaviorTree();
         }
 
-        public bool TryAcceptTargetPoint(Vector3 position)
+        public bool TryAcceptTargetWithPosition(Target target, Vector3 position)
         {
             if (!_unitMeshAgent.CanAcceptTargetPoint)
             {
                 return false;
             }
-
+            
+            _currentTarget = target;
             _desiredPosition = position;
-            _behaviorTree.Blackboard.Set(MovingToTarget, true);
+            
+            _behaviorTree.Blackboard.Set(DesiredPosition, _desiredPosition);
 
             return true;
         }
@@ -72,8 +67,8 @@ namespace Units.Unit
         {
             _behaviorTree = new Root(
                 new Selector(
-                    new BlackboardCondition(MovingToTarget, Operator.IS_SET, Stops.LOWER_PRIORITY,
-                        new Action(MoveToPosition)
+                    new BlackboardCondition(DesiredPosition, Operator.IS_SET, Stops.LOWER_PRIORITY,
+                        new MoveToPosition(_unitMeshAgent, DesiredPosition, OnTargetReach)
                     ),
                     new Repeater(
                         new Sequence(
@@ -85,20 +80,14 @@ namespace Units.Unit
             );
         }
 
-        private void MoveToPosition()
+        private void OnTargetReach()
         {
-            _unitMeshAgent.SetDestination(_desiredPosition);
+            TargetReach?.Invoke(this);
         }
 
         private void ShowIdleState()
         {
-            Debug.Log("Hello world");
-        }
-
-        private void OnMeshAgentTargetReach()
-        {
-            _behaviorTree.Blackboard.Unset(MovingToTarget);
-            TargetReach?.Invoke(this);
+            Debug.Log("Idle");
         }
 
         private void StopBehaviorTree()

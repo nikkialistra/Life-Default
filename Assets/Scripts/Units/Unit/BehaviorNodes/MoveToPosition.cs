@@ -9,22 +9,22 @@ namespace Units.Unit.BehaviorNodes
     public class MoveToPosition : Task
     {
         private readonly UnitMeshAgent _unitMeshAgent;
-        private readonly string _desiredPositionKey;
+        private readonly string _positionKey;
         private readonly Action _callback;
 
-        public MoveToPosition(UnitMeshAgent unitMeshAgent, string desiredPositionKey, Action callback) : base("MoveToPosition")
+        public MoveToPosition(UnitMeshAgent unitMeshAgent, string positionKey, Action callback) : base("MoveToPosition")
         {
             _callback = callback;
-            _desiredPositionKey = desiredPositionKey;
+            _positionKey = positionKey;
             _unitMeshAgent = unitMeshAgent;
         }
 
         protected override void DoStart()
         {
-            var desiredPosition = Blackboard.Get<Vector3>(_desiredPositionKey);
-            Blackboard.Unset(_desiredPositionKey);
+            var position = Blackboard.Get<Vector3>(_positionKey);
+            Blackboard.Unset(_positionKey);
             
-            _unitMeshAgent.SetDestination(desiredPosition);
+            _unitMeshAgent.SetDestination(position);
             _unitMeshAgent.TargetReach += OnTargetReach;
         }
 

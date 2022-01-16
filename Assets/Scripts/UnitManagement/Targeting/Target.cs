@@ -11,6 +11,7 @@ namespace UnitManagement.Targeting
         private List<ITargetable> _targetables = new();
         private TargetObject _targetObject;
 
+        public bool HasTargetObject => _targetObject != null;
         public bool Empty => _targetables.Count == 0;
         public IEnumerable<ITargetable> Targetables => _targetables;
 
@@ -52,11 +53,16 @@ namespace UnitManagement.Targeting
             _targetObject = targetObject;
         }
 
+        public void ClearTargetObject()
+        {
+            _targetObject = null;
+        }
+
         public void Deactivate()
         {
             if (_targetObject != null)
             {
-                RemoveTargetObject();
+                HideTargetObjectIndicator();
             }
             else
             {
@@ -64,14 +70,12 @@ namespace UnitManagement.Targeting
             }
         }
 
-        private void RemoveTargetObject()
+        private void HideTargetObjectIndicator()
         {
             if (_targetObject.HasDestinationPoint)
             {
                 _targetObject.HideIndicator();
             }
-
-            _targetObject = null;
         }
 
         private void UpdateState()

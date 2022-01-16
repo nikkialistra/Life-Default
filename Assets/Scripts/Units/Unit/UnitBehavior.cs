@@ -10,14 +10,14 @@ namespace Units.Unit
     [RequireComponent(typeof(UnitMeshAgent))]
     public class UnitBehavior : MonoBehaviour, ITargetable
     {
-        private const string DesiredPosition = "desiredPosition";
+        private const string PositionKey = "desiredPosition";
+        private const string TargetKey = "target";
         
         private Root _behaviorTree;
         
         private UnitMeshAgent _unitMeshAgent;
 
         private Target _currentTarget;
-        private Vector3 _desiredPosition;
 
         private void Awake()
         {
@@ -54,11 +54,9 @@ namespace Units.Unit
             {
                 return false;
             }
-            
-            _currentTarget = target;
-            _desiredPosition = position;
-            
-            _behaviorTree.Blackboard.Set(DesiredPosition, _desiredPosition);
+
+            _behaviorTree.Blackboard.Set(TargetKey, target);
+            _behaviorTree.Blackboard.Set(PositionKey, position);
 
             return true;
         }
@@ -67,8 +65,17 @@ namespace Units.Unit
         {
             _behaviorTree = new Root(
                 new Selector(
-                    new BlackboardCondition(DesiredPosition, Operator.IS_SET, Stops.LOWER_PRIORITY,
-                        new MoveToPosition(_unitMeshAgent, DesiredPosition, OnTargetReach)
+                    new BlackboardCondition(PositionKey, Operator.IS_SET, Stops.LOWER_PRIORITY,
+                        new Sequence(
+                            new MoveToPosition(_unitMeshAgent, PositionKey, OnTargetReach),
+                            new CheckHasTargetObject(TargetKey),
+                            new Repeater(
+                                new Sequence(
+                                    new StartActionOnTargetObject(TargetKey),
+                                    new FindNewTargetObject()
+                                )
+                            )
+                        )
                     ),
                     new Repeater(
                         new Sequence(
@@ -88,6 +95,11 @@ namespace Units.Unit
         private void ShowIdleState()
         {
             Debug.Log("Idle");
+        }
+        
+        private void ShowIdleState2()
+        {
+            Debug.Log("Idle2");
         }
 
         private void StopBehaviorTree()

@@ -41,6 +41,10 @@ namespace UnitManagement.Targeting
             {
                 target.SetTargetObject(targetObject);
             }
+            else
+            {
+                target.ClearTargetObject();
+            }
 
             target.transform.position = position;
 

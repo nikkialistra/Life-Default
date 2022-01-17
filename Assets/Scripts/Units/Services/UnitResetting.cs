@@ -9,12 +9,12 @@ namespace Units.Services
     {
         private readonly SavingLoadingGame _savingLoadingGame;
         private readonly SelectedUnits _selectedUnits;
-        private readonly TargetPool _targetPool;
+        private readonly TargetMarkPool _targetMarkPool;
 
-        public UnitResetting(SavingLoadingGame savingLoadingGame, SelectedUnits selectedUnits, TargetPool targetPool)
+        public UnitResetting(SavingLoadingGame savingLoadingGame, SelectedUnits selectedUnits, TargetMarkPool targetMarkPool)
         {
             _selectedUnits = selectedUnits;
-            _targetPool = targetPool;
+            _targetMarkPool = targetMarkPool;
             _savingLoadingGame = savingLoadingGame;
 
             _savingLoadingGame.Loading += Reset;
@@ -22,7 +22,7 @@ namespace Units.Services
 
         private void Reset()
         {
-            _targetPool.OffAll();
+            _targetMarkPool.OffAll();
             _selectedUnits.Clear();
         }
 

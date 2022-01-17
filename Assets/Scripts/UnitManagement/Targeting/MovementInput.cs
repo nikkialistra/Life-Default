@@ -36,7 +36,7 @@ namespace UnitManagement.Targeting
             _positionAction = _playerInput.actions.FindAction("Position");
         }
 
-        public event Action<TargetObject, RaycastHit> TargetSet;
+        public event Action<Target, RaycastHit> TargetSet;
 
         private void OnEnable()
         {
@@ -58,7 +58,7 @@ namespace UnitManagement.Targeting
             var ray = GetRay();
             if (Physics.Raycast(ray, out var hit))
             {
-                var targetObject = hit.transform.GetComponentInParent<TargetObject>();
+                var targetObject = hit.transform.GetComponentInParent<Target>();
                 if (targetObject != null)
                 {
                     TargetSet?.Invoke(targetObject, hit);

@@ -22,9 +22,9 @@ namespace Infrastructure
 
         [Title("Targeting")]
         [Required]
-        [SerializeField] private TargetPool _pool;
+        [SerializeField] private TargetMarkPool _markPool;
         [Required]
-        [SerializeField] private Target _targetPrefab;
+        [SerializeField] private TargetMark _targetMarkPrefab;
         [Required]
         [SerializeField] private Transform _targetParent;
 
@@ -63,9 +63,9 @@ namespace Infrastructure
 
         private void BindTargeting()
         {
-            Container.BindInstance(_pool);
-            Container.BindInstance(_targetPrefab).WhenInjectedInto<TargetPool>();
-            Container.BindInstance(_targetParent).WhenInjectedInto<TargetPool>();
+            Container.BindInstance(_markPool);
+            Container.BindInstance(_targetMarkPrefab).WhenInjectedInto<TargetMarkPool>();
+            Container.BindInstance(_targetParent).WhenInjectedInto<TargetMarkPool>();
         }
 
         private void BindUnitServices()

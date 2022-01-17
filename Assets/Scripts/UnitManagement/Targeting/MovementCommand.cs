@@ -12,7 +12,7 @@ namespace UnitManagement.Targeting
     public class MovementCommand : MonoBehaviour
     {
         private SelectedUnits _selectedUnits;
-        private TargetPool _targetPool;
+        private TargetMarkPool _targetMarkPool;
 
         private AstarPath _astarPath;
         private FormationMovement _formationMovement;
@@ -20,10 +20,10 @@ namespace UnitManagement.Targeting
         private MovementInput _movementInput;
 
         [Inject]
-        public void Construct(SelectedUnits selectedUnits, TargetPool pool, Map map, AstarPath astarPath)
+        public void Construct(SelectedUnits selectedUnits, TargetMarkPool markPool, Map map, AstarPath astarPath)
         {
             _selectedUnits = selectedUnits;
-            _targetPool = pool;
+            _targetMarkPool = markPool;
         }
 
         private void Awake()
@@ -42,25 +42,25 @@ namespace UnitManagement.Targeting
             _movementInput.TargetSet -= MoveAll;
         }
 
-        private void MoveAll(TargetObject targetObject, RaycastHit hit)
+        private void MoveAll(Target target, RaycastHit hit)
         {
-            if (targetObject.HasDestinationPoint)
+            if (target.HasDestinationPoint)
             {
-                var destinationPoint = targetObject.GetDestinationPoint();
-                var target = _targetPool.PlaceTo(destinationPoint, targetObject);
-                MoveAllTo(target);
+                var destinationPoint = target.GetDestinationPoint();
+                var targetMark = _targetMarkPool.PlaceTo(destinationPoint, target);
+                MoveAllTo(targetMark);
             }
             else
             {
-                var target = _targetPool.PlaceTo(hit.point);
-                MoveAllTo(target);
+                var targetMark = _targetMarkPool.PlaceTo(hit.point);
+                MoveAllTo(targetMark);
             }
         }
 
-        private void MoveAllTo(Target target)
+        private void MoveAllTo(TargetMark targetMark)
         {
             var targetables = GetTargetables().ToList();
-            _formationMovement.MoveTo(targetables, target);
+            _formationMovement.MoveTo(targetables, targetMark);
         }
 
         private IEnumerable<ITargetable> GetTargetables()

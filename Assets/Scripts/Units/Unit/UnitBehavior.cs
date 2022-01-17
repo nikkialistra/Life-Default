@@ -11,13 +11,13 @@ namespace Units.Unit
     public class UnitBehavior : MonoBehaviour, ITargetable
     {
         private const string PositionKey = "desiredPosition";
-        private const string TargetKey = "target";
+        private const string TargetMarkKey = "targetMark";
         
         private Root _behaviorTree;
         
         private UnitMeshAgent _unitMeshAgent;
 
-        private Target _currentTarget;
+        private TargetMark _currentTargetMark;
 
         private void Awake()
         {
@@ -48,14 +48,14 @@ namespace Units.Unit
             StopBehaviorTree();
         }
 
-        public bool TryAcceptTargetWithPosition(Target target, Vector3 position)
+        public bool TryAcceptTargetWithPosition(TargetMark targetMark, Vector3 position)
         {
             if (!_unitMeshAgent.CanAcceptTargetPoint)
             {
                 return false;
             }
 
-            _behaviorTree.Blackboard.Set(TargetKey, target);
+            _behaviorTree.Blackboard.Set(TargetMarkKey, targetMark);
             _behaviorTree.Blackboard.Set(PositionKey, position);
 
             return true;
@@ -65,14 +65,14 @@ namespace Units.Unit
         {
             _behaviorTree = new Root(
                 new Selector(
-                    new BlackboardCondition(PositionKey, Operator.IS_SET, Stops.LOWER_PRIORITY,
+                    new BlackboardCondition(PositionKey, Operator.IS_SET, Stops.BOTH,
                         new Sequence(
                             new MoveToPosition(_unitMeshAgent, PositionKey, OnTargetReach),
-                            new CheckHasTargetObject(TargetKey),
+                            new CheckHasTarget(TargetMarkKey),
                             new Repeater(
                                 new Sequence(
-                                    new StartActionOnTargetObject(TargetKey),
-                                    new FindNewTargetObject()
+                                    new StartActionOnTarget(TargetMarkKey),
+                                    new FindNewTarget()
                                 )
                             )
                         )

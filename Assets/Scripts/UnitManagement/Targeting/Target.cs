@@ -1,118 +1,46 @@
 ﻿using System;
-using System.Collections.Generic;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace UnitManagement.Targeting
 {
     public class Target : MonoBehaviour
     {
+        [SerializeField] private bool _hasDestinationPoint;
+
+        [ShowIf("_hasDestinationPoint")]
+        [SerializeField] private Transform _destinationPoint;
+        [ShowIf("_hasDestinationPoint")]
         [SerializeField] private GameObject _targetIndicator;
 
-        private List<ITargetable> _targetables = new();
-        private TargetObject _targetObject;
+        public bool HasDestinationPoint => _hasDestinationPoint;
 
-        public bool HasTargetObject => _targetObject != null;
-        public bool Empty => _targetables.Count == 0;
-        public IEnumerable<ITargetable> Targetables => _targetables;
-
-        public void Add(ITargetable targetable)
+        public Vector3 GetDestinationPoint()
         {
-            _targetables.Add(targetable);
+            CheckHavingDestinationPoint();
 
-            targetable.TargetReach += OnTargetReach;
-
-            UpdateState();
+            return _destinationPoint.position;
         }
 
-        public void Remove(ITargetable targetable)
+        public void ShowIndicator()
         {
-            if (!_targetables.Contains(targetable))
-            {
-                return;
-            }
+            CheckHavingDestinationPoint();
 
-            _targetables.Remove(targetable);
-
-            UpdateState();
-
-            targetable.TargetReach -= OnTargetReach;
+            _targetIndicator.SetActive(true);
         }
 
-        public void Clear()
+        public void HideIndicator()
         {
-            foreach (var targetable in _targetables)
-            {
-                targetable.TargetReach -= OnTargetReach;
-            }
+            CheckHavingDestinationPoint();
 
-            _targetables.Clear();
+            _targetIndicator.SetActive(false);
         }
 
-        public void SetTargetObject(TargetObject targetObject)
+        private void CheckHavingDestinationPoint()
         {
-            _targetObject = targetObject;
-        }
-
-        public void ClearTargetObject()
-        {
-            _targetObject = null;
-        }
-
-        public void Deactivate()
-        {
-            if (_targetObject != null)
+            if (!_hasDestinationPoint)
             {
-                HideTargetObjectIndicator();
-            }
-            else
-            {
-                _targetIndicator.SetActive(false);
-            }
-        }
-
-        private void HideTargetObjectIndicator()
-        {
-            if (_targetObject.HasDestinationPoint)
-            {
-                _targetObject.HideIndicator();
-            }
-        }
-
-        private void UpdateState()
-        {
-            if (!Empty)
-            {
-                Activate();
-            }
-            else
-            {
-                Deactivate();
-            }
-        }
-
-        private void OnTargetReach(ITargetable targetable)
-        {
-            if (!_targetables.Contains(targetable))
-            {
-                throw new InvalidOperationException();
-            }
-
-            targetable.TargetReach -= OnTargetReach;
-
-            _targetables.Remove(targetable);
-
-            UpdateState();
-        }
-
-        private void Activate()
-        {
-            if (_targetObject != null && _targetObject.HasDestinationPoint)
-            {
-                _targetObject.ShowIndicator();
-            }
-            else
-            {
-                _targetIndicator.SetActive(true);
+                throw new InvalidOperationException("Method should not be called when destination point is not set");
             }
         }
     }

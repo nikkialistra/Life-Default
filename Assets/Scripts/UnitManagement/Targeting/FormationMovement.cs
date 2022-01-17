@@ -11,16 +11,16 @@ namespace UnitManagement.Targeting
         [SerializeField] private FormationType _formationType;
 
         private List<ITargetable> _targetables;
-        private Target _target;
+        private TargetMark _targetMark;
 
-        private TargetPool _targetPool;
+        private TargetMarkPool _targetMarkPool;
 
         private AreaFormation _areaFormation;
 
         [Inject]
-        public void Construct(TargetPool targetPool)
+        public void Construct(TargetMarkPool targetMarkPool)
         {
-            _targetPool = targetPool;
+            _targetMarkPool = targetMarkPool;
         }
 
         private void Awake()
@@ -28,12 +28,12 @@ namespace UnitManagement.Targeting
             _areaFormation = GetComponent<AreaFormation>();
         }
 
-        public void MoveTo(List<ITargetable> targetables, Target target)
+        public void MoveTo(List<ITargetable> targetables, TargetMark targetMark)
         {
             _targetables = targetables;
-            _target = target;
+            _targetMark = targetMark;
 
-            MoveTargetablesToPositions(GenerateFormation(target.transform.position));
+            MoveTargetablesToPositions(GenerateFormation(targetMark.transform.position));
         }
 
         private void MoveTargetablesToPositions(Vector3[] formationPositions)
@@ -56,10 +56,10 @@ namespace UnitManagement.Targeting
                 assignedTargetablesBitmask[closestTargetableIndex] = true;
 
                 var accepted = _targetables[closestTargetableIndex]
-                    .TryAcceptTargetWithPosition(_target, formationPositions[formationIndex]);
+                    .TryAcceptTargetWithPosition(_targetMark, formationPositions[formationIndex]);
                 if (accepted)
                 {
-                    _targetPool.Link(_target, _targetables[closestTargetableIndex]);
+                    _targetMarkPool.Link(_targetMark, _targetables[closestTargetableIndex]);
                 }
             }
         }
@@ -172,7 +172,7 @@ namespace UnitManagement.Targeting
             var relativeRotation = Quaternion.Euler(0f, relativeYRotation, 0f);
 
             return _areaFormation.CalculatePositions(count, relativeRotation, targetPoint,
-                _target.transform.position.y);
+                _targetMark.transform.position.y);
         }
 
         private float RotationFromOriginToTarget(Vector3 originPoint, Vector3 targetPoint)

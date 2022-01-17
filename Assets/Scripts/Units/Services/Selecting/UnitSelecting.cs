@@ -53,7 +53,7 @@ namespace Units.Services.Selecting
             {
                 yield return clickedUnit;
             }
-            else if (hit.transform.TryGetComponent(out Target target))
+            else if (hit.transform.TryGetComponent(out TargetMark target))
             {
                 foreach (var targetable in target.Targetables)
                 {

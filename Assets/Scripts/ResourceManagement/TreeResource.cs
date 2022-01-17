@@ -10,8 +10,8 @@ namespace ResourceManagement
     {
         [MinValue(1)]
         [SerializeField] private int _health;
-        [MinValue(0)]
-        [SerializeField] private int _resourcePerHp;
+        [Range(0, 1)]
+        [SerializeField] private float _resourcePerHp = 1;
 
         public int Health => _health;
         
@@ -38,12 +38,12 @@ namespace ResourceManagement
 
             if (_health > value)
             {
-                extractedQuantity = value * _resourcePerHp;
+                extractedQuantity = Mathf.RoundToInt(value * _resourcePerHp);
                 _health -= value;
             }
             else
             {
-                extractedQuantity = _health * _resourcePerHp;
+                extractedQuantity = Mathf.RoundToInt(_health * _resourcePerHp);
                 _health = 0;
             }
 

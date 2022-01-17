@@ -21,6 +21,12 @@ namespace Units.Unit.BehaviorNodes
 
         protected override void DoStart()
         {
+            if (!Blackboard.Isset(_positionKey))
+            {
+                Stopped(false);
+                return;
+            }
+            
             var position = Blackboard.Get<Vector3>(_positionKey);
             Blackboard.Unset(_positionKey);
             
@@ -30,6 +36,7 @@ namespace Units.Unit.BehaviorNodes
 
         protected override void DoStop()
         {
+            _unitMeshAgent.TargetReach -= OnTargetReach;
             Stopped(false);
         }
 

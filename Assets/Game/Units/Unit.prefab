@@ -2095,7 +2095,6 @@ GameObject:
   - component: {fileID: 7905390231065561626}
   - component: {fileID: 648114809178795117}
   - component: {fileID: 6633013369567803270}
-  - component: {fileID: 6761163858028594137}
   - component: {fileID: 6716084818144742275}
   - component: {fileID: 4003972812189498787}
   - component: {fileID: 7183938458047524081}
@@ -2336,8 +2335,8 @@ MonoBehaviour:
   orientation: 0
   enableRotation: 1
   targetCompatibility: {fileID: 0}
-  maxAcceleration: -2.5
-  rotationSpeed: 720
+  maxAcceleration: 100
+  rotationSpeed: 3000
   slowdownDistance: 0.6
   pickNextWaypointDist: 2
   endReachedDistance: 2.3
@@ -2345,33 +2344,6 @@ MonoBehaviour:
   slowWhenNotFacingTarget: 0
   whenCloseToDestination: 0
   constrainInsideGraph: 0
---- !u!114 &6761163858028594137
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4193433063631040808}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 560112f876f5746c780eca0d404e7139, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  version: 2
-  radiusBackingField: 0.5
-  heightBackingField: 2
-  centerBackingField: 1
-  locked: 0
-  lockWhenNotMoving: 0
-  agentTimeHorizon: 2
-  obstacleTimeHorizon: 2
-  maxNeighbours: 10
-  layer: 1
-  collidesWith: -1
-  wallAvoidForce: 1
-  wallAvoidFalloff: 1
-  priority: 0.5
-  debug: 0
 --- !u!114 &6716084818144742275
 MonoBehaviour:
   m_ObjectHideFlags: 0

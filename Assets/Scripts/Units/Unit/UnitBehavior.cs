@@ -13,6 +13,7 @@ namespace Units.Unit
     {
         private const string PositionKey = "desiredPosition";
         private const string TargetMarkKey = "targetMark";
+        private const string NewCommandKey = "newCommand";
         private const string UnitTypeKey = "unitType";
         
         private Root _behaviorTree;
@@ -64,6 +65,8 @@ namespace Units.Unit
 
             _behaviorTree.Blackboard.Set(TargetMarkKey, targetMark);
             _behaviorTree.Blackboard.Set(PositionKey, position);
+            
+            _behaviorTree.Blackboard.Set(NewCommandKey, true);
 
             return true;
         }
@@ -72,15 +75,16 @@ namespace Units.Unit
         {
             _behaviorTree = new Root(
                 new Selector(
-                    new BlackboardCondition(PositionKey, Operator.IS_SET, Stops.BOTH,
-                        new Sequence(
-                            new MoveToPosition(_unitMeshAgent, PositionKey, OnTargetReach),
-                            new CheckHasTarget(TargetMarkKey),
-                            new Repeater(
-                                new Sequence(
-                                    new StartActionOnTarget(TargetMarkKey, UnitTypeKey),
-                                    new FindNewTarget()
-                                )
+                    new BlackboardCondition(NewCommandKey, Operator.IS_SET, Stops.LOWER_PRIORITY,
+                        new ClearCommand(NewCommandKey)
+                    ),
+                    new Sequence(
+                        new MoveToPosition(_unitMeshAgent, PositionKey, OnTargetReach),
+                        new CheckHasTarget(TargetMarkKey),
+                        new Repeater(
+                            new Sequence(
+                                new StartActionOnTarget(TargetMarkKey, UnitTypeKey),
+                                new FindNewTarget()
                             )
                         )
                     ),

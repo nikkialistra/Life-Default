@@ -2,7 +2,6 @@
 using NPBehave;
 using UnitManagement.Targeting;
 using Units.Unit.BehaviorNodes;
-using Units.Unit.UnitTypes;
 using UnityEngine;
 using Action = NPBehave.Action;
 
@@ -51,7 +50,7 @@ namespace Units.Unit
             _behaviorTree.Start();
         }
 
-        public void UpdateUnitType(UnitType unitType)
+        public void UpdateUnitType(UnitType.UnitType unitType)
         {
             _behaviorTree.Blackboard.Set(UnitTypeKey, unitType);
         }

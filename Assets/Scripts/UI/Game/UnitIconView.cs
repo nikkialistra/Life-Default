@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Units.Unit;
-using Units.Unit.UnitTypes;
+using Units.Unit.UnitType;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -81,7 +81,7 @@ namespace UI.Game
         {
             _image.style.backgroundImage = _unit.UnitType switch
             {
-                UnitType.Traveler => new StyleBackground(_previews[UnitType.Traveler]),
+                UnitType.Scout => new StyleBackground(_previews[UnitType.Scout]),
                 UnitType.Lumberjack => new StyleBackground(_previews[UnitType.Lumberjack]),
                 UnitType.Mason => new StyleBackground(_previews[UnitType.Mason]),
                 UnitType.Melee => new StyleBackground(_previews[UnitType.Melee]),

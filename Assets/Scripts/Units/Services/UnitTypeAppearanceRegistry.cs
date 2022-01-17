@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
-using Units.Unit.UnitTypes;
+using Units.Unit.UnitType;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -9,8 +9,8 @@ namespace Units.Services
 {
     public class UnitTypeAppearanceRegistry : MonoBehaviour
     {
-        [ValidateInput("@_travelers.Count >= 1", "List should have at least one element.")]
-        [SerializeField] private List<UnitTypeAppearance> _travelers;
+        [ValidateInput("@_scouts.Count >= 1", "List should have at least one element.")]
+        [SerializeField] private List<UnitTypeAppearance> _scouts;
         [ValidateInput("@_lumberjacks.Count >= 1", "List should have at least one element.")]
         [SerializeField] private List<UnitTypeAppearance> _lumberjacks;
         [ValidateInput("@_masons.Count >= 1", "List should have at least one element.")]
@@ -24,7 +24,7 @@ namespace Units.Services
         {
             return unitType switch
             {
-                UnitType.Traveler => GetFrom(_travelers),
+                UnitType.Scout => GetFrom(_scouts),
                 UnitType.Lumberjack => GetFrom(_lumberjacks),
                 UnitType.Mason => GetFrom(_masons),
                 UnitType.Melee => GetFrom(_melees),

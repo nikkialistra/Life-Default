@@ -1,6 +1,6 @@
 ﻿using Common;
 using Units.Unit;
-using Units.Unit.UnitTypes;
+using Units.Unit.UnitType;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Zenject;
@@ -46,7 +46,7 @@ namespace Testing
         {
             if (Keyboard.current.digit1Key.isPressed)
             {
-                _generationType = UnitType.Traveler;
+                _generationType = UnitType.Scout;
             }
 
             if (Keyboard.current.digit2Key.isPressed)

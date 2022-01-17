@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using Units.Unit.UnitTypes;
+using Units.Unit.UnitType;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -13,7 +13,7 @@ namespace UI.Game
 
         private readonly Dictionary<UnitType, Label> _unitTypeLabels = new();
 
-        private VisualElement _travelerType;
+        private VisualElement _scoutType;
         private VisualElement _lumberjackType;
         private VisualElement _masonType;
         private VisualElement _meleeType;
@@ -38,8 +38,8 @@ namespace UI.Game
 
         private void OnEnable()
         {
-            _travelerType.RegisterCallback<MouseDownEvent, EventArgs>(TypeOnMouseDownEvent,
-                new EventArgs { Sender = _travelerType, UnitType = UnitType.Traveler });
+            _scoutType.RegisterCallback<MouseDownEvent, EventArgs>(TypeOnMouseDownEvent,
+                new EventArgs { Sender = _scoutType, UnitType = UnitType.Scout });
             _lumberjackType.RegisterCallback<MouseDownEvent, EventArgs>(TypeOnMouseDownEvent,
                 new EventArgs { Sender = _lumberjackType, UnitType = UnitType.Lumberjack });
             _masonType.RegisterCallback<MouseDownEvent, EventArgs>(TypeOnMouseDownEvent,
@@ -52,7 +52,7 @@ namespace UI.Game
 
         private void OnDisable()
         {
-            _travelerType.UnregisterCallback<MouseDownEvent, EventArgs>(TypeOnMouseDownEvent);
+            _scoutType.UnregisterCallback<MouseDownEvent, EventArgs>(TypeOnMouseDownEvent);
             _lumberjackType.UnregisterCallback<MouseDownEvent, EventArgs>(TypeOnMouseDownEvent);
             _masonType.UnregisterCallback<MouseDownEvent, EventArgs>(TypeOnMouseDownEvent);
             _meleeType.UnregisterCallback<MouseDownEvent, EventArgs>(TypeOnMouseDownEvent);
@@ -104,7 +104,7 @@ namespace UI.Game
 
         private void FillInTypes()
         {
-            _travelerType = _tree.Q<VisualElement>("traveler-type");
+            _scoutType = _tree.Q<VisualElement>("scout-type");
             _lumberjackType = _tree.Q<VisualElement>("lumberjack-type");
             _masonType = _tree.Q<VisualElement>("mason-type");
             _meleeType = _tree.Q<VisualElement>("melee-type");
@@ -113,7 +113,7 @@ namespace UI.Game
 
         private void FillInLabels()
         {
-            _unitTypeLabels.Add(UnitType.Traveler, _tree.Q<Label>("traveler-type__count"));
+            _unitTypeLabels.Add(UnitType.Scout, _tree.Q<Label>("scout-type__count"));
             _unitTypeLabels.Add(UnitType.Lumberjack, _tree.Q<Label>("lumberjack-type__count"));
             _unitTypeLabels.Add(UnitType.Mason, _tree.Q<Label>("mason-type__count"));
             _unitTypeLabels.Add(UnitType.Melee, _tree.Q<Label>("melee-type__count"));

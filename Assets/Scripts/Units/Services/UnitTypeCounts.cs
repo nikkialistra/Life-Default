@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UI.Game;
 using Units.Unit;
-using Units.Unit.UnitTypes;
+using Units.Unit.UnitType;
 using UnityEngine;
 using Zenject;
 
@@ -45,7 +45,7 @@ namespace Units.Services
 
         private void FillInCounts()
         {
-            _unitTypeCounts.Add(UnitType.Traveler, 0);
+            _unitTypeCounts.Add(UnitType.Scout, 0);
             _unitTypeCounts.Add(UnitType.Lumberjack, 0);
             _unitTypeCounts.Add(UnitType.Mason, 0);
             _unitTypeCounts.Add(UnitType.Melee, 0);

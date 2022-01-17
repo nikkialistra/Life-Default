@@ -4,7 +4,7 @@ using UnitManagement.Targeting;
 using Units.Services;
 using Units.Services.Selecting;
 using Units.Unit;
-using Units.Unit.UnitTypes;
+using Units.Unit.UnitType;
 using UnityEngine;
 using Zenject;
 

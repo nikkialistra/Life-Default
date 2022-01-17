@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Units.Unit;
-using Units.Unit.UnitTypes;
+using Units.Unit.UnitType;
 using UnityEngine;
 
 namespace Units.Services

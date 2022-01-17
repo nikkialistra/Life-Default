@@ -2,7 +2,7 @@
 using Entities;
 using Sirenix.OdinInspector;
 using UnitManagement.Targeting;
-using Units.Unit.UnitTypes;
+using Units.Unit.UnitType;
 using UnityEngine;
 using Zenject;
 
@@ -13,7 +13,7 @@ namespace Units.Unit
     [RequireComponent(typeof(UnitModelElements))]
     [RequireComponent(typeof(UnitSaveLoadHandler))]
     [RequireComponent(typeof(UnitBehavior))]
-    public class UnitFacade : MonoBehaviour, IPoolable<UnitType, Vector3, IMemoryPool>, IDisposable
+    public class UnitFacade : MonoBehaviour, IPoolable<UnitType.UnitType, Vector3, IMemoryPool>, IDisposable
     {
         [Required]
         [SerializeField] private HealthBar _healthBar;
@@ -23,7 +23,7 @@ namespace Units.Unit
         [SerializeField] private Transform _center;
 
         [Title("Properties")]
-        [SerializeField] private UnitType _unitType;
+        [SerializeField] private UnitType.UnitType _unitType;
         [SerializeField] private string _name;
 
         private bool _died;
@@ -56,7 +56,7 @@ namespace Units.Unit
 
         public UnitSaveLoadHandler UnitSaveLoadHandler { get; private set; }
 
-        public UnitType UnitType => _unitType;
+        public UnitType.UnitType UnitType => _unitType;
         public string Name => _name;
 
         public int Health => _health.Health;
@@ -89,7 +89,7 @@ namespace Units.Unit
         }
 
         [Button(ButtonSizes.Large)]
-        public void ChangeUnitType(UnitType unitType)
+        public void ChangeUnitType(UnitType.UnitType unitType)
         {
             _unitType = unitType;
             _unitModelElements.SwitchTo(unitType);
@@ -133,7 +133,7 @@ namespace Units.Unit
             _healthBar.Selected = false;
         }
 
-        public void OnSpawned(UnitType unitType, Vector3 position, IMemoryPool pool)
+        public void OnSpawned(UnitType.UnitType unitType, Vector3 position, IMemoryPool pool)
         {
             _pool = pool;
 
@@ -194,6 +194,6 @@ namespace Units.Unit
             HealthChange?.Invoke();
         }
 
-        public class Factory : PlaceholderFactory<UnitType, Vector3, UnitFacade> { }
+        public class Factory : PlaceholderFactory<UnitType.UnitType, Vector3, UnitFacade> { }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using NPBehave;
+using ResourceManagement;
 using UnitManagement.Targeting;
 
 namespace Units.Unit.BehaviorNodes
@@ -8,6 +9,8 @@ namespace Units.Unit.BehaviorNodes
     {
         private readonly string _targetKey;
         private readonly string _unitTypeKey;
+        
+        private Resource _resource;
 
         public StartActionOnTarget(string targetKey, string unitTypeKey) : base("StartActionOnTarget")
         {
@@ -24,7 +27,32 @@ namespace Units.Unit.BehaviorNodes
                 throw new ArgumentNullException(nameof(target));
             }
 
+            if (!CanAct(target))
+            {
+                return;
+            }
+
             Act();
+        }
+
+        private bool CanAct(Target target)
+        {
+            if (!target.HasResource)
+            {
+                Stopped(false);
+                return false;
+            }
+
+            _resource = target.Resource;
+            var unitType = Blackboard.Get<UnitType.UnitType>(_unitTypeKey);
+
+            if (_resource.CanInteractWith(unitType))
+            {
+                Stopped(false);
+                return false;
+            }
+
+            return true;
         }
 
         private void Act()

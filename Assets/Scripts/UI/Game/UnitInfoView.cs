@@ -1,7 +1,7 @@
 ﻿using System;
 using Sirenix.OdinInspector;
 using Units.Unit;
-using Units.Unit.UnitTypes;
+using Units.Unit.UnitType;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -13,7 +13,7 @@ namespace UI.Game
     {
         [Title("Previews")]
         [Required]
-        [SerializeField] private Texture2D _travelerPreview;
+        [SerializeField] private Texture2D _scoutPreview;
         [Required]
         [SerializeField] private Texture2D _lumberjackPreview;
         [Required]
@@ -83,7 +83,7 @@ namespace UI.Game
         {
             _image.style.backgroundImage = unit.UnitType switch
             {
-                UnitType.Traveler => new StyleBackground(_travelerPreview),
+                UnitType.Scout => new StyleBackground(_scoutPreview),
                 UnitType.Lumberjack => new StyleBackground(_lumberjackPreview),
                 UnitType.Mason => new StyleBackground(_masonPreview),
                 UnitType.Melee => new StyleBackground(_meleePreview),

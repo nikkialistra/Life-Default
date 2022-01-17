@@ -72,16 +72,16 @@
     opacity: 0.5;
 }
 
-.traveler {
-    background-image: resource('UI/Textures/UnitTypes/Traveler');
+.scout {
+    background-image: resource('UI/Textures/UnitTypes/Scout');
 }
 
-.traveler:hover {
-    background-image: resource('UI/Textures/UnitTypes/TravelerHover');
+.scout:hover {
+    background-image: resource('UI/Textures/UnitTypes/ScoutHover');
 }
 
-.traveler.missing:hover {
-    background-image: resource('UI/Textures/UnitTypes/Traveler');
+.scout.missing:hover {
+    background-image: resource('UI/Textures/UnitTypes/Scout');
 }
 
 .lumberjack {

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using Units.Unit;
-using Units.Unit.UnitTypes;
+using Units.Unit.UnitType;
 using UnityEngine;
 using Zenject;
 
@@ -34,7 +34,7 @@ namespace Units.Services
 
             foreach (var unitData in currentUnits)
             {
-                var unitFacade = _factory.Create(UnitType.Traveler, Vector3.zero);
+                var unitFacade = _factory.Create(UnitType.Scout, Vector3.zero);
                 unitFacade.UnitSaveLoadHandler.SetUnitData(unitData);
             }
         }

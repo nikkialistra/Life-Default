@@ -31,8 +31,8 @@
             <ui:VisualElement name="mini-map" picking-mode="Ignore" class="mini-map"/>
             <ui:VisualElement name="info-panel" class="info-panel"/>
             <ui:VisualElement name="unit-types" class="unit-types">
-                <ui:VisualElement name="traveler-type" focusable="true" class="unit-type traveler">
-                    <ui:Label text="0" display-tooltip-when-elided="true" name="traveler-type__count"
+                <ui:VisualElement name="scout-type" focusable="true" class="unit-type scout">
+                    <ui:Label text="0" display-tooltip-when-elided="true" name="scout-type__count"
                               class="unit-type__count"/>
                 </ui:VisualElement>
                 <ui:VisualElement name="lumberjack-type" class="unit-type lumberjack">

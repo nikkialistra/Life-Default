@@ -1,4 +1,5 @@
-﻿using Units.Services;
+﻿using ResourceManagement;
+using Units.Services;
 using UnityEngine;
 using Zenject;
 
@@ -18,6 +19,13 @@ namespace Units.Unit.UnitType
         public void ChangeUnitType(UnitType unitType)
         {
             UnitClassSpecs = _unitClassSpecsRepository.GetFor(unitType, UnitTypeLevel.FirstLevel);
+        }
+
+        public bool CanInteractWith(Entity entity)
+        {
+            var entityType = entity.EntityType;
+
+            return UnitClassSpecs.ContainsSpecsFor(entityType);
         }
     }
 }

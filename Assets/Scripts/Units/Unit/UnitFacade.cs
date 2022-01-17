@@ -13,6 +13,7 @@ namespace Units.Unit
     [RequireComponent(typeof(UnitModelElements))]
     [RequireComponent(typeof(UnitSaveLoadHandler))]
     [RequireComponent(typeof(UnitBehavior))]
+    [RequireComponent(typeof(UnitClass))]
     public class UnitFacade : MonoBehaviour, IPoolable<UnitType.UnitType, Vector3, IMemoryPool>, IDisposable
     {
         [Required]
@@ -32,6 +33,7 @@ namespace Units.Unit
         private UnitAnimator _unitAnimator;
         private UnitModelElements _unitModelElements;
         private UnitBehavior _unitBehavior;
+        private UnitClass _unitClass;
 
         private IMemoryPool _pool;
 
@@ -41,6 +43,7 @@ namespace Units.Unit
             _unitAnimator = GetComponent<UnitAnimator>();
             _unitModelElements = GetComponent<UnitModelElements>();
             _unitBehavior = GetComponent<UnitBehavior>();
+            _unitClass = GetComponent<UnitClass>();
 
             UnitSaveLoadHandler = GetComponent<UnitSaveLoadHandler>();
         }
@@ -84,8 +87,7 @@ namespace Units.Unit
                 Initialize();
             }
 
-            _unitBehavior.Initialize();
-            _unitBehavior.UpdateUnitType(_unitType);
+            InitializeComponents();
         }
 
         [Button(ButtonSizes.Large)]
@@ -93,7 +95,9 @@ namespace Units.Unit
         {
             _unitType = unitType;
             _unitModelElements.SwitchTo(unitType);
-            _unitBehavior.UpdateUnitType(_unitType);
+            
+            _unitClass.ChangeUnitType(unitType);
+            _unitBehavior.ChangeUnitClass(_unitClass);
         }
 
         [Button(ButtonSizes.Large)]
@@ -174,6 +178,14 @@ namespace Units.Unit
             _unitModelElements.SwitchTo(_unitType);
 
             Spawn?.Invoke();
+        }
+
+        private void InitializeComponents()
+        {
+            _unitClass.ChangeUnitType(_unitType);
+
+            _unitBehavior.Initialize();
+            _unitBehavior.ChangeUnitClass(_unitClass);
         }
 
         private void DestroySelf()

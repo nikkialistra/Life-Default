@@ -26,7 +26,7 @@ namespace Units.Unit.BehaviorNodes
                 Stopped(false);
                 return;
             }
-            
+
             var position = Blackboard.Get<Vector3>(_positionKey);
             Blackboard.Unset(_positionKey);
             

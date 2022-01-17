@@ -2,6 +2,7 @@
 using NPBehave;
 using UnitManagement.Targeting;
 using Units.Unit.BehaviorNodes;
+using Units.Unit.UnitType;
 using UnityEngine;
 using Action = NPBehave.Action;
 
@@ -13,7 +14,7 @@ namespace Units.Unit
         private const string PositionKey = "desiredPosition";
         private const string TargetMarkKey = "targetMark";
         private const string NewCommandKey = "newCommand";
-        private const string UnitTypeKey = "unitType";
+        private const string UnitClassKey = "unitType";
         
         private Root _behaviorTree;
         
@@ -50,9 +51,9 @@ namespace Units.Unit
             _behaviorTree.Start();
         }
 
-        public void UpdateUnitType(UnitType.UnitType unitType)
+        public void ChangeUnitClass(UnitClass unitClass)
         {
-            _behaviorTree.Blackboard.Set(UnitTypeKey, unitType);
+            _behaviorTree.Blackboard.Set(UnitClassKey, unitClass);
         }
 
         public bool TryAcceptTargetWithPosition(TargetMark targetMark, Vector3 position)
@@ -82,7 +83,7 @@ namespace Units.Unit
                         new CheckHasTarget(TargetMarkKey),
                         new Repeater(
                             new Sequence(
-                                new StartActionOnTarget(TargetMarkKey, UnitTypeKey),
+                                new StartActionOnTarget(TargetMarkKey, UnitClassKey),
                                 new FindNewTarget()
                             )
                         )

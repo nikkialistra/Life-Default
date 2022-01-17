@@ -2,20 +2,22 @@
 using NPBehave;
 using ResourceManagement;
 using UnitManagement.Targeting;
+using Units.Unit.UnitType;
+using UnityEngine;
 
 namespace Units.Unit.BehaviorNodes
 {
     public class StartActionOnTarget : Node
     {
         private readonly string _targetKey;
-        private readonly string _unitTypeKey;
+        private readonly string _unitClassKey;
         
-        private Resource _resource;
+        private Entity _entity;
 
-        public StartActionOnTarget(string targetKey, string unitTypeKey) : base("StartActionOnTarget")
+        public StartActionOnTarget(string targetKey, string unitClassKey) : base("StartActionOnTarget")
         {
             _targetKey = targetKey;
-            _unitTypeKey = unitTypeKey;
+            _unitClassKey = unitClassKey;
         }
         
         protected override void DoStart()
@@ -29,6 +31,7 @@ namespace Units.Unit.BehaviorNodes
 
             if (!CanAct(target))
             {
+                Stopped(false);
                 return;
             }
 
@@ -37,27 +40,20 @@ namespace Units.Unit.BehaviorNodes
 
         private bool CanAct(Target target)
         {
-            if (!target.HasResource)
+            if (!target.HasEntity)
             {
-                Stopped(false);
                 return false;
             }
 
-            _resource = target.Resource;
-            var unitType = Blackboard.Get<UnitType.UnitType>(_unitTypeKey);
+            _entity = target.Entity;
+            var unitClass = Blackboard.Get<UnitClass>(_unitClassKey);
 
-            if (_resource.CanInteractWith(unitType))
-            {
-                Stopped(false);
-                return false;
-            }
-
-            return true;
+            return unitClass.CanInteractWith(_entity);
         }
 
         private void Act()
         {
-            
+            Stopped(true);
         }
 
         protected override void DoStop()

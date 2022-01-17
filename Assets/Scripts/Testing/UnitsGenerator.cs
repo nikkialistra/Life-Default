@@ -9,7 +9,7 @@ namespace Testing
 {
     public class UnitsGenerator : ITickable
     {
-        private UnitType? _generationType;
+        private UnitType? _generationType = UnitType.Lumberjack;
         private readonly LayerMask _terrainMask = LayerMask.GetMask("Terrain");
 
         private readonly UnitFacade.Factory _factory;

@@ -42,6 +42,7 @@ namespace Units.Unit
 
         public void SetDestination(Vector3 position)
         {
+            _aiPath.isStopped = false;
             _aiPath.destination = position;
             Move();
         }
@@ -68,12 +69,17 @@ namespace Units.Unit
             {
                 yield return null;
             }
-
+            
             TargetReach?.Invoke();
         }
 
         private bool IsMoving()
         {
+            if (_aiPath.reachedDestination)
+            {
+                _aiPath.isStopped = true;
+            }
+            
             return !_aiPath.reachedDestination;
         }
 

@@ -15,16 +15,16 @@ namespace UnitManagement.Targeting
         [ShowIf("_hasDestinationPoint")]
         [SerializeField] private GameObject _targetIndicator;
         
-        [Title("Resource")]
-        [SerializeField] private bool _hasResource;
+        [Title("Entity")]
+        [SerializeField] private bool _hasEntity;
 
-        [ShowIf("_hasResource")]
-        [SerializeField] private Resource _resource;
+        [ShowIf("_hasEntity")]
+        [SerializeField] private Entity _entity;
 
         public bool HasDestinationPoint => _hasDestinationPoint;
-        public bool HasResource => _hasResource;
+        public bool HasEntity => _hasEntity;
 
-        public Resource Resource => _resource;
+        public Entity Entity => _entity;
 
         public Vector3 GetDestinationPoint()
         {

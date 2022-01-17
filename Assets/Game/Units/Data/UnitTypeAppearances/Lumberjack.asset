@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd0eb02e13c641b5a064fab47ba5a9bb, type: 3}
+  m_Name: Lumberjack
+  m_EditorClassIdentifier: 
+  _skin: {fileID: 2100000, guid: 813f01be7c1d68e46bf06a313a7053c1, type: 2}
+  _headEndAccessory: {fileID: 0}
+  _headAccessory: {fileID: 1996111486021023654, guid: d0275cfd48800e84c9750b0213be24e1,
+    type: 3}
+  _rightHandAccessory: {fileID: 9061245669740814738, guid: f44e489b5448058459ffd5d9c1546c64,
+    type: 3}
+  _upperChestAccessory: {fileID: 0}

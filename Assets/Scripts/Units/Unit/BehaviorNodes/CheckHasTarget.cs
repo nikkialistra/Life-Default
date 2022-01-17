@@ -14,9 +14,9 @@ namespace Units.Unit.BehaviorNodes
 
         protected override void DoStart()
         {
-            var target = Blackboard.Get<TargetMark>(_targetMarkKey);
+            var targetMark = Blackboard.Get<TargetMark>(_targetMarkKey);
             
-            Stopped(target.HasTarget);
+            Stopped(targetMark.HasTarget);
         }
         
         protected override void DoStop()

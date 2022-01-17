@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using Entities;
 using UnityEngine;
 
 namespace Units.Unit.UnitType
@@ -6,10 +8,15 @@ namespace Units.Unit.UnitType
     [CreateAssetMenu(fileName = "UnitClassSpecs", menuName = "Data/Unit Class Specs")]
     public class UnitClassSpecs : ScriptableObject
     {
-        public UnitType UnitType;
-        public UnitTypeLevel UnitTypeLevel;
+        [SerializeField] private UnitType _unitType;
+        [SerializeField] private UnitTypeLevel _unitTypeLevel;
 
         [Space]
-        public List<SpecsPerEntityType> Specs;
+        [SerializeField] private List<SpecsPerEntityType> _allSpecs;
+
+        public bool ContainsSpecsFor(EntityType entityType)
+        {
+            return _allSpecs.Any(specsPerEntityType => specsPerEntityType.EntityType == entityType);
+        }
     }
 }

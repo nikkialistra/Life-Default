@@ -9,9 +9,9 @@ namespace UnitManagement.Targeting
         [SerializeField] private GameObject _targetIndicator;
 
         private List<ITargetable> _targetables = new();
-        private Target _target;
 
-        public bool HasTarget => _target != null;
+        public bool HasTarget => Target != null;
+        public Target Target { get; private set; }
         public bool Empty => _targetables.Count == 0;
         public IEnumerable<ITargetable> Targetables => _targetables;
 
@@ -50,17 +50,17 @@ namespace UnitManagement.Targeting
 
         public void SetTargetObject(Target target)
         {
-            _target = target;
+            Target = target;
         }
 
         public void ClearTargetObject()
         {
-            _target = null;
+            Target = null;
         }
 
         public void Deactivate()
         {
-            if (_target != null)
+            if (Target != null)
             {
                 HideTargetObjectIndicator();
             }
@@ -72,9 +72,9 @@ namespace UnitManagement.Targeting
 
         private void HideTargetObjectIndicator()
         {
-            if (_target.HasDestinationPoint)
+            if (Target.HasDestinationPoint)
             {
-                _target.HideIndicator();
+                Target.HideIndicator();
             }
         }
 
@@ -106,9 +106,9 @@ namespace UnitManagement.Targeting
 
         private void Activate()
         {
-            if (_target != null && _target.HasDestinationPoint)
+            if (Target != null && Target.HasDestinationPoint)
             {
-                _target.ShowIndicator();
+                Target.ShowIndicator();
             }
             else
             {

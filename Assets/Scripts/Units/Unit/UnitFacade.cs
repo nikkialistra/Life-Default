@@ -11,7 +11,6 @@ namespace Units.Unit
     [RequireComponent(typeof(EntityHealth))]
     [RequireComponent(typeof(UnitAnimator))]
     [RequireComponent(typeof(UnitModelElements))]
-    [RequireComponent(typeof(UnitMeshAgent))]
     [RequireComponent(typeof(UnitSaveLoadHandler))]
     [RequireComponent(typeof(UnitBehavior))]
     public class UnitFacade : MonoBehaviour, IPoolable<UnitType, Vector3, IMemoryPool>, IDisposable
@@ -32,7 +31,6 @@ namespace Units.Unit
         private EntityHealth _health;
         private UnitAnimator _unitAnimator;
         private UnitModelElements _unitModelElements;
-        private UnitMeshAgent _unitMeshAgent;
         private UnitBehavior _unitBehavior;
 
         private IMemoryPool _pool;
@@ -42,7 +40,6 @@ namespace Units.Unit
             _health = GetComponent<EntityHealth>();
             _unitAnimator = GetComponent<UnitAnimator>();
             _unitModelElements = GetComponent<UnitModelElements>();
-            _unitMeshAgent = GetComponent<UnitMeshAgent>();
             _unitBehavior = GetComponent<UnitBehavior>();
 
             UnitSaveLoadHandler = GetComponent<UnitSaveLoadHandler>();
@@ -86,6 +83,9 @@ namespace Units.Unit
             {
                 Initialize();
             }
+
+            _unitBehavior.Initialize();
+            _unitBehavior.UpdateUnitType(_unitType);
         }
 
         [Button(ButtonSizes.Large)]
@@ -93,6 +93,7 @@ namespace Units.Unit
         {
             _unitType = unitType;
             _unitModelElements.SwitchTo(unitType);
+            _unitBehavior.UpdateUnitType(_unitType);
         }
 
         [Button(ButtonSizes.Large)]

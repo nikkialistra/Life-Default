@@ -43,7 +43,7 @@ namespace Infrastructure
 
         [Title("Resources")]
         [Required]
-        [SerializeField] private ResourcesCounts _resourcesCounts;
+        [SerializeField] private ResourceCounts _resourceCounts;
 
         [Title("Saving")]
         [Required]
@@ -91,7 +91,7 @@ namespace Infrastructure
 
         private void BindResources()
         {
-            Container.BindInstance(_resourcesCounts);
+            Container.BindInstance(_resourceCounts);
         }
 
         private void BindSaving()

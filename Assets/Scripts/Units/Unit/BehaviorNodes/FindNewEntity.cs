@@ -2,9 +2,9 @@
 
 namespace Units.Unit.BehaviorNodes
 {
-    public class FindNewTarget : Node
+    public class FindNewEntity : Node
     {
-        public FindNewTarget() : base("FindNewTarget")
+        public FindNewEntity() : base("FindNewTarget")
         {
             
         }

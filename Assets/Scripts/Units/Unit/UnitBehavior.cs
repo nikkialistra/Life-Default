@@ -14,7 +14,7 @@ namespace Units.Unit
     public class UnitBehavior : MonoBehaviour, IOrderable
     {
         private const string PositionKey = "desiredPosition";
-        private const string TargetKey = "target";
+        private const string EntityKey = "entity";
         private const string NewCommandKey = "newCommand";
         private const string UnitClassKey = "unitType";
         
@@ -65,7 +65,7 @@ namespace Units.Unit
                 return false;
             }
 
-            _behaviorTree.Blackboard.Set(TargetKey, entity);
+            _behaviorTree.Blackboard.Set(EntityKey, entity);
             _behaviorTree.Blackboard.Set(PositionKey, position);
             
             _behaviorTree.Blackboard.Set(NewCommandKey, true);
@@ -96,11 +96,12 @@ namespace Units.Unit
                     ),
                     new Sequence(
                         new MoveToPosition(_unitMeshAgent, PositionKey, OnDestinationReach),
-                        new CheckHasTarget(TargetKey),
-                        new Repeater(
-                            new Sequence(
-                                new StartActionOnTarget(TargetKey, UnitClassKey),
-                                new FindNewTarget()
+                        new BlackboardCondition(EntityKey, Operator.IS_SET, Stops.NONE,
+                            new Repeater(
+                                new Sequence(
+                                    new InteractWithEntity(EntityKey, UnitClassKey),
+                                    new FindNewEntity()
+                                )
                             )
                         )
                     ),
@@ -122,11 +123,6 @@ namespace Units.Unit
         private void ShowIdleState()
         {
             Debug.Log("Idle");
-        }
-        
-        private void ShowIdleState2()
-        {
-            Debug.Log("Idle2");
         }
 
         private void StopBehaviorTree()

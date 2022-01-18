@@ -8,14 +8,14 @@ using Units.Unit.UnitType;
 
 namespace Units.Unit.BehaviorNodes
 {
-    public class StartActionOnTarget : Node
+    public class InteractWithEntity : Node
     {
         private readonly string _targetKey;
         private readonly string _unitClassKey;
         
         private Entity _entity;
 
-        public StartActionOnTarget(string targetKey, string unitClassKey) : base("StartActionOnTarget")
+        public InteractWithEntity(string targetKey, string unitClassKey) : base("StartActionOnTarget")
         {
             _targetKey = targetKey;
             _unitClassKey = unitClassKey;

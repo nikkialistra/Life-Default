@@ -55,11 +55,11 @@ namespace Units.Services.Selecting
             }
             else if (hit.transform.TryGetComponent(out OrderMark target))
             {
-                foreach (var orderable in target.Orderables)
+                foreach (var unit in target.Units)
                 {
-                    if (orderable.GameObject.TryGetComponent(out UnitFacade orderableUnit) && orderableUnit.Alive)
+                    if (unit.Alive)
                     {
-                        yield return orderableUnit;
+                        yield return unit;
                     }
                 }
             }

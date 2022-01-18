@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using Entities;
 using Entities.Entity;
+using Units.Unit;
 using UnityEngine;
 
 namespace UnitManagement.Targeting
@@ -10,44 +10,44 @@ namespace UnitManagement.Targeting
     {
         [SerializeField] private GameObject _targetIndicator;
 
-        private List<IOrderable> _orderables = new();
+        private List<UnitFacade> _units = new();
 
         public bool AtEntity => Entity != null;
         public Entity Entity { get; private set; }
-        public bool Empty => _orderables.Count == 0;
-        public IEnumerable<IOrderable> Orderables => _orderables;
+        public bool Empty => _units.Count == 0;
+        public IEnumerable<UnitFacade> Units => _units;
 
-        public void Add(IOrderable orderable)
+        public void Add(UnitFacade unit)
         {
-            _orderables.Add(orderable);
+            _units.Add(unit);
 
-            orderable.DestinationReach += OnDestinationReach;
+            unit.DestinationReach += OnDestinationReach;
 
             UpdateState();
         }
 
-        public void Remove(IOrderable orderable)
+        public void Remove(UnitFacade unit)
         {
-            if (!_orderables.Contains(orderable))
+            if (!_units.Contains(unit))
             {
                 return;
             }
 
-            _orderables.Remove(orderable);
+            _units.Remove(unit);
 
             UpdateState();
 
-            orderable.DestinationReach -= OnDestinationReach;
+            unit.DestinationReach -= OnDestinationReach;
         }
 
         public void Clear()
         {
-            foreach (var orderable in _orderables)
+            foreach (var unit in _units)
             {
-                orderable.DestinationReach -= OnDestinationReach;
+                unit.DestinationReach -= OnDestinationReach;
             }
 
-            _orderables.Clear();
+            _units.Clear();
         }
 
         public void SetEntity(Entity entity)
@@ -89,16 +89,16 @@ namespace UnitManagement.Targeting
             }
         }
 
-        private void OnDestinationReach(IOrderable orderable)
+        private void OnDestinationReach(UnitFacade unit)
         {
-            if (!_orderables.Contains(orderable))
+            if (!_units.Contains(unit))
             {
                 throw new InvalidOperationException();
             }
 
-            orderable.DestinationReach -= OnDestinationReach;
+            unit.DestinationReach -= OnDestinationReach;
 
-            _orderables.Remove(orderable);
+            _units.Remove(unit);
 
             UpdateState();
         }

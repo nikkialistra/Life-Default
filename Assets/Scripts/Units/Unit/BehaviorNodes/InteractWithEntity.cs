@@ -1,9 +1,6 @@
 ﻿using System;
-using Entities;
 using Entities.Entity;
 using NPBehave;
-using ResourceManagement;
-using UnitManagement.Targeting;
 using Units.Unit.UnitType;
 
 namespace Units.Unit.BehaviorNodes

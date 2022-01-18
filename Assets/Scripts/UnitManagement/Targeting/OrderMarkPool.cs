@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Entities;
 using Entities.Entity;
 using Units.Services;
 using Units.Unit;
@@ -53,15 +52,15 @@ namespace UnitManagement.Targeting
             return orderMark;
         }
 
-        public void Link(OrderMark orderMark, IOrderable orderable)
+        public void Link(OrderMark orderMark, UnitFacade unit)
         {
             if (!_orderMarks.Contains(orderMark))
             {
                 throw new InvalidOperationException();
             }
 
-            RemoveFromOldOrderMark(orderable);
-            AddOrderMark(orderMark, orderable);
+            RemoveFromOldOrderMark(unit);
+            AddOrderMark(orderMark, unit);
         }
 
         public void OffAll()
@@ -76,7 +75,7 @@ namespace UnitManagement.Targeting
 
         private void OnRemove(UnitFacade unit)
         {
-            RemoveFromOldOrderMark(unit.Orderable);
+            RemoveFromOldOrderMark(unit);
         }
 
         private OrderMark GetFromPoolOrCreate()
@@ -92,18 +91,18 @@ namespace UnitManagement.Targeting
             return CreateNew();
         }
 
-        private void RemoveFromOldOrderMark(IOrderable orderable)
+        private void RemoveFromOldOrderMark(UnitFacade unit)
         {
             foreach (var orderMark in _orderMarks)
             {
-                orderMark.Remove(orderable);
+                orderMark.Remove(unit);
             }
         }
 
-        private void AddOrderMark(OrderMark orderMark, IOrderable orderable)
+        private void AddOrderMark(OrderMark orderMark, UnitFacade unit)
         {
             _orderMarks.Add(orderMark);
-            orderMark.Add(orderable);
+            orderMark.Add(unit);
         }
 
         private OrderMark CreateNew()

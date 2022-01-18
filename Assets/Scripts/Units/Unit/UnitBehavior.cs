@@ -1,17 +1,14 @@
-﻿using System;
-using Entities;
-using Entities.Entity;
+﻿using Entities.Entity;
 using NPBehave;
 using UnitManagement.Targeting;
 using Units.Unit.BehaviorNodes;
 using Units.Unit.UnitType;
 using UnityEngine;
-using Action = NPBehave.Action;
 
 namespace Units.Unit
 {
     [RequireComponent(typeof(UnitMeshAgent))]
-    public class UnitBehavior : MonoBehaviour, IOrderable
+    public class UnitBehavior : MonoBehaviour
     {
         private const string PositionKey = "desiredPosition";
         private const string EntityKey = "entity";
@@ -29,11 +26,7 @@ namespace Units.Unit
             _unitMeshAgent = GetComponent<UnitMeshAgent>();
         }
 
-        public event Action<IOrderable> DestinationReach;
-
-        public GameObject GameObject => gameObject;
-
-        public Vector3 Position => transform.position;
+        public event System.Action DestinationReach;
 
         private void OnDestroy()
         {
@@ -117,7 +110,7 @@ namespace Units.Unit
 
         private void OnDestinationReach()
         {
-            DestinationReach?.Invoke(this);
+            DestinationReach?.Invoke();
         }
 
         private void ShowIdleState()

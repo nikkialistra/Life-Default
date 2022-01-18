@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using Entities;
 using Entities.Entity;
 using UI.Game;
 using Units.Services.Selecting;

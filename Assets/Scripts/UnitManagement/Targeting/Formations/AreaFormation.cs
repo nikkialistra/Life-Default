@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace UnitManagement.Targeting
+namespace UnitManagement.Targeting.Formations
 {
     public class AreaFormation : MonoBehaviour
     {

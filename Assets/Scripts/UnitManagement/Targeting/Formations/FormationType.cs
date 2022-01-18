@@ -1,4 +1,4 @@
-﻿namespace UnitManagement.Targeting
+﻿namespace UnitManagement.Targeting.Formations
 {
     public enum FormationType
     {

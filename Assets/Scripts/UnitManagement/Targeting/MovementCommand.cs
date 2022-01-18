@@ -1,8 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Entities;
-using Entities.Entity;
+﻿using Entities.Entity;
 using MapGeneration.Map;
+using UnitManagement.Targeting.Formations;
 using Units.Services.Selecting;
 using UnityEngine;
 using Zenject;
@@ -61,22 +59,7 @@ namespace UnitManagement.Targeting
 
         private void MoveAllTo(OrderMark orderMark)
         {
-            var orderables = GetOrderables().ToList();
-            _formationMovement.MoveTo(orderables, orderMark);
-        }
-
-        private IEnumerable<IOrderable> GetOrderables()
-        {
-            foreach (var unit in _selectedUnits.Units)
-            {
-                var orderable = unit.GetComponent<IOrderable>();
-                if (orderable == null)
-                {
-                    continue;
-                }
-
-                yield return orderable;
-            }
+            _formationMovement.MoveTo(_selectedUnits.Units, orderMark);
         }
     }
 }

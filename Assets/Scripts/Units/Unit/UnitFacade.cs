@@ -1,9 +1,7 @@
 ﻿using System;
-using Entities;
 using Entities.Entity;
 using Entities.Entity.Ancillaries;
 using Sirenix.OdinInspector;
-using UnitManagement.Targeting;
 using Units.Unit.UnitType;
 using UnityEngine;
 using Zenject;
@@ -56,8 +54,8 @@ namespace Units.Unit
 
         public event Action Selected;
         public event Action Deselected;
-
-        public IOrderable Orderable => _unitBehavior;
+        
+        public event Action<UnitFacade> DestinationReach;
 
         public UnitSaveLoadHandler UnitSaveLoadHandler { get; private set; }
 
@@ -74,6 +72,8 @@ namespace Units.Unit
         {
             _health.Die += Dispose;
             _health.HealthChange += OnHealthChange;
+
+            _unitBehavior.DestinationReach += OnDestinationReach;
         }
 
         private void OnDisable()
@@ -138,6 +138,16 @@ namespace Units.Unit
             _selectionIndicator.SetActive(false);
             _healthBar.Selected = false;
         }
+        
+        public bool TryOrderToEntityWithPosition(Entity entity, Vector3 position)
+        {
+            return _unitBehavior.TryOrderToEntityWithPosition(entity, position);
+        }
+
+        public bool TryOrderToPosition(Vector3 position)
+        {
+            return _unitBehavior.TryOrderToPosition(position);
+        }
 
         public void OnSpawned(UnitType.UnitType unitType, Vector3 position, IMemoryPool pool)
         {
@@ -200,6 +210,11 @@ namespace Units.Unit
             {
                 _pool.Despawn(this);
             }
+        }
+
+        private void OnDestinationReach()
+        {
+            DestinationReach?.Invoke(this);
         }
 
         private void OnHealthChange(int value)

@@ -55,7 +55,7 @@ namespace Units.Unit
         public event Action Selected;
         public event Action Deselected;
 
-        public ITargetable Targetable => _unitBehavior;
+        public IOrderable Orderable => _unitBehavior;
 
         public UnitSaveLoadHandler UnitSaveLoadHandler { get; private set; }
 

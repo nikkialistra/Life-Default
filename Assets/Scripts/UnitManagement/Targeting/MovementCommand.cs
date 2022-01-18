@@ -12,7 +12,7 @@ namespace UnitManagement.Targeting
     public class MovementCommand : MonoBehaviour
     {
         private SelectedUnits _selectedUnits;
-        private TargetMarkPool _targetMarkPool;
+        private OrderMarkPool _orderMarkPool;
 
         private AstarPath _astarPath;
         private FormationMovement _formationMovement;
@@ -20,10 +20,10 @@ namespace UnitManagement.Targeting
         private MovementInput _movementInput;
 
         [Inject]
-        public void Construct(SelectedUnits selectedUnits, TargetMarkPool markPool, Map map, AstarPath astarPath)
+        public void Construct(SelectedUnits selectedUnits, OrderMarkPool markPool, Map map, AstarPath astarPath)
         {
             _selectedUnits = selectedUnits;
-            _targetMarkPool = markPool;
+            _orderMarkPool = markPool;
         }
 
         private void Awake()
@@ -44,36 +44,36 @@ namespace UnitManagement.Targeting
 
         private void MoveAll(Target target, RaycastHit hit)
         {
-            if (target.HasDestinationPoint)
+            if (target.IsEntity)
             {
                 var destinationPoint = target.GetDestinationPoint();
-                var targetMark = _targetMarkPool.PlaceTo(destinationPoint, target);
-                MoveAllTo(targetMark);
+                var orderMark = _orderMarkPool.PlaceTo(destinationPoint, target);
+                MoveAllTo(orderMark);
             }
             else
             {
-                var targetMark = _targetMarkPool.PlaceTo(hit.point);
-                MoveAllTo(targetMark);
+                var orderMark = _orderMarkPool.PlaceTo(hit.point);
+                MoveAllTo(orderMark);
             }
         }
 
-        private void MoveAllTo(TargetMark targetMark)
+        private void MoveAllTo(OrderMark orderMark)
         {
-            var targetables = GetTargetables().ToList();
-            _formationMovement.MoveTo(targetables, targetMark);
+            var orderables = GetOrderables().ToList();
+            _formationMovement.MoveTo(orderables, orderMark);
         }
 
-        private IEnumerable<ITargetable> GetTargetables()
+        private IEnumerable<IOrderable> GetOrderables()
         {
             foreach (var unit in _selectedUnits.Units)
             {
-                var targetable = unit.GetComponent<ITargetable>();
-                if (targetable == null)
+                var orderable = unit.GetComponent<IOrderable>();
+                if (orderable == null)
                 {
                     continue;
                 }
 
-                yield return targetable;
+                yield return orderable;
             }
         }
     }

@@ -3,7 +3,6 @@ using NPBehave;
 using ResourceManagement;
 using UnitManagement.Targeting;
 using Units.Unit.UnitType;
-using UnityEngine;
 
 namespace Units.Unit.BehaviorNodes
 {
@@ -22,7 +21,7 @@ namespace Units.Unit.BehaviorNodes
         
         protected override void DoStart()
         {
-            var target = Blackboard.Get<TargetMark>(_targetKey).Target;
+            var target = Blackboard.Get<Target>(_targetKey);
 
             if (target == null)
             {
@@ -40,7 +39,7 @@ namespace Units.Unit.BehaviorNodes
 
         private bool CanAct(Target target)
         {
-            if (!target.HasEntity)
+            if (!target.IsEntity)
             {
                 return false;
             }

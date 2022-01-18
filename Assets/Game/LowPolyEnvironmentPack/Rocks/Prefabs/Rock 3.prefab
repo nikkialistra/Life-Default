@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8768863876860894848}
   - component: {fileID: 6138867248101369171}
   - component: {fileID: 6739561006920173161}
+  - component: {fileID: 52775672174175910}
   m_Layer: 8
   m_Name: Rock
   m_TagString: Untagged
@@ -96,9 +97,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05801dcd7dd44c819b53a6357ea5aeb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _hasDestinationPoint: 1
+  _isEntity: 1
+  _entity: {fileID: 52775672174175910}
   _destinationPoint: {fileID: 6665316911267847618}
   _targetIndicator: {fileID: 4808828635700201852}
+--- !u!114 &52775672174175910
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4997022385399281244}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 347b9ad3bb6c4f94b928f4c0a5149343, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _entityType: 1
+  _resourceType: 1
+  _health: 5
+  _resourcePerHp: 1
 --- !u!1 &6033004908273201049
 GameObject:
   m_ObjectHideFlags: 0

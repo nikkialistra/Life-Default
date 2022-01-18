@@ -1,22 +1,19 @@
 ﻿using NPBehave;
-using UnitManagement.Targeting;
 
 namespace Units.Unit.BehaviorNodes
 {
     public class CheckHasTarget : Node
     {
-        private readonly string _targetMarkKey;
+        private readonly string _targetKey;
 
-        public CheckHasTarget(string targetMarkKey) : base("CheckHasTarget")
+        public CheckHasTarget(string targetKey) : base("CheckHasTarget")
         {
-            _targetMarkKey = targetMarkKey;
+            _targetKey = targetKey;
         }
 
         protected override void DoStart()
         {
-            var targetMark = Blackboard.Get<TargetMark>(_targetMarkKey);
-            
-            Stopped(targetMark.HasTarget);
+            Stopped(Blackboard.Isset(_targetKey));
         }
         
         protected override void DoStop()

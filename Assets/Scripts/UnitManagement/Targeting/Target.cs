@@ -7,49 +7,44 @@ namespace UnitManagement.Targeting
 {
     public class Target : MonoBehaviour
     {
-        [Title("Destination")]
-        [SerializeField] private bool _hasDestinationPoint;
+        [SerializeField] private bool _isEntity;
         
-        [ShowIf("_hasDestinationPoint")]
-        [SerializeField] private Transform _destinationPoint;
-        [ShowIf("_hasDestinationPoint")]
-        [SerializeField] private GameObject _targetIndicator;
-        
-        [Title("Entity")]
-        [SerializeField] private bool _hasEntity;
-
-        [ShowIf("_hasEntity")]
+        [ShowIf("_isEntity")]
         [SerializeField] private Entity _entity;
+        
+        [ShowIf("_isEntity")]
+        [SerializeField] private Transform _destinationPoint;
+        [ShowIf("_isEntity")]
+        [SerializeField] private GameObject _targetIndicator;
 
-        public bool HasDestinationPoint => _hasDestinationPoint;
-        public bool HasEntity => _hasEntity;
+        public bool IsEntity => _isEntity;
 
         public Entity Entity => _entity;
 
         public Vector3 GetDestinationPoint()
         {
-            CheckHavingDestinationPoint();
+            CheckIsEntity();
 
             return _destinationPoint.position;
         }
 
         public void ShowIndicator()
         {
-            CheckHavingDestinationPoint();
+            CheckIsEntity();
 
             _targetIndicator.SetActive(true);
         }
 
         public void HideIndicator()
         {
-            CheckHavingDestinationPoint();
+            CheckIsEntity();
 
             _targetIndicator.SetActive(false);
         }
 
-        private void CheckHavingDestinationPoint()
+        private void CheckIsEntity()
         {
-            if (!_hasDestinationPoint)
+            if (!_isEntity)
             {
                 throw new InvalidOperationException("Method should not be called when destination point is not set");
             }

@@ -10,17 +10,17 @@ namespace UnitManagement.Targeting
     {
         [SerializeField] private FormationType _formationType;
 
-        private List<ITargetable> _targetables;
-        private TargetMark _targetMark;
+        private List<IOrderable> _orderables;
+        private OrderMark _orderMark;
 
-        private TargetMarkPool _targetMarkPool;
+        private OrderMarkPool _orderMarkPool;
 
         private AreaFormation _areaFormation;
 
         [Inject]
-        public void Construct(TargetMarkPool targetMarkPool)
+        public void Construct(OrderMarkPool orderMarkPool)
         {
-            _targetMarkPool = targetMarkPool;
+            _orderMarkPool = orderMarkPool;
         }
 
         private void Awake()
@@ -28,20 +28,20 @@ namespace UnitManagement.Targeting
             _areaFormation = GetComponent<AreaFormation>();
         }
 
-        public void MoveTo(List<ITargetable> targetables, TargetMark targetMark)
+        public void MoveTo(List<IOrderable> orderables, OrderMark orderMark)
         {
-            _targetables = targetables;
-            _targetMark = targetMark;
+            _orderables = orderables;
+            _orderMark = orderMark;
 
-            MoveTargetablesToPositions(GenerateFormation(targetMark.transform.position));
+            MoveOrderablesToPositions(GenerateFormation(orderMark.transform.position));
         }
 
-        private void MoveTargetablesToPositions(Vector3[] formationPositions)
+        private void MoveOrderablesToPositions(Vector3[] formationPositions)
         {
             var assignedPositionsBitmask = new bool[formationPositions.Length];
-            var assignedTargetablesBitmask = new bool[formationPositions.Length];
+            var assignedOrderablesBitmask = new bool[formationPositions.Length];
 
-            var middlePoint = FindMiddlePointBetweenTargetables();
+            var middlePoint = FindMiddlePointBetweenOrderables();
 
             for (var i = 0; i < formationPositions.Length; i++)
             {
@@ -49,18 +49,30 @@ namespace UnitManagement.Targeting
                     ? FarthestPointIndexFrom(formationPositions, assignedPositionsBitmask, middlePoint)
                     : i;
 
-                var closestTargetableIndex =
-                    ClosestTargetableIndexTo(formationPositions[formationIndex], assignedTargetablesBitmask);
+                var closestOrderableIndex =
+                    ClosestOrderableIndexTo(formationPositions[formationIndex], assignedOrderablesBitmask);
 
                 assignedPositionsBitmask[formationIndex] = true;
-                assignedTargetablesBitmask[closestTargetableIndex] = true;
+                assignedOrderablesBitmask[closestOrderableIndex] = true;
 
-                var accepted = _targetables[closestTargetableIndex]
-                    .TryAcceptTargetWithPosition(_targetMark, formationPositions[formationIndex]);
-                if (accepted)
+                var orderable = _orderables[closestOrderableIndex];
+                var formationPosition = formationPositions[formationIndex];
+                if (TryOrder(orderable, formationPosition))
                 {
-                    _targetMarkPool.Link(_targetMark, _targetables[closestTargetableIndex]);
+                    _orderMarkPool.Link(_orderMark, _orderables[closestOrderableIndex]);
                 }
+            }
+        }
+
+        private bool TryOrder(IOrderable orderable, Vector3 formationPosition)
+        {
+            if (_orderMark.HasTarget)
+            {
+                return orderable.TryOrderToTargetWithPosition(_orderMark.Target, formationPosition);
+            }
+            else
+            {
+                return  orderable.TryOrderToPosition(formationPosition);
             }
         }
 
@@ -87,32 +99,32 @@ namespace UnitManagement.Targeting
             return farthestPointIndex;
         }
 
-        private int ClosestTargetableIndexTo(Vector3 targetPoint, bool[] assignedTargetablesBitmask)
+        private int ClosestOrderableIndexTo(Vector3 targetPoint, bool[] assignedOrderablesBitmask)
         {
-            var closestTargetableDistance = 1000f;
+            var closestOrderableDistance = 1000f;
             float distanceToPoint;
-            var closestTargetableIndex = 0;
-            for (var i = 0; i < assignedTargetablesBitmask.Length; i++)
+            var closestOrderableIndex = 0;
+            for (var i = 0; i < assignedOrderablesBitmask.Length; i++)
             {
-                if (assignedTargetablesBitmask[i])
+                if (assignedOrderablesBitmask[i])
                 {
                     continue;
                 }
 
-                distanceToPoint = Vector3.Distance(_targetables[i].Position, targetPoint);
-                if (distanceToPoint < closestTargetableDistance)
+                distanceToPoint = Vector3.Distance(_orderables[i].Position, targetPoint);
+                if (distanceToPoint < closestOrderableDistance)
                 {
-                    closestTargetableDistance = distanceToPoint;
-                    closestTargetableIndex = i;
+                    closestOrderableDistance = distanceToPoint;
+                    closestOrderableIndex = i;
                 }
             }
 
-            return closestTargetableIndex;
+            return closestOrderableIndex;
         }
 
         private Vector3[] GenerateFormation(Vector3 targetPoint)
         {
-            if (_targetables.Count == 0)
+            if (_orderables.Count == 0)
             {
                 return Array.Empty<Vector3>();
             }
@@ -130,14 +142,14 @@ namespace UnitManagement.Targeting
 
         private Vector3[] GenerateFreeFormation(Vector3 targetPoint)
         {
-            var originPoint = FindMiddlePointBetweenTargetables();
+            var originPoint = FindMiddlePointBetweenOrderables();
 
             var difference = targetPoint - originPoint;
 
-            var freeFormationPositions = new Vector3[_targetables.Count];
-            for (var i = 0; i < _targetables.Count; i++)
+            var freeFormationPositions = new Vector3[_orderables.Count];
+            for (var i = 0; i < _orderables.Count; i++)
             {
-                var targetPosition = _targetables[i].Position + difference;
+                var targetPosition = _orderables[i].Position + difference;
                 freeFormationPositions[i] = new Vector3(
                     targetPosition.x, targetPoint.y, targetPosition.z
                 );
@@ -164,15 +176,15 @@ namespace UnitManagement.Targeting
         private Vector3[] GenerateAreaFormation(Vector3 targetPoint, bool faceTargetPosition = true,
             float rotation = 0f)
         {
-            var count = _targetables.Count;
+            var count = _orderables.Count;
 
             var relativeYRotation = faceTargetPosition
-                ? RotationFromOriginToTarget(FindMiddlePointBetweenTargetables(), targetPoint)
+                ? RotationFromOriginToTarget(FindMiddlePointBetweenOrderables(), targetPoint)
                 : rotation;
             var relativeRotation = Quaternion.Euler(0f, relativeYRotation, 0f);
 
             return _areaFormation.CalculatePositions(count, relativeRotation, targetPoint,
-                _targetMark.transform.position.y);
+                _orderMark.transform.position.y);
         }
 
         private float RotationFromOriginToTarget(Vector3 originPoint, Vector3 targetPoint)
@@ -195,8 +207,8 @@ namespace UnitManagement.Targeting
 
         private Vector3[] GenerateNoFormation(Vector3 targetPoint)
         {
-            var noFormationPositions = new Vector3[_targetables.Count];
-            for (var i = 0; i < _targetables.Count; i++)
+            var noFormationPositions = new Vector3[_orderables.Count];
+            for (var i = 0; i < _orderables.Count; i++)
             {
                 noFormationPositions[i] = targetPoint;
             }
@@ -204,15 +216,15 @@ namespace UnitManagement.Targeting
             return noFormationPositions;
         }
 
-        private Vector3 FindMiddlePointBetweenTargetables()
+        private Vector3 FindMiddlePointBetweenOrderables()
         {
-            var minPositionX = _targetables[0].Position.x;
+            var minPositionX = _orderables[0].Position.x;
             var maxPositionX = minPositionX;
 
-            var minPositionZ = _targetables[0].Position.z;
+            var minPositionZ = _orderables[0].Position.z;
             var maxPositionZ = minPositionZ;
 
-            foreach (var unit in _targetables)
+            foreach (var unit in _orderables)
             {
                 minPositionX = Mathf.Min(minPositionX, unit.Position.x);
                 maxPositionX = Mathf.Max(maxPositionX, unit.Position.x);

@@ -58,10 +58,10 @@ namespace UnitManagement.Targeting
             var ray = GetRay();
             if (Physics.Raycast(ray, out var hit))
             {
-                var targetObject = hit.transform.GetComponentInParent<Target>();
-                if (targetObject != null)
+                var target = hit.transform.GetComponentInParent<Target>();
+                if (target != null)
                 {
-                    TargetSet?.Invoke(targetObject, hit);
+                    TargetSet?.Invoke(target, hit);
                 }
             }
         }

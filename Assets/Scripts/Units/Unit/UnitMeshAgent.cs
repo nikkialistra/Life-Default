@@ -26,7 +26,7 @@ namespace Units.Unit
         
         public float Velocity => _aiPath.velocity.magnitude;
 
-        public bool CanAcceptTargetPoint => _activated;
+        public bool CanAcceptOrder => _activated;
 
         private void OnEnable()
         {

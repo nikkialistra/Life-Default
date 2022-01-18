@@ -53,13 +53,13 @@ namespace Units.Services.Selecting
             {
                 yield return clickedUnit;
             }
-            else if (hit.transform.TryGetComponent(out TargetMark target))
+            else if (hit.transform.TryGetComponent(out OrderMark target))
             {
-                foreach (var targetable in target.Targetables)
+                foreach (var orderable in target.Orderables)
                 {
-                    if (targetable.GameObject.TryGetComponent(out UnitFacade targetableUnit) && targetableUnit.Alive)
+                    if (orderable.GameObject.TryGetComponent(out UnitFacade orderableUnit) && orderableUnit.Alive)
                     {
-                        yield return targetableUnit;
+                        yield return orderableUnit;
                     }
                 }
             }

@@ -9,10 +9,10 @@ using Action = NPBehave.Action;
 namespace Units.Unit
 {
     [RequireComponent(typeof(UnitMeshAgent))]
-    public class UnitBehavior : MonoBehaviour, ITargetable
+    public class UnitBehavior : MonoBehaviour, IOrderable
     {
         private const string PositionKey = "desiredPosition";
-        private const string TargetMarkKey = "targetMark";
+        private const string TargetKey = "target";
         private const string NewCommandKey = "newCommand";
         private const string UnitClassKey = "unitType";
         
@@ -20,14 +20,14 @@ namespace Units.Unit
         
         private UnitMeshAgent _unitMeshAgent;
 
-        private TargetMark _currentTargetMark;
+        private OrderMark _currentOrderMark;
 
         private void Awake()
         {
             _unitMeshAgent = GetComponent<UnitMeshAgent>();
         }
 
-        public event Action<ITargetable> TargetReach;
+        public event Action<IOrderable> DestinationReach;
 
         public GameObject GameObject => gameObject;
 
@@ -56,14 +56,28 @@ namespace Units.Unit
             _behaviorTree.Blackboard.Set(UnitClassKey, unitClass);
         }
 
-        public bool TryAcceptTargetWithPosition(TargetMark targetMark, Vector3 position)
+        public bool TryOrderToTargetWithPosition(Target target, Vector3 position)
         {
-            if (!_unitMeshAgent.CanAcceptTargetPoint)
+            if (!_unitMeshAgent.CanAcceptOrder)
             {
                 return false;
             }
 
-            _behaviorTree.Blackboard.Set(TargetMarkKey, targetMark);
+            _behaviorTree.Blackboard.Set(TargetKey, target);
+            _behaviorTree.Blackboard.Set(PositionKey, position);
+            
+            _behaviorTree.Blackboard.Set(NewCommandKey, true);
+
+            return true;
+        }
+
+        public bool TryOrderToPosition(Vector3 position)
+        {
+            if (!_unitMeshAgent.CanAcceptOrder)
+            {
+                return false;
+            }
+            
             _behaviorTree.Blackboard.Set(PositionKey, position);
             
             _behaviorTree.Blackboard.Set(NewCommandKey, true);
@@ -79,11 +93,11 @@ namespace Units.Unit
                         new ClearCommand(NewCommandKey)
                     ),
                     new Sequence(
-                        new MoveToPosition(_unitMeshAgent, PositionKey, OnTargetReach),
-                        new CheckHasTarget(TargetMarkKey),
+                        new MoveToPosition(_unitMeshAgent, PositionKey, OnDestinationReach),
+                        new CheckHasTarget(TargetKey),
                         new Repeater(
                             new Sequence(
-                                new StartActionOnTarget(TargetMarkKey, UnitClassKey),
+                                new StartActionOnTarget(TargetKey, UnitClassKey),
                                 new FindNewTarget()
                             )
                         )
@@ -98,9 +112,9 @@ namespace Units.Unit
             );
         }
 
-        private void OnTargetReach()
+        private void OnDestinationReach()
         {
-            TargetReach?.Invoke(this);
+            DestinationReach?.Invoke(this);
         }
 
         private void ShowIdleState()

@@ -64,11 +64,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05801dcd7dd44c819b53a6357ea5aeb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _hasDestinationPoint: 1
+  _isEntity: 1
+  _entity: {fileID: 237193568881483453}
   _destinationPoint: {fileID: 7565753558687889147}
   _targetIndicator: {fileID: 2702655228479738701}
-  _hasEntity: 1
-  _entity: {fileID: 237193568881483453}
 --- !u!114 &237193568881483453
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -87,7 +87,7 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "SetTarget",
+                    "name": "SetDestination",
                     "type": "Button",
                     "id": "c4cb563a-cce4-4986-ad62-135ea6b1147f",
                     "expectedControlType": "Button",
@@ -344,7 +344,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "SetTarget",
+                    "action": "SetDestination",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

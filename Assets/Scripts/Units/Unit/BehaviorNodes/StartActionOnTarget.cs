@@ -1,4 +1,6 @@
 ﻿using System;
+using Entities;
+using Entities.Entity;
 using NPBehave;
 using ResourceManagement;
 using UnitManagement.Targeting;
@@ -21,7 +23,7 @@ namespace Units.Unit.BehaviorNodes
         
         protected override void DoStart()
         {
-            var target = Blackboard.Get<Target>(_targetKey);
+            var target = Blackboard.Get<Entity>(_targetKey);
 
             if (target == null)
             {
@@ -37,14 +39,9 @@ namespace Units.Unit.BehaviorNodes
             Act();
         }
 
-        private bool CanAct(Target target)
+        private bool CanAct(Entity entity)
         {
-            if (!target.IsEntity)
-            {
-                return false;
-            }
-
-            _entity = target.Entity;
+            _entity = entity;
             var unitClass = Blackboard.Get<UnitClass>(_unitClassKey);
 
             return unitClass.CanInteractWith(_entity);

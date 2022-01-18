@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Linq;
+using Entities;
+using Entities.Entity;
 using UI.Game;
 using Units.Services.Selecting;
 using UnityEngine;
@@ -18,7 +20,7 @@ namespace UnitManagement.Targeting
 
         private PlayerInput _playerInput;
 
-        private InputAction _setTargetAction;
+        private InputAction _setDestinationAction;
         private InputAction _positionAction;
 
         [Inject]
@@ -32,36 +34,43 @@ namespace UnitManagement.Targeting
 
         private void Awake()
         {
-            _setTargetAction = _playerInput.actions.FindAction("SetTarget");
+            _setDestinationAction = _playerInput.actions.FindAction("SetDestination");
             _positionAction = _playerInput.actions.FindAction("Position");
         }
 
-        public event Action<Target, RaycastHit> TargetSet;
+        public event Action<Entity> EntitySet;
+        public event Action<Vector3> PositionSet;
 
         private void OnEnable()
         {
-            _setTargetAction.started += SetTarget;
+            _setDestinationAction.started += SetDestination;
         }
 
         private void OnDisable()
         {
-            _setTargetAction.started -= SetTarget;
+            _setDestinationAction.started -= SetDestination;
         }
 
-        private void SetTarget(InputAction.CallbackContext context)
+        private void SetDestination(InputAction.CallbackContext context)
         {
             if (!_selectedUnits.Units.Any() || _gameViews.MouseOverUi)
             {
                 return;
             }
-
-            var ray = GetRay();
-            if (Physics.Raycast(ray, out var hit))
+            
+            if (Physics.Raycast(GetRay(), out var hit))
             {
-                var target = hit.transform.GetComponentInParent<Target>();
-                if (target != null)
+                var entity = hit.transform.GetComponentInParent<Entity>();
+                if (entity != null)
                 {
-                    TargetSet?.Invoke(target, hit);
+                    EntitySet?.Invoke(entity);
+                    return;
+                }
+                
+                var ground = hit.transform.GetComponentInParent<Ground>();
+                if (ground != null)
+                {
+                    PositionSet?.Invoke(hit.point);
                 }
             }
         }

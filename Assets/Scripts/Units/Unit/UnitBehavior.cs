@@ -1,4 +1,6 @@
 ﻿using System;
+using Entities;
+using Entities.Entity;
 using NPBehave;
 using UnitManagement.Targeting;
 using Units.Unit.BehaviorNodes;
@@ -56,14 +58,14 @@ namespace Units.Unit
             _behaviorTree.Blackboard.Set(UnitClassKey, unitClass);
         }
 
-        public bool TryOrderToTargetWithPosition(Target target, Vector3 position)
+        public bool TryOrderToEntityWithPosition(Entity entity, Vector3 position)
         {
             if (!_unitMeshAgent.CanAcceptOrder)
             {
                 return false;
             }
 
-            _behaviorTree.Blackboard.Set(TargetKey, target);
+            _behaviorTree.Blackboard.Set(TargetKey, entity);
             _behaviorTree.Blackboard.Set(PositionKey, position);
             
             _behaviorTree.Blackboard.Set(NewCommandKey, true);

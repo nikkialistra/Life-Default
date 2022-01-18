@@ -1,4 +1,5 @@
 ﻿using Entities;
+using Entities.Entity.Interfaces;
 using Sirenix.OdinInspector;
 using UnityEngine;
 

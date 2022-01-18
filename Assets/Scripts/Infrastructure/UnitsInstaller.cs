@@ -20,13 +20,13 @@ namespace Infrastructure
         [Required]
         [SerializeField] private UnitChoosing _unitChoosing;
 
-        [Title("Targeting")]
+        [Title("Ordering")]
         [Required]
         [SerializeField] private OrderMarkPool _orderMarkPool;
         [Required]
         [SerializeField] private OrderMark _orderMarkPrefab;
         [Required]
-        [SerializeField] private Transform _targetParent;
+        [SerializeField] private Transform _orderMarksParent;
 
         [Title("Spawning")]
         [Required]
@@ -67,7 +67,7 @@ namespace Infrastructure
         {
             Container.BindInstance(_orderMarkPool);
             Container.BindInstance(_orderMarkPrefab).WhenInjectedInto<OrderMarkPool>();
-            Container.BindInstance(_targetParent).WhenInjectedInto<OrderMarkPool>();
+            Container.BindInstance(_orderMarksParent).WhenInjectedInto<OrderMarkPool>();
         }
 
         private void BindUnitServices()

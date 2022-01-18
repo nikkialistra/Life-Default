@@ -1,4 +1,6 @@
 ﻿using System;
+using Entities;
+using Entities.Entity;
 using UnityEngine;
 
 namespace UnitManagement.Targeting
@@ -10,7 +12,7 @@ namespace UnitManagement.Targeting
         public GameObject GameObject { get; }
         public Vector3 Position { get; }
 
-        bool TryOrderToTargetWithPosition(Target target, Vector3 position);
+        bool TryOrderToEntityWithPosition(Entity entity, Vector3 position);
         bool TryOrderToPosition(Vector3 position);
     }
 }

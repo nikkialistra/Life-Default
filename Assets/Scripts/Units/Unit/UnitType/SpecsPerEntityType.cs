@@ -1,5 +1,6 @@
 ﻿using System;
 using Entities;
+using Entities.Entity;
 
 namespace Units.Unit.UnitType
 {

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5052065525742440285}
   - component: {fileID: 5052065525742440262}
   - component: {fileID: 5052065525742440281}
-  - component: {fileID: 5052065525742440263}
+  - component: {fileID: 9030770963019281027}
   m_Layer: 6
   m_Name: Terrain
   m_TagString: Untagged
@@ -67,7 +67,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60765b39c6679414382a47b20bd4a882, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &5052065525742440263
+--- !u!114 &9030770963019281027
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -76,12 +76,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 5052065525742440284}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 05801dcd7dd44c819b53a6357ea5aeb6, type: 3}
+  m_Script: {fileID: 11500000, guid: c109c0a4b2ef4c3685e2038b91d99e51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _hasDestinationPoint: 0
-  _destinationPoint: {fileID: 0}
-  _targetIndicator: {fileID: 0}
 --- !u!1 &5052065526205256098
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using Entities;
-using Entities.Accessories;
+using Entities.Entity.Ancillaries;
+using Entities.Entity.Interfaces;
 using Sirenix.OdinInspector;
 using UnityEngine;
 

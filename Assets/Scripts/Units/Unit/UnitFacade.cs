@@ -1,5 +1,7 @@
 ﻿using System;
 using Entities;
+using Entities.Entity;
+using Entities.Entity.Ancillaries;
 using Sirenix.OdinInspector;
 using UnitManagement.Targeting;
 using Units.Unit.UnitType;

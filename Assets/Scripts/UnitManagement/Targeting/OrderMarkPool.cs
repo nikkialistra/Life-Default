@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using Entities;
+using Entities.Entity;
 using Units.Services;
 using Units.Unit;
 using UnityEngine;
@@ -10,17 +12,17 @@ namespace UnitManagement.Targeting
     public class OrderMarkPool : MonoBehaviour
     {
         private OrderMark _template;
-        private Transform _targetParent;
+        private Transform _orderMarkParent;
 
         private readonly List<OrderMark> _orderMarks = new();
 
         private UnitRepository _unitRepository;
 
         [Inject]
-        public void Construct(OrderMark template, Transform targetParent, UnitRepository unitRepository)
+        public void Construct(OrderMark template, Transform orderMarkParent, UnitRepository unitRepository)
         {
             _template = template;
-            _targetParent = targetParent;
+            _orderMarkParent = orderMarkParent;
             _unitRepository = unitRepository;
         }
 
@@ -34,16 +36,16 @@ namespace UnitManagement.Targeting
             _unitRepository.Remove -= OnRemove;
         }
 
-        public OrderMark PlaceTo(Vector3 position, Target target = null)
+        public OrderMark PlaceTo(Vector3 position, Entity entity = null)
         {
             var orderMark = GetFromPoolOrCreate();
-            if (target)
+            if (entity)
             {
-                orderMark.SetTarget(target);
+                orderMark.SetEntity(entity);
             }
             else
             {
-                orderMark.ClearTarget();
+                orderMark.ClearEntity();
             }
 
             orderMark.transform.position = position;
@@ -58,8 +60,8 @@ namespace UnitManagement.Targeting
                 throw new InvalidOperationException();
             }
 
-            RemoveFromOldTarget(orderable);
-            AddTarget(orderMark, orderable);
+            RemoveFromOldOrderMark(orderable);
+            AddOrderMark(orderMark, orderable);
         }
 
         public void OffAll()
@@ -74,7 +76,7 @@ namespace UnitManagement.Targeting
 
         private void OnRemove(UnitFacade unit)
         {
-            RemoveFromOldTarget(unit.Orderable);
+            RemoveFromOldOrderMark(unit.Orderable);
         }
 
         private OrderMark GetFromPoolOrCreate()
@@ -90,7 +92,7 @@ namespace UnitManagement.Targeting
             return CreateNew();
         }
 
-        private void RemoveFromOldTarget(IOrderable orderable)
+        private void RemoveFromOldOrderMark(IOrderable orderable)
         {
             foreach (var orderMark in _orderMarks)
             {
@@ -98,7 +100,7 @@ namespace UnitManagement.Targeting
             }
         }
 
-        private void AddTarget(OrderMark orderMark, IOrderable orderable)
+        private void AddOrderMark(OrderMark orderMark, IOrderable orderable)
         {
             _orderMarks.Add(orderMark);
             orderMark.Add(orderable);
@@ -106,7 +108,7 @@ namespace UnitManagement.Targeting
 
         private OrderMark CreateNew()
         {
-            var orderMark = Instantiate(_template, Vector3.zero, Quaternion.identity, _targetParent);
+            var orderMark = Instantiate(_template, Vector3.zero, Quaternion.identity, _orderMarkParent);
             orderMark.Deactivate();
 
             _orderMarks.Add(orderMark);

@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using Entities;
+using Entities.Entity;
 using UnityEngine;
 
 namespace UnitManagement.Targeting
@@ -10,8 +12,8 @@ namespace UnitManagement.Targeting
 
         private List<IOrderable> _orderables = new();
 
-        public bool HasTarget => Target != null;
-        public Target Target { get; private set; }
+        public bool AtEntity => Entity != null;
+        public Entity Entity { get; private set; }
         public bool Empty => _orderables.Count == 0;
         public IEnumerable<IOrderable> Orderables => _orderables;
 
@@ -48,21 +50,21 @@ namespace UnitManagement.Targeting
             _orderables.Clear();
         }
 
-        public void SetTarget(Target target)
+        public void SetEntity(Entity entity)
         {
-            Target = target;
+            Entity = entity;
         }
 
-        public void ClearTarget()
+        public void ClearEntity()
         {
-            Target = null;
+            Entity = null;
         }
 
         public void Deactivate()
         {
-            if (Target != null)
+            if (Entity != null)
             {
-                HideTargetObjectIndicator();
+                HideTargetIndicator();
             }
             else
             {
@@ -70,12 +72,9 @@ namespace UnitManagement.Targeting
             }
         }
 
-        private void HideTargetObjectIndicator()
+        private void HideTargetIndicator()
         {
-            if (Target.IsEntity)
-            {
-                Target.HideIndicator();
-            }
+            Entity.HideIndicator();
         }
 
         private void UpdateState()
@@ -106,9 +105,9 @@ namespace UnitManagement.Targeting
 
         private void Activate()
         {
-            if (Target != null && Target.IsEntity)
+            if (Entity != null)
             {
-                Target.ShowIndicator();
+                Entity.ShowIndicator();
             }
             else
             {

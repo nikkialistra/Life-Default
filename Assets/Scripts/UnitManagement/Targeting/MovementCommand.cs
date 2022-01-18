@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Entities;
+using Entities.Entity;
 using MapGeneration.Map;
 using Units.Services.Selecting;
 using UnityEngine;
@@ -34,27 +36,27 @@ namespace UnitManagement.Targeting
 
         private void OnEnable()
         {
-            _movementInput.TargetSet += MoveAll;
+            _movementInput.EntitySet += MoveAllToEntity;
+            _movementInput.PositionSet += MoveAllToPosition;
         }
 
         private void OnDisable()
         {
-            _movementInput.TargetSet -= MoveAll;
+            _movementInput.EntitySet -= MoveAllToEntity;
+            _movementInput.PositionSet -= MoveAllToPosition;
         }
 
-        private void MoveAll(Target target, RaycastHit hit)
+        private void MoveAllToEntity(Entity entity)
         {
-            if (target.IsEntity)
-            {
-                var destinationPoint = target.GetDestinationPoint();
-                var orderMark = _orderMarkPool.PlaceTo(destinationPoint, target);
-                MoveAllTo(orderMark);
-            }
-            else
-            {
-                var orderMark = _orderMarkPool.PlaceTo(hit.point);
-                MoveAllTo(orderMark);
-            }
+            var destinationPoint = entity.GetDestinationPoint();
+            var orderMark = _orderMarkPool.PlaceTo(destinationPoint, entity);
+            MoveAllTo(orderMark);
+        }
+
+        private void MoveAllToPosition(Vector3 position)
+        {
+            var orderMark = _orderMarkPool.PlaceTo(position);
+            MoveAllTo(orderMark);
         }
 
         private void MoveAllTo(OrderMark orderMark)

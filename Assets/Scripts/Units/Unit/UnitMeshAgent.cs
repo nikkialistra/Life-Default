@@ -22,7 +22,7 @@ namespace Units.Unit
             _aiPath = GetComponent<AIPath>();
         }
 
-        public event Action TargetReach;
+        public event Action DestinationReach;
         
         public float Velocity => _aiPath.velocity.magnitude;
 
@@ -70,7 +70,7 @@ namespace Units.Unit
                 yield return null;
             }
             
-            TargetReach?.Invoke();
+            DestinationReach?.Invoke();
         }
 
         private bool IsMoving()

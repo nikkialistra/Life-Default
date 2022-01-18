@@ -66,9 +66,9 @@ namespace UnitManagement.Targeting
 
         private bool TryOrder(IOrderable orderable, Vector3 formationPosition)
         {
-            if (_orderMark.HasTarget)
+            if (_orderMark.AtEntity)
             {
-                return orderable.TryOrderToTargetWithPosition(_orderMark.Target, formationPosition);
+                return orderable.TryOrderToEntityWithPosition(_orderMark.Entity, formationPosition);
             }
             else
             {

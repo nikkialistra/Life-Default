@@ -111,7 +111,7 @@ namespace Controls
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""SetTarget"",
+                    ""name"": ""SetDestination"",
                     ""type"": ""Button"",
                     ""id"": ""c4cb563a-cce4-4986-ad62-135ea6b1147f"",
                     ""expectedControlType"": ""Button"",
@@ -368,7 +368,7 @@ namespace Controls
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""SetTarget"",
+                    ""action"": ""SetDestination"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -427,7 +427,7 @@ namespace Controls
             m_Management_Movement = m_Management.FindAction("Movement", throwIfNotFound: true);
             m_Management_Rotate = m_Management.FindAction("Rotate", throwIfNotFound: true);
             m_Management_Zoom = m_Management.FindAction("Zoom", throwIfNotFound: true);
-            m_Management_SetTarget = m_Management.FindAction("SetTarget", throwIfNotFound: true);
+            m_Management_SetDestination = m_Management.FindAction("SetDestination", throwIfNotFound: true);
             m_Management_ShowMenu = m_Management.FindAction("ShowMenu", throwIfNotFound: true);
             // Menus
             m_Menus = asset.FindActionMap("Menus", throwIfNotFound: true);
@@ -500,7 +500,7 @@ namespace Controls
         private readonly InputAction m_Management_Movement;
         private readonly InputAction m_Management_Rotate;
         private readonly InputAction m_Management_Zoom;
-        private readonly InputAction m_Management_SetTarget;
+        private readonly InputAction m_Management_SetDestination;
         private readonly InputAction m_Management_ShowMenu;
         public struct ManagementActions
         {
@@ -515,7 +515,7 @@ namespace Controls
             public InputAction @Movement => m_Wrapper.m_Management_Movement;
             public InputAction @Rotate => m_Wrapper.m_Management_Rotate;
             public InputAction @Zoom => m_Wrapper.m_Management_Zoom;
-            public InputAction @SetTarget => m_Wrapper.m_Management_SetTarget;
+            public InputAction @SetDestination => m_Wrapper.m_Management_SetDestination;
             public InputAction @ShowMenu => m_Wrapper.m_Management_ShowMenu;
             public InputActionMap Get() { return m_Wrapper.m_Management; }
             public void Enable() { Get().Enable(); }
@@ -553,9 +553,9 @@ namespace Controls
                     @Zoom.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnZoom;
                     @Zoom.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnZoom;
                     @Zoom.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnZoom;
-                    @SetTarget.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnSetTarget;
-                    @SetTarget.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnSetTarget;
-                    @SetTarget.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnSetTarget;
+                    @SetDestination.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnSetDestination;
+                    @SetDestination.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnSetDestination;
+                    @SetDestination.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnSetDestination;
                     @ShowMenu.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnShowMenu;
                     @ShowMenu.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnShowMenu;
                     @ShowMenu.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnShowMenu;
@@ -590,9 +590,9 @@ namespace Controls
                     @Zoom.started += instance.OnZoom;
                     @Zoom.performed += instance.OnZoom;
                     @Zoom.canceled += instance.OnZoom;
-                    @SetTarget.started += instance.OnSetTarget;
-                    @SetTarget.performed += instance.OnSetTarget;
-                    @SetTarget.canceled += instance.OnSetTarget;
+                    @SetDestination.started += instance.OnSetDestination;
+                    @SetDestination.performed += instance.OnSetDestination;
+                    @SetDestination.canceled += instance.OnSetDestination;
                     @ShowMenu.started += instance.OnShowMenu;
                     @ShowMenu.performed += instance.OnShowMenu;
                     @ShowMenu.canceled += instance.OnShowMenu;
@@ -644,7 +644,7 @@ namespace Controls
             void OnMovement(InputAction.CallbackContext context);
             void OnRotate(InputAction.CallbackContext context);
             void OnZoom(InputAction.CallbackContext context);
-            void OnSetTarget(InputAction.CallbackContext context);
+            void OnSetDestination(InputAction.CallbackContext context);
             void OnShowMenu(InputAction.CallbackContext context);
         }
         public interface IMenusActions

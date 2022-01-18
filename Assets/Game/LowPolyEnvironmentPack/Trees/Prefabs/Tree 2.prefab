@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 3974858230177588384}
   - component: {fileID: 5933343421609937517}
   - component: {fileID: 1963045412000770899}
-  - component: {fileID: 4481460145011315071}
   m_Layer: 0
   m_Name: Tree 2
   m_TagString: Untagged
@@ -64,25 +63,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05801dcd7dd44c819b53a6357ea5aeb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _isEntity: 1
-  _entity: {fileID: 4481460145011315071}
   _destinationPoint: {fileID: 7379679866282382462}
-  _targetIndicator: {fileID: 7771043289868842078}
---- !u!114 &4481460145011315071
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3974858230177364096}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 347b9ad3bb6c4f94b928f4c0a5149343, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  _indicator: {fileID: 7771043289868842078}
   _entityType: 0
   _resourceType: 0
-  _health: 10
+  _health: 1
   _resourcePerHp: 1
 --- !u!1 &3974858230177364098
 GameObject:
@@ -804,7 +789,7 @@ PrefabInstance:
     - target: {fileID: 6556408309098693840, guid: 51e1923cb239c86419b06383c273132f,
         type: 3}
       propertyPath: m_Name
-      value: Target Circle Indicator
+      value: Circle Indicator
       objectReference: {fileID: 0}
     - target: {fileID: 6556408309098693840, guid: 51e1923cb239c86419b06383c273132f,
         type: 3}

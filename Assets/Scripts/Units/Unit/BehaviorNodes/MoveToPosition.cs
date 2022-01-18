@@ -1,6 +1,4 @@
-﻿using System;
-using NPBehave;
-using UnitManagement.Targeting;
+﻿using NPBehave;
 using UnityEngine;
 using Action = System.Action;
 
@@ -31,18 +29,18 @@ namespace Units.Unit.BehaviorNodes
             Blackboard.Unset(_positionKey);
             
             _unitMeshAgent.SetDestination(position);
-            _unitMeshAgent.TargetReach += OnTargetReach;
+            _unitMeshAgent.DestinationReach += OnDestinationReach;
         }
 
         protected override void DoStop()
         {
-            _unitMeshAgent.TargetReach -= OnTargetReach;
+            _unitMeshAgent.DestinationReach -= OnDestinationReach;
             Stopped(false);
         }
 
-        private void OnTargetReach()
+        private void OnDestinationReach()
         {
-            _unitMeshAgent.TargetReach -= OnTargetReach;
+            _unitMeshAgent.DestinationReach -= OnDestinationReach;
             _callback();
             Stopped(true);
         }

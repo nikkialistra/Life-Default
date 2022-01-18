@@ -2,8 +2,9 @@
 {
     public enum EntityType
     {
-        Tree,
-        Stone,
-        Enemy
+        Unit,
+        Enemy,
+        Resource,
+        Building
     }
 }

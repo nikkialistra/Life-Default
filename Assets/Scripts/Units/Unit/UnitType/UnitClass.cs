@@ -8,7 +8,7 @@ namespace Units.Unit.UnitType
     public class UnitClass : MonoBehaviour
     {
         private UnitClassSpecsRepository _unitClassSpecsRepository;
-        public UnitClassSpecs UnitClassSpecs { get; private set; }
+        private UnitClassSpecs UnitClassSpecs { get; set; }
 
         [Inject]
         public void Construct(UnitClassSpecsRepository unitClassSpecsRepository)

@@ -4,7 +4,7 @@
     {
         Unit,
         Enemy,
-        Resource,
-        Building
+        Building,
+        Resource
     }
 }

@@ -1,5 +1,8 @@
 ﻿using System;
+using Buildings;
+using Enemies;
 using Entities.Entity;
+using ResourceManagement;
 using Units.Services;
 using UnityEngine;
 using Zenject;
@@ -38,40 +41,40 @@ namespace Units.Unit.UnitType
             switch (entity.EntityType)
             {
                 case EntityType.Unit:
-                    InteractWithUnit(entity);
+                    InteractWithUnit(entity.Unit);
                     break;
                 case EntityType.Enemy:
-                    InteractWithEnemy(entity);
-                    break;
-                case EntityType.Resource:
-                    InteractWithResource(entity);
+                    InteractWithEnemy(entity.Enemy);
                     break;
                 case EntityType.Building:
-                    InteractWithBuilding(entity);
+                    InteractWithBuilding(entity.Building);
+                    break;
+                case EntityType.Resource:
+                    InteractWithResource(entity.Resource);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
         }
 
-        private void InteractWithUnit(Entity entity)
+        private void InteractWithUnit(UnitFacade unit)
         {
-        
+            var unitSpecForUnits = UnitClassSpecs.GetSpecForUnits();
         }
 
-        private void InteractWithEnemy(Entity entity)
+        private void InteractWithEnemy(Enemy enemy)
         {
-        
+            var unitSpecForEnemies = UnitClassSpecs.GetSpecForEnemies();
         }
 
-        private void InteractWithResource(Entity entity)
+        private void InteractWithBuilding(Building building)
         {
-        
+            var unitSpecForBuildings = UnitClassSpecs.GetSpecForBuildings();
         }
 
-        private void InteractWithBuilding(Entity entity)
+        private void InteractWithResource(Resource resource)
         {
-        
+            var unitSpecForResources = UnitClassSpecs.GetSpecForResources();
         }
     }
 }

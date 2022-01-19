@@ -21,6 +21,8 @@ namespace Units.Unit.UnitType
         private Action _onInteractionFinish;
         
         private UnitAnimator _unitAnimator;
+        
+        private Coroutine _interactingCoroutine;
 
         [Inject]
         public void Construct(UnitClassSpecsRepository unitClassSpecsRepository, ResourceCounts resourceCounts)
@@ -46,6 +48,11 @@ namespace Units.Unit.UnitType
 
         public void InteractWith(Entity entity, Action onInteractionFinish)
         {
+            if (!CanInteractWith(entity))
+            {
+                throw new InvalidOperationException("Unit class cannot interact with this entity");
+            }
+
             _onInteractionFinish = onInteractionFinish;
             
             switch (entity.EntityType)
@@ -64,6 +71,15 @@ namespace Units.Unit.UnitType
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
+            }
+        }
+        
+        public void StopInteraction()
+        {
+            if (_interactingCoroutine != null)
+            {
+                StopCoroutine(_interactingCoroutine);
+                _unitAnimator.StopInteractWithResource();
             }
         }
 
@@ -86,7 +102,7 @@ namespace Units.Unit.UnitType
         {
             var unitSpecForResource = UnitClassSpecs.GetSpecForResource(resource);
 
-            StartCoroutine(InteractingWithResource(resource, unitSpecForResource));
+            _interactingCoroutine = StartCoroutine(InteractingWithResource(resource, unitSpecForResource));
         }
 
         private IEnumerator InteractingWithResource(Resource resource, UnitSpecForResource unitSpecForResource)

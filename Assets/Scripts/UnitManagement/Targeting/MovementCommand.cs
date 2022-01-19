@@ -46,9 +46,19 @@ namespace UnitManagement.Targeting
 
         private void MoveAllToEntity(Entity entity)
         {
+            if (EntityOrderedToSelf(entity))
+            {
+                return;
+            }
+            
             var destinationPoint = entity.GetDestinationPoint();
             var orderMark = _orderMarkPool.PlaceTo(destinationPoint, entity);
             MoveAllTo(orderMark);
+        }
+
+        private bool EntityOrderedToSelf(Entity entity)
+        {
+            return _selectedUnits.Units.Count == 1 && _selectedUnits.Units[0].gameObject == entity.gameObject;
         }
 
         private void MoveAllToPosition(Vector3 position)

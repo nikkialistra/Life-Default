@@ -37,7 +37,6 @@ namespace MapGeneration.Map
 
         private void OnLoad()
         {
-            //_astarPath.Scan();
             _astarPath.data.DeserializeGraphs(_graphData.bytes);
 
             Load?.Invoke();

@@ -2,7 +2,6 @@
 using Entities.Entity;
 using NPBehave;
 using Units.Unit.UnitType;
-using UnityEngine;
 
 namespace Units.Unit.BehaviorNodes
 {
@@ -28,6 +27,8 @@ namespace Units.Unit.BehaviorNodes
             {
                 throw new ArgumentNullException(nameof(entity));
             }
+            
+            Blackboard.Unset(_entityKey);
 
             if (!CanInteract(entity))
             {

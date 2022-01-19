@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using Entities.Entity;
 using Pathfinding;
 using UnityEngine;
 
@@ -9,6 +10,8 @@ namespace Units.Unit
     [RequireComponent(typeof(AIPath))]
     public class UnitMeshAgent : MonoBehaviour
     {
+        [SerializeField] private float _rotationSpeedToEntities;
+        
         private bool _activated;
 
         private Coroutine _movingCoroutine;
@@ -23,6 +26,7 @@ namespace Units.Unit
         }
 
         public event Action DestinationReach;
+        public event Action RotationEnd;
         
         public float Velocity => _aiPath.velocity.magnitude;
 
@@ -45,6 +49,32 @@ namespace Units.Unit
             _aiPath.isStopped = false;
             _aiPath.destination = position;
             Move();
+        }
+
+        public void RotateTo(Entity entity)
+        {
+            StartCoroutine(RotatingTo(entity));
+        }
+
+        private IEnumerator RotatingTo(Entity entity)
+        {
+            var targetDirection = (entity.transform.position - transform.position).normalized;
+            var targetRotation = Quaternion.LookRotation(targetDirection);
+
+            while (!IsApproximate(targetRotation, transform.rotation))
+            {
+                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.fixedDeltaTime * _rotationSpeedToEntities);
+                
+                yield return new WaitForFixedUpdate();
+            }
+            
+            RotationEnd?.Invoke();
+        }
+
+        // Is the difference below 1 degree on 1 axis
+        private static bool IsApproximate(Quaternion first, Quaternion second)
+        {
+            return Mathf.Abs(Quaternion.Dot(first, second)) >= 1 - 0.0000004f;
         }
 
         private void Activate()

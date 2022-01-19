@@ -85,13 +85,14 @@ namespace Units.Unit
             _behaviorTree = new Root(
                 new Selector(
                     new BlackboardCondition(NewCommandKey, Operator.IS_SET, Stops.LOWER_PRIORITY,
-                        new ClearCommand(NewCommandKey)
+                        new ResetBehavior(NewCommandKey, UnitClassKey)
                     ),
                     new Sequence(
                         new MoveToPosition(_unitMeshAgent, PositionKey, OnDestinationReach),
                         new BlackboardCondition(EntityKey, Operator.IS_SET, Stops.NONE,
                             new Repeater(
                                 new Sequence(
+                                    new RotateToEntity(EntityKey, _unitMeshAgent),
                                     new InteractWithEntity(EntityKey, UnitClassKey),
                                     new FindNewEntity()
                                 )

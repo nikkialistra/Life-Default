@@ -196,6 +196,7 @@ MonoBehaviour:
   _terrainObjectGenerators:
   - {fileID: 5052065527054891186}
   - {fileID: 5052065526205256096}
+  _generated: 0
 --- !u!1 &5052065527054891188
 GameObject:
   m_ObjectHideFlags: 0

@@ -8,28 +8,28 @@ namespace Units.Unit.BehaviorNodes
 {
     public class InteractWithEntity : Node
     {
-        private readonly string _targetKey;
+        private readonly string _entityKey;
         private readonly string _unitClassKey;
         
         private Entity _entity;
         private UnitClass _unitClass;
 
-        public InteractWithEntity(string targetKey, string unitClassKey) : base("StartActionOnTarget")
+        public InteractWithEntity(string entityKey, string unitClassKey) : base("StartActionOnTarget")
         {
-            _targetKey = targetKey;
+            _entityKey = entityKey;
             _unitClassKey = unitClassKey;
         }
         
         protected override void DoStart()
         {
-            var target = Blackboard.Get<Entity>(_targetKey);
+            var entity = Blackboard.Get<Entity>(_entityKey);
             
-            if (target == null)
+            if (entity == null)
             {
-                throw new ArgumentNullException(nameof(target));
+                throw new ArgumentNullException(nameof(entity));
             }
 
-            if (!CanInteract(target))
+            if (!CanInteract(entity))
             {
                 Stopped(false);
                 return;

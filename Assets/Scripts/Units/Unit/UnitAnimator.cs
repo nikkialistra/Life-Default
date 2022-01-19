@@ -15,6 +15,7 @@ namespace Units.Unit
 
         private readonly int _velocity = Animator.StringToHash("velocity");
         private readonly int _death = Animator.StringToHash("death");
+        private readonly int _interactingWithResource = Animator.StringToHash("interactingWithResource");
 
         private void Awake()
         {
@@ -24,6 +25,16 @@ namespace Units.Unit
         private void Update()
         {
             SetAnimatorVelocity();
+        }
+
+        public void InteractWithResource()
+        {
+            _animator.SetBool(_interactingWithResource, true);
+        }
+
+        public void StopInteractWithResource()
+        {
+            _animator.SetBool(_interactingWithResource, false);
         }
 
         public void Die(Action died)

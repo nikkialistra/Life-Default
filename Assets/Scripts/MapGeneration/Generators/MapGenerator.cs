@@ -16,8 +16,7 @@ namespace MapGeneration.Generators
         [SerializeField] private TerrainGenerator _terrainGenerator;
         [SerializeField] private List<TerrainObjectGenerator> _terrainObjectGenerators;
 
-        private bool _generated;
-        private AstarPath _astarPath1;
+        [SerializeField] private bool _generated;
 
         public event Action Load;
 
@@ -27,6 +26,10 @@ namespace MapGeneration.Generators
             {
                 _terrainGenerator.Generate();
                 _generated = true;
+            }
+            else
+            {
+                Load?.Invoke();
             }
         }
 
@@ -87,6 +90,7 @@ namespace MapGeneration.Generators
             }
 
 #endif
+            
         }
 
         private void GenerateTerrainObjects()

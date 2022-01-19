@@ -28,7 +28,7 @@ namespace Infrastructure
             Container.BindInterfacesAndSelfTo<Map>().AsSingle();
 
             Container.BindFactory<MapGenerator, MapGenerator.Factory>().FromSubContainerResolve()
-                .ByNewPrefabMethod(GetMapGeneratorPrefab, InstallerMethod).UnderTransform(_mapParent);
+                .ByNewPrefabMethod(GetMapGeneratorPrefab, MapGeneratorInstaller).UnderTransform(_mapParent);
         }
 
         private Object GetMapGeneratorPrefab(InjectContext context)
@@ -57,7 +57,7 @@ namespace Infrastructure
             return null;
         }
 
-        private static void InstallerMethod(DiContainer subContainer)
+        private static void MapGeneratorInstaller(DiContainer subContainer)
         {
             subContainer.Bind<MapGenerator>().FromComponentOnRoot();
         }

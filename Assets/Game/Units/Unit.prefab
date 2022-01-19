@@ -2343,7 +2343,7 @@ MonoBehaviour:
   rotationSpeed: 720
   slowdownDistance: 3
   pickNextWaypointDist: 2
-  endReachedDistance: 2.3
+  endReachedDistance: 3
   alwaysDrawGizmos: 0
   slowWhenNotFacingTarget: 0
   whenCloseToDestination: 1
@@ -2432,6 +2432,10 @@ MonoBehaviour:
   _destinationPoint: {fileID: 2346717340988269411}
   _targetIndicator: {fileID: 1552918263597400682}
   _entityType: 0
+  _unit: {fileID: 4807083641721281678}
+  _enemy: {fileID: 0}
+  _building: {fileID: 0}
+  _resource: {fileID: 0}
 --- !u!1 &5514773472191503061
 GameObject:
   m_ObjectHideFlags: 0

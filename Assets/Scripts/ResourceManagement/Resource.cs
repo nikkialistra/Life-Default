@@ -9,6 +9,10 @@ namespace ResourceManagement
         [SerializeField] private ResourceType _resourceType;
         [MinValue(1)]
         [SerializeField] private int _quantity;
+        
+        [Space]
+        [Required]
+        [SerializeField] private Transform _holder;
 
         public ResourceType ResourceType => _resourceType;
         public int Quantity => _quantity;
@@ -18,6 +22,12 @@ namespace ResourceManagement
             var extractedQuantity = ApplyExtraction(value);
 
             return new ResourceOutput(_resourceType, extractedQuantity);
+        }
+        
+        [Button]
+        public void Destroy()
+        {
+            Destroy(_holder.gameObject);
         }
 
         private int ApplyExtraction(int value)

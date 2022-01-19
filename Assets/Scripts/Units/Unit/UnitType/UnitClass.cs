@@ -11,6 +11,7 @@ using Zenject;
 
 namespace Units.Unit.UnitType
 {
+    [RequireComponent(typeof(UnitAnimator))]
     public class UnitClass : MonoBehaviour
     {
         private UnitClassSpecsRepository _unitClassSpecsRepository;
@@ -18,12 +19,19 @@ namespace Units.Unit.UnitType
         private UnitClassSpecs UnitClassSpecs { get; set; }
 
         private Action _onInteractionFinish;
+        
+        private UnitAnimator _unitAnimator;
 
         [Inject]
         public void Construct(UnitClassSpecsRepository unitClassSpecsRepository, ResourceCounts resourceCounts)
         {
             _resourceCounts = resourceCounts;
             _unitClassSpecsRepository = unitClassSpecsRepository;
+        }
+
+        private void Awake()
+        {
+            _unitAnimator = GetComponent<UnitAnimator>();
         }
 
         public void ChangeUnitType(UnitType unitType)
@@ -83,14 +91,22 @@ namespace Units.Unit.UnitType
 
         private IEnumerator InteractingWithResource(Resource resource, UnitSpecForResource unitSpecForResource)
         {
+            _unitAnimator.InteractWithResource();
+
             while (resource.Quantity > 0)
             {
+                yield return new WaitForSeconds(1f / unitSpecForResource.SpeedPerSecond);
+                
                 var resourceOutput = resource.Extract(unitSpecForResource.Quantity);
                 
                 _resourceCounts.ChangeResourceTypeCount(resourceOutput.ResourceType, resourceOutput.Quantity);
-                
-                yield return new WaitForSeconds(1f / unitSpecForResource.SpeedPerSecond);
             }
+            
+            resource.Destroy();
+            
+            _unitAnimator.StopInteractWithResource();
+
+            _onInteractionFinish();
         }
     }
 }

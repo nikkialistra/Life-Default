@@ -11,6 +11,7 @@ namespace Units.Unit.BehaviorNodes
         private readonly string _unitClassKey;
         
         private Entity _entity;
+        private UnitClass _unitClass;
 
         public InteractWithEntity(string targetKey, string unitClassKey) : base("StartActionOnTarget")
         {
@@ -27,24 +28,29 @@ namespace Units.Unit.BehaviorNodes
                 throw new ArgumentNullException(nameof(target));
             }
 
-            if (!CanAct(target))
+            if (!CanInteract(target))
             {
                 Stopped(false);
                 return;
             }
 
-            Act();
+            Interact();
         }
 
-        private bool CanAct(Entity entity)
+        private bool CanInteract(Entity entity)
         {
             _entity = entity;
-            var unitClass = Blackboard.Get<UnitClass>(_unitClassKey);
+            _unitClass = Blackboard.Get<UnitClass>(_unitClassKey);
 
-            return unitClass.CanInteractWith(_entity);
+            return _unitClass.CanInteractWith(_entity);
         }
 
-        private void Act()
+        private void Interact()
+        {
+            _unitClass.InteractWith(_entity, OnInteractionFinish);
+        }
+
+        private void OnInteractionFinish()
         {
             Stopped(true);
         }

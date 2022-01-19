@@ -14,7 +14,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _unitType: 1
   _unitTypeLevel: 0
-  _allSpecs:
-  - EntityType: 0
-    Damage: 3
-    DamageSpeedPerSecond: 1
+  _canInteractWithUnits: 0
+  _unitSpecForUnits:
+    Heal: 3
+    SpeedPerSecond: 0
+  _canInteractWithEnemies: 0
+  _unitSpecForEnemies:
+    Damage: 0
+    SpeedPerSecond: 0
+  _canInteractWithResources: 1
+  _unitSpecForResources:
+    Resources:
+      _keys: 00000000
+      _values:
+      - Extraction: 3
+        SpeedPerSecond: 1
+  _canInteractWithBuildings: 0
+  _unitSpecForBuildings:
+    Buildings:
+      _keys: 

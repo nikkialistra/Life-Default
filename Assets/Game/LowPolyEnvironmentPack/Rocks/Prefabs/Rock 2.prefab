@@ -114,7 +114,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _destinationPoint: {fileID: 8802819873703306405}
   _targetIndicator: {fileID: 7502790118630526772}
-  _entityType: 2
+  _entityType: 3
+  _unit: {fileID: 0}
+  _enemy: {fileID: 0}
+  _building: {fileID: 0}
   _resource: {fileID: 6586685918644469592}
 --- !u!114 &6586685918644469592
 MonoBehaviour:

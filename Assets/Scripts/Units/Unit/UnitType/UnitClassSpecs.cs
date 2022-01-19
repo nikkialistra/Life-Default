@@ -1,5 +1,7 @@
 ﻿using System;
+using Buildings;
 using Entities.Entity;
+using ResourceManagement;
 using Sirenix.OdinInspector;
 using Units.Unit.UnitType.UnitSpecs;
 using UnityEngine;
@@ -27,21 +29,33 @@ namespace Units.Unit.UnitType
         [ShowIf("_canInteractWithBuildings")]
         [SerializeField] private UnitSpecForBuildings _unitSpecForBuildings;
 
-        public bool ContainsSpecFor(EntityType entityType)
+        public bool CanInteractWith(Entity entity)
         {
+            var entityType = entity.EntityType;
+            
             return entityType switch
             {
                 EntityType.Unit => _canInteractWithUnits,
                 EntityType.Enemy => _canInteractWithEnemies,
-                EntityType.Resource => _canInteractWithResources,
-                EntityType.Building => _canInteractWithBuildings,
+                EntityType.Building => CanInteractWithBuilding(entity.Building),
+                EntityType.Resource => CanInteractWithResource(entity.Resource),
                 _ => throw new ArgumentOutOfRangeException(nameof(entityType))
             };
         }
 
+        private bool CanInteractWithBuilding(Building building)
+        {
+            return _canInteractWithBuildings && _unitSpecForBuildings.CanInteractWithBuilding(building);
+        }
+
+        private bool CanInteractWithResource(Resource resource)
+        {
+            return _canInteractWithResources && _unitSpecForResources.CanInteractWithResource(resource);
+        }
+
         public UnitSpecForUnits GetSpecForUnits()
         {
-            if (!ContainsSpecFor(EntityType.Unit))
+            if (!_canInteractWithUnits)
             {
                 throw new InvalidOperationException("Unit class cannot interact with units");
             }
@@ -51,7 +65,7 @@ namespace Units.Unit.UnitType
         
         public UnitSpecForEnemies GetSpecForEnemies()
         {
-            if (!ContainsSpecFor(EntityType.Enemy))
+            if (!_canInteractWithEnemies)
             {
                 throw new InvalidOperationException("Unit class cannot interact with enemies");
             }
@@ -59,24 +73,24 @@ namespace Units.Unit.UnitType
             return _unitSpecForEnemies;
         }
         
-        public UnitSpecForResources GetSpecForResources()
+        public UnitSpecForResource GetSpecForResource(Resource resource)
         {
-            if (!ContainsSpecFor(EntityType.Resource))
+            if (!CanInteractWithResource(resource))
             {
                 throw new InvalidOperationException("Unit class cannot interact with resources");
             }
 
-            return _unitSpecForResources;
+            return _unitSpecForResources.GetUnitSpecForResource(resource);
         }
         
-        public UnitSpecForBuildings GetSpecForBuildings()
+        public UnitSpecForBuilding GetSpecForBuilding(Building building)
         {
-            if (!ContainsSpecFor(EntityType.Building))
+            if (!CanInteractWithBuilding(building))
             {
                 throw new InvalidOperationException("Unit class cannot interact with buildings");
             }
 
-            return _unitSpecForBuildings;
+            return _unitSpecForBuildings.GetUnitSpecForBuilding(building);
         }
     }
 }

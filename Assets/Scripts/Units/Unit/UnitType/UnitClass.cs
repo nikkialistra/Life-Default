@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Collections;
 using Buildings;
 using Enemies;
 using Entities.Entity;
 using ResourceManagement;
 using Units.Services;
+using Units.Unit.UnitType.UnitSpecs;
 using UnityEngine;
 using Zenject;
 
@@ -12,13 +14,15 @@ namespace Units.Unit.UnitType
     public class UnitClass : MonoBehaviour
     {
         private UnitClassSpecsRepository _unitClassSpecsRepository;
+        private ResourceCounts _resourceCounts;
         private UnitClassSpecs UnitClassSpecs { get; set; }
-        
+
         private Action _onInteractionFinish;
 
         [Inject]
-        public void Construct(UnitClassSpecsRepository unitClassSpecsRepository)
+        public void Construct(UnitClassSpecsRepository unitClassSpecsRepository, ResourceCounts resourceCounts)
         {
+            _resourceCounts = resourceCounts;
             _unitClassSpecsRepository = unitClassSpecsRepository;
         }
 
@@ -29,9 +33,7 @@ namespace Units.Unit.UnitType
 
         public bool CanInteractWith(Entity entity)
         {
-            var entityType = entity.EntityType;
-
-            return UnitClassSpecs.ContainsSpecFor(entityType);
+            return UnitClassSpecs.CanInteractWith(entity);
         }
 
         public void InteractWith(Entity entity, Action onInteractionFinish)
@@ -69,12 +71,26 @@ namespace Units.Unit.UnitType
 
         private void InteractWithBuilding(Building building)
         {
-            var unitSpecForBuildings = UnitClassSpecs.GetSpecForBuildings();
+            var unitSpecForBuildings = UnitClassSpecs.GetSpecForBuilding(building);
         }
 
         private void InteractWithResource(Resource resource)
         {
-            var unitSpecForResources = UnitClassSpecs.GetSpecForResources();
+            var unitSpecForResource = UnitClassSpecs.GetSpecForResource(resource);
+
+            StartCoroutine(InteractingWithResource(resource, unitSpecForResource));
+        }
+
+        private IEnumerator InteractingWithResource(Resource resource, UnitSpecForResource unitSpecForResource)
+        {
+            while (resource.Quantity > 0)
+            {
+                var resourceOutput = resource.Extract(unitSpecForResource.Quantity);
+                
+                _resourceCounts.ChangeResourceTypeCount(resourceOutput.ResourceType, resourceOutput.Quantity);
+                
+                yield return new WaitForSeconds(1f / unitSpecForResource.SpeedPerSecond);
+            }
         }
     }
 }

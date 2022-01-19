@@ -5,7 +5,7 @@ namespace Units.Unit.UnitType.UnitSpecs
     [Serializable]
     public class UnitSpecForResource
     {
-        public int Extraction;
+        public int Quantity;
         public float SpeedPerSecond;
     }
 }

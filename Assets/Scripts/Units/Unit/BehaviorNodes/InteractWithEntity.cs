@@ -2,6 +2,7 @@
 using Entities.Entity;
 using NPBehave;
 using Units.Unit.UnitType;
+using UnityEngine;
 
 namespace Units.Unit.BehaviorNodes
 {
@@ -22,7 +23,7 @@ namespace Units.Unit.BehaviorNodes
         protected override void DoStart()
         {
             var target = Blackboard.Get<Entity>(_targetKey);
-
+            
             if (target == null)
             {
                 throw new ArgumentNullException(nameof(target));

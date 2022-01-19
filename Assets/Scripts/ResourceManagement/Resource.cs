@@ -10,8 +10,9 @@ namespace ResourceManagement
         [MinValue(1)]
         [SerializeField] private int _quantity;
 
+        public ResourceType ResourceType => _resourceType;
         public int Quantity => _quantity;
-        
+
         public ResourceOutput Extract(int value)
         {
             var extractedQuantity = ApplyExtraction(value);

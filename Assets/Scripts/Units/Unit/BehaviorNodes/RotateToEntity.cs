@@ -24,8 +24,8 @@ namespace Units.Unit.BehaviorNodes
 
             var entity = Blackboard.Get<Entity>(_entityKey);
 
-            _unitMeshAgent.RotateTo(entity);
             _unitMeshAgent.RotationEnd += OnRotationEnd;
+            _unitMeshAgent.RotateTo(entity);
         }
 
         private void OnRotationEnd()

@@ -27,14 +27,8 @@ namespace Units.Unit.BehaviorNodes
 
             var entity = Blackboard.Get<Entity>(_entityKey);
 
-            _unitMeshAgent.SetDestinationToEntity(entity.transform.position);
             _unitMeshAgent.DestinationReach += OnDestinationReach;
-        }
-
-        protected override void DoStop()
-        {
-            _unitMeshAgent.DestinationReach -= OnDestinationReach;
-            Stopped(false);
+            _unitMeshAgent.SetDestinationToEntity(entity.transform.position);
         }
 
         private void OnDestinationReach()
@@ -42,6 +36,12 @@ namespace Units.Unit.BehaviorNodes
             _unitMeshAgent.DestinationReach -= OnDestinationReach;
             _callback();
             Stopped(true);
+        }
+
+        protected override void DoStop()
+        {
+            _unitMeshAgent.DestinationReach -= OnDestinationReach;
+            Stopped(false);
         }
     }
 }

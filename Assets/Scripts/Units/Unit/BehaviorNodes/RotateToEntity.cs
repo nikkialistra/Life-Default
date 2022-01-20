@@ -37,6 +37,7 @@ namespace Units.Unit.BehaviorNodes
         protected override void DoStop()
         {
             _unitMeshAgent.RotationEnd -= OnRotationEnd;
+            _unitMeshAgent.StopRotating();
             Stopped(false);
         }
     }

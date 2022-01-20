@@ -1,6 +1,5 @@
 ﻿using Entities.Entity;
 using NPBehave;
-using Action = System.Action;
 
 namespace Units.Unit.BehaviorNodes
 {
@@ -8,13 +7,11 @@ namespace Units.Unit.BehaviorNodes
     {
         private readonly string _entityKey;
         private readonly UnitMeshAgent _unitMeshAgent;
-        private readonly Action _callback;
 
-        public MoveToEntity(string entityKey, UnitMeshAgent unitMeshAgent, Action callback) : base("MoveToEntity")
+        public MoveToEntity(string entityKey, UnitMeshAgent unitMeshAgent) : base("MoveToEntity")
         {
             _entityKey = entityKey;
             _unitMeshAgent = unitMeshAgent;
-            _callback = callback;
         }
 
         protected override void DoStart()
@@ -34,13 +31,13 @@ namespace Units.Unit.BehaviorNodes
         private void OnDestinationReach()
         {
             _unitMeshAgent.DestinationReach -= OnDestinationReach;
-            _callback();
             Stopped(true);
         }
 
         protected override void DoStop()
         {
             _unitMeshAgent.DestinationReach -= OnDestinationReach;
+            _unitMeshAgent.StopMoving();
             Stopped(false);
         }
     }

@@ -21,6 +21,7 @@ namespace UnitManagement.Targeting
 
         private InputAction _setDestinationAction;
         private InputAction _positionAction;
+        private InputAction _stopAction;
 
         [Inject]
         public void Construct(PlayerInput playerInput, Camera camera, GameViews gameViews, SelectedUnits selectedUnits)
@@ -35,19 +36,24 @@ namespace UnitManagement.Targeting
         {
             _setDestinationAction = _playerInput.actions.FindAction("SetDestination");
             _positionAction = _playerInput.actions.FindAction("Position");
+            _stopAction = _playerInput.actions.FindAction("Stop");
         }
 
         public event Action<Entity> EntitySet;
         public event Action<Vector3> PositionSet;
 
+        public event Action Stop;
+
         private void OnEnable()
         {
             _setDestinationAction.started += SetDestination;
+            _stopAction.started += OnStop;
         }
 
         private void OnDisable()
         {
             _setDestinationAction.started -= SetDestination;
+            _stopAction.started -= OnStop;
         }
 
         private void SetDestination(InputAction.CallbackContext context)
@@ -56,7 +62,7 @@ namespace UnitManagement.Targeting
             {
                 return;
             }
-            
+
             if (Physics.Raycast(GetRay(), out var hit))
             {
                 var entity = hit.transform.GetComponentInParent<Entity>();
@@ -65,13 +71,18 @@ namespace UnitManagement.Targeting
                     EntitySet?.Invoke(entity);
                     return;
                 }
-                
+
                 var ground = hit.transform.GetComponentInParent<Ground>();
                 if (ground != null)
                 {
                     PositionSet?.Invoke(hit.point);
                 }
             }
+        }
+
+        private void OnStop(InputAction.CallbackContext context)
+        {
+            Stop?.Invoke();
         }
 
         private Ray GetRay()

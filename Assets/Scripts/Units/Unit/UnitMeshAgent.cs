@@ -23,6 +23,8 @@ namespace Units.Unit
         private UnitFacade _unitFacade;
         private AIPath _aiPath;
 
+        private Coroutine _rotatingToCoroutine;
+
         private void Awake()
         {
             _unitFacade = GetComponent<UnitFacade>();
@@ -69,7 +71,21 @@ namespace Units.Unit
 
         public void RotateTo(Entity entity)
         {
-            StartCoroutine(RotatingTo(entity));
+            _rotatingToCoroutine = StartCoroutine(RotatingTo(entity));
+        }
+
+        public void StopMoving()
+        {
+            _aiPath.isStopped = true;
+            DestinationReach?.Invoke();
+        }
+
+        public void StopRotating()
+        {
+            if (_rotatingToCoroutine != null)
+            {
+                StopCoroutine(_rotatingToCoroutine);
+            }
         }
 
         private IEnumerator RotatingTo(Entity entity)

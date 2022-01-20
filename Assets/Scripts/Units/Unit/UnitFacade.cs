@@ -12,6 +12,7 @@ namespace Units.Unit
     [RequireComponent(typeof(UnitAnimator))]
     [RequireComponent(typeof(UnitModelElements))]
     [RequireComponent(typeof(UnitSaveLoadHandler))]
+    [RequireComponent(typeof(UnitMeshAgent))]
     [RequireComponent(typeof(UnitBehavior))]
     [RequireComponent(typeof(UnitClass))]
     public class UnitFacade : MonoBehaviour, IPoolable<UnitType.UnitType, Vector3, IMemoryPool>, IDisposable
@@ -32,6 +33,7 @@ namespace Units.Unit
         private EntityHealth _health;
         private UnitAnimator _unitAnimator;
         private UnitModelElements _unitModelElements;
+        private UnitMeshAgent _unitMeshAgent;
         private UnitBehavior _unitBehavior;
         private UnitClass _unitClass;
 
@@ -42,6 +44,7 @@ namespace Units.Unit
             _health = GetComponent<EntityHealth>();
             _unitAnimator = GetComponent<UnitAnimator>();
             _unitModelElements = GetComponent<UnitModelElements>();
+            _unitMeshAgent = GetComponent<UnitMeshAgent>();
             _unitBehavior = GetComponent<UnitBehavior>();
             _unitClass = GetComponent<UnitClass>();
 
@@ -73,7 +76,7 @@ namespace Units.Unit
             _health.Die += Dispose;
             _health.HealthChange += OnHealthChange;
 
-            _unitBehavior.DestinationReach += OnDestinationReach;
+            _unitMeshAgent.DestinationReach += OnDestinationReach;
         }
 
         private void OnDisable()
@@ -137,6 +140,11 @@ namespace Units.Unit
 
             _selectionIndicator.SetActive(false);
             _healthBar.Selected = false;
+        }
+
+        public void Stop()
+        {
+            _unitBehavior.Stop();
         }
 
         public bool TryOrderToEntity(Entity entity)

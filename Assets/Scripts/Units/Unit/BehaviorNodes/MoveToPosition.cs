@@ -1,6 +1,5 @@
 ﻿using NPBehave;
 using UnityEngine;
-using Action = System.Action;
 
 namespace Units.Unit.BehaviorNodes
 {
@@ -8,13 +7,11 @@ namespace Units.Unit.BehaviorNodes
     {
         private readonly UnitMeshAgent _unitMeshAgent;
         private readonly string _positionKey;
-        private readonly Action _callback;
 
-        public MoveToPosition(UnitMeshAgent unitMeshAgent, string positionKey, Action callback) : base("MoveToPosition")
+        public MoveToPosition(UnitMeshAgent unitMeshAgent, string positionKey) : base("MoveToPosition")
         {
             _positionKey = positionKey;
             _unitMeshAgent = unitMeshAgent;
-            _callback = callback;
         }
 
         protected override void DoStart()
@@ -28,21 +25,21 @@ namespace Units.Unit.BehaviorNodes
             var position = Blackboard.Get<Vector3>(_positionKey);
             Blackboard.Unset(_positionKey);
 
-            _unitMeshAgent.SetDestinationToPosition(position);
             _unitMeshAgent.DestinationReach += OnDestinationReach;
-        }
-
-        protected override void DoStop()
-        {
-            _unitMeshAgent.DestinationReach -= OnDestinationReach;
-            Stopped(false);
+            _unitMeshAgent.SetDestinationToPosition(position);
         }
 
         private void OnDestinationReach()
         {
             _unitMeshAgent.DestinationReach -= OnDestinationReach;
-            _callback();
             Stopped(true);
+        }
+
+        protected override void DoStop()
+        {
+            _unitMeshAgent.DestinationReach -= OnDestinationReach;
+            _unitMeshAgent.StopMoving();
+            Stopped(false);
         }
     }
 }

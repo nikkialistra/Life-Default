@@ -14,9 +14,11 @@ namespace Units.Unit
         [MinValue(0)]
         [SerializeField] private float _seekRadius;
 
+        private const string NewCommandKey = "newCommand";
+
         private const string PositionKey = "desiredPosition";
         private const string EntityKey = "entity";
-        private const string NewCommandKey = "newCommand";
+
         private const string UnitClassKey = "unitType";
 
         private Root _behaviorTree;
@@ -29,8 +31,6 @@ namespace Units.Unit
         {
             _unitMeshAgent = GetComponent<UnitMeshAgent>();
         }
-
-        public event System.Action DestinationReach;
 
         private void OnDestroy()
         {
@@ -55,12 +55,22 @@ namespace Units.Unit
             _behaviorTree.Blackboard.Set(UnitClassKey, unitClass);
         }
 
+        public void Stop()
+        {
+            _behaviorTree.Blackboard.Unset(PositionKey);
+            _behaviorTree.Blackboard.Unset(EntityKey);
+
+            _behaviorTree.Blackboard.Set(NewCommandKey, true);
+        }
+
         public bool TryOrderToEntity(Entity entity)
         {
             if (!_unitMeshAgent.CanAcceptOrder)
             {
                 return false;
             }
+
+            _behaviorTree.Blackboard.Unset(PositionKey);
 
             _behaviorTree.Blackboard.Set(EntityKey, entity);
             _behaviorTree.Blackboard.Set(NewCommandKey, true);
@@ -74,6 +84,8 @@ namespace Units.Unit
             {
                 return false;
             }
+
+            _behaviorTree.Blackboard.Unset(EntityKey);
 
             _behaviorTree.Blackboard.Set(PositionKey, position);
             _behaviorTree.Blackboard.Set(NewCommandKey, true);
@@ -90,11 +102,11 @@ namespace Units.Unit
                     ),
                     new Selector(
                         new BlackboardCondition(PositionKey, Operator.IS_SET, Stops.NONE,
-                            new MoveToPosition(_unitMeshAgent, PositionKey, OnDestinationReach)),
+                            new MoveToPosition(_unitMeshAgent, PositionKey)),
                         new BlackboardCondition(EntityKey, Operator.IS_SET, Stops.NONE,
                             new Repeater(
                                 new Sequence(
-                                    new MoveToEntity(EntityKey, _unitMeshAgent, OnDestinationReach),
+                                    new MoveToEntity(EntityKey, _unitMeshAgent),
                                     new RotateToEntity(EntityKey, _unitMeshAgent),
                                     new InteractWithEntity(EntityKey, UnitClassKey),
                                     new FindNewEntity(EntityKey, transform, _seekRadius)
@@ -110,11 +122,6 @@ namespace Units.Unit
                     )
                 )
             );
-        }
-
-        private void OnDestinationReach()
-        {
-            DestinationReach?.Invoke();
         }
 
         private void ShowIdleState()

@@ -34,17 +34,19 @@ namespace UnitManagement.Targeting
 
         private void OnEnable()
         {
-            _movementInput.EntitySet += MoveAllToEntity;
-            _movementInput.PositionSet += MoveAllToPosition;
+            _movementInput.EntitySet += MoveToEntity;
+            _movementInput.PositionSet += MoveToPosition;
+            _movementInput.Stop += Stop;
         }
 
         private void OnDisable()
         {
-            _movementInput.EntitySet -= MoveAllToEntity;
-            _movementInput.PositionSet -= MoveAllToPosition;
+            _movementInput.EntitySet -= MoveToEntity;
+            _movementInput.PositionSet -= MoveToPosition;
+            _movementInput.Stop -= Stop;
         }
 
-        private void MoveAllToEntity(Entity entity)
+        private void MoveToEntity(Entity entity)
         {
             if (EntityOrderedToSelf(entity))
             {
@@ -53,10 +55,24 @@ namespace UnitManagement.Targeting
 
             var destinationPoint = entity.GetDestinationPoint();
             var orderMark = _orderMarkPool.PlaceTo(destinationPoint, entity);
-            MoveAllTo(orderMark);
+            MoveTo(orderMark);
         }
 
-        private void MoveAllTo(OrderMark orderMark)
+        private void MoveToPosition(Vector3 position)
+        {
+            var orderMark = _orderMarkPool.PlaceTo(position);
+            MakeFormationTo(orderMark);
+        }
+
+        private void Stop()
+        {
+            foreach (var unit in _selectedUnits.Units)
+            {
+                unit.Stop();
+            }
+        }
+
+        private void MoveTo(OrderMark orderMark)
         {
             foreach (var unit in _selectedUnits.Units)
             {
@@ -65,12 +81,6 @@ namespace UnitManagement.Targeting
                     _orderMarkPool.Link(orderMark, unit);
                 }
             }
-        }
-
-        private void MoveAllToPosition(Vector3 position)
-        {
-            var orderMark = _orderMarkPool.PlaceTo(position);
-            MakeFormationTo(orderMark);
         }
 
         private void MakeFormationTo(OrderMark orderMark)

@@ -127,6 +127,15 @@ namespace Controls
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Stop"",
+                    ""type"": ""Button"",
+                    ""id"": ""d17fb049-f097-4c8e-a006-affbaf307f8a"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -382,6 +391,17 @@ namespace Controls
                     ""action"": ""ShowMenu"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4e5b4a34-192b-43f5-92d4-816a1a355632"",
+                    ""path"": ""<Keyboard>/y"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Stop"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -429,6 +449,7 @@ namespace Controls
             m_Management_Zoom = m_Management.FindAction("Zoom", throwIfNotFound: true);
             m_Management_SetDestination = m_Management.FindAction("SetDestination", throwIfNotFound: true);
             m_Management_ShowMenu = m_Management.FindAction("ShowMenu", throwIfNotFound: true);
+            m_Management_Stop = m_Management.FindAction("Stop", throwIfNotFound: true);
             // Menus
             m_Menus = asset.FindActionMap("Menus", throwIfNotFound: true);
             m_Menus_HideMenu = m_Menus.FindAction("HideMenu", throwIfNotFound: true);
@@ -502,6 +523,7 @@ namespace Controls
         private readonly InputAction m_Management_Zoom;
         private readonly InputAction m_Management_SetDestination;
         private readonly InputAction m_Management_ShowMenu;
+        private readonly InputAction m_Management_Stop;
         public struct ManagementActions
         {
             private @Control m_Wrapper;
@@ -517,6 +539,7 @@ namespace Controls
             public InputAction @Zoom => m_Wrapper.m_Management_Zoom;
             public InputAction @SetDestination => m_Wrapper.m_Management_SetDestination;
             public InputAction @ShowMenu => m_Wrapper.m_Management_ShowMenu;
+            public InputAction @Stop => m_Wrapper.m_Management_Stop;
             public InputActionMap Get() { return m_Wrapper.m_Management; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -559,6 +582,9 @@ namespace Controls
                     @ShowMenu.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnShowMenu;
                     @ShowMenu.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnShowMenu;
                     @ShowMenu.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnShowMenu;
+                    @Stop.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnStop;
+                    @Stop.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnStop;
+                    @Stop.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnStop;
                 }
                 m_Wrapper.m_ManagementActionsCallbackInterface = instance;
                 if (instance != null)
@@ -596,6 +622,9 @@ namespace Controls
                     @ShowMenu.started += instance.OnShowMenu;
                     @ShowMenu.performed += instance.OnShowMenu;
                     @ShowMenu.canceled += instance.OnShowMenu;
+                    @Stop.started += instance.OnStop;
+                    @Stop.performed += instance.OnStop;
+                    @Stop.canceled += instance.OnStop;
                 }
             }
         }
@@ -646,6 +675,7 @@ namespace Controls
             void OnZoom(InputAction.CallbackContext context);
             void OnSetDestination(InputAction.CallbackContext context);
             void OnShowMenu(InputAction.CallbackContext context);
+            void OnStop(InputAction.CallbackContext context);
         }
         public interface IMenusActions
         {

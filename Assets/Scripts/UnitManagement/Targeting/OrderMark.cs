@@ -60,6 +60,18 @@ namespace UnitManagement.Targeting
             Entity = null;
         }
 
+        private void Activate()
+        {
+            if (Entity != null)
+            {
+                Entity.ShowIndicator();
+            }
+            else
+            {
+                _targetIndicator.SetActive(true);
+            }
+        }
+
         public void Deactivate()
         {
             if (Entity != null)
@@ -101,18 +113,6 @@ namespace UnitManagement.Targeting
             _units.Remove(unit);
 
             UpdateState();
-        }
-
-        private void Activate()
-        {
-            if (Entity != null)
-            {
-                Entity.ShowIndicator();
-            }
-            else
-            {
-                _targetIndicator.SetActive(true);
-            }
         }
     }
 }

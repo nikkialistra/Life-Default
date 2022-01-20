@@ -1,21 +1,24 @@
 ﻿using System;
+using Entities.Entity.Interfaces;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace ResourceManagement
 {
-    public class Resource : MonoBehaviour
+    public class Resource : MonoBehaviour, ICountable
     {
         [SerializeField] private ResourceType _resourceType;
         [MinValue(1)]
         [SerializeField] private int _quantity;
-        
+
         [Space]
         [Required]
         [SerializeField] private Transform _holder;
 
+        private int _acquiredCount = 0;
+
         public ResourceType ResourceType => _resourceType;
-        public int Quantity => _quantity;
+        public bool Exausted => _quantity == 0;
 
         public ResourceOutput Extract(int value)
         {
@@ -23,9 +26,29 @@ namespace ResourceManagement
 
             return new ResourceOutput(_resourceType, extractedQuantity);
         }
-        
+
+        public void Acquire()
+        {
+            _acquiredCount++;
+        }
+
+        public void Release()
+        {
+            if (_acquiredCount == 0)
+            {
+                throw new InvalidOperationException("Cannot release resource which not acquired");
+            }
+
+            _acquiredCount--;
+
+            if (Exausted && _acquiredCount == 0)
+            {
+                Destroy();
+            }
+        }
+
         [Button]
-        public void Destroy()
+        private void Destroy()
         {
             Destroy(_holder.gameObject);
         }
@@ -36,7 +59,7 @@ namespace ResourceManagement
             {
                 throw new InvalidOperationException("Making damage cannot be applied to the destroyed resource");
             }
-            
+
             int extractedQuantity;
 
             if (_quantity > value)

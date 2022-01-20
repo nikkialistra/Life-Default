@@ -3,6 +3,7 @@ using System.Collections;
 using Buildings;
 using Enemies;
 using Entities.Entity;
+using Entities.Entity.Interfaces;
 using ResourceManagement;
 using Units.Services;
 using Units.Unit.UnitType.UnitSpecs;
@@ -19,10 +20,12 @@ namespace Units.Unit.UnitType
         private UnitClassSpecs UnitClassSpecs { get; set; }
 
         private Action _onInteractionFinish;
-        
+
         private UnitAnimator _unitAnimator;
-        
+
         private Coroutine _interactingCoroutine;
+
+        private ICountable _acquired;
 
         [Inject]
         public void Construct(UnitClassSpecsRepository unitClassSpecsRepository, ResourceCounts resourceCounts)
@@ -54,7 +57,7 @@ namespace Units.Unit.UnitType
             }
 
             _onInteractionFinish = onInteractionFinish;
-            
+
             switch (entity.EntityType)
             {
                 case EntityType.Unit:
@@ -73,7 +76,7 @@ namespace Units.Unit.UnitType
                     throw new ArgumentOutOfRangeException();
             }
         }
-        
+
         public void StopInteraction()
         {
             if (_interactingCoroutine != null)
@@ -81,6 +84,8 @@ namespace Units.Unit.UnitType
                 StopCoroutine(_interactingCoroutine);
                 _unitAnimator.StopInteractWithResource();
             }
+
+            ReleaseAcquired();
         }
 
         private void InteractWithUnit(UnitFacade unit)
@@ -109,20 +114,41 @@ namespace Units.Unit.UnitType
         {
             _unitAnimator.InteractWithResource();
 
-            while (resource.Quantity > 0)
+            AddToAcquired(resource);
+
+            while (!resource.Exausted)
             {
                 yield return new WaitForSeconds(1f / unitSpecForResource.SpeedPerSecond);
-                
+
+                if (resource.Exausted)
+                {
+                    break;
+                }
+
                 var resourceOutput = resource.Extract(unitSpecForResource.Quantity);
-                
+
                 _resourceCounts.ChangeResourceTypeCount(resourceOutput.ResourceType, resourceOutput.Quantity);
             }
-            
-            resource.Destroy();
-            
-            _unitAnimator.StopInteractWithResource();
 
+            ReleaseAcquired();
+
+            _unitAnimator.StopInteractWithResource();
             _onInteractionFinish();
+        }
+
+        private void AddToAcquired(ICountable toAcquaire)
+        {
+            toAcquaire.Acquire();
+            _acquired = toAcquaire;
+        }
+
+        private void ReleaseAcquired()
+        {
+            if (_acquired != null)
+            {
+                _acquired.Release();
+                _acquired = null;
+            }
         }
     }
 }

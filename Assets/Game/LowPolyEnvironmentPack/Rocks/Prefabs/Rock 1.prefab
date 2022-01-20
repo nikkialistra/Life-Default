@@ -43,8 +43,6 @@ GameObject:
   - component: {fileID: 5962406748611545209}
   - component: {fileID: 5949959256176201339}
   - component: {fileID: 5918459689015844033}
-  - component: {fileID: 5761936367015521794}
-  - component: {fileID: 7309515722028595515}
   m_Layer: 8
   m_Name: Rock
   m_TagString: Untagged
@@ -131,40 +129,6 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: b2d7d77df4449b24fb2fffe6ca115874, type: 3}
---- !u!114 &5761936367015521794
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5962953340457639237}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 05801dcd7dd44c819b53a6357ea5aeb6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _destinationPoint: {fileID: 2479464145132155280}
-  _targetIndicator: {fileID: 914636273435247350}
-  _entityType: 3
-  _unit: {fileID: 0}
-  _enemy: {fileID: 0}
-  _building: {fileID: 0}
-  _resource: {fileID: 7309515722028595515}
---- !u!114 &7309515722028595515
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5962953340457639237}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a0e5de3e100946ed8492c674be4951f7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _resourceType: 1
-  _quantity: 5
-  _holder: {fileID: 314264678851890282}
 --- !u!1 &6033004908273201049
 GameObject:
   m_ObjectHideFlags: 0
@@ -174,6 +138,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 314264678851890282}
+  - component: {fileID: 9150899292349039085}
+  - component: {fileID: 674063138338500664}
+  - component: {fileID: 3688101075077062339}
+  - component: {fileID: 5721477044560271621}
   m_Layer: 0
   m_Name: Rock 1
   m_TagString: Untagged
@@ -199,6 +167,66 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &9150899292349039085
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6033004908273201049}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 3, y: 2, z: 2}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &674063138338500664
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6033004908273201049}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9f92c6d838a44fd9dcd8e5f37826d47, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _object: {fileID: 5965430920932566989}
+--- !u!114 &3688101075077062339
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6033004908273201049}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05801dcd7dd44c819b53a6357ea5aeb6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _destinationPoint: {fileID: 2479464145132155280}
+  _targetIndicator: {fileID: 914636273435247350}
+  _entityType: 3
+  _unit: {fileID: 0}
+  _enemy: {fileID: 0}
+  _building: {fileID: 0}
+  _resource: {fileID: 5721477044560271621}
+--- !u!114 &5721477044560271621
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6033004908273201049}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0e5de3e100946ed8492c674be4951f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _resourceType: 1
+  _quantity: 5
+  _holder: {fileID: 314264678851890282}
 --- !u!1001 &6218479630500021798
 PrefabInstance:
   m_ObjectHideFlags: 0

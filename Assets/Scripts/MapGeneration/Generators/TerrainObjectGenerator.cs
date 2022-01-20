@@ -35,11 +35,11 @@ namespace MapGeneration.Generators
 
         [Title("Objects")]
         [Required]
-        [SerializeField] private List<GameObject> _prefabs;
+        [SerializeField] private List<TerrainObject> _prefabs;
         [Required]
         [SerializeField] private Transform _prefabParent;
 
-        private readonly List<GameObject> _terrainObjects = new();
+        private readonly List<TerrainObject> _terrainObjects = new();
 
         private LayerMask _terrainMask;
 
@@ -114,7 +114,8 @@ namespace MapGeneration.Generators
                 hit.point.z + Random.Range(-_pointVariation, _pointVariation));
             var rotation = Quaternion.Euler(0, Random.Range(0, _rotationVariation), 0);
 
-            var terrainObject = Instantiate(prefab, position, rotation, _prefabParent);
+            var terrainObject = Instantiate(prefab, position, Quaternion.identity, _prefabParent);
+            terrainObject.Rotate(rotation);
 
             _terrainObjects.Add(terrainObject);
         }

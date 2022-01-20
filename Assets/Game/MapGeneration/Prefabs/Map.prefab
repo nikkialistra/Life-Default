@@ -137,12 +137,8 @@ MonoBehaviour:
   _rotationVariation: 30
   _heightSetCorrection: -0.3
   _prefabs:
-  - {fileID: 6033004908273201049, guid: fd9eccc8f52b4f842a2daf6eec957685, type: 3}
-  - {fileID: 6033004908273201049, guid: 63c7e525e23793748b72aaad4be5e816, type: 3}
-  - {fileID: 6033004908273201049, guid: 48cc790ccc6cea048a9f04424d9b73be, type: 3}
-  - {fileID: 6033004908273201049, guid: 5afbbc90bbeb67b43b456e933c9f619e, type: 3}
-  - {fileID: 6033004908273201049, guid: 7418bf98c36963d4da245db21aed6c21, type: 3}
-  - {fileID: 6033004908273201049, guid: 64ffbc953c857ac4fb7d30d4a33846b6, type: 3}
+  - {fileID: 674063138338500664, guid: fd9eccc8f52b4f842a2daf6eec957685, type: 3}
+  - {fileID: 8929730566369750931, guid: 63c7e525e23793748b72aaad4be5e816, type: 3}
   _prefabParent: {fileID: 5052065526205256099}
 --- !u!1 &5052065526676053634
 GameObject:
@@ -255,7 +251,7 @@ MonoBehaviour:
   _rotationVariation: 30
   _heightSetCorrection: -0.5
   _prefabs:
-  - {fileID: 616113757972869379, guid: 1fea344d8e5477f45b22e97a92f61ba9, type: 3}
-  - {fileID: 3974858230177364096, guid: 29869e203718af84196c765f414d0136, type: 3}
-  - {fileID: 1620543646530389056, guid: 489fb1809e7238c4fa867365dc0eef8f, type: 3}
+  - {fileID: 7180116611596015672, guid: 489fb1809e7238c4fa867365dc0eef8f, type: 3}
+  - {fileID: 7364597769913905484, guid: 29869e203718af84196c765f414d0136, type: 3}
+  - {fileID: 6807071143965519628, guid: 1fea344d8e5477f45b22e97a92f61ba9, type: 3}
   _prefabParent: {fileID: 5052065527054891189}

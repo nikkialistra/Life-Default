@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7364597769913905484}
   - component: {fileID: 1963045412000770899}
   - component: {fileID: 8783082225757706599}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: Tree 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -108,7 +108,7 @@ GameObject:
   - component: {fileID: 3974858230180455558}
   - component: {fileID: 3974858230179358278}
   - component: {fileID: 1826960100694811647}
-  m_Layer: 8
+  m_Layer: 3
   m_Name: Tree_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -206,7 +206,7 @@ GameObject:
   - component: {fileID: 3974858230180455562}
   - component: {fileID: 3974858230179358282}
   - component: {fileID: 1537063461141419356}
-  m_Layer: 8
+  m_Layer: 3
   m_Name: Leaves_4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -304,7 +304,7 @@ GameObject:
   - component: {fileID: 3974858230180455556}
   - component: {fileID: 3974858230179358276}
   - component: {fileID: 1651088530157242795}
-  m_Layer: 8
+  m_Layer: 3
   m_Name: Leaves_5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -402,7 +402,7 @@ GameObject:
   - component: {fileID: 3974858230180455566}
   - component: {fileID: 3974858230179358286}
   - component: {fileID: 9090505206014918900}
-  m_Layer: 8
+  m_Layer: 3
   m_Name: Leaves_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -500,7 +500,7 @@ GameObject:
   - component: {fileID: 3974858230180455560}
   - component: {fileID: 3974858230179358280}
   - component: {fileID: 2482555885868497594}
-  m_Layer: 8
+  m_Layer: 3
   m_Name: Leaves_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -595,7 +595,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3974858230177588396}
-  m_Layer: 8
+  m_Layer: 3
   m_Name: Leaves
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -634,7 +634,7 @@ GameObject:
   - component: {fileID: 3974858230180455564}
   - component: {fileID: 3974858230179358284}
   - component: {fileID: 1346866393635969454}
-  m_Layer: 8
+  m_Layer: 3
   m_Name: Leaves_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -729,7 +729,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 27938337266984828}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Tree
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -764,7 +764,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7379679866282382462}
-  m_Layer: 8
+  m_Layer: 3
   m_Name: Destination Point
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -856,7 +856,7 @@ PrefabInstance:
     - target: {fileID: 6556408309098693840, guid: 51e1923cb239c86419b06383c273132f,
         type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6556408309098693840, guid: 51e1923cb239c86419b06383c273132f,
         type: 3}

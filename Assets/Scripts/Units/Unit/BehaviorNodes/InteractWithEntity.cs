@@ -28,8 +28,6 @@ namespace Units.Unit.BehaviorNodes
 
             var entity = Blackboard.Get<Entity>(_entityKey);
 
-            Blackboard.Unset(_entityKey);
-
             if (!CanInteract(entity))
             {
                 Stopped(false);

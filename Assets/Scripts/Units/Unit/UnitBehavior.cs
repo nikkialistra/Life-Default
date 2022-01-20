@@ -97,7 +97,7 @@ namespace Units.Unit
                                     new MoveToEntity(EntityKey, _unitMeshAgent, OnDestinationReach),
                                     new RotateToEntity(EntityKey, _unitMeshAgent),
                                     new InteractWithEntity(EntityKey, UnitClassKey),
-                                    new FindNewEntity(transform, _seekRadius, EntityKey)
+                                    new FindNewEntity(EntityKey, transform, _seekRadius)
                                 )
                             )
                         )

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using DG.Tweening;
 using Entities.Entity;
 using Pathfinding;
 using UnityEngine;
@@ -11,7 +12,7 @@ namespace Units.Unit
     public class UnitMeshAgent : MonoBehaviour
     {
         [SerializeField] private float _rotationSpeedToEntities;
-        
+
         private bool _activated;
 
         private Coroutine _movingCoroutine;
@@ -27,7 +28,7 @@ namespace Units.Unit
 
         public event Action DestinationReach;
         public event Action RotationEnd;
-        
+
         public float Velocity => _aiPath.velocity.magnitude;
 
         public bool CanAcceptOrder => _activated;
@@ -58,23 +59,37 @@ namespace Units.Unit
 
         private IEnumerator RotatingTo(Entity entity)
         {
-            var targetDirection = (entity.transform.position - transform.position).normalized;
-            var targetRotation = Quaternion.LookRotation(targetDirection);
+            var targetPosition = entity.transform.position;
+            targetPosition.y = transform.position.y;
+            var targetDirection = (targetPosition - transform.position).normalized;
+            var targetRotation = Quaternion.LookRotation(targetDirection).eulerAngles;
 
-            while (!IsApproximate(targetRotation, transform.rotation))
-            {
-                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.fixedDeltaTime * _rotationSpeedToEntities);
-                
-                yield return new WaitForFixedUpdate();
-            }
-            
+            yield return transform.DORotate(targetRotation, GetRotationDuration(targetRotation)).WaitForCompletion();
+
             RotationEnd?.Invoke();
         }
 
-        // Is the difference below 1 degree on 1 axis
-        private static bool IsApproximate(Quaternion first, Quaternion second)
+        private float GetRotationDuration(Vector3 targetRotation)
         {
-            return Mathf.Abs(Quaternion.Dot(first, second)) >= 1 - 0.0000004f;
+            var angleDifference = GetAngleDifference(transform.rotation.eulerAngles.y, targetRotation.y);
+            var duration = angleDifference / _rotationSpeedToEntities;
+            return duration;
+        }
+
+        private float GetAngleDifference(float firstAngle, float secondAngle)
+        {
+            var difference = firstAngle - secondAngle;
+            if (difference > 180)
+            {
+                difference -= 360;
+            }
+
+            if (difference < -180)
+            {
+                difference += 360;
+            }
+
+            return Mathf.Abs(difference);
         }
 
         private void Activate()
@@ -99,7 +114,7 @@ namespace Units.Unit
             {
                 yield return null;
             }
-            
+
             DestinationReach?.Invoke();
         }
 
@@ -109,7 +124,7 @@ namespace Units.Unit
             {
                 _aiPath.isStopped = true;
             }
-            
+
             return !_aiPath.reachedDestination;
         }
 

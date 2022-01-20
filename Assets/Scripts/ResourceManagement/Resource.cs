@@ -1,10 +1,12 @@
 ﻿using System;
+using Entities.Entity;
 using Entities.Entity.Interfaces;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace ResourceManagement
 {
+    [RequireComponent(typeof(Entity))]
     public class Resource : MonoBehaviour, ICountable
     {
         [SerializeField] private ResourceType _resourceType;
@@ -16,6 +18,13 @@ namespace ResourceManagement
         [SerializeField] private Transform _holder;
 
         private int _acquiredCount = 0;
+
+        private void Awake()
+        {
+            Entity = GetComponent<Entity>();
+        }
+
+        public Entity Entity { get; private set; }
 
         public ResourceType ResourceType => _resourceType;
         public bool Exausted => _quantity == 0;

@@ -1,5 +1,6 @@
 ﻿using Entities.Entity;
 using NPBehave;
+using Sirenix.OdinInspector;
 using UnitManagement.Targeting;
 using Units.Unit.BehaviorNodes;
 using Units.Unit.UnitType;
@@ -10,6 +11,9 @@ namespace Units.Unit
     [RequireComponent(typeof(UnitMeshAgent))]
     public class UnitBehavior : MonoBehaviour
     {
+        [MinValue(0)]
+        [SerializeField] private float _seekRadius;
+
         private const string PositionKey = "desiredPosition";
         private const string EntityKey = "entity";
         private const string NewCommandKey = "newCommand";
@@ -93,7 +97,7 @@ namespace Units.Unit
                                     new MoveToEntity(EntityKey, _unitMeshAgent, OnDestinationReach),
                                     new RotateToEntity(EntityKey, _unitMeshAgent),
                                     new InteractWithEntity(EntityKey, UnitClassKey),
-                                    new FindNewEntity()
+                                    new FindNewEntity(transform, _seekRadius, EntityKey)
                                 )
                             )
                         )

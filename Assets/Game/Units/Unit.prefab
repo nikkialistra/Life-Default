@@ -2215,6 +2215,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rotationSpeedToEntities: 150
+  _interactionDistance: 3
 --- !u!114 &2980621672634722628
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2406,6 +2407,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e38182fea63347408f39c7a8d58ec91e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _seekRadius: 15
 --- !u!114 &924790661040643573
 MonoBehaviour:
   m_ObjectHideFlags: 0

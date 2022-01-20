@@ -28,7 +28,7 @@ namespace Units.Unit.BehaviorNodes
             var position = Blackboard.Get<Vector3>(_positionKey);
             Blackboard.Unset(_positionKey);
 
-            _unitMeshAgent.SetDestination(position);
+            _unitMeshAgent.SetDestinationToPosition(position);
             _unitMeshAgent.DestinationReach += OnDestinationReach;
         }
 

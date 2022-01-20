@@ -12,8 +12,11 @@ namespace Units.Unit
     public class UnitMeshAgent : MonoBehaviour
     {
         [SerializeField] private float _rotationSpeedToEntities;
+        [SerializeField] private float _interactionDistance = 3f;
 
         private bool _activated;
+
+        private bool _movingToEntity;
 
         private Coroutine _movingCoroutine;
 
@@ -45,7 +48,19 @@ namespace Units.Unit
             _unitFacade.Die -= Deactivate;
         }
 
-        public void SetDestination(Vector3 position)
+        public void SetDestinationToPosition(Vector3 position)
+        {
+            _movingToEntity = false;
+            SetDestination(position);
+        }
+
+        public void SetDestinationToEntity(Vector3 position)
+        {
+            _movingToEntity = true;
+            SetDestination(position);
+        }
+
+        private void SetDestination(Vector3 position)
         {
             _aiPath.isStopped = false;
             _aiPath.destination = position;
@@ -120,12 +135,31 @@ namespace Units.Unit
 
         private bool IsMoving()
         {
-            if (_aiPath.reachedDestination)
+            return _movingToEntity ? IsMovingToEntity() : IsMovingToPosition();
+        }
+
+        private bool IsMovingToEntity()
+        {
+            if (Vector3.Distance(transform.position, _aiPath.destination) > _interactionDistance)
             {
-                _aiPath.isStopped = true;
+                return true;
             }
 
-            return !_aiPath.reachedDestination;
+            _aiPath.isStopped = true;
+
+            return false;
+        }
+
+        private bool IsMovingToPosition()
+        {
+            if (!_aiPath.reachedDestination)
+            {
+                return true;
+            }
+
+            _aiPath.isStopped = true;
+
+            return false;
         }
 
         private void Deactivate()

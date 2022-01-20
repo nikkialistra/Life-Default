@@ -8,7 +8,7 @@ namespace Units.Unit.BehaviorNodes
     {
         private readonly string _entityKey;
         private readonly UnitMeshAgent _unitMeshAgent;
-        private Action _callback;
+        private readonly Action _callback;
 
         public MoveToEntity(string entityKey, UnitMeshAgent unitMeshAgent, Action callback) : base("MoveToEntity")
         {
@@ -27,7 +27,7 @@ namespace Units.Unit.BehaviorNodes
 
             var entity = Blackboard.Get<Entity>(_entityKey);
 
-            _unitMeshAgent.SetDestination(entity.transform.position);
+            _unitMeshAgent.SetDestinationToEntity(entity.transform.position);
             _unitMeshAgent.DestinationReach += OnDestinationReach;
         }
 

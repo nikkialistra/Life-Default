@@ -14,9 +14,9 @@ namespace Units.Unit
         private const string EntityKey = "entity";
         private const string NewCommandKey = "newCommand";
         private const string UnitClassKey = "unitType";
-        
+
         private Root _behaviorTree;
-        
+
         private UnitMeshAgent _unitMeshAgent;
 
         private OrderMark _currentOrderMark;
@@ -38,11 +38,11 @@ namespace Units.Unit
             ConstructBehaviorTree();
 
 #if UNITY_EDITOR
-            
+
             var debugger = (Debugger)gameObject.AddComponent(typeof(Debugger));
             debugger.BehaviorTree = _behaviorTree;
 #endif
-            
+
             _behaviorTree.Start();
         }
 
@@ -51,7 +51,7 @@ namespace Units.Unit
             _behaviorTree.Blackboard.Set(UnitClassKey, unitClass);
         }
 
-        public bool TryOrderToEntityWithPosition(Entity entity, Vector3 position)
+        public bool TryOrderToEntity(Entity entity)
         {
             if (!_unitMeshAgent.CanAcceptOrder)
             {
@@ -59,8 +59,6 @@ namespace Units.Unit
             }
 
             _behaviorTree.Blackboard.Set(EntityKey, entity);
-            _behaviorTree.Blackboard.Set(PositionKey, position);
-            
             _behaviorTree.Blackboard.Set(NewCommandKey, true);
 
             return true;
@@ -72,9 +70,8 @@ namespace Units.Unit
             {
                 return false;
             }
-            
+
             _behaviorTree.Blackboard.Set(PositionKey, position);
-            
             _behaviorTree.Blackboard.Set(NewCommandKey, true);
 
             return true;
@@ -87,11 +84,13 @@ namespace Units.Unit
                     new BlackboardCondition(NewCommandKey, Operator.IS_SET, Stops.LOWER_PRIORITY,
                         new ResetBehavior(NewCommandKey, UnitClassKey)
                     ),
-                    new Sequence(
-                        new MoveToPosition(_unitMeshAgent, PositionKey, OnDestinationReach),
+                    new Selector(
+                        new BlackboardCondition(PositionKey, Operator.IS_SET, Stops.NONE,
+                            new MoveToPosition(_unitMeshAgent, PositionKey, OnDestinationReach)),
                         new BlackboardCondition(EntityKey, Operator.IS_SET, Stops.NONE,
                             new Repeater(
                                 new Sequence(
+                                    new MoveToEntity(EntityKey, _unitMeshAgent, OnDestinationReach),
                                     new RotateToEntity(EntityKey, _unitMeshAgent),
                                     new InteractWithEntity(EntityKey, UnitClassKey),
                                     new FindNewEntity()
@@ -121,7 +120,7 @@ namespace Units.Unit
 
         private void StopBehaviorTree()
         {
-            if ( _behaviorTree is { CurrentState: Node.State.ACTIVE } )
+            if (_behaviorTree is { CurrentState: Node.State.ACTIVE })
             {
                 _behaviorTree.Stop();
             }

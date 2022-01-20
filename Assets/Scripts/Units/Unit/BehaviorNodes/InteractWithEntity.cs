@@ -1,5 +1,4 @@
-﻿using System;
-using Entities.Entity;
+﻿using Entities.Entity;
 using NPBehave;
 using Units.Unit.UnitType;
 
@@ -9,7 +8,7 @@ namespace Units.Unit.BehaviorNodes
     {
         private readonly string _entityKey;
         private readonly string _unitClassKey;
-        
+
         private Entity _entity;
         private UnitClass _unitClass;
 
@@ -18,16 +17,17 @@ namespace Units.Unit.BehaviorNodes
             _entityKey = entityKey;
             _unitClassKey = unitClassKey;
         }
-        
+
         protected override void DoStart()
         {
-            var entity = Blackboard.Get<Entity>(_entityKey);
-            
-            if (entity == null)
+            if (!Blackboard.Isset(_entityKey))
             {
-                throw new ArgumentNullException(nameof(entity));
+                Stopped(false);
+                return;
             }
-            
+
+            var entity = Blackboard.Get<Entity>(_entityKey);
+
             Blackboard.Unset(_entityKey);
 
             if (!CanInteract(entity))

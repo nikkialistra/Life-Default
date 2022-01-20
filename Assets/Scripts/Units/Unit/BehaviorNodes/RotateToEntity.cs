@@ -16,6 +16,12 @@ namespace Units.Unit.BehaviorNodes
 
         protected override void DoStart()
         {
+            if (!Blackboard.Isset(_entityKey))
+            {
+                Stopped(false);
+                return;
+            }
+
             var entity = Blackboard.Get<Entity>(_entityKey);
 
             _unitMeshAgent.RotateTo(entity);

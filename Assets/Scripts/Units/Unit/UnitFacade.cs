@@ -54,7 +54,7 @@ namespace Units.Unit
 
         public event Action Selected;
         public event Action Deselected;
-        
+
         public event Action<UnitFacade> DestinationReach;
 
         public UnitSaveLoadHandler UnitSaveLoadHandler { get; private set; }
@@ -97,7 +97,7 @@ namespace Units.Unit
         {
             _unitType = unitType;
             _unitModelElements.SwitchTo(unitType);
-            
+
             _unitClass.ChangeUnitType(unitType);
             _unitBehavior.ChangeUnitClass(_unitClass);
         }
@@ -138,10 +138,10 @@ namespace Units.Unit
             _selectionIndicator.SetActive(false);
             _healthBar.Selected = false;
         }
-        
-        public bool TryOrderToEntityWithPosition(Entity entity, Vector3 position)
+
+        public bool TryOrderToEntity(Entity entity)
         {
-            return _unitBehavior.TryOrderToEntityWithPosition(entity, position);
+            return _unitBehavior.TryOrderToEntity(entity);
         }
 
         public bool TryOrderToPosition(Vector3 position)

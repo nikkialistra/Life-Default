@@ -1,34 +1,33 @@
-﻿using NPBehave;
-using UnityEngine;
+﻿using Entities.Entity;
+using NPBehave;
 using Action = System.Action;
 
 namespace Units.Unit.BehaviorNodes
 {
-    public class MoveToPosition : Task
+    public class MoveToEntity : Node
     {
+        private readonly string _entityKey;
         private readonly UnitMeshAgent _unitMeshAgent;
-        private readonly string _positionKey;
-        private readonly Action _callback;
+        private Action _callback;
 
-        public MoveToPosition(UnitMeshAgent unitMeshAgent, string positionKey, Action callback) : base("MoveToPosition")
+        public MoveToEntity(string entityKey, UnitMeshAgent unitMeshAgent, Action callback) : base("MoveToEntity")
         {
-            _positionKey = positionKey;
+            _entityKey = entityKey;
             _unitMeshAgent = unitMeshAgent;
             _callback = callback;
         }
 
         protected override void DoStart()
         {
-            if (!Blackboard.Isset(_positionKey))
+            if (!Blackboard.Isset(_entityKey))
             {
                 Stopped(false);
                 return;
             }
 
-            var position = Blackboard.Get<Vector3>(_positionKey);
-            Blackboard.Unset(_positionKey);
+            var entity = Blackboard.Get<Entity>(_entityKey);
 
-            _unitMeshAgent.SetDestination(position);
+            _unitMeshAgent.SetDestination(entity.transform.position);
             _unitMeshAgent.DestinationReach += OnDestinationReach;
         }
 

@@ -20,10 +20,10 @@ namespace UnitManagement.Targeting
         private MovementInput _movementInput;
 
         [Inject]
-        public void Construct(SelectedUnits selectedUnits, OrderMarkPool markPool, Map map, AstarPath astarPath)
+        public void Construct(SelectedUnits selectedUnits, OrderMarkPool orderMarkPool, Map map, AstarPath astarPath)
         {
             _selectedUnits = selectedUnits;
-            _orderMarkPool = markPool;
+            _orderMarkPool = orderMarkPool;
         }
 
         private void Awake()
@@ -50,26 +50,37 @@ namespace UnitManagement.Targeting
             {
                 return;
             }
-            
+
             var destinationPoint = entity.GetDestinationPoint();
             var orderMark = _orderMarkPool.PlaceTo(destinationPoint, entity);
             MoveAllTo(orderMark);
         }
 
-        private bool EntityOrderedToSelf(Entity entity)
+        private void MoveAllTo(OrderMark orderMark)
         {
-            return _selectedUnits.Units.Count == 1 && _selectedUnits.Units[0].gameObject == entity.gameObject;
+            foreach (var unit in _selectedUnits.Units)
+            {
+                if (unit.TryOrderToEntity(orderMark.Entity))
+                {
+                    _orderMarkPool.Link(orderMark, unit);
+                }
+            }
         }
 
         private void MoveAllToPosition(Vector3 position)
         {
             var orderMark = _orderMarkPool.PlaceTo(position);
-            MoveAllTo(orderMark);
+            MakeFormationTo(orderMark);
         }
 
-        private void MoveAllTo(OrderMark orderMark)
+        private void MakeFormationTo(OrderMark orderMark)
         {
             _formationMovement.MoveTo(_selectedUnits.Units, orderMark);
+        }
+
+        private bool EntityOrderedToSelf(Entity entity)
+        {
+            return _selectedUnits.Units.Count == 1 && _selectedUnits.Units[0].gameObject == entity.gameObject;
         }
     }
 }

@@ -58,22 +58,10 @@ namespace UnitManagement.Targeting.Formations
 
                 var unit = _units[closestUnitIndex];
                 var formationPosition = formationPositions[formationIndex];
-                if (TryOrder(unit, formationPosition))
+                if (unit.TryOrderToPosition(formationPosition))
                 {
                     _orderMarkPool.Link(_orderMark, _units[closestUnitIndex]);
                 }
-            }
-        }
-
-        private bool TryOrder(UnitFacade unit, Vector3 formationPosition)
-        {
-            if (_orderMark.AtEntity)
-            {
-                return unit.TryOrderToEntityWithPosition(_orderMark.Entity, formationPosition);
-            }
-            else
-            {
-                return  unit.TryOrderToPosition(formationPosition);
             }
         }
 

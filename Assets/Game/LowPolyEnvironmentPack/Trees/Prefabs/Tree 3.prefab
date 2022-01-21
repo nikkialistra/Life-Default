@@ -160,6 +160,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _object: {fileID: 1227184272345330689}
+  _pathfindingCollider: {fileID: 0}
 --- !u!114 &1564541754180917749
 MonoBehaviour:
   m_ObjectHideFlags: 0

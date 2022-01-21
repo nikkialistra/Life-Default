@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using MapGeneration.Saving;
 using Sirenix.OdinInspector;
@@ -29,7 +30,7 @@ namespace MapGeneration.Generators
             }
             else
             {
-                Load?.Invoke();
+                StartCoroutine(FinishLoadAtNextFrame());
             }
         }
 
@@ -76,7 +77,7 @@ namespace MapGeneration.Generators
         {
             GenerateTerrainObjects();
 
-            Load?.Invoke();
+            StartCoroutine(FinishLoadAtNextFrame());
 
 #if UNITY_EDITOR
 
@@ -90,7 +91,12 @@ namespace MapGeneration.Generators
             }
 
 #endif
-            
+        }
+
+        private IEnumerator FinishLoadAtNextFrame()
+        {
+            yield return null;
+            Load?.Invoke();
         }
 
         private void GenerateTerrainObjects()

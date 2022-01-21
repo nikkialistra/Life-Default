@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using MapGeneration.Map;
+using UnityEngine;
+using UnityEngine.InputSystem;
 using Zenject;
 
 namespace Cameras
@@ -24,11 +26,17 @@ namespace Cameras
         private Camera _camera;
 
         private bool _isSetUpSession;
+        private Map _map;
+
+        private PlayerInput _playerInput;
 
         [Inject]
-        public void Construct(bool isSetUpSession)
+        public void Construct(bool isSetUpSession, Map map, PlayerInput playerInput)
         {
             _isSetUpSession = isSetUpSession;
+            _map = map;
+
+            _playerInput = playerInput;
         }
 
         private void Awake()
@@ -45,8 +53,10 @@ namespace Cameras
             if (_isSetUpSession)
             {
                 _camera.enabled = false;
-                enabled = false;
             }
+
+            _playerInput.enabled = false;
+            _map.Load += Activate;
 
             _newPosition = transform.position;
             _newRotation = transform.rotation;
@@ -70,6 +80,18 @@ namespace Cameras
             _cameraMoving.PositionUpdate -= ApplyMoving;
             _cameraRotating.RotationUpdate -= ApplyRotating;
             _cameraZooming.PositionUpdate -= ApplyZooming;
+        }
+
+        private void Activate()
+        {
+            _map.Load -= Activate;
+
+            if (_isSetUpSession)
+            {
+                return;
+            }
+
+            _playerInput.enabled = true;
         }
 
         private void LateUpdate()

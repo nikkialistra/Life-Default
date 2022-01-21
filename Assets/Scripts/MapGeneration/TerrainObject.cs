@@ -1,4 +1,5 @@
-﻿using Sirenix.OdinInspector;
+﻿using Pathfinding;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace MapGeneration
@@ -7,6 +8,14 @@ namespace MapGeneration
     {
         [Required]
         [SerializeField] private Transform _object;
+
+        [Required]
+        [SerializeField] private GraphUpdateScene _graphUpdateScene;
+
+        private void OnDestroy()
+        {
+            //_graphUpdateScene.Apply();
+        }
 
         public void Rotate(Quaternion rotation)
         {

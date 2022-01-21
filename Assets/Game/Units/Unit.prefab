@@ -2357,7 +2357,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rotationSpeedToEntities: 150
-  _interactionDistance: 3
+  _interactionDistance: 4
 --- !u!114 &4755672356916494619
 MonoBehaviour:
   m_ObjectHideFlags: 0

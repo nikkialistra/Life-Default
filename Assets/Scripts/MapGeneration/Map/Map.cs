@@ -13,11 +13,15 @@ namespace MapGeneration.Map
         private readonly AstarPath _astarPath;
         private readonly TextAsset _graphData;
 
-        public Map(MapGenerator.Factory mapGeneratorFactory, AstarPath astarPath, TextAsset graphData)
+        private readonly bool _loadSavedGraphData;
+
+        public Map(MapGenerator.Factory mapGeneratorFactory, AstarPath astarPath, TextAsset graphData,
+            bool loadSavedGraphData)
         {
             _mapGeneratorFactory = mapGeneratorFactory;
             _astarPath = astarPath;
             _graphData = graphData;
+            _loadSavedGraphData = loadSavedGraphData;
         }
 
         public event Action Load;
@@ -36,7 +40,14 @@ namespace MapGeneration.Map
 
         private void OnLoad()
         {
-            _astarPath.data.DeserializeGraphs(_graphData.bytes);
+            if (_loadSavedGraphData)
+            {
+                _astarPath.data.DeserializeGraphs(_graphData.bytes);
+            }
+            else
+            {
+                AstarPath.active.Scan();
+            }
 
             Load?.Invoke();
         }

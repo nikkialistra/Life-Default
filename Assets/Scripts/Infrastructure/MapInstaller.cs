@@ -10,6 +10,7 @@ namespace Infrastructure
     public class MapInstaller : MonoInstaller
     {
         [SerializeField] private bool _tryLoadFromSaved;
+        [SerializeField] private bool _loadSavedGraphData;
         [SerializeField] private TextAsset _graphData;
 
         [Space]
@@ -25,7 +26,7 @@ namespace Infrastructure
             Container.BindInstance(_astarPath);
             Container.BindInstance(_graphData);
 
-            Container.BindInterfacesAndSelfTo<Map>().AsSingle();
+            Container.BindInterfacesAndSelfTo<Map>().AsSingle().WithArguments(_loadSavedGraphData);
 
             Container.BindFactory<MapGenerator, MapGenerator.Factory>().FromSubContainerResolve()
                 .ByNewPrefabMethod(GetMapGeneratorPrefab, MapGeneratorInstaller).UnderTransform(_mapParent);

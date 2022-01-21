@@ -83,6 +83,8 @@ namespace Units.Unit
         {
             _health.Die -= Dispose;
             _health.HealthChange -= OnHealthChange;
+
+            _unitMeshAgent.DestinationReach -= OnDestinationReach;
         }
 
         private void Start()

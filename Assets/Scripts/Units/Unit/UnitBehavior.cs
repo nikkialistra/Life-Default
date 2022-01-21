@@ -65,7 +65,7 @@ namespace Units.Unit
 
         public bool TryOrderToEntity(Entity entity)
         {
-            if (!_unitMeshAgent.CanAcceptOrder)
+            if (!_unitMeshAgent.AcceptOrder())
             {
                 return false;
             }
@@ -80,7 +80,7 @@ namespace Units.Unit
 
         public bool TryOrderToPosition(Vector3 position)
         {
-            if (!_unitMeshAgent.CanAcceptOrder)
+            if (!_unitMeshAgent.AcceptOrder())
             {
                 return false;
             }

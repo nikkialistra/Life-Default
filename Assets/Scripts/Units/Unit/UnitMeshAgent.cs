@@ -15,6 +15,7 @@ namespace Units.Unit
         [SerializeField] private float _interactionDistance = 3f;
 
         private bool _activated;
+        private bool _hasPendingOrder;
 
         private bool _movingToEntity;
 
@@ -35,8 +36,6 @@ namespace Units.Unit
         public event Action RotationEnd;
 
         public float Velocity => _aiPath.velocity.magnitude;
-
-        public bool CanAcceptOrder => _activated;
 
         private void OnEnable()
         {
@@ -62,11 +61,17 @@ namespace Units.Unit
             SetDestination(position);
         }
 
-        private void SetDestination(Vector3 position)
+        public bool AcceptOrder()
         {
-            _aiPath.isStopped = false;
-            _aiPath.destination = position;
-            Move();
+            if (!_activated)
+            {
+                return false;
+            }
+            else
+            {
+                _hasPendingOrder = true;
+                return true;
+            }
         }
 
         public void RotateTo(Entity entity)
@@ -76,6 +81,11 @@ namespace Units.Unit
 
         public void StopMoving()
         {
+            if (_hasPendingOrder)
+            {
+                return;
+            }
+
             _aiPath.isStopped = true;
             DestinationReach?.Invoke();
         }
@@ -86,6 +96,15 @@ namespace Units.Unit
             {
                 StopCoroutine(_rotatingToCoroutine);
             }
+        }
+
+        private void SetDestination(Vector3 position)
+        {
+            _hasPendingOrder = false;
+
+            _aiPath.isStopped = false;
+            _aiPath.destination = position;
+            Move();
         }
 
         private IEnumerator RotatingTo(Entity entity)

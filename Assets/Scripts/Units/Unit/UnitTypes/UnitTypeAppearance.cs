@@ -1,7 +1,7 @@
 ﻿using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace Units.Unit.UnitType
+namespace Units.Unit.UnitTypes
 {
     [CreateAssetMenu(fileName = "UnitTypeAppearance", menuName = "Data/Unit Type Appearance")]
     public class UnitTypeAppearance : ScriptableObject

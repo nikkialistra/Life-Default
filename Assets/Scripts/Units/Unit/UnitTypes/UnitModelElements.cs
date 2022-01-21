@@ -3,7 +3,7 @@ using Units.Services;
 using UnityEngine;
 using Zenject;
 
-namespace Units.Unit.UnitType
+namespace Units.Unit.UnitTypes
 {
     public class UnitModelElements : MonoBehaviour
     {

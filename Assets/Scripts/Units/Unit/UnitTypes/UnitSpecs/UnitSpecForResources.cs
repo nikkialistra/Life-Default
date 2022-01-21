@@ -2,14 +2,15 @@
 using Common;
 using ResourceManagement;
 
-namespace Units.Unit.UnitType.UnitSpecs
+namespace Units.Unit.UnitTypes.UnitSpecs
 {
     [Serializable]
     public class UnitSpecForResources
     {
         public UnitSpecForResourceDictionary Resources;
-        
-        [Serializable] public class UnitSpecForResourceDictionary : SerializableDictionary<ResourceType, UnitSpecForResource> { }
+
+        [Serializable]
+        public class UnitSpecForResourceDictionary : SerializableDictionary<ResourceType, UnitSpecForResource> { }
 
         public bool CanInteractWithResource(Resource resource)
         {

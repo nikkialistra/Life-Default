@@ -1,4 +1,4 @@
-﻿namespace Units.Unit.UnitType.UnitSpecs
+﻿namespace Units.Unit.UnitTypes.UnitSpecs
 {
     public class UnitSpecForBuilding
     {

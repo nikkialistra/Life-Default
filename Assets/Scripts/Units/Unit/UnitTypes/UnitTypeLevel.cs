@@ -1,4 +1,4 @@
-﻿namespace Units.Unit.UnitType
+﻿namespace Units.Unit.UnitTypes
 {
     public enum UnitTypeLevel
     {

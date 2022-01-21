@@ -1,4 +1,5 @@
 ﻿using System;
+using Units.Unit.UnitTypes;
 using UnityEngine;
 
 namespace Units.Unit
@@ -8,7 +9,7 @@ namespace Units.Unit
     {
         public string Id;
 
-        public UnitType.UnitType Type;
+        public UnitType Type;
 
         public Vector3 Position;
         public Quaternion Rotation;

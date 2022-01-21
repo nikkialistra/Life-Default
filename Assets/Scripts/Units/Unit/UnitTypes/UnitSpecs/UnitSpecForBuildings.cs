@@ -3,22 +3,23 @@ using Buildings;
 using Common;
 using Entities.Entity;
 
-namespace Units.Unit.UnitType.UnitSpecs
+namespace Units.Unit.UnitTypes.UnitSpecs
 {
     [Serializable]
     public class UnitSpecForBuildings
     {
         public UnitSpecForBuildingDictionary Buildings;
-        
-        [Serializable] public class UnitSpecForBuildingDictionary : SerializableDictionary<BuildingType, UnitSpecForBuilding> { }
-        
+
+        [Serializable]
+        public class UnitSpecForBuildingDictionary : SerializableDictionary<BuildingType, UnitSpecForBuilding> { }
+
         public bool CanInteractWithBuilding(Building building)
         {
             var buildingType = building.BuildingType;
 
             return Buildings.ContainsKey(buildingType);
         }
-        
+
         public UnitSpecForBuilding GetUnitSpecForBuilding(Building building)
         {
             if (!CanInteractWithBuilding(building))

@@ -1,6 +1,6 @@
 ﻿using System;
 using Common;
-using Units.Unit.UnitType;
+using Units.Unit.UnitTypes;
 using UnityEngine;
 
 namespace Units.Services
@@ -12,7 +12,7 @@ namespace Units.Services
         [SerializeField] private UnitClassSpecsDictionary _masonClassSpecs;
         [SerializeField] private UnitClassSpecsDictionary _meleeClassSpecs;
         [SerializeField] private UnitClassSpecsDictionary _archerClassSpecs;
-        
+
         [Serializable] public class UnitClassSpecsDictionary : SerializableDictionary<UnitTypeLevel, UnitClassSpecs> { }
 
         public UnitClassSpecs GetFor(UnitType unitType, UnitTypeLevel level)

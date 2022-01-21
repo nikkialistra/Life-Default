@@ -3,10 +3,10 @@ using Buildings;
 using Entities.Entity;
 using ResourceManagement;
 using Sirenix.OdinInspector;
-using Units.Unit.UnitType.UnitSpecs;
+using Units.Unit.UnitTypes.UnitSpecs;
 using UnityEngine;
 
-namespace Units.Unit.UnitType
+namespace Units.Unit.UnitTypes
 {
     [CreateAssetMenu(fileName = "UnitClassSpecs", menuName = "Data/Unit Class Specs")]
     public class UnitClassSpecs : ScriptableObject
@@ -32,7 +32,7 @@ namespace Units.Unit.UnitType
         public bool CanInteractWith(Entity entity)
         {
             var entityType = entity.EntityType;
-            
+
             return entityType switch
             {
                 EntityType.Unit => _canInteractWithUnits,
@@ -62,7 +62,7 @@ namespace Units.Unit.UnitType
 
             return _unitSpecForUnits;
         }
-        
+
         public UnitSpecForEnemies GetSpecForEnemies()
         {
             if (!_canInteractWithEnemies)
@@ -72,7 +72,7 @@ namespace Units.Unit.UnitType
 
             return _unitSpecForEnemies;
         }
-        
+
         public UnitSpecForResource GetSpecForResource(Resource resource)
         {
             if (!CanInteractWithResource(resource))
@@ -82,7 +82,7 @@ namespace Units.Unit.UnitType
 
             return _unitSpecForResources.GetUnitSpecForResource(resource);
         }
-        
+
         public UnitSpecForBuilding GetSpecForBuilding(Building building)
         {
             if (!CanInteractWithBuilding(building))

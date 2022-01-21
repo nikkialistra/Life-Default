@@ -3,7 +3,7 @@ using NPBehave;
 using Sirenix.OdinInspector;
 using UnitManagement.Targeting;
 using Units.Unit.BehaviorNodes;
-using Units.Unit.UnitType;
+using Units.Unit.UnitTypes;
 using UnityEngine;
 
 namespace Units.Unit

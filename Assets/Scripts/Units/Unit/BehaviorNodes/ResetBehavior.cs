@@ -1,5 +1,5 @@
 ﻿using NPBehave;
-using Units.Unit.UnitType;
+using Units.Unit.UnitTypes;
 
 namespace Units.Unit.BehaviorNodes
 {

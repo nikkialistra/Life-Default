@@ -148,6 +148,12 @@ namespace Units.Unit
             _activated = true;
         }
 
+        private void Deactivate()
+        {
+            _aiPath.isStopped = true;
+            _activated = false;
+        }
+
         private void Move()
         {
             if (_movingCoroutine != null)
@@ -195,12 +201,6 @@ namespace Units.Unit
             _aiPath.isStopped = true;
 
             return false;
-        }
-
-        private void Deactivate()
-        {
-            _aiPath.isStopped = true;
-            _activated = false;
         }
     }
 }

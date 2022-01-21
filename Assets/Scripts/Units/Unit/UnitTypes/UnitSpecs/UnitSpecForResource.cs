@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Units.Unit.UnitType.UnitSpecs
+namespace Units.Unit.UnitTypes.UnitSpecs
 {
     [Serializable]
     public class UnitSpecForResource

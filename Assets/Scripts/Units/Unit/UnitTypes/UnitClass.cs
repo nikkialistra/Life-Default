@@ -1,16 +1,16 @@
 ﻿using System;
 using System.Collections;
 using Buildings;
-using Enemies;
+using Enemies.Enemy;
 using Entities.Entity;
 using Entities.Entity.Interfaces;
 using ResourceManagement;
 using Units.Services;
-using Units.Unit.UnitType.UnitSpecs;
+using Units.Unit.UnitTypes.UnitSpecs;
 using UnityEngine;
 using Zenject;
 
-namespace Units.Unit.UnitType
+namespace Units.Unit.UnitTypes
 {
     [RequireComponent(typeof(UnitAnimator))]
     public class UnitClass : MonoBehaviour
@@ -93,7 +93,7 @@ namespace Units.Unit.UnitType
             var unitSpecForUnits = UnitClassSpecs.GetSpecForUnits();
         }
 
-        private void InteractWithEnemy(Enemy enemy)
+        private void InteractWithEnemy(EnemyFacade enemy)
         {
             var unitSpecForEnemies = UnitClassSpecs.GetSpecForEnemies();
         }

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnitManagement.Targeting;
 using Units.Unit;
-using Units.Unit.UnitType;
+using Units.Unit.UnitTypes;
 using UnityEngine;
 
 namespace Units.Services.Selecting

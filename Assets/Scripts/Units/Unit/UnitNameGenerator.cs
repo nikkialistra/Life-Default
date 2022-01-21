@@ -2,9 +2,9 @@
 
 namespace Units.Unit
 {
-    public class UnitNameGenerator
+    public static class UnitNameGenerator
     {
-        private static string[] _names =
+        private static readonly string[] Names =
         {
             "Tiffany",
             "James",
@@ -21,7 +21,7 @@ namespace Units.Unit
 
         public static string GetRandomName()
         {
-            return _names[Random.Range(0, _names.Length)];
+            return Names[Random.Range(0, Names.Length)];
         }
     }
 }

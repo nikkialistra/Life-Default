@@ -6,7 +6,6 @@ using UnityEngine;
 
 namespace Units.Unit
 {
-    [RequireComponent(typeof(UnitFacade))]
     public class UnitRenderer : MonoBehaviour, IHoverable
     {
         [Required]
@@ -17,32 +16,16 @@ namespace Units.Unit
         [SerializeField] private float _waitingTimeValue = 0.05f;
 
         private WaitForSeconds _waitingTime;
-
-        private UnitFacade _unitFacade;
-
         private bool _selected;
 
         private Coroutine _hideOutlineCoroutine;
 
         private void Awake()
         {
-            _unitFacade = GetComponent<UnitFacade>();
             _waitingTime = new WaitForSeconds(_waitingTimeValue);
         }
 
-        private void OnEnable()
-        {
-            _unitFacade.Selected += OnSelected;
-            _unitFacade.Deselected += OnDeselected;
-        }
-
-        private void OnDisable()
-        {
-            _unitFacade.Selected -= OnSelected;
-            _unitFacade.Deselected -= OnDeselected;
-        }
-
-        private void OnSelected()
+        public void Select()
         {
             _selected = true;
 
@@ -50,7 +33,7 @@ namespace Units.Unit
             ShowAccessoriesOutline();
         }
 
-        private void OnDeselected()
+        public void Deselect()
         {
             _selected = false;
 

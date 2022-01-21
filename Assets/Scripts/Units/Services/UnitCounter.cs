@@ -1,8 +1,8 @@
-﻿using Units.Services;
+﻿using Units.Unit;
 using UnityEngine;
 using Zenject;
 
-namespace Units.Unit
+namespace Units.Services
 {
     [RequireComponent(typeof(UnitFacade))]
     public class UnitCounter : MonoBehaviour

@@ -7,7 +7,6 @@ using UnityEngine;
 
 namespace Units.Unit
 {
-    [RequireComponent(typeof(UnitFacade))]
     [RequireComponent(typeof(AIPath))]
     public class UnitMeshAgent : MonoBehaviour
     {
@@ -21,14 +20,12 @@ namespace Units.Unit
 
         private Coroutine _movingCoroutine;
 
-        private UnitFacade _unitFacade;
         private AIPath _aiPath;
 
         private Coroutine _rotatingToCoroutine;
 
         private void Awake()
         {
-            _unitFacade = GetComponent<UnitFacade>();
             _aiPath = GetComponent<AIPath>();
         }
 
@@ -36,18 +33,6 @@ namespace Units.Unit
         public event Action RotationEnd;
 
         public float Velocity => _aiPath.velocity.magnitude;
-
-        private void OnEnable()
-        {
-            _unitFacade.Spawn += Activate;
-            _unitFacade.Die += Deactivate;
-        }
-
-        private void OnDisable()
-        {
-            _unitFacade.Spawn -= Activate;
-            _unitFacade.Die -= Deactivate;
-        }
 
         public void SetDestinationToPosition(Vector3 position)
         {
@@ -84,6 +69,11 @@ namespace Units.Unit
             if (_hasPendingOrder)
             {
                 return;
+            }
+
+            if (_movingCoroutine != null)
+            {
+                StopCoroutine(_movingCoroutine);
             }
 
             _aiPath.isStopped = true;
@@ -142,13 +132,12 @@ namespace Units.Unit
             return Mathf.Abs(difference);
         }
 
-        private void Activate()
+        public void Activate()
         {
-            _aiPath.isStopped = false;
             _activated = true;
         }
 
-        private void Deactivate()
+        public void Deactivate()
         {
             _aiPath.isStopped = true;
             _activated = false;

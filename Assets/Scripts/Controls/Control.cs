@@ -186,7 +186,7 @@ namespace Controls
                 {
                     ""name"": ""up"",
                     ""id"": ""2d7a783f-c0ba-44b0-b121-ce9aa443ce39"",
-                    ""path"": ""<Keyboard>/upArrow"",
+                    ""path"": ""<Keyboard>/r"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -197,7 +197,7 @@ namespace Controls
                 {
                     ""name"": ""down"",
                     ""id"": ""93d8d940-be56-4044-a0a9-16b8128a8e1f"",
-                    ""path"": ""<Keyboard>/downArrow"",
+                    ""path"": ""<Keyboard>/f"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -208,7 +208,7 @@ namespace Controls
                 {
                     ""name"": ""left"",
                     ""id"": ""a886be5f-f36c-48b4-a5f5-eadf136da2f9"",
-                    ""path"": ""<Keyboard>/leftArrow"",
+                    ""path"": ""<Keyboard>/d"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -219,7 +219,7 @@ namespace Controls
                 {
                     ""name"": ""right"",
                     ""id"": ""3c329feb-b09c-4955-bd83-7111318addee"",
-                    ""path"": ""<Keyboard>/rightArrow"",
+                    ""path"": ""<Keyboard>/g"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -241,7 +241,7 @@ namespace Controls
                 {
                     ""name"": ""negative"",
                     ""id"": ""09cbffb9-f22b-406c-8132-38658d51915b"",
-                    ""path"": ""<Keyboard>/q"",
+                    ""path"": ""<Keyboard>/e"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -252,7 +252,7 @@ namespace Controls
                 {
                     ""name"": ""positive"",
                     ""id"": ""51711646-ead8-40f0-8b53-a43d6a264301"",
-                    ""path"": ""<Keyboard>/e"",
+                    ""path"": ""<Keyboard>/t"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -274,7 +274,7 @@ namespace Controls
                 {
                     ""name"": ""negative"",
                     ""id"": ""d91ea792-9a77-4041-a96d-ee6410f5c610"",
-                    ""path"": ""<Keyboard>/f"",
+                    ""path"": ""<Keyboard>/y"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -285,7 +285,7 @@ namespace Controls
                 {
                     ""name"": ""positive"",
                     ""id"": ""11304acd-7a97-4df6-be95-961f09dab8bf"",
-                    ""path"": ""<Keyboard>/r"",
+                    ""path"": ""<Keyboard>/u"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",

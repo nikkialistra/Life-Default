@@ -8,7 +8,7 @@ namespace Units.Unit.BehaviorNodes
         private readonly UnitMeshAgent _unitMeshAgent;
         private readonly string _positionKey;
 
-        public MoveToPosition(UnitMeshAgent unitMeshAgent, string positionKey) : base("MoveToPosition")
+        public MoveToPosition(string positionKey, UnitMeshAgent unitMeshAgent) : base("MoveToPosition")
         {
             _positionKey = positionKey;
             _unitMeshAgent = unitMeshAgent;
@@ -37,6 +37,7 @@ namespace Units.Unit.BehaviorNodes
 
         protected override void DoStop()
         {
+            Debug.Log(2);
             _unitMeshAgent.DestinationReach -= OnDestinationReach;
             _unitMeshAgent.StopMoving();
             Stopped(false);

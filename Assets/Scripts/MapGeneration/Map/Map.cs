@@ -10,8 +10,8 @@ namespace MapGeneration.Map
         private readonly MapGenerator.Factory _mapGeneratorFactory;
 
         private MapGenerator _mapGenerator;
-        private AstarPath _astarPath;
-        private TextAsset _graphData;
+        private readonly AstarPath _astarPath;
+        private readonly TextAsset _graphData;
 
         public Map(MapGenerator.Factory mapGeneratorFactory, AstarPath astarPath, TextAsset graphData)
         {
@@ -28,7 +28,6 @@ namespace MapGeneration.Map
 
             _mapGenerator.Load += OnLoad;
         }
-
 
         public void Dispose()
         {

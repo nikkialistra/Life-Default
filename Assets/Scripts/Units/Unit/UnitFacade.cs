@@ -9,12 +9,13 @@ using Zenject;
 namespace Units.Unit
 {
     [RequireComponent(typeof(EntityHealth))]
-    [RequireComponent(typeof(UnitAnimator))]
-    [RequireComponent(typeof(UnitModelElements))]
-    [RequireComponent(typeof(UnitSaveLoadHandler))]
     [RequireComponent(typeof(UnitMeshAgent))]
+    [RequireComponent(typeof(UnitAnimator))]
+    [RequireComponent(typeof(UnitRenderer))]
+    [RequireComponent(typeof(UnitModelElements))]
     [RequireComponent(typeof(UnitBehavior))]
     [RequireComponent(typeof(UnitClass))]
+    [RequireComponent(typeof(UnitSaveLoadHandler))]
     public class UnitFacade : MonoBehaviour, IPoolable<UnitType, Vector3, IMemoryPool>, IDisposable
     {
         [Required]
@@ -32,6 +33,7 @@ namespace Units.Unit
 
         private EntityHealth _health;
         private UnitAnimator _unitAnimator;
+        private UnitRenderer _unitRenderer;
         private UnitModelElements _unitModelElements;
         private UnitMeshAgent _unitMeshAgent;
         private UnitBehavior _unitBehavior;
@@ -43,6 +45,7 @@ namespace Units.Unit
         {
             _health = GetComponent<EntityHealth>();
             _unitAnimator = GetComponent<UnitAnimator>();
+            _unitRenderer = GetComponent<UnitRenderer>();
             _unitModelElements = GetComponent<UnitModelElements>();
             _unitMeshAgent = GetComponent<UnitMeshAgent>();
             _unitBehavior = GetComponent<UnitBehavior>();
@@ -54,9 +57,6 @@ namespace Units.Unit
         public event Action Spawn;
         public event Action HealthChange;
         public event Action Die;
-
-        public event Action Selected;
-        public event Action Deselected;
 
         public event Action<UnitFacade> DestinationReach;
 
@@ -87,16 +87,6 @@ namespace Units.Unit
             _unitMeshAgent.DestinationReach -= OnDestinationReach;
         }
 
-        private void Start()
-        {
-            if (_pool == null)
-            {
-                Initialize();
-            }
-
-            InitializeComponents();
-        }
-
         [Button(ButtonSizes.Large)]
         public void ChangeUnitType(UnitType unitType)
         {
@@ -125,7 +115,7 @@ namespace Units.Unit
                 return;
             }
 
-            Selected?.Invoke();
+            _unitRenderer.Select();
 
             _selectionIndicator.SetActive(true);
             _healthBar.Selected = true;
@@ -138,7 +128,7 @@ namespace Units.Unit
                 return;
             }
 
-            Deselected?.Invoke();
+            _unitRenderer.Deselect();
 
             _selectionIndicator.SetActive(false);
             _healthBar.Selected = false;
@@ -166,7 +156,8 @@ namespace Units.Unit
             _unitType = unitType;
             transform.position = position;
 
-            Initialize();
+            InitializeSelf();
+            InitializeComponents();
         }
 
         public void OnDespawned()
@@ -176,14 +167,21 @@ namespace Units.Unit
 
         public void Dispose()
         {
-            Die?.Invoke();
+            _died = true;
+
+            Stop();
+
+            _unitMeshAgent.Deactivate();
+            _unitBehavior.StopBehaviorTree();
 
             Deselect();
-            _died = true;
+
+            Die?.Invoke();
+
             _unitAnimator.Die(DestroySelf);
         }
 
-        private void Initialize()
+        private void InitializeSelf()
         {
             _died = false;
 
@@ -204,10 +202,13 @@ namespace Units.Unit
 
         private void InitializeComponents()
         {
+            _unitMeshAgent.Activate();
+
             _unitClass.ChangeUnitType(_unitType);
 
             _unitBehavior.Initialize();
             _unitBehavior.ChangeUnitClass(_unitClass);
+            _unitBehavior.StartBehaviorTree();
         }
 
         private void DestroySelf()

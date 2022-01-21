@@ -1,10 +1,12 @@
-﻿using Entities.Entity;
+﻿using System;
+using Entities.Entity;
 using NPBehave;
 using Sirenix.OdinInspector;
 using UnitManagement.Targeting;
 using Units.Unit.BehaviorNodes;
 using Units.Unit.UnitTypes;
 using UnityEngine;
+using Action = NPBehave.Action;
 
 namespace Units.Unit
 {
@@ -27,6 +29,8 @@ namespace Units.Unit
 
         private OrderMark _currentOrderMark;
 
+        private bool _initialized;
+
         private void Awake()
         {
             _unitMeshAgent = GetComponent<UnitMeshAgent>();
@@ -39,15 +43,40 @@ namespace Units.Unit
 
         public void Initialize()
         {
+            if (_initialized)
+            {
+                return;
+            }
+
             ConstructBehaviorTree();
+            _initialized = true;
 
 #if UNITY_EDITOR
 
             var debugger = (Debugger)gameObject.AddComponent(typeof(Debugger));
             debugger.BehaviorTree = _behaviorTree;
 #endif
+        }
 
-            _behaviorTree.Start();
+        public void StartBehaviorTree()
+        {
+            if (!_initialized)
+            {
+                throw new InvalidOperationException("Cannot use behavior tree before initialization");
+            }
+
+            if (_behaviorTree is { CurrentState: Node.State.INACTIVE })
+            {
+                _behaviorTree.Start();
+            }
+        }
+
+        public void StopBehaviorTree()
+        {
+            if (_behaviorTree is { CurrentState: Node.State.ACTIVE })
+            {
+                _behaviorTree.Stop();
+            }
         }
 
         public void ChangeUnitClass(UnitClass unitClass)
@@ -102,7 +131,7 @@ namespace Units.Unit
                     ),
                     new Selector(
                         new BlackboardCondition(PositionKey, Operator.IS_SET, Stops.NONE,
-                            new MoveToPosition(_unitMeshAgent, PositionKey)),
+                            new MoveToPosition(PositionKey, _unitMeshAgent)),
                         new BlackboardCondition(EntityKey, Operator.IS_SET, Stops.NONE,
                             new Repeater(
                                 new Sequence(
@@ -127,14 +156,6 @@ namespace Units.Unit
         private void ShowIdleState()
         {
             Debug.Log("Idle");
-        }
-
-        private void StopBehaviorTree()
-        {
-            if (_behaviorTree is { CurrentState: Node.State.ACTIVE })
-            {
-                _behaviorTree.Stop();
-            }
         }
     }
 }

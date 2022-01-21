@@ -1,20 +1,33 @@
-﻿using Pathfinding;
+﻿using MapGeneration.Generators;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace MapGeneration
 {
+    [RequireComponent(typeof(Collider))]
     public class TerrainObject : MonoBehaviour
     {
         [Required]
         [SerializeField] private Transform _object;
 
-        [Required]
-        [SerializeField] private GraphUpdateScene _graphUpdateScene;
+        private Collider _collider;
 
-        private void OnDestroy()
+        private TerrainObjectGenerator _generator;
+
+        private void Awake()
         {
-            //_graphUpdateScene.Apply();
+            _collider = GetComponent<Collider>();
+        }
+
+        public void UpdateGraph()
+        {
+            var bounds = _collider.bounds;
+            _generator.UpdateGraph(bounds);
+        }
+
+        public void Initialize(TerrainObjectGenerator generator)
+        {
+            _generator = generator;
         }
 
         public void Rotate(Quaternion rotation)

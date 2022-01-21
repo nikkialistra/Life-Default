@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -73,6 +74,17 @@ namespace MapGeneration.Generators
             }
         }
 
+        public void UpdateGraph(Bounds bounds)
+        {
+            StartCoroutine(UpdateGraphAtNextFrame(bounds));
+        }
+
+        private IEnumerator UpdateGraphAtNextFrame(Bounds bounds)
+        {
+            yield return null;
+            AstarPath.active.UpdateGraphs(bounds);
+        }
+
         private void TrySpawn(float x, float z)
         {
             if (!ShouldSpawn(x, z))
@@ -115,6 +127,7 @@ namespace MapGeneration.Generators
             var rotation = Quaternion.Euler(0, Random.Range(0, _rotationVariation), 0);
 
             var terrainObject = Instantiate(prefab, position, Quaternion.identity, _prefabParent);
+            terrainObject.Initialize(this);
             terrainObject.Rotate(rotation);
 
             _terrainObjects.Add(terrainObject);

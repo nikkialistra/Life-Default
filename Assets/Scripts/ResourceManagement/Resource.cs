@@ -1,12 +1,14 @@
 ﻿using System;
 using Entities.Entity;
 using Entities.Entity.Interfaces;
+using MapGeneration;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace ResourceManagement
 {
     [RequireComponent(typeof(Entity))]
+    [RequireComponent(typeof(TerrainObject))]
     public class Resource : MonoBehaviour, ICountable
     {
         [SerializeField] private ResourceType _resourceType;
@@ -17,11 +19,14 @@ namespace ResourceManagement
         [Required]
         [SerializeField] private Transform _holder;
 
+        private TerrainObject _terrainObject;
+
         private int _acquiredCount = 0;
 
         private void Awake()
         {
             Entity = GetComponent<Entity>();
+            _terrainObject = GetComponent<TerrainObject>();
         }
 
         public Entity Entity { get; private set; }
@@ -59,6 +64,8 @@ namespace ResourceManagement
         [Button]
         private void Destroy()
         {
+            _terrainObject.UpdateGraph();
+
             Destroy(_holder.gameObject);
         }
 

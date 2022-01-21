@@ -111,7 +111,7 @@ GameObject:
   - component: {fileID: 6807071143965519628}
   - component: {fileID: 1564541754180917749}
   - component: {fileID: 8552351134028273476}
-  m_Layer: 9
+  m_Layer: 17
   m_Name: Tree 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -160,7 +160,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _object: {fileID: 1227184272345330689}
-  _pathfindingCollider: {fileID: 0}
 --- !u!114 &1564541754180917749
 MonoBehaviour:
   m_ObjectHideFlags: 0

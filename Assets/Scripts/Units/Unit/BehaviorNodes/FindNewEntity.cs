@@ -6,7 +6,7 @@ namespace Units.Unit.BehaviorNodes
 {
     public class FindNewEntity : Node
     {
-        private readonly int _entityMask = LayerMask.GetMask("Entities");
+        private readonly int _entityMask = LayerMask.GetMask("Units", "Enemies", "Buildings", "Resources");
 
         private readonly Transform _transform;
         private readonly float _seekRadius;

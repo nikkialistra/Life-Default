@@ -116,11 +116,11 @@ namespace Units.Unit.UnitTypes
 
             AddToAcquired(resource);
 
-            while (!resource.Exausted)
+            while (!resource.Exhausted)
             {
                 yield return new WaitForSeconds(1f / unitSpecForResource.SpeedPerSecond);
 
-                if (resource.Exausted)
+                if (resource.Exhausted)
                 {
                     break;
                 }

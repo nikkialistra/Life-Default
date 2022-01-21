@@ -1,14 +1,13 @@
 ﻿using System;
 using Entities.Entity;
 using Entities.Entity.Interfaces;
-using MapGeneration;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace ResourceManagement
 {
     [RequireComponent(typeof(Entity))]
-    [RequireComponent(typeof(TerrainObject))]
+    [RequireComponent(typeof(Collider))]
     public class Resource : MonoBehaviour, ICountable
     {
         [SerializeField] private ResourceType _resourceType;
@@ -19,20 +18,17 @@ namespace ResourceManagement
         [Required]
         [SerializeField] private Transform _holder;
 
-        private TerrainObject _terrainObject;
+        private Collider _collider;
 
         private int _acquiredCount = 0;
 
         private void Awake()
         {
-            Entity = GetComponent<Entity>();
-            _terrainObject = GetComponent<TerrainObject>();
+            _collider = GetComponent<Collider>();
         }
 
-        public Entity Entity { get; private set; }
-
         public ResourceType ResourceType => _resourceType;
-        public bool Exausted => _quantity == 0;
+        public bool Exhausted => _quantity == 0;
 
         public ResourceOutput Extract(int value)
         {
@@ -55,7 +51,7 @@ namespace ResourceManagement
 
             _acquiredCount--;
 
-            if (Exausted && _acquiredCount == 0)
+            if (Exhausted && _acquiredCount == 0)
             {
                 Destroy();
             }
@@ -64,7 +60,7 @@ namespace ResourceManagement
         [Button]
         private void Destroy()
         {
-            _terrainObject.UpdateGraph();
+            AstarPath.active.UpdateGraphs(_collider.bounds);
 
             Destroy(_holder.gameObject);
         }

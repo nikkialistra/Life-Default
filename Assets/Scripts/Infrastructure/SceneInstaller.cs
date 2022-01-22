@@ -62,7 +62,6 @@ namespace Infrastructure
 
         private void BindTesting()
         {
-            Container.BindInterfacesTo<UnitsGenerator>().AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<TogglingCameraMovement>().AsSingle().NonLazy();
         }
 

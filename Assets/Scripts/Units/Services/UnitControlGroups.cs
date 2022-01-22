@@ -69,7 +69,6 @@ namespace Units.Services
         private void OnDigitPress(InputAction.CallbackContext context)
         {
             var digit = Mathf.RoundToInt(context.ReadValue<float>());
-            Debug.Log(digit);
 
             if (!Keyboard.current.ctrlKey.isPressed)
             {

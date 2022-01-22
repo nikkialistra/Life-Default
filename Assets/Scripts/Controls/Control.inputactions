@@ -346,17 +346,6 @@
                 },
                 {
                     "name": "",
-                    "id": "25d38ff6-1a48-483a-89fc-6a8b8d553edb",
-                    "path": "<Touchscreen>/primaryTouch/press",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Select",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "b74507dd-c6f6-4d64-a198-aabfd1ffd290",
                     "path": "<Mouse>/rightButton",
                     "interactions": "",

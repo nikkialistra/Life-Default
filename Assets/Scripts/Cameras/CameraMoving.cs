@@ -54,6 +54,8 @@ namespace Cameras
         private InputAction _dragAction;
         private InputAction _positionAction;
 
+        private bool _running;
+
         [Inject]
         public void Construct(PlayerInput playerInput)
         {
@@ -73,8 +75,25 @@ namespace Cameras
 
         public Vector3 Position { get; set; }
 
-        private void OnEnable()
+        private void Update()
         {
+            if (!_running)
+            {
+                return;
+            }
+
+            UpdatePositionFromMouseThresholdMovement();
+        }
+
+        private void OnDestroy()
+        {
+            Deactivate();
+        }
+
+        public void Activate()
+        {
+            _running = true;
+
             _movementAction.started += MovementStart;
             _movementAction.canceled += MovementStop;
 
@@ -82,18 +101,15 @@ namespace Cameras
             _dragAction.canceled += DragStop;
         }
 
-        private void OnDisable()
+        public void Deactivate()
         {
+            _running = false;
+
             _movementAction.started -= MovementStart;
             _movementAction.canceled -= MovementStop;
 
             _dragAction.started -= DragStart;
             _dragAction.canceled -= DragStop;
-        }
-
-        private void Update()
-        {
-            UpdatePositionFromMouseThresholdMovement();
         }
 
         private void UpdatePositionFromMouseThresholdMovement()
@@ -129,7 +145,10 @@ namespace Cameras
         private void MovementStart(InputAction.CallbackContext context)
         {
             if (_moveCoroutine != null)
+            {
                 StopCoroutine(_moveCoroutine);
+            }
+
             _moveCoroutine = StartCoroutine(Move());
         }
 
@@ -238,8 +257,12 @@ namespace Cameras
         private void DragStop(InputAction.CallbackContext context)
         {
             if (_dragCoroutine == null)
+            {
                 throw new InvalidOperationException();
+            }
+
             StopCoroutine(_dragCoroutine);
+
             _dragStartPosition = null;
         }
     }

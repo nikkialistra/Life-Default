@@ -47,14 +47,19 @@ namespace Cameras
 
         public Vector3 Position { get; set; }
 
-        private void OnEnable()
+        private void OnDestroy()
+        {
+            Deactivate();
+        }
+
+        public void Activate()
         {
             _zoomScrollAction.started += ZoomScroll;
             _zoomAction.started += ZoomStart;
             _zoomAction.canceled += ZoomStop;
         }
 
-        private void OnDisable()
+        public void Deactivate()
         {
             _zoomScrollAction.started -= ZoomScroll;
             _zoomAction.started -= ZoomStart;

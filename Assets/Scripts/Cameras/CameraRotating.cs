@@ -37,13 +37,18 @@ namespace Cameras
 
         public Quaternion Rotation { get; set; }
 
-        private void OnEnable()
+        private void OnDestroy()
+        {
+            Deactivate();
+        }
+
+        public void Activate()
         {
             _rotateAction.started += RotateStart;
             _rotateAction.canceled += RotateStop;
         }
 
-        private void OnDisable()
+        public void Deactivate()
         {
             _rotateAction.started -= RotateStart;
             _rotateAction.canceled -= RotateStop;

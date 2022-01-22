@@ -43,13 +43,13 @@ namespace Cameras
 
         public bool Following { get; private set; }
 
-        private void OnEnable()
+        public void Activate()
         {
             _setFollowAction.started += TryFollow;
             _unitChoosing.UnitChosen += SetFollow;
         }
 
-        private void OnDisable()
+        public void Deactivate()
         {
             _setFollowAction.started -= TryFollow;
             _unitChoosing.UnitChosen -= SetFollow;
@@ -57,6 +57,8 @@ namespace Cameras
 
         private void OnDestroy()
         {
+            Deactivate();
+
             UnsubscribeFromLastUnit();
         }
 

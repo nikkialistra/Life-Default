@@ -57,6 +57,7 @@ namespace Units.Unit
         public event Action Spawn;
         public event Action HealthChange;
         public event Action Die;
+        public event Action<UnitFacade> UnitDie;
 
         public event Action<UnitFacade> DestinationReach;
 
@@ -123,11 +124,6 @@ namespace Units.Unit
 
         public void Deselect()
         {
-            if (_died)
-            {
-                return;
-            }
-
             _unitRenderer.Deselect();
 
             _selectionIndicator.SetActive(false);
@@ -177,6 +173,7 @@ namespace Units.Unit
             Deselect();
 
             Die?.Invoke();
+            UnitDie?.Invoke(this);
 
             _unitAnimator.Die(DestroySelf);
         }

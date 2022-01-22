@@ -136,6 +136,15 @@ namespace Controls
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Digit"",
+                    ""type"": ""Button"",
+                    ""id"": ""1f08d204-d8d7-4630-9999-597b6afd5a54"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -402,6 +411,105 @@ namespace Controls
                     ""action"": ""Stop"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""89c94a49-cdf1-4965-9bf2-06029998f105"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": """",
+                    ""processors"": ""Scale"",
+                    ""groups"": """",
+                    ""action"": ""Digit"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""017ed1f6-0c61-4746-b834-a95085ed55f4"",
+                    ""path"": ""<Keyboard>/2"",
+                    ""interactions"": """",
+                    ""processors"": ""Scale(factor=2)"",
+                    ""groups"": """",
+                    ""action"": ""Digit"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a2355177-8dfb-4a1c-a1da-5f344c48f98e"",
+                    ""path"": ""<Keyboard>/3"",
+                    ""interactions"": """",
+                    ""processors"": ""Scale(factor=3)"",
+                    ""groups"": """",
+                    ""action"": ""Digit"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e6f3e82a-da5e-44ec-875f-9406d0977410"",
+                    ""path"": ""<Keyboard>/4"",
+                    ""interactions"": """",
+                    ""processors"": ""Scale(factor=4)"",
+                    ""groups"": """",
+                    ""action"": ""Digit"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""fb9e91be-0d59-41d1-8e8b-ffbb87b29508"",
+                    ""path"": ""<Keyboard>/5"",
+                    ""interactions"": """",
+                    ""processors"": ""Scale(factor=5)"",
+                    ""groups"": """",
+                    ""action"": ""Digit"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""fbb37c94-207c-4b4a-9c99-34f7c681024e"",
+                    ""path"": ""<Keyboard>/6"",
+                    ""interactions"": """",
+                    ""processors"": ""Scale(factor=6)"",
+                    ""groups"": """",
+                    ""action"": ""Digit"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""88431476-6639-4500-a71b-1a1ea1db34c7"",
+                    ""path"": ""<Keyboard>/7"",
+                    ""interactions"": """",
+                    ""processors"": ""Scale(factor=7)"",
+                    ""groups"": """",
+                    ""action"": ""Digit"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e2d8eee1-f1da-4873-b34d-cc96ba62bd35"",
+                    ""path"": ""<Keyboard>/8"",
+                    ""interactions"": """",
+                    ""processors"": ""Scale(factor=8)"",
+                    ""groups"": """",
+                    ""action"": ""Digit"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1de75f57-2b9e-4f71-9484-e8bae3fbd62d"",
+                    ""path"": ""<Keyboard>/9"",
+                    ""interactions"": """",
+                    ""processors"": ""Scale(factor=9)"",
+                    ""groups"": """",
+                    ""action"": ""Digit"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -450,6 +558,7 @@ namespace Controls
             m_Management_SetDestination = m_Management.FindAction("SetDestination", throwIfNotFound: true);
             m_Management_ShowMenu = m_Management.FindAction("ShowMenu", throwIfNotFound: true);
             m_Management_Stop = m_Management.FindAction("Stop", throwIfNotFound: true);
+            m_Management_Digit = m_Management.FindAction("Digit", throwIfNotFound: true);
             // Menus
             m_Menus = asset.FindActionMap("Menus", throwIfNotFound: true);
             m_Menus_HideMenu = m_Menus.FindAction("HideMenu", throwIfNotFound: true);
@@ -524,6 +633,7 @@ namespace Controls
         private readonly InputAction m_Management_SetDestination;
         private readonly InputAction m_Management_ShowMenu;
         private readonly InputAction m_Management_Stop;
+        private readonly InputAction m_Management_Digit;
         public struct ManagementActions
         {
             private @Control m_Wrapper;
@@ -540,6 +650,7 @@ namespace Controls
             public InputAction @SetDestination => m_Wrapper.m_Management_SetDestination;
             public InputAction @ShowMenu => m_Wrapper.m_Management_ShowMenu;
             public InputAction @Stop => m_Wrapper.m_Management_Stop;
+            public InputAction @Digit => m_Wrapper.m_Management_Digit;
             public InputActionMap Get() { return m_Wrapper.m_Management; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -585,6 +696,9 @@ namespace Controls
                     @Stop.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnStop;
                     @Stop.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnStop;
                     @Stop.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnStop;
+                    @Digit.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnDigit;
+                    @Digit.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnDigit;
+                    @Digit.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnDigit;
                 }
                 m_Wrapper.m_ManagementActionsCallbackInterface = instance;
                 if (instance != null)
@@ -625,6 +739,9 @@ namespace Controls
                     @Stop.started += instance.OnStop;
                     @Stop.performed += instance.OnStop;
                     @Stop.canceled += instance.OnStop;
+                    @Digit.started += instance.OnDigit;
+                    @Digit.performed += instance.OnDigit;
+                    @Digit.canceled += instance.OnDigit;
                 }
             }
         }
@@ -676,6 +793,7 @@ namespace Controls
             void OnSetDestination(InputAction.CallbackContext context);
             void OnShowMenu(InputAction.CallbackContext context);
             void OnStop(InputAction.CallbackContext context);
+            void OnDigit(InputAction.CallbackContext context);
         }
         public interface IMenusActions
         {

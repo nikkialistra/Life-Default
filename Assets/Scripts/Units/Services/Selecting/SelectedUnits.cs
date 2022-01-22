@@ -8,7 +8,7 @@ namespace Units.Services.Selecting
     public class SelectedUnits
     {
         private readonly UnitRepository _unitRepository;
-        private InfoPanelView _infoPanelView;
+        private readonly InfoPanelView _infoPanelView;
 
         public SelectedUnits(UnitRepository unitRepository, InfoPanelView infoPanelView)
         {
@@ -21,27 +21,57 @@ namespace Units.Services.Selecting
 
         public void Clear()
         {
-            Units.Clear();
+            UnsubscribeFromUnits();
 
-            var allUnits = _unitRepository.GetUnits();
-            foreach (var unit in allUnits)
+            foreach (var unit in Units)
             {
                 unit.Deselect();
             }
+
+            Units.Clear();
         }
 
         public void Set(List<UnitFacade> units)
         {
+            UnsubscribeFromUnits();
+
             Units = units.ToList();
             UpdateSelectionStatuses();
             _infoPanelView.SetUnits(Units);
+
+            SubscribeToUnits();
         }
 
         public void Set(UnitFacade unit)
         {
+            UnsubscribeFromUnits();
+
             Units = new List<UnitFacade>() { unit };
             UpdateSelectionStatuses();
             _infoPanelView.SetUnit(unit);
+
+            SubscribeToUnits();
+        }
+
+        private void SubscribeToUnits()
+        {
+            foreach (var unit in Units)
+            {
+                unit.UnitDie += RemoveFromSelected;
+            }
+        }
+
+        private void UnsubscribeFromUnits()
+        {
+            foreach (var unit in Units)
+            {
+                unit.UnitDie -= RemoveFromSelected;
+            }
+        }
+
+        private void RemoveFromSelected(UnitFacade unit)
+        {
+            Units.Remove(unit);
         }
 
         private void UpdateSelectionStatuses()

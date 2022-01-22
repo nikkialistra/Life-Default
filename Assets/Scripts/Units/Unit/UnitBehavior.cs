@@ -6,7 +6,6 @@ using UnitManagement.Targeting;
 using Units.Unit.BehaviorNodes;
 using Units.Unit.UnitTypes;
 using UnityEngine;
-using Action = NPBehave.Action;
 
 namespace Units.Unit
 {
@@ -145,17 +144,11 @@ namespace Units.Unit
                     ),
                     new Repeater(
                         new Sequence(
-                            new Wait(1.0f),
-                            new Action(ShowIdleState)
+                            new Wait(1.0f)
                         )
                     )
                 )
             );
-        }
-
-        private void ShowIdleState()
-        {
-            Debug.Log("Idle");
         }
     }
 }

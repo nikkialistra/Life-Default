@@ -37,7 +37,6 @@ namespace Units.Unit.BehaviorNodes
 
         protected override void DoStop()
         {
-            Debug.Log(2);
             _unitMeshAgent.DestinationReach -= OnDestinationReach;
             _unitMeshAgent.StopMoving();
             Stopped(false);

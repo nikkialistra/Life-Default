@@ -250,7 +250,7 @@ namespace Controls
                 {
                     ""name"": ""negative"",
                     ""id"": ""09cbffb9-f22b-406c-8132-38658d51915b"",
-                    ""path"": ""<Keyboard>/e"",
+                    ""path"": ""<Keyboard>/r"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -261,7 +261,7 @@ namespace Controls
                 {
                     ""name"": ""positive"",
                     ""id"": ""51711646-ead8-40f0-8b53-a43d6a264301"",
-                    ""path"": ""<Keyboard>/t"",
+                    ""path"": ""<Keyboard>/f"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -283,7 +283,7 @@ namespace Controls
                 {
                     ""name"": ""negative"",
                     ""id"": ""d91ea792-9a77-4041-a96d-ee6410f5c610"",
-                    ""path"": ""<Keyboard>/y"",
+                    ""path"": ""<Keyboard>/g"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -294,7 +294,7 @@ namespace Controls
                 {
                     ""name"": ""positive"",
                     ""id"": ""11304acd-7a97-4df6-be95-961f09dab8bf"",
-                    ""path"": ""<Keyboard>/u"",
+                    ""path"": ""<Keyboard>/t"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",

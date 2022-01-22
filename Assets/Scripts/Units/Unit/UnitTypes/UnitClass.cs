@@ -15,9 +15,9 @@ namespace Units.Unit.UnitTypes
     [RequireComponent(typeof(UnitAnimator))]
     public class UnitClass : MonoBehaviour
     {
-        private UnitClassSpecsRepository _unitClassSpecsRepository;
+        private UnitTypeSpecsRepository _unitTypeSpecsRepository;
         private ResourceCounts _resourceCounts;
-        private UnitClassSpecs UnitClassSpecs { get; set; }
+        private UnitTypeSpecs UnitTypeSpecs { get; set; }
 
         private Action _onInteractionFinish;
 
@@ -28,10 +28,10 @@ namespace Units.Unit.UnitTypes
         private ICountable _acquired;
 
         [Inject]
-        public void Construct(UnitClassSpecsRepository unitClassSpecsRepository, ResourceCounts resourceCounts)
+        public void Construct(UnitTypeSpecsRepository unitTypeSpecsRepository, ResourceCounts resourceCounts)
         {
             _resourceCounts = resourceCounts;
-            _unitClassSpecsRepository = unitClassSpecsRepository;
+            _unitTypeSpecsRepository = unitTypeSpecsRepository;
         }
 
         private void Awake()
@@ -41,12 +41,12 @@ namespace Units.Unit.UnitTypes
 
         public void ChangeUnitType(UnitType unitType)
         {
-            UnitClassSpecs = _unitClassSpecsRepository.GetFor(unitType, UnitTypeLevel.FirstLevel);
+            UnitTypeSpecs = _unitTypeSpecsRepository.GetFor(unitType, UnitTypeLevel.FirstLevel);
         }
 
         public bool CanInteractWith(Entity entity)
         {
-            return UnitClassSpecs.CanInteractWith(entity);
+            return UnitTypeSpecs.CanInteractWith(entity);
         }
 
         public void InteractWith(Entity entity, Action onInteractionFinish)
@@ -90,22 +90,22 @@ namespace Units.Unit.UnitTypes
 
         private void InteractWithUnit(UnitFacade unit)
         {
-            var unitSpecForUnits = UnitClassSpecs.GetSpecForUnits();
+            var unitSpecForUnits = UnitTypeSpecs.GetSpecForUnits();
         }
 
         private void InteractWithEnemy(EnemyFacade enemy)
         {
-            var unitSpecForEnemies = UnitClassSpecs.GetSpecForEnemies();
+            var unitSpecForEnemies = UnitTypeSpecs.GetSpecForEnemies();
         }
 
         private void InteractWithBuilding(Building building)
         {
-            var unitSpecForBuildings = UnitClassSpecs.GetSpecForBuilding(building);
+            var unitSpecForBuildings = UnitTypeSpecs.GetSpecForBuilding(building);
         }
 
         private void InteractWithResource(Resource resource)
         {
-            var unitSpecForResource = UnitClassSpecs.GetSpecForResource(resource);
+            var unitSpecForResource = UnitTypeSpecs.GetSpecForResource(resource);
 
             _interactingCoroutine = StartCoroutine(InteractingWithResource(resource, unitSpecForResource));
         }

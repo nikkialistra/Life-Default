@@ -11,7 +11,7 @@ namespace Testing
     {
         private UnitType? _generationType = UnitType.Lumberjack;
         private LayerMask _terrainMask;
-        private UnitFacade.Factory _factory;
+        private UnitFacade.Factory _unitFactory;
 
         private Camera _camera;
 
@@ -22,9 +22,9 @@ namespace Testing
         private InputAction _positionAction;
 
         [Inject]
-        public void Construct(UnitFacade.Factory factory, Camera camera, PlayerInput playerInput)
+        public void Construct(UnitFacade.Factory unitFactory, Camera camera, PlayerInput playerInput)
         {
-            _factory = factory;
+            _unitFactory = unitFactory;
             _camera = camera;
             _playerInput = playerInput;
         }
@@ -79,7 +79,7 @@ namespace Testing
             if (Physics.Raycast(ray, out var hit, float.PositiveInfinity, _terrainMask))
             {
                 var unitType = GetUnitType();
-                _factory.Create(unitType, hit.point);
+                _unitFactory.Create(unitType, hit.point);
             }
         }
 

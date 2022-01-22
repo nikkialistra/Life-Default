@@ -2093,6 +2093,7 @@ GameObject:
   - component: {fileID: 1694927052233020396}
   - component: {fileID: 4102909232360193196}
   - component: {fileID: 2084052397746752856}
+  - component: {fileID: 3329786360060233850}
   m_Layer: 15
   m_Name: Enemy
   m_TagString: Untagged
@@ -2328,6 +2329,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _rotationSpeedToEntities: 100
   _interactionDistance: 3
+--- !u!114 &3329786360060233850
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4193433063631040808}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d4c0027475941feaed5a3e265601adc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _skinnedMeshRenderer: {fileID: 2433883250139472052}
+  _skin: {fileID: 2100000, guid: 51f67dae9c7895d408d0cce0c3307809, type: 2}
 --- !u!1 &5514773472191503061
 GameObject:
   m_ObjectHideFlags: 0
@@ -2749,6 +2764,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 913322246f662fd4dbbe41ec891db6fa, type: 3}
+--- !u!224 &2739363764289895897 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 6241910357395849221, guid: 913322246f662fd4dbbe41ec891db6fa,
+    type: 3}
+  m_PrefabInstance: {fileID: 8114242647297244636}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1935489896466272434 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7658276042284526958, guid: 913322246f662fd4dbbe41ec891db6fa,
@@ -2761,9 +2782,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 097ac27b1d4041c9801158a11a534c58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!224 &2739363764289895897 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 6241910357395849221, guid: 913322246f662fd4dbbe41ec891db6fa,
-    type: 3}
-  m_PrefabInstance: {fileID: 8114242647297244636}
-  m_PrefabAsset: {fileID: 0}

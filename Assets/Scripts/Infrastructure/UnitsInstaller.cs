@@ -38,7 +38,7 @@ namespace Infrastructure
 
         [Title("Services")]
         [Required]
-        [SerializeField] private UnitClassSpecsRepository _unitClassSpecsRepository;
+        [SerializeField] private UnitTypeSpecsRepository _unitTypeSpecsRepository;
         [Required]
         [SerializeField] private UnitRepository _unitRepository;
         [Required]
@@ -72,7 +72,7 @@ namespace Infrastructure
 
         private void BindUnitServices()
         {
-            Container.BindInstance(_unitClassSpecsRepository);
+            Container.BindInstance(_unitTypeSpecsRepository);
             Container.BindInstance(_unitRepository);
             Container.BindInstance(_unitTypeCounts);
             Container.BindInstance(_unitTypeAppearanceRegistry);

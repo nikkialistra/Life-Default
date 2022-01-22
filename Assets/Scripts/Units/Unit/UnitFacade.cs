@@ -12,7 +12,7 @@ namespace Units.Unit
     [RequireComponent(typeof(UnitMeshAgent))]
     [RequireComponent(typeof(UnitAnimator))]
     [RequireComponent(typeof(UnitRenderer))]
-    [RequireComponent(typeof(UnitModelElements))]
+    [RequireComponent(typeof(UnitAppearance))]
     [RequireComponent(typeof(UnitBehavior))]
     [RequireComponent(typeof(UnitClass))]
     [RequireComponent(typeof(UnitSaveLoadHandler))]
@@ -34,7 +34,7 @@ namespace Units.Unit
         private EntityHealth _health;
         private UnitAnimator _unitAnimator;
         private UnitRenderer _unitRenderer;
-        private UnitModelElements _unitModelElements;
+        private UnitAppearance _unitAppearance;
         private UnitMeshAgent _unitMeshAgent;
         private UnitBehavior _unitBehavior;
         private UnitClass _unitClass;
@@ -46,7 +46,7 @@ namespace Units.Unit
             _health = GetComponent<EntityHealth>();
             _unitAnimator = GetComponent<UnitAnimator>();
             _unitRenderer = GetComponent<UnitRenderer>();
-            _unitModelElements = GetComponent<UnitModelElements>();
+            _unitAppearance = GetComponent<UnitAppearance>();
             _unitMeshAgent = GetComponent<UnitMeshAgent>();
             _unitBehavior = GetComponent<UnitBehavior>();
             _unitClass = GetComponent<UnitClass>();
@@ -92,7 +92,7 @@ namespace Units.Unit
         public void ChangeUnitType(UnitType unitType)
         {
             _unitType = unitType;
-            _unitModelElements.SwitchTo(unitType);
+            _unitAppearance.SwitchTo(unitType);
 
             _unitClass.ChangeUnitType(unitType);
             _unitBehavior.ChangeUnitClass(_unitClass);
@@ -192,7 +192,7 @@ namespace Units.Unit
             _healthBar.SetMaxHealth(_health.MaxHealth);
             _healthBar.SetHealth(_health.Health);
 
-            _unitModelElements.SwitchTo(_unitType);
+            _unitAppearance.SwitchTo(_unitType);
 
             Spawn?.Invoke();
         }

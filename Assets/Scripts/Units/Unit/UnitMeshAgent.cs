@@ -1,49 +1,51 @@
 ﻿using System;
-using System.Collections;
-using DG.Tweening;
 using Entities.Entity;
-using Pathfinding;
 using UnityEngine;
 
 namespace Units.Unit
 {
-    [RequireComponent(typeof(AIPath))]
+    [RequireComponent(typeof(EntityMeshAgent))]
     public class UnitMeshAgent : MonoBehaviour
     {
-        [SerializeField] private float _rotationSpeedToEntities;
-        [SerializeField] private float _interactionDistance = 3f;
-
         private bool _activated;
         private bool _hasPendingOrder;
 
-        private bool _movingToEntity;
-
-        private Coroutine _movingCoroutine;
-
-        private AIPath _aiPath;
-
-        private Coroutine _rotatingToCoroutine;
+        private EntityMeshAgent _entityMeshAgent;
 
         private void Awake()
         {
-            _aiPath = GetComponent<AIPath>();
+            _entityMeshAgent = GetComponent<EntityMeshAgent>();
         }
 
         public event Action DestinationReach;
         public event Action RotationEnd;
 
-        public float Velocity => _aiPath.velocity.magnitude;
+        public float Velocity => _entityMeshAgent.Velocity;
+
+        private void OnEnable()
+        {
+            _entityMeshAgent.DestinationReach += OnDestinationReach;
+            _entityMeshAgent.RotationEnd += OnRotationEnd;
+        }
+
+        private void OnDisable()
+        {
+            _entityMeshAgent.DestinationReach -= OnDestinationReach;
+            _entityMeshAgent.RotationEnd -= OnRotationEnd;
+        }
 
         public void SetDestinationToPosition(Vector3 position)
         {
-            _movingToEntity = false;
-            SetDestination(position);
+            _hasPendingOrder = false;
+
+            _entityMeshAgent.SetDestinationToPosition(position);
         }
 
         public void SetDestinationToEntity(Vector3 position)
         {
-            _movingToEntity = true;
-            SetDestination(position);
+            _hasPendingOrder = false;
+
+            _entityMeshAgent.SetDestinationToEntity(position);
         }
 
         public bool AcceptOrder()
@@ -61,7 +63,7 @@ namespace Units.Unit
 
         public void RotateTo(Entity entity)
         {
-            _rotatingToCoroutine = StartCoroutine(RotatingTo(entity));
+            _entityMeshAgent.RotateTo(entity.transform.position);
         }
 
         public void StopMoving()
@@ -71,72 +73,12 @@ namespace Units.Unit
                 return;
             }
 
-            if (_movingCoroutine != null)
-            {
-                StopCoroutine(_movingCoroutine);
-            }
-
-            _aiPath.isStopped = true;
-            DestinationReach?.Invoke();
+            _entityMeshAgent.StopMoving();
         }
 
         public void StopRotating()
         {
-            if (_rotatingToCoroutine != null)
-            {
-                StopCoroutine(_rotatingToCoroutine);
-            }
-        }
-
-        private void SetDestination(Vector3 position)
-        {
-            _hasPendingOrder = false;
-
-            _aiPath.isStopped = false;
-            _aiPath.destination = position;
-            Move();
-        }
-
-        private IEnumerator RotatingTo(Entity entity)
-        {
-            var targetPosition = entity.transform.position;
-            targetPosition.y = transform.position.y;
-            var targetDirection = (targetPosition - transform.position).normalized;
-
-            if (targetDirection == Vector3.zero)
-            {
-                RotationEnd?.Invoke();
-                yield break;
-            }
-
-            var targetRotation = Quaternion.LookRotation(targetDirection).eulerAngles;
-
-            yield return transform.DORotate(targetRotation, GetRotationDuration(targetRotation)).WaitForCompletion();
-
-            RotationEnd?.Invoke();
-        }
-
-        private float GetRotationDuration(Vector3 targetRotation)
-        {
-            var angleDifference = GetAngleDifference(transform.rotation.eulerAngles.y, targetRotation.y);
-            var duration = angleDifference / _rotationSpeedToEntities;
-            return duration;
-        }
-
-        private float GetAngleDifference(float firstAngle, float secondAngle)
-        {
-            var difference = firstAngle - secondAngle;
-            if (difference > 180)
-            {
-                difference -= 360;
-            }
-
-            if (difference < -180)
-            {
-                difference += 360;
-            }
-
-            return Mathf.Abs(difference);
+            _entityMeshAgent.StopRotating();
         }
 
         public void Activate()
@@ -146,57 +88,19 @@ namespace Units.Unit
 
         public void Deactivate()
         {
-            _aiPath.isStopped = true;
             _activated = false;
+
+            _entityMeshAgent.StopCurrentCommand();
         }
 
-        private void Move()
+        private void OnDestinationReach()
         {
-            if (_movingCoroutine != null)
-            {
-                StopCoroutine(_movingCoroutine);
-            }
-
-            _movingCoroutine = StartCoroutine(Moving());
-        }
-
-        private IEnumerator Moving()
-        {
-            while (IsMoving())
-            {
-                yield return null;
-            }
-
             DestinationReach?.Invoke();
         }
 
-        private bool IsMoving()
+        private void OnRotationEnd()
         {
-            return _movingToEntity ? IsMovingToEntity() : IsMovingToPosition();
-        }
-
-        private bool IsMovingToEntity()
-        {
-            if (Vector3.Distance(transform.position, _aiPath.destination) > _interactionDistance)
-            {
-                return true;
-            }
-
-            _aiPath.isStopped = true;
-
-            return false;
-        }
-
-        private bool IsMovingToPosition()
-        {
-            if (!_aiPath.reachedDestination)
-            {
-                return true;
-            }
-
-            _aiPath.isStopped = true;
-
-            return false;
+            RotationEnd?.Invoke();
         }
     }
 }

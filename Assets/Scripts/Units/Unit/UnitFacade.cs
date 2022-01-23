@@ -154,6 +154,8 @@ namespace Units.Unit
 
             InitializeSelf();
             InitializeComponents();
+
+            Spawn?.Invoke();
         }
 
         public void OnDespawned()
@@ -193,8 +195,6 @@ namespace Units.Unit
             _healthBar.SetHealth(_health.Health);
 
             _unitAppearance.SwitchTo(_unitType);
-
-            Spawn?.Invoke();
         }
 
         private void InitializeComponents()
@@ -210,14 +210,7 @@ namespace Units.Unit
 
         private void DestroySelf()
         {
-            if (_pool == null)
-            {
-                Destroy(gameObject);
-            }
-            else
-            {
-                _pool.Despawn(this);
-            }
+            _pool.Despawn(this);
         }
 
         private void OnDestinationReach()

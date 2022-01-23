@@ -56,14 +56,6 @@ namespace Enemies.Enemy
             _health.HealthChange -= OnHealthChange;
         }
 
-        private void Start()
-        {
-            if (_pool == null)
-            {
-                InitializeSelf();
-            }
-        }
-
         [Button(ButtonSizes.Large)]
         public void TakeDamage(int value)
         {
@@ -84,6 +76,8 @@ namespace Enemies.Enemy
 
             InitializeSelf();
             InitializeComponents();
+
+            Spawn?.Invoke();
         }
 
         public void OnDespawned()
@@ -111,8 +105,6 @@ namespace Enemies.Enemy
 
             _healthBar.SetMaxHealth(_health.MaxHealth);
             _healthBar.SetHealth(_health.Health);
-
-            Spawn?.Invoke();
         }
 
         private void InitializeComponents()
@@ -123,14 +115,7 @@ namespace Enemies.Enemy
 
         private void DestroySelf()
         {
-            if (_pool == null)
-            {
-                Destroy(gameObject);
-            }
-            else
-            {
-                _pool.Despawn(this);
-            }
+            _pool.Despawn(this);
         }
 
         private void OnHealthChange(int value)

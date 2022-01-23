@@ -1,66 +1,55 @@
 ﻿using System;
-using Pathfinding;
+using Entities.Entity;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
 namespace Enemies.Enemy
 {
-    [RequireComponent(typeof(EnemyFacade))]
-    [RequireComponent(typeof(AIPath))]
+    [RequireComponent(typeof(EntityMeshAgent))]
     public class EnemyMeshAgent : MonoBehaviour
     {
-        private EnemyFacade _enemyFacade;
-        private AIPath _aiPath;
-
-        private void Awake()
-        {
-            _enemyFacade = GetComponent<EnemyFacade>();
-            _aiPath = GetComponent<AIPath>();
-        }
+        private EntityMeshAgent _entityMeshAgent;
 
         public event Action DestinationReach;
 
-        public float Velocity => _aiPath.velocity.magnitude;
+        private void Awake()
+        {
+            _entityMeshAgent = GetComponent<EntityMeshAgent>();
+        }
+
+        public float Velocity => _entityMeshAgent.Velocity;
 
         private void OnEnable()
         {
-            _enemyFacade.Spawn += Activate;
-            _enemyFacade.Die += Deactivate;
+            _entityMeshAgent.DestinationReach += OnDestinationReach;
         }
 
         private void OnDisable()
         {
-            _enemyFacade.Spawn -= Activate;
-            _enemyFacade.Die -= Deactivate;
-        }
-
-        public void Activate()
-        {
-            _aiPath.isStopped = false;
+            _entityMeshAgent.DestinationReach -= OnDestinationReach;
         }
 
         public void Deactivate()
         {
-            _aiPath.isStopped = true;
+            _entityMeshAgent.StopCurrentCommand();
         }
 
         public void GoInRadius(float radius)
         {
             var randomPosition = transform.position + RandomPointOnCircle(radius);
 
-            _aiPath.destination = randomPosition;
-        }
-
-        public void StopMoving()
-        {
-            _aiPath.isStopped = true;
-            DestinationReach?.Invoke();
+            _entityMeshAgent.SetDestinationToPosition(randomPosition);
         }
 
         private Vector3 RandomPointOnCircle(float radius)
         {
             var point = Random.insideUnitCircle * radius;
             return new Vector3(point.x, 0, point.y);
+        }
+
+        private void OnDestinationReach()
+        {
+            DestinationReach?.Invoke();
         }
     }
 }

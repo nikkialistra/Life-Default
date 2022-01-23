@@ -10,6 +10,7 @@ namespace Enemies.Enemy
     [RequireComponent(typeof(EntityHealth))]
     [RequireComponent(typeof(EnemyAnimator))]
     [RequireComponent(typeof(EnemyMeshAgent))]
+    [RequireComponent(typeof(EnemyBehavior))]
     public class EnemyFacade : MonoBehaviour, IPoolable<EnemyType, Vector3, IMemoryPool>, IDisposable
     {
         [Required]
@@ -24,6 +25,7 @@ namespace Enemies.Enemy
         private EntityHealth _health;
         private EnemyAnimator _enemyAnimator;
         private EnemyMeshAgent _enemyMeshAgent;
+        private EnemyBehavior _enemyBehavior;
 
         private IMemoryPool _pool;
 
@@ -32,38 +34,45 @@ namespace Enemies.Enemy
             _health = GetComponent<EntityHealth>();
             _enemyAnimator = GetComponent<EnemyAnimator>();
             _enemyMeshAgent = GetComponent<EnemyMeshAgent>();
+            _enemyBehavior = GetComponent<EnemyBehavior>();
         }
 
         public event Action Spawn;
         public event Action HealthChange;
         public event Action Die;
 
-        public event Action DestinationReach;
-
         public int Health => _health.Health;
+        public bool Alive => !_died;
 
         private void OnEnable()
         {
             _health.Die += Dispose;
             _health.HealthChange += OnHealthChange;
-
-            _enemyMeshAgent.DestinationReach += OnDestinationReach;
         }
 
         private void OnDisable()
         {
             _health.Die -= Dispose;
             _health.HealthChange -= OnHealthChange;
-
-            _enemyMeshAgent.DestinationReach -= OnDestinationReach;
         }
 
         private void Start()
         {
             if (_pool == null)
             {
-                Initialize();
+                InitializeSelf();
             }
+        }
+
+        [Button(ButtonSizes.Large)]
+        public void TakeDamage(int value)
+        {
+            if (_died)
+            {
+                return;
+            }
+
+            _health.TakeDamage(value);
         }
 
         public void OnSpawned(EnemyType enemyType, Vector3 position, IMemoryPool pool)
@@ -73,7 +82,8 @@ namespace Enemies.Enemy
             _enemyType = enemyType;
             transform.position = position;
 
-            Initialize();
+            InitializeSelf();
+            InitializeComponents();
         }
 
         public void OnDespawned()
@@ -83,13 +93,17 @@ namespace Enemies.Enemy
 
         public void Dispose()
         {
+            _died = true;
+
+            _enemyMeshAgent.Deactivate();
+            _enemyBehavior.StartBehaviorTree();
+
             Die?.Invoke();
 
-            _died = true;
             _enemyAnimator.Die(DestroySelf);
         }
 
-        private void Initialize()
+        private void InitializeSelf()
         {
             _died = false;
 
@@ -99,6 +113,12 @@ namespace Enemies.Enemy
             _healthBar.SetHealth(_health.Health);
 
             Spawn?.Invoke();
+        }
+
+        private void InitializeComponents()
+        {
+            _enemyBehavior.Initialize();
+            _enemyBehavior.StartBehaviorTree();
         }
 
         private void DestroySelf()
@@ -111,11 +131,6 @@ namespace Enemies.Enemy
             {
                 _pool.Despawn(this);
             }
-        }
-
-        private void OnDestinationReach()
-        {
-            DestinationReach?.Invoke();
         }
 
         private void OnHealthChange(int value)

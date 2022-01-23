@@ -1,6 +1,7 @@
 ﻿using System;
 using Pathfinding;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Enemies.Enemy
 {
@@ -8,11 +9,6 @@ namespace Enemies.Enemy
     [RequireComponent(typeof(AIPath))]
     public class EnemyMeshAgent : MonoBehaviour
     {
-        [SerializeField] private float _rotationSpeedToEntities;
-        [SerializeField] private float _interactionDistance = 3f;
-
-        private bool _activated;
-
         private EnemyFacade _enemyFacade;
         private AIPath _aiPath;
 
@@ -26,7 +22,6 @@ namespace Enemies.Enemy
 
         public float Velocity => _aiPath.velocity.magnitude;
 
-
         private void OnEnable()
         {
             _enemyFacade.Spawn += Activate;
@@ -39,22 +34,33 @@ namespace Enemies.Enemy
             _enemyFacade.Die -= Deactivate;
         }
 
+        public void Activate()
+        {
+            _aiPath.isStopped = false;
+        }
+
+        public void Deactivate()
+        {
+            _aiPath.isStopped = true;
+        }
+
+        public void GoInRadius(float radius)
+        {
+            var randomPosition = transform.position + RandomPointOnCircle(radius);
+
+            _aiPath.destination = randomPosition;
+        }
+
         public void StopMoving()
         {
             _aiPath.isStopped = true;
             DestinationReach?.Invoke();
         }
 
-        private void Activate()
+        private Vector3 RandomPointOnCircle(float radius)
         {
-            _aiPath.isStopped = false;
-            _activated = true;
-        }
-
-        private void Deactivate()
-        {
-            _aiPath.isStopped = true;
-            _activated = false;
+            var point = Random.insideUnitCircle * radius;
+            return new Vector3(point.x, 0, point.y);
         }
     }
 }

@@ -18,7 +18,7 @@ namespace Units.Unit.BehaviorNodes
         private float _shortestDistanceToEntity = float.PositiveInfinity;
         private bool _entityIsSet;
 
-        public FindNewEntity(string entityKey, Transform transform, float seekRadius) : base("FindNewTarget")
+        public FindNewEntity(string entityKey, Transform transform, float seekRadius) : base("FindNewEntity")
         {
             _entityKey = entityKey;
             _transform = transform;

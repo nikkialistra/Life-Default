@@ -12,7 +12,7 @@ namespace Units.Unit.BehaviorNodes
         private Entity _entity;
         private UnitClass _unitClass;
 
-        public InteractWithEntity(string entityKey, string unitClassKey) : base("StartActionOnTarget")
+        public InteractWithEntity(string entityKey, string unitClassKey) : base("InteractWithEntity")
         {
             _entityKey = entityKey;
             _unitClassKey = unitClassKey;

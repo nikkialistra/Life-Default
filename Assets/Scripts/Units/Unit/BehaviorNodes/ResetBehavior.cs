@@ -8,7 +8,7 @@ namespace Units.Unit.BehaviorNodes
         private readonly string _newCommandKey;
         private readonly string _unitClassKey;
 
-        public ResetBehavior(string newCommandKey, string unitClassKey) : base("ClearCommand")
+        public ResetBehavior(string newCommandKey, string unitClassKey) : base("ResetBehavior")
         {
             _newCommandKey = newCommandKey;
             _unitClassKey = unitClassKey;

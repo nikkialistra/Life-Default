@@ -102,6 +102,13 @@ namespace Units.Unit
             var targetPosition = entity.transform.position;
             targetPosition.y = transform.position.y;
             var targetDirection = (targetPosition - transform.position).normalized;
+
+            if (targetDirection == Vector3.zero)
+            {
+                RotationEnd?.Invoke();
+                yield break;
+            }
+
             var targetRotation = Quaternion.LookRotation(targetDirection).eulerAngles;
 
             yield return transform.DORotate(targetRotation, GetRotationDuration(targetRotation)).WaitForCompletion();

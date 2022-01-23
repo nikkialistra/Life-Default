@@ -96,7 +96,7 @@ namespace Enemies.Enemy
             _died = true;
 
             _enemyMeshAgent.Deactivate();
-            _enemyBehavior.StartBehaviorTree();
+            _enemyBehavior.StopBehaviorTree();
 
             Die?.Invoke();
 

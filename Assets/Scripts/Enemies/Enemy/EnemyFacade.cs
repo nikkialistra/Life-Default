@@ -15,10 +15,9 @@ namespace Enemies.Enemy
     {
         [Required]
         [SerializeField] private HealthBar _healthBar;
-        [Required]
-        [SerializeField] private Transform _center;
 
-        private EnemyType _enemyType;
+        [Title("Properties")]
+        [SerializeField] private EnemyType _enemyType;
 
         private bool _died;
 
@@ -37,23 +36,16 @@ namespace Enemies.Enemy
             _enemyBehavior = GetComponent<EnemyBehavior>();
         }
 
-        public event Action Spawn;
-        public event Action HealthChange;
-        public event Action Die;
-
-        public int Health => _health.Health;
-        public bool Alive => !_died;
-
         private void OnEnable()
         {
-            _health.Die += Dispose;
             _health.HealthChange += OnHealthChange;
+            _health.Die += Dispose;
         }
 
         private void OnDisable()
         {
-            _health.Die -= Dispose;
             _health.HealthChange -= OnHealthChange;
+            _health.Die -= Dispose;
         }
 
         [Button(ButtonSizes.Large)]
@@ -76,8 +68,6 @@ namespace Enemies.Enemy
 
             InitializeSelf();
             InitializeComponents();
-
-            Spawn?.Invoke();
         }
 
         public void OnDespawned()
@@ -91,8 +81,6 @@ namespace Enemies.Enemy
 
             _enemyMeshAgent.Deactivate();
             _enemyBehavior.StopBehaviorTree();
-
-            Die?.Invoke();
 
             _enemyAnimator.Die(DestroySelf);
         }
@@ -121,7 +109,6 @@ namespace Enemies.Enemy
         private void OnHealthChange(int value)
         {
             _healthBar.SetHealth(value);
-            HealthChange?.Invoke();
         }
 
         public class Factory : PlaceholderFactory<EnemyType, Vector3, EnemyFacade> { }

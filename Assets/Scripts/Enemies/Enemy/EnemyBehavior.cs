@@ -10,7 +10,13 @@ namespace Enemies.Enemy
     public class EnemyBehavior : MonoBehaviour
     {
         [MinValue(0)]
-        [SerializeField] private float _walkRadius;
+        [SerializeField] private float _walkMinRadius;
+        [MinValue(0)]
+        [SerializeField] private float _walkMaxRadius;
+        [MinValue(0)]
+        [SerializeField] private float _waitTime = 3;
+        [MinValue(0)]
+        [SerializeField] private float _waitVariance = 1.5f;
 
         private Root _behaviorTree;
 
@@ -71,8 +77,8 @@ namespace Enemies.Enemy
             _behaviorTree = new Root(
                 new Repeater(
                     new Sequence(
-                        new Wait(5f, 3f),
-                        new WalkToRandomLocation(_enemyMeshAgent, _walkRadius)
+                        new Wait(_waitTime, _waitVariance),
+                        new WalkToRandomLocation(_enemyMeshAgent, _walkMinRadius, _walkMaxRadius)
                     )
                 )
             );

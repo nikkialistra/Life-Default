@@ -2,6 +2,7 @@
 {
     public enum EnemyType
     {
-        Melee
+        Melee,
+        Ranged
     }
 }

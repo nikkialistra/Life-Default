@@ -5,17 +5,22 @@ namespace Enemies.Enemy.BehaviorNodes
     public class WalkToRandomLocation : Node
     {
         private readonly EnemyMeshAgent _enemyMeshAgent;
-        private readonly float _walkRadius;
 
-        public WalkToRandomLocation(EnemyMeshAgent enemyMeshAgent, float walkRadius) : base("WalkToRandomLocation")
+        private float _walkMinRadius;
+        private readonly float _walkMaxRadius;
+
+        public WalkToRandomLocation(EnemyMeshAgent enemyMeshAgent, float walkMinRadius, float walkMaxRadius) : base(
+            "WalkToRandomLocation")
         {
             _enemyMeshAgent = enemyMeshAgent;
-            _walkRadius = walkRadius;
+
+            _walkMinRadius = walkMinRadius;
+            _walkMaxRadius = walkMaxRadius;
         }
 
         protected override void DoStart()
         {
-            _enemyMeshAgent.GoInRadius(_walkRadius);
+            _enemyMeshAgent.GoInRadius(_walkMinRadius, _walkMaxRadius);
 
             Stopped(true);
         }

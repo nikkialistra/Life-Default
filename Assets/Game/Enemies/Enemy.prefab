@@ -2304,7 +2304,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _healthBar: {fileID: 1935489896466272434}
-  _center: {fileID: 1556855133966464186}
+  _enemyType: 0
 --- !u!114 &4102909232360193196
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2382,7 +2382,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 381d7e44fbae4283bd75dfd700719ad2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _walkRadius: 5
+  _walkMinRadius: 3
+  _walkMaxRadius: 8
+  _waitTime: 3
+  _waitVariance: 1.5
 --- !u!1 &5514773472191503061
 GameObject:
   m_ObjectHideFlags: 0

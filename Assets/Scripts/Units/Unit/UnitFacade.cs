@@ -74,16 +74,16 @@ namespace Units.Unit
 
         private void OnEnable()
         {
-            _health.Die += Dispose;
             _health.HealthChange += OnHealthChange;
+            _health.Die += Dispose;
 
             _unitMeshAgent.DestinationReach += OnDestinationReach;
         }
 
         private void OnDisable()
         {
-            _health.Die -= Dispose;
             _health.HealthChange -= OnHealthChange;
+            _health.Die -= Dispose;
 
             _unitMeshAgent.DestinationReach -= OnDestinationReach;
         }

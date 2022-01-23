@@ -34,16 +34,17 @@ namespace Enemies.Enemy
             _entityMeshAgent.StopCurrentCommand();
         }
 
-        public void GoInRadius(float radius)
+        public void GoInRadius(float minRadius, float maxRadius)
         {
-            var randomPosition = transform.position + RandomPointOnCircle(radius);
+            var randomPosition = transform.position + RandomPointOnCircle(minRadius, maxRadius);
 
             _entityMeshAgent.SetDestinationToPosition(randomPosition);
         }
 
-        private Vector3 RandomPointOnCircle(float radius)
+        private static Vector3 RandomPointOnCircle(float minRadius, float maxRadius)
         {
-            var point = Random.insideUnitCircle * radius;
+            var distance = Random.Range(minRadius, maxRadius);
+            var point = Random.insideUnitCircle.normalized * distance;
             return new Vector3(point.x, 0, point.y);
         }
 

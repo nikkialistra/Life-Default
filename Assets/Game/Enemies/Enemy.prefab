@@ -2083,12 +2083,12 @@ GameObject:
   m_Component:
   - component: {fileID: 4193433063631040809}
   - component: {fileID: 763308185140895837}
-  - component: {fileID: 4506163664371613175}
   - component: {fileID: 5287909917484254944}
   - component: {fileID: 648114809178795117}
   - component: {fileID: 6633013369567803270}
   - component: {fileID: 6716084818144742275}
   - component: {fileID: 4003972812189498787}
+  - component: {fileID: 677810114955368543}
   - component: {fileID: 8477657715684973058}
   - component: {fileID: 1694927052233020396}
   - component: {fileID: 4102909232360193196}
@@ -2140,20 +2140,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!136 &4506163664371613175
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4193433063631040808}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.7
-  m_Height: 3.6
-  m_Direction: 1
-  m_Center: {x: 0, y: 2, z: 0}
 --- !u!136 &5287909917484254944
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -2277,6 +2263,25 @@ MonoBehaviour:
   raycastOffset: {x: 0, y: 0, z: 0}
   useGraphRaycasting: 0
   quality: 1
+--- !u!114 &677810114955368543
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4193433063631040808}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05801dcd7dd44c819b53a6357ea5aeb6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _destinationPoint: {fileID: 2346717340988269411}
+  _targetIndicator: {fileID: 1552918263597400682}
+  _entityType: 1
+  _unit: {fileID: 0}
+  _enemy: {fileID: 1694927052233020396}
+  _building: {fileID: 0}
+  _resource: {fileID: 0}
 --- !u!114 &8477657715684973058
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2662,6 +2667,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5424c02da3c932b4fbf0635d38670622, type: 3}
+--- !u!1 &1552918263597400682 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4844826904275406700, guid: 5424c02da3c932b4fbf0635d38670622,
+    type: 3}
+  m_PrefabInstance: {fileID: 6246873699801615622}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6098680567644160171 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 149611794215062957, guid: 5424c02da3c932b4fbf0635d38670622,

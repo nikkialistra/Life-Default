@@ -15,6 +15,12 @@ namespace Units.Unit
         [MinValue(0)]
         [SerializeField] private float _seekRadius;
 
+        [MinValue(0)]
+        [SerializeField] private float _reactionSpeed;
+        [MinValue(0)]
+        [SerializeField] private float _viewRadius;
+
+
         private const string NewCommandKey = "newCommand";
 
         private const string PositionKey = "desiredPosition";
@@ -144,7 +150,8 @@ namespace Units.Unit
                     ),
                     new Repeater(
                         new Sequence(
-                            new Wait(1.0f)
+                            new Wait(_reactionSpeed),
+                            new FindEnemy(EntityKey, transform, _viewRadius)
                         )
                     )
                 )

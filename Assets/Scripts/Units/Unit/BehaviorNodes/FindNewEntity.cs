@@ -8,15 +8,17 @@ namespace Units.Unit.BehaviorNodes
     {
         private readonly int _entityMask = LayerMask.GetMask("Units", "Enemies", "Buildings", "Resources");
 
-        private readonly Transform _transform;
-        private readonly float _seekRadius;
         private readonly string _entityKey;
+        private readonly float _seekRadius;
+
+        private readonly Transform _transform;
+
         private readonly Collider[] _hits = new Collider[20];
 
         private Entity _oldEntity;
 
         private float _shortestDistanceToEntity = float.PositiveInfinity;
-        private bool _entityIsSet;
+        private Entity _newEntity;
 
         public FindNewEntity(string entityKey, Transform transform, float seekRadius) : base("FindNewEntity")
         {
@@ -39,14 +41,23 @@ namespace Units.Unit.BehaviorNodes
 
             FindEntity();
 
-            Stopped(_entityIsSet);
-            ResetData();
+            if (_newEntity != null)
+            {
+                Blackboard.Set(_entityKey, _newEntity);
+                ResetData();
+                Stopped(true);
+            }
+            else
+            {
+                ResetData();
+                Stopped(false);
+            }
         }
 
         private void ResetData()
         {
             _shortestDistanceToEntity = float.PositiveInfinity;
-            _entityIsSet = false;
+            _newEntity = null;
         }
 
         private void FindEntity()
@@ -100,8 +111,7 @@ namespace Units.Unit.BehaviorNodes
             }
 
             _shortestDistanceToEntity = distanceToEntity;
-            Blackboard.Set(_entityKey, entity);
-            _entityIsSet = true;
+            _newEntity = entity;
         }
 
         protected override void DoStop()

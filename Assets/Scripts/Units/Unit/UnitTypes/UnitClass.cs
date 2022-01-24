@@ -96,6 +96,28 @@ namespace Units.Unit.UnitTypes
         private void InteractWithEnemy(EnemyFacade enemy)
         {
             var unitSpecForEnemies = UnitTypeSpecs.GetSpecForEnemies();
+
+            _interactingCoroutine = StartCoroutine(InteractingWithEnemy(enemy, unitSpecForEnemies));
+        }
+
+        private IEnumerator InteractingWithEnemy(EnemyFacade enemy, UnitSpecForEnemies unitSpecForEnemies)
+        {
+            _unitAnimator.InteractWithResource();
+
+            while (enemy.Alive)
+            {
+                yield return new WaitForSeconds(1f / unitSpecForEnemies.SpeedPerSecond);
+
+                if (!enemy.Alive)
+                {
+                    break;
+                }
+
+                enemy.TakeDamage(unitSpecForEnemies.Damage);
+            }
+
+            _unitAnimator.StopInteractWithResource();
+            _onInteractionFinish();
         }
 
         private void InteractWithBuilding(Building building)

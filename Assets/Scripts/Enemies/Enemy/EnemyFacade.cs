@@ -36,6 +36,8 @@ namespace Enemies.Enemy
             _enemyBehavior = GetComponent<EnemyBehavior>();
         }
 
+        public bool Alive => !_died;
+
         private void OnEnable()
         {
             _health.HealthChange += OnHealthChange;

@@ -16,10 +16,11 @@ MonoBehaviour:
   _unitSpecForUnits:
     Heal: 3
     SpeedPerSecond: 0
-  _canInteractWithEnemies: 0
+  _canInteractWithEnemies: 1
   _unitSpecForEnemies:
-    Damage: 0
-    SpeedPerSecond: 0
+    Damage: 18
+    InteractionDistance: 3
+    SpeedPerSecond: 1
   _canInteractWithResources: 1
   _unitSpecForResources:
     Resources:

@@ -6,6 +6,7 @@ namespace Units.Unit.UnitTypes.UnitSpecs
     public class UnitSpecForEnemies
     {
         public int Damage;
+        public float InteractionDistance;
         public float SpeedPerSecond;
     }
 }

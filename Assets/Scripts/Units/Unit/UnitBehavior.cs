@@ -10,6 +10,7 @@ using UnityEngine;
 namespace Units.Unit
 {
     [RequireComponent(typeof(UnitMeshAgent))]
+    [RequireComponent(typeof(UnitClass))]
     public class UnitBehavior : MonoBehaviour
     {
         [MinValue(0)]
@@ -31,6 +32,7 @@ namespace Units.Unit
         private Root _behaviorTree;
 
         private UnitMeshAgent _unitMeshAgent;
+        private UnitClass _unitClass;
 
         private OrderMark _currentOrderMark;
 
@@ -39,6 +41,7 @@ namespace Units.Unit
         private void Awake()
         {
             _unitMeshAgent = GetComponent<UnitMeshAgent>();
+            _unitClass = GetComponent<UnitClass>();
         }
 
         private void OnDestroy()
@@ -132,7 +135,7 @@ namespace Units.Unit
             _behaviorTree = new Root(
                 new Selector(
                     new BlackboardCondition(NewCommandKey, Operator.IS_SET, Stops.LOWER_PRIORITY,
-                        new ResetBehavior(NewCommandKey, UnitClassKey)
+                        new ResetBehavior(NewCommandKey, _unitClass)
                     ),
                     new Selector(
                         new BlackboardCondition(PositionKey, Operator.IS_SET, Stops.NONE,
@@ -142,7 +145,7 @@ namespace Units.Unit
                                 new Sequence(
                                     new MoveToEntity(EntityKey, _unitMeshAgent),
                                     new RotateToEntity(EntityKey, _unitMeshAgent),
-                                    new InteractWithEntity(EntityKey, UnitClassKey),
+                                    new InteractWithEntity(EntityKey, _unitClass),
                                     new FindNewEntity(EntityKey, transform, _seekRadius)
                                 )
                             )

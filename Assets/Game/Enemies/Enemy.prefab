@@ -2389,8 +2389,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _walkMinRadius: 3
   _walkMaxRadius: 8
-  _waitTime: 3
-  _waitVariance: 1.5
+  _waitTime: 5
+  _waitVariance: 1
 --- !u!1 &5514773472191503061
 GameObject:
   m_ObjectHideFlags: 0

@@ -7,15 +7,14 @@ namespace Units.Unit.BehaviorNodes
     public class InteractWithEntity : Node
     {
         private readonly string _entityKey;
-        private readonly string _unitClassKey;
+        private readonly UnitClass _unitClass;
 
         private Entity _entity;
-        private UnitClass _unitClass;
 
-        public InteractWithEntity(string entityKey, string unitClassKey) : base("InteractWithEntity")
+        public InteractWithEntity(string entityKey, UnitClass unitClass) : base("InteractWithEntity")
         {
             _entityKey = entityKey;
-            _unitClassKey = unitClassKey;
+            _unitClass = unitClass;
         }
 
         protected override void DoStart()
@@ -40,7 +39,6 @@ namespace Units.Unit.BehaviorNodes
         private bool CanInteract(Entity entity)
         {
             _entity = entity;
-            _unitClass = Blackboard.Get<UnitClass>(_unitClassKey);
 
             return _unitClass.CanInteractWith(_entity);
         }

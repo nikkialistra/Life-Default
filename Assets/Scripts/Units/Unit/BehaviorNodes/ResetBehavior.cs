@@ -6,12 +6,12 @@ namespace Units.Unit.BehaviorNodes
     public class ResetBehavior : Node
     {
         private readonly string _newCommandKey;
-        private readonly string _unitClassKey;
+        private readonly UnitClass _unitClass;
 
-        public ResetBehavior(string newCommandKey, string unitClassKey) : base("ResetBehavior")
+        public ResetBehavior(string newCommandKey, UnitClass unitClass) : base("ResetBehavior")
         {
             _newCommandKey = newCommandKey;
-            _unitClassKey = unitClassKey;
+            _unitClass = unitClass;
         }
 
         protected override void DoStart()
@@ -24,8 +24,7 @@ namespace Units.Unit.BehaviorNodes
         {
             Blackboard.Unset(_newCommandKey);
 
-            var unitClass = Blackboard.Get<UnitClass>(_unitClassKey);
-            unitClass.StopInteraction();
+            _unitClass.StopInteraction();
         }
 
         protected override void DoStop()

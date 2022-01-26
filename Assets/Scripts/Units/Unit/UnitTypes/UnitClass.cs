@@ -104,11 +104,11 @@ namespace Units.Unit.UnitTypes
         {
             _unitAnimator.InteractWithResource();
 
-            while (enemy.Alive)
+            while (CanInteract(enemy, unitSpecForEnemies))
             {
                 yield return new WaitForSeconds(1f / unitSpecForEnemies.SpeedPerSecond);
 
-                if (!enemy.Alive)
+                if (!CanInteract(enemy, unitSpecForEnemies))
                 {
                     break;
                 }
@@ -118,6 +118,12 @@ namespace Units.Unit.UnitTypes
 
             _unitAnimator.StopInteractWithResource();
             _onInteractionFinish();
+        }
+
+        private bool CanInteract(EnemyFacade enemy, UnitSpecForEnemies unitSpecForEnemies)
+        {
+            return enemy.Alive && Vector3.Distance(transform.position, enemy.transform.position) <
+                unitSpecForEnemies.InteractionDistance;
         }
 
         private void InteractWithBuilding(Building building)

@@ -54,7 +54,7 @@
             </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>
-    <ui:VisualElement name="loading-screen" class="loading-screen" style="visibility: hidden;">
+    <ui:VisualElement name="loading-screen" class="loading-screen">
         <ui:Label text="Loading..." display-tooltip-when-elided="true" name="loading" class="loading"/>
     </ui:VisualElement>
 </ui:UXML>

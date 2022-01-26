@@ -80,6 +80,8 @@ namespace MapGeneration.Map
             }
         }
 
+#if UNITY_EDITOR
+
         private void OnValidate()
         {
             if (_meshSettings != null)
@@ -94,5 +96,7 @@ namespace MapGeneration.Map
                 _heightMapSettings.OnValuesUpdated += OnValuesUpdated;
             }
         }
+
+#endif
     }
 }

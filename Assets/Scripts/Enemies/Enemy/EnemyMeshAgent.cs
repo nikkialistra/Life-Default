@@ -1,7 +1,5 @@
-﻿using System;
-using Entities.Entity;
+﻿using Entities.Entity;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 namespace Enemies.Enemy
 {
@@ -10,14 +8,13 @@ namespace Enemies.Enemy
     {
         private EntityMeshAgent _entityMeshAgent;
 
-        public event Action DestinationReach;
-
         private void Awake()
         {
             _entityMeshAgent = GetComponent<EntityMeshAgent>();
         }
 
         public float Velocity => _entityMeshAgent.Velocity;
+        public bool Idle { get; private set; } = true;
 
         private void OnEnable()
         {
@@ -34,23 +31,15 @@ namespace Enemies.Enemy
             _entityMeshAgent.StopCurrentCommand();
         }
 
-        public void GoInRadius(float minRadius, float maxRadius)
+        public void GoToPosition(Vector3 position)
         {
-            var randomPosition = transform.position + RandomPointOnCircle(minRadius, maxRadius);
-
-            _entityMeshAgent.SetDestinationToPosition(randomPosition);
-        }
-
-        private static Vector3 RandomPointOnCircle(float minRadius, float maxRadius)
-        {
-            var distance = Random.Range(minRadius, maxRadius);
-            var point = Random.insideUnitCircle.normalized * distance;
-            return new Vector3(point.x, 0, point.y);
+            Idle = false;
+            _entityMeshAgent.SetDestinationToPosition(position);
         }
 
         private void OnDestinationReach()
         {
-            DestinationReach?.Invoke();
+            Idle = true;
         }
     }
 }

@@ -17,11 +17,12 @@ Used Graphics:
 
 - [Kenney Character Assets](https://kenney.itch.io/kenney-character-assets)
 - [UI Pack: RPG Expansion](https://www.kenney.nl/assets/ui-pack-rpg-expansion)
+- [LowPoly Environment Pack](https://assetstore.unity.com/packages/3d/environments/landscapes/lowpoly-environment-pack-99479)
 
 ## Built With ##
 
 * [UNITY](https://unity.com/) - 3D Game Engine
 
 ## Author ##
-**Nikki Alistra** - https://github.com/nikkialistra
+- **Nikki Alistra** - https://github.com/nikkialistra
 

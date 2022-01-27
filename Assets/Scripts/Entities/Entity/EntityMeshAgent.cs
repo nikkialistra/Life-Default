@@ -23,6 +23,11 @@ namespace Entities.Entity
             _aiPath = GetComponent<AIPath>();
         }
 
+        private void Start()
+        {
+            _aiPath.isStopped = true;
+        }
+
         public event Action DestinationReach;
         public event Action RotationEnd;
 
@@ -73,6 +78,11 @@ namespace Entities.Entity
 
         public void RotateTo(Vector3 position)
         {
+            if (_rotatingToCoroutine != null)
+            {
+                StopCoroutine(_rotatingToCoroutine);
+            }
+
             _rotatingToCoroutine = StartCoroutine(RotatingTo(position));
         }
 
@@ -93,6 +103,7 @@ namespace Entities.Entity
                 yield return null;
             }
 
+            _aiPath.isStopped = true;
             DestinationReach?.Invoke();
         }
 
@@ -103,26 +114,12 @@ namespace Entities.Entity
 
         private bool IsMovingToEntity()
         {
-            if (Vector3.Distance(transform.position, _aiPath.destination) > _interactionDistance)
-            {
-                return true;
-            }
-
-            _aiPath.isStopped = true;
-
-            return false;
+            return Vector3.Distance(transform.position, _aiPath.destination) > _interactionDistance;
         }
 
         private bool IsMovingToPosition()
         {
-            if (!_aiPath.reachedDestination)
-            {
-                return true;
-            }
-
-            _aiPath.isStopped = true;
-
-            return false;
+            return !_aiPath.reachedDestination;
         }
 
         private IEnumerator RotatingTo(Vector3 targetPosition)

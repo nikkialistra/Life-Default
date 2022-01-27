@@ -1,4 +1,5 @@
 ﻿using System;
+using BehaviorDesigner.Runtime;
 using Entities.Entity;
 using Entities.Entity.Ancillaries;
 using Sirenix.OdinInspector;
@@ -10,7 +11,7 @@ namespace Enemies.Enemy
     [RequireComponent(typeof(EntityHealth))]
     [RequireComponent(typeof(EnemyAnimator))]
     [RequireComponent(typeof(EnemyMeshAgent))]
-    [RequireComponent(typeof(EnemyBehavior))]
+    [RequireComponent(typeof(BehaviorTree))]
     public class EnemyFacade : MonoBehaviour, IPoolable<EnemyType, Vector3, IMemoryPool>, IDisposable
     {
         [Required]
@@ -24,7 +25,7 @@ namespace Enemies.Enemy
         private EntityHealth _health;
         private EnemyAnimator _enemyAnimator;
         private EnemyMeshAgent _enemyMeshAgent;
-        private EnemyBehavior _enemyBehavior;
+        private BehaviorTree _behaviorTree;
 
         private IMemoryPool _pool;
 
@@ -32,8 +33,7 @@ namespace Enemies.Enemy
         {
             _health = GetComponent<EntityHealth>();
             _enemyAnimator = GetComponent<EnemyAnimator>();
-            _enemyMeshAgent = GetComponent<EnemyMeshAgent>();
-            _enemyBehavior = GetComponent<EnemyBehavior>();
+            _behaviorTree = GetComponent<BehaviorTree>();
         }
 
         public bool Alive => !_died;
@@ -82,7 +82,7 @@ namespace Enemies.Enemy
             _died = true;
 
             _enemyMeshAgent.Deactivate();
-            _enemyBehavior.StopBehaviorTree();
+            _behaviorTree.DisableBehavior();
 
             _enemyAnimator.Die(DestroySelf);
         }
@@ -99,8 +99,7 @@ namespace Enemies.Enemy
 
         private void InitializeComponents()
         {
-            _enemyBehavior.Initialize();
-            _enemyBehavior.StartBehaviorTree();
+            _behaviorTree.EnableBehavior();
         }
 
         private void DestroySelf()

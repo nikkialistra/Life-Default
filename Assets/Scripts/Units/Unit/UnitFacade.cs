@@ -95,7 +95,6 @@ namespace Units.Unit
             _unitAppearance.SwitchTo(unitType);
 
             _unitClass.ChangeUnitType(unitType);
-            _unitBehavior.ChangeUnitClass(_unitClass);
         }
 
         [Button(ButtonSizes.Large)]
@@ -170,7 +169,7 @@ namespace Units.Unit
             Stop();
 
             _unitMeshAgent.Deactivate();
-            _unitBehavior.StopBehaviorTree();
+            _unitBehavior.Disable();
 
             Deselect();
 
@@ -203,9 +202,7 @@ namespace Units.Unit
 
             _unitClass.ChangeUnitType(_unitType);
 
-            _unitBehavior.Initialize();
-            _unitBehavior.ChangeUnitClass(_unitClass);
-            _unitBehavior.StartBehaviorTree();
+            _unitBehavior.Enable();
         }
 
         private void DestroySelf()

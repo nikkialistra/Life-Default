@@ -5,31 +5,31 @@ namespace Enemies.Enemy.BehaviorNodes
 {
     public class Wander : Action
     {
-        public float _minWanderDistance = 5;
-        public float _maxWanderDistance = 10;
+        public float MinWanderDistance = 5;
+        public float MaxWanderDistance = 10;
 
-        public float _wanderRate = 3;
+        public float WanderRate = 3;
 
-        public float _minPauseDuration = 0;
-        public float _maxPauseDuration = 0;
+        public float MinPauseDuration = 0;
+        public float MaxPauseDuration = 0;
 
-        public EnemyMeshAgent _enemyMeshAgent;
+        public EnemyMeshAgent EnemyMeshAgent;
 
         private float _setTargetTime = float.PositiveInfinity;
 
         public override void OnStart()
         {
-            if (_maxPauseDuration < _minPauseDuration)
+            if (MaxPauseDuration < MinPauseDuration)
             {
-                _maxPauseDuration = _minPauseDuration;
+                MaxPauseDuration = MinPauseDuration;
             }
         }
 
         public override TaskStatus OnUpdate()
         {
-            if (_enemyMeshAgent.Idle)
+            if (EnemyMeshAgent.Idle)
             {
-                if (_maxPauseDuration > 0)
+                if (MaxPauseDuration > 0)
                 {
                     InitPause();
                     SetTargetAfterPause();
@@ -50,7 +50,7 @@ namespace Enemies.Enemy.BehaviorNodes
                 return;
             }
 
-            _setTargetTime = Time.time + Random.Range(_minPauseDuration, _maxPauseDuration);
+            _setTargetTime = Time.time + Random.Range(MinPauseDuration, MaxPauseDuration);
         }
 
         private void SetTargetAfterPause()
@@ -66,12 +66,12 @@ namespace Enemies.Enemy.BehaviorNodes
 
         private void SetTarget()
         {
-            var randomDirection = Random.insideUnitCircle * _wanderRate;
+            var randomDirection = Random.insideUnitCircle * WanderRate;
             var wanderDirection = transform.forward + new Vector3(randomDirection.x, 0, randomDirection.y);
             var destination = transform.position +
-                              wanderDirection.normalized * Random.Range(_minWanderDistance, _maxWanderDistance);
+                              wanderDirection.normalized * Random.Range(MinWanderDistance, MaxWanderDistance);
 
-            _enemyMeshAgent.GoToPosition(destination);
+            EnemyMeshAgent.GoToPosition(destination);
         }
     }
 }

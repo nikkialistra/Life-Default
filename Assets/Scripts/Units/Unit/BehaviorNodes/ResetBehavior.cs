@@ -1,35 +1,22 @@
-﻿using NPBehave;
+﻿using BehaviorDesigner.Runtime;
+using BehaviorDesigner.Runtime.Tasks;
 using Units.Unit.UnitTypes;
 
 namespace Units.Unit.BehaviorNodes
 {
-    public class ResetBehavior : Node
+    public class ResetBehavior : Action
     {
-        private readonly string _newCommandKey;
-        private readonly UnitClass _unitClass;
+        public SharedBool NewCommand;
 
-        public ResetBehavior(string newCommandKey, UnitClass unitClass) : base("ResetBehavior")
+        public UnitClass UnitClass;
+
+        public override TaskStatus OnUpdate()
         {
-            _newCommandKey = newCommandKey;
-            _unitClass = unitClass;
-        }
+            NewCommand.Value = false;
 
-        protected override void DoStart()
-        {
-            Reset();
-            Stopped(true);
-        }
+            UnitClass.StopInteraction();
 
-        private void Reset()
-        {
-            Blackboard.Unset(_newCommandKey);
-
-            _unitClass.StopInteraction();
-        }
-
-        protected override void DoStop()
-        {
-            Stopped(false);
+            return TaskStatus.Success;
         }
     }
 }

@@ -1,9 +1,5 @@
-﻿using System;
+﻿using BehaviorDesigner.Runtime;
 using Entities.Entity;
-using NPBehave;
-using Sirenix.OdinInspector;
-using UnitManagement.Targeting;
-using Units.Unit.BehaviorNodes;
 using Units.Unit.UnitTypes;
 using UnityEngine;
 
@@ -11,93 +7,46 @@ namespace Units.Unit
 {
     [RequireComponent(typeof(UnitMeshAgent))]
     [RequireComponent(typeof(UnitClass))]
+    [RequireComponent(typeof(BehaviorTree))]
     public class UnitBehavior : MonoBehaviour
     {
-        [MinValue(0)]
-        [SerializeField] private float _seekRadius;
-
-        [MinValue(0)]
-        [SerializeField] private float _reactionSpeed;
-        [MinValue(0)]
-        [SerializeField] private float _viewRadius;
-
-
-        private const string NewCommandKey = "newCommand";
-
-        private const string PositionKey = "desiredPosition";
-        private const string EntityKey = "entity";
-
-        private const string UnitClassKey = "unitType";
-
-        private Root _behaviorTree;
+        private BehaviorTree _behaviorTree;
 
         private UnitMeshAgent _unitMeshAgent;
-        private UnitClass _unitClass;
 
-        private OrderMark _currentOrderMark;
-
-        private bool _initialized;
+        private SharedBool _newCommand;
+        private SharedVector3 _position;
+        private SharedEntity _entity;
 
         private void Awake()
         {
             _unitMeshAgent = GetComponent<UnitMeshAgent>();
-            _unitClass = GetComponent<UnitClass>();
+            _behaviorTree = GetComponent<BehaviorTree>();
         }
 
-        private void OnDestroy()
+        private void Start()
         {
-            StopBehaviorTree();
+            _newCommand = (SharedBool)_behaviorTree.GetVariable("NewCommand");
+            _position = (SharedVector3)_behaviorTree.GetVariable("Position");
+            _entity = (SharedEntity)_behaviorTree.GetVariable("Entity");
         }
 
-        public void Initialize()
+        public void Enable()
         {
-            if (_initialized)
-            {
-                return;
-            }
-
-            ConstructBehaviorTree();
-            _initialized = true;
-
-#if UNITY_EDITOR
-
-            var debugger = (Debugger)gameObject.AddComponent(typeof(Debugger));
-            debugger.BehaviorTree = _behaviorTree;
-#endif
+            _behaviorTree.EnableBehavior();
         }
 
-        public void StartBehaviorTree()
+        public void Disable()
         {
-            if (!_initialized)
-            {
-                throw new InvalidOperationException("Cannot use behavior tree before initialization");
-            }
-
-            if (_behaviorTree is { CurrentState: Node.State.INACTIVE })
-            {
-                _behaviorTree.Start();
-            }
-        }
-
-        public void StopBehaviorTree()
-        {
-            if (_behaviorTree is { CurrentState: Node.State.ACTIVE })
-            {
-                _behaviorTree.Stop();
-            }
-        }
-
-        public void ChangeUnitClass(UnitClass unitClass)
-        {
-            _behaviorTree.Blackboard.Set(UnitClassKey, unitClass);
+            _behaviorTree.DisableBehavior();
         }
 
         public void Stop()
         {
-            _behaviorTree.Blackboard.Unset(PositionKey);
-            _behaviorTree.Blackboard.Unset(EntityKey);
+            _entity.Value = null;
+            _position.Value = Vector3.negativeInfinity;
 
-            _behaviorTree.Blackboard.Set(NewCommandKey, true);
+            _newCommand.Value = true;
         }
 
         public bool TryOrderToEntity(Entity entity)
@@ -107,10 +56,10 @@ namespace Units.Unit
                 return false;
             }
 
-            _behaviorTree.Blackboard.Unset(PositionKey);
+            _entity.Value = entity;
+            _position.Value = Vector3.negativeInfinity;
 
-            _behaviorTree.Blackboard.Set(EntityKey, entity);
-            _behaviorTree.Blackboard.Set(NewCommandKey, true);
+            _newCommand.Value = true;
 
             return true;
         }
@@ -122,43 +71,12 @@ namespace Units.Unit
                 return false;
             }
 
-            _behaviorTree.Blackboard.Unset(EntityKey);
+            _entity.Value = null;
+            _position.Value = position;
 
-            _behaviorTree.Blackboard.Set(PositionKey, position);
-            _behaviorTree.Blackboard.Set(NewCommandKey, true);
+            _newCommand.Value = true;
 
             return true;
-        }
-
-        private void ConstructBehaviorTree()
-        {
-            _behaviorTree = new Root(
-                new Selector(
-                    new BlackboardCondition(NewCommandKey, Operator.IS_SET, Stops.LOWER_PRIORITY,
-                        new ResetBehavior(NewCommandKey, _unitClass)
-                    ),
-                    new Selector(
-                        new BlackboardCondition(PositionKey, Operator.IS_SET, Stops.NONE,
-                            new MoveToPosition(PositionKey, _unitMeshAgent)),
-                        new BlackboardCondition(EntityKey, Operator.IS_SET, Stops.NONE,
-                            new Repeater(
-                                new Sequence(
-                                    new MoveToEntity(EntityKey, _unitMeshAgent),
-                                    new RotateToEntity(EntityKey, _unitMeshAgent),
-                                    new InteractWithEntity(EntityKey, _unitClass),
-                                    new FindNewEntity(EntityKey, transform, _seekRadius)
-                                )
-                            )
-                        )
-                    ),
-                    new Repeater(
-                        new Sequence(
-                            new Wait(_reactionSpeed),
-                            new FindEnemy(EntityKey, transform, _viewRadius)
-                        )
-                    )
-                )
-            );
         }
     }
 }

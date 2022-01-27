@@ -18,21 +18,21 @@ namespace Units.Unit
         private SharedVector3 _position;
         private SharedEntity _entity;
 
+        private bool _initialized;
+
         private void Awake()
         {
             _unitMeshAgent = GetComponent<UnitMeshAgent>();
             _behaviorTree = GetComponent<BehaviorTree>();
         }
 
-        private void Start()
-        {
-            _newCommand = (SharedBool)_behaviorTree.GetVariable("NewCommand");
-            _position = (SharedVector3)_behaviorTree.GetVariable("Position");
-            _entity = (SharedEntity)_behaviorTree.GetVariable("Entity");
-        }
-
         public void Enable()
         {
+            if (!_initialized)
+            {
+                Initialize();
+            }
+
             _behaviorTree.EnableBehavior();
         }
 
@@ -77,6 +77,17 @@ namespace Units.Unit
             _newCommand.Value = true;
 
             return true;
+        }
+
+        private void Initialize()
+        {
+            _newCommand = (SharedBool)_behaviorTree.GetVariable("NewCommand");
+            _position = (SharedVector3)_behaviorTree.GetVariable("Position");
+            _entity = (SharedEntity)_behaviorTree.GetVariable("Entity");
+
+            _position.Value = Vector3.negativeInfinity;
+
+            _initialized = true;
         }
     }
 }

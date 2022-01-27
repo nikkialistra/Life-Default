@@ -1,68 +1,40 @@
-﻿using Entities.Entity;
-using NPBehave;
+﻿using BehaviorDesigner.Runtime.Tasks;
+using Entities.Entity;
 using UnityEngine;
 
 namespace Units.Unit.BehaviorNodes
 {
-    public class FindNewEntity : Node
+    public class FindNewEntity : Action
     {
+        public SharedEntity Entity;
+
+        public float SeekRadius;
+
         private readonly int _entityMask = LayerMask.GetMask("Units", "Enemies", "Buildings", "Resources");
-
-        private readonly string _entityKey;
-        private readonly float _seekRadius;
-
-        private readonly Transform _transform;
-
         private readonly Collider[] _hits = new Collider[20];
 
         private Entity _oldEntity;
 
         private float _shortestDistanceToEntity = float.PositiveInfinity;
-        private Entity _newEntity;
 
-        public FindNewEntity(string entityKey, Transform transform, float seekRadius) : base("FindNewEntity")
+        public override void OnStart()
         {
-            _entityKey = entityKey;
-            _transform = transform;
-            _seekRadius = seekRadius;
-        }
+            _oldEntity = Entity.Value;
 
-        protected override void DoStart()
-        {
-            if (!Blackboard.Isset(_entityKey))
-            {
-                Stopped(false);
-                return;
-            }
-
-            _oldEntity = Blackboard.Get<Entity>(_entityKey);
-
-            Blackboard.Unset(_entityKey);
-
-            FindEntity();
-
-            if (_newEntity != null)
-            {
-                Blackboard.Set(_entityKey, _newEntity);
-                ResetData();
-                Stopped(true);
-            }
-            else
-            {
-                ResetData();
-                Stopped(false);
-            }
-        }
-
-        private void ResetData()
-        {
             _shortestDistanceToEntity = float.PositiveInfinity;
-            _newEntity = null;
+            Entity.Value = null;
         }
 
-        private void FindEntity()
+        public override TaskStatus OnUpdate()
         {
-            var quantity = Physics.OverlapSphereNonAlloc(_transform.position, _seekRadius, _hits, _entityMask);
+            TryToFind();
+
+            return Entity.Value != null ? TaskStatus.Success : TaskStatus.Failure;
+        }
+
+        private void TryToFind()
+        {
+            var quantity = Physics.OverlapSphereNonAlloc(transform.position, SeekRadius, _hits, _entityMask);
             for (var i = 0; i < quantity; i++)
             {
                 var hit = _hits[i];
@@ -103,7 +75,7 @@ namespace Units.Unit.BehaviorNodes
 
         private void SetIfClosest(Entity entity)
         {
-            var distanceToEntity = Vector3.Distance(_transform.position, entity.transform.position);
+            var distanceToEntity = Vector3.Distance(transform.position, entity.transform.position);
 
             if (distanceToEntity > _shortestDistanceToEntity)
             {
@@ -111,12 +83,7 @@ namespace Units.Unit.BehaviorNodes
             }
 
             _shortestDistanceToEntity = distanceToEntity;
-            _newEntity = entity;
-        }
-
-        protected override void DoStop()
-        {
-            Stopped(false);
+            Entity.Value = entity;
         }
     }
 }

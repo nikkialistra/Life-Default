@@ -1,44 +1,33 @@
-﻿using Entities.Entity;
-using NPBehave;
+﻿using BehaviorDesigner.Runtime.Tasks;
+using Entities.Entity;
 
 namespace Units.Unit.BehaviorNodes
 {
-    public class MoveToEntity : Node
+    public class MoveToEntity : Action
     {
-        private readonly string _entityKey;
-        private readonly UnitMeshAgent _unitMeshAgent;
+        public SharedEntity Entity;
 
-        public MoveToEntity(string entityKey, UnitMeshAgent unitMeshAgent) : base("MoveToEntity")
+        public UnitMeshAgent UnitMeshAgent;
+
+        private bool _finished;
+
+        public override void OnStart()
         {
-            _entityKey = entityKey;
-            _unitMeshAgent = unitMeshAgent;
+            _finished = false;
+
+            UnitMeshAgent.DestinationReach += OnDestinationReach;
+            UnitMeshAgent.SetDestinationToEntity(Entity.Value);
         }
 
-        protected override void DoStart()
+        public override TaskStatus OnUpdate()
         {
-            if (!Blackboard.Isset(_entityKey))
-            {
-                Stopped(false);
-                return;
-            }
-
-            var entity = Blackboard.Get<Entity>(_entityKey);
-
-            _unitMeshAgent.DestinationReach += OnDestinationReach;
-            _unitMeshAgent.SetDestinationToEntity(entity.transform.position);
+            return _finished ? TaskStatus.Success : TaskStatus.Failure;
         }
 
         private void OnDestinationReach()
         {
-            _unitMeshAgent.DestinationReach -= OnDestinationReach;
-            Stopped(true);
-        }
-
-        protected override void DoStop()
-        {
-            _unitMeshAgent.DestinationReach -= OnDestinationReach;
-            _unitMeshAgent.StopMoving();
-            Stopped(false);
+            UnitMeshAgent.DestinationReach -= OnDestinationReach;
+            _finished = true;
         }
     }
 }

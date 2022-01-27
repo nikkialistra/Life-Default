@@ -1,44 +1,38 @@
-﻿using Entities.Entity;
-using NPBehave;
+using BehaviorDesigner.Runtime.Tasks;
+using Entities.Entity;
 
 namespace Units.Unit.BehaviorNodes
 {
-    public class RotateToEntity : Node
+    public class RotateToEntity : Action
     {
-        private readonly string _entityKey;
-        private readonly UnitMeshAgent _unitMeshAgent;
+        public SharedEntity Entity;
 
-        public RotateToEntity(string entityKey, UnitMeshAgent unitMeshAgent) : base("RotateToEntity")
+        public UnitMeshAgent UnitMeshAgent;
+
+        private bool _finished;
+
+        public override void OnStart()
         {
-            _entityKey = entityKey;
-            _unitMeshAgent = unitMeshAgent;
+            _finished = false;
+
+            UnitMeshAgent.RotationEnd += OnRotationEnd;
+            UnitMeshAgent.SetDestinationToEntity(Entity.Value);
         }
 
-        protected override void DoStart()
+        public override TaskStatus OnUpdate()
         {
-            if (!Blackboard.Isset(_entityKey))
-            {
-                Stopped(false);
-                return;
-            }
+            return _finished ? TaskStatus.Success : TaskStatus.Failure;
+        }
 
-            var entity = Blackboard.Get<Entity>(_entityKey);
-
-            _unitMeshAgent.RotationEnd += OnRotationEnd;
-            _unitMeshAgent.RotateTo(entity);
+        public override void OnEnd()
+        {
+            UnitMeshAgent.StopRotating();
         }
 
         private void OnRotationEnd()
         {
-            _unitMeshAgent.RotationEnd -= OnRotationEnd;
-            Stopped(true);
-        }
-
-        protected override void DoStop()
-        {
-            _unitMeshAgent.RotationEnd -= OnRotationEnd;
-            _unitMeshAgent.StopRotating();
-            Stopped(false);
+            UnitMeshAgent.RotationEnd -= OnRotationEnd;
+            _finished = true;
         }
     }
 }

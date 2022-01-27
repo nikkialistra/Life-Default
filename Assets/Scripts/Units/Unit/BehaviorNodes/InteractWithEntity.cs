@@ -1,61 +1,40 @@
-﻿using Entities.Entity;
-using NPBehave;
+﻿using BehaviorDesigner.Runtime.Tasks;
+using Entities.Entity;
 using Units.Unit.UnitTypes;
 
 namespace Units.Unit.BehaviorNodes
 {
-    public class InteractWithEntity : Node
+    public class InteractWithEntity : Action
     {
-        private readonly string _entityKey;
-        private readonly UnitClass _unitClass;
+        public SharedEntity Entity;
 
-        private Entity _entity;
+        public UnitMeshAgent UnitMeshAgent;
+        public UnitClass UnitClass;
 
-        public InteractWithEntity(string entityKey, UnitClass unitClass) : base("InteractWithEntity")
+        private bool _finished;
+
+        public override void OnStart()
         {
-            _entityKey = entityKey;
-            _unitClass = unitClass;
-        }
+            _finished = false;
 
-        protected override void DoStart()
-        {
-            if (!Blackboard.Isset(_entityKey))
+            if (!UnitClass.CanInteractWith(Entity.Value))
             {
-                Stopped(false);
-                return;
+                _finished = true;
             }
-
-            var entity = Blackboard.Get<Entity>(_entityKey);
-
-            if (!CanInteract(entity))
+            else
             {
-                Stopped(false);
-                return;
+                UnitClass.InteractWith(Entity.Value, OnInteractionFinish);
             }
-
-            Interact();
         }
 
-        private bool CanInteract(Entity entity)
+        public override TaskStatus OnUpdate()
         {
-            _entity = entity;
-
-            return _unitClass.CanInteractWith(_entity);
-        }
-
-        private void Interact()
-        {
-            _unitClass.InteractWith(_entity, OnInteractionFinish);
+            return _finished ? TaskStatus.Success : TaskStatus.Failure;
         }
 
         private void OnInteractionFinish()
         {
-            Stopped(true);
-        }
-
-        protected override void DoStop()
-        {
-            Stopped(false);
+            _finished = true;
         }
     }
 }

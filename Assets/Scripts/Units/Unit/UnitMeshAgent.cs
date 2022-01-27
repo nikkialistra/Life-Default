@@ -41,11 +41,11 @@ namespace Units.Unit
             _entityMeshAgent.SetDestinationToPosition(position);
         }
 
-        public void SetDestinationToEntity(Vector3 position)
+        public void SetDestinationToEntity(Entity entity)
         {
             _hasPendingOrder = false;
 
-            _entityMeshAgent.SetDestinationToEntity(position);
+            _entityMeshAgent.SetDestinationToEntity(entity);
         }
 
         public bool AcceptOrder()

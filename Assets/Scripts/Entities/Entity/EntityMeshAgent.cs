@@ -35,14 +35,20 @@ namespace Entities.Entity
 
         public void SetDestinationToPosition(Vector3 position)
         {
+            _aiPath.isStopped = false;
+            _aiPath.destination = position;
+
             _movingToEntity = false;
-            SetDestination(position);
+            Move();
         }
 
-        public void SetDestinationToEntity(Vector3 position)
+        public void SetDestinationToEntity(Entity entity)
         {
+            _aiPath.isStopped = false;
+            _aiPath.destination = entity.transform.position;
+
             _movingToEntity = true;
-            SetDestination(position);
+            Move();
         }
 
         public void StopMoving()
@@ -67,13 +73,6 @@ namespace Entities.Entity
             {
                 StopCoroutine(_rotatingToCoroutine);
             }
-        }
-
-        private void SetDestination(Vector3 position)
-        {
-            _aiPath.isStopped = false;
-            _aiPath.destination = position;
-            Move();
         }
 
         public void RotateTo(Vector3 position)

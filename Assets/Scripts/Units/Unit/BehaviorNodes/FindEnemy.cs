@@ -1,55 +1,36 @@
-﻿using Entities.Entity;
-using NPBehave;
+﻿using BehaviorDesigner.Runtime.Tasks;
+using Entities.Entity;
 using UnityEngine;
 
 namespace Units.Unit.BehaviorNodes
 {
-    public class FindEnemy : Node
+    public class FindEnemy : Action
     {
+        public SharedEntity Entity;
+
+        public float ViewRadius;
+
         private readonly int _entityMask = LayerMask.GetMask("Enemies");
-
-        private readonly string _entityKey;
-        private readonly Transform _transform;
-        private readonly float _viewRadius;
-
         private readonly Collider[] _hits = new Collider[20];
 
-        private float _shortestDistanceToEntity;
-        private Entity _newEntity;
+        private float _shortestDistanceToEnemy;
 
-        public FindEnemy(string entityKey, Transform transform, float viewRadius) : base("FindEnemy")
+        public override void OnStart()
         {
-            _entityKey = entityKey;
-            _transform = transform;
-            _viewRadius = viewRadius;
+            Entity.Value = null;
+            _shortestDistanceToEnemy = float.PositiveInfinity;
         }
 
-        protected override void DoStart()
+        public override TaskStatus OnUpdate()
         {
-            Find();
+            TryToFind();
 
-            if (_newEntity != null)
-            {
-                Blackboard.Set(_entityKey, _newEntity);
-                ResetData();
-                Stopped(false);
-            }
-            else
-            {
-                ResetData();
-                Stopped(true);
-            }
+            return Entity.Value != null ? TaskStatus.Success : TaskStatus.Failure;
         }
 
-        private void ResetData()
+        private void TryToFind()
         {
-            _shortestDistanceToEntity = float.PositiveInfinity;
-            _newEntity = null;
-        }
-
-        private void Find()
-        {
-            var quantity = Physics.OverlapSphereNonAlloc(_transform.position, _viewRadius, _hits, _entityMask);
+            var quantity = Physics.OverlapSphereNonAlloc(transform.position, ViewRadius, _hits, _entityMask);
             for (var i = 0; i < quantity; i++)
             {
                 var hit = _hits[i];
@@ -64,20 +45,15 @@ namespace Units.Unit.BehaviorNodes
 
         private void SetIfClosest(Entity entity)
         {
-            var distanceToEntity = Vector3.Distance(_transform.position, entity.transform.position);
+            var distanceToEntity = Vector3.Distance(transform.position, entity.transform.position);
 
-            if (distanceToEntity > _shortestDistanceToEntity)
+            if (distanceToEntity > _shortestDistanceToEnemy)
             {
                 return;
             }
 
-            _shortestDistanceToEntity = distanceToEntity;
-            _newEntity = entity;
-        }
-
-        protected override void DoStop()
-        {
-            Stopped(false);
+            _shortestDistanceToEnemy = distanceToEntity;
+            Entity = entity;
         }
     }
 }

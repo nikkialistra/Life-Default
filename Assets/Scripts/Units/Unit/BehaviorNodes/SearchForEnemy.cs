@@ -1,12 +1,14 @@
-﻿using BehaviorDesigner.Runtime.Tasks;
+﻿using BehaviorDesigner.Runtime;
+using BehaviorDesigner.Runtime.Tasks;
 using Entities.Entity;
 using UnityEngine;
 
 namespace Units.Unit.BehaviorNodes
 {
-    public class FindEnemy : Action
+    public class SearchForEnemy : Action
     {
         public SharedEntity Entity;
+        public SharedBool NewCommand;
 
         public float ViewRadius;
 
@@ -25,7 +27,12 @@ namespace Units.Unit.BehaviorNodes
         {
             TryToFind();
 
-            return Entity.Value != null ? TaskStatus.Success : TaskStatus.Failure;
+            if (Entity.Value != null)
+            {
+                NewCommand.Value = true;
+            }
+
+            return TaskStatus.Success;
         }
 
         private void TryToFind()
@@ -53,7 +60,7 @@ namespace Units.Unit.BehaviorNodes
             }
 
             _shortestDistanceToEnemy = distanceToEntity;
-            Entity = entity;
+            Entity.Value = entity;
         }
     }
 }

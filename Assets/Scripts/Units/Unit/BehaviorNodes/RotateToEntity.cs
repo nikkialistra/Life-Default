@@ -16,12 +16,12 @@ namespace Units.Unit.BehaviorNodes
             _finished = false;
 
             UnitMeshAgent.RotationEnd += OnRotationEnd;
-            UnitMeshAgent.SetDestinationToEntity(Entity.Value);
+            UnitMeshAgent.RotateTo(Entity.Value);
         }
 
         public override TaskStatus OnUpdate()
         {
-            return _finished ? TaskStatus.Success : TaskStatus.Failure;
+            return _finished ? TaskStatus.Success : TaskStatus.Running;
         }
 
         public override void OnEnd()

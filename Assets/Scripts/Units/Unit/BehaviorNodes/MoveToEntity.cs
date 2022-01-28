@@ -21,7 +21,7 @@ namespace Units.Unit.BehaviorNodes
 
         public override TaskStatus OnUpdate()
         {
-            return _finished ? TaskStatus.Success : TaskStatus.Failure;
+            return _finished ? TaskStatus.Success : TaskStatus.Running;
         }
 
         private void OnDestinationReach()

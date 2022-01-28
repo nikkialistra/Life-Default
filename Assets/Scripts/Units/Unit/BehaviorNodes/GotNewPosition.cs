@@ -1,6 +1,5 @@
 ﻿using BehaviorDesigner.Runtime;
 using BehaviorDesigner.Runtime.Tasks;
-using UnityEngine;
 
 namespace Units.Unit.BehaviorNodes
 {
@@ -10,7 +9,7 @@ namespace Units.Unit.BehaviorNodes
 
         public override TaskStatus OnUpdate()
         {
-            return Position.Value != Vector3.negativeInfinity ? TaskStatus.Success : TaskStatus.Failure;
+            return float.IsNegativeInfinity(Position.Value.x) ? TaskStatus.Failure : TaskStatus.Success;
         }
     }
 }

@@ -85,6 +85,11 @@ namespace Entities.Entity
             _rotatingToCoroutine = StartCoroutine(RotatingTo(position));
         }
 
+        public bool IsMoving()
+        {
+            return _movingToEntity ? IsMovingToEntity() : IsMovingToPosition();
+        }
+
         private void Move()
         {
             if (_movingCoroutine != null)
@@ -104,11 +109,6 @@ namespace Entities.Entity
 
             _aiPath.isStopped = true;
             DestinationReach?.Invoke();
-        }
-
-        private bool IsMoving()
-        {
-            return _movingToEntity ? IsMovingToEntity() : IsMovingToPosition();
         }
 
         private bool IsMovingToEntity()

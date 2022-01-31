@@ -11,6 +11,7 @@ namespace Enemies.Enemy
     [RequireComponent(typeof(EnemyAnimator))]
     [RequireComponent(typeof(EnemyMeshAgent))]
     [RequireComponent(typeof(EnemyBehavior))]
+    [RequireComponent(typeof(Entity))]
     public class EnemyFacade : MonoBehaviour, IPoolable<EnemyType, Vector3, IMemoryPool>, IDisposable
     {
         [Required]
@@ -33,8 +34,11 @@ namespace Enemies.Enemy
             _health = GetComponent<EntityHealth>();
             _enemyAnimator = GetComponent<EnemyAnimator>();
             _enemyBehavior = GetComponent<EnemyBehavior>();
+
+            Entity = GetComponent<Entity>();
         }
 
+        public Entity Entity { get; private set; }
         public bool Alive => !_died;
 
         private void OnEnable()

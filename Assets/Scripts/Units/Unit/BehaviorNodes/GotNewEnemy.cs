@@ -3,13 +3,13 @@ using Entities.Entity;
 
 namespace Units.Unit.BehaviorNodes
 {
-    public class GotNewEntity : Conditional
+    public class GotNewEnemy : Conditional
     {
-        public SharedResource Resource;
+        public SharedEnemy Enemy;
 
         public override TaskStatus OnUpdate()
         {
-            return Resource.Value != null ? TaskStatus.Success : TaskStatus.Failure;
+            return Enemy.Value != null ? TaskStatus.Success : TaskStatus.Failure;
         }
     }
 }

@@ -21,6 +21,7 @@ namespace Units.Unit
         public event Action RotationEnd;
 
         public float Velocity => _entityMeshAgent.Velocity;
+        public bool IsMoving => _entityMeshAgent.IsMoving();
 
         private void OnEnable()
         {

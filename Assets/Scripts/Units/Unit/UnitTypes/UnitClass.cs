@@ -122,6 +122,16 @@ namespace Units.Unit.UnitTypes
                 StartCoroutine(InteractingWithResource(resource, unitSpecForResource, onInteractionFinish));
         }
 
+        public float GetInteractionDistanceWith(EnemyFacade enemy)
+        {
+            if (!CanInteractWith(enemy))
+            {
+                throw new InvalidOperationException(CannotInteract);
+            }
+
+            return UnitTypeSpecs.GetSpecForEnemies().InteractionDistance;
+        }
+
         private IEnumerator InteractingWithEnemy(EnemyFacade enemy, UnitSpecForEnemies unitSpecForEnemies,
             Action onInteractionFinish)
         {

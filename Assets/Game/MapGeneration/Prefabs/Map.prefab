@@ -139,7 +139,6 @@ MonoBehaviour:
   _prefabs:
   - {fileID: 674063138338500664, guid: fd9eccc8f52b4f842a2daf6eec957685, type: 3}
   - {fileID: 8929730566369750931, guid: 63c7e525e23793748b72aaad4be5e816, type: 3}
-  _prefabParent: {fileID: 5052065526205256099}
 --- !u!1 &5052065526676053634
 GameObject:
   m_ObjectHideFlags: 0
@@ -172,6 +171,7 @@ Transform:
   - {fileID: 5052065525742440285}
   - {fileID: 5052065527054891189}
   - {fileID: 5052065526205256099}
+  - {fileID: 8806509863146215735}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -192,6 +192,7 @@ MonoBehaviour:
   _terrainObjectGenerators:
   - {fileID: 5052065527054891186}
   - {fileID: 5052065526205256096}
+  - {fileID: 7868273359907881430}
   _generated: 0
 --- !u!1 &5052065527054891188
 GameObject:
@@ -254,4 +255,63 @@ MonoBehaviour:
   - {fileID: 7180116611596015672, guid: 489fb1809e7238c4fa867365dc0eef8f, type: 3}
   - {fileID: 7364597769913905484, guid: 29869e203718af84196c765f414d0136, type: 3}
   - {fileID: 6807071143965519628, guid: 1fea344d8e5477f45b22e97a92f61ba9, type: 3}
-  _prefabParent: {fileID: 5052065527054891189}
+--- !u!1 &8965215018442331720
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8806509863146215735}
+  - component: {fileID: 7868273359907881430}
+  m_Layer: 0
+  m_Name: Gems
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8806509863146215735
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8965215018442331720}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -2.9228516, y: 21.280136, z: -40.40191}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5052065526676053635}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7868273359907881430
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8965215018442331720}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 203c4e855cae4d438011cd9580c3af59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _autoUpdate: 1
+  _xBounds: 250
+  _zBounds: 250
+  _minHeight: 2.3
+  _maxHeight: 2.5
+  _probability: 0.144
+  _probabilitySeed: 0
+  _dispersion: 0.0751
+  _dispersionOffset: 0
+  _pointInterval: 10
+  _pointVariation: 3
+  _rotationVariation: 30
+  _heightSetCorrection: -0.3
+  _prefabs:
+  - {fileID: 5450237013732007414, guid: a25ca79355bfc9b4c97871e7b5be6f86, type: 3}
+  - {fileID: 5450237013732007414, guid: 403772773a89e284e8cd5b9dbd33476e, type: 3}

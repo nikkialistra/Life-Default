@@ -19,13 +19,16 @@ MonoBehaviour:
   _canInteractWithEnemies: 0
   _unitSpecForEnemies:
     Damage: 0
+    InteractionDistance: 0
     SpeedPerSecond: 0
-  _canInteractWithResources: 0
+  _canInteractWithResources: 1
   _unitSpecForResources:
     Resources:
-      _keys: 01000000
+      _keys: 0300000002000000
       _values:
-      - Quantity: 2
+      - Quantity: 10
+        SpeedPerSecond: 1
+      - Quantity: 10
         SpeedPerSecond: 1
   _canInteractWithBuildings: 0
   _unitSpecForBuildings:

@@ -5,11 +5,11 @@ namespace Units.Unit.BehaviorNodes
 {
     public class GotNewEntity : Conditional
     {
-        public SharedEntity Entity;
+        public SharedResource Resource;
 
         public override TaskStatus OnUpdate()
         {
-            return Entity.Value != null ? TaskStatus.Success : TaskStatus.Failure;
+            return Resource.Value != null ? TaskStatus.Success : TaskStatus.Failure;
         }
     }
 }

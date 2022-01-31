@@ -25,8 +25,10 @@ namespace ResourceManagement
         private void Awake()
         {
             _collider = GetComponent<Collider>();
+            Entity = GetComponent<Entity>();
         }
 
+        public Entity Entity { get; private set; }
         public ResourceType ResourceType => _resourceType;
         public bool Exhausted => _quantity == 0;
 

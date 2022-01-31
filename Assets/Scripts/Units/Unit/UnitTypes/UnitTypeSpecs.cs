@@ -1,6 +1,6 @@
 ﻿using System;
 using Buildings;
-using Entities.Entity;
+using Enemies.Enemy;
 using ResourceManagement;
 using Sirenix.OdinInspector;
 using Units.Unit.UnitTypes.UnitSpecs;
@@ -29,26 +29,22 @@ namespace Units.Unit.UnitTypes
         [ShowIf("_canInteractWithBuildings")]
         [SerializeField] private UnitSpecForBuildings _unitSpecForBuildings;
 
-        public bool CanInteractWith(Entity entity)
+        public bool CanInteractWith(UnitFacade unit)
         {
-            var entityType = entity.EntityType;
-
-            return entityType switch
-            {
-                EntityType.Unit => _canInteractWithUnits,
-                EntityType.Enemy => _canInteractWithEnemies,
-                EntityType.Building => CanInteractWithBuilding(entity.Building),
-                EntityType.Resource => CanInteractWithResource(entity.Resource),
-                _ => throw new ArgumentOutOfRangeException(nameof(entityType))
-            };
+            return _canInteractWithUnits;
         }
 
-        private bool CanInteractWithBuilding(Building building)
+        public bool CanInteractWith(EnemyFacade enemy)
+        {
+            return _canInteractWithEnemies;
+        }
+
+        public bool CanInteractWith(Building building)
         {
             return _canInteractWithBuildings && _unitSpecForBuildings.CanInteractWithBuilding(building);
         }
 
-        private bool CanInteractWithResource(Resource resource)
+        public bool CanInteractWith(Resource resource)
         {
             return _canInteractWithResources && _unitSpecForResources.CanInteractWithResource(resource);
         }
@@ -75,7 +71,7 @@ namespace Units.Unit.UnitTypes
 
         public UnitSpecForResource GetSpecForResource(Resource resource)
         {
-            if (!CanInteractWithResource(resource))
+            if (!CanInteractWith(resource))
             {
                 throw new InvalidOperationException("Unit class cannot interact with resources");
             }
@@ -85,7 +81,7 @@ namespace Units.Unit.UnitTypes
 
         public UnitSpecForBuilding GetSpecForBuilding(Building building)
         {
-            if (!CanInteractWithBuilding(building))
+            if (!CanInteractWith(building))
             {
                 throw new InvalidOperationException("Unit class cannot interact with buildings");
             }

@@ -1,5 +1,6 @@
 ﻿using BehaviorDesigner.Runtime;
 using BehaviorDesigner.Runtime.Tasks;
+using Enemies.Enemy;
 using Entities.Entity;
 using UnityEngine;
 
@@ -7,19 +8,19 @@ namespace Units.Unit.BehaviorNodes
 {
     public class SearchForEnemy : Action
     {
-        public SharedEntity Entity;
+        public SharedEnemy Enemy;
         public SharedBool NewCommand;
 
         public float ViewRadius;
 
-        private readonly int _entityMask = LayerMask.GetMask("Enemies");
+        private readonly int _enemiesMask = LayerMask.GetMask("Enemies");
         private readonly Collider[] _hits = new Collider[20];
 
         private float _shortestDistanceToEnemy;
 
         public override void OnStart()
         {
-            Entity.Value = null;
+            Enemy.Value = null;
             _shortestDistanceToEnemy = float.PositiveInfinity;
         }
 
@@ -27,7 +28,7 @@ namespace Units.Unit.BehaviorNodes
         {
             TryToFind();
 
-            if (Entity.Value != null)
+            if (Enemy.Value != null)
             {
                 NewCommand.Value = true;
             }
@@ -37,22 +38,22 @@ namespace Units.Unit.BehaviorNodes
 
         private void TryToFind()
         {
-            var quantity = Physics.OverlapSphereNonAlloc(transform.position, ViewRadius, _hits, _entityMask);
+            var quantity = Physics.OverlapSphereNonAlloc(transform.position, ViewRadius, _hits, _enemiesMask);
             for (var i = 0; i < quantity; i++)
             {
                 var hit = _hits[i];
 
-                var entity = hit.transform.GetComponent<Entity>();
-                if (entity != null && entity.EntityType == EntityType.Enemy)
+                var enemy = hit.transform.GetComponent<EnemyFacade>();
+                if (enemy != null)
                 {
-                    SetIfClosest(entity);
+                    SetIfClosest(enemy);
                 }
             }
         }
 
-        private void SetIfClosest(Entity entity)
+        private void SetIfClosest(EnemyFacade enemy)
         {
-            var distanceToEntity = Vector3.Distance(transform.position, entity.transform.position);
+            var distanceToEntity = Vector3.Distance(transform.position, enemy.transform.position);
 
             if (distanceToEntity > _shortestDistanceToEnemy)
             {
@@ -60,7 +61,7 @@ namespace Units.Unit.BehaviorNodes
             }
 
             _shortestDistanceToEnemy = distanceToEntity;
-            Entity.Value = entity;
+            Enemy.Value = enemy;
         }
     }
 }

@@ -2,7 +2,6 @@
 using System.Collections;
 using Buildings;
 using Enemies.Enemy;
-using Entities.Entity;
 using Entities.Entity.Interfaces;
 using ResourceManagement;
 using Units.Services;
@@ -27,6 +26,8 @@ namespace Units.Unit.UnitTypes
 
         private ICountable _acquired;
 
+        private const string CannotInteract = "Unit class cannot interact with this entity type";
+
         [Inject]
         public void Construct(UnitTypeSpecsRepository unitTypeSpecsRepository, ResourceCounts resourceCounts)
         {
@@ -44,37 +45,24 @@ namespace Units.Unit.UnitTypes
             UnitTypeSpecs = _unitTypeSpecsRepository.GetFor(unitType, UnitTypeLevel.FirstLevel);
         }
 
-        public bool CanInteractWith(Entity entity)
+        public bool CanInteractWith(UnitFacade unit)
         {
-            return UnitTypeSpecs.CanInteractWith(entity);
+            return UnitTypeSpecs.CanInteractWith(unit);
         }
 
-        public void InteractWith(Entity entity, Action onInteractionFinish)
+        public bool CanInteractWith(EnemyFacade enemy)
         {
-            if (!CanInteractWith(entity))
-            {
-                throw new InvalidOperationException("Unit class cannot interact with this entity");
-            }
+            return UnitTypeSpecs.CanInteractWith(enemy);
+        }
 
-            _onInteractionFinish = onInteractionFinish;
+        public bool CanInteractWith(Building building)
+        {
+            return UnitTypeSpecs.CanInteractWith(building);
+        }
 
-            switch (entity.EntityType)
-            {
-                case EntityType.Unit:
-                    InteractWithUnit(entity.Unit);
-                    break;
-                case EntityType.Enemy:
-                    InteractWithEnemy(entity.Enemy);
-                    break;
-                case EntityType.Building:
-                    InteractWithBuilding(entity.Building);
-                    break;
-                case EntityType.Resource:
-                    InteractWithResource(entity.Resource);
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
+        public bool CanInteractWith(Resource resource)
+        {
+            return UnitTypeSpecs.CanInteractWith(resource);
         }
 
         public void StopInteraction()
@@ -88,19 +76,54 @@ namespace Units.Unit.UnitTypes
             ReleaseAcquired();
         }
 
-        private void InteractWithUnit(UnitFacade unit)
+        public void InteractWith(UnitFacade unit, Action onInteractionFinish)
         {
+            if (!CanInteractWith(unit))
+            {
+                throw new InvalidOperationException(CannotInteract);
+            }
+
             var unitSpecForUnits = UnitTypeSpecs.GetSpecForUnits();
         }
 
-        private void InteractWithEnemy(EnemyFacade enemy)
+        public void InteractWith(EnemyFacade enemy, Action onInteractionFinish)
         {
+            if (!CanInteractWith(enemy))
+            {
+                throw new InvalidOperationException(CannotInteract);
+            }
+
             var unitSpecForEnemies = UnitTypeSpecs.GetSpecForEnemies();
 
-            _interactingCoroutine = StartCoroutine(InteractingWithEnemy(enemy, unitSpecForEnemies));
+            _interactingCoroutine =
+                StartCoroutine(InteractingWithEnemy(enemy, unitSpecForEnemies, onInteractionFinish));
         }
 
-        private IEnumerator InteractingWithEnemy(EnemyFacade enemy, UnitSpecForEnemies unitSpecForEnemies)
+        public void InteractWith(Building building, Action onInteractionFinish)
+        {
+            if (!CanInteractWith(building))
+            {
+                throw new InvalidOperationException(CannotInteract);
+            }
+
+            var unitSpecForBuildings = UnitTypeSpecs.GetSpecForBuilding(building);
+        }
+
+        public void InteractWith(Resource resource, Action onInteractionFinish)
+        {
+            if (!CanInteractWith(resource))
+            {
+                throw new InvalidOperationException(CannotInteract);
+            }
+
+            var unitSpecForResource = UnitTypeSpecs.GetSpecForResource(resource);
+
+            _interactingCoroutine =
+                StartCoroutine(InteractingWithResource(resource, unitSpecForResource, onInteractionFinish));
+        }
+
+        private IEnumerator InteractingWithEnemy(EnemyFacade enemy, UnitSpecForEnemies unitSpecForEnemies,
+            Action onInteractionFinish)
         {
             _unitAnimator.InteractWithResource();
 
@@ -117,28 +140,11 @@ namespace Units.Unit.UnitTypes
             }
 
             _unitAnimator.StopInteractWithResource();
-            _onInteractionFinish();
+            onInteractionFinish();
         }
 
-        private bool CanInteract(EnemyFacade enemy, UnitSpecForEnemies unitSpecForEnemies)
-        {
-            return enemy.Alive && Vector3.Distance(transform.position, enemy.transform.position) <
-                unitSpecForEnemies.InteractionDistance;
-        }
-
-        private void InteractWithBuilding(Building building)
-        {
-            var unitSpecForBuildings = UnitTypeSpecs.GetSpecForBuilding(building);
-        }
-
-        private void InteractWithResource(Resource resource)
-        {
-            var unitSpecForResource = UnitTypeSpecs.GetSpecForResource(resource);
-
-            _interactingCoroutine = StartCoroutine(InteractingWithResource(resource, unitSpecForResource));
-        }
-
-        private IEnumerator InteractingWithResource(Resource resource, UnitSpecForResource unitSpecForResource)
+        private IEnumerator InteractingWithResource(Resource resource, UnitSpecForResource unitSpecForResource,
+            Action onInteractionFinish)
         {
             _unitAnimator.InteractWithResource();
 
@@ -161,7 +167,13 @@ namespace Units.Unit.UnitTypes
             ReleaseAcquired();
 
             _unitAnimator.StopInteractWithResource();
-            _onInteractionFinish();
+            onInteractionFinish();
+        }
+
+        private bool CanInteract(EnemyFacade enemy, UnitSpecForEnemies unitSpecForEnemies)
+        {
+            return enemy.Alive && Vector3.Distance(transform.position, enemy.transform.position) <
+                unitSpecForEnemies.InteractionDistance;
         }
 
         private void AddToAcquired(ICountable toAcquaire)

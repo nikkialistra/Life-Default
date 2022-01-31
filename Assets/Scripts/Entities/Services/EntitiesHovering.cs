@@ -29,7 +29,7 @@ namespace Entities.Services
         private void Awake()
         {
             _positionAction = _playerInput.actions.FindAction("Position");
-            _entitiesMask = LayerMask.GetMask("Entities");
+            _entitiesMask = LayerMask.GetMask("Units", "Enemies");
         }
 
         private void OnEnable()

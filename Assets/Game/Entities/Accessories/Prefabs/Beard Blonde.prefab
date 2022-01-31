@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 2091757995263257540}
   - component: {fileID: 2091757995259833316}
   - component: {fileID: 2091757995260832036}
-  - component: {fileID: 1040887069062900184}
   m_Layer: 9
   m_Name: Beard Blonde
   m_TagString: Untagged
@@ -84,19 +83,3 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &1040887069062900184
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2091757995262769124}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d3f3fb6633674ff4ac6bc271317d45b7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _outline: {fileID: 2100000, guid: f89ffeb9a34c1d14b952559a12b7b013, type: 2}
-  _outlineLayer:
-    serializedVersion: 2
-    m_Bits: 2048

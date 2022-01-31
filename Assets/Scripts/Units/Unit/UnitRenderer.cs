@@ -1,5 +1,5 @@
 ﻿using System.Collections;
-using Entities.Entity.Ancillaries;
+using Entities.Entity;
 using Entities.Entity.Interfaces;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -9,16 +9,14 @@ namespace Units.Unit
     public class UnitRenderer : MonoBehaviour, IHoverable
     {
         [Required]
-        [SerializeField] private SkinnedMeshRenderer _outlineRenderer;
-        [Required]
-        [SerializeField] private Material _outline;
+        [SerializeField] private HoverIndicator _hoverIndicator;
         [MinValue(0)]
         [SerializeField] private float _waitingTimeValue = 0.05f;
 
         private WaitForSeconds _waitingTime;
         private bool _selected;
 
-        private Coroutine _hideOutlineCoroutine;
+        private Coroutine _hideHoverIndicatorCoroutine;
 
         private void Awake()
         {
@@ -28,17 +26,13 @@ namespace Units.Unit
         public void Select()
         {
             _selected = true;
-
-            ShowUnitOutline();
-            ShowAccessoriesOutline();
+            HideHoverIndicator();
         }
 
         public void Deselect()
         {
             _selected = false;
-
-            HideUnitOutline();
-            HideAccessoriesOutline();
+            HideHoverIndicator();
         }
 
         public void OnHover()
@@ -48,56 +42,31 @@ namespace Units.Unit
                 return;
             }
 
-            if (_hideOutlineCoroutine != null)
+            if (_hideHoverIndicatorCoroutine != null)
             {
-                StopCoroutine(_hideOutlineCoroutine);
+                StopCoroutine(_hideHoverIndicatorCoroutine);
             }
 
-            ShowUnitOutline();
-            ShowAccessoriesOutline();
+            ShowHoverIndicator();
 
-            _hideOutlineCoroutine = StartCoroutine(HideOutline());
+            _hideHoverIndicatorCoroutine = StartCoroutine(HideHoverIndicatorAfter());
         }
 
-        private IEnumerator HideOutline()
+        private IEnumerator HideHoverIndicatorAfter()
         {
             yield return _waitingTime;
 
-            if (_selected)
-            {
-                yield break;
-            }
-
-            HideUnitOutline();
-            HideAccessoriesOutline();
+            HideHoverIndicator();
         }
 
-        private void ShowUnitOutline()
+        private void ShowHoverIndicator()
         {
-            _outlineRenderer.gameObject.SetActive(true);
+            _hoverIndicator.Activate();
         }
 
-        private void HideUnitOutline()
+        private void HideHoverIndicator()
         {
-            _outlineRenderer.gameObject.SetActive(false);
-        }
-
-        private void ShowAccessoriesOutline()
-        {
-            var accessories = GetComponentsInChildren<Outlining>();
-            foreach (var accessory in accessories)
-            {
-                accessory.Activate();
-            }
-        }
-
-        private void HideAccessoriesOutline()
-        {
-            var accessories = GetComponentsInChildren<Outlining>();
-            foreach (var accessory in accessories)
-            {
-                accessory.Deactivate();
-            }
+            _hoverIndicator.Deactivate();
         }
     }
 }

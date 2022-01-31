@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 728484490418010808}
   - component: {fileID: 728484490414619288}
   - component: {fileID: 728484490415585368}
-  - component: {fileID: 307460093922097827}
   m_Layer: 9
   m_Name: hairPonytail
   m_TagString: Untagged
@@ -85,22 +84,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &307460093922097827
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 728484490417579672}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d3f3fb6633674ff4ac6bc271317d45b7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _outline: {fileID: 2100000, guid: f89ffeb9a34c1d14b952559a12b7b013, type: 2}
-  _outlineLayer:
-    serializedVersion: 2
-    m_Bits: 2048
 --- !u!1 &1996111486021023654
 GameObject:
   m_ObjectHideFlags: 0
@@ -145,7 +128,6 @@ GameObject:
   - component: {fileID: 4094265130969390537}
   - component: {fileID: 4094265130966490601}
   - component: {fileID: 4094265130967621417}
-  - component: {fileID: 4908382870698503793}
   m_Layer: 9
   m_Name: beard
   m_TagString: Untagged
@@ -218,19 +200,3 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &4908382870698503793
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4094265130969547241}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d3f3fb6633674ff4ac6bc271317d45b7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _outline: {fileID: 2100000, guid: f89ffeb9a34c1d14b952559a12b7b013, type: 2}
-  _outlineLayer:
-    serializedVersion: 2
-    m_Bits: 2048

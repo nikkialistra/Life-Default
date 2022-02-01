@@ -12,7 +12,7 @@ using Zenject;
 namespace Units.Unit.UnitTypes
 {
     [RequireComponent(typeof(UnitAnimator))]
-    public class UnitClass : MonoBehaviour
+    public class UnitRole : MonoBehaviour
     {
         private UnitTypeSpecsRepository _unitTypeSpecsRepository;
         private ResourceCounts _resourceCounts;
@@ -25,8 +25,6 @@ namespace Units.Unit.UnitTypes
         private Coroutine _interactingCoroutine;
 
         private ICountable _acquired;
-
-        private const string CannotInteract = "Unit class cannot interact with this entity type";
 
         [Inject]
         public void Construct(UnitTypeSpecsRepository unitTypeSpecsRepository, ResourceCounts resourceCounts)

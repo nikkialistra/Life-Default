@@ -9,7 +9,7 @@ namespace Units.Unit.BehaviorNodes
         public SharedResource Resource;
 
         public UnitMeshAgent UnitMeshAgent;
-        public UnitClass UnitClass;
+        public UnitRole UnitRole;
 
         private bool _finished;
 
@@ -19,7 +19,7 @@ namespace Units.Unit.BehaviorNodes
 
             UnitMeshAgent.DestinationReach += OnDestinationReach;
             UnitMeshAgent.SetDestinationToEntity(Resource.Value.Entity,
-                UnitClass.GetInteractionDistanceWith(Resource.Value));
+                UnitRole.GetInteractionDistanceWith(Resource.Value));
         }
 
         public override TaskStatus OnUpdate()

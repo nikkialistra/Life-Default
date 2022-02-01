@@ -14,7 +14,7 @@ namespace Units.Unit
     [RequireComponent(typeof(UnitRenderer))]
     [RequireComponent(typeof(UnitAppearance))]
     [RequireComponent(typeof(UnitBehavior))]
-    [RequireComponent(typeof(UnitClass))]
+    [RequireComponent(typeof(UnitRole))]
     [RequireComponent(typeof(UnitSaveLoadHandler))]
     public class UnitFacade : MonoBehaviour, IPoolable<UnitType, Vector3, IMemoryPool>, IDisposable
     {
@@ -37,7 +37,7 @@ namespace Units.Unit
         private UnitAppearance _unitAppearance;
         private UnitMeshAgent _unitMeshAgent;
         private UnitBehavior _unitBehavior;
-        private UnitClass _unitClass;
+        private UnitRole _unitRole;
 
         private IMemoryPool _pool;
 
@@ -49,7 +49,7 @@ namespace Units.Unit
             _unitAppearance = GetComponent<UnitAppearance>();
             _unitMeshAgent = GetComponent<UnitMeshAgent>();
             _unitBehavior = GetComponent<UnitBehavior>();
-            _unitClass = GetComponent<UnitClass>();
+            _unitRole = GetComponent<UnitRole>();
 
             UnitSaveLoadHandler = GetComponent<UnitSaveLoadHandler>();
         }
@@ -94,7 +94,7 @@ namespace Units.Unit
             _unitType = unitType;
             _unitAppearance.SwitchTo(unitType);
 
-            _unitClass.ChangeUnitType(unitType);
+            _unitRole.ChangeUnitType(unitType);
         }
 
         [Button(ButtonSizes.Large)]
@@ -200,7 +200,7 @@ namespace Units.Unit
         {
             _unitMeshAgent.Activate();
 
-            _unitClass.ChangeUnitType(_unitType);
+            _unitRole.ChangeUnitType(_unitType);
 
             _unitBehavior.Enable();
         }

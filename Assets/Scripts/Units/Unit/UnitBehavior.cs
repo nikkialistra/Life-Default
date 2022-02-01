@@ -7,7 +7,7 @@ using UnityEngine;
 namespace Units.Unit
 {
     [RequireComponent(typeof(UnitMeshAgent))]
-    [RequireComponent(typeof(UnitClass))]
+    [RequireComponent(typeof(UnitRole))]
     [RequireComponent(typeof(BehaviorTree))]
     public class UnitBehavior : MonoBehaviour
     {

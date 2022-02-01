@@ -10,28 +10,28 @@ namespace Units.Unit.BehaviorNodes
         public SharedEnemy Enemy;
 
         public UnitMeshAgent UnitMeshAgent;
-        public UnitClass UnitClass;
+        public UnitRole UnitRole;
 
         public override void OnStart()
         {
-            UnitMeshAgent.SetDestinationToEntity(Enemy.Value.Entity, UnitClass.GetInteractionDistanceWithEnemies());
+            UnitMeshAgent.SetDestinationToEntity(Enemy.Value.Entity, UnitRole.GetInteractionDistanceWithEnemies());
         }
 
         public override TaskStatus OnUpdate()
         {
-            if (!UnitMeshAgent.IsMoving && !OnAttackRangeDistance())
+            if (!UnitMeshAgent.IsMoving && OutOfAttackRange())
             {
                 UnitMeshAgent.SetDestinationToEntity(Enemy.Value.Entity,
-                    UnitClass.GetInteractionDistanceWithEnemies());
+                    UnitRole.GetInteractionDistanceWithEnemies());
             }
 
             return Enemy.Value.Alive ? TaskStatus.Running : TaskStatus.Success;
         }
 
-        private bool OnAttackRangeDistance()
+        private bool OutOfAttackRange()
         {
-            return Vector3.Distance(transform.position, Enemy.Value.transform.position) <
-                   UnitClass.GetAttackRangeDistanceWithEnemies();
+            return Vector3.Distance(transform.position, Enemy.Value.transform.position) >
+                   UnitRole.GetAttackRangeDistanceWithEnemies();
         }
     }
 }

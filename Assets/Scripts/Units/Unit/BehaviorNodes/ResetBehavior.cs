@@ -8,13 +8,13 @@ namespace Units.Unit.BehaviorNodes
     {
         public SharedBool NewCommand;
 
-        public UnitClass UnitClass;
+        public UnitRole UnitRole;
 
         public override TaskStatus OnUpdate()
         {
             NewCommand.Value = false;
 
-            UnitClass.StopInteraction();
+            UnitRole.StopInteraction();
 
             return TaskStatus.Success;
         }

@@ -9,7 +9,7 @@ namespace Units.Unit.BehaviorNodes
         public SharedResource Resource;
 
         public UnitMeshAgent UnitMeshAgent;
-        public UnitClass UnitClass;
+        public UnitRole UnitRole;
 
         private bool _finished;
 
@@ -17,13 +17,13 @@ namespace Units.Unit.BehaviorNodes
         {
             _finished = false;
 
-            if (!UnitClass.CanInteractWith(Resource.Value))
+            if (!UnitRole.CanInteractWith(Resource.Value))
             {
                 _finished = true;
             }
             else
             {
-                UnitClass.InteractWith(Resource.Value, OnInteractionFinish);
+                UnitRole.InteractWith(Resource.Value, OnInteractionFinish);
             }
         }
 

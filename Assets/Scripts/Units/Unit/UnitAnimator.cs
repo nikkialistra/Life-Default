@@ -25,7 +25,7 @@ namespace Units.Unit
 
         private void Update()
         {
-            SetAnimatorVelocity();
+            _entityAnimator.SetMoving(_unitMeshAgent.IsMoving);
         }
 
         public void InteractWithResource()
@@ -33,7 +33,7 @@ namespace Units.Unit
             _animator.SetBool(_interactingWithResource, true);
         }
 
-        public void StopInteractWithResource()
+        public void StopInteractionWithResource()
         {
             _animator.SetBool(_interactingWithResource, false);
         }
@@ -41,11 +41,6 @@ namespace Units.Unit
         public void Die(Action died)
         {
             _entityAnimator.Die(died);
-        }
-
-        private void SetAnimatorVelocity()
-        {
-            _entityAnimator.SetAnimatorVelocity(_unitMeshAgent.Velocity);
         }
     }
 }

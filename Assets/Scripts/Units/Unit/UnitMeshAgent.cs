@@ -1,5 +1,7 @@
 ﻿using System;
+using Enemies.Enemy;
 using Entities.Entity;
+using ResourceManagement;
 using UnityEngine;
 
 namespace Units.Unit
@@ -20,8 +22,7 @@ namespace Units.Unit
         public event Action DestinationReach;
         public event Action RotationEnd;
 
-        public float Velocity => _entityMeshAgent.Velocity;
-        public bool IsMoving => _entityMeshAgent.IsMoving();
+        public bool IsMoving => _entityMeshAgent.IsMoving;
         public bool IsRotating => _entityMeshAgent.IsRotating;
 
         private void OnEnable()
@@ -43,11 +44,18 @@ namespace Units.Unit
             _entityMeshAgent.SetDestinationToPosition(position);
         }
 
-        public void SetDestinationToEntity(Entity entity, float atDistance)
+        public void SetDestinationToEnemy(EnemyFacade enemy, float atDistance)
         {
             _hasPendingOrder = false;
 
-            _entityMeshAgent.SetDestinationToEntity(entity, atDistance);
+            _entityMeshAgent.SetDestinationToEnemy(enemy, atDistance);
+        }
+
+        public void SetDestinationToResource(Resource resource, float atDistance)
+        {
+            _hasPendingOrder = false;
+
+            _entityMeshAgent.SetDestinationToResource(resource, atDistance);
         }
 
         public bool AcceptOrder()

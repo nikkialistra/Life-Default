@@ -18,7 +18,7 @@ namespace Units.Unit.BehaviorNodes
             _finished = false;
 
             UnitMeshAgent.DestinationReach += OnDestinationReach;
-            UnitMeshAgent.SetDestinationToEntity(Resource.Value.Entity, InteractionDistance);
+            UnitMeshAgent.SetDestinationToResource(Resource.Value, InteractionDistance);
         }
 
         public override TaskStatus OnUpdate()

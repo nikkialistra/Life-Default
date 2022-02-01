@@ -18,17 +18,12 @@ namespace Enemies.Enemy
 
         private void Update()
         {
-            SetAnimatorVelocity();
+            _entityAnimator.SetMoving(_enemyMeshAgent.IsMoving);
         }
 
         public void Die(Action died)
         {
             _entityAnimator.Die(died);
-        }
-
-        private void SetAnimatorVelocity()
-        {
-            _entityAnimator.SetAnimatorVelocity(_enemyMeshAgent.Velocity);
         }
     }
 }

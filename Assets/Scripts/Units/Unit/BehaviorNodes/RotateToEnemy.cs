@@ -1,7 +1,6 @@
 ﻿using BehaviorDesigner.Runtime.Tasks;
 using Entities.Entity;
 using Units.Unit.UnitTypes;
-using UnityEngine;
 
 namespace Units.Unit.BehaviorNodes
 {
@@ -16,7 +15,7 @@ namespace Units.Unit.BehaviorNodes
 
         public override TaskStatus OnUpdate()
         {
-            if (!UnitMeshAgent.IsRotating && OnAttackRange())
+            if (!UnitMeshAgent.IsRotating && UnitRole.OnAttackRange(Enemy.Value.transform.position))
             {
                 UnitMeshAgent.RotateTo(Enemy.Value.Entity);
             }
@@ -27,12 +26,6 @@ namespace Units.Unit.BehaviorNodes
         public override void OnEnd()
         {
             UnitMeshAgent.StopRotating();
-        }
-
-        private bool OnAttackRange()
-        {
-            return Vector3.Distance(transform.position, Enemy.Value.transform.position) <=
-                   UnitRole.GetAttackRangeDistanceWithEnemies();
         }
     }
 }

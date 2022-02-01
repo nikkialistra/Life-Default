@@ -33,6 +33,7 @@ namespace Enemies.Enemy
         {
             _health = GetComponent<EntityHealth>();
             _enemyAnimator = GetComponent<EnemyAnimator>();
+            _enemyMeshAgent = GetComponent<EnemyMeshAgent>();
             _enemyBehavior = GetComponent<EnemyBehavior>();
 
             Entity = GetComponent<Entity>();

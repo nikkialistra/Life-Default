@@ -68,7 +68,7 @@ namespace Units.Unit.UnitTypes
             if (_interactingCoroutine != null)
             {
                 StopCoroutine(_interactingCoroutine);
-                _unitAnimator.StopInteractWithResource();
+                _unitAnimator.StopInteractionWithResource();
             }
 
             ReleaseAcquired();
@@ -100,14 +100,15 @@ namespace Units.Unit.UnitTypes
                 StartCoroutine(InteractingWithResource(resource, unitSpecForResource, onInteractionFinish));
         }
 
+        public bool OnAttackRange(Vector3 position)
+        {
+            return Vector3.Distance(transform.position, position) <
+                   UnitTypeSpecs.GetSpecForEnemies().AttackRange;
+        }
+
         public float GetInteractionDistanceWithEnemies()
         {
             return UnitTypeSpecs.GetSpecForEnemies().InteractionDistance;
-        }
-
-        public float GetAttackRangeDistanceWithEnemies()
-        {
-            return UnitTypeSpecs.GetSpecForEnemies().AttackRange;
         }
 
         private IEnumerator InteractingWithEnemy(EnemyFacade enemy, UnitSpecForEnemies unitSpecForEnemies,
@@ -127,14 +128,14 @@ namespace Units.Unit.UnitTypes
                 enemy.TakeDamage(unitSpecForEnemies.Damage);
             }
 
-            _unitAnimator.StopInteractWithResource();
+            _unitAnimator.StopInteractionWithResource();
             onInteractionFinish();
         }
 
         private bool CanInteract(EnemyFacade enemy, UnitSpecForEnemies unitSpecForEnemies)
         {
             return enemy.Alive && Vector3.Distance(transform.position, enemy.transform.position) <
-                unitSpecForEnemies.InteractionDistance;
+                unitSpecForEnemies.AttackRange;
         }
 
         private IEnumerator InteractingWithResource(Resource resource, UnitSpecForResource unitSpecForResource,
@@ -160,7 +161,7 @@ namespace Units.Unit.UnitTypes
 
             ReleaseAcquired();
 
-            _unitAnimator.StopInteractWithResource();
+            _unitAnimator.StopInteractionWithResource();
             onInteractionFinish();
         }
 

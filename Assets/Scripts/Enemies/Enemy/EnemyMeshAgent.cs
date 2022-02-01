@@ -13,7 +13,7 @@ namespace Enemies.Enemy
             _entityMeshAgent = GetComponent<EntityMeshAgent>();
         }
 
-        public float Velocity => _entityMeshAgent.Velocity;
+        public bool IsMoving => _entityMeshAgent.IsMoving;
         public bool Idle { get; private set; } = true;
 
         private void OnEnable()

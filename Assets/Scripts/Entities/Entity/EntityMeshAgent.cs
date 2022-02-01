@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections;
 using DG.Tweening;
+using Enemies.Enemy;
 using Pathfinding;
+using ResourceManagement;
 using UnityEngine;
 
 namespace Entities.Entity
@@ -9,12 +11,16 @@ namespace Entities.Entity
     public class EntityMeshAgent : MonoBehaviour
     {
         [SerializeField] private float _rotationSpeed = 120f;
+        [SerializeField] private float _entityOffsetForPathRecalculation = 0.6f;
 
         private AIPath _aiPath;
 
         private float _interactionDistance;
 
         private bool _movingToEntity;
+
+        private Entity _entity;
+        private Vector3 _lastEntityPosition;
 
         private Coroutine _movingCoroutine;
         private Coroutine _rotatingToCoroutine;
@@ -33,6 +39,7 @@ namespace Entities.Entity
         public event Action RotationEnd;
 
         public float Velocity => _aiPath.velocity.magnitude;
+        public bool IsMoving => !_aiPath.isStopped;
         public bool IsRotating { get; private set; }
 
         public void SetDestinationToPosition(Vector3 position)
@@ -44,12 +51,31 @@ namespace Entities.Entity
             Move();
         }
 
-        public void SetDestinationToEntity(Entity entity, float atDistance)
+        public void SetDestinationToEnemy(EnemyFacade enemy, float atDistance)
+        {
+            if (_entity == enemy.Entity)
+            {
+                return;
+            }
+
+            _entity = enemy.Entity;
+            _lastEntityPosition = _entity.transform.position;
+
+            _interactionDistance = atDistance;
+            _aiPath.isStopped = false;
+
+            _aiPath.destination = _lastEntityPosition;
+
+            _movingToEntity = true;
+            Move();
+        }
+
+        public void SetDestinationToResource(Resource resource, float atDistance)
         {
             _interactionDistance = atDistance;
             _aiPath.isStopped = false;
 
-            _aiPath.destination = GetNearestWalkablePosition(entity.transform.position);
+            _aiPath.destination = GetNearestWalkablePosition(resource.transform.position);
 
             _movingToEntity = true;
             Move();
@@ -126,21 +152,6 @@ namespace Entities.Entity
             _rotatingToCoroutine = StartCoroutine(RotatingTo(position));
         }
 
-        public bool IsMoving()
-        {
-            return _movingToEntity ? IsMovingToEntity() : IsMovingToPosition();
-        }
-
-        private bool IsMovingToEntity()
-        {
-            return Vector3.Distance(transform.position, _aiPath.destination) > _interactionDistance;
-        }
-
-        private bool IsMovingToPosition()
-        {
-            return !_aiPath.reachedDestination;
-        }
-
         private void Move()
         {
             if (_movingCoroutine != null)
@@ -153,13 +164,40 @@ namespace Entities.Entity
 
         private IEnumerator Moving()
         {
-            while (IsMoving())
+            while (UpdateMoving())
             {
                 yield return null;
             }
 
             _aiPath.isStopped = true;
             DestinationReach?.Invoke();
+        }
+
+        private bool UpdateMoving()
+        {
+            return _movingToEntity ? UpdateMovingToEntity() : UpdateMovingToPosition();
+        }
+
+        private bool UpdateMovingToEntity()
+        {
+            if (Vector3.Distance(transform.position, _aiPath.destination) <= _interactionDistance)
+            {
+                _entity = null;
+                return false;
+            }
+
+            if (Vector3.Distance(_entity.transform.position, _lastEntityPosition) > _entityOffsetForPathRecalculation)
+            {
+                _lastEntityPosition = _entity.transform.position;
+                _aiPath.destination = _lastEntityPosition;
+            }
+
+            return true;
+        }
+
+        private bool UpdateMovingToPosition()
+        {
+            return !_aiPath.reachedDestination;
         }
 
         private IEnumerator RotatingTo(Vector3 targetPosition)

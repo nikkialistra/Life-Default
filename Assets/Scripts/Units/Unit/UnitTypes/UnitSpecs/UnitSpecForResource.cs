@@ -6,6 +6,7 @@ namespace Units.Unit.UnitTypes.UnitSpecs
     public class UnitSpecForResource
     {
         public int Quantity;
+        public float InteractionDistance;
         public float SpeedPerSecond;
     }
 }

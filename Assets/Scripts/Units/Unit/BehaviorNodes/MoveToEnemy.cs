@@ -14,34 +14,24 @@ namespace Units.Unit.BehaviorNodes
 
         public override void OnStart()
         {
-            UnitMeshAgent.SetDestinationToEntity(Enemy.Value.Entity);
+            UnitMeshAgent.SetDestinationToEntity(Enemy.Value.Entity, UnitClass.GetInteractionDistanceWith(Enemy.Value));
         }
 
         public override TaskStatus OnUpdate()
         {
-            if (OnInteractionDistance() && UnitMeshAgent.IsMoving)
+            if (!UnitMeshAgent.IsMoving && !OnAttackRangeDistance())
             {
-                UnitMeshAgent.StopMoving();
-            }
-
-            if (!OnAttackRangeDistance() && !UnitMeshAgent.IsMoving)
-            {
-                UnitMeshAgent.SetDestinationToEntity(Enemy.Value.Entity);
+                UnitMeshAgent.SetDestinationToEntity(Enemy.Value.Entity,
+                    UnitClass.GetInteractionDistanceWith(Enemy.Value));
             }
 
             return Enemy.Value.Alive ? TaskStatus.Running : TaskStatus.Success;
         }
 
-        private bool OnInteractionDistance()
-        {
-            return Vector3.Distance(transform.position, Enemy.Value.transform.position) <
-                   UnitClass.GetInteractionDistanceWith(Enemy.Value) - 0.5f;
-        }
-
         private bool OnAttackRangeDistance()
         {
             return Vector3.Distance(transform.position, Enemy.Value.transform.position) <
-                   UnitClass.GetInteractionDistanceWith(Enemy.Value);
+                   UnitClass.GetAttackRangeDistanceWith(Enemy.Value);
         }
     }
 }

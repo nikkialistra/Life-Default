@@ -9,9 +9,10 @@ namespace Entities.Entity
     public class EntityMeshAgent : MonoBehaviour
     {
         [SerializeField] private float _rotationSpeed = 120;
-        [SerializeField] private float _interactionDistance = 3f;
 
         private AIPath _aiPath;
+
+        private float _interactionDistance;
 
         private bool _movingToEntity;
 
@@ -42,8 +43,10 @@ namespace Entities.Entity
             Move();
         }
 
-        public void SetDestinationToEntity(Entity entity)
+        public void SetDestinationToEntity(Entity entity, float atDistance)
         {
+            _interactionDistance = atDistance;
+
             _aiPath.isStopped = false;
             _aiPath.destination = entity.transform.position;
 

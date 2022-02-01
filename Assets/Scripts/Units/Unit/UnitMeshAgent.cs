@@ -42,11 +42,11 @@ namespace Units.Unit
             _entityMeshAgent.SetDestinationToPosition(position);
         }
 
-        public void SetDestinationToEntity(Entity entity)
+        public void SetDestinationToEntity(Entity entity, float atDistance)
         {
             _hasPendingOrder = false;
 
-            _entityMeshAgent.SetDestinationToEntity(entity);
+            _entityMeshAgent.SetDestinationToEntity(entity, atDistance);
         }
 
         public bool AcceptOrder()

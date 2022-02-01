@@ -1,5 +1,6 @@
 ﻿using BehaviorDesigner.Runtime.Tasks;
 using Entities.Entity;
+using Units.Unit.UnitTypes;
 
 namespace Units.Unit.BehaviorNodes
 {
@@ -8,6 +9,7 @@ namespace Units.Unit.BehaviorNodes
         public SharedResource Resource;
 
         public UnitMeshAgent UnitMeshAgent;
+        public UnitClass UnitClass;
 
         private bool _finished;
 
@@ -16,7 +18,8 @@ namespace Units.Unit.BehaviorNodes
             _finished = false;
 
             UnitMeshAgent.DestinationReach += OnDestinationReach;
-            UnitMeshAgent.SetDestinationToEntity(Resource.Value.Entity);
+            UnitMeshAgent.SetDestinationToEntity(Resource.Value.Entity,
+                UnitClass.GetInteractionDistanceWith(Resource.Value));
         }
 
         public override TaskStatus OnUpdate()

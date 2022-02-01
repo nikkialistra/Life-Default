@@ -19,7 +19,8 @@ MonoBehaviour:
   _canInteractWithEnemies: 1
   _unitSpecForEnemies:
     Damage: 9
-    InteractionDistance: 3
+    InteractionDistance: 2.2
+    AttackRangeDistance: 3
     SpeedPerSecond: 1
   _canInteractWithResources: 1
   _unitSpecForResources:
@@ -27,6 +28,7 @@ MonoBehaviour:
       _keys: 01000000
       _values:
       - Quantity: 2
+        InteractionDistance: 3
         SpeedPerSecond: 1
   _canInteractWithBuildings: 0
   _unitSpecForBuildings:

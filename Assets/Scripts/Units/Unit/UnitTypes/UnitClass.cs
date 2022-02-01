@@ -78,21 +78,11 @@ namespace Units.Unit.UnitTypes
 
         public void InteractWith(UnitFacade unit, Action onInteractionFinish)
         {
-            if (!CanInteractWith(unit))
-            {
-                throw new InvalidOperationException(CannotInteract);
-            }
-
             var unitSpecForUnits = UnitTypeSpecs.GetSpecForUnits();
         }
 
         public void InteractWith(EnemyFacade enemy, Action onInteractionFinish)
         {
-            if (!CanInteractWith(enemy))
-            {
-                throw new InvalidOperationException(CannotInteract);
-            }
-
             var unitSpecForEnemies = UnitTypeSpecs.GetSpecForEnemies();
 
             _interactingCoroutine =
@@ -101,21 +91,11 @@ namespace Units.Unit.UnitTypes
 
         public void InteractWith(Building building, Action onInteractionFinish)
         {
-            if (!CanInteractWith(building))
-            {
-                throw new InvalidOperationException(CannotInteract);
-            }
-
             var unitSpecForBuildings = UnitTypeSpecs.GetSpecForBuilding(building);
         }
 
         public void InteractWith(Resource resource, Action onInteractionFinish)
         {
-            if (!CanInteractWith(resource))
-            {
-                throw new InvalidOperationException(CannotInteract);
-            }
-
             var unitSpecForResource = UnitTypeSpecs.GetSpecForResource(resource);
 
             _interactingCoroutine =
@@ -124,12 +104,17 @@ namespace Units.Unit.UnitTypes
 
         public float GetInteractionDistanceWith(EnemyFacade enemy)
         {
-            if (!CanInteractWith(enemy))
-            {
-                throw new InvalidOperationException(CannotInteract);
-            }
-
             return UnitTypeSpecs.GetSpecForEnemies().InteractionDistance;
+        }
+
+        public float GetAttackRangeDistanceWith(EnemyFacade enemy)
+        {
+            return UnitTypeSpecs.GetSpecForEnemies().AttackRangeDistance;
+        }
+
+        public float GetInteractionDistanceWith(Resource resource)
+        {
+            return UnitTypeSpecs.GetSpecForResource(resource).InteractionDistance;
         }
 
         private IEnumerator InteractingWithEnemy(EnemyFacade enemy, UnitSpecForEnemies unitSpecForEnemies,
@@ -151,6 +136,12 @@ namespace Units.Unit.UnitTypes
 
             _unitAnimator.StopInteractWithResource();
             onInteractionFinish();
+        }
+
+        private bool CanInteract(EnemyFacade enemy, UnitSpecForEnemies unitSpecForEnemies)
+        {
+            return enemy.Alive && Vector3.Distance(transform.position, enemy.transform.position) <
+                unitSpecForEnemies.InteractionDistance;
         }
 
         private IEnumerator InteractingWithResource(Resource resource, UnitSpecForResource unitSpecForResource,
@@ -178,12 +169,6 @@ namespace Units.Unit.UnitTypes
 
             _unitAnimator.StopInteractWithResource();
             onInteractionFinish();
-        }
-
-        private bool CanInteract(EnemyFacade enemy, UnitSpecForEnemies unitSpecForEnemies)
-        {
-            return enemy.Alive && Vector3.Distance(transform.position, enemy.transform.position) <
-                unitSpecForEnemies.InteractionDistance;
         }
 
         private void AddToAcquired(ICountable toAcquaire)

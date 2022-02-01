@@ -33,6 +33,7 @@ namespace Entities.Entity
         public event Action RotationEnd;
 
         public float Velocity => _aiPath.velocity.magnitude;
+        public bool IsRotating { get; private set; }
 
         public void SetDestinationToPosition(Vector3 position)
         {
@@ -105,6 +106,8 @@ namespace Entities.Entity
 
         public void StopRotating()
         {
+            IsRotating = false;
+
             if (_rotatingToCoroutine != null)
             {
                 StopCoroutine(_rotatingToCoroutine);
@@ -113,6 +116,8 @@ namespace Entities.Entity
 
         public void RotateTo(Vector3 position)
         {
+            IsRotating = true;
+
             if (_rotatingToCoroutine != null)
             {
                 StopCoroutine(_rotatingToCoroutine);
@@ -172,6 +177,7 @@ namespace Entities.Entity
 
             yield return transform.DORotate(targetRotation, GetRotationDuration(targetRotation)).WaitForCompletion();
 
+            IsRotating = false;
             RotationEnd?.Invoke();
         }
 

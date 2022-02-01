@@ -22,6 +22,7 @@ namespace Units.Unit
 
         public float Velocity => _entityMeshAgent.Velocity;
         public bool IsMoving => _entityMeshAgent.IsMoving();
+        public bool IsRotating => _entityMeshAgent.IsRotating;
 
         private void OnEnable()
         {

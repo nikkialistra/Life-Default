@@ -45,14 +45,14 @@ namespace Units.Unit.UnitTypes
             UnitTypeSpecs = _unitTypeSpecsRepository.GetFor(unitType, UnitTypeLevel.FirstLevel);
         }
 
-        public bool CanInteractWith(UnitFacade unit)
+        public bool CanInteractWithUnits()
         {
-            return UnitTypeSpecs.CanInteractWith(unit);
+            return UnitTypeSpecs.CanInteractWithUnits();
         }
 
-        public bool CanInteractWith(EnemyFacade enemy)
+        public bool CanInteractWithEnemies()
         {
-            return UnitTypeSpecs.CanInteractWith(enemy);
+            return UnitTypeSpecs.CanInteractWithEnemies();
         }
 
         public bool CanInteractWith(Building building)
@@ -102,14 +102,14 @@ namespace Units.Unit.UnitTypes
                 StartCoroutine(InteractingWithResource(resource, unitSpecForResource, onInteractionFinish));
         }
 
-        public float GetInteractionDistanceWith(EnemyFacade enemy)
+        public float GetInteractionDistanceWithEnemies()
         {
             return UnitTypeSpecs.GetSpecForEnemies().InteractionDistance;
         }
 
-        public float GetAttackRangeDistanceWith(EnemyFacade enemy)
+        public float GetAttackRangeDistanceWithEnemies()
         {
-            return UnitTypeSpecs.GetSpecForEnemies().AttackRangeDistance;
+            return UnitTypeSpecs.GetSpecForEnemies().AttackRange;
         }
 
         public float GetInteractionDistanceWith(Resource resource)

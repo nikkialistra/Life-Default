@@ -20,7 +20,7 @@ MonoBehaviour:
   _unitSpecForEnemies:
     Damage: 20
     InteractionDistance: 10
-    AttackRangeDistance: 12
+    AttackRange: 12
     SpeedPerSecond: 1.2
   _canInteractWithResources: 0
   _unitSpecForResources:

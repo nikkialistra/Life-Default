@@ -14,7 +14,7 @@ namespace Units.Unit.BehaviorNodes
 
         public override void OnStart()
         {
-            UnitMeshAgent.SetDestinationToEntity(Enemy.Value.Entity, UnitClass.GetInteractionDistanceWith(Enemy.Value));
+            UnitMeshAgent.SetDestinationToEntity(Enemy.Value.Entity, UnitClass.GetInteractionDistanceWithEnemies());
         }
 
         public override TaskStatus OnUpdate()
@@ -22,7 +22,7 @@ namespace Units.Unit.BehaviorNodes
             if (!UnitMeshAgent.IsMoving && !OnAttackRangeDistance())
             {
                 UnitMeshAgent.SetDestinationToEntity(Enemy.Value.Entity,
-                    UnitClass.GetInteractionDistanceWith(Enemy.Value));
+                    UnitClass.GetInteractionDistanceWithEnemies());
             }
 
             return Enemy.Value.Alive ? TaskStatus.Running : TaskStatus.Success;
@@ -31,7 +31,7 @@ namespace Units.Unit.BehaviorNodes
         private bool OnAttackRangeDistance()
         {
             return Vector3.Distance(transform.position, Enemy.Value.transform.position) <
-                   UnitClass.GetAttackRangeDistanceWith(Enemy.Value);
+                   UnitClass.GetAttackRangeDistanceWithEnemies();
         }
     }
 }

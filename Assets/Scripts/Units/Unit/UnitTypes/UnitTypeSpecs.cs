@@ -1,6 +1,5 @@
 ﻿using System;
 using Buildings;
-using Enemies.Enemy;
 using ResourceManagement;
 using Sirenix.OdinInspector;
 using Units.Unit.UnitTypes.UnitSpecs;
@@ -29,12 +28,12 @@ namespace Units.Unit.UnitTypes
         [ShowIf("_canInteractWithBuildings")]
         [SerializeField] private UnitSpecForBuildings _unitSpecForBuildings;
 
-        public bool CanInteractWith(UnitFacade unit)
+        public bool CanInteractWithUnits()
         {
             return _canInteractWithUnits;
         }
 
-        public bool CanInteractWith(EnemyFacade enemy)
+        public bool CanInteractWithEnemies()
         {
             return _canInteractWithEnemies;
         }

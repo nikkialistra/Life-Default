@@ -7,7 +7,7 @@ namespace Units.Unit.UnitTypes.UnitSpecs
     {
         public int Damage;
         public float InteractionDistance;
-        public float AttackRangeDistance;
+        public float AttackRange;
         public float SpeedPerSecond;
     }
 }

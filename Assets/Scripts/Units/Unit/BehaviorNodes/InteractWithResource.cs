@@ -8,18 +8,19 @@ namespace Units.Unit.BehaviorNodes
     {
         public SharedResource Resource;
 
-        public UnitMeshAgent UnitMeshAgent;
         public UnitRole UnitRole;
 
         private bool _finished;
+        private bool _failed;
 
         public override void OnStart()
         {
             _finished = false;
+            _failed = false;
 
             if (!UnitRole.CanInteractWith(Resource.Value))
             {
-                _finished = true;
+                _failed = true;
             }
             else
             {
@@ -29,6 +30,11 @@ namespace Units.Unit.BehaviorNodes
 
         public override TaskStatus OnUpdate()
         {
+            if (_failed)
+            {
+                return TaskStatus.Failure;
+            }
+
             return _finished ? TaskStatus.Success : TaskStatus.Running;
         }
 

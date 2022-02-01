@@ -110,11 +110,6 @@ namespace Units.Unit.UnitTypes
             return UnitTypeSpecs.GetSpecForEnemies().AttackRange;
         }
 
-        public float GetInteractionDistanceWith(Resource resource)
-        {
-            return UnitTypeSpecs.GetSpecForResource(resource).InteractionDistance;
-        }
-
         private IEnumerator InteractingWithEnemy(EnemyFacade enemy, UnitSpecForEnemies unitSpecForEnemies,
             Action onInteractionFinish)
         {

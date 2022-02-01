@@ -8,7 +8,7 @@ namespace Entities.Entity
 {
     public class EntityMeshAgent : MonoBehaviour
     {
-        [SerializeField] private float _rotationSpeed = 120;
+        [SerializeField] private float _rotationSpeed = 120f;
 
         private AIPath _aiPath;
 
@@ -46,12 +46,45 @@ namespace Entities.Entity
         public void SetDestinationToEntity(Entity entity, float atDistance)
         {
             _interactionDistance = atDistance;
-
             _aiPath.isStopped = false;
-            _aiPath.destination = entity.transform.position;
+
+            _aiPath.destination = GetNearestWalkablePosition(entity.transform.position);
 
             _movingToEntity = true;
             Move();
+        }
+
+        private Vector3 GetNearestWalkablePosition(Vector3 originalPosition)
+        {
+            var nearestPosition = Vector3.negativeInfinity;
+            var minDistance = float.PositiveInfinity;
+
+            var activeGraph = AstarPath.active;
+            var sidePositions = new[]
+            {
+                originalPosition + Vector3.left,
+                originalPosition + Vector3.left + Vector3.forward,
+                originalPosition + Vector3.forward,
+                originalPosition + Vector3.right + Vector3.forward,
+                originalPosition + Vector3.right,
+                originalPosition + Vector3.right + Vector3.back,
+                originalPosition + Vector3.back,
+                originalPosition + Vector3.back + Vector3.left
+            };
+
+            foreach (var sidePosition in sidePositions)
+            {
+                var position = (Vector3)activeGraph.GetNearest(sidePosition, NNConstraint.Default).node.position;
+                var distance = Vector3.Distance(transform.position, position);
+
+                if (distance < minDistance)
+                {
+                    nearestPosition = position;
+                    minDistance = distance;
+                }
+            }
+
+            return nearestPosition;
         }
 
         public void StopMoving()
@@ -93,6 +126,16 @@ namespace Entities.Entity
             return _movingToEntity ? IsMovingToEntity() : IsMovingToPosition();
         }
 
+        private bool IsMovingToEntity()
+        {
+            return Vector3.Distance(transform.position, _aiPath.destination) > _interactionDistance;
+        }
+
+        private bool IsMovingToPosition()
+        {
+            return !_aiPath.reachedDestination;
+        }
+
         private void Move()
         {
             if (_movingCoroutine != null)
@@ -112,16 +155,6 @@ namespace Entities.Entity
 
             _aiPath.isStopped = true;
             DestinationReach?.Invoke();
-        }
-
-        private bool IsMovingToEntity()
-        {
-            return Vector3.Distance(transform.position, _aiPath.destination) > _interactionDistance;
-        }
-
-        private bool IsMovingToPosition()
-        {
-            return !_aiPath.reachedDestination;
         }
 
         private IEnumerator RotatingTo(Vector3 targetPosition)

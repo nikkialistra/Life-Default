@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using Entities.Entity;
 using Units.Unit;
 using UnityEngine;
@@ -9,13 +11,14 @@ namespace UnitManagement.Targeting
     public class OrderMark : MonoBehaviour
     {
         [SerializeField] private GameObject _targetIndicator;
+        [SerializeField] private float _targetIndicatorFlashDuration = 0.8f;
 
-        private List<UnitFacade> _units = new();
+        private readonly List<UnitFacade> _units = new();
 
-        public bool AtEntity => Entity != null;
+        private Coroutine _flashTargetIndicatorCoroutine;
+
         public Entity Entity { get; private set; }
         public bool Empty => _units.Count == 0;
-        public IEnumerable<UnitFacade> Units => _units;
 
         public void Add(UnitFacade unit)
         {
@@ -62,21 +65,21 @@ namespace UnitManagement.Targeting
 
         private void Activate()
         {
-            if (Entity != null)
-            {
-                Entity.ShowIndicator();
-            }
-            else
-            {
-                _targetIndicator.SetActive(true);
-            }
+            var targetIndicator = Entity != null ? Entity.TargetIndicator : _targetIndicator;
+
+            _flashTargetIndicatorCoroutine = StartCoroutine(FlashTargetIndicator(targetIndicator));
         }
 
         public void Deactivate()
         {
+            if (_flashTargetIndicatorCoroutine != null)
+            {
+                StopCoroutine(_flashTargetIndicatorCoroutine);
+            }
+
             if (Entity != null)
             {
-                HideTargetIndicator();
+                Entity.TargetIndicator.SetActive(false);
             }
             else
             {
@@ -84,9 +87,17 @@ namespace UnitManagement.Targeting
             }
         }
 
-        private void HideTargetIndicator()
+        private IEnumerator FlashTargetIndicator(GameObject targetIndicator)
         {
-            Entity.HideIndicator();
+            targetIndicator.transform.localScale = Vector3.one;
+            targetIndicator.SetActive(true);
+
+            targetIndicator.transform.DOKill();
+
+            yield return targetIndicator.transform.DOScale(new Vector3(0f, 0f, 1f), _targetIndicatorFlashDuration)
+                .WaitForCompletion();
+
+            targetIndicator.SetActive(false);
         }
 
         private void UpdateState()

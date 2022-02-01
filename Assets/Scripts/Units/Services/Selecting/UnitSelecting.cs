@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using UnitManagement.Targeting;
 using Units.Unit;
 using Units.Unit.UnitTypes;
 using UnityEngine;
@@ -52,16 +51,6 @@ namespace Units.Services.Selecting
             if (hit.transform.TryGetComponent(out UnitFacade clickedUnit) && clickedUnit.Alive)
             {
                 yield return clickedUnit;
-            }
-            else if (hit.transform.TryGetComponent(out OrderMark target))
-            {
-                foreach (var unit in target.Units)
-                {
-                    if (unit.Alive)
-                    {
-                        yield return unit;
-                    }
-                }
             }
         }
 

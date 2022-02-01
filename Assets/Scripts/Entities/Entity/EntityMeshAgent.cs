@@ -17,10 +17,12 @@ namespace Entities.Entity
 
         private float _interactionDistance;
 
-        private bool _movingToEntity;
-
+        private bool _movingToEnemy;
         private Entity _entity;
         private Vector3 _lastEntityPosition;
+
+        private bool _movingToResource;
+        private Resource _resource;
 
         private Coroutine _movingCoroutine;
         private Coroutine _rotatingToCoroutine;
@@ -38,7 +40,6 @@ namespace Entities.Entity
         public event Action DestinationReach;
         public event Action RotationEnd;
 
-        public float Velocity => _aiPath.velocity.magnitude;
         public bool IsMoving => !_aiPath.isStopped;
         public bool IsRotating { get; private set; }
 
@@ -47,12 +48,14 @@ namespace Entities.Entity
             _aiPath.isStopped = false;
             _aiPath.destination = position;
 
-            _movingToEntity = false;
+            _movingToEnemy = false;
             Move();
         }
 
         public void SetDestinationToEnemy(EnemyFacade enemy, float atDistance)
         {
+            ResetDestination();
+
             if (_entity == enemy.Entity)
             {
                 return;
@@ -66,19 +69,29 @@ namespace Entities.Entity
 
             _aiPath.destination = _lastEntityPosition;
 
-            _movingToEntity = true;
+            _movingToEnemy = true;
             Move();
         }
 
         public void SetDestinationToResource(Resource resource, float atDistance)
         {
+            ResetDestination();
+
+            _resource = resource;
+
             _interactionDistance = atDistance;
             _aiPath.isStopped = false;
 
             _aiPath.destination = GetNearestWalkablePosition(resource.transform.position);
 
-            _movingToEntity = true;
+            _movingToResource = true;
             Move();
+        }
+
+        private void ResetDestination()
+        {
+            _movingToResource = false;
+            _movingToEnemy = false;
         }
 
         private Vector3 GetNearestWalkablePosition(Vector3 originalPosition)
@@ -175,10 +188,20 @@ namespace Entities.Entity
 
         private bool UpdateMoving()
         {
-            return _movingToEntity ? UpdateMovingToEntity() : UpdateMovingToPosition();
+            if (_movingToEnemy)
+            {
+                return UpdateMovingToEnemy();
+            }
+
+            if (_movingToResource)
+            {
+                return UpdateMovingToResource();
+            }
+
+            return UpdateMovingToPosition();
         }
 
-        private bool UpdateMovingToEntity()
+        private bool UpdateMovingToEnemy()
         {
             if (Vector3.Distance(transform.position, _aiPath.destination) <= _interactionDistance)
             {
@@ -190,6 +213,17 @@ namespace Entities.Entity
             {
                 _lastEntityPosition = _entity.transform.position;
                 _aiPath.destination = _lastEntityPosition;
+            }
+
+            return true;
+        }
+
+        private bool UpdateMovingToResource()
+        {
+            if (Vector3.Distance(transform.position, _aiPath.destination) <= _interactionDistance)
+            {
+                _resource = null;
+                return false;
             }
 
             return true;

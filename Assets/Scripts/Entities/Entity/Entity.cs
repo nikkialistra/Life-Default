@@ -30,6 +30,8 @@ namespace Entities.Entity
         [ValidateInput("ResourceEntityShouldHaveResource", "Resource entity should have resource")]
         [SerializeField] private Resource _resource;
 
+        public GameObject TargetIndicator => _targetIndicator;
+
         public EntityType EntityType => _entityType;
         public UnitFacade Unit => _unit;
         public EnemyFacade Enemy => _enemy;
@@ -39,56 +41,6 @@ namespace Entities.Entity
         public Vector3 GetDestinationPoint()
         {
             return _destinationPoint.position;
-        }
-
-        public void ShowIndicator()
-        {
-            _targetIndicator.SetActive(true);
-        }
-
-        public void HideIndicator()
-        {
-            _targetIndicator.SetActive(false);
-        }
-
-        private bool UnitEntityShouldHaveUnit()
-        {
-            if (_entityType == EntityType.Unit && _unit == null)
-            {
-                return false;
-            }
-
-            return true;
-        }
-
-        private bool EnemyEntityShouldHaveEnemy()
-        {
-            if (_entityType == EntityType.Enemy && _enemy == null)
-            {
-                return false;
-            }
-
-            return true;
-        }
-
-        private bool BuildingEntityShouldHaveBuilding()
-        {
-            if (_entityType == EntityType.Building && _building == null)
-            {
-                return false;
-            }
-
-            return true;
-        }
-
-        private bool ResourceEntityShouldHaveResource()
-        {
-            if (_entityType == EntityType.Resource && _resource == null)
-            {
-                return false;
-            }
-
-            return true;
         }
     }
 }

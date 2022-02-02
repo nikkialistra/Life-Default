@@ -18,7 +18,7 @@ namespace Enemies.Enemy
 
         private void Update()
         {
-            _entityAnimator.SetMoving(_enemyMeshAgent.IsMoving);
+            _entityAnimator.Move(_enemyMeshAgent.IsMoving);
         }
 
         public void Die(Action died)

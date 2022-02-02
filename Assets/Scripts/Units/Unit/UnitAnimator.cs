@@ -15,7 +15,8 @@ namespace Units.Unit
         private UnitMeshAgent _unitMeshAgent;
         private EntityAnimator _entityAnimator;
 
-        private readonly int _interactingWithResource = Animator.StringToHash("interactingWithResource");
+        private readonly int _interacting = Animator.StringToHash("interacting");
+        private readonly int _attacking = Animator.StringToHash("attacking");
 
         private void Awake()
         {
@@ -25,17 +26,17 @@ namespace Units.Unit
 
         private void Update()
         {
-            _entityAnimator.SetMoving(_unitMeshAgent.IsMoving);
+            _entityAnimator.Move(_unitMeshAgent.IsMoving);
         }
 
-        public void InteractWithResource()
+        public void Interact(bool value)
         {
-            _animator.SetBool(_interactingWithResource, true);
+            _animator.SetBool(_interacting, value);
         }
 
-        public void StopInteractionWithResource()
+        public void Attack(bool value)
         {
-            _animator.SetBool(_interactingWithResource, false);
+            _animator.SetBool(_attacking, value);
         }
 
         public void Die(Action died)

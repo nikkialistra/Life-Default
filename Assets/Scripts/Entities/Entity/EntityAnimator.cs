@@ -10,7 +10,7 @@ namespace Entities.Entity
         [Required]
         [SerializeField] private Animator _animator;
 
-        private readonly int _isMoving = Animator.StringToHash("isMoving");
+        private readonly int _moving = Animator.StringToHash("moving");
         private readonly int _death = Animator.StringToHash("death");
 
         public void Die(Action died)
@@ -34,9 +34,9 @@ namespace Entities.Entity
             died();
         }
 
-        public void SetMoving(bool value)
+        public void Move(bool value)
         {
-            _animator.SetBool(_isMoving, value);
+            _animator.SetBool(_moving, value);
         }
     }
 }

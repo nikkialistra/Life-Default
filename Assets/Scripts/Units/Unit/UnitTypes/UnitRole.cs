@@ -68,7 +68,7 @@ namespace Units.Unit.UnitTypes
             if (_interactingCoroutine != null)
             {
                 StopCoroutine(_interactingCoroutine);
-                _unitAnimator.StopInteractionWithResource();
+                _unitAnimator.Interact(false);
             }
 
             ReleaseAcquired();
@@ -114,7 +114,7 @@ namespace Units.Unit.UnitTypes
         private IEnumerator InteractingWithEnemy(EnemyFacade enemy, UnitSpecForEnemies unitSpecForEnemies,
             Action onInteractionFinish)
         {
-            _unitAnimator.InteractWithResource();
+            _unitAnimator.Attack(true);
 
             while (CanInteract(enemy, unitSpecForEnemies))
             {
@@ -128,7 +128,7 @@ namespace Units.Unit.UnitTypes
                 enemy.TakeDamage(unitSpecForEnemies.Damage);
             }
 
-            _unitAnimator.StopInteractionWithResource();
+            _unitAnimator.Attack(false);
             onInteractionFinish();
         }
 
@@ -141,7 +141,7 @@ namespace Units.Unit.UnitTypes
         private IEnumerator InteractingWithResource(Resource resource, UnitSpecForResource unitSpecForResource,
             Action onInteractionFinish)
         {
-            _unitAnimator.InteractWithResource();
+            _unitAnimator.Interact(true);
 
             AddToAcquired(resource);
 
@@ -161,7 +161,7 @@ namespace Units.Unit.UnitTypes
 
             ReleaseAcquired();
 
-            _unitAnimator.StopInteractionWithResource();
+            _unitAnimator.Interact(false);
             onInteractionFinish();
         }
 

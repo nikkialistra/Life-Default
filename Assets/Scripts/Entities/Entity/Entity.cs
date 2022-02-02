@@ -42,5 +42,45 @@ namespace Entities.Entity
         {
             return _destinationPoint.position;
         }
+
+        private bool UnitEntityShouldHaveUnit()
+        {
+            if (_entityType == EntityType.Unit && _unit == null)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        private bool EnemyEntityShouldHaveEnemy()
+        {
+            if (_entityType == EntityType.Enemy && _enemy == null)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        private bool BuildingEntityShouldHaveBuilding()
+        {
+            if (_entityType == EntityType.Building && _building == null)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        private bool ResourceEntityShouldHaveResource()
+        {
+            if (_entityType == EntityType.Resource && _resource == null)
+            {
+                return false;
+            }
+
+            return true;
+        }
     }
 }

@@ -46,7 +46,7 @@ namespace Entities.Entity
         public void SetDestinationToPosition(Vector3 position)
         {
             _aiPath.isStopped = false;
-            _aiPath.destination = position;
+            _aiPath.destination = (Vector3)AstarPath.active.GetNearest(position, NNConstraint.Default).node.position;
 
             _movingToEnemy = false;
             Move();

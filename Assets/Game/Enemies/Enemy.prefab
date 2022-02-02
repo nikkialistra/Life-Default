@@ -2337,6 +2337,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rotationSpeed: 120
+  _entityOffsetForPathRecalculation: 0.6
 --- !u!114 &3329786360060233850
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2762,7 +2763,7 @@ PrefabInstance:
     - target: {fileID: 6241910357395849221, guid: 913322246f662fd4dbbe41ec891db6fa,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 6241910357395849221, guid: 913322246f662fd4dbbe41ec891db6fa,
         type: 3}
@@ -2808,6 +2809,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6241910357395849223, guid: 913322246f662fd4dbbe41ec891db6fa,
+        type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6241910357395849225, guid: 913322246f662fd4dbbe41ec891db6fa,
         type: 3}

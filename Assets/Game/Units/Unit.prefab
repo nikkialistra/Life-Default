@@ -2347,6 +2347,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rotationSpeed: 120
+  _entityOffsetForPathRecalculation: 0.6
 --- !u!114 &4755672356916494619
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3040,7 +3041,7 @@ PrefabInstance:
     - target: {fileID: 6241910357395849221, guid: 913322246f662fd4dbbe41ec891db6fa,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 6241910357395849221, guid: 913322246f662fd4dbbe41ec891db6fa,
         type: 3}
@@ -3087,6 +3088,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6241910357395849223, guid: 913322246f662fd4dbbe41ec891db6fa,
+        type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6241910357395849224, guid: 913322246f662fd4dbbe41ec891db6fa,
         type: 3}
       propertyPath: m_BlockingMask.m_Bits
@@ -3106,6 +3112,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6241910358025274541, guid: 913322246f662fd4dbbe41ec891db6fa,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6241910358025274541, guid: 913322246f662fd4dbbe41ec891db6fa,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6241910358025274542, guid: 913322246f662fd4dbbe41ec891db6fa,
         type: 3}

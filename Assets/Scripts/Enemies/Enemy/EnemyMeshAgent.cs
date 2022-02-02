@@ -37,6 +37,11 @@ namespace Enemies.Enemy
             _entityMeshAgent.SetDestinationToPosition(position);
         }
 
+        public void StopMoving()
+        {
+            _entityMeshAgent.StopMoving();
+        }
+
         private void OnDestinationReach()
         {
             Idle = true;

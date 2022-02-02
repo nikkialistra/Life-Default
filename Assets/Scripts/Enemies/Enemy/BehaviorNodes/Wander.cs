@@ -19,6 +19,7 @@ namespace Enemies.Enemy.BehaviorNodes
 
         public override void OnStart()
         {
+            EnemyMeshAgent.StopMoving();
             if (MaxPauseDuration < MinPauseDuration)
             {
                 MaxPauseDuration = MinPauseDuration;

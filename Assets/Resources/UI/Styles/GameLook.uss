@@ -367,3 +367,13 @@
 .crystal__icon {
     background-image: resource('UI/Textures/ResourceIcons/Crystal');
 }
+
+.build-version {
+    -unity-font: resource('Fonts/Mukta-Medium');
+    font-size: 20px;
+    -unity-font-definition: none;
+    height: 50px;
+    padding-left: 10px;
+    padding-right: 10px;
+    -unity-text-align: middle-center;
+}

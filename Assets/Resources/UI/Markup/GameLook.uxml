@@ -3,7 +3,9 @@
          noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/Resources/UI/Styles/GameLook.uss?fileID=7433441132597879392&amp;guid=295c2b0dcdb1e5f4fbcbc0c651a015ef&amp;type=3#GameLook"/>
     <ui:VisualElement name="game-look" picking-mode="Ignore" class="game-look" style="justify-content: space-between;">
-        <ui:VisualElement name="top-panel" style="align-items: flex-end;">
+        <ui:VisualElement name="top-panel" style="flex-direction: row; justify-content: space-between;">
+            <ui:Label display-tooltip-when-elided="true" name="build-version" class="build-version"
+                      style="color: rgb(255, 255, 255); font-size: 32px; padding-left: 15px; padding-right: 15px;"/>
             <ui:VisualElement name="resources" class="resources">
                 <ui:VisualElement name="wood" class="resources__element">
                     <ui:VisualElement name="wood__icon" class="resources__element__icon wood__icon"/>

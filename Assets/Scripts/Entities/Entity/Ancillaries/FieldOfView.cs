@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -7,6 +6,9 @@ namespace Entities.Entity.Ancillaries
 {
     public class FieldOfView : MonoBehaviour
     {
+        [SerializeField] private float _recalculationTime = 0.2f;
+
+        [Space]
         [SerializeField] private Transform _pointOfView;
         [SerializeField] private float _viewRadius;
         [Range(0, 360)]
@@ -30,6 +32,10 @@ namespace Entities.Entity.Ancillaries
 
         private Mesh _viewMesh;
 
+        private float _updateTime;
+
+        private bool _showFieldOfView;
+
         public IEnumerable<Transform> VisibleTargets => _visibleTargets;
 
         private void Start()
@@ -37,23 +43,41 @@ namespace Entities.Entity.Ancillaries
             _viewMesh = new Mesh();
             _viewMesh.name = "View Mesh";
             _viewMeshFilter.mesh = _viewMesh;
-
-            StartCoroutine(FindTargetsWithDelay(0.2f));
         }
 
-
-        private IEnumerator FindTargetsWithDelay(float delay)
+        private void Update()
         {
-            while (true)
+            if (Time.time > _updateTime)
             {
-                yield return new WaitForSeconds(delay);
-                FindVisibleTargets();
+                _updateTime += _recalculationTime;
+                UpdateFieldOfView();
             }
         }
 
-        private void LateUpdate()
+        [Button(ButtonSizes.Large)]
+        private void ToggleDebugShow()
         {
-            DrawFieldOfView();
+            _showFieldOfView = !_showFieldOfView;
+
+            if (_showFieldOfView)
+            {
+                _pointOfView.gameObject.SetActive(true);
+            }
+            else
+            {
+                _pointOfView.gameObject.SetActive(false);
+                _linesToTargets.positionCount = 0;
+            }
+        }
+
+        private void UpdateFieldOfView()
+        {
+            FindVisibleTargets();
+
+            if (_showFieldOfView)
+            {
+                DrawFieldOfView();
+            }
         }
 
         private void FindVisibleTargets()

@@ -125,9 +125,7 @@ LineRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Positions:
-  - {x: 77.73869, y: 2.4220762, z: 36.887413}
-  - {x: 68.878685, y: 2.4823532, z: 39.596344}
+  m_Positions: []
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 1
@@ -2688,6 +2686,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce742965ce9b4d4c8edcd3166a869e12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _showFieldOfView: 0
+  _recalculationTime: 0.2
   _pointOfView: {fileID: 6749439943888230544}
   _viewRadius: 20
   _viewAngle: 120

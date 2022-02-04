@@ -17,13 +17,17 @@ namespace Entities.Entity.Ancillaries
         [SerializeField] private LayerMask _obstacleMask;
 
         [Title("Debug")]
-        [SerializeField] private float _meshResolution;
+        [SerializeField] private float _oneDegreeMeshResolution;
         [SerializeField] private int _edgeResolveIterations;
         [SerializeField] private float _edgeDistanceThreshold;
+        [Space]
+        [SerializeField] private MeshFilter _viewMeshFilter;
+        [SerializeField] private LineRenderer _linesToTargets;
+
+        private static readonly Vector3 TargetPositionCorrection = Vector3.up * 1.5f;
 
         private readonly List<Transform> _visibleTargets = new();
 
-        public MeshFilter _viewMeshFilter;
         private Mesh _viewMesh;
 
         public IEnumerable<Transform> VisibleTargets => _visibleTargets;
@@ -52,16 +56,6 @@ namespace Entities.Entity.Ancillaries
             DrawFieldOfView();
         }
 
-        public Vector3 DirectionFromAngle(float angleInDegrees, bool angleIsGlobal)
-        {
-            if (!angleIsGlobal)
-            {
-                angleInDegrees += transform.eulerAngles.y;
-            }
-
-            return new Vector3(Mathf.Sin(angleInDegrees * Mathf.Deg2Rad), 0, Mathf.Cos(angleInDegrees * Mathf.Deg2Rad));
-        }
-
         private void FindVisibleTargets()
         {
             _visibleTargets.Clear();
@@ -69,14 +63,15 @@ namespace Entities.Entity.Ancillaries
 
             foreach (var target in targetsInViewRadius)
             {
-                var targetTransform = target.transform;
-                var dirToTarget = (targetTransform.position - _pointOfView.position).normalized;
-                if (Vector3.Angle(transform.forward, dirToTarget) < _viewAngle / 2)
+                var targetPosition = target.transform.position + TargetPositionCorrection;
+                var directionToTarget = (targetPosition - _pointOfView.position).normalized;
+                if (Vector3.Angle(transform.forward, directionToTarget) < _viewAngle / 2)
                 {
-                    var dstToTarget = Vector3.Distance(_pointOfView.position, targetTransform.position);
-                    if (!Physics.Raycast(_pointOfView.position, dirToTarget, dstToTarget, _obstacleMask))
+                    var distanceToTarget = Vector3.Distance(_pointOfView.position, targetPosition);
+
+                    if (!Physics.Raycast(_pointOfView.position, directionToTarget, distanceToTarget, _obstacleMask))
                     {
-                        _visibleTargets.Add(targetTransform);
+                        _visibleTargets.Add(target.transform);
                     }
                 }
             }
@@ -84,10 +79,20 @@ namespace Entities.Entity.Ancillaries
 
         private void DrawFieldOfView()
         {
-            var stepCount = Mathf.RoundToInt(_viewAngle * _meshResolution);
+            var stepCount = Mathf.RoundToInt(_viewAngle * _oneDegreeMeshResolution);
             var stepAngleSize = _viewAngle / stepCount;
+
+            var viewPoints = FindViewPoints(stepCount, stepAngleSize);
+
+            RecalculateViewMesh(viewPoints);
+            DrawLinesToTargets();
+        }
+
+        private List<Vector3> FindViewPoints(int stepCount, float stepAngleSize)
+        {
             var viewPoints = new List<Vector3>();
             var oldViewCast = new ViewCastInfo();
+
             for (var i = 0; i <= stepCount; i++)
             {
                 var angle = transform.eulerAngles.y - _viewAngle / 2 + stepAngleSize * i;
@@ -95,10 +100,10 @@ namespace Entities.Entity.Ancillaries
 
                 if (i > 0)
                 {
-                    var edgeDstThresholdExceeded =
-                        Mathf.Abs(oldViewCast.Dst - newViewCast.Dst) > _edgeDistanceThreshold;
+                    var edgeDistanceThresholdExceeded =
+                        Mathf.Abs(oldViewCast.Distance - newViewCast.Distance) > _edgeDistanceThreshold;
                     if (oldViewCast.Hit != newViewCast.Hit ||
-                        (oldViewCast.Hit && newViewCast.Hit && edgeDstThresholdExceeded))
+                        (oldViewCast.Hit && newViewCast.Hit && edgeDistanceThresholdExceeded))
                     {
                         var edge = FindEdge(oldViewCast, newViewCast);
                         if (edge.PointA != Vector3.zero)
@@ -113,11 +118,15 @@ namespace Entities.Entity.Ancillaries
                     }
                 }
 
-
                 viewPoints.Add(newViewCast.Point);
                 oldViewCast = newViewCast;
             }
 
+            return viewPoints;
+        }
+
+        private void RecalculateViewMesh(List<Vector3> viewPoints)
+        {
             var vertexCount = viewPoints.Count + 1;
             var vertices = new Vector3[vertexCount];
             var triangles = new int[(vertexCount - 2) * 3];
@@ -142,6 +151,23 @@ namespace Entities.Entity.Ancillaries
             _viewMesh.RecalculateNormals();
         }
 
+        private void DrawLinesToTargets()
+        {
+            if (_visibleTargets.Count == 0)
+            {
+                _linesToTargets.positionCount = 0;
+            }
+            else
+            {
+                _linesToTargets.positionCount = _visibleTargets.Count * 2;
+                for (var i = 0; i < _visibleTargets.Count; i++)
+                {
+                    _linesToTargets.SetPosition(i * 2, _linesToTargets.transform.position);
+                    _linesToTargets.SetPosition(i * 2 + 1,
+                        _visibleTargets[i].transform.position + TargetPositionCorrection);
+                }
+            }
+        }
 
         private EdgeInfo FindEdge(ViewCastInfo minViewCast, ViewCastInfo maxViewCast)
         {
@@ -155,7 +181,8 @@ namespace Entities.Entity.Ancillaries
                 var angle = (minAngle + maxAngle) / 2;
                 var newViewCast = ViewCast(angle);
 
-                var edgeDstThresholdExceeded = Mathf.Abs(minViewCast.Dst - newViewCast.Dst) > _edgeDistanceThreshold;
+                var edgeDstThresholdExceeded =
+                    Mathf.Abs(minViewCast.Distance - newViewCast.Distance) > _edgeDistanceThreshold;
                 if (newViewCast.Hit == minViewCast.Hit && !edgeDstThresholdExceeded)
                 {
                     minAngle = angle;
@@ -171,33 +198,38 @@ namespace Entities.Entity.Ancillaries
             return new EdgeInfo(minPoint, maxPoint);
         }
 
-
         private ViewCastInfo ViewCast(float globalAngle)
         {
-            var dir = DirectionFromAngle(globalAngle, true);
+            var direction = DirectionFromAngle(globalAngle);
 
-            if (Physics.Raycast(_pointOfView.position, dir, out var hit, _viewRadius, _obstacleMask))
+            if (Physics.Raycast(_pointOfView.position, direction, out var hit, _viewRadius, _obstacleMask))
             {
                 return new ViewCastInfo(true, hit.point, hit.distance, globalAngle);
             }
             else
             {
-                return new ViewCastInfo(false, _pointOfView.position + dir * _viewRadius, _viewRadius, globalAngle);
+                return new ViewCastInfo(false, _pointOfView.position + direction * _viewRadius, _viewRadius,
+                    globalAngle);
             }
+        }
+
+        private static Vector3 DirectionFromAngle(float angleInDegrees)
+        {
+            return new Vector3(Mathf.Sin(angleInDegrees * Mathf.Deg2Rad), 0, Mathf.Cos(angleInDegrees * Mathf.Deg2Rad));
         }
 
         private readonly struct ViewCastInfo
         {
             public readonly bool Hit;
             public readonly Vector3 Point;
-            public readonly float Dst;
+            public readonly float Distance;
             public readonly float Angle;
 
-            public ViewCastInfo(bool hit, Vector3 point, float dst, float angle)
+            public ViewCastInfo(bool hit, Vector3 point, float distance, float angle)
             {
                 Hit = hit;
                 Point = point;
-                Dst = dst;
+                Distance = distance;
                 Angle = angle;
             }
         }

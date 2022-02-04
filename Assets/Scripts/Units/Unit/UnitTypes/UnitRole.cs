@@ -69,6 +69,7 @@ namespace Units.Unit.UnitTypes
             {
                 StopCoroutine(_interactingCoroutine);
                 _unitAnimator.Interact(false);
+                _unitAnimator.Attack(false);
             }
 
             ReleaseAcquired();

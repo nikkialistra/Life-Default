@@ -17,6 +17,8 @@ namespace UnitManagement.Targeting
 
         private Coroutine _flashTargetIndicatorCoroutine;
 
+        private bool _activated;
+
         public Entity Entity { get; private set; }
         public bool Empty => _units.Count == 0;
 
@@ -65,6 +67,13 @@ namespace UnitManagement.Targeting
 
         private void Activate()
         {
+            if (_activated)
+            {
+                return;
+            }
+
+            _activated = true;
+
             var targetIndicator = Entity != null ? Entity.TargetIndicator : _targetIndicator;
 
             _flashTargetIndicatorCoroutine = StartCoroutine(FlashTargetIndicator(targetIndicator));
@@ -85,6 +94,8 @@ namespace UnitManagement.Targeting
             {
                 _targetIndicator.SetActive(false);
             }
+
+            _activated = false;
         }
 
         private IEnumerator FlashTargetIndicator(GameObject targetIndicator)

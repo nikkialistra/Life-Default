@@ -1,5 +1,6 @@
 ﻿using System;
 using Entities.Creature;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Enemies.Enemy
@@ -7,12 +8,13 @@ namespace Enemies.Enemy
     [RequireComponent(typeof(EntityAnimator))]
     public class EnemyAnimator : MonoBehaviour
     {
-        private EnemyMeshAgent _enemyMeshAgent;
+        [Required]
+        [SerializeField] private EnemyMeshAgent _enemyMeshAgent;
+
         private EntityAnimator _entityAnimator;
 
         private void Awake()
         {
-            _enemyMeshAgent = GetComponent<EnemyMeshAgent>();
             _entityAnimator = GetComponent<EntityAnimator>();
         }
 

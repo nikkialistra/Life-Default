@@ -1,6 +1,7 @@
 ﻿using BehaviorDesigner.Runtime;
 using BehaviorDesigner.Runtime.Tasks;
 using Enemies.Enemy;
+using Entities.Ancillaries;
 using Entities.BehaviorVariables;
 using UnityEngine;
 
@@ -8,13 +9,10 @@ namespace Units.Unit.BehaviorNodes
 {
     public class SearchForEnemy : Action
     {
+        public FieldOfView FieldOfView;
+
         public SharedEnemy Enemy;
         public SharedBool NewCommand;
-
-        public float ViewRadius;
-
-        private readonly int _enemiesMask = LayerMask.GetMask("Enemies");
-        private readonly Collider[] _hits = new Collider[20];
 
         private float _shortestDistanceToEnemy;
 
@@ -38,12 +36,9 @@ namespace Units.Unit.BehaviorNodes
 
         private void TryToFind()
         {
-            var quantity = Physics.OverlapSphereNonAlloc(transform.position, ViewRadius, _hits, _enemiesMask);
-            for (var i = 0; i < quantity; i++)
+            foreach (var target in FieldOfView.FindVisibleTargets())
             {
-                var hit = _hits[i];
-
-                var enemy = hit.transform.GetComponent<EnemyFacade>();
+                var enemy = target.GetComponent<EnemyFacade>();
                 if (enemy != null)
                 {
                     SetIfClosest(enemy);

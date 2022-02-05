@@ -45,8 +45,6 @@ namespace Entities.Ancillaries
             _linesToTargets = GetComponent<LineRenderer>();
         }
 
-        public IEnumerable<Transform> VisibleTargets => _visibleTargets;
-
         private void Start()
         {
             _viewMesh = new Mesh();
@@ -56,10 +54,11 @@ namespace Entities.Ancillaries
 
         private void Update()
         {
-            if (Time.time > _updateTime)
+            if (_showFieldOfView && Time.time > _updateTime)
             {
                 _updateTime += _recalculationTime;
-                UpdateFieldOfView();
+                FindVisibleTargets();
+                DrawFieldOfView();
             }
         }
 
@@ -79,17 +78,7 @@ namespace Entities.Ancillaries
             }
         }
 
-        private void UpdateFieldOfView()
-        {
-            FindVisibleTargets();
-
-            if (_showFieldOfView)
-            {
-                DrawFieldOfView();
-            }
-        }
-
-        private void FindVisibleTargets()
+        public IEnumerable<Transform> FindVisibleTargets()
         {
             _visibleTargets.Clear();
             var targetsInViewRadius = Physics.OverlapSphere(transform.position, _viewRadius, _targetMask);
@@ -108,6 +97,8 @@ namespace Entities.Ancillaries
                     }
                 }
             }
+
+            return _visibleTargets;
         }
 
         private void DrawFieldOfView()

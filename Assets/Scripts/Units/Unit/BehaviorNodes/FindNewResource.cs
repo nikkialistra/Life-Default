@@ -1,4 +1,5 @@
 ﻿using BehaviorDesigner.Runtime.Tasks;
+using Entities.Ancillaries;
 using Entities.BehaviorVariables;
 using ResourceManagement;
 using UnityEngine;
@@ -7,12 +8,9 @@ namespace Units.Unit.BehaviorNodes
 {
     public class FindNewResource : Action
     {
+        public FieldOfView FieldOfView;
+
         public SharedResource Resource;
-
-        public float SeekRadius;
-
-        private readonly int _resourcesMask = LayerMask.GetMask("Resources");
-        private readonly Collider[] _hits = new Collider[20];
 
         private Resource _oldResource;
 
@@ -35,12 +33,9 @@ namespace Units.Unit.BehaviorNodes
 
         private void TryToFind()
         {
-            var quantity = Physics.OverlapSphereNonAlloc(transform.position, SeekRadius, _hits, _resourcesMask);
-            for (var i = 0; i < quantity; i++)
+            foreach (var target in FieldOfView.FindVisibleTargets())
             {
-                var hit = _hits[i];
-
-                var resource = hit.transform.GetComponent<Resource>();
+                var resource = target.GetComponent<Resource>();
                 if (resource != null && resource != _oldResource)
                 {
                     SetIfSuitable(resource);

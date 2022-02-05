@@ -1,7 +1,7 @@
 ﻿using BehaviorDesigner.Runtime;
 using ResourceManagement;
 
-namespace Entities.Entity
+namespace Entities.BehaviorVariables
 {
     [System.Serializable]
     public class SharedResource : SharedVariable<Resource>

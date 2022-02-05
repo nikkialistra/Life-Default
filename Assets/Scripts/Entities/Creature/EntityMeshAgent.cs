@@ -6,7 +6,7 @@ using Pathfinding;
 using ResourceManagement;
 using UnityEngine;
 
-namespace Entities.Entity
+namespace Entities.Creature
 {
     public class EntityMeshAgent : MonoBehaviour
     {

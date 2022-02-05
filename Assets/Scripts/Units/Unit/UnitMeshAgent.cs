@@ -1,6 +1,7 @@
 ﻿using System;
 using Enemies.Enemy;
-using Entities.Entity;
+using Entities;
+using Entities.Creature;
 using ResourceManagement;
 using UnityEngine;
 

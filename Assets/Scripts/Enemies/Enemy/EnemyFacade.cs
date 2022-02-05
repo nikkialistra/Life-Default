@@ -1,6 +1,7 @@
 ﻿using System;
-using Entities.Entity;
-using Entities.Entity.Ancillaries;
+using Entities;
+using Entities.Ancillaries;
+using Entities.Creature;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using Zenject;
@@ -8,7 +9,6 @@ using Zenject;
 namespace Enemies.Enemy
 {
     [RequireComponent(typeof(EntityHealth))]
-    [RequireComponent(typeof(EnemyAnimator))]
     [RequireComponent(typeof(EnemyMeshAgent))]
     [RequireComponent(typeof(EnemyBehavior))]
     [RequireComponent(typeof(Entity))]
@@ -16,6 +16,9 @@ namespace Enemies.Enemy
     {
         [Required]
         [SerializeField] private HealthBar _healthBar;
+        [Space]
+        [Required]
+        [SerializeField] private EnemyAnimator _enemyAnimator;
 
         [Title("Properties")]
         [SerializeField] private EnemyType _enemyType;
@@ -23,7 +26,6 @@ namespace Enemies.Enemy
         private bool _died;
 
         private EntityHealth _health;
-        private EnemyAnimator _enemyAnimator;
         private EnemyMeshAgent _enemyMeshAgent;
         private EnemyBehavior _enemyBehavior;
 
@@ -32,7 +34,6 @@ namespace Enemies.Enemy
         private void Awake()
         {
             _health = GetComponent<EntityHealth>();
-            _enemyAnimator = GetComponent<EnemyAnimator>();
             _enemyMeshAgent = GetComponent<EnemyMeshAgent>();
             _enemyBehavior = GetComponent<EnemyBehavior>();
 

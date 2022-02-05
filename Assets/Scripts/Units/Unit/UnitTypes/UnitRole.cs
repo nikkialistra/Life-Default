@@ -2,8 +2,9 @@
 using System.Collections;
 using Buildings;
 using Enemies.Enemy;
-using Entities.Entity.Interfaces;
+using Entities.Interfaces;
 using ResourceManagement;
+using Sirenix.OdinInspector;
 using Units.Services;
 using Units.Unit.UnitTypes.UnitSpecs;
 using UnityEngine;
@@ -11,16 +12,17 @@ using Zenject;
 
 namespace Units.Unit.UnitTypes
 {
-    [RequireComponent(typeof(UnitAnimator))]
     public class UnitRole : MonoBehaviour
     {
+        [Required]
+        [SerializeField] private UnitAnimator _unitAnimator;
+
         private UnitTypeSpecsRepository _unitTypeSpecsRepository;
         private ResourceCounts _resourceCounts;
         private UnitTypeSpecs UnitTypeSpecs { get; set; }
 
         private Action _onInteractionFinish;
 
-        private UnitAnimator _unitAnimator;
 
         private Coroutine _interactingCoroutine;
 
@@ -31,11 +33,6 @@ namespace Units.Unit.UnitTypes
         {
             _resourceCounts = resourceCounts;
             _unitTypeSpecsRepository = unitTypeSpecsRepository;
-        }
-
-        private void Awake()
-        {
-            _unitAnimator = GetComponent<UnitAnimator>();
         }
 
         public void ChangeUnitType(UnitType unitType)

@@ -2,7 +2,7 @@
 using BehaviorDesigner.Runtime;
 using Enemies.Enemy;
 
-namespace Entities.Entity
+namespace Entities.BehaviorVariables
 {
     [Serializable]
     public class SharedEnemy : SharedVariable<EnemyFacade>

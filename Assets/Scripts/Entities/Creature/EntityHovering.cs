@@ -1,12 +1,12 @@
 ﻿using System.Collections;
-using Entities.Entity;
-using Entities.Entity.Interfaces;
+using Entities.Ancillaries;
+using Entities.Interfaces;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace Units.Unit
+namespace Entities.Creature
 {
-    public class UnitRenderer : MonoBehaviour, IHoverable
+    public class EntityHovering : MonoBehaviour, IHoverable
     {
         [Required]
         [SerializeField] private HoverIndicator _hoverIndicator;

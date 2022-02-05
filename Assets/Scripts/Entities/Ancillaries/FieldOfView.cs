@@ -2,14 +2,16 @@
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace Entities.Entity.Ancillaries
+namespace Entities.Ancillaries
 {
+    [RequireComponent(typeof(MeshFilter))]
+    [RequireComponent(typeof(MeshRenderer))]
+    [RequireComponent(typeof(LineRenderer))]
     public class FieldOfView : MonoBehaviour
     {
         [SerializeField] private float _recalculationTime = 0.2f;
 
         [Space]
-        [SerializeField] private Transform _pointOfView;
         [SerializeField] private float _viewRadius;
         [Range(0, 360)]
         [SerializeField] private float _viewAngle;
@@ -22,19 +24,26 @@ namespace Entities.Entity.Ancillaries
         [SerializeField] private float _oneDegreeMeshResolution;
         [SerializeField] private int _edgeResolveIterations;
         [SerializeField] private float _edgeDistanceThreshold;
-        [Space]
-        [SerializeField] private MeshFilter _viewMeshFilter;
-        [SerializeField] private LineRenderer _linesToTargets;
 
         private static readonly Vector3 TargetPositionCorrection = Vector3.up * 1.5f;
+
+        private MeshFilter _meshFilter;
+        private MeshRenderer _meshRenderer;
+        private LineRenderer _linesToTargets;
 
         private readonly List<Transform> _visibleTargets = new();
 
         private Mesh _viewMesh;
 
+        private bool _showFieldOfView;
         private float _updateTime;
 
-        private bool _showFieldOfView;
+        private void Awake()
+        {
+            _meshFilter = GetComponent<MeshFilter>();
+            _meshRenderer = GetComponent<MeshRenderer>();
+            _linesToTargets = GetComponent<LineRenderer>();
+        }
 
         public IEnumerable<Transform> VisibleTargets => _visibleTargets;
 
@@ -42,7 +51,7 @@ namespace Entities.Entity.Ancillaries
         {
             _viewMesh = new Mesh();
             _viewMesh.name = "View Mesh";
-            _viewMeshFilter.mesh = _viewMesh;
+            _meshFilter.mesh = _viewMesh;
         }
 
         private void Update()
@@ -61,11 +70,11 @@ namespace Entities.Entity.Ancillaries
 
             if (_showFieldOfView)
             {
-                _pointOfView.gameObject.SetActive(true);
+                _meshRenderer.enabled = true;
             }
             else
             {
-                _pointOfView.gameObject.SetActive(false);
+                _meshRenderer.enabled = false;
                 _linesToTargets.positionCount = 0;
             }
         }
@@ -83,17 +92,17 @@ namespace Entities.Entity.Ancillaries
         private void FindVisibleTargets()
         {
             _visibleTargets.Clear();
-            var targetsInViewRadius = Physics.OverlapSphere(_pointOfView.position, _viewRadius, _targetMask);
+            var targetsInViewRadius = Physics.OverlapSphere(transform.position, _viewRadius, _targetMask);
 
             foreach (var target in targetsInViewRadius)
             {
                 var targetPosition = target.transform.position + TargetPositionCorrection;
-                var directionToTarget = (targetPosition - _pointOfView.position).normalized;
+                var directionToTarget = (targetPosition - transform.position).normalized;
                 if (Vector3.Angle(transform.forward, directionToTarget) < _viewAngle / 2)
                 {
-                    var distanceToTarget = Vector3.Distance(_pointOfView.position, targetPosition);
+                    var distanceToTarget = Vector3.Distance(transform.position, targetPosition);
 
-                    if (!Physics.Raycast(_pointOfView.position, directionToTarget, distanceToTarget, _obstacleMask))
+                    if (!Physics.Raycast(transform.position, directionToTarget, distanceToTarget, _obstacleMask))
                     {
                         _visibleTargets.Add(target.transform);
                     }
@@ -226,13 +235,13 @@ namespace Entities.Entity.Ancillaries
         {
             var direction = DirectionFromAngle(globalAngle);
 
-            if (Physics.Raycast(_pointOfView.position, direction, out var hit, _viewRadius, _obstacleMask))
+            if (Physics.Raycast(transform.position, direction, out var hit, _viewRadius, _obstacleMask))
             {
                 return new ViewCastInfo(true, hit.point, hit.distance, globalAngle);
             }
             else
             {
-                return new ViewCastInfo(false, _pointOfView.position + direction * _viewRadius, _viewRadius,
+                return new ViewCastInfo(false, transform.position + direction * _viewRadius, _viewRadius,
                     globalAngle);
             }
         }

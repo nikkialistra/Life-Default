@@ -1,4 +1,4 @@
-﻿namespace Entities.Entity
+﻿namespace Entities.Types
 {
     public enum EntityType
     {

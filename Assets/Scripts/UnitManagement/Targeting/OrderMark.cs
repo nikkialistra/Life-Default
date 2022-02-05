@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
-using Entities.Entity;
+using Entities;
 using Units.Unit;
 using UnityEngine;
 

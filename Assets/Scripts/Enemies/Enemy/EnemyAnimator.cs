@@ -1,5 +1,5 @@
 ﻿using System;
-using Entities.Entity;
+using Entities.Creature;
 using UnityEngine;
 
 namespace Enemies.Enemy

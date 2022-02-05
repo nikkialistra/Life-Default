@@ -1,6 +1,7 @@
 ﻿using System;
-using Entities.Entity;
-using Entities.Entity.Ancillaries;
+using Entities;
+using Entities.Ancillaries;
+using Entities.Creature;
 using Sirenix.OdinInspector;
 using Units.Unit.UnitTypes;
 using UnityEngine;
@@ -10,8 +11,7 @@ namespace Units.Unit
 {
     [RequireComponent(typeof(EntityHealth))]
     [RequireComponent(typeof(UnitMeshAgent))]
-    [RequireComponent(typeof(UnitAnimator))]
-    [RequireComponent(typeof(UnitRenderer))]
+    [RequireComponent(typeof(EntityHovering))]
     [RequireComponent(typeof(UnitAppearance))]
     [RequireComponent(typeof(UnitBehavior))]
     [RequireComponent(typeof(UnitRole))]
@@ -20,6 +20,8 @@ namespace Units.Unit
     {
         [Required]
         [SerializeField] private HealthBar _healthBar;
+        [Required]
+        [SerializeField] private UnitAnimator _unitAnimator;
         [Required]
         [SerializeField] private GameObject _selectionIndicator;
         [Required]
@@ -32,8 +34,7 @@ namespace Units.Unit
         private bool _died;
 
         private EntityHealth _health;
-        private UnitAnimator _unitAnimator;
-        private UnitRenderer _unitRenderer;
+        private EntityHovering _entityHovering;
         private UnitAppearance _unitAppearance;
         private UnitMeshAgent _unitMeshAgent;
         private UnitBehavior _unitBehavior;
@@ -44,8 +45,7 @@ namespace Units.Unit
         private void Awake()
         {
             _health = GetComponent<EntityHealth>();
-            _unitAnimator = GetComponent<UnitAnimator>();
-            _unitRenderer = GetComponent<UnitRenderer>();
+            _entityHovering = GetComponent<EntityHovering>();
             _unitAppearance = GetComponent<UnitAppearance>();
             _unitMeshAgent = GetComponent<UnitMeshAgent>();
             _unitBehavior = GetComponent<UnitBehavior>();
@@ -115,7 +115,7 @@ namespace Units.Unit
                 return;
             }
 
-            _unitRenderer.Select();
+            _entityHovering.Select();
 
             _selectionIndicator.SetActive(true);
             _healthBar.Selected = true;
@@ -123,7 +123,7 @@ namespace Units.Unit
 
         public void Deselect()
         {
-            _unitRenderer.Deselect();
+            _entityHovering.Deselect();
 
             _selectionIndicator.SetActive(false);
             _healthBar.Selected = false;

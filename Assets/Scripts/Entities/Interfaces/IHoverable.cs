@@ -1,4 +1,4 @@
-﻿namespace Entities.Entity.Interfaces
+﻿namespace Entities.Interfaces
 {
     public interface IHoverable
     {

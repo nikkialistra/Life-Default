@@ -1,4 +1,4 @@
-﻿using Entities.Entity;
+﻿using Entities;
 using MapGeneration.Map;
 using UnitManagement.Targeting.Formations;
 using Units.Services.Selecting;

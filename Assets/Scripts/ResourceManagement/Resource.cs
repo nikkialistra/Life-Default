@@ -1,6 +1,6 @@
 ﻿using System;
-using Entities.Entity;
-using Entities.Entity.Interfaces;
+using Entities;
+using Entities.Interfaces;
 using Sirenix.OdinInspector;
 using UnityEngine;
 

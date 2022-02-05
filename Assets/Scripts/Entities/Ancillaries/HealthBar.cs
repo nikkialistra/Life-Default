@@ -2,7 +2,7 @@
 using UnityEngine.UI;
 using Zenject;
 
-namespace Entities.Entity.Ancillaries
+namespace Entities.Ancillaries
 {
     public class HealthBar : MonoBehaviour
     {

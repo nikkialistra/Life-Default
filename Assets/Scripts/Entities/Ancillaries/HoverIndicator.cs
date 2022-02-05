@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Entities.Entity
+namespace Entities.Ancillaries
 {
     public class HoverIndicator : MonoBehaviour
     {

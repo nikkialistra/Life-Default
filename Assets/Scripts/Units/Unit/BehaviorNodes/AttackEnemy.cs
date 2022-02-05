@@ -1,5 +1,5 @@
 ﻿using BehaviorDesigner.Runtime.Tasks;
-using Entities.Entity;
+using Entities.BehaviorVariables;
 using Units.Unit.UnitTypes;
 
 namespace Units.Unit.BehaviorNodes

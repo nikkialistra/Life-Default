@@ -1,11 +1,12 @@
 ﻿using Buildings;
 using Enemies.Enemy;
+using Entities.Types;
 using ResourceManagement;
 using Sirenix.OdinInspector;
 using Units.Unit;
 using UnityEngine;
 
-namespace Entities.Entity
+namespace Entities
 {
     public class Entity : MonoBehaviour
     {

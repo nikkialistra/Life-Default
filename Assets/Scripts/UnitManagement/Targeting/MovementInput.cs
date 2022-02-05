@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using Entities.Entity;
+using Entities;
 using UI.Game;
 using Units.Services.Selecting;
 using UnityEngine;

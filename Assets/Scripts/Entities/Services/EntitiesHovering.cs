@@ -1,4 +1,4 @@
-﻿using Entities.Entity.Interfaces;
+﻿using Entities.Interfaces;
 using UnitManagement.Selection;
 using UnityEngine;
 using UnityEngine.InputSystem;

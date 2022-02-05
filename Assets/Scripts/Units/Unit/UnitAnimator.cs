@@ -1,27 +1,27 @@
 ﻿using System;
-using Entities.Entity;
+using Entities.Creature;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Units.Unit
 {
-    [RequireComponent(typeof(UnitMeshAgent))]
     [RequireComponent(typeof(EntityAnimator))]
+    [RequireComponent(typeof(Animator))]
     public class UnitAnimator : MonoBehaviour
     {
         [Required]
-        [SerializeField] private Animator _animator;
+        [SerializeField] private UnitMeshAgent _unitMeshAgent;
 
-        private UnitMeshAgent _unitMeshAgent;
         private EntityAnimator _entityAnimator;
+        private Animator _animator;
 
         private readonly int _interacting = Animator.StringToHash("interacting");
         private readonly int _attacking = Animator.StringToHash("attacking");
 
         private void Awake()
         {
-            _unitMeshAgent = GetComponent<UnitMeshAgent>();
             _entityAnimator = GetComponent<EntityAnimator>();
+            _animator = GetComponent<Animator>();
         }
 
         private void Update()

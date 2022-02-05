@@ -1,6 +1,8 @@
 ﻿using System;
 using BehaviorDesigner.Runtime;
-using Entities.Entity;
+using Entities;
+using Entities.BehaviorVariables;
+using Entities.Types;
 using Units.Unit.UnitTypes;
 using UnityEngine;
 

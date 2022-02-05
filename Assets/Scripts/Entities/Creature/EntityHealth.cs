@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections;
-using Entities.Entity.Interfaces;
+using Entities.Interfaces;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace Entities.Entity
+namespace Entities.Creature
 {
     public class EntityHealth : MonoBehaviour, IDamageable
     {

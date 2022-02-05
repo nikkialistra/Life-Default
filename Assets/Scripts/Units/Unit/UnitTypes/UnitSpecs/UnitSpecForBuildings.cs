@@ -1,7 +1,7 @@
 ﻿using System;
 using Buildings;
 using Common;
-using Entities.Entity;
+using Entities.Types;
 
 namespace Units.Unit.UnitTypes.UnitSpecs
 {

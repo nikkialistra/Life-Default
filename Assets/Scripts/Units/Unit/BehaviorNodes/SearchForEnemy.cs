@@ -1,7 +1,7 @@
 ﻿using BehaviorDesigner.Runtime;
 using BehaviorDesigner.Runtime.Tasks;
 using Enemies.Enemy;
-using Entities.Entity;
+using Entities.BehaviorVariables;
 using UnityEngine;
 
 namespace Units.Unit.BehaviorNodes

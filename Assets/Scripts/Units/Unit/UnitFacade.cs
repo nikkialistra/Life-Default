@@ -22,6 +22,14 @@ namespace Units.Unit
         [SerializeField] private HealthBar _healthBar;
         [Required]
         [SerializeField] private UnitAnimator _unitAnimator;
+
+        [Space]
+        [Required]
+        [SerializeField] private FieldOfView _enemyFieldOfView;
+        [Required]
+        [SerializeField] private FieldOfView _resourceFieldOfView;
+
+        [Space]
         [Required]
         [SerializeField] private GameObject _selectionIndicator;
         [Required]
@@ -142,6 +150,16 @@ namespace Units.Unit
         public bool TryOrderToPosition(Vector3 position)
         {
             return _unitBehavior.TryOrderToPosition(position);
+        }
+
+        public void ToggleEnemyFieldOfView()
+        {
+            _enemyFieldOfView.ToggleDebugShow();
+        }
+
+        public void ToggleResourceFieldOfView()
+        {
+            _resourceFieldOfView.ToggleDebugShow();
         }
 
         public void OnSpawned(UnitType unitType, Vector3 position, IMemoryPool pool)

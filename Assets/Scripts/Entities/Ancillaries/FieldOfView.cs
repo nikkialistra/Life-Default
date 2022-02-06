@@ -63,7 +63,7 @@ namespace Entities.Ancillaries
         }
 
         [Button(ButtonSizes.Large)]
-        private void ToggleDebugShow()
+        public void ToggleDebugShow()
         {
             _showFieldOfView = !_showFieldOfView;
 

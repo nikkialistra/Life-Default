@@ -145,6 +145,24 @@ namespace Controls
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ToggleEnemyFieldsOfView"",
+                    ""type"": ""Button"",
+                    ""id"": ""b34e6d70-41fd-44d7-95ac-fad15c64847a"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ToggleResourceFieldsOfView"",
+                    ""type"": ""Button"",
+                    ""id"": ""a08f294d-4743-4bfa-a732-1857f145b510"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -499,6 +517,72 @@ namespace Controls
                     ""action"": ""Digit"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""One Modifier"",
+                    ""id"": ""137d67c8-e8b2-470d-bcb0-cce79254601f"",
+                    ""path"": ""OneModifier"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ToggleEnemyFieldsOfView"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""modifier"",
+                    ""id"": ""f9a0bfc5-9aa5-41ae-b10d-1f0c07ffc91f"",
+                    ""path"": ""<Keyboard>/alt"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ToggleEnemyFieldsOfView"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""binding"",
+                    ""id"": ""61ac1d13-11de-4ceb-8f4d-389a7e726e1d"",
+                    ""path"": ""<Keyboard>/g"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ToggleEnemyFieldsOfView"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""One Modifier"",
+                    ""id"": ""eb3b0fec-3cbb-4255-b6c8-0056ccbbaf53"",
+                    ""path"": ""OneModifier"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ToggleResourceFieldsOfView"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""modifier"",
+                    ""id"": ""d098d2ca-00ed-43c0-bdd5-8655babe78ab"",
+                    ""path"": ""<Keyboard>/alt"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ToggleResourceFieldsOfView"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""binding"",
+                    ""id"": ""a8003640-6731-45ac-8b35-43dc7d769864"",
+                    ""path"": ""<Keyboard>/h"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ToggleResourceFieldsOfView"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 }
             ]
         },
@@ -548,6 +632,8 @@ namespace Controls
             m_Management_ShowMenu = m_Management.FindAction("ShowMenu", throwIfNotFound: true);
             m_Management_Stop = m_Management.FindAction("Stop", throwIfNotFound: true);
             m_Management_Digit = m_Management.FindAction("Digit", throwIfNotFound: true);
+            m_Management_ToggleEnemyFieldsOfView = m_Management.FindAction("ToggleEnemyFieldsOfView", throwIfNotFound: true);
+            m_Management_ToggleResourceFieldsOfView = m_Management.FindAction("ToggleResourceFieldsOfView", throwIfNotFound: true);
             // Menus
             m_Menus = asset.FindActionMap("Menus", throwIfNotFound: true);
             m_Menus_HideMenu = m_Menus.FindAction("HideMenu", throwIfNotFound: true);
@@ -623,6 +709,8 @@ namespace Controls
         private readonly InputAction m_Management_ShowMenu;
         private readonly InputAction m_Management_Stop;
         private readonly InputAction m_Management_Digit;
+        private readonly InputAction m_Management_ToggleEnemyFieldsOfView;
+        private readonly InputAction m_Management_ToggleResourceFieldsOfView;
         public struct ManagementActions
         {
             private @Control m_Wrapper;
@@ -640,6 +728,8 @@ namespace Controls
             public InputAction @ShowMenu => m_Wrapper.m_Management_ShowMenu;
             public InputAction @Stop => m_Wrapper.m_Management_Stop;
             public InputAction @Digit => m_Wrapper.m_Management_Digit;
+            public InputAction @ToggleEnemyFieldsOfView => m_Wrapper.m_Management_ToggleEnemyFieldsOfView;
+            public InputAction @ToggleResourceFieldsOfView => m_Wrapper.m_Management_ToggleResourceFieldsOfView;
             public InputActionMap Get() { return m_Wrapper.m_Management; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -688,6 +778,12 @@ namespace Controls
                     @Digit.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnDigit;
                     @Digit.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnDigit;
                     @Digit.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnDigit;
+                    @ToggleEnemyFieldsOfView.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnToggleEnemyFieldsOfView;
+                    @ToggleEnemyFieldsOfView.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnToggleEnemyFieldsOfView;
+                    @ToggleEnemyFieldsOfView.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnToggleEnemyFieldsOfView;
+                    @ToggleResourceFieldsOfView.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnToggleResourceFieldsOfView;
+                    @ToggleResourceFieldsOfView.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnToggleResourceFieldsOfView;
+                    @ToggleResourceFieldsOfView.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnToggleResourceFieldsOfView;
                 }
                 m_Wrapper.m_ManagementActionsCallbackInterface = instance;
                 if (instance != null)
@@ -731,6 +827,12 @@ namespace Controls
                     @Digit.started += instance.OnDigit;
                     @Digit.performed += instance.OnDigit;
                     @Digit.canceled += instance.OnDigit;
+                    @ToggleEnemyFieldsOfView.started += instance.OnToggleEnemyFieldsOfView;
+                    @ToggleEnemyFieldsOfView.performed += instance.OnToggleEnemyFieldsOfView;
+                    @ToggleEnemyFieldsOfView.canceled += instance.OnToggleEnemyFieldsOfView;
+                    @ToggleResourceFieldsOfView.started += instance.OnToggleResourceFieldsOfView;
+                    @ToggleResourceFieldsOfView.performed += instance.OnToggleResourceFieldsOfView;
+                    @ToggleResourceFieldsOfView.canceled += instance.OnToggleResourceFieldsOfView;
                 }
             }
         }
@@ -783,6 +885,8 @@ namespace Controls
             void OnShowMenu(InputAction.CallbackContext context);
             void OnStop(InputAction.CallbackContext context);
             void OnDigit(InputAction.CallbackContext context);
+            void OnToggleEnemyFieldsOfView(InputAction.CallbackContext context);
+            void OnToggleResourceFieldsOfView(InputAction.CallbackContext context);
         }
         public interface IMenusActions
         {

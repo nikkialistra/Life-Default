@@ -2697,6 +2697,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _healthBar: {fileID: 1935489896466272434}
   _unitAnimator: {fileID: 6719723555887211134}
+  _enemyFieldOfView: {fileID: 6786474178297105745}
+  _resourceFieldOfView: {fileID: 3861131080668585495}
   _selectionIndicator: {fileID: 3207950516897515159}
   _center: {fileID: 1556855133966464186}
   _unitType: 0

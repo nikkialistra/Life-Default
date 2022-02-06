@@ -21,6 +21,10 @@ namespace UnitManagement.Targeting.Formations
 
         private FormationPreviewDrawing _formationPreviewDrawing;
 
+        private Vector3 _targetPoint;
+        private RegionFormationType _regionFormationType;
+        private Vector3[] _formationPositions;
+
         [Inject]
         public void Construct(OrderMarkPool orderMarkPool)
         {
@@ -38,10 +42,21 @@ namespace UnitManagement.Targeting.Formations
             _units = units;
             _orderMark = orderMark;
 
-            var formationPositions = GenerateFormation(orderMark.transform.position);
+            _formationPositions = GenerateFormation(orderMark.transform.position);
 
-            _formationPreviewDrawing.Show(formationPositions);
-            MoveUnitsToPositions(formationPositions);
+            _formationPreviewDrawing.Show(_formationPositions);
+        }
+
+        public void RotateFormation(float angle)
+        {
+            _formationPositions = GenerateRegionFormationWithRotation(angle);
+            _formationPreviewDrawing.UpdatePositions(_formationPositions);
+        }
+
+        public void MoveToPositions()
+        {
+            MoveUnitsToPositions(_formationPositions);
+            _formationPreviewDrawing.Flash();
         }
 
         private void MoveUnitsToPositions(Vector3[] formationPositions)
@@ -137,6 +152,9 @@ namespace UnitManagement.Targeting.Formations
 
         private Vector3[] GenerateRegionFormation(Vector3 targetPoint, RegionFormationType regionFormationType)
         {
+            _targetPoint = targetPoint;
+            _regionFormationType = regionFormationType;
+
             var count = _units.Count;
 
             var relativeYRotation = RotationFromOriginToTarget(FindMiddlePointBetweenUnits(), targetPoint);
@@ -144,6 +162,16 @@ namespace UnitManagement.Targeting.Formations
 
             return _regionFormation.CalculatePositions(count, relativeRotation, targetPoint,
                 _orderMark.transform.position.y, regionFormationType);
+        }
+
+        private Vector3[] GenerateRegionFormationWithRotation(float rotation)
+        {
+            var count = _units.Count;
+
+            var relativeRotation = Quaternion.Euler(0f, rotation, 0f);
+
+            return _regionFormation.CalculatePositions(count, relativeRotation, _targetPoint,
+                _orderMark.transform.position.y, _regionFormationType);
         }
 
         private Vector3[] GenerateFreeFormation(Vector3 targetPoint)

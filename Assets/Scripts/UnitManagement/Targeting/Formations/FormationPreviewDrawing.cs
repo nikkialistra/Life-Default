@@ -14,6 +14,8 @@ namespace UnitManagement.Targeting.Formations
 
         private ObjectPool<PositionPreview> _positionPreviewPool;
 
+        private List<PositionPreview> _shownPositionPreviews;
+
         private Coroutine _flashPositionPreviewsCoroutine;
 
         private void Start()
@@ -24,11 +26,29 @@ namespace UnitManagement.Targeting.Formations
 
         public void Show(IEnumerable<Vector3> formationPositions)
         {
+            _shownPositionPreviews = new List<PositionPreview>();
+
             foreach (var formationPosition in formationPositions)
             {
                 var positionPreview = _positionPreviewPool.Get();
                 positionPreview.transform.position = formationPosition;
 
+                _shownPositionPreviews.Add(positionPreview);
+            }
+        }
+
+        public void UpdatePositions(Vector3[] formationPositions)
+        {
+            for (var i = 0; i < formationPositions.Length; i++)
+            {
+                _shownPositionPreviews[i].transform.position = formationPositions[i];
+            }
+        }
+
+        public void Flash()
+        {
+            foreach (var positionPreview in _shownPositionPreviews)
+            {
                 positionPreview.StartFlash(OnFlashFinish);
             }
         }

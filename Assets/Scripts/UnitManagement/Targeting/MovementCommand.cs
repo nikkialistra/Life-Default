@@ -35,14 +35,22 @@ namespace UnitManagement.Targeting
         private void OnEnable()
         {
             _movementInput.EntitySet += MoveToEntity;
+
             _movementInput.PositionSet += MoveToPosition;
+            _movementInput.PositionRotationUpdate += RotateFormation;
+            _movementInput.PositionRotationSet += FinishFormation;
+
             _movementInput.Stop += Stop;
         }
 
         private void OnDisable()
         {
             _movementInput.EntitySet -= MoveToEntity;
+
             _movementInput.PositionSet -= MoveToPosition;
+            _movementInput.PositionRotationUpdate -= RotateFormation;
+            _movementInput.PositionRotationSet -= FinishFormation;
+
             _movementInput.Stop -= Stop;
         }
 
@@ -62,6 +70,16 @@ namespace UnitManagement.Targeting
         {
             var orderMark = _orderMarkPool.PlaceTo(position);
             MakeFormationTo(orderMark);
+        }
+
+        private void RotateFormation(float angle)
+        {
+            _formationMovement.RotateFormation(angle);
+        }
+
+        private void FinishFormation()
+        {
+            _formationMovement.MoveToPositions();
         }
 
         private void Stop()

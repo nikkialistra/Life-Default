@@ -2,10 +2,10 @@
 {
     public enum FormationType
     {
+        Area,
+        Line,
+        Sparse,
         Free,
-        Facing,
-        Square,
-        Diamond,
         None
     }
 }

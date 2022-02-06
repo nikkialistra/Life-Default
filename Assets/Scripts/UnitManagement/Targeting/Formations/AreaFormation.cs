@@ -4,10 +4,6 @@ namespace UnitManagement.Targeting.Formations
 {
     public class AreaFormation : MonoBehaviour
     {
-        [SerializeField] private bool _startFromMiddleRow;
-        [SerializeField] private bool _startFromMiddleColumn;
-
-        [Space]
         [SerializeField] private float _distanceMultiplier = 2f;
         [SerializeField] private float _unitSize = 1f;
 
@@ -43,14 +39,7 @@ namespace UnitManagement.Targeting.Formations
 
         private void SetStartingRow()
         {
-            if (_startFromMiddleRow)
-            {
-                _offsetUpDown = _rowsCount % 2 == 1 ? 0f : -0.5f;
-            }
-            else
-            {
-                _offsetUpDown = (float)_rowsTotalCount / 2 - 0.5f;
-            }
+            _offsetUpDown = (float)_rowsTotalCount / 2 - 0.5f;
         }
 
         private int CalculateFormationPositions()
@@ -58,40 +47,19 @@ namespace UnitManagement.Targeting.Formations
             var currentPosition = 0;
             for (var i = 0; i < _rowsCount; i++)
             {
-                if (_startFromMiddleColumn)
-                {
-                    _offsetLeftRight = _columnsCount % 2 == 1 ? 0f : -0.5f;
-                }
-                else
-                {
-                    _offsetLeftRight = (-1) * ((float)_columnsCount / 2 - 0.5f);
-                }
+                _offsetLeftRight = (-1) * ((float)_columnsCount / 2 - 0.5f);
 
                 for (var j = 0; j < _columnsCount; j++)
                 {
                     _areaFormationPositions[currentPosition] = GetUnitPositionInFormation(
                         _targetPointFlat, _rotation, _offsetUpDown, _offsetLeftRight);
 
-                    if (_startFromMiddleColumn)
-                    {
-                        _offsetLeftRight = _offsetLeftRight < 0f ? -_offsetLeftRight : -_offsetLeftRight - 1f;
-                    }
-                    else
-                    {
-                        _offsetLeftRight++;
-                    }
+                    _offsetLeftRight++;
 
                     currentPosition++;
                 }
 
-                if (_startFromMiddleRow)
-                {
-                    _offsetUpDown = _offsetUpDown < 0f ? -_offsetUpDown : -_offsetUpDown - 1f;
-                }
-                else
-                {
-                    _offsetUpDown--;
-                }
+                _offsetUpDown--;
             }
 
             return currentPosition;
@@ -101,21 +69,8 @@ namespace UnitManagement.Targeting.Formations
         {
             if (_behindFormation > 0)
             {
-                if (_startFromMiddleRow)
-                {
-                    _offsetUpDown = (-1) * ((float)_rowsTotalCount / 2 - 0.5f);
-                }
-
-                if (_startFromMiddleColumn)
-                {
-                    _offsetLeftRight =
-                        _behindFormation % 2 == 1 ? 0f : -0.5f;
-                }
-                else
-                {
-                    _offsetLeftRight =
-                        -1 * ((float)_behindFormation / 2 - 0.5f);
-                }
+                _offsetLeftRight =
+                    -1 * ((float)_behindFormation / 2 - 0.5f);
 
                 for (var j = 0; j < _behindFormation; j++)
                 {
@@ -123,14 +78,7 @@ namespace UnitManagement.Targeting.Formations
                         _targetPointFlat, _rotation, _offsetUpDown, _offsetLeftRight
                     );
 
-                    if (_startFromMiddleColumn)
-                    {
-                        _offsetLeftRight = _offsetLeftRight < 0f ? -_offsetLeftRight : -_offsetLeftRight - 1f;
-                    }
-                    else
-                    {
-                        _offsetLeftRight++;
-                    }
+                    _offsetLeftRight++;
 
                     currentPosition++;
                 }

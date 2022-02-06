@@ -120,13 +120,34 @@ namespace UnitManagement.Targeting.Formations
 
             return _formationType switch
             {
+                FormationType.Area => GenerateAreaFormation(targetPoint),
+                FormationType.Line => GenerateLineFormation(targetPoint),
+                FormationType.Sparse => GenerateSparseFormation(targetPoint),
                 FormationType.Free => GenerateFreeFormation(targetPoint),
-                FormationType.Facing => GenerateFacingFormation(targetPoint),
-                FormationType.Square => GenerateSquareFormation(targetPoint),
-                FormationType.Diamond => GenerateDiamondFormation(targetPoint),
                 FormationType.None => GenerateNoFormation(targetPoint),
                 _ => throw new ArgumentOutOfRangeException()
             };
+        }
+
+        private Vector3[] GenerateAreaFormation(Vector3 targetPoint)
+        {
+            var count = _units.Count;
+
+            var relativeYRotation = RotationFromOriginToTarget(FindMiddlePointBetweenUnits(), targetPoint);
+            var relativeRotation = Quaternion.Euler(0f, relativeYRotation, 0f);
+
+            return _areaFormation.CalculatePositions(count, relativeRotation, targetPoint,
+                _orderMark.transform.position.y);
+        }
+
+        private Vector3[] GenerateLineFormation(Vector3 targetPoint)
+        {
+            return GenerateAreaFormation(targetPoint);
+        }
+
+        private Vector3[] GenerateSparseFormation(Vector3 targetPoint)
+        {
+            return GenerateAreaFormation(targetPoint);
         }
 
         private Vector3[] GenerateFreeFormation(Vector3 targetPoint)
@@ -145,35 +166,6 @@ namespace UnitManagement.Targeting.Formations
             }
 
             return freeFormationPositions;
-        }
-
-        private Vector3[] GenerateFacingFormation(Vector3 targetPoint)
-        {
-            return GenerateAreaFormation(targetPoint, true);
-        }
-
-        private Vector3[] GenerateSquareFormation(Vector3 targetPoint)
-        {
-            return GenerateAreaFormation(targetPoint);
-        }
-
-        private Vector3[] GenerateDiamondFormation(Vector3 targetPoint)
-        {
-            return GenerateAreaFormation(targetPoint, false, 45f);
-        }
-
-        private Vector3[] GenerateAreaFormation(Vector3 targetPoint, bool faceTargetPosition = true,
-            float rotation = 0f)
-        {
-            var count = _units.Count;
-
-            var relativeYRotation = faceTargetPosition
-                ? RotationFromOriginToTarget(FindMiddlePointBetweenUnits(), targetPoint)
-                : rotation;
-            var relativeRotation = Quaternion.Euler(0f, relativeYRotation, 0f);
-
-            return _areaFormation.CalculatePositions(count, relativeRotation, targetPoint,
-                _orderMark.transform.position.y);
         }
 
         private float RotationFromOriginToTarget(Vector3 originPoint, Vector3 targetPoint)

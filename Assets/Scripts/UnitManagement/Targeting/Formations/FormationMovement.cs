@@ -6,7 +6,7 @@ using Zenject;
 
 namespace UnitManagement.Targeting.Formations
 {
-    [RequireComponent(typeof(AreaFormation))]
+    [RequireComponent(typeof(RegionFormation))]
     public class FormationMovement : MonoBehaviour
     {
         [SerializeField] private FormationType _formationType;
@@ -16,7 +16,7 @@ namespace UnitManagement.Targeting.Formations
 
         private OrderMarkPool _orderMarkPool;
 
-        private AreaFormation _areaFormation;
+        private RegionFormation _regionFormation;
 
         [Inject]
         public void Construct(OrderMarkPool orderMarkPool)
@@ -26,7 +26,7 @@ namespace UnitManagement.Targeting.Formations
 
         private void Awake()
         {
-            _areaFormation = GetComponent<AreaFormation>();
+            _regionFormation = GetComponent<RegionFormation>();
         }
 
         public void MoveTo(List<UnitFacade> units, OrderMark orderMark)
@@ -91,7 +91,6 @@ namespace UnitManagement.Targeting.Formations
         private int ClosestUnitIndexTo(Vector3 targetPoint, bool[] assignedUnitsBitmask)
         {
             var closestUnitDistance = 1000f;
-            float distanceToPoint;
             var closestUnitIndex = 0;
             for (var i = 0; i < assignedUnitsBitmask.Length; i++)
             {
@@ -100,7 +99,7 @@ namespace UnitManagement.Targeting.Formations
                     continue;
                 }
 
-                distanceToPoint = Vector3.Distance(_units[i].transform.position, targetPoint);
+                var distanceToPoint = Vector3.Distance(_units[i].transform.position, targetPoint);
                 if (distanceToPoint < closestUnitDistance)
                 {
                     closestUnitDistance = distanceToPoint;
@@ -120,34 +119,24 @@ namespace UnitManagement.Targeting.Formations
 
             return _formationType switch
             {
-                FormationType.Area => GenerateAreaFormation(targetPoint),
-                FormationType.Line => GenerateLineFormation(targetPoint),
-                FormationType.Sparse => GenerateSparseFormation(targetPoint),
+                FormationType.Area => GenerateRegionFormation(targetPoint, RegionFormationType.Area),
+                FormationType.Line => GenerateRegionFormation(targetPoint, RegionFormationType.Line),
+                FormationType.Sparse => GenerateRegionFormation(targetPoint, RegionFormationType.Sparse),
                 FormationType.Free => GenerateFreeFormation(targetPoint),
                 FormationType.None => GenerateNoFormation(targetPoint),
                 _ => throw new ArgumentOutOfRangeException()
             };
         }
 
-        private Vector3[] GenerateAreaFormation(Vector3 targetPoint)
+        private Vector3[] GenerateRegionFormation(Vector3 targetPoint, RegionFormationType regionFormationType)
         {
             var count = _units.Count;
 
             var relativeYRotation = RotationFromOriginToTarget(FindMiddlePointBetweenUnits(), targetPoint);
             var relativeRotation = Quaternion.Euler(0f, relativeYRotation, 0f);
 
-            return _areaFormation.CalculatePositions(count, relativeRotation, targetPoint,
-                _orderMark.transform.position.y);
-        }
-
-        private Vector3[] GenerateLineFormation(Vector3 targetPoint)
-        {
-            return GenerateAreaFormation(targetPoint);
-        }
-
-        private Vector3[] GenerateSparseFormation(Vector3 targetPoint)
-        {
-            return GenerateAreaFormation(targetPoint);
+            return _regionFormation.CalculatePositions(count, relativeRotation, targetPoint,
+                _orderMark.transform.position.y, regionFormationType);
         }
 
         private Vector3[] GenerateFreeFormation(Vector3 targetPoint)
@@ -171,7 +160,7 @@ namespace UnitManagement.Targeting.Formations
         private float RotationFromOriginToTarget(Vector3 originPoint, Vector3 targetPoint)
         {
             var distToTarget = Vector3.Distance(originPoint, targetPoint);
-            Vector3 differenceVector = targetPoint - originPoint;
+            var differenceVector = targetPoint - originPoint;
             differenceVector.y = 0f;
 
             var angleBetween = Vector3.Angle(Vector3.forward * distToTarget, differenceVector);

@@ -1,14 +1,17 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace UnitManagement.Targeting.Formations
 {
-    public class AreaFormation : MonoBehaviour
+    public class RegionFormation : MonoBehaviour
     {
-        [SerializeField] private float _distanceMultiplier = 2f;
         [SerializeField] private float _unitSize = 1f;
+        [Space]
+        [SerializeField] private float _distanceMultiplierForPacked = 2f;
+        [SerializeField] private float _distanceMultiplierForSparse = 3f;
 
-        private int _sideOfSquare;
-        private int _notInSquare;
+        private float _distanceMultiplier;
+
         private int _behindFormation;
         private int _rowsCount;
         private int _columnsCount;
@@ -23,18 +26,68 @@ namespace UnitManagement.Targeting.Formations
 
         private Vector3[] _areaFormationPositions;
 
-        public Vector3[] CalculatePositions(int count, Quaternion rotation, Vector3 targetPoint, float height)
+        public Vector3[] CalculatePositions(int count, Quaternion rotation, Vector3 targetPoint, float height,
+            RegionFormationType regionFormationType)
         {
-            Initialize(count, rotation, targetPoint, height);
-
-            _areaFormationPositions = new Vector3[count];
-
+            InitializeParameters(count, rotation, targetPoint, height, regionFormationType);
             SetStartingRow();
 
             var lastIndex = CalculateFormationPositions();
             CalculateBehindFormationPositionsFrom(lastIndex);
 
             return _areaFormationPositions;
+        }
+
+        private void InitializeParameters(int count, Quaternion rotation, Vector3 targetPoint, float height,
+            RegionFormationType regionFormationType)
+        {
+            _targetPointFlat = new Vector3(targetPoint.x, 0f, targetPoint.z);
+
+            _rotation = rotation;
+            _height = height;
+
+            switch (regionFormationType)
+            {
+                case RegionFormationType.Area:
+                    InitializeForMultiRow(count);
+                    _distanceMultiplier = _distanceMultiplierForPacked;
+                    break;
+                case RegionFormationType.Line:
+                    InitializeForOneRow(count);
+                    _distanceMultiplier = _distanceMultiplierForPacked;
+                    break;
+                case RegionFormationType.Sparse:
+                    InitializeForMultiRow(count);
+                    _distanceMultiplier = _distanceMultiplierForSparse;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(regionFormationType), regionFormationType, null);
+            }
+
+            _areaFormationPositions = new Vector3[count];
+        }
+
+        private void InitializeForMultiRow(int count)
+        {
+            var sideOfSquare = (int)Mathf.Sqrt(count);
+            var notInSquare = count - sideOfSquare * sideOfSquare;
+
+            _behindFormation = notInSquare % sideOfSquare;
+
+            _rowsCount = sideOfSquare;
+            _columnsCount = sideOfSquare + notInSquare / sideOfSquare;
+
+            _rowsTotalCount = _behindFormation > 0 ? _rowsCount + 1 : _rowsCount;
+        }
+
+        private void InitializeForOneRow(int count)
+        {
+            _rowsCount = 1;
+            _rowsTotalCount = 1;
+
+            _columnsCount = count;
+
+            _behindFormation = 0;
         }
 
         private void SetStartingRow()
@@ -83,23 +136,6 @@ namespace UnitManagement.Targeting.Formations
                     currentPosition++;
                 }
             }
-        }
-
-        private void Initialize(int count, Quaternion rotation, Vector3 targetPoint, float height)
-        {
-            _sideOfSquare = (int)Mathf.Sqrt(count);
-            _notInSquare = count - _sideOfSquare * _sideOfSquare;
-            _behindFormation = _notInSquare % _sideOfSquare;
-
-            _rowsCount = _sideOfSquare;
-            _columnsCount = _sideOfSquare + _notInSquare / _sideOfSquare;
-
-            _rowsTotalCount = _behindFormation > 0 ? _rowsCount + 1 : _rowsCount;
-
-            _targetPointFlat = new Vector3(targetPoint.x, 0f, targetPoint.z);
-
-            _rotation = rotation;
-            _height = height;
         }
 
         private Vector3 GetUnitPositionInFormation(Vector3 targetPointFlat, Quaternion relativeRotation,

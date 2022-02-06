@@ -13,6 +13,11 @@ namespace Units.Unit.BehaviorNodes
 
         private bool _interacting;
 
+        public override void OnStart()
+        {
+            _interacting = false;
+        }
+
         public override TaskStatus OnUpdate()
         {
             if (!Enemy.Value.Alive)

@@ -10,7 +10,6 @@ namespace UnitManagement.Targeting
 {
     public class OrderMark : MonoBehaviour
     {
-        [SerializeField] private GameObject _targetIndicator;
         [SerializeField] private float _targetIndicatorFlashDuration = 0.8f;
 
         private readonly List<UnitFacade> _units = new();
@@ -74,9 +73,10 @@ namespace UnitManagement.Targeting
 
             _activated = true;
 
-            var targetIndicator = Entity != null ? Entity.TargetIndicator : _targetIndicator;
-
-            _flashTargetIndicatorCoroutine = StartCoroutine(FlashTargetIndicator(targetIndicator));
+            if (Entity != null)
+            {
+                _flashTargetIndicatorCoroutine = StartCoroutine(CollapseTargetIndicator(Entity.TargetIndicator));
+            }
         }
 
         public void Deactivate()
@@ -90,25 +90,21 @@ namespace UnitManagement.Targeting
             {
                 Entity.TargetIndicator.SetActive(false);
             }
-            else
-            {
-                _targetIndicator.SetActive(false);
-            }
 
             _activated = false;
         }
 
-        private IEnumerator FlashTargetIndicator(GameObject targetIndicator)
+        private IEnumerator CollapseTargetIndicator(GameObject targetIndicator)
         {
-            targetIndicator.transform.localScale = Vector3.one;
-            targetIndicator.SetActive(true);
+            Entity.TargetIndicator.transform.localScale = Vector3.one;
+            Entity.TargetIndicator.SetActive(true);
 
-            targetIndicator.transform.DOKill();
+            Entity.TargetIndicator.transform.DOKill();
 
             yield return targetIndicator.transform.DOScale(new Vector3(0f, 0f, 1f), _targetIndicatorFlashDuration)
                 .WaitForCompletion();
 
-            targetIndicator.SetActive(false);
+            Entity.TargetIndicator.SetActive(false);
         }
 
         private void UpdateState()

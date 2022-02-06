@@ -7,6 +7,7 @@ using Zenject;
 namespace UnitManagement.Targeting.Formations
 {
     [RequireComponent(typeof(RegionFormation))]
+    [RequireComponent(typeof(FormationPreviewDrawing))]
     public class FormationMovement : MonoBehaviour
     {
         [SerializeField] private FormationType _formationType;
@@ -18,6 +19,8 @@ namespace UnitManagement.Targeting.Formations
 
         private RegionFormation _regionFormation;
 
+        private FormationPreviewDrawing _formationPreviewDrawing;
+
         [Inject]
         public void Construct(OrderMarkPool orderMarkPool)
         {
@@ -27,6 +30,7 @@ namespace UnitManagement.Targeting.Formations
         private void Awake()
         {
             _regionFormation = GetComponent<RegionFormation>();
+            _formationPreviewDrawing = GetComponent<FormationPreviewDrawing>();
         }
 
         public void MoveTo(List<UnitFacade> units, OrderMark orderMark)
@@ -34,7 +38,10 @@ namespace UnitManagement.Targeting.Formations
             _units = units;
             _orderMark = orderMark;
 
-            MoveUnitsToPositions(GenerateFormation(orderMark.transform.position));
+            var formationPositions = GenerateFormation(orderMark.transform.position);
+
+            _formationPreviewDrawing.Show(formationPositions);
+            MoveUnitsToPositions(formationPositions);
         }
 
         private void MoveUnitsToPositions(Vector3[] formationPositions)

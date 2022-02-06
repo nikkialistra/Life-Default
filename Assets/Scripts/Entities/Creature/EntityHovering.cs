@@ -18,9 +18,22 @@ namespace Entities.Creature
 
         private Coroutine _hideHoverIndicatorCoroutine;
 
+        private bool _activated;
+
         private void Awake()
         {
             _waitingTime = new WaitForSeconds(_waitingTimeValue);
+        }
+
+        public void Activate()
+        {
+            _activated = true;
+        }
+
+        public void Deactivate()
+        {
+            _activated = false;
+            HideHoverIndicator();
         }
 
         public void Select()
@@ -37,7 +50,7 @@ namespace Entities.Creature
 
         public void OnHover()
         {
-            if (_selected)
+            if (!_activated || _selected)
             {
                 return;
             }

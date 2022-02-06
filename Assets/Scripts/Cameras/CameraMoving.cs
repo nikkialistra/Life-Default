@@ -201,12 +201,10 @@ namespace Cameras
 
         private void MovementStop(InputAction.CallbackContext context)
         {
-            if (_moveCoroutine == null)
+            if (_moveCoroutine != null)
             {
-                throw new InvalidOperationException();
+                StopCoroutine(_moveCoroutine);
             }
-
-            StopCoroutine(_moveCoroutine);
         }
 
         private void DragStart(InputAction.CallbackContext context)

@@ -17,6 +17,8 @@ namespace UnitManagement.Targeting
 
         private SelectedUnits _selectedUnits;
 
+        private LayerMask _targetMask;
+
         private PlayerInput _playerInput;
 
         private InputAction _setDestinationAction;
@@ -34,6 +36,8 @@ namespace UnitManagement.Targeting
 
         private void Awake()
         {
+            _targetMask = LayerMask.GetMask("Terrain", "Enemies", "Units", "Buildings");
+
             _setDestinationAction = _playerInput.actions.FindAction("SetDestination");
             _positionAction = _playerInput.actions.FindAction("Position");
             _stopAction = _playerInput.actions.FindAction("Stop");
@@ -63,7 +67,7 @@ namespace UnitManagement.Targeting
                 return;
             }
 
-            if (Physics.Raycast(GetRay(), out var hit))
+            if (Physics.Raycast(GetRay(), out var hit, Mathf.Infinity, _targetMask))
             {
                 var entity = hit.transform.GetComponentInParent<Entity>();
                 if (entity != null)

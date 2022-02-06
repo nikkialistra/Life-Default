@@ -76,7 +76,7 @@ namespace Units.Services
             _unitTypeCounts[unit.UnitType] += 1;
             var value = _unitTypeCounts[unit.UnitType];
 
-            _unitTypesView.UpdateUnitTypeCount(unit.UnitType, _unitTypeCounts[unit.UnitType]);
+            _unitTypesView.UpdateUnitTypeCount(unit.UnitType, value);
         }
 
         private void DecreaseUnitTypeCount(UnitFacade unit)
@@ -88,10 +88,10 @@ namespace Units.Services
 
             if (value < 0)
             {
-                throw new InvalidOperationException($"{unit.UnitType} cannot be less than zero");
+                throw new InvalidOperationException($"{unit.UnitType} count cannot be less than zero");
             }
 
-            _unitTypesView.UpdateUnitTypeCount(unit.UnitType, _unitTypeCounts[unit.UnitType]);
+            _unitTypesView.UpdateUnitTypeCount(unit.UnitType, value);
         }
 
         private void CheckUnitTypeExistence(UnitType unitType)

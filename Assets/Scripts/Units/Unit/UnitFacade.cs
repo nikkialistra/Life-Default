@@ -170,7 +170,7 @@ namespace Units.Unit
             transform.position = position;
 
             InitializeSelf();
-            InitializeComponents();
+            ActivateComponents();
 
             Spawn?.Invoke();
         }
@@ -186,8 +186,7 @@ namespace Units.Unit
 
             Stop();
 
-            _unitMeshAgent.Deactivate();
-            _unitBehavior.Disable();
+            DeactivateComponents();
 
             Deselect();
 
@@ -195,6 +194,13 @@ namespace Units.Unit
             UnitDie?.Invoke(this);
 
             _unitAnimator.Die(DestroySelf);
+        }
+
+        private void DeactivateComponents()
+        {
+            _entityHovering.Deactivate();
+            _unitMeshAgent.Deactivate();
+            _unitBehavior.Deactivate();
         }
 
         private void InitializeSelf()
@@ -214,13 +220,12 @@ namespace Units.Unit
             _unitAppearance.SwitchTo(_unitType);
         }
 
-        private void InitializeComponents()
+        private void ActivateComponents()
         {
+            _entityHovering.Activate();
             _unitMeshAgent.Activate();
-
+            _unitBehavior.Activate();
             _unitRole.ChangeUnitType(_unitType);
-
-            _unitBehavior.Enable();
         }
 
         private void DestroySelf()

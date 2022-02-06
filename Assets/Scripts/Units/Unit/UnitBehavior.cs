@@ -31,7 +31,7 @@ namespace Units.Unit
             _behaviorTree = GetComponent<BehaviorTree>();
         }
 
-        public void Enable()
+        public void Activate()
         {
             if (!_initialized)
             {
@@ -41,7 +41,7 @@ namespace Units.Unit
             _behaviorTree.EnableBehavior();
         }
 
-        public void Disable()
+        public void Deactivate()
         {
             _behaviorTree.DisableBehavior();
         }
@@ -72,12 +72,12 @@ namespace Units.Unit
             switch (entity.EntityType)
             {
                 case EntityType.Unit:
-                    throw new NotImplementedException();
+                    break;
                 case EntityType.Enemy:
                     _enemy.Value = entity.Enemy;
                     break;
                 case EntityType.Building:
-                    throw new NotImplementedException();
+                    break;
                 case EntityType.Resource:
                     _resource.Value = entity.Resource;
                     break;

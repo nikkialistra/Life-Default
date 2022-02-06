@@ -56,6 +56,13 @@ namespace Testing
             var ray = _camera.ScreenPointToRay(new Vector3(position.x, position.y, _camera.nearClipPlane));
             if (Physics.Raycast(ray, out var hit, float.PositiveInfinity, _terrainMask))
             {
+                var node = AstarPath.active.GetNearest(hit.point).node;
+
+                if (!node.Walkable)
+                {
+                    return;
+                }
+
                 _enemyFactory.Create(EnemyType.Melee, hit.point);
             }
         }

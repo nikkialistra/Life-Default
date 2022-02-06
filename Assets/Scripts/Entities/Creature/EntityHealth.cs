@@ -103,6 +103,8 @@ namespace Entities.Creature
 
         private IEnumerator TakingDamage(int value, float interval, float time)
         {
+            yield return null;
+
             var elapsedTime = 0.0f;
 
             while (elapsedTime < time)

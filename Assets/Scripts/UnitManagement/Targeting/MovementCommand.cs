@@ -69,7 +69,12 @@ namespace UnitManagement.Targeting
         private void MoveToPosition(Vector3 position)
         {
             var orderMark = _orderMarkPool.PlaceTo(position);
-            MakeFormationTo(orderMark);
+            ShowFormation(orderMark);
+        }
+
+        private void ShowFormation(OrderMark orderMark)
+        {
+            _formationMovement.ShowFormation(_selectedUnits.Units, orderMark);
         }
 
         private void RotateFormation(float angle)
@@ -79,7 +84,7 @@ namespace UnitManagement.Targeting
 
         private void FinishFormation()
         {
-            _formationMovement.MoveToPositions();
+            _formationMovement.MoveToFormationPositions();
         }
 
         private void Stop()
@@ -99,11 +104,6 @@ namespace UnitManagement.Targeting
                     _orderMarkPool.Link(orderMark, unit);
                 }
             }
-        }
-
-        private void MakeFormationTo(OrderMark orderMark)
-        {
-            _formationMovement.MoveTo(_selectedUnits.Units, orderMark);
         }
 
         private bool EntityOrderedToSelf(Entity entity)

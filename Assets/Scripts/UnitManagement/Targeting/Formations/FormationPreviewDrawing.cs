@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
-using UnityEngine.Pool;
 
 namespace UnitManagement.Targeting.Formations
 {
@@ -12,67 +12,88 @@ namespace UnitManagement.Targeting.Formations
         [Required]
         [SerializeField] private Transform _positionPreviewsParent;
 
-        private ObjectPool<PositionPreview> _positionPreviewPool;
+        private readonly List<PositionPreview> _positionPreviews = new();
 
-        private List<PositionPreview> _shownPositionPreviews;
+        private Coroutine _flashFinishCoroutine;
 
-        private Coroutine _flashPositionPreviewsCoroutine;
-
-        private void Start()
-        {
-            _positionPreviewPool =
-                new ObjectPool<PositionPreview>(CreatePositionPreview, OnTakePositionPreview, OnReturnPositionPreview);
-        }
+        private int _nextIndex = 0;
 
         public void Show(IEnumerable<Vector3> formationPositions)
         {
-            _shownPositionPreviews = new List<PositionPreview>();
+            Reset();
 
             foreach (var formationPosition in formationPositions)
             {
-                var positionPreview = _positionPreviewPool.Get();
+                var positionPreview = GetOrCreatePositionPreview();
                 positionPreview.transform.position = formationPosition;
-
-                _shownPositionPreviews.Add(positionPreview);
             }
+        }
+
+        private void Reset()
+        {
+            if (_flashFinishCoroutine != null)
+            {
+                StopCoroutine(_flashFinishCoroutine);
+            }
+
+            foreach (var positionPreview in _positionPreviews)
+            {
+                if (positionPreview.Activated)
+                {
+                    positionPreview.Deactivate();
+                    positionPreview.gameObject.SetActive(false);
+                }
+            }
+
+            _nextIndex = 0;
+        }
+
+        private PositionPreview GetOrCreatePositionPreview()
+        {
+            PositionPreview positionPreview;
+
+            if (_positionPreviews.Count <= _nextIndex)
+            {
+                positionPreview = Instantiate(_positionPreviewPrefab, _positionPreviewsParent);
+                _positionPreviews.Add(positionPreview);
+            }
+            else
+            {
+                positionPreview = _positionPreviews[_nextIndex];
+                positionPreview.gameObject.SetActive(true);
+                positionPreview.Activate();
+            }
+
+            _nextIndex++;
+            return positionPreview;
         }
 
         public void UpdatePositions(Vector3[] formationPositions)
         {
             for (var i = 0; i < formationPositions.Length; i++)
             {
-                _shownPositionPreviews[i].transform.position = formationPositions[i];
+                _positionPreviews[i].transform.position = formationPositions[i];
             }
         }
 
         public void Flash()
         {
-            foreach (var positionPreview in _shownPositionPreviews)
+            for (var i = 0; i < _nextIndex; i++)
             {
-                positionPreview.StartFlash(OnFlashFinish);
+                _positionPreviews[i].StartFlash();
             }
+
+            _flashFinishCoroutine = StartCoroutine(FlashFinish(_positionPreviewPrefab.FadeTime));
         }
 
-        private void OnFlashFinish(PositionPreview positionPreview)
+        private IEnumerator FlashFinish(float fadeTime)
         {
-            _positionPreviewPool.Release(positionPreview);
-        }
+            yield return new WaitForSeconds(fadeTime);
 
-        private PositionPreview CreatePositionPreview()
-        {
-            var positionPreview = Instantiate(_positionPreviewPrefab, _positionPreviewsParent);
-
-            return positionPreview;
-        }
-
-        private static void OnTakePositionPreview(PositionPreview positionPreview)
-        {
-            positionPreview.gameObject.SetActive(true);
-        }
-
-        private static void OnReturnPositionPreview(PositionPreview positionPreview)
-        {
-            positionPreview.gameObject.SetActive(false);
+            foreach (var positionPreview in _positionPreviews)
+            {
+                positionPreview.gameObject.SetActive(false);
+            }
         }
     }
 }

@@ -23,6 +23,10 @@ namespace UnitManagement.Targeting
         private LayerMask _entitiesMask;
         private LayerMask _terrainMask;
 
+        private bool _isPositionRotating;
+
+        private Vector2 _rotationDirection;
+        private Vector2 _perpendicularDirection;
         private PlayerInput _playerInput;
 
         private InputAction _setDestinationAction;
@@ -92,57 +96,69 @@ namespace UnitManagement.Targeting
                 if (ground != null)
                 {
                     PositionSet?.Invoke(hit.point);
+                    _isPositionRotating = true;
                     _positionRotatingCoroutine = StartCoroutine(PositionRotating(hit.point));
                 }
             }
         }
 
-        private void SetPositionRotation(InputAction.CallbackContext context)
+        private IEnumerator PositionRotating(Vector3 position)
         {
-            if (_positionRotatingCoroutine != null)
+            while (!GotSufficientMouseOffset(position))
             {
-                StopCoroutine(_positionRotatingCoroutine);
-                PositionRotationSet?.Invoke();
+                yield return null;
+            }
+
+            while (true)
+            {
+                UpdateAngle(position);
+
+                yield return null;
             }
         }
 
-        private IEnumerator PositionRotating(Vector3 position)
+        private bool GotSufficientMouseOffset(Vector3 position)
         {
-            Vector3 rotationDirection;
-            Vector3 perpendicularDirection;
-            while (true)
+            if (Physics.Raycast(GetRay(), out var hit, Mathf.Infinity, _terrainMask))
             {
-                if (Physics.Raycast(GetRay(), out var hit, Mathf.Infinity, _terrainMask))
+                var direction = hit.point - position;
+                var planeDirection = new Vector2(direction.x, direction.z);
+
+                if (planeDirection.magnitude > _mouseOffsetForRotationUpdate)
                 {
-                    var direction = hit.point - position;
-                    var planeDirection = new Vector3(direction.x, 0, direction.z);
-
-                    if (planeDirection.magnitude > _mouseOffsetForRotationUpdate)
-                    {
-                        rotationDirection = planeDirection;
-                        perpendicularDirection =
-                            Vector2.Perpendicular(new Vector2(rotationDirection.x, rotationDirection.z));
-                        break;
-                    }
+                    _rotationDirection = planeDirection;
+                    _perpendicularDirection = Vector2.Perpendicular(_rotationDirection);
+                    return true;
                 }
-
-                yield return null;
             }
 
-            while (true)
+            return false;
+        }
+
+        private void UpdateAngle(Vector3 position)
+        {
+            if (Physics.Raycast(GetRay(), out var hit, Mathf.Infinity, _terrainMask))
             {
-                if (Physics.Raycast(GetRay(), out var hit, Mathf.Infinity, _terrainMask))
+                var direction = hit.point - position;
+                var planeDirection = new Vector2(direction.x, direction.z);
+
+                var angle = CalculateAngle(_rotationDirection, planeDirection, _perpendicularDirection);
+
+                PositionRotationUpdate?.Invoke(angle);
+            }
+        }
+
+        private void SetPositionRotation(InputAction.CallbackContext context)
+        {
+            if (_isPositionRotating)
+            {
+                if (_positionRotatingCoroutine != null)
                 {
-                    var direction = hit.point - position;
-                    var planeDirection = new Vector3(direction.x, 0, direction.z);
-
-                    var angle = CalculateAngle(rotationDirection, planeDirection, perpendicularDirection);
-                    Debug.Log(rotationDirection + " " + planeDirection + " " + angle);
-
-                    PositionRotationUpdate?.Invoke(angle);
+                    StopCoroutine(_positionRotatingCoroutine);
                 }
 
-                yield return null;
+                _isPositionRotating = false;
+                PositionRotationSet?.Invoke();
             }
         }
 

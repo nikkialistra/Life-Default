@@ -37,13 +37,12 @@ namespace UnitManagement.Targeting.Formations
             _formationPreviewDrawing = GetComponent<FormationPreviewDrawing>();
         }
 
-        public void MoveTo(List<UnitFacade> units, OrderMark orderMark)
+        public void ShowFormation(List<UnitFacade> units, OrderMark orderMark)
         {
             _units = units;
             _orderMark = orderMark;
 
             _formationPositions = GenerateFormation(orderMark.transform.position);
-
             _formationPreviewDrawing.Show(_formationPositions);
         }
 
@@ -53,7 +52,7 @@ namespace UnitManagement.Targeting.Formations
             _formationPreviewDrawing.UpdatePositions(_formationPositions);
         }
 
-        public void MoveToPositions()
+        public void MoveToFormationPositions()
         {
             MoveUnitsToPositions(_formationPositions);
             _formationPreviewDrawing.Flash();

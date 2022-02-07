@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
@@ -14,16 +13,39 @@ namespace UnitManagement.Targeting.Formations
         [MinValue(0)]
         [SerializeField] private float _fadeTime;
 
-        public void StartFlash(Action<PositionPreview> onFinish)
+        private Coroutine _flashCoroutine;
+
+        private void Start()
         {
-            _decalProjector.fadeFactor = 1f;
-            StartCoroutine(Flash(onFinish));
+            Activate();
         }
 
-        private IEnumerator Flash(Action<PositionPreview> onFinish)
+        public void StartFlash()
         {
             _decalProjector.fadeFactor = 1f;
+            _flashCoroutine = StartCoroutine(Flash());
+        }
 
+        public bool Activated { get; private set; }
+        public float FadeTime => _fadeTime;
+
+        public void Activate()
+        {
+            Activated = true;
+            _decalProjector.fadeFactor = 1f;
+        }
+
+        public void Deactivate()
+        {
+            Activated = false;
+            if (_flashCoroutine != null)
+            {
+                StopCoroutine(_flashCoroutine);
+            }
+        }
+
+        private IEnumerator Flash()
+        {
             var timeLeft = _fadeTime;
 
             while (timeLeft > 0)
@@ -37,7 +59,6 @@ namespace UnitManagement.Targeting.Formations
             }
 
             _decalProjector.fadeFactor = 0f;
-            onFinish(this);
         }
     }
 }

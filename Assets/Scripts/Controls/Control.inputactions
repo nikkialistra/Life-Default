@@ -139,6 +139,24 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "PreviousFormation",
+                    "type": "Button",
+                    "id": "a3325bd4-4fea-4c7f-ae8b-13680991afa7",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "NextFormation",
+                    "type": "Button",
+                    "id": "988cea0b-7ea8-436f-b0d9-ade98de4a5a4",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -244,7 +262,7 @@
                 {
                     "name": "negative",
                     "id": "09cbffb9-f22b-406c-8132-38658d51915b",
-                    "path": "<Keyboard>/r",
+                    "path": "<Keyboard>/t",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -255,7 +273,7 @@
                 {
                     "name": "positive",
                     "id": "51711646-ead8-40f0-8b53-a43d6a264301",
-                    "path": "<Keyboard>/f",
+                    "path": "<Keyboard>/g",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -559,6 +577,28 @@
                     "action": "ToggleResourceFieldsOfView",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "ec125077-fe9e-41e3-b2dd-a097e01a97a4",
+                    "path": "<Keyboard>/f",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "NextFormation",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f2ec3f17-d266-4267-8146-eda07ad86268",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "PreviousFormation",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },

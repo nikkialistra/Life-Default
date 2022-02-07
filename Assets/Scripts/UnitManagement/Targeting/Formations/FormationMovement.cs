@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Units.Unit;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using Zenject;
 
 namespace UnitManagement.Targeting.Formations
@@ -27,25 +28,49 @@ namespace UnitManagement.Targeting.Formations
         private Vector3[] _formationPositions;
         private float _relativeYRotation;
 
+        private bool _shown;
+
+        private PlayerInput _playerInput;
+
+        private InputAction _nextFormationAction;
+        private InputAction _previousFormationAction;
+
         [Inject]
-        public void Construct(OrderMarkPool orderMarkPool)
+        public void Construct(OrderMarkPool orderMarkPool, PlayerInput playerInput)
         {
             _orderMarkPool = orderMarkPool;
+            _playerInput = playerInput;
         }
 
         private void Awake()
         {
             _regionFormation = GetComponent<RegionFormation>();
             _formationPreviewDrawing = GetComponent<FormationPreviewDrawing>();
+
+            _previousFormationAction = _playerInput.actions.FindAction("PreviousFormation");
+            _nextFormationAction = _playerInput.actions.FindAction("NextFormation");
+        }
+
+        private void OnEnable()
+        {
+            _previousFormationAction.started += ChangeToPreviousFormation;
+            _nextFormationAction.started += ChangeToNextFormation;
+        }
+
+        private void OnDisable()
+        {
+            _previousFormationAction.started -= ChangeToPreviousFormation;
+            _nextFormationAction.started -= ChangeToNextFormation;
         }
 
         public void ShowFormation(List<UnitFacade> units, OrderMark orderMark)
         {
+            _shown = true;
+
             _units = units;
             _orderMark = orderMark;
 
-            _formationPositions = GenerateFormation(orderMark.transform.position);
-            _formationPreviewDrawing.Show(_formationPositions, _regionFormation.CurrentYRotation);
+            Show();
         }
 
         public void RotateFormation(float angle)
@@ -56,13 +81,62 @@ namespace UnitManagement.Targeting.Formations
 
         public void MoveToFormationPositions()
         {
-            MoveUnitsToPositions(GetFormationPositionsWithoutDirectionArrow());
+            _shown = false;
+
+            if (_formationPreviewDrawing.ShowDirectionArrow)
+            {
+                MoveUnitsToPositions(_formationPositions.Skip(1).ToArray());
+            }
+            else
+            {
+                MoveUnitsToPositions(_formationPositions);
+            }
+
             _formationPreviewDrawing.Flash();
         }
 
-        private Vector3[] GetFormationPositionsWithoutDirectionArrow()
+        private void Show()
         {
-            return _formationPositions.Skip(1).ToArray();
+            if (!_shown)
+            {
+                return;
+            }
+
+            _formationPositions = GenerateFormation(_orderMark.transform.position);
+
+            _formationPreviewDrawing.ShowDirectionArrow =
+                _formationType is FormationType.Area or FormationType.Line or FormationType.Sparse;
+            _formationPreviewDrawing.Show(_formationPositions, _regionFormation.CurrentYRotation);
+        }
+
+        private void ChangeToPreviousFormation(InputAction.CallbackContext context)
+        {
+            _formationType = _formationType switch
+            {
+                FormationType.Area => FormationType.None,
+                FormationType.Line => FormationType.Area,
+                FormationType.Sparse => FormationType.Line,
+                FormationType.Free => FormationType.Sparse,
+                FormationType.None => FormationType.Free,
+                _ => throw new ArgumentOutOfRangeException()
+            };
+
+            Show();
+        }
+
+        private void ChangeToNextFormation(InputAction.CallbackContext context)
+        {
+            _formationType = _formationType switch
+            {
+                FormationType.Area => FormationType.Line,
+                FormationType.Line => FormationType.Sparse,
+                FormationType.Sparse => FormationType.Free,
+                FormationType.Free => FormationType.None,
+                FormationType.None => FormationType.Area,
+                _ => throw new ArgumentOutOfRangeException()
+            };
+
+            Show();
         }
 
         private void MoveUnitsToPositions(Vector3[] formationPositions)

@@ -163,6 +163,24 @@ namespace Controls
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""PreviousFormation"",
+                    ""type"": ""Button"",
+                    ""id"": ""a3325bd4-4fea-4c7f-ae8b-13680991afa7"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""NextFormation"",
+                    ""type"": ""Button"",
+                    ""id"": ""988cea0b-7ea8-436f-b0d9-ade98de4a5a4"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -268,7 +286,7 @@ namespace Controls
                 {
                     ""name"": ""negative"",
                     ""id"": ""09cbffb9-f22b-406c-8132-38658d51915b"",
-                    ""path"": ""<Keyboard>/r"",
+                    ""path"": ""<Keyboard>/t"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -279,7 +297,7 @@ namespace Controls
                 {
                     ""name"": ""positive"",
                     ""id"": ""51711646-ead8-40f0-8b53-a43d6a264301"",
-                    ""path"": ""<Keyboard>/f"",
+                    ""path"": ""<Keyboard>/g"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -583,6 +601,28 @@ namespace Controls
                     ""action"": ""ToggleResourceFieldsOfView"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ec125077-fe9e-41e3-b2dd-a097e01a97a4"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""NextFormation"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f2ec3f17-d266-4267-8146-eda07ad86268"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""PreviousFormation"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -634,6 +674,8 @@ namespace Controls
             m_Management_Digit = m_Management.FindAction("Digit", throwIfNotFound: true);
             m_Management_ToggleEnemyFieldsOfView = m_Management.FindAction("ToggleEnemyFieldsOfView", throwIfNotFound: true);
             m_Management_ToggleResourceFieldsOfView = m_Management.FindAction("ToggleResourceFieldsOfView", throwIfNotFound: true);
+            m_Management_PreviousFormation = m_Management.FindAction("PreviousFormation", throwIfNotFound: true);
+            m_Management_NextFormation = m_Management.FindAction("NextFormation", throwIfNotFound: true);
             // Menus
             m_Menus = asset.FindActionMap("Menus", throwIfNotFound: true);
             m_Menus_HideMenu = m_Menus.FindAction("HideMenu", throwIfNotFound: true);
@@ -711,6 +753,8 @@ namespace Controls
         private readonly InputAction m_Management_Digit;
         private readonly InputAction m_Management_ToggleEnemyFieldsOfView;
         private readonly InputAction m_Management_ToggleResourceFieldsOfView;
+        private readonly InputAction m_Management_PreviousFormation;
+        private readonly InputAction m_Management_NextFormation;
         public struct ManagementActions
         {
             private @Control m_Wrapper;
@@ -730,6 +774,8 @@ namespace Controls
             public InputAction @Digit => m_Wrapper.m_Management_Digit;
             public InputAction @ToggleEnemyFieldsOfView => m_Wrapper.m_Management_ToggleEnemyFieldsOfView;
             public InputAction @ToggleResourceFieldsOfView => m_Wrapper.m_Management_ToggleResourceFieldsOfView;
+            public InputAction @PreviousFormation => m_Wrapper.m_Management_PreviousFormation;
+            public InputAction @NextFormation => m_Wrapper.m_Management_NextFormation;
             public InputActionMap Get() { return m_Wrapper.m_Management; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -784,6 +830,12 @@ namespace Controls
                     @ToggleResourceFieldsOfView.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnToggleResourceFieldsOfView;
                     @ToggleResourceFieldsOfView.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnToggleResourceFieldsOfView;
                     @ToggleResourceFieldsOfView.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnToggleResourceFieldsOfView;
+                    @PreviousFormation.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnPreviousFormation;
+                    @PreviousFormation.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnPreviousFormation;
+                    @PreviousFormation.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnPreviousFormation;
+                    @NextFormation.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnNextFormation;
+                    @NextFormation.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnNextFormation;
+                    @NextFormation.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnNextFormation;
                 }
                 m_Wrapper.m_ManagementActionsCallbackInterface = instance;
                 if (instance != null)
@@ -833,6 +885,12 @@ namespace Controls
                     @ToggleResourceFieldsOfView.started += instance.OnToggleResourceFieldsOfView;
                     @ToggleResourceFieldsOfView.performed += instance.OnToggleResourceFieldsOfView;
                     @ToggleResourceFieldsOfView.canceled += instance.OnToggleResourceFieldsOfView;
+                    @PreviousFormation.started += instance.OnPreviousFormation;
+                    @PreviousFormation.performed += instance.OnPreviousFormation;
+                    @PreviousFormation.canceled += instance.OnPreviousFormation;
+                    @NextFormation.started += instance.OnNextFormation;
+                    @NextFormation.performed += instance.OnNextFormation;
+                    @NextFormation.canceled += instance.OnNextFormation;
                 }
             }
         }
@@ -887,6 +945,8 @@ namespace Controls
             void OnDigit(InputAction.CallbackContext context);
             void OnToggleEnemyFieldsOfView(InputAction.CallbackContext context);
             void OnToggleResourceFieldsOfView(InputAction.CallbackContext context);
+            void OnPreviousFormation(InputAction.CallbackContext context);
+            void OnNextFormation(InputAction.CallbackContext context);
         }
         public interface IMenusActions
         {

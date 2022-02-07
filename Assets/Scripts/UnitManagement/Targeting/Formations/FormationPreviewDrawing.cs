@@ -21,16 +21,29 @@ namespace UnitManagement.Targeting.Formations
 
         private int _nextIndex = 0;
 
+        public bool ShowDirectionArrow { get; set; }
+
         public void Show(Vector3[] formationPositions, float rotation)
         {
             Reset();
 
-            PlaceDirectionArrow(formationPositions, rotation);
+            int startIndex;
+            if (ShowDirectionArrow)
+            {
+                PlaceDirectionArrow(formationPositions, rotation);
+                startIndex = 1;
+            }
+            else
+            {
+                startIndex = 0;
+            }
 
-            for (var i = 1; i < formationPositions.Length; i++)
+            while (startIndex < formationPositions.Length)
             {
                 var positionPreview = GetOrCreatePositionPreview();
-                positionPreview.transform.position = formationPositions[i];
+                positionPreview.transform.position = formationPositions[startIndex];
+
+                startIndex++;
             }
         }
 
@@ -89,23 +102,30 @@ namespace UnitManagement.Targeting.Formations
 
         public void UpdatePositions(Vector3[] formationPositions, float rotation)
         {
-            UpdateDirectionArrow(formationPositions, rotation);
-
-            for (var i = 1; i < formationPositions.Length; i++)
+            if (ShowDirectionArrow)
             {
-                _positionPreviews[i - 1].transform.position = formationPositions[i];
-            }
-        }
+                UpdateDirectionArrow(formationPositions, rotation);
 
-        private void UpdateDirectionArrow(Vector3[] formationPositions, float rotation)
-        {
-            _directionArrow.transform.position = formationPositions[0];
-            _directionArrow.transform.rotation = Quaternion.Euler(0, rotation, 0);
+                for (var i = 1; i < formationPositions.Length; i++)
+                {
+                    _positionPreviews[i - 1].transform.position = formationPositions[i];
+                }
+            }
+            else
+            {
+                for (var i = 0; i < formationPositions.Length - 1; i++)
+                {
+                    _positionPreviews[i].transform.position = formationPositions[i];
+                }
+            }
         }
 
         public void Flash()
         {
-            _directionArrow.StartFlash();
+            if (ShowDirectionArrow)
+            {
+                _directionArrow.StartFlash();
+            }
 
             for (var i = 0; i < _nextIndex; i++)
             {
@@ -113,6 +133,12 @@ namespace UnitManagement.Targeting.Formations
             }
 
             _flashFinishCoroutine = StartCoroutine(FlashFinish(_positionPreviewPrefab.FadeTime));
+        }
+
+        private void UpdateDirectionArrow(Vector3[] formationPositions, float rotation)
+        {
+            _directionArrow.transform.position = formationPositions[0];
+            _directionArrow.transform.rotation = Quaternion.Euler(0, rotation, 0);
         }
 
         private IEnumerator FlashFinish(float fadeTime)

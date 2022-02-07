@@ -45,19 +45,24 @@ namespace UnitManagement.Targeting.Formations
             _orderMark = orderMark;
 
             _formationPositions = GenerateFormation(orderMark.transform.position);
-            _formationPreviewDrawing.Show(_formationPositions);
+            _formationPreviewDrawing.Show(_formationPositions, _regionFormation.CurrentYRotation);
         }
 
         public void RotateFormation(float angle)
         {
             _formationPositions = GenerateRegionFormationWithRotation(angle);
-            _formationPreviewDrawing.UpdatePositions(_formationPositions);
+            _formationPreviewDrawing.UpdatePositions(_formationPositions, _regionFormation.CurrentYRotation);
         }
 
         public void MoveToFormationPositions()
         {
-            MoveUnitsToPositions(_formationPositions.Skip(1).ToArray());
+            MoveUnitsToPositions(GetFormationPositionsWithoutDirectionArrow());
             _formationPreviewDrawing.Flash();
+        }
+
+        private Vector3[] GetFormationPositionsWithoutDirectionArrow()
+        {
+            return _formationPositions.Skip(1).ToArray();
         }
 
         private void MoveUnitsToPositions(Vector3[] formationPositions)

@@ -10,7 +10,7 @@ namespace UnitManagement.Targeting.Formations
         [SerializeField] private float _distanceMultiplierForPacked = 2f;
         [SerializeField] private float _distanceMultiplierForSparse = 3f;
 
-        [SerializeField] private float _distanceForArrow = 1.2f;
+        [SerializeField] private float _distanceForArrow = 1f;
 
         private float _distanceMultiplier;
 
@@ -18,24 +18,26 @@ namespace UnitManagement.Targeting.Formations
         private int _rowsCount;
         private int _columnsCount;
         private int _rowsTotalCount;
-        private Vector3 _targetPointFlat;
+        private float _rowsOffset;
 
+        private Vector3 _targetPointFlat;
         private Quaternion _rotation;
         private float _height;
 
-        private float _offsetUpDown;
-        private float _offsetLeftRight;
+        private float _leftIndent;
 
         private Vector3[] _areaFormationPositions;
+
+        public float CurrentYRotation => _rotation.eulerAngles.y;
 
         public Vector3[] CalculatePositions(int count, Quaternion rotation, Vector3 targetPoint, float height,
             RegionFormationType regionFormationType)
         {
             InitializeParameters(count, rotation, targetPoint, height, regionFormationType);
-            SetStartingRow();
 
             var lastIndex = CalculateFormationPositions();
             CalculateBehindFormationPositionsFrom(lastIndex);
+            RotateFormationPositions();
 
             return _areaFormationPositions;
         }
@@ -66,6 +68,7 @@ namespace UnitManagement.Targeting.Formations
                     throw new ArgumentOutOfRangeException(nameof(regionFormationType), regionFormationType, null);
             }
 
+            _rowsOffset = (float)_rowsTotalCount / 2 - 0.5f;
             _areaFormationPositions = new Vector3[count + 1];
         }
 
@@ -92,29 +95,24 @@ namespace UnitManagement.Targeting.Formations
             _behindFormation = 0;
         }
 
-        private void SetStartingRow()
-        {
-            _offsetUpDown = (float)_rowsTotalCount / 2 - 0.5f;
-        }
-
         private int CalculateFormationPositions()
         {
             var currentPosition = 1;
             for (var i = 0; i < _rowsCount; i++)
             {
-                _offsetLeftRight = (-1) * ((float)_columnsCount / 2 - 0.5f);
+                _leftIndent = (-1) * ((float)_columnsCount / 2 - 0.5f);
 
                 for (var j = 0; j < _columnsCount; j++)
                 {
                     _areaFormationPositions[currentPosition] = GetUnitPositionInFormation(
-                        _targetPointFlat, _rotation, _offsetUpDown, _offsetLeftRight);
+                        _targetPointFlat, _rowsOffset, _leftIndent);
 
-                    _offsetLeftRight++;
+                    _leftIndent++;
 
                     currentPosition++;
                 }
 
-                _offsetUpDown--;
+                _rowsOffset--;
             }
 
             _areaFormationPositions[0] = CalculateArrowPosition();
@@ -124,16 +122,13 @@ namespace UnitManagement.Targeting.Formations
 
         private Vector3 CalculateArrowPosition()
         {
-            var horizontalPosition = CalculateHorizontalPosition();
-            var verticalPosition = CalculateVerticalPosition();
+            var horizontalPosition = GetFirstRowMiddlePosition();
+            var verticalPosition = IndentFromFirstPosition();
 
-            var positionNotRotated = new Vector3(horizontalPosition, _height, verticalPosition);
-
-            var positionRotated = _targetPointFlat + _rotation * (positionNotRotated - _targetPointFlat);
-            return positionRotated;
+            return new Vector3(horizontalPosition, 0, verticalPosition);
         }
 
-        private float CalculateHorizontalPosition()
+        private float GetFirstRowMiddlePosition()
         {
             if (_columnsCount % 2 == 1)
             {
@@ -146,52 +141,53 @@ namespace UnitManagement.Targeting.Formations
             }
         }
 
-        private float CalculateVerticalPosition()
+        private float IndentFromFirstPosition()
         {
-            if (_columnsCount % 2 == 1)
-            {
-                return _areaFormationPositions[_columnsCount / 2 + 1].z - _offsetUpDown * _distanceForArrow;
-            }
-            else
-            {
-                return (_areaFormationPositions[_columnsCount / 2].z - _offsetUpDown * _distanceForArrow +
-                    _areaFormationPositions[_columnsCount / 2 + 1].z - _offsetUpDown * _distanceForArrow) / 2;
-            }
+            return _areaFormationPositions[1].z + _distanceForArrow;
         }
 
         private void CalculateBehindFormationPositionsFrom(int currentPosition)
         {
             if (_behindFormation > 0)
             {
-                _offsetLeftRight =
+                _leftIndent =
                     -1 * ((float)_behindFormation / 2 - 0.5f);
 
                 for (var j = 0; j < _behindFormation; j++)
                 {
                     _areaFormationPositions[currentPosition] = GetUnitPositionInFormation(
-                        _targetPointFlat, _rotation, _offsetUpDown, _offsetLeftRight
+                        _targetPointFlat, _rowsOffset, _leftIndent
                     );
 
-                    _offsetLeftRight++;
+                    _leftIndent++;
 
                     currentPosition++;
                 }
             }
         }
 
-        private Vector3 GetUnitPositionInFormation(Vector3 targetPointFlat, Quaternion relativeRotation,
-            float offsetUpDown, float offsetLeftRight)
+        private void RotateFormationPositions()
         {
-            var targetUnitPositionNotRotated = new Vector3(
-                targetPointFlat.x + offsetLeftRight * _unitSize * _distanceMultiplier,
+            for (var i = 0; i < _areaFormationPositions.Length; i++)
+            {
+                var targetUnitPositionRotated =
+                    _targetPointFlat + _rotation * (_areaFormationPositions[i] - _targetPointFlat);
+
+                _areaFormationPositions[i] =
+                    new Vector3(targetUnitPositionRotated.x, _height, targetUnitPositionRotated.z);
+            }
+        }
+
+        private Vector3 GetUnitPositionInFormation(Vector3 targetPointFlat,
+            float rowsOffset, float leftIndent)
+        {
+            var targetUnitPosition = new Vector3(
+                targetPointFlat.x + leftIndent * _unitSize * _distanceMultiplier,
                 0f,
-                targetPointFlat.z + offsetUpDown * _unitSize * _distanceMultiplier
+                targetPointFlat.z + rowsOffset * _unitSize * _distanceMultiplier
             );
 
-            var targetUnitPositionRotated =
-                targetPointFlat + relativeRotation * (targetUnitPositionNotRotated - targetPointFlat);
-
-            return new Vector3(targetUnitPositionRotated.x, _height, targetUnitPositionRotated.z);
+            return targetUnitPosition;
         }
     }
 }

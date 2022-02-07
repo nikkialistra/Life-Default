@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Units.Unit;
 using UnityEngine;
 using Zenject;
@@ -24,6 +25,7 @@ namespace UnitManagement.Targeting.Formations
         private Vector3 _targetPoint;
         private RegionFormationType _regionFormationType;
         private Vector3[] _formationPositions;
+        private float _relativeYRotation;
 
         [Inject]
         public void Construct(OrderMarkPool orderMarkPool)
@@ -54,7 +56,7 @@ namespace UnitManagement.Targeting.Formations
 
         public void MoveToFormationPositions()
         {
-            MoveUnitsToPositions(_formationPositions);
+            MoveUnitsToPositions(_formationPositions.Skip(1).ToArray());
             _formationPreviewDrawing.Flash();
         }
 
@@ -156,8 +158,9 @@ namespace UnitManagement.Targeting.Formations
 
             var count = _units.Count;
 
-            var relativeYRotation = RotationFromOriginToTarget(FindMiddlePointBetweenUnits(), targetPoint);
-            var relativeRotation = Quaternion.Euler(0f, relativeYRotation, 0f);
+            _relativeYRotation = RotationFromOriginToTarget(FindMiddlePointBetweenUnits(), targetPoint);
+
+            var relativeRotation = Quaternion.Euler(0f, _relativeYRotation, 0f);
 
             return _regionFormation.CalculatePositions(count, relativeRotation, targetPoint,
                 _orderMark.transform.position.y, regionFormationType);
@@ -167,7 +170,7 @@ namespace UnitManagement.Targeting.Formations
         {
             var count = _units.Count;
 
-            var relativeRotation = Quaternion.Euler(0f, rotation, 0f);
+            var relativeRotation = Quaternion.Euler(0f, _relativeYRotation + rotation, 0f);
 
             return _regionFormation.CalculatePositions(count, relativeRotation, _targetPoint,
                 _orderMark.transform.position.y, _regionFormationType);

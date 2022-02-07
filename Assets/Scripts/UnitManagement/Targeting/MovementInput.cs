@@ -162,10 +162,10 @@ namespace UnitManagement.Targeting
             }
         }
 
-        private static float CalculateAngle(Vector3 from, Vector3 to, Vector3 right)
+        private static float CalculateAngle(Vector3 from, Vector3 to, Vector3 left)
         {
             var angle = Vector3.Angle(from, to);
-            return (Vector3.Angle(right, to) > 90f) ? angle : 360 - angle;
+            return (Vector3.Angle(left, to) > 90f) ? angle : 360 - angle;
         }
 
         private void OnStop(InputAction.CallbackContext context)

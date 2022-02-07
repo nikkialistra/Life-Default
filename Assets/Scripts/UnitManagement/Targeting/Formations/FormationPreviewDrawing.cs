@@ -11,6 +11,9 @@ namespace UnitManagement.Targeting.Formations
         [SerializeField] private PositionPreview _positionPreviewPrefab;
         [Required]
         [SerializeField] private Transform _positionPreviewsParent;
+        [Space]
+        [Required]
+        [SerializeField] private Transform _directionArrow;
 
         private readonly List<PositionPreview> _positionPreviews = new();
 
@@ -18,14 +21,17 @@ namespace UnitManagement.Targeting.Formations
 
         private int _nextIndex = 0;
 
-        public void Show(IEnumerable<Vector3> formationPositions)
+        public void Show(Vector3[] formationPositions)
         {
             Reset();
 
-            foreach (var formationPosition in formationPositions)
+            _directionArrow.gameObject.SetActive(true);
+            _directionArrow.transform.position = formationPositions[0];
+
+            for (var i = 1; i < formationPositions.Length; i++)
             {
                 var positionPreview = GetOrCreatePositionPreview();
-                positionPreview.transform.position = formationPosition;
+                positionPreview.transform.position = formationPositions[i];
             }
         }
 
@@ -70,9 +76,11 @@ namespace UnitManagement.Targeting.Formations
 
         public void UpdatePositions(Vector3[] formationPositions)
         {
-            for (var i = 0; i < formationPositions.Length; i++)
+            _directionArrow.transform.position = formationPositions[0];
+
+            for (var i = 1; i < formationPositions.Length; i++)
             {
-                _positionPreviews[i].transform.position = formationPositions[i];
+                _positionPreviews[i - 1].transform.position = formationPositions[i];
             }
         }
 
@@ -94,6 +102,8 @@ namespace UnitManagement.Targeting.Formations
             {
                 positionPreview.gameObject.SetActive(false);
             }
+
+            _directionArrow.gameObject.SetActive(false);
         }
     }
 }

@@ -10,6 +10,8 @@ namespace UnitManagement.Targeting.Formations
         [SerializeField] private float _distanceMultiplierForPacked = 2f;
         [SerializeField] private float _distanceMultiplierForSparse = 3f;
 
+        [SerializeField] private float _distanceForArrow = 1.2f;
+
         private float _distanceMultiplier;
 
         private int _behindFormation;
@@ -64,7 +66,7 @@ namespace UnitManagement.Targeting.Formations
                     throw new ArgumentOutOfRangeException(nameof(regionFormationType), regionFormationType, null);
             }
 
-            _areaFormationPositions = new Vector3[count];
+            _areaFormationPositions = new Vector3[count + 1];
         }
 
         private void InitializeForMultiRow(int count)
@@ -97,7 +99,7 @@ namespace UnitManagement.Targeting.Formations
 
         private int CalculateFormationPositions()
         {
-            var currentPosition = 0;
+            var currentPosition = 1;
             for (var i = 0; i < _rowsCount; i++)
             {
                 _offsetLeftRight = (-1) * ((float)_columnsCount / 2 - 0.5f);
@@ -115,7 +117,46 @@ namespace UnitManagement.Targeting.Formations
                 _offsetUpDown--;
             }
 
+            _areaFormationPositions[0] = CalculateArrowPosition();
+
             return currentPosition;
+        }
+
+        private Vector3 CalculateArrowPosition()
+        {
+            var horizontalPosition = CalculateHorizontalPosition();
+            var verticalPosition = CalculateVerticalPosition();
+
+            var positionNotRotated = new Vector3(horizontalPosition, _height, verticalPosition);
+
+            var positionRotated = _targetPointFlat + _rotation * (positionNotRotated - _targetPointFlat);
+            return positionRotated;
+        }
+
+        private float CalculateHorizontalPosition()
+        {
+            if (_columnsCount % 2 == 1)
+            {
+                return _areaFormationPositions[_columnsCount / 2 + 1].x;
+            }
+            else
+            {
+                return (_areaFormationPositions[_columnsCount / 2].x +
+                        _areaFormationPositions[_columnsCount / 2 + 1].x) / 2;
+            }
+        }
+
+        private float CalculateVerticalPosition()
+        {
+            if (_columnsCount % 2 == 1)
+            {
+                return _areaFormationPositions[_columnsCount / 2 + 1].z - _offsetUpDown * _distanceForArrow;
+            }
+            else
+            {
+                return (_areaFormationPositions[_columnsCount / 2].z - _offsetUpDown * _distanceForArrow +
+                    _areaFormationPositions[_columnsCount / 2 + 1].z - _offsetUpDown * _distanceForArrow) / 2;
+            }
         }
 
         private void CalculateBehindFormationPositionsFrom(int currentPosition)

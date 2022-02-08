@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using BehaviorDesigner.Runtime;
 using Entities;
 using Entities.BehaviorVariables;
@@ -17,7 +18,7 @@ namespace Units.Unit
 
         private UnitMeshAgent _unitMeshAgent;
 
-        private SharedVector3 _position;
+        private SharedPositions _positions;
         private SharedFloat _rotation;
         private SharedResource _resource;
         private SharedEnemy _enemy;
@@ -89,7 +90,7 @@ namespace Units.Unit
 
         private void ResetParameters()
         {
-            _position.Value = Vector3.negativeInfinity;
+            _positions.Value.Clear();
             _rotation.Value = float.NegativeInfinity;
             _resource.Value = null;
             _enemy.Value = null;
@@ -103,7 +104,7 @@ namespace Units.Unit
             }
 
             ResetParameters();
-            _position.Value = position;
+            _positions.Value.Enqueue(position);
             if (angle.HasValue)
             {
                 _rotation.Value = angle.Value;
@@ -114,16 +115,32 @@ namespace Units.Unit
             return true;
         }
 
+        public bool TryAddPositionToOrder(Vector3 position, float? angle)
+        {
+            if (!_unitMeshAgent.AcceptOrder())
+            {
+                return false;
+            }
+
+            _positions.Value.Enqueue(position);
+            if (angle.HasValue)
+            {
+                _rotation.Value = angle.Value;
+            }
+
+            return true;
+        }
+
         private void Initialize()
         {
             _newCommand = (SharedBool)_behaviorTree.GetVariable("NewCommand");
 
-            _position = (SharedVector3)_behaviorTree.GetVariable("Position");
+            _positions = (SharedPositions)_behaviorTree.GetVariable("Positions");
             _rotation = (SharedFloat)_behaviorTree.GetVariable("Rotation");
             _resource = (SharedResource)_behaviorTree.GetVariable("Resource");
             _enemy = (SharedEnemy)_behaviorTree.GetVariable("Enemy");
 
-            _position.Value = Vector3.negativeInfinity;
+            _positions.Value = new Queue<Vector3>();
 
             _initialized = true;
         }

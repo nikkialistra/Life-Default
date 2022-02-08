@@ -57,8 +57,9 @@ namespace UnitManagement.Targeting
         public event Action<Entity> EntitySet;
 
         public event Action<Vector3> PositionSet;
-        public event Action<float> PositionRotationUpdate;
-        public event Action PositionRotationSet;
+
+        public event Action<float> RotationUpdate;
+        public event Action<bool> DestinationSet;
 
         public event Action Stop;
 
@@ -144,7 +145,7 @@ namespace UnitManagement.Targeting
 
                 var angle = CalculateAngle(_rotationDirection, planeDirection, _perpendicularDirection);
 
-                PositionRotationUpdate?.Invoke(angle);
+                RotationUpdate?.Invoke(angle);
             }
         }
 
@@ -158,7 +159,14 @@ namespace UnitManagement.Targeting
                 }
 
                 _isPositionRotating = false;
-                PositionRotationSet?.Invoke();
+                if (!Keyboard.current.shiftKey.isPressed)
+                {
+                    DestinationSet?.Invoke(false);
+                }
+                else
+                {
+                    DestinationSet?.Invoke(true);
+                }
             }
         }
 

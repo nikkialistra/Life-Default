@@ -152,6 +152,11 @@ namespace Units.Unit
             return _unitBehavior.TryOrderToPosition(position, angle);
         }
 
+        public bool TryAddPositionToOrder(Vector3 position, float? angle)
+        {
+            return _unitBehavior.TryAddPositionToOrder(position, angle);
+        }
+
         public void ToggleEnemyFieldOfView()
         {
             _enemyFieldOfView.ToggleDebugShow();

@@ -133,7 +133,7 @@ namespace UnitManagement.Targeting.Formations
             _formationPreviewDrawing.UpdatePositions(rotatedFormationPositions, _regionFormation.CurrentYRotation);
         }
 
-        public void MoveToFormationPositions()
+        public void MoveToFormationPositions(bool additional)
         {
             _shown = false;
 
@@ -148,11 +148,12 @@ namespace UnitManagement.Targeting.Formations
 
             if (_formationPreviewDrawing.ShowDirectionArrow)
             {
-                MoveUnitsToPositions(_formationPositions.Skip(1).ToArray(), _regionFormation.CurrentYRotation);
+                MoveUnitsToPositions(_formationPositions.Skip(1).ToArray(), _regionFormation.CurrentYRotation,
+                    additional);
             }
             else
             {
-                MoveUnitsToPositions(_formationPositions, null);
+                MoveUnitsToPositions(_formationPositions, null, additional);
             }
 
             _formationPreviewDrawing.Flash();
@@ -210,7 +211,40 @@ namespace UnitManagement.Targeting.Formations
             Show();
         }
 
-        private void MoveUnitsToPositions(Vector3[] formationPositions, float? lastAngle)
+        private void MoveUnitsToPositions(Vector3[] formationPositions, float? lastAngle, bool additional)
+        {
+            var orderedUnits = new UnitFacade[formationPositions.Length];
+            var orderedFormationPositions = new Vector3[formationPositions.Length];
+
+            FindMappingBetweenUnitsAndPositions(formationPositions, orderedFormationPositions, orderedUnits);
+
+            for (var i = 0; i < orderedUnits.Length; i++)
+            {
+                OrderUnit(orderedUnits[i], formationPositions[i], lastAngle, additional);
+            }
+        }
+
+        private void OrderUnit(UnitFacade unit, Vector3 position, float? lastAngle, bool additional)
+        {
+            if (!additional)
+            {
+                if (unit.TryOrderToPosition(position, lastAngle))
+                {
+                    _orderMarkPool.Link(_orderMark, unit);
+                }
+            }
+            else
+            {
+                if (unit.TryAddPositionToOrder(position, lastAngle))
+                {
+                    _orderMarkPool.Link(_orderMark, unit);
+                }
+            }
+        }
+
+        private void FindMappingBetweenUnitsAndPositions(Vector3[] formationPositions,
+            Vector3[] orderedFormationPositions,
+            UnitFacade[] orderedUnits)
         {
             var assignedPositionsBitmask = new bool[formationPositions.Length];
             var assignedUnitsBitmask = new bool[formationPositions.Length];
@@ -229,12 +263,8 @@ namespace UnitManagement.Targeting.Formations
                 assignedPositionsBitmask[formationIndex] = true;
                 assignedUnitsBitmask[closestUnitIndex] = true;
 
-                var unit = _units[closestUnitIndex];
-                var formationPosition = formationPositions[formationIndex];
-                if (unit.TryOrderToPosition(formationPosition, lastAngle))
-                {
-                    _orderMarkPool.Link(_orderMark, _units[closestUnitIndex]);
-                }
+                orderedFormationPositions[i] = formationPositions[formationIndex];
+                orderedUnits[i] = _units[closestUnitIndex];
             }
         }
 

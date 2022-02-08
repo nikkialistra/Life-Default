@@ -1,15 +1,15 @@
-﻿using BehaviorDesigner.Runtime;
-using BehaviorDesigner.Runtime.Tasks;
+﻿using BehaviorDesigner.Runtime.Tasks;
+using Entities.BehaviorVariables;
 
 namespace Units.Unit.BehaviorNodes
 {
     public class GotNewPosition : Conditional
     {
-        public SharedVector3 Position;
+        public SharedPositions Positions;
 
         public override TaskStatus OnUpdate()
         {
-            return float.IsNegativeInfinity(Position.Value.x) ? TaskStatus.Failure : TaskStatus.Success;
+            return Positions.Value.Count > 0 ? TaskStatus.Success : TaskStatus.Failure;
         }
     }
 }

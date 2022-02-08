@@ -36,9 +36,9 @@ namespace UnitManagement.Targeting
         {
             _movementInput.EntitySet += MoveToEntity;
 
-            _movementInput.PositionSet += MoveToPosition;
-            _movementInput.PositionRotationUpdate += RotateFormation;
-            _movementInput.PositionRotationSet += FinishFormation;
+            _movementInput.PositionSet += ShowFormation;
+            _movementInput.RotationUpdate += RotateFormation;
+            _movementInput.DestinationSet += FinishFormation;
 
             _movementInput.Stop += Stop;
         }
@@ -47,9 +47,9 @@ namespace UnitManagement.Targeting
         {
             _movementInput.EntitySet -= MoveToEntity;
 
-            _movementInput.PositionSet -= MoveToPosition;
-            _movementInput.PositionRotationUpdate -= RotateFormation;
-            _movementInput.PositionRotationSet -= FinishFormation;
+            _movementInput.PositionSet -= ShowFormation;
+            _movementInput.RotationUpdate -= RotateFormation;
+            _movementInput.DestinationSet -= FinishFormation;
 
             _movementInput.Stop -= Stop;
         }
@@ -66,14 +66,9 @@ namespace UnitManagement.Targeting
             MoveTo(orderMark);
         }
 
-        private void MoveToPosition(Vector3 position)
+        private void ShowFormation(Vector3 position)
         {
             var orderMark = _orderMarkPool.PlaceTo(position);
-            ShowFormation(orderMark);
-        }
-
-        private void ShowFormation(OrderMark orderMark)
-        {
             _formationMovement.ShowFormation(_selectedUnits.Units, orderMark);
         }
 
@@ -82,9 +77,9 @@ namespace UnitManagement.Targeting
             _formationMovement.RotateFormation(angle);
         }
 
-        private void FinishFormation()
+        private void FinishFormation(bool additional)
         {
-            _formationMovement.MoveToFormationPositions();
+            _formationMovement.MoveToFormationPositions(additional);
         }
 
         private void Stop()

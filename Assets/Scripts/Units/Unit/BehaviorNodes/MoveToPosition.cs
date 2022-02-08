@@ -1,12 +1,11 @@
-﻿using BehaviorDesigner.Runtime;
-using BehaviorDesigner.Runtime.Tasks;
-using UnityEngine;
+﻿using BehaviorDesigner.Runtime.Tasks;
+using Entities.BehaviorVariables;
 
 namespace Units.Unit.BehaviorNodes
 {
     public class MoveToPosition : Action
     {
-        public SharedVector3 Position;
+        public SharedPositions Positions;
 
         public UnitMeshAgent UnitMeshAgent;
 
@@ -17,7 +16,7 @@ namespace Units.Unit.BehaviorNodes
             _finished = false;
 
             UnitMeshAgent.DestinationReach += OnDestinationReach;
-            UnitMeshAgent.SetDestinationToPosition(Position.Value);
+            UnitMeshAgent.SetDestinationToPosition(Positions.Value.Dequeue());
         }
 
         public override TaskStatus OnUpdate()
@@ -28,7 +27,6 @@ namespace Units.Unit.BehaviorNodes
         private void OnDestinationReach()
         {
             UnitMeshAgent.DestinationReach -= OnDestinationReach;
-            Position.Value = Vector3.negativeInfinity;
             _finished = true;
         }
     }

@@ -74,7 +74,7 @@ namespace UnitManagement.Targeting
 
         private void ShowFormation(OrderMark orderMark)
         {
-            _formationMovement.ShowFormation(_selectedUnits.Units.ToArray(), orderMark);
+            _formationMovement.ShowFormation(_selectedUnits.Units, orderMark);
         }
 
         private void RotateFormation(float angle)

@@ -89,19 +89,19 @@ namespace Units.Services
             SubscribeToUnits(number);
         }
 
-        private void UnsubscribeFromUnits(int number)
-        {
-            foreach (var oldUnit in _controlGroups[number])
-            {
-                oldUnit.UnitDie -= _removeFromControlGroup[number];
-            }
-        }
-
         private void SubscribeToUnits(int number)
         {
             foreach (var unit in _controlGroups[number])
             {
                 unit.UnitDie += _removeFromControlGroup[number];
+            }
+        }
+
+        private void UnsubscribeFromUnits(int number)
+        {
+            foreach (var oldUnit in _controlGroups[number])
+            {
+                oldUnit.UnitDie -= _removeFromControlGroup[number];
             }
         }
     }

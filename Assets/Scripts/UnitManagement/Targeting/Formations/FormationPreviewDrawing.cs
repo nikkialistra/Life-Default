@@ -97,20 +97,7 @@ namespace UnitManagement.Targeting.Formations
             _flashFinishCoroutine = StartCoroutine(FlashFinish(_positionPreviewPrefab.FadeTime));
         }
 
-        private void FlashFormation()
-        {
-            if (ShowDirectionArrow)
-            {
-                _directionArrow.StartFlash();
-            }
-
-            for (var i = 0; i < _nextIndex; i++)
-            {
-                _positionPreviews[i].StartFlash();
-            }
-        }
-
-        private void Reset()
+        public void Reset()
         {
             _showNoFormationMark = false;
             _noFormationMark.gameObject.SetActive(false);
@@ -136,6 +123,19 @@ namespace UnitManagement.Targeting.Formations
             }
 
             _nextIndex = 0;
+        }
+
+        private void FlashFormation()
+        {
+            if (ShowDirectionArrow)
+            {
+                _directionArrow.StartFlash();
+            }
+
+            for (var i = 0; i < _nextIndex; i++)
+            {
+                _positionPreviews[i].StartFlash();
+            }
         }
 
         private void PlaceDirectionArrow(Vector3[] formationPositions, float rotation)

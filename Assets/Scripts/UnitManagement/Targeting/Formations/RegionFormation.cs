@@ -37,9 +37,15 @@ namespace UnitManagement.Targeting.Formations
 
             var lastIndex = CalculateFormationPositions();
             CalculateBehindFormationPositionsFrom(lastIndex);
-            RotateFormationPositions();
 
-            return _areaFormationPositions;
+            return RotateFormationPositions();
+        }
+
+        public Vector3[] RotatePositions(Quaternion rotation)
+        {
+            _rotation = rotation;
+
+            return RotateFormationPositions();
         }
 
         private void InitializeParameters(int count, Quaternion rotation, Vector3 targetPoint, float height,
@@ -166,16 +172,19 @@ namespace UnitManagement.Targeting.Formations
             }
         }
 
-        private void RotateFormationPositions()
+        private Vector3[] RotateFormationPositions()
         {
+            var rotatedPositions = new Vector3[_areaFormationPositions.Length];
             for (var i = 0; i < _areaFormationPositions.Length; i++)
             {
                 var targetUnitPositionRotated =
                     _targetPointFlat + _rotation * (_areaFormationPositions[i] - _targetPointFlat);
 
-                _areaFormationPositions[i] =
+                rotatedPositions[i] =
                     new Vector3(targetUnitPositionRotated.x, _height, targetUnitPositionRotated.z);
             }
+
+            return rotatedPositions;
         }
 
         private Vector3 GetUnitPositionInFormation(Vector3 targetPointFlat,

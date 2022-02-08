@@ -113,7 +113,7 @@ namespace UnitManagement.Targeting.Formations
             }
             else
             {
-                for (var i = 0; i < formationPositions.Length - 1; i++)
+                for (var i = 0; i < formationPositions.Length; i++)
                 {
                     _positionPreviews[i].transform.position = formationPositions[i];
                 }

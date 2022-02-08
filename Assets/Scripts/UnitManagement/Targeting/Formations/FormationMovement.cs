@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using Units.Unit;
 using UnityEngine;
@@ -14,7 +13,8 @@ namespace UnitManagement.Targeting.Formations
     {
         [SerializeField] private FormationType _formationType;
 
-        private List<UnitFacade> _units;
+        private UnitFacade[] _units;
+        private Vector3[] _unitPositions;
         private OrderMark _orderMark;
 
         private OrderMarkPool _orderMarkPool;
@@ -24,9 +24,10 @@ namespace UnitManagement.Targeting.Formations
         private FormationPreviewDrawing _formationPreviewDrawing;
 
         private Vector3 _targetPoint;
-        private RegionFormationType _regionFormationType;
         private Vector3[] _formationPositions;
         private float _relativeYRotation;
+
+        private float _lastAngle;
 
         private bool _shown;
 
@@ -63,11 +64,20 @@ namespace UnitManagement.Targeting.Formations
             _nextFormationAction.started -= ChangeToNextFormation;
         }
 
-        public void ShowFormation(List<UnitFacade> units, OrderMark orderMark)
+        public void ShowFormation(UnitFacade[] units, OrderMark orderMark)
         {
             _shown = true;
+            _lastAngle = 0f;
 
             _units = units;
+
+            _unitPositions = new Vector3[_units.Length];
+            for (var i = 0; i < _units.Length; i++)
+            {
+                var unit = _units[i];
+                _unitPositions[i] = unit.transform.position;
+            }
+
             _orderMark = orderMark;
 
             Show();
@@ -75,13 +85,16 @@ namespace UnitManagement.Targeting.Formations
 
         public void RotateFormation(float angle)
         {
-            _formationPositions = GenerateRegionFormationWithRotation(angle);
-            _formationPreviewDrawing.UpdatePositions(_formationPositions, _regionFormation.CurrentYRotation);
+            _lastAngle = angle;
+
+            var rotatedFormationPositions = GenerateFormationWithRotation(angle);
+            _formationPreviewDrawing.UpdatePositions(rotatedFormationPositions, _regionFormation.CurrentYRotation);
         }
 
         public void MoveToFormationPositions()
         {
             _shown = false;
+            _formationPositions = GenerateFormationWithRotation(_lastAngle);
 
             if (_formationPreviewDrawing.ShowDirectionArrow)
             {
@@ -104,10 +117,12 @@ namespace UnitManagement.Targeting.Formations
 
             _formationPositions = GenerateFormation(_orderMark.transform.position);
 
-            _formationPreviewDrawing.ShowDirectionArrow =
-                _formationType is FormationType.Area or FormationType.Line or FormationType.Sparse;
+            _formationPreviewDrawing.ShowDirectionArrow = FormationIsRegion;
             _formationPreviewDrawing.Show(_formationPositions, _regionFormation.CurrentYRotation);
         }
+
+        private bool FormationIsRegion =>
+            _formationType is FormationType.Area or FormationType.Line or FormationType.Sparse;
 
         private void ChangeToPreviousFormation(InputAction.CallbackContext context)
         {
@@ -144,7 +159,7 @@ namespace UnitManagement.Targeting.Formations
             var assignedPositionsBitmask = new bool[formationPositions.Length];
             var assignedUnitsBitmask = new bool[formationPositions.Length];
 
-            var middlePoint = FindMiddlePointBetweenUnits();
+            var middlePoint = FindMiddlePoint(_unitPositions);
 
             for (var i = 0; i < formationPositions.Length; i++)
             {
@@ -214,7 +229,7 @@ namespace UnitManagement.Targeting.Formations
 
         private Vector3[] GenerateFormation(Vector3 targetPoint)
         {
-            if (_units.Count == 0)
+            if (_units.Length == 0)
             {
                 return Array.Empty<Vector3>();
             }
@@ -230,14 +245,30 @@ namespace UnitManagement.Targeting.Formations
             };
         }
 
+        private Vector3[] GenerateFormationWithRotation(float rotation)
+        {
+            if (_units.Length == 0)
+            {
+                return Array.Empty<Vector3>();
+            }
+
+            if (FormationIsRegion)
+            {
+                return RotateRegionFormation(rotation);
+            }
+            else
+            {
+                return _formationType == FormationType.Free ? RotateFreeFormation(rotation) : _formationPositions;
+            }
+        }
+
         private Vector3[] GenerateRegionFormation(Vector3 targetPoint, RegionFormationType regionFormationType)
         {
             _targetPoint = targetPoint;
-            _regionFormationType = regionFormationType;
 
-            var count = _units.Count;
+            var count = _units.Length;
 
-            _relativeYRotation = RotationFromOriginToTarget(FindMiddlePointBetweenUnits(), targetPoint);
+            _relativeYRotation = RotationFromOriginToTarget(FindMiddlePoint(_unitPositions), targetPoint);
 
             var relativeRotation = Quaternion.Euler(0f, _relativeYRotation, 0f);
 
@@ -245,24 +276,21 @@ namespace UnitManagement.Targeting.Formations
                 _orderMark.transform.position.y, regionFormationType);
         }
 
-        private Vector3[] GenerateRegionFormationWithRotation(float rotation)
+        private Vector3[] RotateRegionFormation(float rotation)
         {
-            var count = _units.Count;
-
             var relativeRotation = Quaternion.Euler(0f, _relativeYRotation + rotation, 0f);
 
-            return _regionFormation.CalculatePositions(count, relativeRotation, _targetPoint,
-                _orderMark.transform.position.y, _regionFormationType);
+            return _regionFormation.RotatePositions(relativeRotation);
         }
 
         private Vector3[] GenerateFreeFormation(Vector3 targetPoint)
         {
-            var originPoint = FindMiddlePointBetweenUnits();
+            var originPoint = FindMiddlePoint(_unitPositions);
 
             var difference = targetPoint - originPoint;
 
-            var freeFormationPositions = new Vector3[_units.Count];
-            for (var i = 0; i < _units.Count; i++)
+            var freeFormationPositions = new Vector3[_units.Length];
+            for (var i = 0; i < _units.Length; i++)
             {
                 var targetPosition = _units[i].transform.position + difference;
                 freeFormationPositions[i] = new Vector3(
@@ -271,6 +299,24 @@ namespace UnitManagement.Targeting.Formations
             }
 
             return freeFormationPositions;
+        }
+
+        private Vector3[] RotateFreeFormation(float rotation)
+        {
+            var relativeRotation = Quaternion.Euler(0f, _relativeYRotation + rotation, 0f);
+            var centerPoint = FindCenterPoint(_formationPositions);
+
+            var rotatedPositions = new Vector3[_formationPositions.Length];
+            for (var i = 0; i < _formationPositions.Length; i++)
+            {
+                var targetUnitPositionRotated =
+                    centerPoint + relativeRotation * (_formationPositions[i] - centerPoint);
+
+                rotatedPositions[i] =
+                    new Vector3(targetUnitPositionRotated.x, _targetPoint.y, targetUnitPositionRotated.z);
+            }
+
+            return rotatedPositions;
         }
 
         private float RotationFromOriginToTarget(Vector3 originPoint, Vector3 targetPoint)
@@ -293,8 +339,8 @@ namespace UnitManagement.Targeting.Formations
 
         private Vector3[] GenerateNoFormation(Vector3 targetPoint)
         {
-            var noFormationPositions = new Vector3[_units.Count];
-            for (var i = 0; i < _units.Count; i++)
+            var noFormationPositions = new Vector3[_units.Length];
+            for (var i = 0; i < _units.Length; i++)
             {
                 noFormationPositions[i] = targetPoint;
             }
@@ -302,26 +348,49 @@ namespace UnitManagement.Targeting.Formations
             return noFormationPositions;
         }
 
-        private Vector3 FindMiddlePointBetweenUnits()
+        private static Vector3 FindMiddlePoint(Vector3[] positions)
         {
-            var minPositionX = _units[0].transform.position.x;
+            if (positions.Length == 0)
+            {
+                throw new InvalidOperationException();
+            }
+
+            var minPositionX = positions[0].x;
             var maxPositionX = minPositionX;
 
-            var minPositionZ = _units[0].transform.position.z;
+            var minPositionZ = positions[0].z;
             var maxPositionZ = minPositionZ;
 
-            foreach (var unit in _units)
+            foreach (var position in positions)
             {
-                minPositionX = Mathf.Min(minPositionX, unit.transform.position.x);
-                maxPositionX = Mathf.Max(maxPositionX, unit.transform.position.x);
+                minPositionX = Mathf.Min(minPositionX, position.x);
+                maxPositionX = Mathf.Max(maxPositionX, position.x);
 
-                minPositionZ = Mathf.Min(minPositionZ, unit.transform.position.z);
-                maxPositionZ = Mathf.Max(maxPositionZ, unit.transform.position.z);
+                minPositionZ = Mathf.Min(minPositionZ, position.z);
+                maxPositionZ = Mathf.Max(maxPositionZ, position.z);
             }
 
             var middlePoint = new Vector3(
                 (minPositionX + maxPositionX) / 2, 0f, (minPositionZ + maxPositionZ) / 2);
             return middlePoint;
+        }
+
+        private static Vector3 FindCenterPoint(Vector3[] positions)
+        {
+            if (positions.Length == 0)
+            {
+                throw new InvalidOperationException();
+            }
+
+            var centerPoint = Vector3.zero;
+            foreach (var position in positions)
+            {
+                centerPoint += position;
+            }
+
+            centerPoint /= positions.Length;
+
+            return centerPoint;
         }
     }
 }

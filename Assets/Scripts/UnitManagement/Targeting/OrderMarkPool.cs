@@ -38,15 +38,8 @@ namespace UnitManagement.Targeting
         public OrderMark PlaceTo(Vector3 position, Entity entity = null)
         {
             var orderMark = GetFromPoolOrCreate();
-            if (entity)
-            {
-                orderMark.SetEntity(entity);
-            }
-            else
-            {
-                orderMark.ClearEntity();
-            }
 
+            orderMark.Entity = entity ? entity : null;
             orderMark.transform.position = position;
 
             return orderMark;

@@ -18,7 +18,7 @@ namespace UnitManagement.Targeting
 
         private bool _activated;
 
-        public Entity Entity { get; private set; }
+        public Entity Entity { get; set; }
         public bool Empty => _units.Count == 0;
 
         public void Add(UnitFacade unit)
@@ -52,16 +52,6 @@ namespace UnitManagement.Targeting
             }
 
             _units.Clear();
-        }
-
-        public void SetEntity(Entity entity)
-        {
-            Entity = entity;
-        }
-
-        public void ClearEntity()
-        {
-            Entity = null;
         }
 
         private void Activate()

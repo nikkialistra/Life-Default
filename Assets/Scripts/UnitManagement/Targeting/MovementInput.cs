@@ -20,7 +20,7 @@ namespace UnitManagement.Targeting
 
         private SelectedUnits _selectedUnits;
 
-        private LayerMask _entitiesMask;
+        private LayerMask _rayMask;
         private LayerMask _terrainMask;
 
         private bool _isPositionRotating;
@@ -46,7 +46,7 @@ namespace UnitManagement.Targeting
 
         private void Awake()
         {
-            _entitiesMask = LayerMask.GetMask("Terrain", "Enemies", "Units", "Buildings");
+            _rayMask = LayerMask.GetMask("Terrain", "Units", "Enemies", "Resources", "Buildings");
             _terrainMask = LayerMask.GetMask("Terrain");
 
             _setDestinationAction = _playerInput.actions.FindAction("SetDestination");
@@ -83,7 +83,7 @@ namespace UnitManagement.Targeting
                 return;
             }
 
-            if (Physics.Raycast(GetRay(), out var hit, Mathf.Infinity, _entitiesMask))
+            if (Physics.Raycast(GetRay(), out var hit, Mathf.Infinity, _rayMask))
             {
                 var entity = hit.transform.GetComponentInParent<Entity>();
                 if (entity != null)

@@ -11,15 +11,20 @@ namespace UnitManagement.Targeting.Formations
         [SerializeField] private PositionPreview _positionPreviewPrefab;
         [Required]
         [SerializeField] private Transform _positionPreviewsParent;
-        [Space]
+
+        [Title("Special Previews")]
         [Required]
         [SerializeField] private PositionPreview _directionArrow;
+        [Required]
+        [SerializeField] private PositionPreview _noFormationMark;
 
         private readonly List<PositionPreview> _positionPreviews = new();
 
         private Coroutine _flashFinishCoroutine;
 
         private int _nextIndex = 0;
+
+        private bool _showNoFormationMark;
 
         public bool ShowDirectionArrow { get; set; }
 
@@ -47,8 +52,69 @@ namespace UnitManagement.Targeting.Formations
             }
         }
 
+        public void ShowNoFormationMark(Vector3 position)
+        {
+            Reset();
+
+            _showNoFormationMark = true;
+
+            _noFormationMark.gameObject.SetActive(true);
+            _noFormationMark.Activate();
+            _noFormationMark.transform.position = position;
+        }
+
+        public void UpdatePositions(Vector3[] formationPositions, float rotation)
+        {
+            if (ShowDirectionArrow)
+            {
+                UpdateDirectionArrow(formationPositions, rotation);
+
+                for (var i = 1; i < formationPositions.Length; i++)
+                {
+                    _positionPreviews[i - 1].transform.position = formationPositions[i];
+                }
+            }
+            else
+            {
+                for (var i = 0; i < formationPositions.Length; i++)
+                {
+                    _positionPreviews[i].transform.position = formationPositions[i];
+                }
+            }
+        }
+
+        public void Flash()
+        {
+            if (_showNoFormationMark)
+            {
+                _noFormationMark.StartFlash();
+            }
+            else
+            {
+                FlashFormation();
+            }
+
+            _flashFinishCoroutine = StartCoroutine(FlashFinish(_positionPreviewPrefab.FadeTime));
+        }
+
+        private void FlashFormation()
+        {
+            if (ShowDirectionArrow)
+            {
+                _directionArrow.StartFlash();
+            }
+
+            for (var i = 0; i < _nextIndex; i++)
+            {
+                _positionPreviews[i].StartFlash();
+            }
+        }
+
         private void Reset()
         {
+            _showNoFormationMark = false;
+            _noFormationMark.gameObject.SetActive(false);
+
             if (_flashFinishCoroutine != null)
             {
                 StopCoroutine(_flashFinishCoroutine);
@@ -100,41 +166,6 @@ namespace UnitManagement.Targeting.Formations
             return positionPreview;
         }
 
-        public void UpdatePositions(Vector3[] formationPositions, float rotation)
-        {
-            if (ShowDirectionArrow)
-            {
-                UpdateDirectionArrow(formationPositions, rotation);
-
-                for (var i = 1; i < formationPositions.Length; i++)
-                {
-                    _positionPreviews[i - 1].transform.position = formationPositions[i];
-                }
-            }
-            else
-            {
-                for (var i = 0; i < formationPositions.Length; i++)
-                {
-                    _positionPreviews[i].transform.position = formationPositions[i];
-                }
-            }
-        }
-
-        public void Flash()
-        {
-            if (ShowDirectionArrow)
-            {
-                _directionArrow.StartFlash();
-            }
-
-            for (var i = 0; i < _nextIndex; i++)
-            {
-                _positionPreviews[i].StartFlash();
-            }
-
-            _flashFinishCoroutine = StartCoroutine(FlashFinish(_positionPreviewPrefab.FadeTime));
-        }
-
         private void UpdateDirectionArrow(Vector3[] formationPositions, float rotation)
         {
             _directionArrow.transform.position = formationPositions[0];
@@ -145,6 +176,7 @@ namespace UnitManagement.Targeting.Formations
         {
             yield return new WaitForSeconds(fadeTime);
 
+            _noFormationMark.gameObject.SetActive(false);
             _directionArrow.gameObject.SetActive(false);
 
             foreach (var positionPreview in _positionPreviews)

@@ -85,6 +85,11 @@ namespace UnitManagement.Targeting.Formations
 
         public void RotateFormation(float angle)
         {
+            if (_formationType == FormationType.None)
+            {
+                return;
+            }
+
             _lastAngle = angle;
 
             var rotatedFormationPositions = GenerateFormationWithRotation(angle);
@@ -116,6 +121,12 @@ namespace UnitManagement.Targeting.Formations
             }
 
             _formationPositions = GenerateFormation(_orderMark.transform.position);
+
+            if (_formationType == FormationType.None)
+            {
+                _formationPreviewDrawing.ShowNoFormationMark(_formationPositions[0]);
+                return;
+            }
 
             _formationPreviewDrawing.ShowDirectionArrow = FormationIsRegion;
             _formationPreviewDrawing.Show(_formationPositions, _regionFormation.CurrentYRotation);
@@ -258,7 +269,7 @@ namespace UnitManagement.Targeting.Formations
             }
             else
             {
-                return _formationType == FormationType.Free ? RotateFreeFormation(rotation) : _formationPositions;
+                return RotateFreeFormation(rotation);
             }
         }
 

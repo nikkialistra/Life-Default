@@ -2804,6 +2804,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _hoverIndicator: {fileID: 152656352870599827}
+  _healthBar: {fileID: 1935489896466272434}
   _waitingTimeValue: 0.05
 --- !u!114 &7183938458047524081
 MonoBehaviour:

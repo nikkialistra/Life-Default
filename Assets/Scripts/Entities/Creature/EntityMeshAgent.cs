@@ -165,6 +165,18 @@ namespace Entities.Creature
             _rotatingToCoroutine = StartCoroutine(RotatingTo(position));
         }
 
+        public void RotateToAngle(float angle)
+        {
+            IsRotating = true;
+
+            if (_rotatingToCoroutine != null)
+            {
+                StopCoroutine(_rotatingToCoroutine);
+            }
+
+            _rotatingToCoroutine = StartCoroutine(RotatingToAngle(angle));
+        }
+
         private void Move()
         {
             if (_movingCoroutine != null)
@@ -246,6 +258,16 @@ namespace Entities.Creature
             }
 
             var targetRotation = Quaternion.LookRotation(targetDirection).eulerAngles;
+
+            yield return transform.DORotate(targetRotation, GetRotationDuration(targetRotation)).WaitForCompletion();
+
+            IsRotating = false;
+            RotationEnd?.Invoke();
+        }
+
+        private IEnumerator RotatingToAngle(float angle)
+        {
+            var targetRotation = new Vector3(0, angle, 0);
 
             yield return transform.DORotate(targetRotation, GetRotationDuration(targetRotation)).WaitForCompletion();
 

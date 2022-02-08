@@ -147,9 +147,9 @@ namespace Units.Unit
             return _unitBehavior.TryOrderToEntity(entity);
         }
 
-        public bool TryOrderToPosition(Vector3 position)
+        public bool TryOrderToPosition(Vector3 position, float? angle)
         {
-            return _unitBehavior.TryOrderToPosition(position);
+            return _unitBehavior.TryOrderToPosition(position, angle);
         }
 
         public void ToggleEnemyFieldOfView()

@@ -11,8 +11,6 @@ namespace Units.Unit.BehaviorNodes
         public UnitMeshAgent UnitMeshAgent;
         public UnitRole UnitRole;
 
-        private bool _finished;
-
         public override TaskStatus OnUpdate()
         {
             if (!UnitMeshAgent.IsRotating && UnitRole.OnAttackRange(Enemy.Value.transform.position))

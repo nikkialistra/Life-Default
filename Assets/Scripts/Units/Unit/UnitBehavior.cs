@@ -18,6 +18,7 @@ namespace Units.Unit
         private UnitMeshAgent _unitMeshAgent;
 
         private SharedVector3 _position;
+        private SharedFloat _rotation;
         private SharedResource _resource;
         private SharedEnemy _enemy;
 
@@ -89,11 +90,12 @@ namespace Units.Unit
         private void ResetParameters()
         {
             _position.Value = Vector3.negativeInfinity;
+            _rotation.Value = float.NegativeInfinity;
             _resource.Value = null;
             _enemy.Value = null;
         }
 
-        public bool TryOrderToPosition(Vector3 position)
+        public bool TryOrderToPosition(Vector3 position, float? angle)
         {
             if (!_unitMeshAgent.AcceptOrder())
             {
@@ -102,6 +104,10 @@ namespace Units.Unit
 
             ResetParameters();
             _position.Value = position;
+            if (angle.HasValue)
+            {
+                _rotation.Value = angle.Value;
+            }
 
             _newCommand.Value = true;
 
@@ -113,6 +119,7 @@ namespace Units.Unit
             _newCommand = (SharedBool)_behaviorTree.GetVariable("NewCommand");
 
             _position = (SharedVector3)_behaviorTree.GetVariable("Position");
+            _rotation = (SharedFloat)_behaviorTree.GetVariable("Rotation");
             _resource = (SharedResource)_behaviorTree.GetVariable("Resource");
             _enemy = (SharedEnemy)_behaviorTree.GetVariable("Enemy");
 

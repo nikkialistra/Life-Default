@@ -117,6 +117,11 @@ namespace UnitManagement.Targeting.Formations
 
         public void RotateFormation(float angle)
         {
+            if (!_shown)
+            {
+                throw new InvalidOperationException();
+            }
+
             if (_units.Count == 0 || _formationType == FormationType.None)
             {
                 return;
@@ -143,11 +148,11 @@ namespace UnitManagement.Targeting.Formations
 
             if (_formationPreviewDrawing.ShowDirectionArrow)
             {
-                MoveUnitsToPositions(_formationPositions.Skip(1).ToArray());
+                MoveUnitsToPositions(_formationPositions.Skip(1).ToArray(), _regionFormation.CurrentYRotation);
             }
             else
             {
-                MoveUnitsToPositions(_formationPositions);
+                MoveUnitsToPositions(_formationPositions, null);
             }
 
             _formationPreviewDrawing.Flash();
@@ -205,7 +210,7 @@ namespace UnitManagement.Targeting.Formations
             Show();
         }
 
-        private void MoveUnitsToPositions(Vector3[] formationPositions)
+        private void MoveUnitsToPositions(Vector3[] formationPositions, float? lastAngle)
         {
             var assignedPositionsBitmask = new bool[formationPositions.Length];
             var assignedUnitsBitmask = new bool[formationPositions.Length];
@@ -226,7 +231,7 @@ namespace UnitManagement.Targeting.Formations
 
                 var unit = _units[closestUnitIndex];
                 var formationPosition = formationPositions[formationIndex];
-                if (unit.TryOrderToPosition(formationPosition))
+                if (unit.TryOrderToPosition(formationPosition, lastAngle))
                 {
                     _orderMarkPool.Link(_orderMark, _units[closestUnitIndex]);
                 }

@@ -77,6 +77,11 @@ namespace Units.Unit
             _entityMeshAgent.RotateTo(entity.transform.position);
         }
 
+        public void RotateToAngle(float angle)
+        {
+            _entityMeshAgent.RotateToAngle(angle);
+        }
+
         public void StopMoving()
         {
             if (_hasPendingOrder)

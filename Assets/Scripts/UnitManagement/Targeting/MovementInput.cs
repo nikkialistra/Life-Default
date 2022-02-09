@@ -30,6 +30,7 @@ namespace UnitManagement.Targeting
         private PlayerInput _playerInput;
 
         private InputAction _setDestinationAction;
+        private InputAction _addDestinationAction;
         private InputAction _positionAction;
         private InputAction _stopAction;
 
@@ -50,6 +51,7 @@ namespace UnitManagement.Targeting
             _terrainMask = LayerMask.GetMask("Terrain");
 
             _setDestinationAction = _playerInput.actions.FindAction("SetDestination");
+            _addDestinationAction = _playerInput.actions.FindAction("AddDestination");
             _positionAction = _playerInput.actions.FindAction("Position");
             _stopAction = _playerInput.actions.FindAction("Stop");
         }
@@ -65,19 +67,21 @@ namespace UnitManagement.Targeting
 
         private void OnEnable()
         {
-            _setDestinationAction.started += SetDestination;
-            _setDestinationAction.canceled += SetPositionRotation;
+            _setDestinationAction.started += SetTarget;
+            _setDestinationAction.canceled += SetDestination;
+            _addDestinationAction.canceled += AddDestination;
             _stopAction.started += OnStop;
         }
 
         private void OnDisable()
         {
-            _setDestinationAction.started -= SetDestination;
-            _setDestinationAction.canceled -= SetPositionRotation;
+            _setDestinationAction.started -= SetTarget;
+            _setDestinationAction.canceled -= SetDestination;
+            _addDestinationAction.canceled -= AddDestination;
             _stopAction.started -= OnStop;
         }
 
-        private void SetDestination(InputAction.CallbackContext context)
+        private void SetTarget(InputAction.CallbackContext context)
         {
             if (!_selectedUnits.Units.Any() || _gameViews.MouseOverUi)
             {
@@ -149,7 +153,26 @@ namespace UnitManagement.Targeting
             }
         }
 
-        private void SetPositionRotation(InputAction.CallbackContext context)
+        private void SetDestination(InputAction.CallbackContext context)
+        {
+            if (Keyboard.current.shiftKey.isPressed)
+            {
+                return;
+            }
+
+            if (_isPositionRotating)
+            {
+                if (_positionRotatingCoroutine != null)
+                {
+                    StopCoroutine(_positionRotatingCoroutine);
+                }
+
+                _isPositionRotating = false;
+                DestinationSet?.Invoke(false);
+            }
+        }
+
+        private void AddDestination(InputAction.CallbackContext context)
         {
             if (_isPositionRotating)
             {
@@ -159,14 +182,7 @@ namespace UnitManagement.Targeting
                 }
 
                 _isPositionRotating = false;
-                if (!Keyboard.current.shiftKey.isPressed)
-                {
-                    DestinationSet?.Invoke(false);
-                }
-                else
-                {
-                    DestinationSet?.Invoke(true);
-                }
+                DestinationSet?.Invoke(true);
             }
         }
 

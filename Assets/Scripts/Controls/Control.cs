@@ -120,6 +120,15 @@ namespace Controls
                     ""initialStateCheck"": false
                 },
                 {
+                    ""name"": ""AddDestination"",
+                    ""type"": ""Button"",
+                    ""id"": ""47a262cd-7509-4aac-9647-84d056d39a59"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""ShowMenu"",
                     ""type"": ""Button"",
                     ""id"": ""bb7a1b1a-bb06-4025-af3c-a2ac225e6f9c"",
@@ -623,6 +632,39 @@ namespace Controls
                     ""action"": ""PreviousFormation"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""One Modifier"",
+                    ""id"": ""6905bc92-68b4-479f-ace1-bb6d4850d078"",
+                    ""path"": ""OneModifier"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AddDestination"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""modifier"",
+                    ""id"": ""8e8f6f3b-7a2e-4b35-b4a4-af0d8274d781"",
+                    ""path"": ""<Keyboard>/shift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AddDestination"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""binding"",
+                    ""id"": ""c2caf81b-4fe0-44c7-b118-1d4e58bb7f89"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AddDestination"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 }
             ]
         },
@@ -669,6 +711,7 @@ namespace Controls
             m_Management_Rotate = m_Management.FindAction("Rotate", throwIfNotFound: true);
             m_Management_Zoom = m_Management.FindAction("Zoom", throwIfNotFound: true);
             m_Management_SetDestination = m_Management.FindAction("SetDestination", throwIfNotFound: true);
+            m_Management_AddDestination = m_Management.FindAction("AddDestination", throwIfNotFound: true);
             m_Management_ShowMenu = m_Management.FindAction("ShowMenu", throwIfNotFound: true);
             m_Management_Stop = m_Management.FindAction("Stop", throwIfNotFound: true);
             m_Management_Digit = m_Management.FindAction("Digit", throwIfNotFound: true);
@@ -748,6 +791,7 @@ namespace Controls
         private readonly InputAction m_Management_Rotate;
         private readonly InputAction m_Management_Zoom;
         private readonly InputAction m_Management_SetDestination;
+        private readonly InputAction m_Management_AddDestination;
         private readonly InputAction m_Management_ShowMenu;
         private readonly InputAction m_Management_Stop;
         private readonly InputAction m_Management_Digit;
@@ -769,6 +813,7 @@ namespace Controls
             public InputAction @Rotate => m_Wrapper.m_Management_Rotate;
             public InputAction @Zoom => m_Wrapper.m_Management_Zoom;
             public InputAction @SetDestination => m_Wrapper.m_Management_SetDestination;
+            public InputAction @AddDestination => m_Wrapper.m_Management_AddDestination;
             public InputAction @ShowMenu => m_Wrapper.m_Management_ShowMenu;
             public InputAction @Stop => m_Wrapper.m_Management_Stop;
             public InputAction @Digit => m_Wrapper.m_Management_Digit;
@@ -815,6 +860,9 @@ namespace Controls
                     @SetDestination.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnSetDestination;
                     @SetDestination.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnSetDestination;
                     @SetDestination.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnSetDestination;
+                    @AddDestination.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnAddDestination;
+                    @AddDestination.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnAddDestination;
+                    @AddDestination.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnAddDestination;
                     @ShowMenu.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnShowMenu;
                     @ShowMenu.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnShowMenu;
                     @ShowMenu.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnShowMenu;
@@ -870,6 +918,9 @@ namespace Controls
                     @SetDestination.started += instance.OnSetDestination;
                     @SetDestination.performed += instance.OnSetDestination;
                     @SetDestination.canceled += instance.OnSetDestination;
+                    @AddDestination.started += instance.OnAddDestination;
+                    @AddDestination.performed += instance.OnAddDestination;
+                    @AddDestination.canceled += instance.OnAddDestination;
                     @ShowMenu.started += instance.OnShowMenu;
                     @ShowMenu.performed += instance.OnShowMenu;
                     @ShowMenu.canceled += instance.OnShowMenu;
@@ -940,6 +991,7 @@ namespace Controls
             void OnRotate(InputAction.CallbackContext context);
             void OnZoom(InputAction.CallbackContext context);
             void OnSetDestination(InputAction.CallbackContext context);
+            void OnAddDestination(InputAction.CallbackContext context);
             void OnShowMenu(InputAction.CallbackContext context);
             void OnStop(InputAction.CallbackContext context);
             void OnDigit(InputAction.CallbackContext context);

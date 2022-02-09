@@ -96,6 +96,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "AddDestination",
+                    "type": "Button",
+                    "id": "47a262cd-7509-4aac-9647-84d056d39a59",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "ShowMenu",
                     "type": "Button",
                     "id": "bb7a1b1a-bb06-4025-af3c-a2ac225e6f9c",
@@ -599,6 +608,39 @@
                     "action": "PreviousFormation",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "One Modifier",
+                    "id": "6905bc92-68b4-479f-ace1-bb6d4850d078",
+                    "path": "OneModifier",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "AddDestination",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "modifier",
+                    "id": "8e8f6f3b-7a2e-4b35-b4a4-af0d8274d781",
+                    "path": "<Keyboard>/shift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "AddDestination",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "binding",
+                    "id": "c2caf81b-4fe0-44c7-b118-1d4e58bb7f89",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "AddDestination",
+                    "isComposite": false,
+                    "isPartOfComposite": true
                 }
             ]
         },

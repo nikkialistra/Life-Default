@@ -50,8 +50,8 @@ namespace UnitManagement.Targeting.Formations
             _regionFormation = GetComponent<RegionFormation>();
             _formationPreviewDrawing = GetComponent<FormationPreviewDrawing>();
 
-            _previousFormationAction = _playerInput.actions.FindAction("PreviousFormation");
-            _nextFormationAction = _playerInput.actions.FindAction("NextFormation");
+            _previousFormationAction = _playerInput.actions.FindAction("Previous Formation");
+            _nextFormationAction = _playerInput.actions.FindAction("Next Formation");
         }
 
         private void OnEnable()

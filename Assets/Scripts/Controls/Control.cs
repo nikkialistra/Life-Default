@@ -30,7 +30,7 @@ namespace Controls
             ""id"": ""4cc9433d-d740-4593-a299-245a457e2ffd"",
             ""actions"": [
                 {
-                    ""name"": ""ShowMenu"",
+                    ""name"": ""Show Menu"",
                     ""type"": ""Button"",
                     ""id"": ""bb7a1b1a-bb06-4025-af3c-a2ac225e6f9c"",
                     ""expectedControlType"": ""Button"",
@@ -84,7 +84,7 @@ namespace Controls
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""ZoomScroll"",
+                    ""name"": ""Zoom Scroll"",
                     ""type"": ""Value"",
                     ""id"": ""d6a2616d-3501-4776-b0e6-9bd0f48d43b4"",
                     ""expectedControlType"": """",
@@ -93,7 +93,7 @@ namespace Controls
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""SetFollow"",
+                    ""name"": ""Set Follow"",
                     ""type"": ""Button"",
                     ""id"": ""3a2302e8-af2d-4adc-bae2-e850d2eaa14b"",
                     ""expectedControlType"": ""Button"",
@@ -102,7 +102,7 @@ namespace Controls
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""ResetFollow"",
+                    ""name"": ""Reset Follow"",
                     ""type"": ""Button"",
                     ""id"": ""e72a7247-f0fc-4d95-826c-d8c03af268d7"",
                     ""expectedControlType"": ""Button"",
@@ -129,18 +129,18 @@ namespace Controls
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""SetDestination"",
+                    ""name"": ""Multi Command"",
                     ""type"": ""Button"",
-                    ""id"": ""c4cb563a-cce4-4986-ad62-135ea6b1147f"",
+                    ""id"": ""18aa36a6-2365-4456-913c-4f64509e6ede"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""AddDestination"",
+                    ""name"": ""Move"",
                     ""type"": ""Button"",
-                    ""id"": ""47a262cd-7509-4aac-9647-84d056d39a59"",
+                    ""id"": ""c4cb563a-cce4-4986-ad62-135ea6b1147f"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -156,7 +156,7 @@ namespace Controls
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Move"",
+                    ""name"": ""Select Move"",
                     ""type"": ""Button"",
                     ""id"": ""e1333e51-7019-4325-8de5-11f227e2c9a8"",
                     ""expectedControlType"": ""Button"",
@@ -165,7 +165,7 @@ namespace Controls
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Attack"",
+                    ""name"": ""Select Attack"",
                     ""type"": ""Button"",
                     ""id"": ""aa9bf84f-de07-4adf-b77a-aa170a714d53"",
                     ""expectedControlType"": ""Button"",
@@ -174,7 +174,7 @@ namespace Controls
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Hold"",
+                    ""name"": ""Select Hold"",
                     ""type"": ""Button"",
                     ""id"": ""18c5ae88-1b86-4502-8421-7cf8fcc11c43"",
                     ""expectedControlType"": ""Button"",
@@ -183,7 +183,7 @@ namespace Controls
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Patrol"",
+                    ""name"": ""Select Patrol"",
                     ""type"": ""Button"",
                     ""id"": ""f5c6ae33-7d22-488a-b22a-3eb6acf60da8"",
                     ""expectedControlType"": ""Button"",
@@ -210,7 +210,7 @@ namespace Controls
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""PreviousFormation"",
+                    ""name"": ""Previous Formation"",
                     ""type"": ""Button"",
                     ""id"": ""a3325bd4-4fea-4c7f-ae8b-13680991afa7"",
                     ""expectedControlType"": ""Button"",
@@ -219,7 +219,7 @@ namespace Controls
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""NextFormation"",
+                    ""name"": ""Next Formation"",
                     ""type"": ""Button"",
                     ""id"": ""988cea0b-7ea8-436f-b0d9-ade98de4a5a4"",
                     ""expectedControlType"": ""Button"",
@@ -228,7 +228,7 @@ namespace Controls
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""ToggleEnemyFieldsOfView"",
+                    ""name"": ""Toggle Enemy Field Of View"",
                     ""type"": ""Button"",
                     ""id"": ""b34e6d70-41fd-44d7-95ac-fad15c64847a"",
                     ""expectedControlType"": ""Button"",
@@ -237,7 +237,7 @@ namespace Controls
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""ToggleResourceFieldsOfView"",
+                    ""name"": ""Toggle Resource Field Of View"",
                     ""type"": ""Button"",
                     ""id"": ""a08f294d-4743-4bfa-a732-1857f145b510"",
                     ""expectedControlType"": ""Button"",
@@ -265,7 +265,7 @@ namespace Controls
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""SetDestination"",
+                    ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -287,7 +287,7 @@ namespace Controls
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""NextFormation"",
+                    ""action"": ""Next Formation"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -298,42 +298,9 @@ namespace Controls
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""PreviousFormation"",
+                    ""action"": ""Previous Formation"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""One Modifier"",
-                    ""id"": ""6905bc92-68b4-479f-ace1-bb6d4850d078"",
-                    ""path"": ""OneModifier"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""AddDestination"",
-                    ""isComposite"": true,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""modifier"",
-                    ""id"": ""8e8f6f3b-7a2e-4b35-b4a4-af0d8274d781"",
-                    ""path"": ""<Keyboard>/shift"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""AddDestination"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""binding"",
-                    ""id"": ""c2caf81b-4fe0-44c7-b118-1d4e58bb7f89"",
-                    ""path"": ""<Mouse>/rightButton"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""AddDestination"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
                 },
                 {
                     ""name"": """",
@@ -474,7 +441,7 @@ namespace Controls
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""SetFollow"",
+                    ""action"": ""Set Follow"",
                     ""isComposite"": true,
                     ""isPartOfComposite"": false
                 },
@@ -485,7 +452,7 @@ namespace Controls
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""SetFollow"",
+                    ""action"": ""Set Follow"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -496,7 +463,7 @@ namespace Controls
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""SetFollow"",
+                    ""action"": ""Set Follow"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -507,7 +474,7 @@ namespace Controls
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""ResetFollow"",
+                    ""action"": ""Reset Follow"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -518,7 +485,7 @@ namespace Controls
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""ZoomScroll"",
+                    ""action"": ""Zoom Scroll"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -529,7 +496,7 @@ namespace Controls
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""ShowMenu"",
+                    ""action"": ""Show Menu"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -562,7 +529,7 @@ namespace Controls
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""ToggleEnemyFieldsOfView"",
+                    ""action"": ""Toggle Enemy Field Of View"",
                     ""isComposite"": true,
                     ""isPartOfComposite"": false
                 },
@@ -573,7 +540,7 @@ namespace Controls
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""ToggleEnemyFieldsOfView"",
+                    ""action"": ""Toggle Enemy Field Of View"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -584,7 +551,7 @@ namespace Controls
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""ToggleEnemyFieldsOfView"",
+                    ""action"": ""Toggle Enemy Field Of View"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -595,7 +562,7 @@ namespace Controls
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""ToggleResourceFieldsOfView"",
+                    ""action"": ""Toggle Resource Field Of View"",
                     ""isComposite"": true,
                     ""isPartOfComposite"": false
                 },
@@ -606,7 +573,7 @@ namespace Controls
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""ToggleResourceFieldsOfView"",
+                    ""action"": ""Toggle Resource Field Of View"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -617,7 +584,7 @@ namespace Controls
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""ToggleResourceFieldsOfView"",
+                    ""action"": ""Toggle Resource Field Of View"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -727,7 +694,7 @@ namespace Controls
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Move"",
+                    ""action"": ""Select Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -738,7 +705,7 @@ namespace Controls
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Attack"",
+                    ""action"": ""Select Attack"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -749,7 +716,7 @@ namespace Controls
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Hold"",
+                    ""action"": ""Select Hold"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -760,7 +727,7 @@ namespace Controls
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Patrol"",
+                    ""action"": ""Select Patrol"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -783,6 +750,17 @@ namespace Controls
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Cancel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c16d9ce6-be4a-4922-9c3f-f37671993efb"",
+                    ""path"": ""<Keyboard>/shift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Multi Command"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -821,30 +799,30 @@ namespace Controls
 }");
             // Management
             m_Management = asset.FindActionMap("Management", throwIfNotFound: true);
-            m_Management_ShowMenu = m_Management.FindAction("ShowMenu", throwIfNotFound: true);
+            m_Management_ShowMenu = m_Management.FindAction("Show Menu", throwIfNotFound: true);
             m_Management_Position = m_Management.FindAction("Position", throwIfNotFound: true);
             m_Management_Drag = m_Management.FindAction("Drag", throwIfNotFound: true);
             m_Management_Movement = m_Management.FindAction("Movement", throwIfNotFound: true);
             m_Management_Rotate = m_Management.FindAction("Rotate", throwIfNotFound: true);
             m_Management_Zoom = m_Management.FindAction("Zoom", throwIfNotFound: true);
-            m_Management_ZoomScroll = m_Management.FindAction("ZoomScroll", throwIfNotFound: true);
-            m_Management_SetFollow = m_Management.FindAction("SetFollow", throwIfNotFound: true);
-            m_Management_ResetFollow = m_Management.FindAction("ResetFollow", throwIfNotFound: true);
+            m_Management_ZoomScroll = m_Management.FindAction("Zoom Scroll", throwIfNotFound: true);
+            m_Management_SetFollow = m_Management.FindAction("Set Follow", throwIfNotFound: true);
+            m_Management_ResetFollow = m_Management.FindAction("Reset Follow", throwIfNotFound: true);
             m_Management_Select = m_Management.FindAction("Select", throwIfNotFound: true);
             m_Management_Digit = m_Management.FindAction("Digit", throwIfNotFound: true);
-            m_Management_SetDestination = m_Management.FindAction("SetDestination", throwIfNotFound: true);
-            m_Management_AddDestination = m_Management.FindAction("AddDestination", throwIfNotFound: true);
-            m_Management_Stop = m_Management.FindAction("Stop", throwIfNotFound: true);
+            m_Management_MultiCommand = m_Management.FindAction("Multi Command", throwIfNotFound: true);
             m_Management_Move = m_Management.FindAction("Move", throwIfNotFound: true);
-            m_Management_Attack = m_Management.FindAction("Attack", throwIfNotFound: true);
-            m_Management_Hold = m_Management.FindAction("Hold", throwIfNotFound: true);
-            m_Management_Patrol = m_Management.FindAction("Patrol", throwIfNotFound: true);
+            m_Management_Stop = m_Management.FindAction("Stop", throwIfNotFound: true);
+            m_Management_SelectMove = m_Management.FindAction("Select Move", throwIfNotFound: true);
+            m_Management_SelectAttack = m_Management.FindAction("Select Attack", throwIfNotFound: true);
+            m_Management_SelectHold = m_Management.FindAction("Select Hold", throwIfNotFound: true);
+            m_Management_SelectPatrol = m_Management.FindAction("Select Patrol", throwIfNotFound: true);
             m_Management_Do = m_Management.FindAction("Do", throwIfNotFound: true);
             m_Management_Cancel = m_Management.FindAction("Cancel", throwIfNotFound: true);
-            m_Management_PreviousFormation = m_Management.FindAction("PreviousFormation", throwIfNotFound: true);
-            m_Management_NextFormation = m_Management.FindAction("NextFormation", throwIfNotFound: true);
-            m_Management_ToggleEnemyFieldsOfView = m_Management.FindAction("ToggleEnemyFieldsOfView", throwIfNotFound: true);
-            m_Management_ToggleResourceFieldsOfView = m_Management.FindAction("ToggleResourceFieldsOfView", throwIfNotFound: true);
+            m_Management_PreviousFormation = m_Management.FindAction("Previous Formation", throwIfNotFound: true);
+            m_Management_NextFormation = m_Management.FindAction("Next Formation", throwIfNotFound: true);
+            m_Management_ToggleEnemyFieldOfView = m_Management.FindAction("Toggle Enemy Field Of View", throwIfNotFound: true);
+            m_Management_ToggleResourceFieldOfView = m_Management.FindAction("Toggle Resource Field Of View", throwIfNotFound: true);
             // Menus
             m_Menus = asset.FindActionMap("Menus", throwIfNotFound: true);
             m_Menus_HideMenu = m_Menus.FindAction("HideMenu", throwIfNotFound: true);
@@ -918,19 +896,19 @@ namespace Controls
         private readonly InputAction m_Management_ResetFollow;
         private readonly InputAction m_Management_Select;
         private readonly InputAction m_Management_Digit;
-        private readonly InputAction m_Management_SetDestination;
-        private readonly InputAction m_Management_AddDestination;
-        private readonly InputAction m_Management_Stop;
+        private readonly InputAction m_Management_MultiCommand;
         private readonly InputAction m_Management_Move;
-        private readonly InputAction m_Management_Attack;
-        private readonly InputAction m_Management_Hold;
-        private readonly InputAction m_Management_Patrol;
+        private readonly InputAction m_Management_Stop;
+        private readonly InputAction m_Management_SelectMove;
+        private readonly InputAction m_Management_SelectAttack;
+        private readonly InputAction m_Management_SelectHold;
+        private readonly InputAction m_Management_SelectPatrol;
         private readonly InputAction m_Management_Do;
         private readonly InputAction m_Management_Cancel;
         private readonly InputAction m_Management_PreviousFormation;
         private readonly InputAction m_Management_NextFormation;
-        private readonly InputAction m_Management_ToggleEnemyFieldsOfView;
-        private readonly InputAction m_Management_ToggleResourceFieldsOfView;
+        private readonly InputAction m_Management_ToggleEnemyFieldOfView;
+        private readonly InputAction m_Management_ToggleResourceFieldOfView;
         public struct ManagementActions
         {
             private @Control m_Wrapper;
@@ -946,19 +924,19 @@ namespace Controls
             public InputAction @ResetFollow => m_Wrapper.m_Management_ResetFollow;
             public InputAction @Select => m_Wrapper.m_Management_Select;
             public InputAction @Digit => m_Wrapper.m_Management_Digit;
-            public InputAction @SetDestination => m_Wrapper.m_Management_SetDestination;
-            public InputAction @AddDestination => m_Wrapper.m_Management_AddDestination;
-            public InputAction @Stop => m_Wrapper.m_Management_Stop;
+            public InputAction @MultiCommand => m_Wrapper.m_Management_MultiCommand;
             public InputAction @Move => m_Wrapper.m_Management_Move;
-            public InputAction @Attack => m_Wrapper.m_Management_Attack;
-            public InputAction @Hold => m_Wrapper.m_Management_Hold;
-            public InputAction @Patrol => m_Wrapper.m_Management_Patrol;
+            public InputAction @Stop => m_Wrapper.m_Management_Stop;
+            public InputAction @SelectMove => m_Wrapper.m_Management_SelectMove;
+            public InputAction @SelectAttack => m_Wrapper.m_Management_SelectAttack;
+            public InputAction @SelectHold => m_Wrapper.m_Management_SelectHold;
+            public InputAction @SelectPatrol => m_Wrapper.m_Management_SelectPatrol;
             public InputAction @Do => m_Wrapper.m_Management_Do;
             public InputAction @Cancel => m_Wrapper.m_Management_Cancel;
             public InputAction @PreviousFormation => m_Wrapper.m_Management_PreviousFormation;
             public InputAction @NextFormation => m_Wrapper.m_Management_NextFormation;
-            public InputAction @ToggleEnemyFieldsOfView => m_Wrapper.m_Management_ToggleEnemyFieldsOfView;
-            public InputAction @ToggleResourceFieldsOfView => m_Wrapper.m_Management_ToggleResourceFieldsOfView;
+            public InputAction @ToggleEnemyFieldOfView => m_Wrapper.m_Management_ToggleEnemyFieldOfView;
+            public InputAction @ToggleResourceFieldOfView => m_Wrapper.m_Management_ToggleResourceFieldOfView;
             public InputActionMap Get() { return m_Wrapper.m_Management; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -1001,27 +979,27 @@ namespace Controls
                     @Digit.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnDigit;
                     @Digit.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnDigit;
                     @Digit.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnDigit;
-                    @SetDestination.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnSetDestination;
-                    @SetDestination.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnSetDestination;
-                    @SetDestination.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnSetDestination;
-                    @AddDestination.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnAddDestination;
-                    @AddDestination.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnAddDestination;
-                    @AddDestination.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnAddDestination;
-                    @Stop.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnStop;
-                    @Stop.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnStop;
-                    @Stop.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnStop;
+                    @MultiCommand.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnMultiCommand;
+                    @MultiCommand.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnMultiCommand;
+                    @MultiCommand.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnMultiCommand;
                     @Move.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnMove;
                     @Move.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnMove;
                     @Move.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnMove;
-                    @Attack.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnAttack;
-                    @Attack.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnAttack;
-                    @Attack.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnAttack;
-                    @Hold.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnHold;
-                    @Hold.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnHold;
-                    @Hold.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnHold;
-                    @Patrol.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnPatrol;
-                    @Patrol.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnPatrol;
-                    @Patrol.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnPatrol;
+                    @Stop.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnStop;
+                    @Stop.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnStop;
+                    @Stop.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnStop;
+                    @SelectMove.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnSelectMove;
+                    @SelectMove.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnSelectMove;
+                    @SelectMove.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnSelectMove;
+                    @SelectAttack.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnSelectAttack;
+                    @SelectAttack.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnSelectAttack;
+                    @SelectAttack.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnSelectAttack;
+                    @SelectHold.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnSelectHold;
+                    @SelectHold.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnSelectHold;
+                    @SelectHold.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnSelectHold;
+                    @SelectPatrol.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnSelectPatrol;
+                    @SelectPatrol.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnSelectPatrol;
+                    @SelectPatrol.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnSelectPatrol;
                     @Do.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnDo;
                     @Do.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnDo;
                     @Do.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnDo;
@@ -1034,12 +1012,12 @@ namespace Controls
                     @NextFormation.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnNextFormation;
                     @NextFormation.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnNextFormation;
                     @NextFormation.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnNextFormation;
-                    @ToggleEnemyFieldsOfView.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnToggleEnemyFieldsOfView;
-                    @ToggleEnemyFieldsOfView.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnToggleEnemyFieldsOfView;
-                    @ToggleEnemyFieldsOfView.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnToggleEnemyFieldsOfView;
-                    @ToggleResourceFieldsOfView.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnToggleResourceFieldsOfView;
-                    @ToggleResourceFieldsOfView.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnToggleResourceFieldsOfView;
-                    @ToggleResourceFieldsOfView.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnToggleResourceFieldsOfView;
+                    @ToggleEnemyFieldOfView.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnToggleEnemyFieldOfView;
+                    @ToggleEnemyFieldOfView.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnToggleEnemyFieldOfView;
+                    @ToggleEnemyFieldOfView.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnToggleEnemyFieldOfView;
+                    @ToggleResourceFieldOfView.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnToggleResourceFieldOfView;
+                    @ToggleResourceFieldOfView.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnToggleResourceFieldOfView;
+                    @ToggleResourceFieldOfView.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnToggleResourceFieldOfView;
                 }
                 m_Wrapper.m_ManagementActionsCallbackInterface = instance;
                 if (instance != null)
@@ -1077,27 +1055,27 @@ namespace Controls
                     @Digit.started += instance.OnDigit;
                     @Digit.performed += instance.OnDigit;
                     @Digit.canceled += instance.OnDigit;
-                    @SetDestination.started += instance.OnSetDestination;
-                    @SetDestination.performed += instance.OnSetDestination;
-                    @SetDestination.canceled += instance.OnSetDestination;
-                    @AddDestination.started += instance.OnAddDestination;
-                    @AddDestination.performed += instance.OnAddDestination;
-                    @AddDestination.canceled += instance.OnAddDestination;
-                    @Stop.started += instance.OnStop;
-                    @Stop.performed += instance.OnStop;
-                    @Stop.canceled += instance.OnStop;
+                    @MultiCommand.started += instance.OnMultiCommand;
+                    @MultiCommand.performed += instance.OnMultiCommand;
+                    @MultiCommand.canceled += instance.OnMultiCommand;
                     @Move.started += instance.OnMove;
                     @Move.performed += instance.OnMove;
                     @Move.canceled += instance.OnMove;
-                    @Attack.started += instance.OnAttack;
-                    @Attack.performed += instance.OnAttack;
-                    @Attack.canceled += instance.OnAttack;
-                    @Hold.started += instance.OnHold;
-                    @Hold.performed += instance.OnHold;
-                    @Hold.canceled += instance.OnHold;
-                    @Patrol.started += instance.OnPatrol;
-                    @Patrol.performed += instance.OnPatrol;
-                    @Patrol.canceled += instance.OnPatrol;
+                    @Stop.started += instance.OnStop;
+                    @Stop.performed += instance.OnStop;
+                    @Stop.canceled += instance.OnStop;
+                    @SelectMove.started += instance.OnSelectMove;
+                    @SelectMove.performed += instance.OnSelectMove;
+                    @SelectMove.canceled += instance.OnSelectMove;
+                    @SelectAttack.started += instance.OnSelectAttack;
+                    @SelectAttack.performed += instance.OnSelectAttack;
+                    @SelectAttack.canceled += instance.OnSelectAttack;
+                    @SelectHold.started += instance.OnSelectHold;
+                    @SelectHold.performed += instance.OnSelectHold;
+                    @SelectHold.canceled += instance.OnSelectHold;
+                    @SelectPatrol.started += instance.OnSelectPatrol;
+                    @SelectPatrol.performed += instance.OnSelectPatrol;
+                    @SelectPatrol.canceled += instance.OnSelectPatrol;
                     @Do.started += instance.OnDo;
                     @Do.performed += instance.OnDo;
                     @Do.canceled += instance.OnDo;
@@ -1110,12 +1088,12 @@ namespace Controls
                     @NextFormation.started += instance.OnNextFormation;
                     @NextFormation.performed += instance.OnNextFormation;
                     @NextFormation.canceled += instance.OnNextFormation;
-                    @ToggleEnemyFieldsOfView.started += instance.OnToggleEnemyFieldsOfView;
-                    @ToggleEnemyFieldsOfView.performed += instance.OnToggleEnemyFieldsOfView;
-                    @ToggleEnemyFieldsOfView.canceled += instance.OnToggleEnemyFieldsOfView;
-                    @ToggleResourceFieldsOfView.started += instance.OnToggleResourceFieldsOfView;
-                    @ToggleResourceFieldsOfView.performed += instance.OnToggleResourceFieldsOfView;
-                    @ToggleResourceFieldsOfView.canceled += instance.OnToggleResourceFieldsOfView;
+                    @ToggleEnemyFieldOfView.started += instance.OnToggleEnemyFieldOfView;
+                    @ToggleEnemyFieldOfView.performed += instance.OnToggleEnemyFieldOfView;
+                    @ToggleEnemyFieldOfView.canceled += instance.OnToggleEnemyFieldOfView;
+                    @ToggleResourceFieldOfView.started += instance.OnToggleResourceFieldOfView;
+                    @ToggleResourceFieldOfView.performed += instance.OnToggleResourceFieldOfView;
+                    @ToggleResourceFieldOfView.canceled += instance.OnToggleResourceFieldOfView;
                 }
             }
         }
@@ -1166,19 +1144,19 @@ namespace Controls
             void OnResetFollow(InputAction.CallbackContext context);
             void OnSelect(InputAction.CallbackContext context);
             void OnDigit(InputAction.CallbackContext context);
-            void OnSetDestination(InputAction.CallbackContext context);
-            void OnAddDestination(InputAction.CallbackContext context);
-            void OnStop(InputAction.CallbackContext context);
+            void OnMultiCommand(InputAction.CallbackContext context);
             void OnMove(InputAction.CallbackContext context);
-            void OnAttack(InputAction.CallbackContext context);
-            void OnHold(InputAction.CallbackContext context);
-            void OnPatrol(InputAction.CallbackContext context);
+            void OnStop(InputAction.CallbackContext context);
+            void OnSelectMove(InputAction.CallbackContext context);
+            void OnSelectAttack(InputAction.CallbackContext context);
+            void OnSelectHold(InputAction.CallbackContext context);
+            void OnSelectPatrol(InputAction.CallbackContext context);
             void OnDo(InputAction.CallbackContext context);
             void OnCancel(InputAction.CallbackContext context);
             void OnPreviousFormation(InputAction.CallbackContext context);
             void OnNextFormation(InputAction.CallbackContext context);
-            void OnToggleEnemyFieldsOfView(InputAction.CallbackContext context);
-            void OnToggleResourceFieldsOfView(InputAction.CallbackContext context);
+            void OnToggleEnemyFieldOfView(InputAction.CallbackContext context);
+            void OnToggleResourceFieldOfView(InputAction.CallbackContext context);
         }
         public interface IMenusActions
         {

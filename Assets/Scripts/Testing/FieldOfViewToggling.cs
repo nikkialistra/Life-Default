@@ -9,8 +9,8 @@ namespace Testing
     {
         private SelectedUnits _selectedUnits;
 
-        private InputAction _toggleEnemyFieldsOfViewAction;
-        private InputAction _toggleResourceFieldsOfViewAction;
+        private InputAction _toggleEnemyFieldOfViewAction;
+        private InputAction _toggleResourceFieldOfViewAction;
 
         private PlayerInput _playerInput;
 
@@ -23,23 +23,23 @@ namespace Testing
 
         private void Awake()
         {
-            _toggleEnemyFieldsOfViewAction = _playerInput.actions.FindAction("ToggleEnemyFieldsOfView");
-            _toggleResourceFieldsOfViewAction = _playerInput.actions.FindAction("ToggleResourceFieldsOfView");
+            _toggleEnemyFieldOfViewAction = _playerInput.actions.FindAction("Toggle Enemy Field Of View");
+            _toggleResourceFieldOfViewAction = _playerInput.actions.FindAction("Toggle Resource Field Of View");
         }
 
         private void OnEnable()
         {
-            _toggleEnemyFieldsOfViewAction.started += ToggleEnemyFieldsOfView;
-            _toggleResourceFieldsOfViewAction.started += ToggleResourceFieldsOfView;
+            _toggleEnemyFieldOfViewAction.started += ToggleEnemyFieldOfView;
+            _toggleResourceFieldOfViewAction.started += ToggleResourceFieldOfView;
         }
 
         private void OnDisable()
         {
-            _toggleEnemyFieldsOfViewAction.started -= ToggleEnemyFieldsOfView;
-            _toggleResourceFieldsOfViewAction.started -= ToggleResourceFieldsOfView;
+            _toggleEnemyFieldOfViewAction.started -= ToggleEnemyFieldOfView;
+            _toggleResourceFieldOfViewAction.started -= ToggleResourceFieldOfView;
         }
 
-        private void ToggleEnemyFieldsOfView(InputAction.CallbackContext context)
+        private void ToggleEnemyFieldOfView(InputAction.CallbackContext context)
         {
             foreach (var unit in _selectedUnits.Units)
             {
@@ -47,7 +47,7 @@ namespace Testing
             }
         }
 
-        private void ToggleResourceFieldsOfView(InputAction.CallbackContext context)
+        private void ToggleResourceFieldOfView(InputAction.CallbackContext context)
         {
             foreach (var unit in _selectedUnits.Units)
             {

@@ -33,8 +33,9 @@ namespace UnitManagement.Movement
 
         private PlayerInput _playerInput;
 
-        private InputAction _setDestinationAction;
-        private InputAction _addDestinationAction;
+        private InputAction _multiCommandAction;
+
+        private InputAction _moveAction;
         private InputAction _positionAction;
 
         private InputAction _stopAction;
@@ -53,8 +54,9 @@ namespace UnitManagement.Movement
             _rayMask = LayerMask.GetMask("Terrain", "Units", "Enemies", "Resources", "Buildings");
             _terrainMask = LayerMask.GetMask("Terrain");
 
-            _setDestinationAction = _playerInput.actions.FindAction("SetDestination");
-            _addDestinationAction = _playerInput.actions.FindAction("AddDestination");
+            _multiCommandAction = _playerInput.actions.FindAction("Multi Command");
+
+            _moveAction = _playerInput.actions.FindAction("Move");
             _positionAction = _playerInput.actions.FindAction("Position");
 
             _stopAction = _playerInput.actions.FindAction("Stop");
@@ -87,16 +89,14 @@ namespace UnitManagement.Movement
 
         public void SubscribeToActions()
         {
-            _setDestinationAction.started += SetTarget;
-            _setDestinationAction.canceled += SetDestination;
-            _addDestinationAction.canceled += AddDestination;
+            _moveAction.started += SetTarget;
+            _moveAction.canceled += Move;
         }
 
         public void UnsubscribeFromActions()
         {
-            _setDestinationAction.started -= SetTarget;
-            _setDestinationAction.canceled -= SetDestination;
-            _addDestinationAction.canceled -= AddDestination;
+            _moveAction.started -= SetTarget;
+            _moveAction.canceled -= Move;
         }
 
         public bool TargetEntity()
@@ -128,7 +128,7 @@ namespace UnitManagement.Movement
             }
         }
 
-        public void SetDestination(InputAction.CallbackContext context)
+        public void Move(InputAction.CallbackContext context)
         {
             if (Keyboard.current.shiftKey.isPressed)
             {

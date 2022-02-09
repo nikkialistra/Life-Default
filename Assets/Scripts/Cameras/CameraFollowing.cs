@@ -35,7 +35,7 @@ namespace Cameras
         {
             _camera = GetComponent<Camera>();
 
-            _setFollowAction = _playerInput.actions.FindAction("SetFollow");
+            _setFollowAction = _playerInput.actions.FindAction("Set Follow");
             _positionAction = _playerInput.actions.FindAction("Position");
         }
 

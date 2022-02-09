@@ -39,7 +39,7 @@ namespace Cameras
 
         private void Awake()
         {
-            _zoomScrollAction = _playerInput.actions.FindAction("ZoomScroll");
+            _zoomScrollAction = _playerInput.actions.FindAction("Zoom Scroll");
             _zoomAction = _playerInput.actions.FindAction("Zoom");
         }
 

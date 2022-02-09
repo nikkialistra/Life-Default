@@ -29,8 +29,8 @@ namespace UI.Menus
 
             _gameMenuView = new GameMenuView(_root);
 
-            _showMenuAction = _playerInput.actions.FindAction("ShowMenu");
-            _hideMenuAction = _playerInput.actions.FindAction("HideMenu");
+            _showMenuAction = _playerInput.actions.FindAction("Show Menu");
+            _hideMenuAction = _playerInput.actions.FindAction("Hide Menu");
         }
 
         private void OnEnable()

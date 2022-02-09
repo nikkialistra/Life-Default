@@ -6,7 +6,7 @@
             "id": "4cc9433d-d740-4593-a299-245a457e2ffd",
             "actions": [
                 {
-                    "name": "ShowMenu",
+                    "name": "Show Menu",
                     "type": "Button",
                     "id": "bb7a1b1a-bb06-4025-af3c-a2ac225e6f9c",
                     "expectedControlType": "Button",
@@ -60,7 +60,7 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "ZoomScroll",
+                    "name": "Zoom Scroll",
                     "type": "Value",
                     "id": "d6a2616d-3501-4776-b0e6-9bd0f48d43b4",
                     "expectedControlType": "",
@@ -69,7 +69,7 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "SetFollow",
+                    "name": "Set Follow",
                     "type": "Button",
                     "id": "3a2302e8-af2d-4adc-bae2-e850d2eaa14b",
                     "expectedControlType": "Button",
@@ -78,7 +78,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "ResetFollow",
+                    "name": "Reset Follow",
                     "type": "Button",
                     "id": "e72a7247-f0fc-4d95-826c-d8c03af268d7",
                     "expectedControlType": "Button",
@@ -105,18 +105,18 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "SetDestination",
+                    "name": "Multi Command",
                     "type": "Button",
-                    "id": "c4cb563a-cce4-4986-ad62-135ea6b1147f",
+                    "id": "18aa36a6-2365-4456-913c-4f64509e6ede",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
                 },
                 {
-                    "name": "AddDestination",
+                    "name": "Move",
                     "type": "Button",
-                    "id": "47a262cd-7509-4aac-9647-84d056d39a59",
+                    "id": "c4cb563a-cce4-4986-ad62-135ea6b1147f",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -132,7 +132,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Move",
+                    "name": "Select Move",
                     "type": "Button",
                     "id": "e1333e51-7019-4325-8de5-11f227e2c9a8",
                     "expectedControlType": "Button",
@@ -141,7 +141,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Attack",
+                    "name": "Select Attack",
                     "type": "Button",
                     "id": "aa9bf84f-de07-4adf-b77a-aa170a714d53",
                     "expectedControlType": "Button",
@@ -150,7 +150,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Hold",
+                    "name": "Select Hold",
                     "type": "Button",
                     "id": "18c5ae88-1b86-4502-8421-7cf8fcc11c43",
                     "expectedControlType": "Button",
@@ -159,7 +159,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Patrol",
+                    "name": "Select Patrol",
                     "type": "Button",
                     "id": "f5c6ae33-7d22-488a-b22a-3eb6acf60da8",
                     "expectedControlType": "Button",
@@ -186,7 +186,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "PreviousFormation",
+                    "name": "Previous Formation",
                     "type": "Button",
                     "id": "a3325bd4-4fea-4c7f-ae8b-13680991afa7",
                     "expectedControlType": "Button",
@@ -195,7 +195,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "NextFormation",
+                    "name": "Next Formation",
                     "type": "Button",
                     "id": "988cea0b-7ea8-436f-b0d9-ade98de4a5a4",
                     "expectedControlType": "Button",
@@ -204,7 +204,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "ToggleEnemyFieldsOfView",
+                    "name": "Toggle Enemy Field Of View",
                     "type": "Button",
                     "id": "b34e6d70-41fd-44d7-95ac-fad15c64847a",
                     "expectedControlType": "Button",
@@ -213,7 +213,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "ToggleResourceFieldsOfView",
+                    "name": "Toggle Resource Field Of View",
                     "type": "Button",
                     "id": "a08f294d-4743-4bfa-a732-1857f145b510",
                     "expectedControlType": "Button",
@@ -241,7 +241,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "SetDestination",
+                    "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -263,7 +263,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "NextFormation",
+                    "action": "Next Formation",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -274,42 +274,9 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "PreviousFormation",
+                    "action": "Previous Formation",
                     "isComposite": false,
                     "isPartOfComposite": false
-                },
-                {
-                    "name": "One Modifier",
-                    "id": "6905bc92-68b4-479f-ace1-bb6d4850d078",
-                    "path": "OneModifier",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "AddDestination",
-                    "isComposite": true,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "modifier",
-                    "id": "8e8f6f3b-7a2e-4b35-b4a4-af0d8274d781",
-                    "path": "<Keyboard>/shift",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "AddDestination",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "binding",
-                    "id": "c2caf81b-4fe0-44c7-b118-1d4e58bb7f89",
-                    "path": "<Mouse>/rightButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "AddDestination",
-                    "isComposite": false,
-                    "isPartOfComposite": true
                 },
                 {
                     "name": "",
@@ -450,7 +417,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "SetFollow",
+                    "action": "Set Follow",
                     "isComposite": true,
                     "isPartOfComposite": false
                 },
@@ -461,7 +428,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "SetFollow",
+                    "action": "Set Follow",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -472,7 +439,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "SetFollow",
+                    "action": "Set Follow",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -483,7 +450,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "ResetFollow",
+                    "action": "Reset Follow",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -494,7 +461,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "ZoomScroll",
+                    "action": "Zoom Scroll",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -505,7 +472,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "ShowMenu",
+                    "action": "Show Menu",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -538,7 +505,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "ToggleEnemyFieldsOfView",
+                    "action": "Toggle Enemy Field Of View",
                     "isComposite": true,
                     "isPartOfComposite": false
                 },
@@ -549,7 +516,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "ToggleEnemyFieldsOfView",
+                    "action": "Toggle Enemy Field Of View",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -560,7 +527,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "ToggleEnemyFieldsOfView",
+                    "action": "Toggle Enemy Field Of View",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -571,7 +538,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "ToggleResourceFieldsOfView",
+                    "action": "Toggle Resource Field Of View",
                     "isComposite": true,
                     "isPartOfComposite": false
                 },
@@ -582,7 +549,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "ToggleResourceFieldsOfView",
+                    "action": "Toggle Resource Field Of View",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -593,7 +560,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "ToggleResourceFieldsOfView",
+                    "action": "Toggle Resource Field Of View",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -703,7 +670,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Move",
+                    "action": "Select Move",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -714,7 +681,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Attack",
+                    "action": "Select Attack",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -725,7 +692,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Hold",
+                    "action": "Select Hold",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -736,7 +703,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Patrol",
+                    "action": "Select Patrol",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -761,6 +728,17 @@
                     "action": "Cancel",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c16d9ce6-be4a-4922-9c3f-f37671993efb",
+                    "path": "<Keyboard>/shift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Multi Command",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
@@ -769,7 +747,7 @@
             "id": "2a18fe8d-6421-4bed-bce6-1abde9ee45bc",
             "actions": [
                 {
-                    "name": "HideMenu",
+                    "name": "Hide Menu",
                     "type": "Button",
                     "id": "e2cd4319-5092-4863-abc8-b2054a5cd28f",
                     "expectedControlType": "Button",
@@ -786,7 +764,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "HideMenu",
+                    "action": "Hide Menu",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

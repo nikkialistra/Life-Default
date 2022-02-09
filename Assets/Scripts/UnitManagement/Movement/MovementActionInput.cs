@@ -19,10 +19,10 @@ namespace UnitManagement.Movement
 
         private GameCursors _gameCursors;
 
-        private InputAction _moveAction;
-        private InputAction _attackAction;
-        private InputAction _holdAction;
-        private InputAction _patrolAction;
+        private InputAction _selectMoveAction;
+        private InputAction _selectAttackAction;
+        private InputAction _selectHoldAction;
+        private InputAction _selectPatrolAction;
 
         private InputAction _doAction;
         private InputAction _cancelAction;
@@ -39,10 +39,10 @@ namespace UnitManagement.Movement
         {
             _movementInput = GetComponent<MovementInput>();
 
-            _moveAction = _playerInput.actions.FindAction("Move");
-            _attackAction = _playerInput.actions.FindAction("Attack");
-            _holdAction = _playerInput.actions.FindAction("Hold");
-            _patrolAction = _playerInput.actions.FindAction("Patrol");
+            _selectMoveAction = _playerInput.actions.FindAction("Select Move");
+            _selectAttackAction = _playerInput.actions.FindAction("Select Attack");
+            _selectHoldAction = _playerInput.actions.FindAction("Select Hold");
+            _selectPatrolAction = _playerInput.actions.FindAction("Select Patrol");
 
             _doAction = _playerInput.actions.FindAction("Do");
             _cancelAction = _playerInput.actions.FindAction("Cancel");
@@ -50,10 +50,10 @@ namespace UnitManagement.Movement
 
         private void OnEnable()
         {
-            _moveAction.started += Move;
-            _attackAction.started += Attack;
-            _holdAction.started += Hold;
-            _patrolAction.started += Patrol;
+            _selectMoveAction.started += SelectMove;
+            _selectAttackAction.started += SelectAttack;
+            _selectHoldAction.started += SelectHold;
+            _selectPatrolAction.started += SelectPatrol;
 
             _doAction.started += Do;
             _doAction.canceled += SetDestination;
@@ -64,10 +64,10 @@ namespace UnitManagement.Movement
 
         private void OnDisable()
         {
-            _moveAction.started -= Move;
-            _attackAction.started -= Attack;
-            _holdAction.started -= Hold;
-            _patrolAction.started -= Patrol;
+            _selectMoveAction.started -= SelectMove;
+            _selectAttackAction.started -= SelectAttack;
+            _selectHoldAction.started -= SelectHold;
+            _selectPatrolAction.started -= SelectPatrol;
 
             _doAction.started -= Do;
             _doAction.canceled -= SetDestination;
@@ -76,25 +76,25 @@ namespace UnitManagement.Movement
             _cancelAction.started -= Cancel;
         }
 
-        private void Move(InputAction.CallbackContext context)
+        private void SelectMove(InputAction.CallbackContext context)
         {
             _movementAction = MovementAction.Move;
             PauseAnotherInput();
         }
 
-        private void Attack(InputAction.CallbackContext context)
+        private void SelectAttack(InputAction.CallbackContext context)
         {
             _movementAction = MovementAction.Attack;
             PauseAnotherInput();
         }
 
-        private void Hold(InputAction.CallbackContext context)
+        private void SelectHold(InputAction.CallbackContext context)
         {
             _movementAction = MovementAction.Hold;
             PauseAnotherInput();
         }
 
-        private void Patrol(InputAction.CallbackContext context)
+        private void SelectPatrol(InputAction.CallbackContext context)
         {
             _movementAction = MovementAction.Patrol;
             PauseAnotherInput();
@@ -151,7 +151,7 @@ namespace UnitManagement.Movement
                 return;
             }
 
-            _movementInput.SetDestination(context);
+            _movementInput.Move(context);
             Complete();
         }
 

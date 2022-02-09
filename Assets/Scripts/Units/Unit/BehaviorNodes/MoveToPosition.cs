@@ -15,6 +15,12 @@ namespace Units.Unit.BehaviorNodes
         {
             _finished = false;
 
+            if (Positions.Value.Count == 0)
+            {
+                _finished = true;
+                return;
+            }
+
             UnitMeshAgent.DestinationReach += OnDestinationReach;
             UnitMeshAgent.SetDestinationToPosition(Positions.Value.Dequeue());
         }

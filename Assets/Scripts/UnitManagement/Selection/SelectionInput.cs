@@ -34,6 +34,8 @@ namespace UnitManagement.Selection
             _positionAction = _playerInput.actions.FindAction("Position");
         }
 
+        public bool Deactivated { get; set; }
+
         public event Action<Rect> Selecting;
         public event Action<Rect> SelectingEnd;
 
@@ -51,7 +53,7 @@ namespace UnitManagement.Selection
 
         private void StartArea(InputAction.CallbackContext context)
         {
-            if (Keyboard.current.IsModifierKeyPressed() || _gameViews.MouseOverUi)
+            if (Keyboard.current.IsModifierKeyPressed() || _gameViews.MouseOverUi || Deactivated)
             {
                 return;
             }

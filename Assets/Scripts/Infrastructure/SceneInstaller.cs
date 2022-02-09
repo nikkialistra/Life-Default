@@ -4,6 +4,7 @@ using Saving;
 using Saving.Serialization;
 using Sirenix.OdinInspector;
 using Testing;
+using UI;
 using UI.Game;
 using Units.Services;
 using UnityEngine;
@@ -18,6 +19,8 @@ namespace Infrastructure
         [SerializeField] private bool _isSetUpSession;
 
         [Title("Input")]
+        [Required]
+        [SerializeField] private GameCursors _gameCursors;
         [Required]
         [SerializeField] private Camera _camera;
         [Required]
@@ -67,6 +70,8 @@ namespace Infrastructure
 
         private void BindInput()
         {
+            Container.BindInstance(_gameCursors);
+
             Container.BindInstance(_camera);
 
             Container.BindInstance(_cameraInputCombination);

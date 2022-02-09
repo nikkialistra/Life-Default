@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnitManagement.OrderMarks;
 using Units.Unit;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -85,36 +86,6 @@ namespace UnitManagement.Targeting.Formations
             Show();
         }
 
-        private void SubscribeToUnits()
-        {
-            foreach (var unit in _units)
-            {
-                unit.UnitDie += RemoveFromFormation;
-            }
-        }
-
-        private void UnsubscribeFromUnits()
-        {
-            foreach (var unit in _units)
-            {
-                unit.UnitDie -= RemoveFromFormation;
-            }
-        }
-
-        private void RemoveFromFormation(UnitFacade unit)
-        {
-            _units.Remove(unit);
-
-            if (_units.Count > 0)
-            {
-                Show();
-            }
-            else
-            {
-                _formationPreviewDrawing.Reset();
-            }
-        }
-
         public void RotateFormation(float angle)
         {
             if (!_shown)
@@ -158,6 +129,37 @@ namespace UnitManagement.Targeting.Formations
 
             _formationPreviewDrawing.Flash();
         }
+
+        private void SubscribeToUnits()
+        {
+            foreach (var unit in _units)
+            {
+                unit.UnitDie += RemoveFromFormation;
+            }
+        }
+
+        private void UnsubscribeFromUnits()
+        {
+            foreach (var unit in _units)
+            {
+                unit.UnitDie -= RemoveFromFormation;
+            }
+        }
+
+        private void RemoveFromFormation(UnitFacade unit)
+        {
+            _units.Remove(unit);
+
+            if (_units.Count > 0)
+            {
+                Show();
+            }
+            else
+            {
+                _formationPreviewDrawing.Reset();
+            }
+        }
+
 
         private void Show()
         {

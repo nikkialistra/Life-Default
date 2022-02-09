@@ -30,46 +30,19 @@ namespace Controls
             ""id"": ""4cc9433d-d740-4593-a299-245a457e2ffd"",
             ""actions"": [
                 {
+                    ""name"": ""ShowMenu"",
+                    ""type"": ""Button"",
+                    ""id"": ""bb7a1b1a-bb06-4025-af3c-a2ac225e6f9c"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""Position"",
                     ""type"": ""Value"",
                     ""id"": ""8653e1ae-6cec-4d4d-b899-be655e768b2f"",
                     ""expectedControlType"": ""Vector2"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": true
-                },
-                {
-                    ""name"": ""Select"",
-                    ""type"": ""Button"",
-                    ""id"": ""6cb4cd5a-fe25-455c-8835-330c76a727e5"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""SetFollow"",
-                    ""type"": ""Button"",
-                    ""id"": ""3a2302e8-af2d-4adc-bae2-e850d2eaa14b"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""ResetFollow"",
-                    ""type"": ""Button"",
-                    ""id"": ""e72a7247-f0fc-4d95-826c-d8c03af268d7"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""ZoomScroll"",
-                    ""type"": ""Value"",
-                    ""id"": ""d6a2616d-3501-4776-b0e6-9bd0f48d43b4"",
-                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
@@ -111,6 +84,51 @@ namespace Controls
                     ""initialStateCheck"": true
                 },
                 {
+                    ""name"": ""ZoomScroll"",
+                    ""type"": ""Value"",
+                    ""id"": ""d6a2616d-3501-4776-b0e6-9bd0f48d43b4"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""SetFollow"",
+                    ""type"": ""Button"",
+                    ""id"": ""3a2302e8-af2d-4adc-bae2-e850d2eaa14b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ResetFollow"",
+                    ""type"": ""Button"",
+                    ""id"": ""e72a7247-f0fc-4d95-826c-d8c03af268d7"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Select"",
+                    ""type"": ""Button"",
+                    ""id"": ""6cb4cd5a-fe25-455c-8835-330c76a727e5"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Digit"",
+                    ""type"": ""Button"",
+                    ""id"": ""1f08d204-d8d7-4630-9999-597b6afd5a54"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""SetDestination"",
                     ""type"": ""Button"",
                     ""id"": ""c4cb563a-cce4-4986-ad62-135ea6b1147f"",
@@ -129,15 +147,6 @@ namespace Controls
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""ShowMenu"",
-                    ""type"": ""Button"",
-                    ""id"": ""bb7a1b1a-bb06-4025-af3c-a2ac225e6f9c"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
                     ""name"": ""Stop"",
                     ""type"": ""Button"",
                     ""id"": ""d17fb049-f097-4c8e-a006-affbaf307f8a"",
@@ -147,27 +156,45 @@ namespace Controls
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Digit"",
+                    ""name"": ""Move"",
                     ""type"": ""Button"",
-                    ""id"": ""1f08d204-d8d7-4630-9999-597b6afd5a54"",
+                    ""id"": ""e1333e51-7019-4325-8de5-11f227e2c9a8"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""ToggleEnemyFieldsOfView"",
+                    ""name"": ""Attack"",
                     ""type"": ""Button"",
-                    ""id"": ""b34e6d70-41fd-44d7-95ac-fad15c64847a"",
+                    ""id"": ""aa9bf84f-de07-4adf-b77a-aa170a714d53"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""ToggleResourceFieldsOfView"",
+                    ""name"": ""Hold"",
                     ""type"": ""Button"",
-                    ""id"": ""a08f294d-4743-4bfa-a732-1857f145b510"",
+                    ""id"": ""18c5ae88-1b86-4502-8421-7cf8fcc11c43"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Patrol"",
+                    ""type"": ""Button"",
+                    ""id"": ""f5c6ae33-7d22-488a-b22a-3eb6acf60da8"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Do"",
+                    ""type"": ""Button"",
+                    ""id"": ""88d53ffe-77d3-4635-bca9-1a47b15171b2"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -190,30 +217,114 @@ namespace Controls
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ToggleEnemyFieldsOfView"",
+                    ""type"": ""Button"",
+                    ""id"": ""b34e6d70-41fd-44d7-95ac-fad15c64847a"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ToggleResourceFieldsOfView"",
+                    ""type"": ""Button"",
+                    ""id"": ""a08f294d-4743-4bfa-a732-1857f145b510"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
                 {
                     ""name"": """",
-                    ""id"": ""2d0e6b84-dafe-4c53-89ef-b2fba507309f"",
-                    ""path"": ""<Keyboard>/escape"",
-                    ""interactions"": """",
+                    ""id"": ""4405cb42-318b-4ec1-b034-87065b1316ac"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": ""Press(behavior=2)"",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""ResetFollow"",
+                    ""action"": ""Select"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""d268ebbb-6978-48b2-b70b-abcdc96a7c7d"",
-                    ""path"": ""<Mouse>/scroll"",
+                    ""id"": ""b74507dd-c6f6-4d64-a198-aabfd1ffd290"",
+                    ""path"": ""<Mouse>/rightButton"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""ZoomScroll"",
+                    ""action"": ""SetDestination"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4e5b4a34-192b-43f5-92d4-816a1a355632"",
+                    ""path"": ""<Keyboard>/z"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Stop"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ec125077-fe9e-41e3-b2dd-a097e01a97a4"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""NextFormation"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f2ec3f17-d266-4267-8146-eda07ad86268"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""PreviousFormation"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""One Modifier"",
+                    ""id"": ""6905bc92-68b4-479f-ace1-bb6d4850d078"",
+                    ""path"": ""OneModifier"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AddDestination"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""modifier"",
+                    ""id"": ""8e8f6f3b-7a2e-4b35-b4a4-af0d8274d781"",
+                    ""path"": ""<Keyboard>/shift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AddDestination"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""binding"",
+                    ""id"": ""c2caf81b-4fe0-44c7-b118-1d4e58bb7f89"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AddDestination"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 },
                 {
                     ""name"": """",
@@ -348,28 +459,6 @@ namespace Controls
                     ""isPartOfComposite"": true
                 },
                 {
-                    ""name"": """",
-                    ""id"": ""110361ca-368d-4760-81f7-0e20e40eda38"",
-                    ""path"": ""<Mouse>/position"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Position"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""854101b2-d0e3-4224-9b65-5b212b2dd351"",
-                    ""path"": ""<Touchscreen>/primaryTouch/position"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Position"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
                     ""name"": ""Button With One Modifier"",
                     ""id"": ""7f23b91f-67a3-4631-bde7-07511c16f1f0"",
                     ""path"": ""ButtonWithOneModifier"",
@@ -404,23 +493,23 @@ namespace Controls
                 },
                 {
                     ""name"": """",
-                    ""id"": ""4405cb42-318b-4ec1-b034-87065b1316ac"",
-                    ""path"": ""<Mouse>/leftButton"",
-                    ""interactions"": ""Press(behavior=2)"",
+                    ""id"": ""2d0e6b84-dafe-4c53-89ef-b2fba507309f"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Select"",
+                    ""action"": ""ResetFollow"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""b74507dd-c6f6-4d64-a198-aabfd1ffd290"",
-                    ""path"": ""<Mouse>/rightButton"",
+                    ""id"": ""d268ebbb-6978-48b2-b70b-abcdc96a7c7d"",
+                    ""path"": ""<Mouse>/scroll"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""SetDestination"",
+                    ""action"": ""ZoomScroll"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -437,14 +526,91 @@ namespace Controls
                 },
                 {
                     ""name"": """",
-                    ""id"": ""4e5b4a34-192b-43f5-92d4-816a1a355632"",
-                    ""path"": ""<Keyboard>/z"",
+                    ""id"": ""110361ca-368d-4760-81f7-0e20e40eda38"",
+                    ""path"": ""<Mouse>/position"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Stop"",
+                    ""action"": ""Position"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""854101b2-d0e3-4224-9b65-5b212b2dd351"",
+                    ""path"": ""<Touchscreen>/primaryTouch/position"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Position"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""One Modifier"",
+                    ""id"": ""137d67c8-e8b2-470d-bcb0-cce79254601f"",
+                    ""path"": ""OneModifier"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ToggleEnemyFieldsOfView"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""modifier"",
+                    ""id"": ""f9a0bfc5-9aa5-41ae-b10d-1f0c07ffc91f"",
+                    ""path"": ""<Keyboard>/alt"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ToggleEnemyFieldsOfView"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""binding"",
+                    ""id"": ""61ac1d13-11de-4ceb-8f4d-389a7e726e1d"",
+                    ""path"": ""<Keyboard>/g"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ToggleEnemyFieldsOfView"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""One Modifier"",
+                    ""id"": ""eb3b0fec-3cbb-4255-b6c8-0056ccbbaf53"",
+                    ""path"": ""OneModifier"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ToggleResourceFieldsOfView"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""modifier"",
+                    ""id"": ""d098d2ca-00ed-43c0-bdd5-8655babe78ab"",
+                    ""path"": ""<Keyboard>/alt"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ToggleResourceFieldsOfView"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""binding"",
+                    ""id"": ""a8003640-6731-45ac-8b35-43dc7d769864"",
+                    ""path"": ""<Keyboard>/h"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ToggleResourceFieldsOfView"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 },
                 {
                     ""name"": """",
@@ -546,125 +712,59 @@ namespace Controls
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": ""One Modifier"",
-                    ""id"": ""137d67c8-e8b2-470d-bcb0-cce79254601f"",
-                    ""path"": ""OneModifier"",
+                    ""name"": """",
+                    ""id"": ""29c545a2-74af-401e-a4a1-da19f5ef1938"",
+                    ""path"": ""<Keyboard>/m"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""ToggleEnemyFieldsOfView"",
-                    ""isComposite"": true,
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": ""modifier"",
-                    ""id"": ""f9a0bfc5-9aa5-41ae-b10d-1f0c07ffc91f"",
-                    ""path"": ""<Keyboard>/alt"",
+                    ""name"": """",
+                    ""id"": ""7e5014c6-889a-4570-8c2c-8669a4730519"",
+                    ""path"": ""<Keyboard>/q"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""ToggleEnemyFieldsOfView"",
+                    ""action"": ""Attack"",
                     ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""binding"",
-                    ""id"": ""61ac1d13-11de-4ceb-8f4d-389a7e726e1d"",
-                    ""path"": ""<Keyboard>/g"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""ToggleEnemyFieldsOfView"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""One Modifier"",
-                    ""id"": ""eb3b0fec-3cbb-4255-b6c8-0056ccbbaf53"",
-                    ""path"": ""OneModifier"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""ToggleResourceFieldsOfView"",
-                    ""isComposite"": true,
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": ""modifier"",
-                    ""id"": ""d098d2ca-00ed-43c0-bdd5-8655babe78ab"",
-                    ""path"": ""<Keyboard>/alt"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""ToggleResourceFieldsOfView"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""binding"",
-                    ""id"": ""a8003640-6731-45ac-8b35-43dc7d769864"",
+                    ""name"": """",
+                    ""id"": ""dd4eb67c-d96c-4dcc-af75-cb0204f31928"",
                     ""path"": ""<Keyboard>/h"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""ToggleResourceFieldsOfView"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""ec125077-fe9e-41e3-b2dd-a097e01a97a4"",
-                    ""path"": ""<Keyboard>/f"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""NextFormation"",
+                    ""action"": ""Hold"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""f2ec3f17-d266-4267-8146-eda07ad86268"",
-                    ""path"": ""<Keyboard>/r"",
+                    ""id"": ""e89678c1-79c9-4d06-89f2-13ea20060ab6"",
+                    ""path"": ""<Keyboard>/p"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""PreviousFormation"",
+                    ""action"": ""Patrol"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": ""One Modifier"",
-                    ""id"": ""6905bc92-68b4-479f-ace1-bb6d4850d078"",
-                    ""path"": ""OneModifier"",
+                    ""name"": """",
+                    ""id"": ""850e84ad-8d30-4358-9660-e71d66be1032"",
+                    ""path"": ""<Mouse>/leftButton"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""AddDestination"",
-                    ""isComposite"": true,
+                    ""action"": ""Do"",
+                    ""isComposite"": false,
                     ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""modifier"",
-                    ""id"": ""8e8f6f3b-7a2e-4b35-b4a4-af0d8274d781"",
-                    ""path"": ""<Keyboard>/shift"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""AddDestination"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""binding"",
-                    ""id"": ""c2caf81b-4fe0-44c7-b118-1d4e58bb7f89"",
-                    ""path"": ""<Mouse>/rightButton"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""AddDestination"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
                 }
             ]
         },
@@ -701,24 +801,29 @@ namespace Controls
 }");
             // Management
             m_Management = asset.FindActionMap("Management", throwIfNotFound: true);
+            m_Management_ShowMenu = m_Management.FindAction("ShowMenu", throwIfNotFound: true);
             m_Management_Position = m_Management.FindAction("Position", throwIfNotFound: true);
-            m_Management_Select = m_Management.FindAction("Select", throwIfNotFound: true);
-            m_Management_SetFollow = m_Management.FindAction("SetFollow", throwIfNotFound: true);
-            m_Management_ResetFollow = m_Management.FindAction("ResetFollow", throwIfNotFound: true);
-            m_Management_ZoomScroll = m_Management.FindAction("ZoomScroll", throwIfNotFound: true);
             m_Management_Drag = m_Management.FindAction("Drag", throwIfNotFound: true);
             m_Management_Movement = m_Management.FindAction("Movement", throwIfNotFound: true);
             m_Management_Rotate = m_Management.FindAction("Rotate", throwIfNotFound: true);
             m_Management_Zoom = m_Management.FindAction("Zoom", throwIfNotFound: true);
+            m_Management_ZoomScroll = m_Management.FindAction("ZoomScroll", throwIfNotFound: true);
+            m_Management_SetFollow = m_Management.FindAction("SetFollow", throwIfNotFound: true);
+            m_Management_ResetFollow = m_Management.FindAction("ResetFollow", throwIfNotFound: true);
+            m_Management_Select = m_Management.FindAction("Select", throwIfNotFound: true);
+            m_Management_Digit = m_Management.FindAction("Digit", throwIfNotFound: true);
             m_Management_SetDestination = m_Management.FindAction("SetDestination", throwIfNotFound: true);
             m_Management_AddDestination = m_Management.FindAction("AddDestination", throwIfNotFound: true);
-            m_Management_ShowMenu = m_Management.FindAction("ShowMenu", throwIfNotFound: true);
             m_Management_Stop = m_Management.FindAction("Stop", throwIfNotFound: true);
-            m_Management_Digit = m_Management.FindAction("Digit", throwIfNotFound: true);
-            m_Management_ToggleEnemyFieldsOfView = m_Management.FindAction("ToggleEnemyFieldsOfView", throwIfNotFound: true);
-            m_Management_ToggleResourceFieldsOfView = m_Management.FindAction("ToggleResourceFieldsOfView", throwIfNotFound: true);
+            m_Management_Move = m_Management.FindAction("Move", throwIfNotFound: true);
+            m_Management_Attack = m_Management.FindAction("Attack", throwIfNotFound: true);
+            m_Management_Hold = m_Management.FindAction("Hold", throwIfNotFound: true);
+            m_Management_Patrol = m_Management.FindAction("Patrol", throwIfNotFound: true);
+            m_Management_Do = m_Management.FindAction("Do", throwIfNotFound: true);
             m_Management_PreviousFormation = m_Management.FindAction("PreviousFormation", throwIfNotFound: true);
             m_Management_NextFormation = m_Management.FindAction("NextFormation", throwIfNotFound: true);
+            m_Management_ToggleEnemyFieldsOfView = m_Management.FindAction("ToggleEnemyFieldsOfView", throwIfNotFound: true);
+            m_Management_ToggleResourceFieldsOfView = m_Management.FindAction("ToggleResourceFieldsOfView", throwIfNotFound: true);
             // Menus
             m_Menus = asset.FindActionMap("Menus", throwIfNotFound: true);
             m_Menus_HideMenu = m_Menus.FindAction("HideMenu", throwIfNotFound: true);
@@ -781,46 +886,56 @@ namespace Controls
         // Management
         private readonly InputActionMap m_Management;
         private IManagementActions m_ManagementActionsCallbackInterface;
+        private readonly InputAction m_Management_ShowMenu;
         private readonly InputAction m_Management_Position;
-        private readonly InputAction m_Management_Select;
-        private readonly InputAction m_Management_SetFollow;
-        private readonly InputAction m_Management_ResetFollow;
-        private readonly InputAction m_Management_ZoomScroll;
         private readonly InputAction m_Management_Drag;
         private readonly InputAction m_Management_Movement;
         private readonly InputAction m_Management_Rotate;
         private readonly InputAction m_Management_Zoom;
+        private readonly InputAction m_Management_ZoomScroll;
+        private readonly InputAction m_Management_SetFollow;
+        private readonly InputAction m_Management_ResetFollow;
+        private readonly InputAction m_Management_Select;
+        private readonly InputAction m_Management_Digit;
         private readonly InputAction m_Management_SetDestination;
         private readonly InputAction m_Management_AddDestination;
-        private readonly InputAction m_Management_ShowMenu;
         private readonly InputAction m_Management_Stop;
-        private readonly InputAction m_Management_Digit;
-        private readonly InputAction m_Management_ToggleEnemyFieldsOfView;
-        private readonly InputAction m_Management_ToggleResourceFieldsOfView;
+        private readonly InputAction m_Management_Move;
+        private readonly InputAction m_Management_Attack;
+        private readonly InputAction m_Management_Hold;
+        private readonly InputAction m_Management_Patrol;
+        private readonly InputAction m_Management_Do;
         private readonly InputAction m_Management_PreviousFormation;
         private readonly InputAction m_Management_NextFormation;
+        private readonly InputAction m_Management_ToggleEnemyFieldsOfView;
+        private readonly InputAction m_Management_ToggleResourceFieldsOfView;
         public struct ManagementActions
         {
             private @Control m_Wrapper;
             public ManagementActions(@Control wrapper) { m_Wrapper = wrapper; }
+            public InputAction @ShowMenu => m_Wrapper.m_Management_ShowMenu;
             public InputAction @Position => m_Wrapper.m_Management_Position;
-            public InputAction @Select => m_Wrapper.m_Management_Select;
-            public InputAction @SetFollow => m_Wrapper.m_Management_SetFollow;
-            public InputAction @ResetFollow => m_Wrapper.m_Management_ResetFollow;
-            public InputAction @ZoomScroll => m_Wrapper.m_Management_ZoomScroll;
             public InputAction @Drag => m_Wrapper.m_Management_Drag;
             public InputAction @Movement => m_Wrapper.m_Management_Movement;
             public InputAction @Rotate => m_Wrapper.m_Management_Rotate;
             public InputAction @Zoom => m_Wrapper.m_Management_Zoom;
+            public InputAction @ZoomScroll => m_Wrapper.m_Management_ZoomScroll;
+            public InputAction @SetFollow => m_Wrapper.m_Management_SetFollow;
+            public InputAction @ResetFollow => m_Wrapper.m_Management_ResetFollow;
+            public InputAction @Select => m_Wrapper.m_Management_Select;
+            public InputAction @Digit => m_Wrapper.m_Management_Digit;
             public InputAction @SetDestination => m_Wrapper.m_Management_SetDestination;
             public InputAction @AddDestination => m_Wrapper.m_Management_AddDestination;
-            public InputAction @ShowMenu => m_Wrapper.m_Management_ShowMenu;
             public InputAction @Stop => m_Wrapper.m_Management_Stop;
-            public InputAction @Digit => m_Wrapper.m_Management_Digit;
-            public InputAction @ToggleEnemyFieldsOfView => m_Wrapper.m_Management_ToggleEnemyFieldsOfView;
-            public InputAction @ToggleResourceFieldsOfView => m_Wrapper.m_Management_ToggleResourceFieldsOfView;
+            public InputAction @Move => m_Wrapper.m_Management_Move;
+            public InputAction @Attack => m_Wrapper.m_Management_Attack;
+            public InputAction @Hold => m_Wrapper.m_Management_Hold;
+            public InputAction @Patrol => m_Wrapper.m_Management_Patrol;
+            public InputAction @Do => m_Wrapper.m_Management_Do;
             public InputAction @PreviousFormation => m_Wrapper.m_Management_PreviousFormation;
             public InputAction @NextFormation => m_Wrapper.m_Management_NextFormation;
+            public InputAction @ToggleEnemyFieldsOfView => m_Wrapper.m_Management_ToggleEnemyFieldsOfView;
+            public InputAction @ToggleResourceFieldsOfView => m_Wrapper.m_Management_ToggleResourceFieldsOfView;
             public InputActionMap Get() { return m_Wrapper.m_Management; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -830,21 +945,12 @@ namespace Controls
             {
                 if (m_Wrapper.m_ManagementActionsCallbackInterface != null)
                 {
+                    @ShowMenu.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnShowMenu;
+                    @ShowMenu.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnShowMenu;
+                    @ShowMenu.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnShowMenu;
                     @Position.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnPosition;
                     @Position.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnPosition;
                     @Position.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnPosition;
-                    @Select.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnSelect;
-                    @Select.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnSelect;
-                    @Select.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnSelect;
-                    @SetFollow.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnSetFollow;
-                    @SetFollow.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnSetFollow;
-                    @SetFollow.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnSetFollow;
-                    @ResetFollow.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnResetFollow;
-                    @ResetFollow.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnResetFollow;
-                    @ResetFollow.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnResetFollow;
-                    @ZoomScroll.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnZoomScroll;
-                    @ZoomScroll.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnZoomScroll;
-                    @ZoomScroll.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnZoomScroll;
                     @Drag.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnDrag;
                     @Drag.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnDrag;
                     @Drag.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnDrag;
@@ -857,52 +963,67 @@ namespace Controls
                     @Zoom.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnZoom;
                     @Zoom.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnZoom;
                     @Zoom.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnZoom;
+                    @ZoomScroll.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnZoomScroll;
+                    @ZoomScroll.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnZoomScroll;
+                    @ZoomScroll.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnZoomScroll;
+                    @SetFollow.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnSetFollow;
+                    @SetFollow.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnSetFollow;
+                    @SetFollow.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnSetFollow;
+                    @ResetFollow.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnResetFollow;
+                    @ResetFollow.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnResetFollow;
+                    @ResetFollow.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnResetFollow;
+                    @Select.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnSelect;
+                    @Select.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnSelect;
+                    @Select.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnSelect;
+                    @Digit.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnDigit;
+                    @Digit.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnDigit;
+                    @Digit.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnDigit;
                     @SetDestination.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnSetDestination;
                     @SetDestination.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnSetDestination;
                     @SetDestination.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnSetDestination;
                     @AddDestination.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnAddDestination;
                     @AddDestination.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnAddDestination;
                     @AddDestination.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnAddDestination;
-                    @ShowMenu.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnShowMenu;
-                    @ShowMenu.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnShowMenu;
-                    @ShowMenu.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnShowMenu;
                     @Stop.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnStop;
                     @Stop.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnStop;
                     @Stop.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnStop;
-                    @Digit.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnDigit;
-                    @Digit.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnDigit;
-                    @Digit.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnDigit;
-                    @ToggleEnemyFieldsOfView.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnToggleEnemyFieldsOfView;
-                    @ToggleEnemyFieldsOfView.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnToggleEnemyFieldsOfView;
-                    @ToggleEnemyFieldsOfView.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnToggleEnemyFieldsOfView;
-                    @ToggleResourceFieldsOfView.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnToggleResourceFieldsOfView;
-                    @ToggleResourceFieldsOfView.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnToggleResourceFieldsOfView;
-                    @ToggleResourceFieldsOfView.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnToggleResourceFieldsOfView;
+                    @Move.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnMove;
+                    @Move.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnMove;
+                    @Move.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnMove;
+                    @Attack.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnAttack;
+                    @Attack.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnAttack;
+                    @Attack.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnAttack;
+                    @Hold.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnHold;
+                    @Hold.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnHold;
+                    @Hold.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnHold;
+                    @Patrol.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnPatrol;
+                    @Patrol.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnPatrol;
+                    @Patrol.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnPatrol;
+                    @Do.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnDo;
+                    @Do.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnDo;
+                    @Do.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnDo;
                     @PreviousFormation.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnPreviousFormation;
                     @PreviousFormation.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnPreviousFormation;
                     @PreviousFormation.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnPreviousFormation;
                     @NextFormation.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnNextFormation;
                     @NextFormation.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnNextFormation;
                     @NextFormation.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnNextFormation;
+                    @ToggleEnemyFieldsOfView.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnToggleEnemyFieldsOfView;
+                    @ToggleEnemyFieldsOfView.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnToggleEnemyFieldsOfView;
+                    @ToggleEnemyFieldsOfView.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnToggleEnemyFieldsOfView;
+                    @ToggleResourceFieldsOfView.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnToggleResourceFieldsOfView;
+                    @ToggleResourceFieldsOfView.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnToggleResourceFieldsOfView;
+                    @ToggleResourceFieldsOfView.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnToggleResourceFieldsOfView;
                 }
                 m_Wrapper.m_ManagementActionsCallbackInterface = instance;
                 if (instance != null)
                 {
+                    @ShowMenu.started += instance.OnShowMenu;
+                    @ShowMenu.performed += instance.OnShowMenu;
+                    @ShowMenu.canceled += instance.OnShowMenu;
                     @Position.started += instance.OnPosition;
                     @Position.performed += instance.OnPosition;
                     @Position.canceled += instance.OnPosition;
-                    @Select.started += instance.OnSelect;
-                    @Select.performed += instance.OnSelect;
-                    @Select.canceled += instance.OnSelect;
-                    @SetFollow.started += instance.OnSetFollow;
-                    @SetFollow.performed += instance.OnSetFollow;
-                    @SetFollow.canceled += instance.OnSetFollow;
-                    @ResetFollow.started += instance.OnResetFollow;
-                    @ResetFollow.performed += instance.OnResetFollow;
-                    @ResetFollow.canceled += instance.OnResetFollow;
-                    @ZoomScroll.started += instance.OnZoomScroll;
-                    @ZoomScroll.performed += instance.OnZoomScroll;
-                    @ZoomScroll.canceled += instance.OnZoomScroll;
                     @Drag.started += instance.OnDrag;
                     @Drag.performed += instance.OnDrag;
                     @Drag.canceled += instance.OnDrag;
@@ -915,33 +1036,57 @@ namespace Controls
                     @Zoom.started += instance.OnZoom;
                     @Zoom.performed += instance.OnZoom;
                     @Zoom.canceled += instance.OnZoom;
+                    @ZoomScroll.started += instance.OnZoomScroll;
+                    @ZoomScroll.performed += instance.OnZoomScroll;
+                    @ZoomScroll.canceled += instance.OnZoomScroll;
+                    @SetFollow.started += instance.OnSetFollow;
+                    @SetFollow.performed += instance.OnSetFollow;
+                    @SetFollow.canceled += instance.OnSetFollow;
+                    @ResetFollow.started += instance.OnResetFollow;
+                    @ResetFollow.performed += instance.OnResetFollow;
+                    @ResetFollow.canceled += instance.OnResetFollow;
+                    @Select.started += instance.OnSelect;
+                    @Select.performed += instance.OnSelect;
+                    @Select.canceled += instance.OnSelect;
+                    @Digit.started += instance.OnDigit;
+                    @Digit.performed += instance.OnDigit;
+                    @Digit.canceled += instance.OnDigit;
                     @SetDestination.started += instance.OnSetDestination;
                     @SetDestination.performed += instance.OnSetDestination;
                     @SetDestination.canceled += instance.OnSetDestination;
                     @AddDestination.started += instance.OnAddDestination;
                     @AddDestination.performed += instance.OnAddDestination;
                     @AddDestination.canceled += instance.OnAddDestination;
-                    @ShowMenu.started += instance.OnShowMenu;
-                    @ShowMenu.performed += instance.OnShowMenu;
-                    @ShowMenu.canceled += instance.OnShowMenu;
                     @Stop.started += instance.OnStop;
                     @Stop.performed += instance.OnStop;
                     @Stop.canceled += instance.OnStop;
-                    @Digit.started += instance.OnDigit;
-                    @Digit.performed += instance.OnDigit;
-                    @Digit.canceled += instance.OnDigit;
-                    @ToggleEnemyFieldsOfView.started += instance.OnToggleEnemyFieldsOfView;
-                    @ToggleEnemyFieldsOfView.performed += instance.OnToggleEnemyFieldsOfView;
-                    @ToggleEnemyFieldsOfView.canceled += instance.OnToggleEnemyFieldsOfView;
-                    @ToggleResourceFieldsOfView.started += instance.OnToggleResourceFieldsOfView;
-                    @ToggleResourceFieldsOfView.performed += instance.OnToggleResourceFieldsOfView;
-                    @ToggleResourceFieldsOfView.canceled += instance.OnToggleResourceFieldsOfView;
+                    @Move.started += instance.OnMove;
+                    @Move.performed += instance.OnMove;
+                    @Move.canceled += instance.OnMove;
+                    @Attack.started += instance.OnAttack;
+                    @Attack.performed += instance.OnAttack;
+                    @Attack.canceled += instance.OnAttack;
+                    @Hold.started += instance.OnHold;
+                    @Hold.performed += instance.OnHold;
+                    @Hold.canceled += instance.OnHold;
+                    @Patrol.started += instance.OnPatrol;
+                    @Patrol.performed += instance.OnPatrol;
+                    @Patrol.canceled += instance.OnPatrol;
+                    @Do.started += instance.OnDo;
+                    @Do.performed += instance.OnDo;
+                    @Do.canceled += instance.OnDo;
                     @PreviousFormation.started += instance.OnPreviousFormation;
                     @PreviousFormation.performed += instance.OnPreviousFormation;
                     @PreviousFormation.canceled += instance.OnPreviousFormation;
                     @NextFormation.started += instance.OnNextFormation;
                     @NextFormation.performed += instance.OnNextFormation;
                     @NextFormation.canceled += instance.OnNextFormation;
+                    @ToggleEnemyFieldsOfView.started += instance.OnToggleEnemyFieldsOfView;
+                    @ToggleEnemyFieldsOfView.performed += instance.OnToggleEnemyFieldsOfView;
+                    @ToggleEnemyFieldsOfView.canceled += instance.OnToggleEnemyFieldsOfView;
+                    @ToggleResourceFieldsOfView.started += instance.OnToggleResourceFieldsOfView;
+                    @ToggleResourceFieldsOfView.performed += instance.OnToggleResourceFieldsOfView;
+                    @ToggleResourceFieldsOfView.canceled += instance.OnToggleResourceFieldsOfView;
                 }
             }
         }
@@ -981,24 +1126,29 @@ namespace Controls
         public MenusActions @Menus => new MenusActions(this);
         public interface IManagementActions
         {
+            void OnShowMenu(InputAction.CallbackContext context);
             void OnPosition(InputAction.CallbackContext context);
-            void OnSelect(InputAction.CallbackContext context);
-            void OnSetFollow(InputAction.CallbackContext context);
-            void OnResetFollow(InputAction.CallbackContext context);
-            void OnZoomScroll(InputAction.CallbackContext context);
             void OnDrag(InputAction.CallbackContext context);
             void OnMovement(InputAction.CallbackContext context);
             void OnRotate(InputAction.CallbackContext context);
             void OnZoom(InputAction.CallbackContext context);
+            void OnZoomScroll(InputAction.CallbackContext context);
+            void OnSetFollow(InputAction.CallbackContext context);
+            void OnResetFollow(InputAction.CallbackContext context);
+            void OnSelect(InputAction.CallbackContext context);
+            void OnDigit(InputAction.CallbackContext context);
             void OnSetDestination(InputAction.CallbackContext context);
             void OnAddDestination(InputAction.CallbackContext context);
-            void OnShowMenu(InputAction.CallbackContext context);
             void OnStop(InputAction.CallbackContext context);
-            void OnDigit(InputAction.CallbackContext context);
-            void OnToggleEnemyFieldsOfView(InputAction.CallbackContext context);
-            void OnToggleResourceFieldsOfView(InputAction.CallbackContext context);
+            void OnMove(InputAction.CallbackContext context);
+            void OnAttack(InputAction.CallbackContext context);
+            void OnHold(InputAction.CallbackContext context);
+            void OnPatrol(InputAction.CallbackContext context);
+            void OnDo(InputAction.CallbackContext context);
             void OnPreviousFormation(InputAction.CallbackContext context);
             void OnNextFormation(InputAction.CallbackContext context);
+            void OnToggleEnemyFieldsOfView(InputAction.CallbackContext context);
+            void OnToggleResourceFieldsOfView(InputAction.CallbackContext context);
         }
         public interface IMenusActions
         {

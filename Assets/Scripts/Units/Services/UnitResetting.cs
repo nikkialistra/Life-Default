@@ -1,6 +1,6 @@
 ﻿using System;
 using Saving;
-using UnitManagement.Targeting;
+using UnitManagement.OrderMarks;
 using Units.Services.Selecting;
 
 namespace Units.Services
@@ -11,7 +11,8 @@ namespace Units.Services
         private readonly SelectedUnits _selectedUnits;
         private readonly OrderMarkPool _orderMarkPool;
 
-        public UnitResetting(SavingLoadingGame savingLoadingGame, SelectedUnits selectedUnits, OrderMarkPool orderMarkPool)
+        public UnitResetting(SavingLoadingGame savingLoadingGame, SelectedUnits selectedUnits,
+            OrderMarkPool orderMarkPool)
         {
             _selectedUnits = selectedUnits;
             _orderMarkPool = orderMarkPool;

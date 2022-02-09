@@ -25,6 +25,7 @@ namespace UnitManagement.Movement
         private InputAction _patrolAction;
 
         private InputAction _doAction;
+        private InputAction _cancelAction;
 
         [Inject]
         public void Construct(PlayerInput playerInput, SelectionInput selectionInput, GameCursors gameCursors)
@@ -44,6 +45,7 @@ namespace UnitManagement.Movement
             _patrolAction = _playerInput.actions.FindAction("Patrol");
 
             _doAction = _playerInput.actions.FindAction("Do");
+            _cancelAction = _playerInput.actions.FindAction("Cancel");
         }
 
         private void OnEnable()
@@ -56,6 +58,8 @@ namespace UnitManagement.Movement
             _doAction.started += Do;
             _doAction.canceled += SetDestination;
             _doAction.canceled += AddDestination;
+
+            _cancelAction.started += Cancel;
         }
 
         private void OnDisable()
@@ -68,6 +72,8 @@ namespace UnitManagement.Movement
             _doAction.started -= Do;
             _doAction.canceled -= SetDestination;
             _doAction.canceled -= AddDestination;
+
+            _cancelAction.started -= Cancel;
         }
 
         private void Move(InputAction.CallbackContext context)
@@ -126,18 +132,31 @@ namespace UnitManagement.Movement
                 default:
                     throw new ArgumentOutOfRangeException();
             }
+        }
 
-            _selectionInput.Deactivated = false;
+        private void Cancel(InputAction.CallbackContext context)
+        {
+            Complete();
         }
 
         private void SetDestination(InputAction.CallbackContext context)
         {
+            if (Keyboard.current.shiftKey.isPressed)
+            {
+                return;
+            }
+
             if (_movementAction == MovementAction.None)
             {
                 return;
             }
 
             _movementInput.SetDestination(context);
+            Complete();
+        }
+
+        private void Complete()
+        {
             _movementAction = MovementAction.None;
             ResumeAnotherInput();
         }
@@ -150,13 +169,12 @@ namespace UnitManagement.Movement
             }
 
             _movementInput.AddDestination(context);
-            ResumeAnotherInput();
         }
 
         private void ResumeAnotherInput()
         {
+            _selectionInput.Deactivated = false;
             _movementInput.SubscribeToActions();
-
             _gameCursors.SetDefaultCursor();
         }
     }

@@ -177,6 +177,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "Cancel",
+                    "type": "Button",
+                    "id": "f8aeb1a7-fc18-4a63-b5e0-137a973c2541",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "PreviousFormation",
                     "type": "Button",
                     "id": "a3325bd4-4fea-4c7f-ae8b-13680991afa7",
@@ -739,6 +748,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Do",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d4ebd94d-9138-42e9-9001-311b2bad1a72",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Cancel",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -46,7 +46,7 @@ namespace Testing
 
         private void GenerateEnemy(InputAction.CallbackContext context)
         {
-            if (!Keyboard.current.shiftKey.isPressed)
+            if (!Keyboard.current.ctrlKey.isPressed)
             {
                 return;
             }

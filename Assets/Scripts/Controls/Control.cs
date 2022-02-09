@@ -201,6 +201,15 @@ namespace Controls
                     ""initialStateCheck"": false
                 },
                 {
+                    ""name"": ""Cancel"",
+                    ""type"": ""Button"",
+                    ""id"": ""f8aeb1a7-fc18-4a63-b5e0-137a973c2541"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""PreviousFormation"",
                     ""type"": ""Button"",
                     ""id"": ""a3325bd4-4fea-4c7f-ae8b-13680991afa7"",
@@ -765,6 +774,17 @@ namespace Controls
                     ""action"": ""Do"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d4ebd94d-9138-42e9-9001-311b2bad1a72"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Cancel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -820,6 +840,7 @@ namespace Controls
             m_Management_Hold = m_Management.FindAction("Hold", throwIfNotFound: true);
             m_Management_Patrol = m_Management.FindAction("Patrol", throwIfNotFound: true);
             m_Management_Do = m_Management.FindAction("Do", throwIfNotFound: true);
+            m_Management_Cancel = m_Management.FindAction("Cancel", throwIfNotFound: true);
             m_Management_PreviousFormation = m_Management.FindAction("PreviousFormation", throwIfNotFound: true);
             m_Management_NextFormation = m_Management.FindAction("NextFormation", throwIfNotFound: true);
             m_Management_ToggleEnemyFieldsOfView = m_Management.FindAction("ToggleEnemyFieldsOfView", throwIfNotFound: true);
@@ -905,6 +926,7 @@ namespace Controls
         private readonly InputAction m_Management_Hold;
         private readonly InputAction m_Management_Patrol;
         private readonly InputAction m_Management_Do;
+        private readonly InputAction m_Management_Cancel;
         private readonly InputAction m_Management_PreviousFormation;
         private readonly InputAction m_Management_NextFormation;
         private readonly InputAction m_Management_ToggleEnemyFieldsOfView;
@@ -932,6 +954,7 @@ namespace Controls
             public InputAction @Hold => m_Wrapper.m_Management_Hold;
             public InputAction @Patrol => m_Wrapper.m_Management_Patrol;
             public InputAction @Do => m_Wrapper.m_Management_Do;
+            public InputAction @Cancel => m_Wrapper.m_Management_Cancel;
             public InputAction @PreviousFormation => m_Wrapper.m_Management_PreviousFormation;
             public InputAction @NextFormation => m_Wrapper.m_Management_NextFormation;
             public InputAction @ToggleEnemyFieldsOfView => m_Wrapper.m_Management_ToggleEnemyFieldsOfView;
@@ -1002,6 +1025,9 @@ namespace Controls
                     @Do.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnDo;
                     @Do.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnDo;
                     @Do.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnDo;
+                    @Cancel.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnCancel;
+                    @Cancel.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnCancel;
+                    @Cancel.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnCancel;
                     @PreviousFormation.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnPreviousFormation;
                     @PreviousFormation.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnPreviousFormation;
                     @PreviousFormation.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnPreviousFormation;
@@ -1075,6 +1101,9 @@ namespace Controls
                     @Do.started += instance.OnDo;
                     @Do.performed += instance.OnDo;
                     @Do.canceled += instance.OnDo;
+                    @Cancel.started += instance.OnCancel;
+                    @Cancel.performed += instance.OnCancel;
+                    @Cancel.canceled += instance.OnCancel;
                     @PreviousFormation.started += instance.OnPreviousFormation;
                     @PreviousFormation.performed += instance.OnPreviousFormation;
                     @PreviousFormation.canceled += instance.OnPreviousFormation;
@@ -1145,6 +1174,7 @@ namespace Controls
             void OnHold(InputAction.CallbackContext context);
             void OnPatrol(InputAction.CallbackContext context);
             void OnDo(InputAction.CallbackContext context);
+            void OnCancel(InputAction.CallbackContext context);
             void OnPreviousFormation(InputAction.CallbackContext context);
             void OnNextFormation(InputAction.CallbackContext context);
             void OnToggleEnemyFieldsOfView(InputAction.CallbackContext context);

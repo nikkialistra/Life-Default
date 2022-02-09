@@ -86,15 +86,15 @@ namespace UnitManagement.OrderMarks
 
         private IEnumerator CollapseTargetIndicator(GameObject targetIndicator)
         {
-            Entity.TargetIndicator.transform.localScale = Vector3.one;
-            Entity.TargetIndicator.SetActive(true);
+            targetIndicator.transform.localScale = Vector3.one;
+            targetIndicator.SetActive(true);
 
-            Entity.TargetIndicator.transform.DOKill();
+            targetIndicator.transform.DOKill();
 
             yield return targetIndicator.transform.DOScale(new Vector3(0f, 0f, 1f), _targetIndicatorFlashDuration)
                 .WaitForCompletion();
 
-            Entity.TargetIndicator.SetActive(false);
+            targetIndicator.SetActive(false);
         }
 
         private void UpdateState()

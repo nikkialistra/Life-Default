@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
+using DG.Tweening;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
@@ -11,46 +13,63 @@ namespace UnitManagement.Targeting.Formations
         [SerializeField] private DecalProjector _decalProjector;
         [Space]
         [MinValue(0)]
-        [SerializeField] private float _fadeTime;
+        [SerializeField] private float _animationTime;
+        [SerializeField] private AnimationKind _animationKind = AnimationKind.Collapse;
 
-        private Coroutine _flashCoroutine;
+        private Coroutine _animateCoroutine;
 
         private void Start()
         {
             Activate();
         }
 
-        public void StartFlash()
+        public void StartAnimation()
         {
-            _decalProjector.fadeFactor = 1f;
-            _flashCoroutine = StartCoroutine(Flash());
+            _animateCoroutine = _animationKind switch
+            {
+                AnimationKind.Collapse => StartCoroutine(Collapse()),
+                AnimationKind.Fade => StartCoroutine(Fade()),
+                AnimationKind.Hide => StartCoroutine(Hide()),
+                _ => throw new ArgumentOutOfRangeException()
+            };
         }
 
         public bool Activated { get; private set; }
-        public float FadeTime => _fadeTime;
+        public float AnimationTime => _animationTime;
 
         public void Activate()
         {
             Activated = true;
+            _decalProjector.transform.localScale = Vector3.one;
             _decalProjector.fadeFactor = 1f;
         }
 
         public void Deactivate()
         {
             Activated = false;
-            if (_flashCoroutine != null)
+            if (_animateCoroutine != null)
             {
-                StopCoroutine(_flashCoroutine);
+                StopCoroutine(_animateCoroutine);
             }
         }
 
-        private IEnumerator Flash()
+        private IEnumerator Collapse()
         {
-            var timeLeft = _fadeTime;
+            _decalProjector.transform.localScale = Vector3.one;
+
+            _decalProjector.transform.DOKill();
+
+            yield return _decalProjector.transform.DOScale(new Vector3(0f, 0f, 1f), _animationTime)
+                .WaitForCompletion();
+        }
+
+        private IEnumerator Fade()
+        {
+            var timeLeft = _animationTime;
 
             while (timeLeft > 0)
             {
-                var fraction = timeLeft / _fadeTime;
+                var fraction = timeLeft / _animationTime;
                 _decalProjector.fadeFactor = fraction;
 
                 timeLeft -= Time.deltaTime;
@@ -59,6 +78,20 @@ namespace UnitManagement.Targeting.Formations
             }
 
             _decalProjector.fadeFactor = 0f;
+        }
+
+        private IEnumerator Hide()
+        {
+            yield return new WaitForSeconds(_animationTime);
+
+            _decalProjector.fadeFactor = 0f;
+        }
+
+        private enum AnimationKind
+        {
+            Collapse,
+            Fade,
+            Hide
         }
     }
 }

@@ -127,7 +127,7 @@ namespace UnitManagement.Targeting.Formations
                 MoveUnitsToPositions(_formationPositions, null, additional);
             }
 
-            _formationPreviewDrawing.Flash();
+            _formationPreviewDrawing.Animate();
         }
 
         private void SubscribeToUnits()

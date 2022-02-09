@@ -83,18 +83,18 @@ namespace UnitManagement.Targeting.Formations
             }
         }
 
-        public void Flash()
+        public void Animate()
         {
             if (_showNoFormationMark)
             {
-                _noFormationMark.StartFlash();
+                _noFormationMark.StartAnimation();
             }
             else
             {
-                FlashFormation();
+                AnimateFormation();
             }
 
-            _flashFinishCoroutine = StartCoroutine(FlashFinish(_positionPreviewPrefab.FadeTime));
+            _flashFinishCoroutine = StartCoroutine(FinishAnimation(_positionPreviewPrefab.AnimationTime));
         }
 
         public void Reset()
@@ -125,16 +125,16 @@ namespace UnitManagement.Targeting.Formations
             _nextIndex = 0;
         }
 
-        private void FlashFormation()
+        private void AnimateFormation()
         {
             if (ShowDirectionArrow)
             {
-                _directionArrow.StartFlash();
+                _directionArrow.StartAnimation();
             }
 
             for (var i = 0; i < _nextIndex; i++)
             {
-                _positionPreviews[i].StartFlash();
+                _positionPreviews[i].StartAnimation();
             }
         }
 
@@ -172,7 +172,7 @@ namespace UnitManagement.Targeting.Formations
             _directionArrow.transform.rotation = Quaternion.Euler(0, rotation, 0);
         }
 
-        private IEnumerator FlashFinish(float fadeTime)
+        private IEnumerator FinishAnimation(float fadeTime)
         {
             yield return new WaitForSeconds(fadeTime);
 

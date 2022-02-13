@@ -28,7 +28,7 @@ namespace Entities.Services
 
         private void Awake()
         {
-            _positionAction = _playerInput.actions.FindAction("Position");
+            _positionAction = _playerInput.actions.FindAction("Mouse Position");
             _entitiesMask = LayerMask.GetMask("Units", "Enemies");
         }
 

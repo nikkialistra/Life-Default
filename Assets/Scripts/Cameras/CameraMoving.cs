@@ -52,7 +52,7 @@ namespace Cameras
 
         private InputAction _movementAction;
         private InputAction _dragAction;
-        private InputAction _positionAction;
+        private InputAction _mousePositionAction;
 
         private bool _running;
 
@@ -68,7 +68,7 @@ namespace Cameras
 
             _movementAction = _playerInput.actions.FindAction("Movement");
             _dragAction = _playerInput.actions.FindAction("Drag");
-            _positionAction = _playerInput.actions.FindAction("Position");
+            _mousePositionAction = _playerInput.actions.FindAction("Mouse Position");
         }
 
         public event Action<Vector3> PositionUpdate;
@@ -114,7 +114,7 @@ namespace Cameras
 
         private void UpdatePositionFromMouseThresholdMovement()
         {
-            var position = _positionAction.ReadValue<Vector2>();
+            var position = _mousePositionAction.ReadValue<Vector2>();
             var normalisedPosition = GetNormalisedPosition(position);
             var movement = Vector2.zero;
 
@@ -211,7 +211,7 @@ namespace Cameras
         {
             var plane = new Plane(Vector3.up, Vector3.zero);
 
-            var ray = _camera.ScreenPointToRay(_positionAction.ReadValue<Vector2>());
+            var ray = _camera.ScreenPointToRay(_mousePositionAction.ReadValue<Vector2>());
 
             if (plane.Raycast(ray, out var entry))
             {
@@ -232,7 +232,7 @@ namespace Cameras
             {
                 var plane = new Plane(Vector3.up, Vector3.zero);
 
-                var ray = _camera.ScreenPointToRay(_positionAction.ReadValue<Vector2>());
+                var ray = _camera.ScreenPointToRay(_mousePositionAction.ReadValue<Vector2>());
 
                 if (plane.Raycast(ray, out var entry))
                 {

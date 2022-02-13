@@ -39,7 +39,7 @@ namespace Controls
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Position"",
+                    ""name"": ""Mouse Position"",
                     ""type"": ""Value"",
                     ""id"": ""8653e1ae-6cec-4d4d-b899-be655e768b2f"",
                     ""expectedControlType"": ""Vector2"",
@@ -75,19 +75,19 @@ namespace Controls
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""Zoom"",
+                    ""name"": ""Zoom Scroll"",
                     ""type"": ""Value"",
-                    ""id"": ""141de89e-0dc4-4a48-bf02-3f6283acbf65"",
-                    ""expectedControlType"": ""Digital"",
+                    ""id"": ""d6a2616d-3501-4776-b0e6-9bd0f48d43b4"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""Zoom Scroll"",
+                    ""name"": ""Zoom Button"",
                     ""type"": ""Value"",
-                    ""id"": ""d6a2616d-3501-4776-b0e6-9bd0f48d43b4"",
-                    ""expectedControlType"": """",
+                    ""id"": ""141de89e-0dc4-4a48-bf02-3f6283acbf65"",
+                    ""expectedControlType"": ""Digital"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
@@ -408,7 +408,7 @@ namespace Controls
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Zoom"",
+                    ""action"": ""Zoom Button"",
                     ""isComposite"": true,
                     ""isPartOfComposite"": false
                 },
@@ -419,7 +419,7 @@ namespace Controls
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Zoom"",
+                    ""action"": ""Zoom Button"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -430,7 +430,7 @@ namespace Controls
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Zoom"",
+                    ""action"": ""Zoom Button"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -480,17 +480,6 @@ namespace Controls
                 },
                 {
                     ""name"": """",
-                    ""id"": ""d268ebbb-6978-48b2-b70b-abcdc96a7c7d"",
-                    ""path"": ""<Mouse>/scroll"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Zoom Scroll"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""42e513ea-3ea2-4a20-951d-41e7c34124cc"",
                     ""path"": ""<Keyboard>/escape"",
                     ""interactions"": """",
@@ -507,7 +496,7 @@ namespace Controls
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Position"",
+                    ""action"": ""Mouse Position"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -518,7 +507,7 @@ namespace Controls
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Position"",
+                    ""action"": ""Mouse Position"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -763,6 +752,17 @@ namespace Controls
                     ""action"": ""Multi Command"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d268ebbb-6978-48b2-b70b-abcdc96a7c7d"",
+                    ""path"": ""<Mouse>/scroll"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Zoom Scroll"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -771,7 +771,7 @@ namespace Controls
             ""id"": ""2a18fe8d-6421-4bed-bce6-1abde9ee45bc"",
             ""actions"": [
                 {
-                    ""name"": ""HideMenu"",
+                    ""name"": ""Hide Menu"",
                     ""type"": ""Button"",
                     ""id"": ""e2cd4319-5092-4863-abc8-b2054a5cd28f"",
                     ""expectedControlType"": ""Button"",
@@ -788,7 +788,7 @@ namespace Controls
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""HideMenu"",
+                    ""action"": ""Hide Menu"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -800,12 +800,12 @@ namespace Controls
             // Management
             m_Management = asset.FindActionMap("Management", throwIfNotFound: true);
             m_Management_ShowMenu = m_Management.FindAction("Show Menu", throwIfNotFound: true);
-            m_Management_Position = m_Management.FindAction("Position", throwIfNotFound: true);
+            m_Management_MousePosition = m_Management.FindAction("Mouse Position", throwIfNotFound: true);
             m_Management_Drag = m_Management.FindAction("Drag", throwIfNotFound: true);
             m_Management_Movement = m_Management.FindAction("Movement", throwIfNotFound: true);
             m_Management_Rotate = m_Management.FindAction("Rotate", throwIfNotFound: true);
-            m_Management_Zoom = m_Management.FindAction("Zoom", throwIfNotFound: true);
             m_Management_ZoomScroll = m_Management.FindAction("Zoom Scroll", throwIfNotFound: true);
+            m_Management_ZoomButton = m_Management.FindAction("Zoom Button", throwIfNotFound: true);
             m_Management_SetFollow = m_Management.FindAction("Set Follow", throwIfNotFound: true);
             m_Management_ResetFollow = m_Management.FindAction("Reset Follow", throwIfNotFound: true);
             m_Management_Select = m_Management.FindAction("Select", throwIfNotFound: true);
@@ -825,7 +825,7 @@ namespace Controls
             m_Management_ToggleResourceFieldOfView = m_Management.FindAction("Toggle Resource Field Of View", throwIfNotFound: true);
             // Menus
             m_Menus = asset.FindActionMap("Menus", throwIfNotFound: true);
-            m_Menus_HideMenu = m_Menus.FindAction("HideMenu", throwIfNotFound: true);
+            m_Menus_HideMenu = m_Menus.FindAction("Hide Menu", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -886,12 +886,12 @@ namespace Controls
         private readonly InputActionMap m_Management;
         private IManagementActions m_ManagementActionsCallbackInterface;
         private readonly InputAction m_Management_ShowMenu;
-        private readonly InputAction m_Management_Position;
+        private readonly InputAction m_Management_MousePosition;
         private readonly InputAction m_Management_Drag;
         private readonly InputAction m_Management_Movement;
         private readonly InputAction m_Management_Rotate;
-        private readonly InputAction m_Management_Zoom;
         private readonly InputAction m_Management_ZoomScroll;
+        private readonly InputAction m_Management_ZoomButton;
         private readonly InputAction m_Management_SetFollow;
         private readonly InputAction m_Management_ResetFollow;
         private readonly InputAction m_Management_Select;
@@ -914,12 +914,12 @@ namespace Controls
             private @Control m_Wrapper;
             public ManagementActions(@Control wrapper) { m_Wrapper = wrapper; }
             public InputAction @ShowMenu => m_Wrapper.m_Management_ShowMenu;
-            public InputAction @Position => m_Wrapper.m_Management_Position;
+            public InputAction @MousePosition => m_Wrapper.m_Management_MousePosition;
             public InputAction @Drag => m_Wrapper.m_Management_Drag;
             public InputAction @Movement => m_Wrapper.m_Management_Movement;
             public InputAction @Rotate => m_Wrapper.m_Management_Rotate;
-            public InputAction @Zoom => m_Wrapper.m_Management_Zoom;
             public InputAction @ZoomScroll => m_Wrapper.m_Management_ZoomScroll;
+            public InputAction @ZoomButton => m_Wrapper.m_Management_ZoomButton;
             public InputAction @SetFollow => m_Wrapper.m_Management_SetFollow;
             public InputAction @ResetFollow => m_Wrapper.m_Management_ResetFollow;
             public InputAction @Select => m_Wrapper.m_Management_Select;
@@ -949,9 +949,9 @@ namespace Controls
                     @ShowMenu.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnShowMenu;
                     @ShowMenu.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnShowMenu;
                     @ShowMenu.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnShowMenu;
-                    @Position.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnPosition;
-                    @Position.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnPosition;
-                    @Position.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnPosition;
+                    @MousePosition.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnMousePosition;
+                    @MousePosition.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnMousePosition;
+                    @MousePosition.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnMousePosition;
                     @Drag.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnDrag;
                     @Drag.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnDrag;
                     @Drag.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnDrag;
@@ -961,12 +961,12 @@ namespace Controls
                     @Rotate.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnRotate;
                     @Rotate.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnRotate;
                     @Rotate.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnRotate;
-                    @Zoom.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnZoom;
-                    @Zoom.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnZoom;
-                    @Zoom.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnZoom;
                     @ZoomScroll.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnZoomScroll;
                     @ZoomScroll.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnZoomScroll;
                     @ZoomScroll.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnZoomScroll;
+                    @ZoomButton.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnZoomButton;
+                    @ZoomButton.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnZoomButton;
+                    @ZoomButton.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnZoomButton;
                     @SetFollow.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnSetFollow;
                     @SetFollow.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnSetFollow;
                     @SetFollow.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnSetFollow;
@@ -1025,9 +1025,9 @@ namespace Controls
                     @ShowMenu.started += instance.OnShowMenu;
                     @ShowMenu.performed += instance.OnShowMenu;
                     @ShowMenu.canceled += instance.OnShowMenu;
-                    @Position.started += instance.OnPosition;
-                    @Position.performed += instance.OnPosition;
-                    @Position.canceled += instance.OnPosition;
+                    @MousePosition.started += instance.OnMousePosition;
+                    @MousePosition.performed += instance.OnMousePosition;
+                    @MousePosition.canceled += instance.OnMousePosition;
                     @Drag.started += instance.OnDrag;
                     @Drag.performed += instance.OnDrag;
                     @Drag.canceled += instance.OnDrag;
@@ -1037,12 +1037,12 @@ namespace Controls
                     @Rotate.started += instance.OnRotate;
                     @Rotate.performed += instance.OnRotate;
                     @Rotate.canceled += instance.OnRotate;
-                    @Zoom.started += instance.OnZoom;
-                    @Zoom.performed += instance.OnZoom;
-                    @Zoom.canceled += instance.OnZoom;
                     @ZoomScroll.started += instance.OnZoomScroll;
                     @ZoomScroll.performed += instance.OnZoomScroll;
                     @ZoomScroll.canceled += instance.OnZoomScroll;
+                    @ZoomButton.started += instance.OnZoomButton;
+                    @ZoomButton.performed += instance.OnZoomButton;
+                    @ZoomButton.canceled += instance.OnZoomButton;
                     @SetFollow.started += instance.OnSetFollow;
                     @SetFollow.performed += instance.OnSetFollow;
                     @SetFollow.canceled += instance.OnSetFollow;
@@ -1134,12 +1134,12 @@ namespace Controls
         public interface IManagementActions
         {
             void OnShowMenu(InputAction.CallbackContext context);
-            void OnPosition(InputAction.CallbackContext context);
+            void OnMousePosition(InputAction.CallbackContext context);
             void OnDrag(InputAction.CallbackContext context);
             void OnMovement(InputAction.CallbackContext context);
             void OnRotate(InputAction.CallbackContext context);
-            void OnZoom(InputAction.CallbackContext context);
             void OnZoomScroll(InputAction.CallbackContext context);
+            void OnZoomButton(InputAction.CallbackContext context);
             void OnSetFollow(InputAction.CallbackContext context);
             void OnResetFollow(InputAction.CallbackContext context);
             void OnSelect(InputAction.CallbackContext context);

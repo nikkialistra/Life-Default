@@ -22,7 +22,7 @@ namespace Cameras
         private PlayerInput _playerInput;
 
         private InputAction _setFollowAction;
-        private InputAction _positionAction;
+        private InputAction _mousePositionAction;
 
         [Inject]
         public void Construct(UnitChoosing unitChoosing, PlayerInput playerInput)
@@ -36,7 +36,7 @@ namespace Cameras
             _camera = GetComponent<Camera>();
 
             _setFollowAction = _playerInput.actions.FindAction("Set Follow");
-            _positionAction = _playerInput.actions.FindAction("Position");
+            _mousePositionAction = _playerInput.actions.FindAction("Mouse Position");
         }
 
         public event Action<Vector3> PositionUpdate;
@@ -64,7 +64,7 @@ namespace Cameras
 
         private void TryFollow(InputAction.CallbackContext context)
         {
-            var screenPoint = _positionAction.ReadValue<Vector2>();
+            var screenPoint = _mousePositionAction.ReadValue<Vector2>();
             var ray = _camera.ScreenPointToRay(screenPoint);
 
             if (Physics.Raycast(ray, out var hit))

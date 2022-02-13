@@ -15,7 +15,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Position",
+                    "name": "Mouse Position",
                     "type": "Value",
                     "id": "8653e1ae-6cec-4d4d-b899-be655e768b2f",
                     "expectedControlType": "Vector2",
@@ -51,19 +51,19 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Zoom",
+                    "name": "Zoom Scroll",
                     "type": "Value",
-                    "id": "141de89e-0dc4-4a48-bf02-3f6283acbf65",
-                    "expectedControlType": "Digital",
+                    "id": "d6a2616d-3501-4776-b0e6-9bd0f48d43b4",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Zoom Scroll",
+                    "name": "Zoom Button",
                     "type": "Value",
-                    "id": "d6a2616d-3501-4776-b0e6-9bd0f48d43b4",
-                    "expectedControlType": "",
+                    "id": "141de89e-0dc4-4a48-bf02-3f6283acbf65",
+                    "expectedControlType": "Digital",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
@@ -384,7 +384,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Zoom",
+                    "action": "Zoom Button",
                     "isComposite": true,
                     "isPartOfComposite": false
                 },
@@ -395,7 +395,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Zoom",
+                    "action": "Zoom Button",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -406,7 +406,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Zoom",
+                    "action": "Zoom Button",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -456,17 +456,6 @@
                 },
                 {
                     "name": "",
-                    "id": "d268ebbb-6978-48b2-b70b-abcdc96a7c7d",
-                    "path": "<Mouse>/scroll",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Zoom Scroll",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "42e513ea-3ea2-4a20-951d-41e7c34124cc",
                     "path": "<Keyboard>/escape",
                     "interactions": "",
@@ -483,7 +472,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Position",
+                    "action": "Mouse Position",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -494,7 +483,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Position",
+                    "action": "Mouse Position",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -737,6 +726,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Multi Command",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d268ebbb-6978-48b2-b70b-abcdc96a7c7d",
+                    "path": "<Mouse>/scroll",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Zoom Scroll",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

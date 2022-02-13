@@ -69,6 +69,15 @@
                     "initialStateCheck": true
                 },
                 {
+                    "name": "Toggle Camera Movement",
+                    "type": "Button",
+                    "id": "37a3e6a3-a05c-44db-a0c0-2a943d34117e",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Set Follow",
                     "type": "Button",
                     "id": "3a2302e8-af2d-4adc-bae2-e850d2eaa14b",
@@ -739,6 +748,39 @@
                     "action": "Zoom Scroll",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "Button With One Modifier",
+                    "id": "bd179592-feb0-4e15-93bd-160e6fd8261b",
+                    "path": "ButtonWithOneModifier",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Toggle Camera Movement",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "modifier",
+                    "id": "9601743e-efd1-4a9d-85a7-2688c7d256a7",
+                    "path": "<Keyboard>/alt",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Toggle Camera Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "button",
+                    "id": "ed6cdbad-73b2-4476-868b-1c4f732eae9f",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Toggle Camera Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
                 }
             ]
         },

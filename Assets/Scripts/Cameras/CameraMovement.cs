@@ -1,4 +1,5 @@
-﻿using Sirenix.OdinInspector;
+﻿using MapGeneration.Map;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Zenject;
@@ -6,7 +7,7 @@ using Zenject;
 namespace Cameras
 {
     [RequireComponent(typeof(Camera))]
-    public class CameraController : MonoBehaviour
+    public class CameraMovement : MonoBehaviour
     {
         [Title("Movement")]
         [SerializeField] private float _moveSpeed;
@@ -68,6 +69,9 @@ namespace Cameras
         private Vector3 _newPosition;
         private Quaternion _newRotation;
 
+        private Map _map;
+        private bool _deactivated;
+
         private PlayerInput _playerInput;
 
         private InputAction _movementAction;
@@ -76,9 +80,19 @@ namespace Cameras
         private InputAction _zoomScrollAction;
         private InputAction _zoomButtonAction;
 
+        private InputAction _toggleCameraMovementAction;
+
+
         [Inject]
-        public void Construct(PlayerInput playerInput)
+        public void Construct(bool isSetUpSession, Map map, PlayerInput playerInput)
         {
+            if (isSetUpSession)
+            {
+                _deactivated = true;
+            }
+
+            _map = map;
+
             _playerInput = playerInput;
         }
 
@@ -91,17 +105,36 @@ namespace Cameras
             _mousePositionAction = _playerInput.actions.FindAction("Mouse Position");
             _zoomScrollAction = _playerInput.actions.FindAction("Zoom Scroll");
             _zoomButtonAction = _playerInput.actions.FindAction("Zoom Button");
+
+            _toggleCameraMovementAction = _playerInput.actions.FindAction("Toggle Camera Movement");
+        }
+
+        private void OnEnable()
+        {
+            _toggleCameraMovementAction.started += ToggleCameraMovementMovement;
+        }
+
+        private void OnDisable()
+        {
+            _toggleCameraMovementAction.started -= ToggleCameraMovementMovement;
         }
 
         private void Start()
         {
+            _map.Load += OnMapLoad;
+
             _yPosition = transform.position.y;
+
+            _newPosition = transform.position;
+            _newRotation = transform.rotation;
         }
 
         private void LateUpdate()
         {
-            _newPosition = transform.position;
-            _newRotation = transform.rotation;
+            if (_deactivated)
+            {
+                return;
+            }
 
             CalculateDeltas();
 
@@ -111,6 +144,19 @@ namespace Cameras
             UpdateZoom();
 
             ClampPositionByConstraints();
+            SmoothUpdate();
+        }
+
+        private void OnMapLoad()
+        {
+            _map.Load -= OnMapLoad;
+
+            _deactivated = false;
+        }
+
+        private void ToggleCameraMovementMovement(InputAction.CallbackContext context)
+        {
+            _deactivated = !_deactivated;
         }
 
         private void CalculateDeltas()
@@ -128,8 +174,8 @@ namespace Cameras
         {
             var movement = _movementAction.ReadValue<Vector2>();
 
-            transform.position += transform.right * (_moveSpeed * Time.deltaTime * movement.x);
-            transform.position += transform.forward * (_moveSpeed * Time.deltaTime * movement.y);
+            _newPosition += transform.right * (_moveSpeed * Time.deltaTime * movement.x);
+            _newPosition += transform.forward * (_moveSpeed * Time.deltaTime * movement.y);
         }
 
         private void UpdateRotation()
@@ -139,12 +185,12 @@ namespace Cameras
                 return;
             }
 
-            _verticalRotation = transform.eulerAngles.x;
-            _horizontalRotation = transform.eulerAngles.y;
+            _verticalRotation = _newRotation.eulerAngles.x;
+            _horizontalRotation = _newRotation.eulerAngles.y;
 
             _verticalRotation -= _rotateVerticalSpeed * _deltaMousePositionY;
             _horizontalRotation += _rotateHorizontalSpeed * _deltaMousePositionX;
-            transform.eulerAngles =
+            _newRotation.eulerAngles =
                 new Vector3(Mathf.Clamp(_verticalRotation, _minVerticalRotation, _maxVerticalRotation),
                     _horizontalRotation, 0.0f);
         }
@@ -178,7 +224,7 @@ namespace Cameras
 
             if (movement != Vector2.zero)
             {
-                UpdatePosition(movement);
+                UpdatePositionFromMouseMovement(movement);
             }
         }
 
@@ -190,15 +236,15 @@ namespace Cameras
             return result;
         }
 
-        private void UpdatePosition(Vector2 movement)
+        private void UpdatePositionFromMouseMovement(Vector2 movement)
         {
-            transform.position += transform.right * movement.x;
-            transform.position += transform.up * movement.y + transform.forward * movement.y;
+            _newPosition += transform.right * movement.x;
+            _newPosition += transform.up * movement.y + transform.forward * movement.y;
         }
 
         private void ClampPositionByConstraints()
         {
-            var position = transform.position;
+            var position = _newPosition;
 
             position.y = _yPosition;
 
@@ -222,7 +268,7 @@ namespace Cameras
                 position.z = _maximumPositionZ;
             }
 
-            transform.position = position;
+            _newPosition = position;
         }
 
         private void SmoothUpdate()

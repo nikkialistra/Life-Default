@@ -93,6 +93,15 @@ namespace Controls
                     ""initialStateCheck"": true
                 },
                 {
+                    ""name"": ""Toggle Camera Movement"",
+                    ""type"": ""Button"",
+                    ""id"": ""37a3e6a3-a05c-44db-a0c0-2a943d34117e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""Set Follow"",
                     ""type"": ""Button"",
                     ""id"": ""3a2302e8-af2d-4adc-bae2-e850d2eaa14b"",
@@ -763,6 +772,39 @@ namespace Controls
                     ""action"": ""Zoom Scroll"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""Button With One Modifier"",
+                    ""id"": ""bd179592-feb0-4e15-93bd-160e6fd8261b"",
+                    ""path"": ""ButtonWithOneModifier"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Toggle Camera Movement"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""modifier"",
+                    ""id"": ""9601743e-efd1-4a9d-85a7-2688c7d256a7"",
+                    ""path"": ""<Keyboard>/alt"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Toggle Camera Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""button"",
+                    ""id"": ""ed6cdbad-73b2-4476-868b-1c4f732eae9f"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Toggle Camera Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 }
             ]
         },
@@ -806,6 +848,7 @@ namespace Controls
             m_Management_Rotate = m_Management.FindAction("Rotate", throwIfNotFound: true);
             m_Management_ZoomScroll = m_Management.FindAction("Zoom Scroll", throwIfNotFound: true);
             m_Management_ZoomButton = m_Management.FindAction("Zoom Button", throwIfNotFound: true);
+            m_Management_ToggleCameraMovement = m_Management.FindAction("Toggle Camera Movement", throwIfNotFound: true);
             m_Management_SetFollow = m_Management.FindAction("Set Follow", throwIfNotFound: true);
             m_Management_ResetFollow = m_Management.FindAction("Reset Follow", throwIfNotFound: true);
             m_Management_Select = m_Management.FindAction("Select", throwIfNotFound: true);
@@ -892,6 +935,7 @@ namespace Controls
         private readonly InputAction m_Management_Rotate;
         private readonly InputAction m_Management_ZoomScroll;
         private readonly InputAction m_Management_ZoomButton;
+        private readonly InputAction m_Management_ToggleCameraMovement;
         private readonly InputAction m_Management_SetFollow;
         private readonly InputAction m_Management_ResetFollow;
         private readonly InputAction m_Management_Select;
@@ -920,6 +964,7 @@ namespace Controls
             public InputAction @Rotate => m_Wrapper.m_Management_Rotate;
             public InputAction @ZoomScroll => m_Wrapper.m_Management_ZoomScroll;
             public InputAction @ZoomButton => m_Wrapper.m_Management_ZoomButton;
+            public InputAction @ToggleCameraMovement => m_Wrapper.m_Management_ToggleCameraMovement;
             public InputAction @SetFollow => m_Wrapper.m_Management_SetFollow;
             public InputAction @ResetFollow => m_Wrapper.m_Management_ResetFollow;
             public InputAction @Select => m_Wrapper.m_Management_Select;
@@ -967,6 +1012,9 @@ namespace Controls
                     @ZoomButton.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnZoomButton;
                     @ZoomButton.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnZoomButton;
                     @ZoomButton.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnZoomButton;
+                    @ToggleCameraMovement.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnToggleCameraMovement;
+                    @ToggleCameraMovement.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnToggleCameraMovement;
+                    @ToggleCameraMovement.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnToggleCameraMovement;
                     @SetFollow.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnSetFollow;
                     @SetFollow.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnSetFollow;
                     @SetFollow.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnSetFollow;
@@ -1043,6 +1091,9 @@ namespace Controls
                     @ZoomButton.started += instance.OnZoomButton;
                     @ZoomButton.performed += instance.OnZoomButton;
                     @ZoomButton.canceled += instance.OnZoomButton;
+                    @ToggleCameraMovement.started += instance.OnToggleCameraMovement;
+                    @ToggleCameraMovement.performed += instance.OnToggleCameraMovement;
+                    @ToggleCameraMovement.canceled += instance.OnToggleCameraMovement;
                     @SetFollow.started += instance.OnSetFollow;
                     @SetFollow.performed += instance.OnSetFollow;
                     @SetFollow.canceled += instance.OnSetFollow;
@@ -1140,6 +1191,7 @@ namespace Controls
             void OnRotate(InputAction.CallbackContext context);
             void OnZoomScroll(InputAction.CallbackContext context);
             void OnZoomButton(InputAction.CallbackContext context);
+            void OnToggleCameraMovement(InputAction.CallbackContext context);
             void OnSetFollow(InputAction.CallbackContext context);
             void OnResetFollow(InputAction.CallbackContext context);
             void OnSelect(InputAction.CallbackContext context);

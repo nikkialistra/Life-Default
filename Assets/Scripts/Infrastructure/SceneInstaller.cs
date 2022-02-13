@@ -24,7 +24,7 @@ namespace Infrastructure
         [Required]
         [SerializeField] private Camera _camera;
         [Required]
-        [SerializeField] private CameraInputCombination _cameraInputCombination;
+        [SerializeField] private CameraMovement _cameraMovement;
         [Required]
         [SerializeField] private FlyCamera _flyCamera;
         [Required]
@@ -56,16 +56,10 @@ namespace Infrastructure
 
         public override void InstallBindings()
         {
-            BindTesting();
             BindInput();
             BindUi();
             BindResources();
             BindSaving();
-        }
-
-        private void BindTesting()
-        {
-            Container.BindInterfacesAndSelfTo<TogglingCameraMovement>().AsSingle().NonLazy();
         }
 
         private void BindInput()
@@ -74,8 +68,8 @@ namespace Infrastructure
 
             Container.BindInstance(_camera);
 
-            Container.BindInstance(_cameraInputCombination);
-            Container.BindInstance(_isSetUpSession).WhenInjectedInto<CameraInputCombination>();
+            Container.BindInstance(_cameraMovement);
+            Container.BindInstance(_isSetUpSession).WhenInjectedInto<CameraMovement>();
 
             Container.BindInstance(_flyCamera);
             Container.BindInstance(_isSetUpSession).WhenInjectedInto<FlyCamera>();

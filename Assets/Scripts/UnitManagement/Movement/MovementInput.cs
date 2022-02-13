@@ -109,23 +109,13 @@ namespace UnitManagement.Movement
             _moveAction.canceled -= Move;
         }
 
-        public bool TargetEntity()
-        {
-            if (Physics.Raycast(GetRay(), out var hit, Mathf.Infinity, _rayMask))
-            {
-                var entity = hit.transform.GetComponentInParent<Entity>();
-                if (entity != null)
-                {
-                    EntitySet?.Invoke(entity);
-                    return true;
-                }
-            }
-
-            return false;
-        }
-
         public void TargetGround()
         {
+            if (!CanTarget)
+            {
+                return;
+            }
+
             if (Physics.Raycast(GetRay(), out var hit, Mathf.Infinity, _rayMask))
             {
                 var ground = hit.transform.GetComponentInParent<Ground>();
@@ -153,17 +143,7 @@ namespace UnitManagement.Movement
             }
         }
 
-        private void StartMultiCommand(InputAction.CallbackContext context)
-        {
-            _multiCommand = true;
-        }
-
-        private void StopMultiCommand(InputAction.CallbackContext context)
-        {
-            _multiCommand = false;
-        }
-
-        public void SetTarget(InputAction.CallbackContext context)
+        private void SetTarget(InputAction.CallbackContext context)
         {
             if (!CanTarget)
             {
@@ -176,6 +156,31 @@ namespace UnitManagement.Movement
             }
 
             TargetGround();
+        }
+
+        private bool TargetEntity()
+        {
+            if (Physics.Raycast(GetRay(), out var hit, Mathf.Infinity, _rayMask))
+            {
+                var entity = hit.transform.GetComponentInParent<Entity>();
+                if (entity != null)
+                {
+                    EntitySet?.Invoke(entity);
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        private void StartMultiCommand(InputAction.CallbackContext context)
+        {
+            _multiCommand = true;
+        }
+
+        private void StopMultiCommand(InputAction.CallbackContext context)
+        {
+            _multiCommand = false;
         }
 
         private IEnumerator PositionRotating(Vector3 position)

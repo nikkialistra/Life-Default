@@ -88,6 +88,7 @@ namespace UnitManagement.Movement
 
             _movementAction = MovementAction.Move;
             PauseAnotherInput();
+            _gameCursors.SetMoveCursor();
         }
 
         private void SelectAttack(InputAction.CallbackContext context)
@@ -99,6 +100,7 @@ namespace UnitManagement.Movement
 
             _movementAction = MovementAction.Attack;
             PauseAnotherInput();
+            _gameCursors.SetAttackCursor();
         }
 
         private void SelectHold(InputAction.CallbackContext context)
@@ -137,8 +139,6 @@ namespace UnitManagement.Movement
         {
             _selectionInput.Deactivated = true;
             _movementInput.UnsubscribeFromActions();
-
-            _gameCursors.SetTargetingCursor();
         }
 
         private void StartDo(InputAction.CallbackContext context)
@@ -148,24 +148,7 @@ namespace UnitManagement.Movement
                 return;
             }
 
-            switch (_movementAction)
-            {
-                case MovementAction.Move:
-                    _movementInput.SetTarget(context);
-                    break;
-                case MovementAction.Attack:
-                    _movementInput.SetTarget(context);
-                    break;
-                case MovementAction.Hold:
-                    break;
-                case MovementAction.Patrol:
-                    _movementInput.SetTarget(context);
-                    break;
-                case MovementAction.None:
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
+            _movementInput.TargetGround();
         }
 
         private void Do(InputAction.CallbackContext context)

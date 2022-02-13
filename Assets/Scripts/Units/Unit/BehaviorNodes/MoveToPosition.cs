@@ -10,14 +10,16 @@ namespace Units.Unit.BehaviorNodes
         public UnitMeshAgent UnitMeshAgent;
 
         private bool _finished;
+        private bool _end;
 
         public override void OnStart()
         {
             _finished = false;
+            _end = false;
 
             if (Positions.Value.Count == 0)
             {
-                _finished = true;
+                _end = true;
                 return;
             }
 
@@ -27,6 +29,11 @@ namespace Units.Unit.BehaviorNodes
 
         public override TaskStatus OnUpdate()
         {
+            if (_end)
+            {
+                return TaskStatus.Failure;
+            }
+
             return _finished ? TaskStatus.Success : TaskStatus.Running;
         }
 

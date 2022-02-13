@@ -268,11 +268,9 @@ namespace Entities.Creature
         private IEnumerator RotatingToAngle(float angle)
         {
             var targetRotation = new Vector3(0, angle, 0);
-            Debug.Log(targetRotation);
 
             yield return transform.DORotate(targetRotation, GetRotationDuration(targetRotation)).WaitForCompletion();
 
-            Debug.Log("34");
             IsRotating = false;
             RotationEnd?.Invoke();
         }

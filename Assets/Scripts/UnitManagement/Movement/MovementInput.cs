@@ -29,6 +29,8 @@ namespace UnitManagement.Movement
         private Vector2 _rotationDirection;
         private Vector2 _perpendicularDirection;
 
+        private bool _multiCommand;
+
         private Coroutine _positionRotatingCoroutine;
 
         private PlayerInput _playerInput;
@@ -89,12 +91,18 @@ namespace UnitManagement.Movement
 
         public void SubscribeToActions()
         {
+            _multiCommandAction.started += StartMultiCommand;
+            _multiCommandAction.canceled += StopMultiCommand;
+
             _moveAction.started += SetTarget;
             _moveAction.canceled += Move;
         }
 
         public void UnsubscribeFromActions()
         {
+            _multiCommandAction.started -= StartMultiCommand;
+            _multiCommandAction.canceled -= StopMultiCommand;
+
             _moveAction.started -= SetTarget;
             _moveAction.canceled -= Move;
         }
@@ -130,11 +138,6 @@ namespace UnitManagement.Movement
 
         public void Move(InputAction.CallbackContext context)
         {
-            if (Keyboard.current.shiftKey.isPressed)
-            {
-                return;
-            }
-
             if (_isPositionRotating)
             {
                 if (_positionRotatingCoroutine != null)
@@ -143,22 +146,19 @@ namespace UnitManagement.Movement
                 }
 
                 _isPositionRotating = false;
-                DestinationSet?.Invoke(false);
+
+                DestinationSet?.Invoke(_multiCommand);
             }
         }
 
-        public void AddDestination(InputAction.CallbackContext context)
+        private void StartMultiCommand(InputAction.CallbackContext context)
         {
-            if (_isPositionRotating)
-            {
-                if (_positionRotatingCoroutine != null)
-                {
-                    StopCoroutine(_positionRotatingCoroutine);
-                }
+            _multiCommand = true;
+        }
 
-                _isPositionRotating = false;
-                DestinationSet?.Invoke(true);
-            }
+        private void StopMultiCommand(InputAction.CallbackContext context)
+        {
+            _multiCommand = false;
         }
 
         private void SetTarget(InputAction.CallbackContext context)

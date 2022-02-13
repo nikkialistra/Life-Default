@@ -168,7 +168,7 @@ namespace UnitManagement.Movement
                 return;
             }
 
-            _movementInput.AddDestination(context);
+            _movementInput.Move(context);
         }
 
         private void ResumeAnotherInput()

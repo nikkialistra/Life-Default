@@ -77,6 +77,9 @@ namespace UnitManagement.Movement
         {
             SubscribeToActions();
 
+            _multiCommandAction.started += StartMultiCommand;
+            _multiCommandAction.canceled += StopMultiCommand;
+
             _stopAction.started += OnStop;
         }
 
@@ -84,25 +87,24 @@ namespace UnitManagement.Movement
         {
             UnsubscribeFromActions();
 
+            _multiCommandAction.started -= StartMultiCommand;
+            _multiCommandAction.canceled -= StopMultiCommand;
+
             _stopAction.started -= OnStop;
         }
 
         public bool CanTarget => _selectedUnits.Units.Any() && !_gameViews.MouseOverUi;
 
+        public bool MultiCommand => _multiCommand;
+
         public void SubscribeToActions()
         {
-            _multiCommandAction.started += StartMultiCommand;
-            _multiCommandAction.canceled += StopMultiCommand;
-
             _moveAction.started += SetTarget;
             _moveAction.canceled += Move;
         }
 
         public void UnsubscribeFromActions()
         {
-            _multiCommandAction.started -= StartMultiCommand;
-            _multiCommandAction.canceled -= StopMultiCommand;
-
             _moveAction.started -= SetTarget;
             _moveAction.canceled -= Move;
         }
@@ -161,7 +163,7 @@ namespace UnitManagement.Movement
             _multiCommand = false;
         }
 
-        private void SetTarget(InputAction.CallbackContext context)
+        public void SetTarget(InputAction.CallbackContext context)
         {
             if (!CanTarget)
             {

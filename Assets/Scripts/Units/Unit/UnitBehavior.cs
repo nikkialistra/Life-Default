@@ -117,6 +117,11 @@ namespace Units.Unit
 
         public bool TryAddPositionToOrder(Vector3 position, float? angle)
         {
+            if (_positions.Value.Count == 0)
+            {
+                return TryOrderToPosition(position, angle);
+            }
+
             if (!_unitMeshAgent.AcceptOrder())
             {
                 return false;

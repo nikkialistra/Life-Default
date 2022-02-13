@@ -1,6 +1,7 @@
 ﻿using System;
 using UI;
 using UnitManagement.Selection;
+using Units.Services.Selecting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Zenject;
@@ -14,10 +15,12 @@ namespace UnitManagement.Movement
 
         private MovementInput _movementInput;
 
-        private PlayerInput _playerInput;
+        private SelectedUnits _selectedUnits;
         private SelectionInput _selectionInput;
 
         private GameCursors _gameCursors;
+
+        private PlayerInput _playerInput;
 
         private InputAction _selectMoveAction;
         private InputAction _selectAttackAction;
@@ -28,9 +31,11 @@ namespace UnitManagement.Movement
         private InputAction _cancelAction;
 
         [Inject]
-        public void Construct(PlayerInput playerInput, SelectionInput selectionInput, GameCursors gameCursors)
+        public void Construct(PlayerInput playerInput, SelectedUnits selectedUnits, SelectionInput selectionInput,
+            GameCursors gameCursors)
         {
             _playerInput = playerInput;
+            _selectedUnits = selectedUnits;
             _selectionInput = selectionInput;
             _gameCursors = gameCursors;
         }
@@ -55,9 +60,8 @@ namespace UnitManagement.Movement
             _selectHoldAction.started += SelectHold;
             _selectPatrolAction.started += SelectPatrol;
 
-            _doAction.started += Do;
-            _doAction.canceled += SetDestination;
-            _doAction.canceled += AddDestination;
+            _doAction.started += StartDo;
+            _doAction.canceled += Do;
 
             _cancelAction.started += Cancel;
         }
@@ -69,35 +73,64 @@ namespace UnitManagement.Movement
             _selectHoldAction.started -= SelectHold;
             _selectPatrolAction.started -= SelectPatrol;
 
-            _doAction.started -= Do;
-            _doAction.canceled -= SetDestination;
-            _doAction.canceled -= AddDestination;
+            _doAction.started -= StartDo;
+            _doAction.canceled -= Do;
 
             _cancelAction.started -= Cancel;
         }
 
         private void SelectMove(InputAction.CallbackContext context)
         {
+            if (IfNoUnitsSelected())
+            {
+                return;
+            }
+
             _movementAction = MovementAction.Move;
             PauseAnotherInput();
         }
 
         private void SelectAttack(InputAction.CallbackContext context)
         {
+            if (IfNoUnitsSelected())
+            {
+                return;
+            }
+
             _movementAction = MovementAction.Attack;
             PauseAnotherInput();
         }
 
         private void SelectHold(InputAction.CallbackContext context)
         {
+            if (IfNoUnitsSelected())
+            {
+                return;
+            }
+
             _movementAction = MovementAction.Hold;
             PauseAnotherInput();
         }
 
         private void SelectPatrol(InputAction.CallbackContext context)
         {
+            if (IfNoUnitsSelected())
+            {
+                return;
+            }
+
             _movementAction = MovementAction.Patrol;
             PauseAnotherInput();
+        }
+
+        private bool IfNoUnitsSelected()
+        {
+            if (_selectedUnits.Units.Count == 0)
+            {
+                return true;
+            }
+
+            return false;
         }
 
         private void PauseAnotherInput()
@@ -108,7 +141,7 @@ namespace UnitManagement.Movement
             _gameCursors.SetTargetingCursor();
         }
 
-        private void Do(InputAction.CallbackContext context)
+        private void StartDo(InputAction.CallbackContext context)
         {
             if (_movementAction == MovementAction.None || !_movementInput.CanTarget)
             {
@@ -118,14 +151,15 @@ namespace UnitManagement.Movement
             switch (_movementAction)
             {
                 case MovementAction.Move:
-                    _movementInput.TargetGround();
+                    _movementInput.SetTarget(context);
                     break;
                 case MovementAction.Attack:
-                    _movementInput.TargetEntity();
+                    _movementInput.SetTarget(context);
                     break;
                 case MovementAction.Hold:
                     break;
                 case MovementAction.Patrol:
+                    _movementInput.SetTarget(context);
                     break;
                 case MovementAction.None:
                     break;
@@ -134,41 +168,49 @@ namespace UnitManagement.Movement
             }
         }
 
+        private void Do(InputAction.CallbackContext context)
+        {
+            if (_movementAction == MovementAction.None)
+            {
+                return;
+            }
+
+            switch (_movementAction)
+            {
+                case MovementAction.Move:
+                    _movementInput.Move(context);
+                    break;
+                case MovementAction.Attack:
+                    _movementInput.Move(context);
+                    break;
+                case MovementAction.Hold:
+                    break;
+                case MovementAction.Patrol:
+                    _movementInput.Move(context);
+                    break;
+                case MovementAction.None:
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+
+            Complete();
+        }
+
         private void Cancel(InputAction.CallbackContext context)
         {
             Complete();
         }
 
-        private void SetDestination(InputAction.CallbackContext context)
-        {
-            if (Keyboard.current.shiftKey.isPressed)
-            {
-                return;
-            }
-
-            if (_movementAction == MovementAction.None)
-            {
-                return;
-            }
-
-            _movementInput.Move(context);
-            Complete();
-        }
-
         private void Complete()
         {
-            _movementAction = MovementAction.None;
-            ResumeAnotherInput();
-        }
-
-        private void AddDestination(InputAction.CallbackContext context)
-        {
-            if (_movementAction == MovementAction.None)
+            if (_movementInput.MultiCommand)
             {
                 return;
             }
 
-            _movementInput.Move(context);
+            _movementAction = MovementAction.None;
+            ResumeAnotherInput();
         }
 
         private void ResumeAnotherInput()

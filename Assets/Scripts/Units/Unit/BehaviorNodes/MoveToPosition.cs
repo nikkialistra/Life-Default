@@ -24,7 +24,7 @@ namespace Units.Unit.BehaviorNodes
             }
 
             UnitMeshAgent.DestinationReach += OnDestinationReach;
-            UnitMeshAgent.SetDestinationToPosition(Positions.Value.Dequeue());
+            UnitMeshAgent.SetDestinationToPosition(Positions.Value.Peek());
         }
 
         public override TaskStatus OnUpdate()
@@ -39,6 +39,7 @@ namespace Units.Unit.BehaviorNodes
 
         private void OnDestinationReach()
         {
+            Positions.Value.Dequeue();
             UnitMeshAgent.DestinationReach -= OnDestinationReach;
             _finished = true;
         }

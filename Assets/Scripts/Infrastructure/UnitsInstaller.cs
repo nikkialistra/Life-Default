@@ -32,8 +32,6 @@ namespace Infrastructure
         [Required]
         [SerializeField] private GameObject _unitPrefab;
         [Required]
-        [SerializeField] private int _unitPoolSize;
-        [Required]
         [SerializeField] private Transform _unitsParent;
 
         [Title("Services")]
@@ -81,12 +79,8 @@ namespace Infrastructure
         private void BindUnitSpawning()
         {
             Container.BindFactory<UnitType, Vector3, UnitFacade, UnitFacade.Factory>()
-                .FromPoolableMemoryPool<UnitType, Vector3, UnitFacade, UnitFacadePool>(pool => pool
-                    .WithInitialSize(_unitPoolSize)
-                    .FromComponentInNewPrefab(_unitPrefab)
-                    .UnderTransform(_unitsParent));
+                .FromComponentInNewPrefab(_unitPrefab)
+                .UnderTransform(_unitsParent);
         }
-
-        private class UnitFacadePool : MonoPoolableMemoryPool<UnitType, Vector3, IMemoryPool, UnitFacade> { }
     }
 }

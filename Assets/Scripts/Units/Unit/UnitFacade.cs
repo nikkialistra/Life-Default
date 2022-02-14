@@ -16,7 +16,7 @@ namespace Units.Unit
     [RequireComponent(typeof(UnitBehavior))]
     [RequireComponent(typeof(UnitRole))]
     [RequireComponent(typeof(UnitSaveLoadHandler))]
-    public class UnitFacade : MonoBehaviour, IPoolable<UnitType, Vector3, IMemoryPool>, IDisposable
+    public class UnitFacade : MonoBehaviour
     {
         [Required]
         [SerializeField] private HealthBar _healthBar;
@@ -48,7 +48,12 @@ namespace Units.Unit
         private UnitBehavior _unitBehavior;
         private UnitRole _unitRole;
 
-        private IMemoryPool _pool;
+        [Inject]
+        public void Construct(UnitType unitType, Vector3 position)
+        {
+            _unitType = unitType;
+            transform.position = position;
+        }
 
         private void Awake()
         {
@@ -80,10 +85,18 @@ namespace Units.Unit
 
         public Vector3 Center => _center.position;
 
+        private void Start()
+        {
+            InitializeSelf();
+            ActivateComponents();
+
+            Spawn?.Invoke();
+        }
+
         private void OnEnable()
         {
             _health.HealthChange += OnHealthChange;
-            _health.Die += Dispose;
+            _health.Die += Dying;
 
             _unitMeshAgent.DestinationReach += OnDestinationReach;
         }
@@ -91,7 +104,7 @@ namespace Units.Unit
         private void OnDisable()
         {
             _health.HealthChange -= OnHealthChange;
-            _health.Die -= Dispose;
+            _health.Die -= Dying;
 
             _unitMeshAgent.DestinationReach -= OnDestinationReach;
         }
@@ -167,25 +180,7 @@ namespace Units.Unit
             _resourceFieldOfView.ToggleDebugShow();
         }
 
-        public void OnSpawned(UnitType unitType, Vector3 position, IMemoryPool pool)
-        {
-            _pool = pool;
-
-            _unitType = unitType;
-            transform.position = position;
-
-            InitializeSelf();
-            ActivateComponents();
-
-            Spawn?.Invoke();
-        }
-
-        public void OnDespawned()
-        {
-            _pool = null;
-        }
-
-        public void Dispose()
+        private void Dying()
         {
             _died = true;
 
@@ -235,7 +230,7 @@ namespace Units.Unit
 
         private void DestroySelf()
         {
-            _pool.Despawn(this);
+            Destroy(gameObject);
         }
 
         private void OnDestinationReach()

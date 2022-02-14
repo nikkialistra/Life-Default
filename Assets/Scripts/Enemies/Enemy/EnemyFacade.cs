@@ -1,5 +1,4 @@
-﻿using System;
-using Entities;
+﻿using Entities;
 using Entities.Ancillaries;
 using Entities.Creature;
 using Sirenix.OdinInspector;
@@ -12,7 +11,7 @@ namespace Enemies.Enemy
     [RequireComponent(typeof(EnemyMeshAgent))]
     [RequireComponent(typeof(EnemyBehavior))]
     [RequireComponent(typeof(Entity))]
-    public class EnemyFacade : MonoBehaviour, IPoolable<EnemyType, Vector3, IMemoryPool>, IDisposable
+    public class EnemyFacade : MonoBehaviour
     {
         [Required]
         [SerializeField] private HealthBar _healthBar;
@@ -29,7 +28,12 @@ namespace Enemies.Enemy
         private EnemyMeshAgent _enemyMeshAgent;
         private EnemyBehavior _enemyBehavior;
 
-        private IMemoryPool _pool;
+        [Inject]
+        public void Construct(EnemyType enemyType, Vector3 position)
+        {
+            _enemyType = enemyType;
+            transform.position = position;
+        }
 
         private void Awake()
         {
@@ -43,16 +47,22 @@ namespace Enemies.Enemy
         public Entity Entity { get; private set; }
         public bool Alive => !_died;
 
+        private void Start()
+        {
+            InitializeSelf();
+            InitializeComponents();
+        }
+
         private void OnEnable()
         {
             _health.HealthChange += OnHealthChange;
-            _health.Die += Dispose;
+            _health.Die += Dying;
         }
 
         private void OnDisable()
         {
             _health.HealthChange -= OnHealthChange;
-            _health.Die -= Dispose;
+            _health.Die -= Dying;
         }
 
         [Button(ButtonSizes.Large)]
@@ -66,23 +76,7 @@ namespace Enemies.Enemy
             _health.TakeDamage(value);
         }
 
-        public void OnSpawned(EnemyType enemyType, Vector3 position, IMemoryPool pool)
-        {
-            _pool = pool;
-
-            _enemyType = enemyType;
-            transform.position = position;
-
-            InitializeSelf();
-            InitializeComponents();
-        }
-
-        public void OnDespawned()
-        {
-            _pool = null;
-        }
-
-        public void Dispose()
+        private void Dying()
         {
             _died = true;
 
@@ -109,7 +103,7 @@ namespace Enemies.Enemy
 
         private void DestroySelf()
         {
-            _pool.Despawn(this);
+            Destroy(gameObject);
         }
 
         private void OnHealthChange(int value)

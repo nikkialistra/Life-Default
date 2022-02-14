@@ -26,7 +26,14 @@ namespace UnitManagement.Targeting.Formations
 
         private bool _showNoFormationMark;
 
+        private FormationColor _formationColor = FormationColor.White;
+
         public bool ShowDirectionArrow { get; set; }
+
+        public void ChangeColor(FormationColor formationColor)
+        {
+            _formationColor = formationColor;
+        }
 
         public void Show(Vector3[] formationPositions, float rotation)
         {
@@ -59,7 +66,7 @@ namespace UnitManagement.Targeting.Formations
             _showNoFormationMark = true;
 
             _noFormationMark.gameObject.SetActive(true);
-            _noFormationMark.Activate();
+            _noFormationMark.Activate(_formationColor);
             _noFormationMark.transform.position = position;
         }
 
@@ -141,7 +148,7 @@ namespace UnitManagement.Targeting.Formations
         private void PlaceDirectionArrow(Vector3[] formationPositions, float rotation)
         {
             _directionArrow.gameObject.SetActive(true);
-            _directionArrow.Activate();
+            _directionArrow.Activate(_formationColor);
             _directionArrow.transform.position = formationPositions[0];
             _directionArrow.transform.rotation = Quaternion.Euler(0, rotation, 0);
         }
@@ -154,12 +161,13 @@ namespace UnitManagement.Targeting.Formations
             {
                 positionPreview = Instantiate(_positionPreviewPrefab, _positionPreviewsParent);
                 _positionPreviews.Add(positionPreview);
+                positionPreview.Activate(_formationColor);
             }
             else
             {
                 positionPreview = _positionPreviews[_nextIndex];
                 positionPreview.gameObject.SetActive(true);
-                positionPreview.Activate();
+                positionPreview.Activate(_formationColor);
             }
 
             _nextIndex++;

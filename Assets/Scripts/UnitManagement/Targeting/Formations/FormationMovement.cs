@@ -66,7 +66,7 @@ namespace UnitManagement.Targeting.Formations
             _nextFormationAction.started -= ChangeToNextFormation;
         }
 
-        public void ShowFormation(List<UnitFacade> units, OrderMark orderMark)
+        public void ShowFormation(List<UnitFacade> units, OrderMark orderMark, FormationColor formationColor)
         {
             _shown = true;
             _lastAngle = 0f;
@@ -83,7 +83,7 @@ namespace UnitManagement.Targeting.Formations
 
             _orderMark = orderMark;
 
-            Show();
+            Show(formationColor);
         }
 
         public void RotateFormation(float angle)
@@ -104,7 +104,7 @@ namespace UnitManagement.Targeting.Formations
             _formationPreviewDrawing.UpdatePositions(rotatedFormationPositions, _regionFormation.CurrentYRotation);
         }
 
-        public void MoveToFormationPositions(bool additional)
+        public void MoveToFormationPositions(bool additional, FormationColor formationColor)
         {
             _shown = false;
 
@@ -112,6 +112,8 @@ namespace UnitManagement.Targeting.Formations
             {
                 return;
             }
+
+            _formationPreviewDrawing.ChangeColor(formationColor);
 
             _formationPositions = GenerateFormationWithRotation(_lastAngle);
 
@@ -160,6 +162,11 @@ namespace UnitManagement.Targeting.Formations
             }
         }
 
+        private void Show(FormationColor formationColor)
+        {
+            _formationPreviewDrawing.ChangeColor(formationColor);
+            Show();
+        }
 
         private void Show()
         {

@@ -4,6 +4,7 @@ using System.Linq;
 using Entities;
 using UI.Game;
 using UnitManagement.Targeting;
+using UnitManagement.Targeting.Formations;
 using Units.Services.Selecting;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -67,10 +68,10 @@ namespace UnitManagement.Movement
 
         public event Action<Entity> EntitySet;
 
-        public event Action<Vector3> PositionSet;
+        public event Action<Vector3, FormationColor> PositionSet;
 
         public event Action<float> RotationUpdate;
-        public event Action<bool> DestinationSet;
+        public event Action<bool, FormationColor> DestinationSet;
 
         public event Action MultiCommandReset;
 
@@ -112,7 +113,7 @@ namespace UnitManagement.Movement
             _moveAction.canceled -= Move;
         }
 
-        public void TargetGround()
+        public void TargetGround(FormationColor formationColor)
         {
             if (!CanTarget)
             {
@@ -124,14 +125,19 @@ namespace UnitManagement.Movement
                 var ground = hit.transform.GetComponentInParent<Ground>();
                 if (ground != null)
                 {
-                    PositionSet?.Invoke(hit.point);
+                    PositionSet?.Invoke(hit.point, formationColor);
                     _isPositionRotating = true;
                     _positionRotatingCoroutine = StartCoroutine(PositionRotating(hit.point));
                 }
             }
         }
 
-        public void Move(InputAction.CallbackContext context)
+        private void Move(InputAction.CallbackContext context)
+        {
+            Move(FormationColor.White);
+        }
+
+        public void Move(FormationColor formationColor)
         {
             if (_isPositionRotating)
             {
@@ -142,7 +148,7 @@ namespace UnitManagement.Movement
 
                 _isPositionRotating = false;
                 var additional = _multiCommand && !_firstCommand;
-                DestinationSet?.Invoke(additional);
+                DestinationSet?.Invoke(additional, formationColor);
 
                 _firstCommand = false;
             }
@@ -160,7 +166,7 @@ namespace UnitManagement.Movement
                 return;
             }
 
-            TargetGround();
+            TargetGround(FormationColor.White);
         }
 
         private bool TargetEntity()

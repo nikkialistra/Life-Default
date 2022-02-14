@@ -67,10 +67,10 @@ namespace UnitManagement.Movement
             MoveTo(orderMark);
         }
 
-        private void ShowFormation(Vector3 position)
+        private void ShowFormation(Vector3 position, FormationColor formationColor)
         {
             var orderMark = _orderMarkPool.PlaceTo(position);
-            _formationMovement.ShowFormation(_selectedUnits.Units, orderMark);
+            _formationMovement.ShowFormation(_selectedUnits.Units, orderMark, formationColor);
         }
 
         private void RotateFormation(float angle)
@@ -78,9 +78,9 @@ namespace UnitManagement.Movement
             _formationMovement.RotateFormation(angle);
         }
 
-        private void FinishFormation(bool additional)
+        private void FinishFormation(bool additional, FormationColor formationColor)
         {
-            _formationMovement.MoveToFormationPositions(additional);
+            _formationMovement.MoveToFormationPositions(additional, formationColor);
         }
 
         private void Stop()

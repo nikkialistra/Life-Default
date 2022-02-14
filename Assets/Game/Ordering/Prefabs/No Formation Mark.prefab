@@ -103,3 +103,5 @@ MonoBehaviour:
   _decalProjector: {fileID: 4798373599406781753}
   _animationTime: 0.3
   _animationKind: 0
+  _white: {fileID: 2100000, guid: 82ecf8e5e3ec65c42b71ae03c3774518, type: 2}
+  _red: {fileID: 2100000, guid: f6971f5aebdf65b49b5582cd008aa98f, type: 2}

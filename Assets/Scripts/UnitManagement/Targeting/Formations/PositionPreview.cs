@@ -14,14 +14,14 @@ namespace UnitManagement.Targeting.Formations
         [Space]
         [MinValue(0)]
         [SerializeField] private float _animationTime;
+        [EnumToggleButtons]
         [SerializeField] private AnimationKind _animationKind = AnimationKind.Collapse;
 
-        private Coroutine _animateCoroutine;
+        [Title("Materials")]
+        [SerializeField] private Material _white;
+        [SerializeField] private Material _red;
 
-        private void Start()
-        {
-            Activate();
-        }
+        private Coroutine _animateCoroutine;
 
         public void StartAnimation()
         {
@@ -37,8 +37,15 @@ namespace UnitManagement.Targeting.Formations
         public bool Activated { get; private set; }
         public float AnimationTime => _animationTime;
 
-        public void Activate()
+        public void Activate(FormationColor formationColor)
         {
+            _decalProjector.material = formationColor switch
+            {
+                FormationColor.White => _white,
+                FormationColor.Red => _red,
+                _ => throw new ArgumentOutOfRangeException(nameof(formationColor), formationColor, null)
+            };
+
             Activated = true;
             _decalProjector.transform.localScale = Vector3.one;
             _decalProjector.fadeFactor = 1f;

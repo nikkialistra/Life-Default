@@ -1,6 +1,7 @@
 ﻿using System;
 using UI;
 using UnitManagement.Selection;
+using UnitManagement.Targeting.Formations;
 using Units.Services.Selecting;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -152,7 +153,9 @@ namespace UnitManagement.Movement
                 return;
             }
 
-            _movementInput.TargetGround();
+            _movementInput.TargetGround(_movementAction == MovementAction.Attack
+                ? FormationColor.Red
+                : FormationColor.White);
         }
 
         private void Do(InputAction.CallbackContext context)
@@ -165,15 +168,15 @@ namespace UnitManagement.Movement
             switch (_movementAction)
             {
                 case MovementAction.Move:
-                    _movementInput.Move(context);
+                    _movementInput.Move(FormationColor.White);
                     break;
                 case MovementAction.Attack:
-                    _movementInput.Move(context);
+                    _movementInput.Move(FormationColor.Red);
                     break;
                 case MovementAction.Hold:
                     break;
                 case MovementAction.Patrol:
-                    _movementInput.Move(context);
+                    _movementInput.Move(FormationColor.White);
                     break;
                 case MovementAction.None:
                     break;

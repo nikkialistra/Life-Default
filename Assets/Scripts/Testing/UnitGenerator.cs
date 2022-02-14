@@ -19,7 +19,7 @@ namespace Testing
 
         private InputAction _digitAction;
         private InputAction _selectAction;
-        private InputAction _positionAction;
+        private InputAction _mousePositionAction;
 
         [Inject]
         public void Construct(UnitFacade.Factory unitFactory, Camera camera, PlayerInput playerInput)
@@ -34,7 +34,7 @@ namespace Testing
             _terrainMask = LayerMask.GetMask("Terrain");
 
             _selectAction = _playerInput.actions.FindAction("Select");
-            _positionAction = _playerInput.actions.FindAction("Position");
+            _mousePositionAction = _playerInput.actions.FindAction("Mouse Position");
 
             _digitAction = _playerInput.actions.FindAction("Digit");
         }
@@ -73,7 +73,7 @@ namespace Testing
                 return;
             }
 
-            var position = _positionAction.ReadValue<Vector2>();
+            var position = _mousePositionAction.ReadValue<Vector2>();
 
             var ray = _camera.ScreenPointToRay(new Vector3(position.x, position.y, _camera.nearClipPlane));
             if (Physics.Raycast(ray, out var hit, float.PositiveInfinity, _terrainMask))

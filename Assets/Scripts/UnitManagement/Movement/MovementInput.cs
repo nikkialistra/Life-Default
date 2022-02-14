@@ -38,7 +38,7 @@ namespace UnitManagement.Movement
         private InputAction _multiCommandAction;
 
         private InputAction _moveAction;
-        private InputAction _positionAction;
+        private InputAction _mousePositionAction;
 
         private InputAction _stopAction;
 
@@ -59,7 +59,7 @@ namespace UnitManagement.Movement
             _multiCommandAction = _playerInput.actions.FindAction("Multi Command");
 
             _moveAction = _playerInput.actions.FindAction("Move");
-            _positionAction = _playerInput.actions.FindAction("Position");
+            _mousePositionAction = _playerInput.actions.FindAction("Mouse Position");
 
             _stopAction = _playerInput.actions.FindAction("Stop");
         }
@@ -242,7 +242,7 @@ namespace UnitManagement.Movement
 
         private Ray GetRay()
         {
-            var mousePosition = _positionAction.ReadValue<Vector2>();
+            var mousePosition = _mousePositionAction.ReadValue<Vector2>();
             var ray = _camera.ScreenPointToRay(new Vector3(mousePosition.x, mousePosition.y, _camera.nearClipPlane));
             return ray;
         }

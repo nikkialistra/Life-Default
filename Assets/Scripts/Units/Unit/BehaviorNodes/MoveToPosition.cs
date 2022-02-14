@@ -23,6 +23,7 @@ namespace Units.Unit.BehaviorNodes
                 return;
             }
 
+            UnitMeshAgent.DestinationReach -= OnDestinationReach;
             UnitMeshAgent.DestinationReach += OnDestinationReach;
             UnitMeshAgent.SetDestinationToPosition(Positions.Value.Peek());
         }

@@ -16,7 +16,7 @@ namespace Entities.Services
 
         private PlayerInput _playerInput;
 
-        private InputAction _positionAction;
+        private InputAction _mousePositionAction;
 
         [Inject]
         public void Construct(Camera camera, SelectionInput selectionInput, PlayerInput playerInput)
@@ -28,7 +28,7 @@ namespace Entities.Services
 
         private void Awake()
         {
-            _positionAction = _playerInput.actions.FindAction("Mouse Position");
+            _mousePositionAction = _playerInput.actions.FindAction("Mouse Position");
             _entitiesMask = LayerMask.GetMask("Units", "Enemies");
         }
 
@@ -51,7 +51,7 @@ namespace Entities.Services
                 return;
             }
 
-            var point = _positionAction.ReadValue<Vector2>();
+            var point = _mousePositionAction.ReadValue<Vector2>();
 
             var ray = _camera.ScreenPointToRay(point);
 

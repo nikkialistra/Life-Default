@@ -18,7 +18,7 @@ namespace UnitManagement.Selection
         private PlayerInput _playerInput;
 
         private InputAction _selectAction;
-        private InputAction _positionAction;
+        private InputAction _mousePositionAction;
         private GameViews _gameViews;
 
         [Inject]
@@ -31,7 +31,7 @@ namespace UnitManagement.Selection
         private void Awake()
         {
             _selectAction = _playerInput.actions.FindAction("Select");
-            _positionAction = _playerInput.actions.FindAction("Mouse Position");
+            _mousePositionAction = _playerInput.actions.FindAction("Mouse Position");
         }
 
         public bool Deactivated { get; set; }
@@ -58,7 +58,7 @@ namespace UnitManagement.Selection
                 return;
             }
 
-            _startPoint = _positionAction.ReadValue<Vector2>();
+            _startPoint = _mousePositionAction.ReadValue<Vector2>();
 
             if (_areaUpdateCouroutine != null)
             {
@@ -79,7 +79,7 @@ namespace UnitManagement.Selection
                     throw new InvalidOperationException();
                 }
 
-                Selecting?.Invoke(GetRect(_startPoint.Value, _positionAction.ReadValue<Vector2>()));
+                Selecting?.Invoke(GetRect(_startPoint.Value, _mousePositionAction.ReadValue<Vector2>()));
 
                 yield return null;
             }
@@ -97,7 +97,7 @@ namespace UnitManagement.Selection
                 throw new InvalidOperationException();
             }
 
-            SelectingEnd?.Invoke(GetRect(_startPoint.Value, _positionAction.ReadValue<Vector2>()));
+            SelectingEnd?.Invoke(GetRect(_startPoint.Value, _mousePositionAction.ReadValue<Vector2>()));
 
             _startPoint = null;
             _updatingArea = false;

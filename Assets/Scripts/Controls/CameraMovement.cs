@@ -1,10 +1,12 @@
 ﻿using MapGeneration.Map;
 using Sirenix.OdinInspector;
+using Units.Services.Selecting;
+using Units.Unit;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Zenject;
 
-namespace Cameras
+namespace Controls
 {
     [RequireComponent(typeof(Camera))]
     public class CameraMovement : MonoBehaviour
@@ -72,6 +74,12 @@ namespace Cameras
         private Map _map;
         private bool _deactivated;
 
+        private UnitChoosing _unitChoosing;
+        private UnitFacade _unit;
+        private Transform _followTransform;
+        private Vector3 _offset;
+        private bool _following;
+
         private PlayerInput _playerInput;
 
         private InputAction _movementAction;
@@ -80,16 +88,20 @@ namespace Cameras
         private InputAction _zoomScrollAction;
         private InputAction _zoomButtonAction;
 
+        private InputAction _setFollowAction;
+
         private InputAction _toggleCameraMovementAction;
 
 
         [Inject]
-        public void Construct(bool isSetUpSession, Map map, PlayerInput playerInput)
+        public void Construct(bool isSetUpSession, Map map, UnitChoosing unitChoosing, PlayerInput playerInput)
         {
             if (isSetUpSession)
             {
                 _deactivated = true;
             }
+
+            _unitChoosing = unitChoosing;
 
             _map = map;
 
@@ -105,6 +117,8 @@ namespace Cameras
             _mousePositionAction = _playerInput.actions.FindAction("Mouse Position");
             _zoomScrollAction = _playerInput.actions.FindAction("Zoom Scroll");
             _zoomButtonAction = _playerInput.actions.FindAction("Zoom Button");
+
+            _setFollowAction = _playerInput.actions.FindAction("Set Follow");
 
             _toggleCameraMovementAction = _playerInput.actions.FindAction("Toggle Camera Movement");
         }
@@ -127,6 +141,8 @@ namespace Cameras
 
             _newPosition = transform.position;
             _newRotation = transform.rotation;
+
+            Activate();
         }
 
         private void LateUpdate()
@@ -138,9 +154,17 @@ namespace Cameras
 
             CalculateDeltas();
 
-            UpdatePosition();
-            UpdatePositionFromMouseThresholdMovement();
-            UpdateRotation();
+            if (_following)
+            {
+                UpdateFollow();
+            }
+            else
+            {
+                UpdatePosition();
+                UpdatePositionFromMouseThresholdMovement();
+                UpdateRotation();
+            }
+
             UpdateZoom();
 
             ClampPositionByConstraints();
@@ -157,6 +181,83 @@ namespace Cameras
         private void ToggleCameraMovementMovement(InputAction.CallbackContext context)
         {
             _deactivated = !_deactivated;
+
+            if (_deactivated)
+            {
+                Deactivate();
+            }
+            else
+            {
+                Activate();
+            }
+        }
+
+        private void Deactivate()
+        {
+            _setFollowAction.started -= TryFollow;
+            _unitChoosing.UnitChosen -= SetFollow;
+        }
+
+        private void Activate()
+        {
+            _setFollowAction.started += TryFollow;
+            _unitChoosing.UnitChosen += SetFollow;
+
+            var mousePosition = _mousePositionAction.ReadValue<Vector2>();
+
+            _lastMousePositionX = mousePosition.x;
+            _lastMousePositionY = mousePosition.y;
+        }
+
+        private void UpdateFollow()
+        {
+            transform.position = _followTransform.position + _offset;
+            _newPosition = transform.position;
+        }
+
+        private void TryFollow(InputAction.CallbackContext context)
+        {
+            var screenPoint = _mousePositionAction.ReadValue<Vector2>();
+            var ray = _camera.ScreenPointToRay(screenPoint);
+
+            if (Physics.Raycast(ray, out var hit))
+            {
+                if (hit.transform.gameObject.TryGetComponent<UnitFacade>(out var unit))
+                {
+                    SetFollow(unit);
+                }
+                else
+                {
+                    ResetFollow();
+                }
+            }
+        }
+
+        private void SetFollow(UnitFacade unit)
+        {
+            UnsubscribeFromLastUnit();
+
+            _unit = unit;
+            _followTransform = unit.transform;
+            _offset = _newPosition - _followTransform.position;
+
+            unit.Die += ResetFollow;
+
+            _following = true;
+        }
+
+        private void ResetFollow()
+        {
+            _followTransform = null;
+            _following = false;
+        }
+
+        private void UnsubscribeFromLastUnit()
+        {
+            if (_unit != null)
+            {
+                _unit.Die -= ResetFollow;
+            }
         }
 
         private void CalculateDeltas()

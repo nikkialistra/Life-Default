@@ -64,6 +64,8 @@ namespace UnitManagement.Movement
             _doAction.canceled += Do;
 
             _cancelAction.started += Cancel;
+
+            _movementInput.MultiCommandReset += Complete;
         }
 
         private void OnDisable()
@@ -77,6 +79,8 @@ namespace UnitManagement.Movement
             _doAction.canceled -= Do;
 
             _cancelAction.started -= Cancel;
+
+            _movementInput.MultiCommandReset -= Complete;
         }
 
         private void SelectMove(InputAction.CallbackContext context)
@@ -177,7 +181,10 @@ namespace UnitManagement.Movement
                     throw new ArgumentOutOfRangeException();
             }
 
-            Complete();
+            if (!_movementInput.MultiCommand)
+            {
+                Complete();
+            }
         }
 
         private void Cancel(InputAction.CallbackContext context)
@@ -187,11 +194,6 @@ namespace UnitManagement.Movement
 
         private void Complete()
         {
-            if (_movementInput.MultiCommand)
-            {
-                return;
-            }
-
             _movementAction = MovementAction.None;
             ResumeAnotherInput();
         }

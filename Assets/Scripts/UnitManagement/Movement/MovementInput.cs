@@ -30,6 +30,7 @@ namespace UnitManagement.Movement
         private Vector2 _perpendicularDirection;
 
         private bool _multiCommand;
+        private bool _firstCommand;
 
         private Coroutine _positionRotatingCoroutine;
 
@@ -70,6 +71,8 @@ namespace UnitManagement.Movement
 
         public event Action<float> RotationUpdate;
         public event Action<bool> DestinationSet;
+
+        public event Action MultiCommandReset;
 
         public event Action Stop;
 
@@ -138,8 +141,10 @@ namespace UnitManagement.Movement
                 }
 
                 _isPositionRotating = false;
+                var additional = _multiCommand && !_firstCommand;
+                DestinationSet?.Invoke(additional);
 
-                DestinationSet?.Invoke(_multiCommand);
+                _firstCommand = false;
             }
         }
 
@@ -176,11 +181,13 @@ namespace UnitManagement.Movement
         private void StartMultiCommand(InputAction.CallbackContext context)
         {
             _multiCommand = true;
+            _firstCommand = true;
         }
 
         private void StopMultiCommand(InputAction.CallbackContext context)
         {
             _multiCommand = false;
+            MultiCommandReset?.Invoke();
         }
 
         private IEnumerator PositionRotating(Vector3 position)

@@ -154,6 +154,7 @@ namespace Controls
 
             CalculateDeltas();
 
+            UpdateFollowing();
             if (_following)
             {
                 UpdateFollow();
@@ -207,6 +208,21 @@ namespace Controls
 
             _lastMousePositionX = mousePosition.x;
             _lastMousePositionY = mousePosition.y;
+        }
+
+        private void UpdateFollowing()
+        {
+            var keyboardMoved = _movementAction.ReadValue<Vector2>() != Vector2.zero;
+
+            var position = _mousePositionAction.ReadValue<Vector2>();
+            var normalisedPosition = GetNormalisedPosition(position);
+            var mouseMoved = Mathf.Abs(normalisedPosition.x) > _positionMoveXThreshold ||
+                             Mathf.Abs(normalisedPosition.y) > _positionMoveYThreshold;
+
+            if (keyboardMoved || mouseMoved || _dragAction.IsPressed())
+            {
+                _following = false;
+            }
         }
 
         private void UpdateFollow()

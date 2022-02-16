@@ -23,7 +23,7 @@
 .info-panel {
     width: 440px;
     height: 180px;
-    background-image: resource('UI/Textures/Panels/InfoPanel');
+    background-image: resource('UI/Panels/InfoPanel');
     flex-direction: row;
     padding-left: 5px;
     padding-right: 5px;
@@ -41,7 +41,7 @@
     background-color: rgba(255, 255, 255, 0);
     flex-direction: row;
     align-items: center;
-    background-image: resource('UI/Textures/Panels/UnitsPanel');
+    background-image: resource('UI/Panels/UnitsPanel');
     justify-content: center;
 }
 

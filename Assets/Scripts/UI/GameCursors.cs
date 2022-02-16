@@ -21,12 +21,13 @@ namespace UI
 
         public void SetMoveCursor()
         {
-            Cursor.SetCursor(_moveCursor, new Vector2(0.5f, 0.5f), CursorMode.Auto);
+            Cursor.SetCursor(_moveCursor, new Vector2(_moveCursor.width / 2, _moveCursor.height / 2), CursorMode.Auto);
         }
 
         public void SetAttackCursor()
         {
-            Cursor.SetCursor(_attackCursor, new Vector2(0.5f, 0.5f), CursorMode.Auto);
+            Cursor.SetCursor(_attackCursor, new Vector2(_attackCursor.width / 2, _attackCursor.height / 2),
+                CursorMode.Auto);
         }
     }
 }

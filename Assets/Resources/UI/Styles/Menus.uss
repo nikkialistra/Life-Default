@@ -5,7 +5,7 @@
     margin-right: 10px;
     margin-top: 10px;
     margin-bottom: 10px;
-    background-image: resource('UI/Buttons/Blue/Regular/ButtonBlueMiddleRegular');
+    background-image: resource('UI/Sprites/Buttons/Blue/Regular/ButtonBlueMiddleRegular');
     background-color: rgba(0, 0, 0, 0);
     color: rgb(0, 0, 0);
     -unity-font: resource('Fonts/Mukta-Medium');
@@ -14,11 +14,11 @@
 }
 
 .button:hover {
-    background-image: resource('UI/Buttons/Blue/Hovered/ButtonBlueMiddleHovered');
+    background-image: resource('UI/Sprites/Buttons/Blue/Hovered/ButtonBlueMiddleHovered');
 }
 
 .button:active {
-    background-image: resource('UI/Buttons/Blue/Pressed/ButtonBlueMiddlePressed');
+    background-image: resource('UI/Sprites/Buttons/Blue/Pressed/ButtonBlueMiddlePressed');
 }
 
 .unity-button {

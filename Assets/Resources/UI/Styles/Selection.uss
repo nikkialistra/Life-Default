@@ -14,7 +14,7 @@
     border-top-width: 1px;
     border-bottom-width: 1px;
     -unity-background-image-tint-color: rgba(238, 238, 238, 0.29);
-    background-image: resource('UI/Textures/SelectionArea');
+    background-image: resource('UI/Sprites/SelectionArea');
 }
 
 .not-displayed {

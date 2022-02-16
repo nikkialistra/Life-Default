@@ -23,7 +23,7 @@
 .info-panel {
     width: 440px;
     height: 180px;
-    background-image: resource('UI/Panels/InfoPanel');
+    background-image: resource('UI/Sprites/Panels/InfoPanel');
     flex-direction: row;
     padding-left: 5px;
     padding-right: 5px;
@@ -41,7 +41,7 @@
     background-color: rgba(255, 255, 255, 0);
     flex-direction: row;
     align-items: center;
-    background-image: resource('UI/Panels/UnitsPanel');
+    background-image: resource('UI/Sprites/Panels/UnitsPanel');
     justify-content: center;
 }
 
@@ -73,63 +73,63 @@
 }
 
 .scout {
-    background-image: resource('UI/Textures/UnitTypes/Scout');
+    background-image: resource('UI/Sprites/UnitTypes/Scout');
 }
 
 .scout:hover {
-    background-image: resource('UI/Textures/UnitTypes/ScoutHover');
+    background-image: resource('UI/Sprites/UnitTypes/ScoutHover');
 }
 
 .scout.missing:hover {
-    background-image: resource('UI/Textures/UnitTypes/Scout');
+    background-image: resource('UI/Sprites/UnitTypes/Scout');
 }
 
 .lumberjack {
-    background-image: resource('UI/Textures/UnitTypes/Lumberjack');
+    background-image: resource('UI/Sprites/UnitTypes/Lumberjack');
 }
 
 .lumberjack:hover {
-    background-image: resource('UI/Textures/UnitTypes/LumberjackHover');
+    background-image: resource('UI/Sprites/UnitTypes/LumberjackHover');
 }
 
 .lumberjack.missing:hover {
-    background-image: resource('UI/Textures/UnitTypes/Lumberjack');
+    background-image: resource('UI/Sprites/UnitTypes/Lumberjack');
 }
 
 .mason {
-    background-image: resource('UI/Textures/UnitTypes/Mason');
+    background-image: resource('UI/Sprites/UnitTypes/Mason');
 }
 
 .mason:hover {
-    background-image: resource('UI/Textures/UnitTypes/MasonHover');
+    background-image: resource('UI/Sprites/UnitTypes/MasonHover');
 }
 
 .mason.missing:hover {
-    background-image: resource('UI/Textures/UnitTypes/Mason');
+    background-image: resource('UI/Sprites/UnitTypes/Mason');
 }
 
 .melee {
-    background-image: resource('UI/Textures/UnitTypes/Melee');
+    background-image: resource('UI/Sprites/UnitTypes/Melee');
 }
 
 .melee:hover {
-    background-image: resource('UI/Textures/UnitTypes/MeleeHover');
+    background-image: resource('UI/Sprites/UnitTypes/MeleeHover');
 }
 
 .melee.missing:hover {
-    background-image: resource('UI/Textures/UnitTypes/Melee');
+    background-image: resource('UI/Sprites/UnitTypes/Melee');
 }
 
 .archer {
-    background-image: resource('UI/Textures/UnitTypes/Archer');
+    background-image: resource('UI/Sprites/UnitTypes/Archer');
 }
 
 .archer:hover {
-    background-image: resource('UI/Textures/UnitTypes/ArcherHover');
+    background-image: resource('UI/Sprites/UnitTypes/ArcherHover');
 }
 
 .archer.missing:hover {
-    background-image: resource('UI/Textures/UnitTypes/Archer');
+    background-image: resource('UI/Sprites/UnitTypes/Archer');
 }
 
 .unity-progress-bar__background {
@@ -302,7 +302,7 @@
     top: 0;
     right: 0;
     bottom: 0;
-    background-image: resource('UI/Textures/LoadingScreen');
+    background-image: resource('UI/Sprites/LoadingScreen');
 }
 
 .loading {
@@ -353,19 +353,19 @@
 }
 
 .wood__icon {
-    background-image: resource('UI/Textures/ResourceIcons/Wood');
+    background-image: resource('UI/Sprites/ResourceIcons/Wood');
 }
 
 .stone__icon {
-    background-image: resource('UI/Textures/ResourceIcons/Stone');
+    background-image: resource('UI/Sprites/ResourceIcons/Stone');
 }
 
 .emerald__icon {
-    background-image: resource('UI/Textures/ResourceIcons/Emerald');
+    background-image: resource('UI/Sprites/ResourceIcons/Emerald');
 }
 
 .crystal__icon {
-    background-image: resource('UI/Textures/ResourceIcons/Crystal');
+    background-image: resource('UI/Sprites/ResourceIcons/Crystal');
 }
 
 .build-version {

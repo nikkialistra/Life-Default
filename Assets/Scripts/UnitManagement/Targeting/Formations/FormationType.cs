@@ -4,7 +4,7 @@
     {
         Area,
         Line,
-        Sparse,
+        Scattered,
         Free,
         None
     }

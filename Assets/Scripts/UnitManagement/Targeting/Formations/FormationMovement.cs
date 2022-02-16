@@ -188,7 +188,7 @@ namespace UnitManagement.Targeting.Formations
         }
 
         private bool FormationIsRegion =>
-            _formationType is FormationType.Area or FormationType.Line or FormationType.Sparse;
+            _formationType is FormationType.Area or FormationType.Line or FormationType.Scattered;
 
         private void ChangeToPreviousFormation(InputAction.CallbackContext context)
         {
@@ -196,8 +196,8 @@ namespace UnitManagement.Targeting.Formations
             {
                 FormationType.Area => FormationType.None,
                 FormationType.Line => FormationType.Area,
-                FormationType.Sparse => FormationType.Line,
-                FormationType.Free => FormationType.Sparse,
+                FormationType.Scattered => FormationType.Line,
+                FormationType.Free => FormationType.Scattered,
                 FormationType.None => FormationType.Free,
                 _ => throw new ArgumentOutOfRangeException()
             };
@@ -210,8 +210,8 @@ namespace UnitManagement.Targeting.Formations
             _formationType = _formationType switch
             {
                 FormationType.Area => FormationType.Line,
-                FormationType.Line => FormationType.Sparse,
-                FormationType.Sparse => FormationType.Free,
+                FormationType.Line => FormationType.Scattered,
+                FormationType.Scattered => FormationType.Free,
                 FormationType.Free => FormationType.None,
                 FormationType.None => FormationType.Area,
                 _ => throw new ArgumentOutOfRangeException()
@@ -333,7 +333,7 @@ namespace UnitManagement.Targeting.Formations
             {
                 FormationType.Area => GenerateRegionFormation(targetPoint, RegionFormationType.Area),
                 FormationType.Line => GenerateRegionFormation(targetPoint, RegionFormationType.Line),
-                FormationType.Sparse => GenerateRegionFormation(targetPoint, RegionFormationType.Sparse),
+                FormationType.Scattered => GenerateRegionFormation(targetPoint, RegionFormationType.Scattered),
                 FormationType.Free => GenerateFreeFormation(targetPoint),
                 FormationType.None => GenerateNoFormation(targetPoint),
                 _ => throw new ArgumentOutOfRangeException()

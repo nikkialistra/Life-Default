@@ -66,7 +66,7 @@ namespace UnitManagement.Targeting.Formations
                     InitializeForOneRow(count);
                     _distanceMultiplier = _distanceMultiplierForPacked;
                     break;
-                case RegionFormationType.Sparse:
+                case RegionFormationType.Scattered:
                     InitializeForMultiRow(count);
                     _distanceMultiplier = _distanceMultiplierForSparse;
                     break;

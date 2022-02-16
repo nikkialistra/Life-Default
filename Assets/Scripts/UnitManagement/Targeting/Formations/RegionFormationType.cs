@@ -4,6 +4,6 @@
     {
         Area,
         Line,
-        Sparse
+        Scattered
     }
 }

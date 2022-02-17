@@ -7,6 +7,7 @@ using Cursor = UnityEngine.Cursor;
 
 namespace UI.Game
 {
+    [RequireComponent(typeof(UIDocument))]
     public class LoadingScreen : MonoBehaviour
     {
         private VisualElement _root;

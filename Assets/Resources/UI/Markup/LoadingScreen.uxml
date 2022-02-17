@@ -1,0 +1,8 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements"
+         xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements"
+         noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Resources/UI/Styles/LoadingScreen.uss?fileID=7433441132597879392&amp;guid=bb2f64b3c8868954f9a18c1c9c928516&amp;type=3#LoadingScreen"/>
+    <ui:VisualElement name="loading-screen" class="loading-screen">
+        <ui:Label text="Loading..." display-tooltip-when-elided="true" name="loading" class="loading"/>
+    </ui:VisualElement>
+</ui:UXML>

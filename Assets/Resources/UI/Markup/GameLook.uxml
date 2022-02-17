@@ -2,7 +2,7 @@
          xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements"
          noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/Resources/UI/Styles/GameLook.uss?fileID=7433441132597879392&amp;guid=295c2b0dcdb1e5f4fbcbc0c651a015ef&amp;type=3#GameLook"/>
-    <ui:VisualElement name="game-look" picking-mode="Ignore" class="game-look" style="justify-content: space-between;">
+    <ui:VisualElement name="game-look" picking-mode="Ignore" class="game-look">
         <ui:VisualElement name="top-panel" style="flex-direction: row; justify-content: space-between;">
             <ui:Label display-tooltip-when-elided="true" name="build-version" class="build-version"
                       style="color: rgb(255, 255, 255); font-size: 32px; padding-left: 15px; padding-right: 15px;"/>
@@ -55,8 +55,5 @@
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>
-    </ui:VisualElement>
-    <ui:VisualElement name="loading-screen" class="loading-screen">
-        <ui:Label text="Loading..." display-tooltip-when-elided="true" name="loading" class="loading"/>
     </ui:VisualElement>
 </ui:UXML>

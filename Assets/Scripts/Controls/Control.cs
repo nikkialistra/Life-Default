@@ -39,6 +39,15 @@ namespace Controls
                     ""initialStateCheck"": false
                 },
                 {
+                    ""name"": ""Toggle Help Panel"",
+                    ""type"": ""Button"",
+                    ""id"": ""ffc2b1b7-b4f9-4429-a707-4bedf971af87"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""Mouse Position"",
                     ""type"": ""Value"",
                     ""id"": ""8653e1ae-6cec-4d4d-b899-be655e768b2f"",
@@ -61,15 +70,6 @@ namespace Controls
                     ""type"": ""Value"",
                     ""id"": ""a08e44b6-96db-4738-afa7-f075bafe4bdf"",
                     ""expectedControlType"": ""Vector2"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": true
-                },
-                {
-                    ""name"": ""Rotate"",
-                    ""type"": ""Value"",
-                    ""id"": ""862651f6-dc28-4bde-a835-01291b3077b5"",
-                    ""expectedControlType"": ""Digital"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
@@ -105,15 +105,6 @@ namespace Controls
                     ""name"": ""Set Follow"",
                     ""type"": ""Button"",
                     ""id"": ""3a2302e8-af2d-4adc-bae2-e850d2eaa14b"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Reset Follow"",
-                    ""type"": ""Button"",
-                    ""id"": ""e72a7247-f0fc-4d95-826c-d8c03af268d7"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -379,39 +370,6 @@ namespace Controls
                 },
                 {
                     ""name"": ""1D Axis"",
-                    ""id"": ""8bd81bf0-9177-46e2-83cb-5188acd0ee76"",
-                    ""path"": ""1DAxis"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Rotate"",
-                    ""isComposite"": true,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""negative"",
-                    ""id"": ""09cbffb9-f22b-406c-8132-38658d51915b"",
-                    ""path"": ""<Keyboard>/t"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Rotate"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""positive"",
-                    ""id"": ""51711646-ead8-40f0-8b53-a43d6a264301"",
-                    ""path"": ""<Keyboard>/g"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Rotate"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""1D Axis"",
                     ""id"": ""87ca861a-8e3d-4c54-b441-cd3043588626"",
                     ""path"": ""1DAxis"",
                     ""interactions"": """",
@@ -457,7 +415,7 @@ namespace Controls
                 {
                     ""name"": ""modifier"",
                     ""id"": ""9e3f8d34-eb9a-4611-9be3-fea0cf5ba263"",
-                    ""path"": ""<Keyboard>/ctrl"",
+                    ""path"": ""<Keyboard>/capsLock"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -475,17 +433,6 @@ namespace Controls
                     ""action"": ""Set Follow"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""2d0e6b84-dafe-4c53-89ef-b2fba507309f"",
-                    ""path"": ""<Keyboard>/escape"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Reset Follow"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
@@ -805,6 +752,17 @@ namespace Controls
                     ""action"": ""Toggle Camera Movement"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9887d976-0746-4051-b530-3dc3fbf90b6f"",
+                    ""path"": ""<Keyboard>/f1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Toggle Help Panel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -842,15 +800,14 @@ namespace Controls
             // Management
             m_Management = asset.FindActionMap("Management", throwIfNotFound: true);
             m_Management_ShowMenu = m_Management.FindAction("Show Menu", throwIfNotFound: true);
+            m_Management_ToggleHelpPanel = m_Management.FindAction("Toggle Help Panel", throwIfNotFound: true);
             m_Management_MousePosition = m_Management.FindAction("Mouse Position", throwIfNotFound: true);
             m_Management_Drag = m_Management.FindAction("Drag", throwIfNotFound: true);
             m_Management_Movement = m_Management.FindAction("Movement", throwIfNotFound: true);
-            m_Management_Rotate = m_Management.FindAction("Rotate", throwIfNotFound: true);
             m_Management_ZoomScroll = m_Management.FindAction("Zoom Scroll", throwIfNotFound: true);
             m_Management_ZoomButton = m_Management.FindAction("Zoom Button", throwIfNotFound: true);
             m_Management_ToggleCameraMovement = m_Management.FindAction("Toggle Camera Movement", throwIfNotFound: true);
             m_Management_SetFollow = m_Management.FindAction("Set Follow", throwIfNotFound: true);
-            m_Management_ResetFollow = m_Management.FindAction("Reset Follow", throwIfNotFound: true);
             m_Management_Select = m_Management.FindAction("Select", throwIfNotFound: true);
             m_Management_Digit = m_Management.FindAction("Digit", throwIfNotFound: true);
             m_Management_MultiCommand = m_Management.FindAction("Multi Command", throwIfNotFound: true);
@@ -929,15 +886,14 @@ namespace Controls
         private readonly InputActionMap m_Management;
         private IManagementActions m_ManagementActionsCallbackInterface;
         private readonly InputAction m_Management_ShowMenu;
+        private readonly InputAction m_Management_ToggleHelpPanel;
         private readonly InputAction m_Management_MousePosition;
         private readonly InputAction m_Management_Drag;
         private readonly InputAction m_Management_Movement;
-        private readonly InputAction m_Management_Rotate;
         private readonly InputAction m_Management_ZoomScroll;
         private readonly InputAction m_Management_ZoomButton;
         private readonly InputAction m_Management_ToggleCameraMovement;
         private readonly InputAction m_Management_SetFollow;
-        private readonly InputAction m_Management_ResetFollow;
         private readonly InputAction m_Management_Select;
         private readonly InputAction m_Management_Digit;
         private readonly InputAction m_Management_MultiCommand;
@@ -958,15 +914,14 @@ namespace Controls
             private @Control m_Wrapper;
             public ManagementActions(@Control wrapper) { m_Wrapper = wrapper; }
             public InputAction @ShowMenu => m_Wrapper.m_Management_ShowMenu;
+            public InputAction @ToggleHelpPanel => m_Wrapper.m_Management_ToggleHelpPanel;
             public InputAction @MousePosition => m_Wrapper.m_Management_MousePosition;
             public InputAction @Drag => m_Wrapper.m_Management_Drag;
             public InputAction @Movement => m_Wrapper.m_Management_Movement;
-            public InputAction @Rotate => m_Wrapper.m_Management_Rotate;
             public InputAction @ZoomScroll => m_Wrapper.m_Management_ZoomScroll;
             public InputAction @ZoomButton => m_Wrapper.m_Management_ZoomButton;
             public InputAction @ToggleCameraMovement => m_Wrapper.m_Management_ToggleCameraMovement;
             public InputAction @SetFollow => m_Wrapper.m_Management_SetFollow;
-            public InputAction @ResetFollow => m_Wrapper.m_Management_ResetFollow;
             public InputAction @Select => m_Wrapper.m_Management_Select;
             public InputAction @Digit => m_Wrapper.m_Management_Digit;
             public InputAction @MultiCommand => m_Wrapper.m_Management_MultiCommand;
@@ -994,6 +949,9 @@ namespace Controls
                     @ShowMenu.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnShowMenu;
                     @ShowMenu.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnShowMenu;
                     @ShowMenu.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnShowMenu;
+                    @ToggleHelpPanel.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnToggleHelpPanel;
+                    @ToggleHelpPanel.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnToggleHelpPanel;
+                    @ToggleHelpPanel.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnToggleHelpPanel;
                     @MousePosition.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnMousePosition;
                     @MousePosition.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnMousePosition;
                     @MousePosition.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnMousePosition;
@@ -1003,9 +961,6 @@ namespace Controls
                     @Movement.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnMovement;
                     @Movement.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnMovement;
                     @Movement.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnMovement;
-                    @Rotate.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnRotate;
-                    @Rotate.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnRotate;
-                    @Rotate.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnRotate;
                     @ZoomScroll.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnZoomScroll;
                     @ZoomScroll.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnZoomScroll;
                     @ZoomScroll.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnZoomScroll;
@@ -1018,9 +973,6 @@ namespace Controls
                     @SetFollow.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnSetFollow;
                     @SetFollow.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnSetFollow;
                     @SetFollow.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnSetFollow;
-                    @ResetFollow.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnResetFollow;
-                    @ResetFollow.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnResetFollow;
-                    @ResetFollow.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnResetFollow;
                     @Select.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnSelect;
                     @Select.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnSelect;
                     @Select.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnSelect;
@@ -1073,6 +1025,9 @@ namespace Controls
                     @ShowMenu.started += instance.OnShowMenu;
                     @ShowMenu.performed += instance.OnShowMenu;
                     @ShowMenu.canceled += instance.OnShowMenu;
+                    @ToggleHelpPanel.started += instance.OnToggleHelpPanel;
+                    @ToggleHelpPanel.performed += instance.OnToggleHelpPanel;
+                    @ToggleHelpPanel.canceled += instance.OnToggleHelpPanel;
                     @MousePosition.started += instance.OnMousePosition;
                     @MousePosition.performed += instance.OnMousePosition;
                     @MousePosition.canceled += instance.OnMousePosition;
@@ -1082,9 +1037,6 @@ namespace Controls
                     @Movement.started += instance.OnMovement;
                     @Movement.performed += instance.OnMovement;
                     @Movement.canceled += instance.OnMovement;
-                    @Rotate.started += instance.OnRotate;
-                    @Rotate.performed += instance.OnRotate;
-                    @Rotate.canceled += instance.OnRotate;
                     @ZoomScroll.started += instance.OnZoomScroll;
                     @ZoomScroll.performed += instance.OnZoomScroll;
                     @ZoomScroll.canceled += instance.OnZoomScroll;
@@ -1097,9 +1049,6 @@ namespace Controls
                     @SetFollow.started += instance.OnSetFollow;
                     @SetFollow.performed += instance.OnSetFollow;
                     @SetFollow.canceled += instance.OnSetFollow;
-                    @ResetFollow.started += instance.OnResetFollow;
-                    @ResetFollow.performed += instance.OnResetFollow;
-                    @ResetFollow.canceled += instance.OnResetFollow;
                     @Select.started += instance.OnSelect;
                     @Select.performed += instance.OnSelect;
                     @Select.canceled += instance.OnSelect;
@@ -1185,15 +1134,14 @@ namespace Controls
         public interface IManagementActions
         {
             void OnShowMenu(InputAction.CallbackContext context);
+            void OnToggleHelpPanel(InputAction.CallbackContext context);
             void OnMousePosition(InputAction.CallbackContext context);
             void OnDrag(InputAction.CallbackContext context);
             void OnMovement(InputAction.CallbackContext context);
-            void OnRotate(InputAction.CallbackContext context);
             void OnZoomScroll(InputAction.CallbackContext context);
             void OnZoomButton(InputAction.CallbackContext context);
             void OnToggleCameraMovement(InputAction.CallbackContext context);
             void OnSetFollow(InputAction.CallbackContext context);
-            void OnResetFollow(InputAction.CallbackContext context);
             void OnSelect(InputAction.CallbackContext context);
             void OnDigit(InputAction.CallbackContext context);
             void OnMultiCommand(InputAction.CallbackContext context);

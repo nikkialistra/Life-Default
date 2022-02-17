@@ -15,6 +15,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "Toggle Help Panel",
+                    "type": "Button",
+                    "id": "ffc2b1b7-b4f9-4429-a707-4bedf971af87",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Mouse Position",
                     "type": "Value",
                     "id": "8653e1ae-6cec-4d4d-b899-be655e768b2f",
@@ -37,15 +46,6 @@
                     "type": "Value",
                     "id": "a08e44b6-96db-4738-afa7-f075bafe4bdf",
                     "expectedControlType": "Vector2",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true
-                },
-                {
-                    "name": "Rotate",
-                    "type": "Value",
-                    "id": "862651f6-dc28-4bde-a835-01291b3077b5",
-                    "expectedControlType": "Digital",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
@@ -81,15 +81,6 @@
                     "name": "Set Follow",
                     "type": "Button",
                     "id": "3a2302e8-af2d-4adc-bae2-e850d2eaa14b",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Reset Follow",
-                    "type": "Button",
-                    "id": "e72a7247-f0fc-4d95-826c-d8c03af268d7",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -355,39 +346,6 @@
                 },
                 {
                     "name": "1D Axis",
-                    "id": "8bd81bf0-9177-46e2-83cb-5188acd0ee76",
-                    "path": "1DAxis",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Rotate",
-                    "isComposite": true,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "negative",
-                    "id": "09cbffb9-f22b-406c-8132-38658d51915b",
-                    "path": "<Keyboard>/t",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Rotate",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "positive",
-                    "id": "51711646-ead8-40f0-8b53-a43d6a264301",
-                    "path": "<Keyboard>/g",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Rotate",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "1D Axis",
                     "id": "87ca861a-8e3d-4c54-b441-cd3043588626",
                     "path": "1DAxis",
                     "interactions": "",
@@ -433,7 +391,7 @@
                 {
                     "name": "modifier",
                     "id": "9e3f8d34-eb9a-4611-9be3-fea0cf5ba263",
-                    "path": "<Keyboard>/ctrl",
+                    "path": "<Keyboard>/capsLock",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -451,17 +409,6 @@
                     "action": "Set Follow",
                     "isComposite": false,
                     "isPartOfComposite": true
-                },
-                {
-                    "name": "",
-                    "id": "2d0e6b84-dafe-4c53-89ef-b2fba507309f",
-                    "path": "<Keyboard>/escape",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Reset Follow",
-                    "isComposite": false,
-                    "isPartOfComposite": false
                 },
                 {
                     "name": "",
@@ -781,6 +728,17 @@
                     "action": "Toggle Camera Movement",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "9887d976-0746-4051-b530-3dc3fbf90b6f",
+                    "path": "<Keyboard>/f1",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Toggle Help Panel",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },

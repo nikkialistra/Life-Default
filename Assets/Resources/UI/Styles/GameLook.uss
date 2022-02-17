@@ -296,29 +296,6 @@
     margin-bottom: 5px;
 }
 
-.loading-screen {
-    position: absolute;
-    left: 0;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    background-image: resource('UI/Sprites/LoadingScreen');
-}
-
-.loading {
-    align-items: center;
-    justify-content: center;
-    -unity-font-definition: none;
-    -unity-font: resource('Fonts/Ubuntu/Ubuntu-Bold');
-    font-size: 120px;
-    color: rgb(255, 255, 255);
-}
-
-.loading-screen {
-    align-items: center;
-    justify-content: center;
-}
-
 .resources {
     height: 50px;
     width: 400px;
@@ -380,4 +357,8 @@
 
 .resources {
     -unity-font: resource('Fonts/Exo 2/Exo2-Regular');
+}
+
+.game-look {
+    justify-content: space-between;
 }

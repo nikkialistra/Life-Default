@@ -7,10 +7,10 @@
     margin-bottom: 10px;
     background-image: resource('UI/Sprites/Buttons/Blue/Regular/ButtonBlueMiddleRegular');
     background-color: rgba(0, 0, 0, 0);
-    color: rgb(0, 0, 0);
-    -unity-font: resource('Fonts/Mukta-Medium');
+    color: rgb(255, 255, 255);
+    -unity-font: resource('Fonts/Ubuntu/Ubuntu-Bold');
     -unity-font-definition: none;
-    font-size: 18px;
+    font-size: 20px;
 }
 
 .button:hover {

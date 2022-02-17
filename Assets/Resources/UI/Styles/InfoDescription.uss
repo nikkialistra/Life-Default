@@ -37,10 +37,10 @@
 
 .nomination__type {
     width: 100px;
-    -unity-font: resource('Fonts/Dosis-Bold');
-    font-size: 18px;
+    -unity-font: resource('Fonts/Exo 2/Exo2-Bold');
+    font-size: 16px;
     -unity-text-align: middle-left;
-    color: rgb(0, 0, 0);
+    color: rgb(255, 255, 255);
     -unity-font-definition: none;
     margin-left: 0;
     margin-right: 0;
@@ -54,10 +54,10 @@
 
 .nomination__name {
     width: 100px;
-    -unity-font: resource('Fonts/Dosis-Bold');
-    font-size: 16px;
+    -unity-font: resource('Fonts/Exo 2/Exo2-Regular');
+    font-size: 14px;
     -unity-text-align: middle-left;
-    color: rgb(60, 60, 60);
+    color: rgb(197, 197, 197);
     -unity-font-definition: none;
     margin-left: 0;
     margin-right: 0;
@@ -67,6 +67,7 @@
     padding-right: 0;
     padding-top: 0;
     padding-bottom: 0;
+    -unity-font-style: normal;
 }
 
 .unity-progress-bar__background {
@@ -91,6 +92,9 @@
 }
 
 .unit-health .unity-progress-bar__container {
+    -unity-font: resource('Fonts/Exo 2/Exo2-Regular');
+    -unity-font-definition: none;
+
     min-height: 19px;
     max-height: 19px;
 }

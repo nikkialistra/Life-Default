@@ -62,7 +62,7 @@
     border-bottom-right-radius: 16px;
     color: rgb(255, 255, 255);
     font-size: 12px;
-    -unity-font: resource('Fonts/Mukta-Medium');
+    -unity-font: resource('Fonts/Exo 2/Exo2-Regular');
     -unity-font-definition: none;
     margin-right: 8px;
     -unity-text-align: middle-center;
@@ -212,7 +212,7 @@
 
 .nomination__type {
     width: 100px;
-    -unity-font: resource('Fonts/Dosis-Bold');
+    -unity-font: resource('Fonts/Exo 2/Exo2-Bold');
     font-size: 18px;
     -unity-text-align: middle-left;
     color: rgb(0, 0, 0);
@@ -229,7 +229,7 @@
 
 .nomination__name {
     width: 100px;
-    -unity-font: resource('Fonts/Dosis-Bold');
+    -unity-font: resource('Fonts/Exo 2/Exo2-Regular');
     font-size: 16px;
     -unity-text-align: middle-left;
     color: rgb(60, 60, 60);
@@ -284,7 +284,7 @@
 }
 
 .multiple-units-health__progress-bar {
-    -unity-font: resource('Fonts/Dosis-Bold');
+    -unity-font: resource('Fonts/Exo 2/Exo2-Regular');
     -unity-font-definition: none;
     margin-left: 0;
     margin-right: 0;
@@ -309,7 +309,7 @@
     align-items: center;
     justify-content: center;
     -unity-font-definition: none;
-    -unity-font: resource('Fonts/Mukta-Medium');
+    -unity-font: resource('Fonts/Ubuntu/Ubuntu-Bold');
     font-size: 120px;
     color: rgb(255, 255, 255);
 }
@@ -341,7 +341,7 @@
 }
 
 .resources__element__count {
-    -unity-font: resource('Fonts/Mukta-Medium');
+    -unity-font: resource('Fonts/Exo 2/Exo2-Regular');
     -unity-font-definition: none;
     font-size: 20px;
     padding-left: 3px;
@@ -369,7 +369,7 @@
 }
 
 .build-version {
-    -unity-font: resource('Fonts/Mukta-Medium');
+    -unity-font: resource('Fonts/Ubuntu/Ubuntu-Bold');
     font-size: 20px;
     -unity-font-definition: none;
     height: 50px;

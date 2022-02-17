@@ -55,6 +55,7 @@ namespace Controls
         [Title("Smoothing")]
         [SerializeField] private float _positionSmoothing;
         [SerializeField] private float _rotationSmoothing;
+        [SerializeField] private float _zoomSmoothing;
 
         private float _horizontalRotation;
         private float _verticalRotation;
@@ -70,6 +71,7 @@ namespace Controls
 
         private Vector3 _newPosition;
         private Quaternion _newRotation;
+        private float _newFieldOfView;
 
         private Map _map;
         private bool _deactivated;
@@ -141,6 +143,7 @@ namespace Controls
 
             _newPosition = transform.position;
             _newRotation = transform.rotation;
+            _newFieldOfView = _camera.fieldOfView;
 
             Activate();
         }
@@ -315,11 +318,11 @@ namespace Controls
         private void UpdateZoom()
         {
             var zoomScroll = _zoomScrollAction.ReadValue<Vector2>().y;
-            _camera.fieldOfView = Mathf.Clamp(_camera.fieldOfView - zoomScroll * _zoomScrollSensitivity,
+            _newFieldOfView = Mathf.Clamp(_newFieldOfView - zoomScroll * _zoomScrollSensitivity,
                 _minFov, _maxFov);
 
             var zoomButton = _zoomButtonAction.ReadValue<float>();
-            _camera.fieldOfView = Mathf.Clamp(_camera.fieldOfView - zoomButton * _zoomButtonSensitivity,
+            _newFieldOfView = Mathf.Clamp(_newFieldOfView - zoomButton * _zoomButtonSensitivity,
                 _minFov, _maxFov);
         }
 
@@ -392,6 +395,7 @@ namespace Controls
         {
             transform.position = Vector3.Lerp(transform.position, _newPosition, _positionSmoothing * Time.deltaTime);
             transform.rotation = Quaternion.Lerp(transform.rotation, _newRotation, _rotationSmoothing * Time.deltaTime);
+            _camera.fieldOfView = Mathf.Lerp(_camera.fieldOfView, _newFieldOfView, _zoomSmoothing * Time.deltaTime);
         }
     }
 }

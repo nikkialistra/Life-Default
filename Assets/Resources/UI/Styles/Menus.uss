@@ -11,36 +11,102 @@
 }
 
 .button {
-    width: 192px;
-    height: 48px;
     margin-left: 10px;
     margin-right: 10px;
     margin-top: 10px;
     margin-bottom: 10px;
-    background-image: resource('UI/Sprites/Buttons/Blue/Regular/ButtonBlueMiddleRegular');
-    background-color: rgba(0, 0, 0, 0);
     color: rgb(255, 255, 255);
+    background-color: rgba(0, 0, 0, 0);
     -unity-font: resource('Fonts/Ubuntu/Ubuntu-Bold');
     -unity-font-definition: none;
+}
+
+.button-small-normal {
+    width: 128px;
+    height: 32px;
+    background-image: resource('UI/Sprites/Buttons/Small/Normal/ButtonSmallNormalIdle');
+    font-size: 16px;
+}
+
+.button-small-normal:hover {
+    background-image: resource('UI/Sprites/Buttons/Small/Normal/ButtonSmallNormalHovered');
+}
+
+.button-small-normal:active {
+    background-image: resource('UI/Sprites/Buttons/Small/Normal/ButtonSmallNormalPressed');
+}
+
+.button-small-accented {
+    width: 128px;
+    height: 32px;
+    background-image: resource('UI/Sprites/Buttons/Small/Accented/ButtonSmallAccentedIdle');
+    font-size: 16px;
+}
+
+.button-small-accented:hover {
+    background-image: resource('UI/Sprites/Buttons/Small/Accented/ButtonSmallAccentedHovered');
+}
+
+.button-small-accented:active {
+    background-image: resource('UI/Sprites/Buttons/Small/Accented/ButtonSmallAccentedPressed');
+}
+
+.button-medium-normal {
+    width: 192px;
+    height: 48px;
+    background-image: resource('UI/Sprites/Buttons/Medium/Normal/ButtonMediumNormalIdle');
     font-size: 20px;
 }
 
-.button:hover {
-    background-image: resource('UI/Sprites/Buttons/Blue/Hovered/ButtonBlueMiddleHovered');
+.button-medium-normal:hover {
+    background-image: resource('UI/Sprites/Buttons/Medium/Normal/ButtonMediumNormalHovered');
 }
 
-.button:active {
-    background-image: resource('UI/Sprites/Buttons/Blue/Pressed/ButtonBlueMiddlePressed');
+.button-medium-normal:active {
+    background-image: resource('UI/Sprites/Buttons/Medium/Normal/ButtonMediumNormalPressed');
 }
 
-.button-accented {
-    background-image: resource('UI/Sprites/Buttons/Green/Regular/ButtonGreenMiddleRegular');
+.button-medium-accented {
+    width: 192px;
+    height: 48px;
+    background-image: resource('UI/Sprites/Buttons/Medium/Accented/ButtonMediumAccentedIdle');
+    font-size: 20px;
 }
 
-.button-accented:hover {
-    background-image: resource('UI/Sprites/Buttons/Green/Hovered/ButtonGreenMiddleHovered');
+.button-medium-accented:hover {
+    background-image: resource('UI/Sprites/Buttons/Medium/Accented/ButtonMediumAccentedHovered');
 }
 
-.button-accented:active {
-    background-image: resource('UI/Sprites/Buttons/Green/Pressed/ButtonGreenMiddlePressed');
+.button-medium-accented:active {
+    background-image: resource('UI/Sprites/Buttons/Medium/Accented/ButtonMediumAccentedPressed');
+}
+
+.button-large-normal {
+    width: 256px;
+    height: 64px;
+    background-image: resource('UI/Sprites/Buttons/Large/Normal/ButtonLargeNormalIdle');
+    font-size: 25px;
+}
+
+.button-large-normal:hover {
+    background-image: resource('UI/Sprites/Buttons/Large/Normal/ButtonLargeNormalHovered');
+}
+
+.button-large-normal:active {
+    background-image: resource('UI/Sprites/Buttons/Large/Normal/ButtonLargeNormalPressed');
+}
+
+.button-large-accented {
+    width: 256px;
+    height: 64px;
+    background-image: resource('UI/Sprites/Buttons/Large/Accented/ButtonLargeAccentedIdle');
+    font-size: 25px;
+}
+
+.button-large-accented:hover {
+    background-image: resource('UI/Sprites/Buttons/Large/Accented/ButtonLargeAccentedHovered');
+}
+
+.button-large-accented:active {
+    background-image: resource('UI/Sprites/Buttons/Large/Accented/ButtonLargeAccentedPressed');
 }

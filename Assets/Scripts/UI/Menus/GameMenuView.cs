@@ -17,7 +17,7 @@ namespace UI.Menus
         {
             _root = root;
 
-            var template = Resources.Load<VisualTreeAsset>("UI/Markup/GameMenu");
+            var template = Resources.Load<VisualTreeAsset>("UI/Markup/Menus/GameMenu");
             _tree = template.CloneTree();
 
             _resume = _tree.Q<Button>("resume");

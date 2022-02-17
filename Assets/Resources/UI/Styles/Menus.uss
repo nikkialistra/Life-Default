@@ -1,3 +1,15 @@
+.background {
+    align-items: center;
+    width: 1920px;
+    height: 1080px;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, .6);
+}
+
+.unity-button {
+    border-width: 0;
+}
+
 .button {
     width: 192px;
     height: 48px;
@@ -21,14 +33,14 @@
     background-image: resource('UI/Sprites/Buttons/Blue/Pressed/ButtonBlueMiddlePressed');
 }
 
-.unity-button {
-    border-width: 0;
+.button-accented {
+    background-image: resource('UI/Sprites/Buttons/Green/Regular/ButtonGreenMiddleRegular');
 }
 
-.background {
-    align-items: center;
-    width: 1920px;
-    height: 1080px;
-    justify-content: center;
-    background-color: rgba(0, 0, 0, 0.5);
+.button-accented:hover {
+    background-image: resource('UI/Sprites/Buttons/Green/Hovered/ButtonGreenMiddleHovered');
+}
+
+.button-accented:active {
+    background-image: resource('UI/Sprites/Buttons/Green/Pressed/ButtonGreenMiddlePressed');
 }

@@ -377,3 +377,7 @@
     padding-right: 10px;
     -unity-text-align: middle-center;
 }
+
+.resources {
+    -unity-font: resource('Fonts/Exo 2/Exo2-Regular');
+}

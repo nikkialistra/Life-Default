@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
 namespace UI.Menus
@@ -11,6 +12,11 @@ namespace UI.Menus
         private readonly TemplateContainer _tree;
 
         private readonly Button _resume;
+        private readonly Button _save;
+        private readonly Button _saveAs;
+        private readonly Button _load;
+        private readonly Button _settings;
+        private readonly Button _mainMenu;
         private readonly Button _exitGame;
 
         public GameMenuView(VisualElement root)
@@ -21,6 +27,11 @@ namespace UI.Menus
             _tree = template.CloneTree();
 
             _resume = _tree.Q<Button>("resume");
+            _save = _tree.Q<Button>("save");
+            _saveAs = _tree.Q<Button>("save-as");
+            _load = _tree.Q<Button>("load");
+            _settings = _tree.Q<Button>("settings");
+            _mainMenu = _tree.Q<Button>("main-menu");
             _exitGame = _tree.Q<Button>("exit-game");
         }
 
@@ -35,6 +46,7 @@ namespace UI.Menus
             Time.timeScale = 0;
 
             _resume.clicked += Resume;
+            _mainMenu.clicked += MainMenu;
             _exitGame.clicked += ExitGame;
         }
 
@@ -45,6 +57,7 @@ namespace UI.Menus
             Time.timeScale = 1;
 
             _resume.clicked -= Resume;
+            _mainMenu.clicked -= MainMenu;
             _exitGame.clicked -= ExitGame;
         }
 
@@ -55,7 +68,12 @@ namespace UI.Menus
             HideSelf();
         }
 
-        private void ExitGame()
+        private static void MainMenu()
+        {
+            SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);
+        }
+
+        private static void ExitGame()
         {
             Application.Quit();
         }

@@ -3,7 +3,14 @@
     width: 1920px;
     height: 1080px;
     justify-content: center;
-    background-color: rgba(0, 0, 0, .6);
+}
+
+.background-shadow {
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+.background-image {
+    background-image: resource('UI/Sprites/LoadingScreen');
 }
 
 .unity-button {

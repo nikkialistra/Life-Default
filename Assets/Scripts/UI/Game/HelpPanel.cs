@@ -31,6 +31,18 @@ namespace UI.Game
             _toggleHelpPage = _playerInput.actions.FindAction("Toggle Help Panel");
         }
 
+        private void Start()
+        {
+            if (PlayerPrefs.HasKey("ShownAtFirstStart"))
+            {
+                _helpPanel.AddToClassList("not-displayed");
+            }
+            else
+            {
+                PlayerPrefs.SetInt("ShownAtFirstStart", 1);
+            }
+        }
+
         private void OnEnable()
         {
             _toggleHelpPage.started += ToggleHelpPage;

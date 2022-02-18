@@ -2,6 +2,7 @@
          xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements"
          noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/Resources/UI/Styles/HelpPanel.uss?fileID=7433441132597879392&amp;guid=c6a3a32a3561484cb049eeb6c3d99bfb&amp;type=3#HelpPanel"/>
+    <Style src="project://database/Assets/Resources/UI/Styles/Text.uss?fileID=7433441132597879392&amp;guid=158167a2c7cf4f5292d78d1ed2683cfc&amp;type=3#Text"/>
     <ui:VisualElement name="centering" class="centering">
         <ui:VisualElement name="help-panel" class="help-panel">
             <ui:VisualElement name="header">

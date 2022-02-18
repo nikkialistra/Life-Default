@@ -9,6 +9,7 @@ namespace UI.Menus
     public class GameMenuView : IMenuView
     {
         private readonly VisualElement _root;
+        private readonly MenuViews _menuViews;
 
         private readonly TemplateContainer _tree;
 
@@ -22,9 +23,12 @@ namespace UI.Menus
 
         private SettingsView _settingsView;
 
-        public GameMenuView(VisualElement root)
+        public bool Shown { get; private set; }
+
+        public GameMenuView(VisualElement root, MenuViews menuViews)
         {
             _root = root;
+            _menuViews = menuViews;
 
             var template = Resources.Load<VisualTreeAsset>("UI/Markup/Menus/GameMenu");
             _tree = template.CloneTree();
@@ -42,6 +46,9 @@ namespace UI.Menus
 
         public void ShowSelf()
         {
+            _menuViews.HideCurrentMenu += HideSelf;
+
+            Shown = true;
             _root.Add(_tree);
             Time.timeScale = 0;
 
@@ -53,6 +60,9 @@ namespace UI.Menus
 
         public void HideSelf()
         {
+            _menuViews.HideCurrentMenu -= HideSelf;
+
+            Shown = false;
             _root.Remove(_tree);
 
             _resume.clicked -= Resume;
@@ -72,7 +82,7 @@ namespace UI.Menus
         {
             HideSelf();
 
-            _settingsView ??= new SettingsView(_root, this);
+            _settingsView ??= new SettingsView(_root, this, _menuViews);
             _settingsView.ShowSelf();
         }
 

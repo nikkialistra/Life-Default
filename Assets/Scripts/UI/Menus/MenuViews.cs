@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
 using Zenject;
@@ -23,11 +24,13 @@ namespace UI.Menus
             _playerInput = playerInput;
         }
 
+        public event Action HideCurrentMenu;
+
         private void Awake()
         {
             _root = GetComponent<UIDocument>().rootVisualElement;
 
-            _gameMenuView = new GameMenuView(_root);
+            _gameMenuView = new GameMenuView(_root, this);
 
             _showMenuAction = _playerInput.actions.FindAction("Show Menu");
             _hideMenuAction = _playerInput.actions.FindAction("Hide Menu");
@@ -60,8 +63,12 @@ namespace UI.Menus
 
         private void HideMenu(InputAction.CallbackContext context)
         {
-            _gameMenuView.HideSelf();
-            _playerInput.SwitchCurrentActionMap("Management");
+            if (_gameMenuView.Shown)
+            {
+                _playerInput.SwitchCurrentActionMap("Management");
+            }
+
+            HideCurrentMenu?.Invoke();
         }
     }
 }

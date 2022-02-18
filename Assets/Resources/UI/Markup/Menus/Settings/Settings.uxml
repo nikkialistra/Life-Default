@@ -5,15 +5,15 @@
     <ui:VisualElement name="background" class="background background-shadow">
         <ui:VisualElement name="buttons" class="buttons">
             <ui:Button text="Graphics" display-tooltip-when-elided="true" name="graphics" focusable="false"
-                       class="button button-large-normal"/>
+                       class="button button-medium-normal"/>
             <ui:Button text="Audio" display-tooltip-when-elided="true" name="audio" focusable="false"
-                       class="button button-large-normal"/>
+                       class="button button-medium-normal"/>
             <ui:Button text="Game" display-tooltip-when-elided="true" name="game" focusable="false"
-                       class="button button-large-normal"/>
+                       class="button button-medium-normal"/>
             <ui:Button text="Controls" display-tooltip-when-elided="true" name="controls" focusable="false"
-                       class="button button-large-normal"/>
+                       class="button button-medium-normal"/>
             <ui:Button text="Language" display-tooltip-when-elided="true" name="language" focusable="false"
-                       class="button button-large-normal"/>
+                       class="button button-medium-normal"/>
             <ui:Button text="Back" display-tooltip-when-elided="true" name="back" focusable="false"
                        class="button button-medium-accented"/>
         </ui:VisualElement>

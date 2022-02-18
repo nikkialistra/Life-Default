@@ -22,11 +22,13 @@ namespace UI.Menus.Settings
         private GameView _gameView;
         private ControlsView _controlsView;
         private LanguageView _languageView;
+        private MenuViews _menuViews;
 
-        public SettingsView(VisualElement root, GameMenuView parent)
+        public SettingsView(VisualElement root, GameMenuView parent, MenuViews menuViews)
         {
             _root = root;
             _parent = parent;
+            _menuViews = menuViews;
 
             var template = Resources.Load<VisualTreeAsset>("UI/Markup/Menus/Settings/Settings");
             _tree = template.CloneTree();
@@ -41,6 +43,8 @@ namespace UI.Menus.Settings
 
         public void ShowSelf()
         {
+            _menuViews.HideCurrentMenu += Back;
+
             _root.Add(_tree);
 
             _graphics.clicked += Graphics;
@@ -54,6 +58,8 @@ namespace UI.Menus.Settings
 
         public void HideSelf()
         {
+            _menuViews.HideCurrentMenu -= Back;
+
             _root.Remove(_tree);
 
             _graphics.clicked -= Graphics;
@@ -69,7 +75,7 @@ namespace UI.Menus.Settings
         {
             HideSelf();
 
-            _graphicsView ??= new GraphicsView(_root, this);
+            _graphicsView ??= new GraphicsView(_root, this, _menuViews);
             _graphicsView.ShowSelf();
         }
 
@@ -77,7 +83,7 @@ namespace UI.Menus.Settings
         {
             HideSelf();
 
-            _audioView ??= new AudioView(_root, this);
+            _audioView ??= new AudioView(_root, this, _menuViews);
             _audioView.ShowSelf();
         }
 
@@ -85,7 +91,7 @@ namespace UI.Menus.Settings
         {
             HideSelf();
 
-            _gameView ??= new GameView(_root, this);
+            _gameView ??= new GameView(_root, this, _menuViews);
             _gameView.ShowSelf();
         }
 
@@ -93,7 +99,7 @@ namespace UI.Menus.Settings
         {
             HideSelf();
 
-            _controlsView ??= new ControlsView(_root, this);
+            _controlsView ??= new ControlsView(_root, this, _menuViews);
             _controlsView.ShowSelf();
         }
 
@@ -101,7 +107,7 @@ namespace UI.Menus.Settings
         {
             HideSelf();
 
-            _languageView ??= new LanguageView(_root, this);
+            _languageView ??= new LanguageView(_root, this, _menuViews);
             _languageView.ShowSelf();
         }
 

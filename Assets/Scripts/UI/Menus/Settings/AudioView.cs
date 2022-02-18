@@ -11,11 +11,13 @@ namespace UI.Menus.Settings
         private readonly TemplateContainer _tree;
 
         private readonly Button _back;
+        private readonly MenuViews _menuViews;
 
-        public AudioView(VisualElement root, SettingsView parent)
+        public AudioView(VisualElement root, SettingsView parent, MenuViews menuViews)
         {
             _root = root;
             _parent = parent;
+            _menuViews = menuViews;
 
             var template = Resources.Load<VisualTreeAsset>("UI/Markup/Menus/Settings/Audio");
             _tree = template.CloneTree();
@@ -25,6 +27,8 @@ namespace UI.Menus.Settings
 
         public void ShowSelf()
         {
+            _menuViews.HideCurrentMenu += Back;
+
             _root.Add(_tree);
 
             _back.clicked += Back;
@@ -32,6 +36,8 @@ namespace UI.Menus.Settings
 
         public void HideSelf()
         {
+            _menuViews.HideCurrentMenu -= Back;
+
             _root.Remove(_tree);
 
             _back.clicked -= Back;

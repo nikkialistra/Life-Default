@@ -18,6 +18,10 @@ namespace UI.Menus.Settings
         private readonly Button _back;
 
         private GraphicsView _graphicsView;
+        private AudioView _audioView;
+        private GameView _gameView;
+        private ControlsView _controlsView;
+        private LanguageView _languageView;
 
         public SettingsView(VisualElement root, GameMenuView parent)
         {
@@ -35,12 +39,9 @@ namespace UI.Menus.Settings
             _back = _tree.Q<Button>("back");
         }
 
-        public bool Shown { get; private set; }
-
         public void ShowSelf()
         {
             _root.Add(_tree);
-            Shown = true;
 
             _graphics.clicked += Graphics;
             _audio.clicked += Audio;
@@ -54,7 +55,6 @@ namespace UI.Menus.Settings
         public void HideSelf()
         {
             _root.Remove(_tree);
-            Shown = false;
 
             _graphics.clicked -= Graphics;
             _audio.clicked -= Audio;
@@ -73,13 +73,37 @@ namespace UI.Menus.Settings
             _graphicsView.ShowSelf();
         }
 
-        private void Audio() { }
+        private void Audio()
+        {
+            HideSelf();
 
-        private void Game() { }
+            _audioView ??= new AudioView(_root, this);
+            _audioView.ShowSelf();
+        }
 
-        private void Controls() { }
+        private void Game()
+        {
+            HideSelf();
 
-        private void Language() { }
+            _gameView ??= new GameView(_root, this);
+            _gameView.ShowSelf();
+        }
+
+        private void Controls()
+        {
+            HideSelf();
+
+            _controlsView ??= new ControlsView(_root, this);
+            _controlsView.ShowSelf();
+        }
+
+        private void Language()
+        {
+            HideSelf();
+
+            _languageView ??= new LanguageView(_root, this);
+            _languageView.ShowSelf();
+        }
 
         private void Back()
         {

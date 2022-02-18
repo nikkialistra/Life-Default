@@ -40,12 +40,9 @@ namespace UI.Menus
 
         public event Action Resuming;
 
-        public bool Shown { get; private set; }
-
         public void ShowSelf()
         {
             _root.Add(_tree);
-            Shown = true;
             Time.timeScale = 0;
 
             _resume.clicked += Resume;
@@ -57,7 +54,6 @@ namespace UI.Menus
         public void HideSelf()
         {
             _root.Remove(_tree);
-            Shown = false;
 
             _resume.clicked -= Resume;
             _settings.clicked -= Settings;

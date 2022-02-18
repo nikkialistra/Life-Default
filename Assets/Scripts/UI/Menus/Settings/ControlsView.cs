@@ -3,7 +3,7 @@ using UnityEngine.UIElements;
 
 namespace UI.Menus.Settings
 {
-    public class GraphicsView : IMenuView
+    public class ControlsView : IMenuView
     {
         private readonly VisualElement _root;
         private readonly SettingsView _parent;
@@ -12,12 +12,12 @@ namespace UI.Menus.Settings
 
         private readonly Button _back;
 
-        public GraphicsView(VisualElement root, SettingsView parent)
+        public ControlsView(VisualElement root, SettingsView parent)
         {
             _root = root;
             _parent = parent;
 
-            var template = Resources.Load<VisualTreeAsset>("UI/Markup/Menus/Settings/Graphics");
+            var template = Resources.Load<VisualTreeAsset>("UI/Markup/Menus/Settings/Controls");
             _tree = template.CloneTree();
 
             _back = _tree.Q<Button>("back");

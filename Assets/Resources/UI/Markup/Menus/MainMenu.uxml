@@ -2,8 +2,8 @@
          xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements"
          noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/Resources/UI/Styles/Menus.uss?fileID=7433441132597879392&amp;guid=fc94daea752d98c4199c7a1217d26b0d&amp;type=3#Menus"/>
-    <ui:VisualElement name="background" class="background background-image" style="align-items: flex-start;">
-        <ui:VisualElement name="buttons" style="margin-left: 150px;">
+    <ui:VisualElement name="background" class="background background-image align-left">
+        <ui:VisualElement name="buttons" class="margin-left buttons">
             <ui:Button text="New Game" display-tooltip-when-elided="true" name="new-game" focusable="false"
                        class="button button button-large-accented"/>
             <ui:Button text="Load Game" display-tooltip-when-elided="true" name="load-game" focusable="false"

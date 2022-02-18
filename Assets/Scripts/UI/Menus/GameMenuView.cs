@@ -1,4 +1,5 @@
 ﻿using System;
+using UI.Menus.Settings;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
@@ -18,6 +19,8 @@ namespace UI.Menus
         private readonly Button _settings;
         private readonly Button _mainMenu;
         private readonly Button _exitGame;
+
+        private SettingsView _settingsView;
 
         public GameMenuView(VisualElement root)
         {
@@ -46,6 +49,7 @@ namespace UI.Menus
             Time.timeScale = 0;
 
             _resume.clicked += Resume;
+            _settings.clicked += Settings;
             _mainMenu.clicked += MainMenu;
             _exitGame.clicked += ExitGame;
         }
@@ -54,9 +58,9 @@ namespace UI.Menus
         {
             _root.Remove(_tree);
             Shown = false;
-            Time.timeScale = 1;
 
             _resume.clicked -= Resume;
+            _settings.clicked -= Settings;
             _mainMenu.clicked -= MainMenu;
             _exitGame.clicked -= ExitGame;
         }
@@ -66,6 +70,14 @@ namespace UI.Menus
             Resuming?.Invoke();
             Time.timeScale = 1;
             HideSelf();
+        }
+
+        private void Settings()
+        {
+            HideSelf();
+
+            _settingsView ??= new SettingsView(_root, this);
+            _settingsView.ShowSelf();
         }
 
         private static void MainMenu()

@@ -117,3 +117,18 @@
 .button-large-accented:active {
     background-image: resource('UI/Sprites/Buttons/Large/Accented/ButtonLargeAccentedPressed');
 }
+
+.align-left {
+    align-items: flex-start;
+}
+
+.margin-left {
+    margin-left: 150px;
+}
+
+.button-medium-accented {
+}
+
+.buttons {
+    align-items: center;
+}

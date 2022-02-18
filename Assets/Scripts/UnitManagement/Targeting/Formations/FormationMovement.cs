@@ -258,16 +258,16 @@ namespace UnitManagement.Targeting.Formations
             var assignedPositionsBitmask = new bool[formationPositions.Length];
             var assignedUnitsBitmask = new bool[formationPositions.Length];
 
-            var middlePoint = FindMiddlePoint(_unitPositions);
+            var middlePoint = FormationUtils.FindMiddlePoint(_unitPositions);
 
             for (var i = 0; i < formationPositions.Length; i++)
             {
                 var formationIndex = _formationType == FormationType.Free
-                    ? FarthestPointIndexFrom(formationPositions, assignedPositionsBitmask, middlePoint)
+                    ? FormationUtils.FarthestPointIndexFrom(formationPositions, assignedPositionsBitmask, middlePoint)
                     : i;
 
                 var closestUnitIndex =
-                    ClosestUnitIndexTo(formationPositions[formationIndex], assignedUnitsBitmask);
+                    FormationUtils.ClosestUnitIndexTo(_units, formationPositions[formationIndex], assignedUnitsBitmask);
 
                 assignedPositionsBitmask[formationIndex] = true;
                 assignedUnitsBitmask[closestUnitIndex] = true;
@@ -275,51 +275,6 @@ namespace UnitManagement.Targeting.Formations
                 orderedFormationPositions[i] = formationPositions[formationIndex];
                 orderedUnits[i] = _units[closestUnitIndex];
             }
-        }
-
-        private static int FarthestPointIndexFrom(Vector3[] formationPositions, bool[] assignedPositionsBitmask,
-            Vector3 originPoint)
-        {
-            var farthestPointDistance = 0f;
-            var farthestPointIndex = 0;
-            for (var i = 0; i < assignedPositionsBitmask.Length; i++)
-            {
-                if (assignedPositionsBitmask[i])
-                {
-                    continue;
-                }
-
-                var distanceToPoint = Vector3.Distance(originPoint, formationPositions[i]);
-                if (distanceToPoint > farthestPointDistance)
-                {
-                    farthestPointDistance = distanceToPoint;
-                    farthestPointIndex = i;
-                }
-            }
-
-            return farthestPointIndex;
-        }
-
-        private int ClosestUnitIndexTo(Vector3 targetPoint, bool[] assignedUnitsBitmask)
-        {
-            var closestUnitDistance = 1000f;
-            var closestUnitIndex = 0;
-            for (var i = 0; i < assignedUnitsBitmask.Length; i++)
-            {
-                if (assignedUnitsBitmask[i])
-                {
-                    continue;
-                }
-
-                var distanceToPoint = Vector3.Distance(_units[i].transform.position, targetPoint);
-                if (distanceToPoint < closestUnitDistance)
-                {
-                    closestUnitDistance = distanceToPoint;
-                    closestUnitIndex = i;
-                }
-            }
-
-            return closestUnitIndex;
         }
 
         private Vector3[] GenerateFormation(Vector3 targetPoint)
@@ -363,7 +318,8 @@ namespace UnitManagement.Targeting.Formations
 
             var count = _units.Count;
 
-            _relativeYRotation = RotationFromOriginToTarget(FindMiddlePoint(_unitPositions), targetPoint);
+            _relativeYRotation =
+                FormationUtils.RotationFromOriginToTarget(FormationUtils.FindMiddlePoint(_unitPositions), targetPoint);
 
             var relativeRotation = Quaternion.Euler(0f, _relativeYRotation, 0f);
 
@@ -380,7 +336,7 @@ namespace UnitManagement.Targeting.Formations
 
         private Vector3[] GenerateFreeFormation(Vector3 targetPoint)
         {
-            var originPoint = FindMiddlePoint(_unitPositions);
+            var originPoint = FormationUtils.FindMiddlePoint(_unitPositions);
 
             var difference = targetPoint - originPoint;
 
@@ -399,7 +355,7 @@ namespace UnitManagement.Targeting.Formations
         private Vector3[] RotateFreeFormation(float rotation)
         {
             var relativeRotation = Quaternion.Euler(0f, _relativeYRotation + rotation, 0f);
-            var centerPoint = FindCenterPoint(_formationPositions);
+            var centerPoint = FormationUtils.FindCenterPoint(_formationPositions);
 
             var rotatedPositions = new Vector3[_formationPositions.Length];
             for (var i = 0; i < _formationPositions.Length; i++)
@@ -414,24 +370,6 @@ namespace UnitManagement.Targeting.Formations
             return rotatedPositions;
         }
 
-        private float RotationFromOriginToTarget(Vector3 originPoint, Vector3 targetPoint)
-        {
-            var distToTarget = Vector3.Distance(originPoint, targetPoint);
-            var differenceVector = targetPoint - originPoint;
-            differenceVector.y = 0f;
-
-            var angleBetween = Vector3.Angle(Vector3.forward * distToTarget, differenceVector);
-
-            if (targetPoint.x > originPoint.x)
-            {
-                return angleBetween;
-            }
-            else
-            {
-                return 360f - angleBetween;
-            }
-        }
-
         private Vector3[] GenerateNoFormation(Vector3 targetPoint)
         {
             var noFormationPositions = new Vector3[_units.Count];
@@ -441,51 +379,6 @@ namespace UnitManagement.Targeting.Formations
             }
 
             return noFormationPositions;
-        }
-
-        private static Vector3 FindMiddlePoint(List<Vector3> positions)
-        {
-            if (positions.Count == 0)
-            {
-                throw new InvalidOperationException();
-            }
-
-            var minPositionX = positions[0].x;
-            var maxPositionX = minPositionX;
-
-            var minPositionZ = positions[0].z;
-            var maxPositionZ = minPositionZ;
-
-            foreach (var position in positions)
-            {
-                minPositionX = Mathf.Min(minPositionX, position.x);
-                maxPositionX = Mathf.Max(maxPositionX, position.x);
-
-                minPositionZ = Mathf.Min(minPositionZ, position.z);
-                maxPositionZ = Mathf.Max(maxPositionZ, position.z);
-            }
-
-            var middlePoint = new Vector3(
-                (minPositionX + maxPositionX) / 2, 0f, (minPositionZ + maxPositionZ) / 2);
-            return middlePoint;
-        }
-
-        private static Vector3 FindCenterPoint(Vector3[] positions)
-        {
-            if (positions.Length == 0)
-            {
-                throw new InvalidOperationException();
-            }
-
-            var centerPoint = Vector3.zero;
-            foreach (var position in positions)
-            {
-                centerPoint += position;
-            }
-
-            centerPoint /= positions.Length;
-
-            return centerPoint;
         }
     }
 }

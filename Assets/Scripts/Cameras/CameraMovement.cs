@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Zenject;
 
-namespace Controls
+namespace Cameras
 {
     [RequireComponent(typeof(Camera))]
     public class CameraMovement : MonoBehaviour

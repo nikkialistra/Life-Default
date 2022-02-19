@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Saving;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
@@ -40,8 +41,9 @@ namespace UI.Menus.Settings
 
             _back = _tree.Q<Button>("back");
 
+            UpdateFullscreenToggle();
             FillResolutions();
-            SetUiScaleLabelText();
+            UpdateUiScale();
         }
 
         public void ShowSelf()
@@ -73,6 +75,46 @@ namespace UI.Menus.Settings
 
         private void OnFullscreenToggle(ChangeEvent<bool> _)
         {
+            UpdateFullscreenToggle();
+
+            Screen.fullScreen = _fullscreen.value;
+
+            GameSettings.Instance.Fullscreen = _fullscreen.value;
+        }
+
+        private void OnResolutionChange(ChangeEvent<string> _)
+        {
+            var index = _resolution.index;
+            Screen.SetResolution(_resolutions[index].width, _resolutions[index].height, _fullscreen.value);
+
+            GameSettings.Instance.Resolution = _resolutions[index].ToString();
+        }
+
+        private void OnUiScaleChange(ChangeEvent<int> _)
+        {
+            SetUiScaleLabelText();
+
+            var value = RoundScale(_uiScale.value);
+            GameSettings.Instance.UiScale = value;
+        }
+
+        private void SetUiScaleLabelText()
+        {
+            var value = RoundScale(_uiScale.value);
+            _uiScaleLabel.text = "Scale (" + value + "):";
+        }
+
+        private static int RoundScale(int scale)
+        {
+            var roundedBy5Value = scale / 5;
+            var value = roundedBy5Value * 5;
+            return value;
+        }
+
+        private void UpdateFullscreenToggle()
+        {
+            GameSettings.Instance.Fullscreen = _fullscreen.value;
+
             if (_fullscreen.value)
             {
                 _fullscreen.AddToClassList("selected");
@@ -81,38 +123,31 @@ namespace UI.Menus.Settings
             {
                 _fullscreen.RemoveFromClassList("selected");
             }
-
-            Screen.fullScreen = _fullscreen.value;
-        }
-
-        private void OnResolutionChange(ChangeEvent<string> _)
-        {
-            var index = _resolution.index;
-            Screen.SetResolution(_resolutions[index].width, _resolutions[index].height, _fullscreen.value);
-        }
-
-        private void OnUiScaleChange(ChangeEvent<int> _)
-        {
-            SetUiScaleLabelText();
-        }
-
-        private void SetUiScaleLabelText()
-        {
-            var roundedBy5Value = _uiScale.value / 5;
-            var value = roundedBy5Value * 5;
-            _uiScaleLabel.text = "Scale (" + value + "):";
         }
 
         private void FillResolutions()
         {
             _resolution.choices = new List<string>();
-            foreach (var resolution in _resolutions)
+            var currentIndex = 0;
+            for (var i = 0; i < _resolutions.Length; i++)
             {
+                var resolution = _resolutions[i];
                 var resolutionText = resolution.ToString();
                 _resolution.choices.Add(resolutionText);
+
+                if (resolutionText == GameSettings.Instance.Resolution)
+                {
+                    currentIndex = i;
+                }
             }
 
-            _resolution.index = 0;
+            _resolution.index = currentIndex;
+        }
+
+        private void UpdateUiScale()
+        {
+            _uiScale.value = GameSettings.Instance.UiScale;
+            SetUiScaleLabelText();
         }
 
         private void Back()

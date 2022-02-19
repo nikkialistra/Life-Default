@@ -133,21 +133,33 @@
     align-items: center;
 }
 
-.unity-toggle {
-    width: 192px;
-    margin-left: 0;
-    margin-right: 0;
-    margin-top: 0;
-    margin-bottom: 0;
+.element {
+    margin: 5px 0;
+    padding: 0;
+    width: 320px;
     height: 36px;
+    justify-content: space-between;
+}
+
+.element > .unity-label {
+    -unity-font-definition: none;
+    -unity-font: resource('Fonts/Ubuntu/Ubuntu-Regular');
+    font-size: 18px;
+    color: rgb(255, 255, 255);
+}
+
+.unity-toggle {
     -unity-text-align: middle-left;
 }
 
 .unity-toggle .unity-label {
+    margin: 0;
+    padding: 0;
     color: white;
 }
 
 .unity-toggle > .unity-toggle__input {
+    flex-direction: row-reverse;
     width: 36px;
     height: 36px;
 }
@@ -165,6 +177,36 @@
     background-image: resource('UI/Sprites/InterfaceElements/ToggleSelected2');
 }
 
-DropdownField Label {
+.unity-popup-field {
+    align-items: center;
+}
+
+.unity-popup-field .unity-label {
+    margin: 0;
+    padding: 0;
+    min-width: 128px;
     color: white;
+}
+
+.unity-popup-field > .unity-popup-field__input {
+    margin: 0;
+    padding: 3px;
+    min-width: 128px;
+    height: 36px;
+}
+
+.unity-slider {
+    align-items: center;
+}
+
+.unity-slider .unity-label {
+    margin: 0;
+    padding: 0;
+    min-width: 128px;
+    color: white;
+}
+
+.unity-slider .unity-slider-input {
+    width: 128px;
+    max-width: 128px;
 }

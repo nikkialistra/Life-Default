@@ -85,6 +85,8 @@ namespace UI.Menus.Settings
                 var resolutionText = resolution.ToString();
                 _resolution.choices.Add(resolutionText);
             }
+
+            _resolution.index = 0;
         }
 
         private void Back()

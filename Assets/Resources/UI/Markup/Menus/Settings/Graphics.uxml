@@ -5,10 +5,10 @@
     <Style src="project://database/Assets/Resources/UI/Styles/Text.uss?fileID=7433441132597879392&amp;guid=158167a2c7cf4f5292d78d1ed2683cfc&amp;type=3#Text"/>
     <ui:VisualElement name="background" class="background background-shadow">
         <ui:VisualElement name="buttons" class="buttons">
-            <ui:Toggle label="Fullscreen:" name="fullscreen" class="p toggle selected"/>
+            <ui:Toggle label="Fullscreen:" name="fullscreen" class="p selected"/>
             <ui:DropdownField label="Resolution:" index="-1" name="resolution" class="p"/>
             <ui:DropdownField label="UI Scale:" index="-1" choices="System.Collections.Generic.List`1[System.String]"
-                              name="ui-scale"/>
+                              name="ui-scale" class="p"/>
             <ui:Button text="Back" display-tooltip-when-elided="true" name="back" focusable="false"
                        class="button button-medium-accented"/>
         </ui:VisualElement>

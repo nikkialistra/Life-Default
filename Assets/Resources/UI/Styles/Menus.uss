@@ -133,26 +133,38 @@
     align-items: center;
 }
 
-.toggle {
+.unity-toggle {
     width: 192px;
     margin-left: 0;
     margin-right: 0;
     margin-top: 0;
     margin-bottom: 0;
-    height: 48px;
+    height: 36px;
     -unity-text-align: middle-left;
 }
 
-.toggle #unity-checkmark {
-    width: 32px;
-    height: 32px;
-    border-width: 0;
-    border-radius: 0;
+.unity-toggle .unity-label {
     color: white;
-    background-image: resource('UI/Sprites/InterfaceElements/ToggleUnselected');
-    -unity-background-image-tint-color: white;
 }
 
-.toggle.selected #unity-checkmark {
-    background-image: resource('UI/Sprites/InterfaceElements/ToggleSelected');
+.unity-toggle > .unity-toggle__input {
+    width: 36px;
+    height: 36px;
+}
+
+.unity-toggle > .unity-toggle__input > .unity-toggle__checkmark {
+    width: 36px;
+    height: 36px;
+    background-image: none;
+    -unity-background-image-tint-color: white;
+    border-width: 2px;
+    border-color: black;
+}
+
+.unity-toggle.selected > .unity-toggle__input > .unity-toggle__checkmark {
+    background-image: resource('UI/Sprites/InterfaceElements/ToggleSelected2');
+}
+
+DropdownField Label {
+    color: white;
 }

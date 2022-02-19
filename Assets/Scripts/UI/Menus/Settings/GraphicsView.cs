@@ -45,6 +45,8 @@ namespace UI.Menus.Settings
 
             _root.Add(_tree);
 
+            _fullscreen.RegisterCallback<ChangeEvent<bool>>(OnFullscreenToggle);
+
             _back.clicked += Back;
         }
 
@@ -54,9 +56,25 @@ namespace UI.Menus.Settings
 
             _root.Remove(_tree);
 
+            _fullscreen.UnregisterCallback<ChangeEvent<bool>>(OnFullscreenToggle);
+
             _back.clicked -= Back;
 
             _parent.ShowSelf();
+        }
+
+        private void OnFullscreenToggle(ChangeEvent<bool> changeEvent)
+        {
+            if (changeEvent.newValue)
+            {
+                _fullscreen.AddToClassList("selected");
+            }
+            else
+            {
+                _fullscreen.RemoveFromClassList("selected");
+            }
+
+            Screen.fullScreen = changeEvent.newValue;
         }
 
         private void FillResolutions()

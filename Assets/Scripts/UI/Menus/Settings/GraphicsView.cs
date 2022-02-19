@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
@@ -16,7 +17,8 @@ namespace UI.Menus.Settings
 
         private readonly Toggle _fullscreen;
         private readonly DropdownField _resolution;
-        private readonly DropdownField _uiScale;
+        private readonly SliderInt _uiScale;
+        private readonly Label _uiScaleLabel;
         private readonly Button _back;
 
         private PlayerInput _playerInput;
@@ -33,10 +35,13 @@ namespace UI.Menus.Settings
 
             _fullscreen = _tree.Q<Toggle>("fullscreen");
             _resolution = _tree.Q<DropdownField>("resolution");
-            _uiScale = _tree.Q<DropdownField>("ui-scale");
+            _uiScale = _tree.Q<SliderInt>("ui-scale");
+            _uiScaleLabel = (Label)_uiScale.Children().First();
+
             _back = _tree.Q<Button>("back");
 
             FillResolutions();
+            SetUiScaleLabelText();
         }
 
         public void ShowSelf()
@@ -45,7 +50,9 @@ namespace UI.Menus.Settings
 
             _root.Add(_tree);
 
-            _fullscreen.RegisterCallback<ChangeEvent<bool>>(OnFullscreenToggle);
+            _fullscreen.RegisterValueChangedCallback(OnFullscreenToggle);
+            _resolution.RegisterValueChangedCallback(OnResolutionChange);
+            _uiScale.RegisterValueChangedCallback(OnUiScaleChange);
 
             _back.clicked += Back;
         }
@@ -56,16 +63,17 @@ namespace UI.Menus.Settings
 
             _root.Remove(_tree);
 
-            _fullscreen.UnregisterCallback<ChangeEvent<bool>>(OnFullscreenToggle);
+            _fullscreen.UnregisterValueChangedCallback(OnFullscreenToggle);
+            _resolution.UnregisterValueChangedCallback(OnResolutionChange);
 
             _back.clicked -= Back;
 
             _parent.ShowSelf();
         }
 
-        private void OnFullscreenToggle(ChangeEvent<bool> changeEvent)
+        private void OnFullscreenToggle(ChangeEvent<bool> _)
         {
-            if (changeEvent.newValue)
+            if (_fullscreen.value)
             {
                 _fullscreen.AddToClassList("selected");
             }
@@ -74,7 +82,25 @@ namespace UI.Menus.Settings
                 _fullscreen.RemoveFromClassList("selected");
             }
 
-            Screen.fullScreen = changeEvent.newValue;
+            Screen.fullScreen = _fullscreen.value;
+        }
+
+        private void OnResolutionChange(ChangeEvent<string> _)
+        {
+            var index = _resolution.index;
+            Screen.SetResolution(_resolutions[index].width, _resolutions[index].height, _fullscreen.value);
+        }
+
+        private void OnUiScaleChange(ChangeEvent<int> _)
+        {
+            SetUiScaleLabelText();
+        }
+
+        private void SetUiScaleLabelText()
+        {
+            var roundedBy5Value = _uiScale.value / 5;
+            var value = roundedBy5Value * 5;
+            _uiScaleLabel.text = "Scale (" + value + "):";
         }
 
         private void FillResolutions()

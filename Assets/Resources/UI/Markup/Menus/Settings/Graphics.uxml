@@ -7,8 +7,8 @@
         <ui:VisualElement name="buttons" class="buttons">
             <ui:Toggle label="Fullscreen:" name="fullscreen" class="selected text element"/>
             <ui:DropdownField label="Resolution:" index="-1" name="resolution" class="text element"/>
-            <ui:Slider picking-mode="Ignore" label="Slider" value="42" high-value="100" name="ui-scale"
-                       class="text element"/>
+            <ui:SliderInt picking-mode="Ignore" label="UI Scale:" value="100" high-value="200" name="ui-scale"
+                          low-value="75" class="element"/>
             <ui:Button text="Back" display-tooltip-when-elided="true" name="back" focusable="false"
                        class="button button-medium-accented"/>
         </ui:VisualElement>

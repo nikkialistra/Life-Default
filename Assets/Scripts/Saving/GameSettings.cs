@@ -62,8 +62,6 @@ namespace Saving
                 Destroy(gameObject);
             }
 
-            DontDestroyOnLoad(gameObject);
-
             Apply();
         }
 

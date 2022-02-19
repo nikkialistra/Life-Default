@@ -8,7 +8,6 @@ using UI;
 using UI.Game;
 using Units.Services;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using Zenject;
 
 namespace Infrastructure
@@ -27,8 +26,6 @@ namespace Infrastructure
         [SerializeField] private CameraMovement _cameraMovement;
         [Required]
         [SerializeField] private FlyCamera _flyCamera;
-        [Required]
-        [SerializeField] private PlayerInput _playerInput;
 
         [Title("UI")]
         [Required]
@@ -73,8 +70,6 @@ namespace Infrastructure
 
             Container.BindInstance(_flyCamera);
             Container.BindInstance(_isSetUpSession).WhenInjectedInto<FlyCamera>();
-
-            Container.BindInstance(_playerInput);
         }
 
         private void BindUi()

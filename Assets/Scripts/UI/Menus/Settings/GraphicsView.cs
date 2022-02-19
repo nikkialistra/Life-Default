@@ -23,13 +23,13 @@ namespace UI.Menus.Settings
         private readonly Button _back;
 
         private PlayerInput _playerInput;
-        private readonly MenuViews _menuViews;
+        private readonly IHideNotify _hideNotify;
 
-        public GraphicsView(VisualElement root, SettingsView parent, MenuViews menuViews)
+        public GraphicsView(VisualElement root, SettingsView parent, IHideNotify hideNotify)
         {
             _root = root;
             _parent = parent;
-            _menuViews = menuViews;
+            _hideNotify = hideNotify;
 
             var template = Resources.Load<VisualTreeAsset>("UI/Markup/Menus/Settings/Graphics");
             _tree = template.CloneTree();
@@ -48,7 +48,7 @@ namespace UI.Menus.Settings
 
         public void ShowSelf()
         {
-            _menuViews.HideCurrentMenu += Back;
+            _hideNotify.HideCurrentMenu += Back;
 
             _root.Add(_tree);
 
@@ -61,7 +61,7 @@ namespace UI.Menus.Settings
 
         public void HideSelf()
         {
-            _menuViews.HideCurrentMenu -= Back;
+            _hideNotify.HideCurrentMenu -= Back;
 
             _root.Remove(_tree);
 
@@ -75,7 +75,7 @@ namespace UI.Menus.Settings
 
         private void OnFullscreenToggle(ChangeEvent<bool> _)
         {
-            UpdateFullscreenToggle();
+            UpdateFullscreenToggleClassList();
 
             Screen.fullScreen = _fullscreen.value;
 
@@ -113,8 +113,12 @@ namespace UI.Menus.Settings
 
         private void UpdateFullscreenToggle()
         {
-            GameSettings.Instance.Fullscreen = _fullscreen.value;
+            _fullscreen.value = GameSettings.Instance.Fullscreen;
+            UpdateFullscreenToggleClassList();
+        }
 
+        private void UpdateFullscreenToggleClassList()
+        {
             if (_fullscreen.value)
             {
                 _fullscreen.AddToClassList("selected");

@@ -11,13 +11,13 @@ namespace UI.Menus.Settings
         private readonly TemplateContainer _tree;
 
         private readonly Button _back;
-        private readonly MenuViews _menuViews;
+        private readonly IHideNotify _hideNotify;
 
-        public GameView(VisualElement root, SettingsView parent, MenuViews menuViews)
+        public GameView(VisualElement root, SettingsView parent, IHideNotify hideNotify)
         {
             _root = root;
             _parent = parent;
-            _menuViews = menuViews;
+            _hideNotify = hideNotify;
 
             var template = Resources.Load<VisualTreeAsset>("UI/Markup/Menus/Settings/Game");
             _tree = template.CloneTree();
@@ -27,7 +27,7 @@ namespace UI.Menus.Settings
 
         public void ShowSelf()
         {
-            _menuViews.HideCurrentMenu += Back;
+            _hideNotify.HideCurrentMenu += Back;
 
             _root.Add(_tree);
 
@@ -36,7 +36,7 @@ namespace UI.Menus.Settings
 
         public void HideSelf()
         {
-            _menuViews.HideCurrentMenu -= Back;
+            _hideNotify.HideCurrentMenu -= Back;
 
             _root.Remove(_tree);
 

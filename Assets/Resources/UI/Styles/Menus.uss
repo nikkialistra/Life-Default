@@ -136,7 +136,7 @@
 .element {
     margin: 10px 0;
     padding: 0;
-    width: 320px;
+    width: 352px;
     height: 36px;
     justify-content: space-between;
 }
@@ -173,8 +173,8 @@
     border-color: black;
 }
 
-.unity-toggle.selected > .unity-toggle__input > .unity-toggle__checkmark {
-    background-image: resource('UI/Sprites/InterfaceElements/ToggleSelected2');
+.unity-toggle:checked > .unity-toggle__input > .unity-toggle__checkmark {
+    background-image: resource('UI/Sprites/InterfaceElements/ToggleSelected');
 }
 
 .unity-popup-field {
@@ -202,10 +202,10 @@
 .unity-slider-int .unity-label {
     margin: 0;
     padding: 0;
-    min-width: 128px;
+    width: 160px;
     color: white;
 }
 
 .unity-slider-int .unity-slider-int__input {
-    width: 128px;
+    max-width: 160px;
 }

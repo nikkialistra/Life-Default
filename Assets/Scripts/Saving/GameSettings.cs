@@ -35,6 +35,37 @@ namespace Saving
             }
         }
 
+        public bool ShowHelpPanelAtStart
+        {
+            get => _gameSettingsData.ShowHelpPanelAtStart;
+            set
+            {
+                _gameSettingsData.ShowHelpPanelAtStart = value;
+                Save();
+            }
+        }
+
+        public float MouseSensitivity
+        {
+            get => _gameSettingsData.MouseSensitivity;
+            set
+            {
+                _gameSettingsData.MouseSensitivity = value;
+                Save();
+            }
+        }
+
+
+        public bool ScreenEdgeMouseScroll
+        {
+            get => _gameSettingsData.ScreenEdgeMouseScroll;
+            set
+            {
+                _gameSettingsData.ScreenEdgeMouseScroll = value;
+                Save();
+            }
+        }
+
         private bool _loaded;
 
         private string _savePath;
@@ -130,6 +161,10 @@ namespace Saving
             public bool Fullscreen;
             public string Resolution;
             public int UiScale;
+
+            public bool ShowHelpPanelAtStart;
+            public float MouseSensitivity;
+            public bool ScreenEdgeMouseScroll;
         }
     }
 }

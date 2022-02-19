@@ -75,8 +75,6 @@ namespace UI.Menus.Settings
 
         private void OnFullscreenToggle(ChangeEvent<bool> _)
         {
-            UpdateFullscreenToggleClassList();
-
             Screen.fullScreen = _fullscreen.value;
 
             GameSettings.Instance.Fullscreen = _fullscreen.value;
@@ -114,19 +112,6 @@ namespace UI.Menus.Settings
         private void UpdateFullscreenToggle()
         {
             _fullscreen.value = GameSettings.Instance.Fullscreen;
-            UpdateFullscreenToggleClassList();
-        }
-
-        private void UpdateFullscreenToggleClassList()
-        {
-            if (_fullscreen.value)
-            {
-                _fullscreen.AddToClassList("selected");
-            }
-            else
-            {
-                _fullscreen.RemoveFromClassList("selected");
-            }
         }
 
         private void FillResolutions()

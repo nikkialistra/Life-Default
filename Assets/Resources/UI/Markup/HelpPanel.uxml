@@ -3,11 +3,12 @@
          noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/Resources/UI/Styles/HelpPanel.uss?fileID=7433441132597879392&amp;guid=c6a3a32a3561484cb049eeb6c3d99bfb&amp;type=3#HelpPanel"/>
     <Style src="project://database/Assets/Resources/UI/Styles/Text.uss?fileID=7433441132597879392&amp;guid=158167a2c7cf4f5292d78d1ed2683cfc&amp;type=3#Text"/>
+    <Style src="project://database/Assets/Resources/UI/Styles/Menus.uss?fileID=7433441132597879392&amp;guid=fc94daea752d98c4199c7a1217d26b0d&amp;type=3#Menus"/>
     <ui:VisualElement name="centering" class="centering">
         <ui:VisualElement name="help-panel" class="help-panel">
             <ui:VisualElement name="header">
-                <ui:Label text="Управление" display-tooltip-when-elided="true" name="title" class="h1"/>
-                <ui:Label text="Скрыть - [F1]" display-tooltip-when-elided="true" name="hide-text" class="p hide-text"/>
+                <ui:Label text="Управление (F1)" display-tooltip-when-elided="true" name="title" class="h1"/>
+                <ui:Button text="X" display-tooltip-when-elided="true" name="hide" class="right-angle hide-button"/>
             </ui:VisualElement>
             <ui:VisualElement name="body">
                 <ui:VisualElement name="camera-controls">
@@ -73,6 +74,9 @@
                     <ui:Label text="Переключить отображение поля зрения ресурсов - Alt + H"
                               display-tooltip-when-elided="true" name="misc-toggle-resource-fov" class="p"/>
                 </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="footer" style="align-items: center;">
+                <ui:Toggle label="Don&apos;t show at start" name="dont-show-at-start" class="element"/>
             </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>

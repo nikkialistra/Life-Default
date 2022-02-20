@@ -1,0 +1,11 @@
+﻿.info-panel {
+    width: 440px;
+    height: 180px;
+    background-image: resource('UI/Sprites/Panels/InfoPanel');
+    flex-direction: row;
+    padding: 5px;
+}
+
+.not-displayed {
+    display: none;
+}

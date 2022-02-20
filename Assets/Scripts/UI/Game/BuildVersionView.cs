@@ -5,20 +5,20 @@ namespace UI.Game
 {
     public class BuildVersionView : MonoBehaviour
     {
-        private VisualElement _root;
-
-        private Label _buildVersion;
+        private Label _label;
 
         private void Awake()
         {
-            _root = GetComponent<UIDocument>().rootVisualElement;
+            Tree = Resources.Load<VisualTreeAsset>("UI/Markup/GameLook/Components/BuildVersion").CloneTree();
 
-            _buildVersion = _root.Q<Label>("build-version");
+            _label = Tree.Q<Label>("label");
         }
+
+        public VisualElement Tree { get; private set; }
 
         private void Start()
         {
-            _buildVersion.text = $"[Build: {Application.version}]";
+            _label.text = $"[Build: {Application.version}]";
         }
     }
 }

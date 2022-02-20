@@ -1,0 +1,6 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements"
+         xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements"
+         noNamespaceSchemaLocation="../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Resources/UI/Styles/GameLook/Components/InfoPanel.uss?fileID=7433441132597879392&amp;guid=2dd66992b3fa42d8b520b5b60e195239&amp;type=3#InfoPanel"/>
+    <ui:VisualElement name="info-panel" class="info-panel"/>
+</ui:UXML>

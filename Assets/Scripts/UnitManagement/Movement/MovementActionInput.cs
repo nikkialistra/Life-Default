@@ -98,7 +98,7 @@ namespace UnitManagement.Movement
 
         private void SelectAttack(InputAction.CallbackContext context)
         {
-            if (IfNoUnitsSelected())
+            if (IfNoUnitsSelected() || Keyboard.current.altKey.isPressed)
             {
                 return;
             }

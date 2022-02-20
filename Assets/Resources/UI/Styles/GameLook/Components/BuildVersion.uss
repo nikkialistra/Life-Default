@@ -1,0 +1,10 @@
+﻿.build-version {
+    -unity-font: resource('Fonts/Ubuntu/Ubuntu-Bold');
+    font-size: 20px;
+    -unity-font-definition: none;
+    height: 50px;
+    -unity-text-align: upper-center;
+    color: rgb(255, 255, 255);
+    padding: 0;
+    margin: 0;
+}

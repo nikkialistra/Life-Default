@@ -5,13 +5,10 @@ using UnityEngine.UIElements;
 
 namespace UI.Game
 {
-    [RequireComponent(typeof(UIDocument))]
     [RequireComponent(typeof(UnitInfoView))]
     [RequireComponent(typeof(UnitsInfoView))]
     public class InfoPanelView : MonoBehaviour
     {
-        private VisualElement _tree;
-
         private UnitInfoView _unitInfoView;
         private UnitsInfoView _unitsInfoView;
 
@@ -20,11 +17,12 @@ namespace UI.Game
             _unitInfoView = GetComponent<UnitInfoView>();
             _unitsInfoView = GetComponent<UnitsInfoView>();
 
-            _tree = GetComponent<UIDocument>().rootVisualElement;
+            Tree = Resources.Load<VisualTreeAsset>("UI/Markup/GameLook/Components/InfoPanel").CloneTree();
 
-            InfoPanel = _tree.Q<VisualElement>("info-panel");
+            InfoPanel = Tree.Q<VisualElement>("info-panel");
         }
 
+        public VisualElement Tree { get; private set; }
         public VisualElement InfoPanel { get; private set; }
 
         private void Start()
@@ -34,17 +32,17 @@ namespace UI.Game
 
         public void SetUnits(List<UnitFacade> units)
         {
-            if (units.Count == 0)
+            switch (units.Count)
             {
-                HideSelf();
-            }
-            else if (units.Count == 1)
-            {
-                SetUnit(units[0]);
-            }
-            else
-            {
-                SetMultipleUnits(units);
+                case 0:
+                    HideSelf();
+                    break;
+                case 1:
+                    SetUnit(units[0]);
+                    break;
+                default:
+                    SetMultipleUnits(units);
+                    break;
             }
         }
 

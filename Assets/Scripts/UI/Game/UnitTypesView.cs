@@ -6,11 +6,8 @@ using UnityEngine.UIElements;
 
 namespace UI.Game
 {
-    [RequireComponent(typeof(UIDocument))]
     public class UnitTypesView : MonoBehaviour
     {
-        private VisualElement _tree;
-
         private readonly Dictionary<UnitType, Label> _unitTypeLabels = new();
 
         private VisualElement _scoutType;
@@ -19,15 +16,9 @@ namespace UI.Game
         private VisualElement _meleeType;
         private VisualElement _archerType;
 
-        private struct EventArgs
-        {
-            public VisualElement Sender;
-            public UnitType UnitType;
-        }
-
         private void Awake()
         {
-            _tree = GetComponent<UIDocument>().rootVisualElement;
+            Tree = Resources.Load<VisualTreeAsset>("UI/Markup/GameLook/Components/UnitTypes").CloneTree();
 
             FillInTypes();
             FillInLabels();
@@ -36,27 +27,24 @@ namespace UI.Game
         public event Action<UnitType> LeftClick;
         public event Action<UnitType> RightClick;
 
+        public VisualElement Tree { get; private set; }
+
         private void OnEnable()
         {
-            _scoutType.RegisterCallback<MouseDownEvent, EventArgs>(TypeOnMouseDownEvent,
-                new EventArgs { Sender = _scoutType, UnitType = UnitType.Scout });
-            _lumberjackType.RegisterCallback<MouseDownEvent, EventArgs>(TypeOnMouseDownEvent,
-                new EventArgs { Sender = _lumberjackType, UnitType = UnitType.Lumberjack });
-            _masonType.RegisterCallback<MouseDownEvent, EventArgs>(TypeOnMouseDownEvent,
-                new EventArgs { Sender = _masonType, UnitType = UnitType.Mason });
-            _meleeType.RegisterCallback<MouseDownEvent, EventArgs>(TypeOnMouseDownEvent,
-                new EventArgs { Sender = _meleeType, UnitType = UnitType.Melee });
-            _archerType.RegisterCallback<MouseDownEvent, EventArgs>(TypeOnMouseDownEvent,
-                new EventArgs { Sender = _archerType, UnitType = UnitType.Archer });
+            _scoutType.RegisterCallback<MouseDownEvent, UnitType>(TypeOnMouseDownEvent, UnitType.Scout);
+            _lumberjackType.RegisterCallback<MouseDownEvent, UnitType>(TypeOnMouseDownEvent, UnitType.Lumberjack);
+            _masonType.RegisterCallback<MouseDownEvent, UnitType>(TypeOnMouseDownEvent, UnitType.Mason);
+            _meleeType.RegisterCallback<MouseDownEvent, UnitType>(TypeOnMouseDownEvent, UnitType.Melee);
+            _archerType.RegisterCallback<MouseDownEvent, UnitType>(TypeOnMouseDownEvent, UnitType.Archer);
         }
 
         private void OnDisable()
         {
-            _scoutType.UnregisterCallback<MouseDownEvent, EventArgs>(TypeOnMouseDownEvent);
-            _lumberjackType.UnregisterCallback<MouseDownEvent, EventArgs>(TypeOnMouseDownEvent);
-            _masonType.UnregisterCallback<MouseDownEvent, EventArgs>(TypeOnMouseDownEvent);
-            _meleeType.UnregisterCallback<MouseDownEvent, EventArgs>(TypeOnMouseDownEvent);
-            _archerType.UnregisterCallback<MouseDownEvent, EventArgs>(TypeOnMouseDownEvent);
+            _scoutType.UnregisterCallback<MouseDownEvent, UnitType>(TypeOnMouseDownEvent);
+            _lumberjackType.UnregisterCallback<MouseDownEvent, UnitType>(TypeOnMouseDownEvent);
+            _masonType.UnregisterCallback<MouseDownEvent, UnitType>(TypeOnMouseDownEvent);
+            _meleeType.UnregisterCallback<MouseDownEvent, UnitType>(TypeOnMouseDownEvent);
+            _archerType.UnregisterCallback<MouseDownEvent, UnitType>(TypeOnMouseDownEvent);
         }
 
         public void UpdateUnitTypeCount(UnitType unitType, int value)
@@ -89,35 +77,35 @@ namespace UI.Game
             }
         }
 
-        private void TypeOnMouseDownEvent(MouseDownEvent mouseDownEvent, EventArgs eventArgs)
+        private void TypeOnMouseDownEvent(MouseDownEvent mouseDownEvent, UnitType unitType)
         {
-            if (mouseDownEvent.button == 0)
+            switch (mouseDownEvent.button)
             {
-                LeftClick?.Invoke(eventArgs.UnitType);
-            }
-
-            if (mouseDownEvent.button == 1)
-            {
-                RightClick?.Invoke(eventArgs.UnitType);
+                case 0:
+                    LeftClick?.Invoke(unitType);
+                    break;
+                case 1:
+                    RightClick?.Invoke(unitType);
+                    break;
             }
         }
 
         private void FillInTypes()
         {
-            _scoutType = _tree.Q<VisualElement>("scout-type");
-            _lumberjackType = _tree.Q<VisualElement>("lumberjack-type");
-            _masonType = _tree.Q<VisualElement>("mason-type");
-            _meleeType = _tree.Q<VisualElement>("melee-type");
-            _archerType = _tree.Q<VisualElement>("archer-type");
+            _scoutType = Tree.Q<VisualElement>("scout-type");
+            _lumberjackType = Tree.Q<VisualElement>("lumberjack-type");
+            _masonType = Tree.Q<VisualElement>("mason-type");
+            _meleeType = Tree.Q<VisualElement>("melee-type");
+            _archerType = Tree.Q<VisualElement>("archer-type");
         }
 
         private void FillInLabels()
         {
-            _unitTypeLabels.Add(UnitType.Scout, _tree.Q<Label>("scout-type__count"));
-            _unitTypeLabels.Add(UnitType.Lumberjack, _tree.Q<Label>("lumberjack-type__count"));
-            _unitTypeLabels.Add(UnitType.Mason, _tree.Q<Label>("mason-type__count"));
-            _unitTypeLabels.Add(UnitType.Melee, _tree.Q<Label>("melee-type__count"));
-            _unitTypeLabels.Add(UnitType.Archer, _tree.Q<Label>("archer-type__count"));
+            _unitTypeLabels.Add(UnitType.Scout, Tree.Q<Label>("scout-type__count"));
+            _unitTypeLabels.Add(UnitType.Lumberjack, Tree.Q<Label>("lumberjack-type__count"));
+            _unitTypeLabels.Add(UnitType.Mason, Tree.Q<Label>("mason-type__count"));
+            _unitTypeLabels.Add(UnitType.Melee, Tree.Q<Label>("melee-type__count"));
+            _unitTypeLabels.Add(UnitType.Archer, Tree.Q<Label>("archer-type__count"));
         }
     }
 }

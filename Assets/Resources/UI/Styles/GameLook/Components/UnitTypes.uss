@@ -1,0 +1,93 @@
+﻿.unit-types {
+    width: 310px;
+    height: 80px;
+    background-color: rgba(255, 255, 255, 0);
+    flex-direction: row;
+    align-items: center;
+    background-image: resource('UI/Sprites/Panels/UnitsPanel');
+    justify-content: center;
+}
+
+.unit-type {
+    width: 60px;
+    height: 60px;
+    justify-content: flex-end;
+    align-items: flex-end;
+}
+
+.unit-type__count {
+    background-color: rgb(0, 0, 0);
+    width: 15px;
+    height: 15px;
+    border-radius: 16px;
+    color: rgb(255, 255, 255);
+    font-size: 12px;
+    -unity-font: resource('Fonts/Exo 2/Exo2-Regular');
+    -unity-font-definition: none;
+    margin-right: 8px;
+    -unity-text-align: middle-center;
+}
+
+.missing {
+    opacity: 0.5;
+}
+
+.scout {
+    background-image: resource('UI/Sprites/UnitTypes/Scout');
+}
+
+.scout:hover {
+    background-image: resource('UI/Sprites/UnitTypes/ScoutHover');
+}
+
+.scout.missing:hover {
+    background-image: resource('UI/Sprites/UnitTypes/Scout');
+}
+
+.lumberjack {
+    background-image: resource('UI/Sprites/UnitTypes/Lumberjack');
+}
+
+.lumberjack:hover {
+    background-image: resource('UI/Sprites/UnitTypes/LumberjackHover');
+}
+
+.lumberjack.missing:hover {
+    background-image: resource('UI/Sprites/UnitTypes/Lumberjack');
+}
+
+.mason {
+    background-image: resource('UI/Sprites/UnitTypes/Mason');
+}
+
+.mason:hover {
+    background-image: resource('UI/Sprites/UnitTypes/MasonHover');
+}
+
+.mason.missing:hover {
+    background-image: resource('UI/Sprites/UnitTypes/Mason');
+}
+
+.melee {
+    background-image: resource('UI/Sprites/UnitTypes/Melee');
+}
+
+.melee:hover {
+    background-image: resource('UI/Sprites/UnitTypes/MeleeHover');
+}
+
+.melee.missing:hover {
+    background-image: resource('UI/Sprites/UnitTypes/Melee');
+}
+
+.archer {
+    background-image: resource('UI/Sprites/UnitTypes/Archer');
+}
+
+.archer:hover {
+    background-image: resource('UI/Sprites/UnitTypes/ArcherHover');
+}
+
+.archer.missing:hover {
+    background-image: resource('UI/Sprites/UnitTypes/Archer');
+}

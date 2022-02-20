@@ -1,5 +1,6 @@
-﻿using System.IO;
-using NPBehave;
+﻿using System;
+using System.IO;
+using UniRx;
 using UnityEngine;
 
 namespace Saving
@@ -15,15 +16,8 @@ namespace Saving
                 Save();
             }
         }
-        public string Resolution
-        {
-            get => _gameSettingsData.Resolution;
-            set
-            {
-                _gameSettingsData.Resolution = value;
-                Save();
-            }
-        }
+
+        public ReactiveProperty<string> Resolution { get; } = new();
 
         public int UiScale
         {
@@ -45,26 +39,8 @@ namespace Saving
             }
         }
 
-        public float CameraSensitivity
-        {
-            get => _gameSettingsData.CameraSensitivity;
-            set
-            {
-                _gameSettingsData.CameraSensitivity = value;
-                Save();
-            }
-        }
-
-
-        public bool ScreenEdgeMouseScroll
-        {
-            get => _gameSettingsData.ScreenEdgeMouseScroll;
-            set
-            {
-                _gameSettingsData.ScreenEdgeMouseScroll = value;
-                Save();
-            }
-        }
+        public ReactiveProperty<float> CameraSensitivity { get; } = new();
+        public ReactiveProperty<bool> ScreenEdgeMouseScroll { get; } = new();
 
         private bool _loaded;
 
@@ -94,6 +70,33 @@ namespace Saving
             }
 
             Apply();
+
+            SubscribeToChanges();
+        }
+
+        private void SubscribeToChanges()
+        {
+            Resolution.Subscribe(OnResolutionChange);
+            CameraSensitivity.Subscribe(OnCameraSensitivityChange);
+            ScreenEdgeMouseScroll.Subscribe(OnScreenEdgeMouseScrollChange);
+        }
+
+        private void OnResolutionChange(string value)
+        {
+            _gameSettingsData.Resolution = value;
+            Save();
+        }
+
+        private void OnCameraSensitivityChange(float value)
+        {
+            _gameSettingsData.CameraSensitivity = value;
+            Save();
+        }
+
+        private void OnScreenEdgeMouseScrollChange(bool value)
+        {
+            _gameSettingsData.ScreenEdgeMouseScroll = value;
+            Save();
         }
 
         private void Save()
@@ -119,7 +122,7 @@ namespace Saving
 
             foreach (var resolution in Screen.resolutions)
             {
-                if (resolution.ToString() == Resolution)
+                if (resolution.ToString() == Resolution.Value)
                 {
                     Screen.SetResolution(resolution.width, resolution.height, Fullscreen);
                 }

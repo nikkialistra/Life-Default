@@ -85,7 +85,7 @@ namespace UI.Menus.Settings
             var index = _resolution.index;
             Screen.SetResolution(_resolutions[index].width, _resolutions[index].height, _fullscreen.value);
 
-            GameSettings.Instance.Resolution = _resolutions[index].ToString();
+            GameSettings.Instance.Resolution.Value = _resolutions[index].ToString();
         }
 
         private void OnUiScaleChange(ChangeEvent<int> _)
@@ -124,7 +124,7 @@ namespace UI.Menus.Settings
                 var resolutionText = resolution.ToString();
                 _resolution.choices.Add(resolutionText);
 
-                if (resolutionText == GameSettings.Instance.Resolution)
+                if (resolutionText == GameSettings.Instance.Resolution.Value)
                 {
                     currentIndex = i;
                 }

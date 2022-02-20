@@ -72,19 +72,19 @@ namespace UI.Menus.Settings
 
         private void OnCameraSensitivityChanged(ChangeEvent<float> _)
         {
-            GameSettings.Instance.CameraSensitivity = _cameraSensitivity.value;
+            GameSettings.Instance.CameraSensitivity.Value = _cameraSensitivity.value;
         }
 
         private void OnScreenEdgeToggle(ChangeEvent<bool> _)
         {
-            GameSettings.Instance.ScreenEdgeMouseScroll = _screenEdgeMouseScroll.value;
+            GameSettings.Instance.ScreenEdgeMouseScroll.Value = _screenEdgeMouseScroll.value;
         }
 
         private void UpdateParameters()
         {
             _showHelpPanelAtStart.value = !GameSettings.Instance.ShowHelpPanelAtStart;
-            _cameraSensitivity.value = GameSettings.Instance.CameraSensitivity;
-            _screenEdgeMouseScroll.value = GameSettings.Instance.ScreenEdgeMouseScroll;
+            _cameraSensitivity.value = GameSettings.Instance.CameraSensitivity.Value;
+            _screenEdgeMouseScroll.value = GameSettings.Instance.ScreenEdgeMouseScroll.Value;
         }
 
         private void Back()

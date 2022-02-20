@@ -1,6 +1,7 @@
 ﻿using MapGeneration.Map;
 using Saving;
 using Sirenix.OdinInspector;
+using UniRx;
 using Units.Services.Selecting;
 using Units.Unit;
 using UnityEngine;
@@ -160,7 +161,6 @@ namespace Cameras
                 return;
             }
 
-            LoadSettings();
             CalculateDeltas();
 
             UpdateFollowing();
@@ -204,8 +204,11 @@ namespace Cameras
 
         private void LoadSettings()
         {
-            _cameraSensitivity = GameSettings.Instance.CameraSensitivity;
-            _screenEdgeMouseScroll = GameSettings.Instance.ScreenEdgeMouseScroll;
+            _cameraSensitivity = GameSettings.Instance.CameraSensitivity.Value;
+            _screenEdgeMouseScroll = GameSettings.Instance.ScreenEdgeMouseScroll.Value;
+
+            GameSettings.Instance.CameraSensitivity.Subscribe(value => _cameraSensitivity = value);
+            GameSettings.Instance.ScreenEdgeMouseScroll.Subscribe(value => _screenEdgeMouseScroll = value);
         }
 
         private void Deactivate()

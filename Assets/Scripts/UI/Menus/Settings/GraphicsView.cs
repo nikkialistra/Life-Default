@@ -22,14 +22,18 @@ namespace UI.Menus.Settings
         private readonly Label _uiScaleLabel;
         private readonly Button _back;
 
-        private PlayerInput _playerInput;
         private readonly IHideNotify _hideNotify;
 
-        public GraphicsView(VisualElement root, SettingsView parent, IHideNotify hideNotify)
+        private GameSettings _gameSettings;
+
+        private PlayerInput _playerInput;
+
+        public GraphicsView(VisualElement root, SettingsView parent, IHideNotify hideNotify, GameSettings gameSettings)
         {
             _root = root;
             _parent = parent;
             _hideNotify = hideNotify;
+            _gameSettings = gameSettings;
 
             var template = Resources.Load<VisualTreeAsset>("UI/Markup/Menus/Settings/Graphics");
             _tree = template.CloneTree();
@@ -78,7 +82,7 @@ namespace UI.Menus.Settings
         {
             Screen.fullScreen = _fullscreen.value;
 
-            GameSettings.Instance.Fullscreen = _fullscreen.value;
+            _gameSettings.Fullscreen = _fullscreen.value;
         }
 
         private void OnResolutionChange(ChangeEvent<string> _)
@@ -86,7 +90,7 @@ namespace UI.Menus.Settings
             var index = _resolution.index;
             Screen.SetResolution(_resolutions[index].width, _resolutions[index].height, _fullscreen.value);
 
-            GameSettings.Instance.Resolution.Value = _resolutions[index].ToString();
+            _gameSettings.Resolution.Value = _resolutions[index].ToString();
         }
 
         private void OnUiScaleChange(ChangeEvent<int> _)
@@ -94,7 +98,7 @@ namespace UI.Menus.Settings
             SetUiScaleLabelText();
 
             var value = RoundScale(_uiScale.value);
-            GameSettings.Instance.UiScale = value;
+            _gameSettings.UiScale = value;
         }
 
         private void SetUiScaleLabelText()
@@ -112,7 +116,7 @@ namespace UI.Menus.Settings
 
         private void UpdateFullscreenToggle()
         {
-            _fullscreen.value = GameSettings.Instance.Fullscreen;
+            _fullscreen.value = _gameSettings.Fullscreen;
         }
 
         private void UpdateResolution()
@@ -125,7 +129,7 @@ namespace UI.Menus.Settings
                 var resolutionText = resolution.ToString();
                 _resolution.choices.Add(resolutionText);
 
-                if (resolutionText == GameSettings.Instance.Resolution.Value)
+                if (resolutionText == _gameSettings.Resolution.Value)
                 {
                     currentIndex = i;
                 }
@@ -136,7 +140,7 @@ namespace UI.Menus.Settings
 
         private void UpdateUiScale()
         {
-            _uiScale.value = GameSettings.Instance.UiScale;
+            _uiScale.value = _gameSettings.UiScale;
             SetUiScaleLabelText();
         }
 

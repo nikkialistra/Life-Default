@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Saving;
+using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace UI.Menus.Settings
@@ -24,11 +25,14 @@ namespace UI.Menus.Settings
         private LanguageView _languageView;
         private readonly IHideNotify _hideNotify;
 
-        public SettingsView(VisualElement root, IMenuView parent, IHideNotify hideNotify)
+        private readonly GameSettings _gameSettings;
+
+        public SettingsView(VisualElement root, IMenuView parent, IHideNotify hideNotify, GameSettings gameSettings)
         {
             _root = root;
             _parent = parent;
             _hideNotify = hideNotify;
+            _gameSettings = gameSettings;
 
             var template = Resources.Load<VisualTreeAsset>("UI/Markup/Menus/Settings/Settings");
             _tree = template.CloneTree();
@@ -75,7 +79,7 @@ namespace UI.Menus.Settings
         {
             HideSelf();
 
-            _graphicsView ??= new GraphicsView(_root, this, _hideNotify);
+            _graphicsView ??= new GraphicsView(_root, this, _hideNotify, _gameSettings);
             _graphicsView.ShowSelf();
         }
 
@@ -83,7 +87,7 @@ namespace UI.Menus.Settings
         {
             HideSelf();
 
-            _audioView ??= new AudioView(_root, this, _hideNotify);
+            _audioView ??= new AudioView(_root, this, _hideNotify, _gameSettings);
             _audioView.ShowSelf();
         }
 
@@ -91,7 +95,7 @@ namespace UI.Menus.Settings
         {
             HideSelf();
 
-            _gameView ??= new GameView(_root, this, _hideNotify);
+            _gameView ??= new GameView(_root, this, _hideNotify, _gameSettings);
             _gameView.ShowSelf();
         }
 
@@ -99,7 +103,7 @@ namespace UI.Menus.Settings
         {
             HideSelf();
 
-            _controlsView ??= new ControlsView(_root, this, _hideNotify);
+            _controlsView ??= new ControlsView(_root, this, _hideNotify, _gameSettings);
             _controlsView.ShowSelf();
         }
 
@@ -107,7 +111,7 @@ namespace UI.Menus.Settings
         {
             HideSelf();
 
-            _languageView ??= new LanguageView(_root, this, _hideNotify);
+            _languageView ??= new LanguageView(_root, this, _hideNotify, _gameSettings);
             _languageView.ShowSelf();
         }
 

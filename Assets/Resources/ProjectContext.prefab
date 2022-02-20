@@ -283,4 +283,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89dc905aa70742f39ad0969b456dde99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _gameSettings: {fileID: 2381773935140573168}
   _playerInput: {fileID: 4904522500388973027}

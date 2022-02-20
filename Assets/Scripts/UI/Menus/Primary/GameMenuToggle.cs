@@ -1,4 +1,5 @@
 ﻿using System;
+using Saving;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
@@ -18,9 +19,12 @@ namespace UI.Menus.Primary
         private InputAction _showMenuAction;
         private InputAction _hideMenuAction;
 
+        private GameSettings _gameSettings;
+
         [Inject]
-        public void Construct(PlayerInput playerInput)
+        public void Construct(PlayerInput playerInput, GameSettings gameSettings)
         {
+            _gameSettings = gameSettings;
             _playerInput = playerInput;
         }
 
@@ -28,7 +32,7 @@ namespace UI.Menus.Primary
         {
             _root = GetComponent<UIDocument>().rootVisualElement;
 
-            _gameMenuView = new GameMenuView(_root, this);
+            _gameMenuView = new GameMenuView(_root, this, _gameSettings);
 
             _showMenuAction = _playerInput.actions.FindAction("Show Menu");
             _hideMenuAction = _playerInput.actions.FindAction("Hide Menu");

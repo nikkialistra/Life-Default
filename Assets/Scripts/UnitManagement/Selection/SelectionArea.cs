@@ -2,6 +2,7 @@ using Saving;
 using UniRx;
 using UnityEngine;
 using UnityEngine.UIElements;
+using Zenject;
 
 namespace UnitManagement.Selection
 {
@@ -14,6 +15,14 @@ namespace UnitManagement.Selection
         private VisualElement _selection;
         private float _scale;
 
+        private GameSettings _gameSettings;
+
+        [Inject]
+        public void Construct(GameSettings gameSettings)
+        {
+            _gameSettings = gameSettings;
+        }
+
         private void Awake()
         {
             _uiDocument = GetComponent<UIDocument>();
@@ -25,7 +34,7 @@ namespace UnitManagement.Selection
 
         private void Start()
         {
-            GameSettings.Instance.Resolution.Subscribe(_ => CalculateScale());
+            _gameSettings.Resolution.Subscribe(_ => CalculateScale());
         }
 
 #if UNITY_EDITOR

@@ -1,4 +1,5 @@
 ﻿using System;
+using Saving;
 using UI.Menus.Settings;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -23,13 +24,16 @@ namespace UI.Menus.Primary
 
         private SettingsView _settingsView;
 
+        private GameSettings _gameSettings;
+
         public bool Shown { get; private set; }
         public bool ShownSubView { get; private set; }
 
-        public GameMenuView(VisualElement root, IHideNotify hideNotify)
+        public GameMenuView(VisualElement root, IHideNotify hideNotify, GameSettings gameSettings)
         {
             _root = root;
             _hideNotify = hideNotify;
+            _gameSettings = gameSettings;
 
             var template = Resources.Load<VisualTreeAsset>("UI/Markup/Menus/GameMenu");
             _tree = template.CloneTree();
@@ -71,7 +75,7 @@ namespace UI.Menus.Primary
             Shown = false;
             _root.Remove(_tree);
 
-            _resume.clicked -= HideSelf;
+            _resume.clicked -= Resume;
             _settings.clicked -= Settings;
             _mainMenu.clicked -= MainMenu;
             _exitGame.clicked -= ExitGame;
@@ -89,7 +93,7 @@ namespace UI.Menus.Primary
             ShownSubView = true;
             HideSelf();
 
-            _settingsView ??= new SettingsView(_root, this, _hideNotify);
+            _settingsView ??= new SettingsView(_root, this, _hideNotify, _gameSettings);
             _settingsView.ShowSelf();
         }
 

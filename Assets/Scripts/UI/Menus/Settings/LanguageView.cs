@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Saving;
+using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace UI.Menus.Settings
@@ -13,11 +14,14 @@ namespace UI.Menus.Settings
         private readonly Button _back;
         private readonly IHideNotify _hideNotify;
 
-        public LanguageView(VisualElement root, SettingsView parent, IHideNotify hideNotify)
+        private GameSettings _gameSettings;
+
+        public LanguageView(VisualElement root, SettingsView parent, IHideNotify hideNotify, GameSettings gameSettings)
         {
             _root = root;
             _parent = parent;
             _hideNotify = hideNotify;
+            _gameSettings = gameSettings;
 
             var template = Resources.Load<VisualTreeAsset>("UI/Markup/Menus/Settings/Language");
             _tree = template.CloneTree();

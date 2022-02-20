@@ -87,6 +87,8 @@ namespace Cameras
         private float _cameraSensitivity;
         private bool _screenEdgeMouseScroll;
 
+        private GameSettings _gameSettings;
+
         private PlayerInput _playerInput;
 
         private InputAction _movementAction;
@@ -99,9 +101,9 @@ namespace Cameras
 
         private InputAction _toggleCameraMovementAction;
 
-
         [Inject]
-        public void Construct(bool isSetUpSession, Map map, UnitChoosing unitChoosing, PlayerInput playerInput)
+        public void Construct(bool isSetUpSession, Map map, UnitChoosing unitChoosing, GameSettings gameSettings,
+            PlayerInput playerInput)
         {
             if (isSetUpSession)
             {
@@ -112,6 +114,7 @@ namespace Cameras
 
             _map = map;
 
+            _gameSettings = gameSettings;
             _playerInput = playerInput;
         }
 
@@ -204,11 +207,11 @@ namespace Cameras
 
         private void LoadSettings()
         {
-            _cameraSensitivity = GameSettings.Instance.CameraSensitivity.Value;
-            _screenEdgeMouseScroll = GameSettings.Instance.ScreenEdgeMouseScroll.Value;
+            _cameraSensitivity = _gameSettings.CameraSensitivity.Value;
+            _screenEdgeMouseScroll = _gameSettings.ScreenEdgeMouseScroll.Value;
 
-            GameSettings.Instance.CameraSensitivity.Subscribe(value => _cameraSensitivity = value);
-            GameSettings.Instance.ScreenEdgeMouseScroll.Subscribe(value => _screenEdgeMouseScroll = value);
+            _gameSettings.CameraSensitivity.Subscribe(value => _cameraSensitivity = value);
+            _gameSettings.ScreenEdgeMouseScroll.Subscribe(value => _screenEdgeMouseScroll = value);
         }
 
         private void Deactivate()

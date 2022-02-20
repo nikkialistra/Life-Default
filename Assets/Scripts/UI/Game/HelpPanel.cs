@@ -15,13 +15,16 @@ namespace UI.Game
         private Button _hide;
         private Toggle _dontShowAtStart;
 
+        private GameSettings _gameSettings;
+
         private PlayerInput _playerInput;
 
         private InputAction _toggleHelpPage;
 
         [Inject]
-        public void Construct(PlayerInput playerInput)
+        public void Construct(GameSettings gameSettings, PlayerInput playerInput)
         {
+            _gameSettings = gameSettings;
             _playerInput = playerInput;
         }
 
@@ -38,7 +41,7 @@ namespace UI.Game
 
         private void Start()
         {
-            if (GameSettings.Instance.ShowHelpPanelAtStart)
+            if (_gameSettings.ShowHelpPanelAtStart)
             {
                 _dontShowAtStart.value = false;
             }
@@ -65,7 +68,7 @@ namespace UI.Game
 
         private void OnShowToggle(ChangeEvent<bool> _)
         {
-            GameSettings.Instance.ShowHelpPanelAtStart = !_dontShowAtStart.value;
+            _gameSettings.ShowHelpPanelAtStart = !_dontShowAtStart.value;
         }
 
         private void Hide()

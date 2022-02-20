@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using Sirenix.OdinInspector;
 using UniRx;
 using UnityEngine;
 
@@ -50,28 +51,22 @@ namespace Saving
 
         private void Awake()
         {
-            _savePath = Path.Combine(Application.persistentDataPath, "settings.json");
+            GenerateSavePath();
         }
-
-        public static GameSettings Instance { get; private set; }
 
         private void Start()
         {
             _gameSettingsData = new GameSettingsData();
             Load();
 
-            if (Instance == null)
-            {
-                Instance = this;
-            }
-            else if (Instance == this)
-            {
-                Destroy(gameObject);
-            }
-
             Apply();
 
             SubscribeToChanges();
+        }
+
+        private void GenerateSavePath()
+        {
+            _savePath = Path.Combine(Application.persistentDataPath, "settings.json");
         }
 
         private void SubscribeToChanges()
@@ -113,12 +108,33 @@ namespace Saving
             }
         }
 
+        [Button(ButtonSizes.Medium)]
+        private void DeleteSave()
+        {
+            GenerateSavePath();
+
+            try
+            {
+                if (File.Exists(_savePath))
+                {
+                    File.Delete(_savePath);
+                    Debug.Log("File deleted");
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.LogError($"Failed to delete file at {_savePath} with exception {e}");
+            }
+        }
+
         private void Apply()
         {
             if (!_loaded)
             {
                 Load();
             }
+
+            SetUpParameters();
 
             foreach (var resolution in Screen.resolutions)
             {
@@ -150,6 +166,17 @@ namespace Saving
             {
                 Debug.LogError($"Failed to read from {_savePath} with exception {e}");
             }
+        }
+
+        private void SetUpParameters()
+        {
+            Fullscreen = _gameSettingsData.Fullscreen;
+            Resolution.Value = _gameSettingsData.Resolution;
+            UiScale = _gameSettingsData.UiScale;
+
+            ShowHelpPanelAtStart = _gameSettingsData.ShowHelpPanelAtStart;
+            CameraSensitivity.Value = _gameSettingsData.CameraSensitivity;
+            ScreenEdgeMouseScroll.Value = _gameSettingsData.ScreenEdgeMouseScroll;
         }
 
         private void CreateDefaultSettings()

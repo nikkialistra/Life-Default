@@ -19,11 +19,14 @@ namespace UI.Menus.Settings
 
         private readonly IHideNotify _hideNotify;
 
-        public GameView(VisualElement root, SettingsView parent, IHideNotify hideNotify)
+        private readonly GameSettings _gameSettings;
+
+        public GameView(VisualElement root, SettingsView parent, IHideNotify hideNotify, GameSettings gameSettings)
         {
             _root = root;
             _parent = parent;
             _hideNotify = hideNotify;
+            _gameSettings = gameSettings;
 
             var template = Resources.Load<VisualTreeAsset>("UI/Markup/Menus/Settings/Game");
             _tree = template.CloneTree();
@@ -67,24 +70,24 @@ namespace UI.Menus.Settings
 
         private void OnShowHelpToggle(ChangeEvent<bool> _)
         {
-            GameSettings.Instance.ShowHelpPanelAtStart = !_showHelpPanelAtStart.value;
+            _gameSettings.ShowHelpPanelAtStart = !_showHelpPanelAtStart.value;
         }
 
         private void OnCameraSensitivityChanged(ChangeEvent<float> _)
         {
-            GameSettings.Instance.CameraSensitivity.Value = _cameraSensitivity.value;
+            _gameSettings.CameraSensitivity.Value = _cameraSensitivity.value;
         }
 
         private void OnScreenEdgeToggle(ChangeEvent<bool> _)
         {
-            GameSettings.Instance.ScreenEdgeMouseScroll.Value = _screenEdgeMouseScroll.value;
+            _gameSettings.ScreenEdgeMouseScroll.Value = _screenEdgeMouseScroll.value;
         }
 
         private void UpdateParameters()
         {
-            _showHelpPanelAtStart.value = !GameSettings.Instance.ShowHelpPanelAtStart;
-            _cameraSensitivity.value = GameSettings.Instance.CameraSensitivity.Value;
-            _screenEdgeMouseScroll.value = GameSettings.Instance.ScreenEdgeMouseScroll.Value;
+            _showHelpPanelAtStart.value = !_gameSettings.ShowHelpPanelAtStart;
+            _cameraSensitivity.value = _gameSettings.CameraSensitivity.Value;
+            _screenEdgeMouseScroll.value = _gameSettings.ScreenEdgeMouseScroll.Value;
         }
 
         private void Back()

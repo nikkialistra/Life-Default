@@ -1,4 +1,5 @@
 ﻿using System;
+using Saving;
 using UI.Menus.Settings;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -27,9 +28,12 @@ namespace UI.Menus.Primary
 
         private InputAction _hideMenuAction;
 
+        private GameSettings _gameSettings;
+
         [Inject]
-        public void Construct(PlayerInput playerInput)
+        public void Construct(GameSettings gameSettings, PlayerInput playerInput)
         {
+            _gameSettings = gameSettings;
             _playerInput = playerInput;
         }
 
@@ -100,7 +104,7 @@ namespace UI.Menus.Primary
         {
             HideSelf();
 
-            _settingsView ??= new SettingsView(_background, this, this);
+            _settingsView ??= new SettingsView(_background, this, this, _gameSettings);
             _settingsView.ShowSelf();
         }
 

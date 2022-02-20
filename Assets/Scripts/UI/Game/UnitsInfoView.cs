@@ -41,11 +41,11 @@ namespace UI.Game
             _parent = GetComponent<InfoPanelView>();
             _changeColorFractions = GetComponent<ChangeColorFractions>();
 
-            _tree = Resources.Load<VisualTreeAsset>("UI/Markup/Components/UnitsInfo").CloneTree();
+            _tree = Resources.Load<VisualTreeAsset>("UI/Markup/GameLook/Components/UnitsInfo").CloneTree();
 
-            _image = _tree.Q<VisualElement>("info-image");
-            _unitCount = _tree.Q<Label>("units-description__nomination__count");
-            IconContainer = _tree.Q<VisualElement>("units-description__icon-container");
+            _image = _tree.Q<VisualElement>("image");
+            _unitCount = _tree.Q<Label>("description__nomination__count");
+            IconContainer = _tree.Q<VisualElement>("description__icon-container");
 
             InitializeUnitIconViews();
         }

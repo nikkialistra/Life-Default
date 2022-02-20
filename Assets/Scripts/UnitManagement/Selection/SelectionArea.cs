@@ -1,3 +1,4 @@
+using System.Collections;
 using Saving;
 using UniRx;
 using UnityEngine;
@@ -43,13 +44,21 @@ namespace UnitManagement.Selection
 
         private void Update()
         {
-            UpdateSize();
+            _width = Screen.width;
+            _height = Screen.height;
         }
 
 #endif
 
         private void UpdateSize()
         {
+            StartCoroutine(UpdateSizeOneFrameAfter());
+        }
+
+        private IEnumerator UpdateSizeOneFrameAfter()
+        {
+            yield return null;
+
             _width = Screen.width;
             _height = Screen.height;
         }

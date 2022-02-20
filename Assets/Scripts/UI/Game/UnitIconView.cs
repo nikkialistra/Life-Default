@@ -33,9 +33,9 @@ namespace UI.Game
             _previews = previews;
             _changeColorFractions = changeColorFractions;
 
-            _tree = Resources.Load<VisualTreeAsset>("UI/Markup/Components/UnitIcon").CloneTree();
+            _tree = Resources.Load<VisualTreeAsset>("UI/Markup/GameLook/Components/UnitIcon").CloneTree();
 
-            _root = _tree.Q<VisualElement>("icon");
+            _root = _tree.Q<VisualElement>("unit-icon");
             _image = _tree.Q<VisualElement>("image");
             _health = _tree.Q<ProgressBar>("health__progress-bar");
         }

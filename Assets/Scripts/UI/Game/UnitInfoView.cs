@@ -41,13 +41,13 @@ namespace UI.Game
             _parent = GetComponent<InfoPanelView>();
             _changeColorFractions = GetComponent<ChangeColorFractions>();
 
-            _tree = Resources.Load<VisualTreeAsset>("UI/Markup/Components/UnitInfo").CloneTree();
+            _tree = Resources.Load<VisualTreeAsset>("UI/Markup/GameLook/Components/UnitInfo").CloneTree();
 
-            _image = _tree.Q<VisualElement>("info-image");
+            _image = _tree.Q<VisualElement>("image");
 
-            _nominationType = _tree.Q<Label>("unit-nomination__type");
-            _nominationName = _tree.Q<Label>("unit-nomination__name");
-            _health = _tree.Q<ProgressBar>("unit-health__progress-bar");
+            _nominationType = _tree.Q<Label>("nomination__type");
+            _nominationName = _tree.Q<Label>("nomination__name");
+            _health = _tree.Q<ProgressBar>("health__progress-bar");
         }
 
         private void OnDestroy()

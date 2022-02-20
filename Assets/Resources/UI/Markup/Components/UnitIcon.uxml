@@ -1,9 +1,0 @@
-<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <Style src="project://database/Assets/Resources/UI/Styles/GameLook.uss?fileID=7433441132597879392&amp;guid=295c2b0dcdb1e5f4fbcbc0c651a015ef&amp;type=3#GameLook" />
-    <ui:VisualElement name="icon" class="icon">
-        <ui:VisualElement name="image" class="icon-image" />
-        <ui:VisualElement name="health" class="icon__health">
-            <ui:ProgressBar title="Health" name="health__progress-bar" high-value="1" class="multiple-units-health__progress-bar" />
-        </ui:VisualElement>
-    </ui:VisualElement>
-</ui:UXML>

@@ -1,0 +1,43 @@
+.description-top {
+    height: 45px;
+}
+
+.nomination {
+    height: 20px;
+    width: 200px;
+    flex-direction: row;
+    margin-bottom: 5px;
+}
+
+.nomination__name {
+    width: 100px;
+    -unity-font: resource('Fonts/Exo 2/Exo2-Regular');
+    font-size: 16px;
+    -unity-text-align: middle-left;
+    color: rgb(60, 60, 60);
+    -unity-font-definition: none;
+    margin: 0;
+    padding: 0 0 0 4px;
+}
+
+.health .unity-progress-bar__progress {
+    margin: 1px;
+}
+
+.health .unity-progress-bar__container {
+    -unity-font: resource('Fonts/Exo 2/Exo2-Regular');
+    -unity-font-definition: none;
+    min-height: 19px;
+    max-height: 19px;
+}
+
+.health .unity-progress-bar__title {
+    padding: 0;
+}
+
+.health .unity-progress-bar Label {
+    color: white;
+    -unity-text-align: middle-center;
+    font-size: 11px;
+    padding-bottom: 3px;
+}

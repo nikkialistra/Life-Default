@@ -67,6 +67,7 @@ namespace UI.Menus.Settings
 
             _fullscreen.UnregisterValueChangedCallback(OnFullscreenToggle);
             _resolution.UnregisterValueChangedCallback(OnResolutionChange);
+            _uiScale.UnregisterValueChangedCallback(OnUiScaleChange);
 
             _back.clicked -= Back;
 

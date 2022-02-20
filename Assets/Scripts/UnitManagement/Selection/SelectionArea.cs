@@ -1,3 +1,5 @@
+using Saving;
+using UniRx;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -6,17 +8,38 @@ namespace UnitManagement.Selection
     [RequireComponent(typeof(UIDocument))]
     public class SelectionArea : MonoBehaviour
     {
+        private UIDocument _uiDocument;
+
         private VisualElement _root;
         private VisualElement _selection;
         private float _scale;
 
         private void Awake()
         {
-            var uiDocument = GetComponent<UIDocument>();
-            _root = uiDocument.rootVisualElement;
-            _scale = (float)uiDocument.panelSettings.referenceResolution.x / Screen.width;
+            _uiDocument = GetComponent<UIDocument>();
+            _root = _uiDocument.rootVisualElement;
+            CalculateScale();
 
             _selection = _root.Q<VisualElement>("selection");
+        }
+
+        private void Start()
+        {
+            GameSettings.Instance.Resolution.Subscribe(_ => CalculateScale());
+        }
+
+#if UNITY_EDITOR
+
+        private void Update()
+        {
+            _scale = (float)_uiDocument.panelSettings.referenceResolution.x / Screen.width;
+        }
+
+#endif
+
+        private void CalculateScale()
+        {
+            _scale = (float)_uiDocument.panelSettings.referenceResolution.x / Screen.width;
         }
 
         public void Draw(Rect rect)

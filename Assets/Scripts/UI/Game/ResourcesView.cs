@@ -16,7 +16,10 @@ namespace UI.Game
         private void Awake()
         {
             _tree = GetComponent<UIDocument>().rootVisualElement;
+        }
 
+        private void Start()
+        {
             FillInLabels();
         }
 

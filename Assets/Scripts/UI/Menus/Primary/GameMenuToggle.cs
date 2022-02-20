@@ -24,10 +24,6 @@ namespace UI.Menus.Primary
             _playerInput = playerInput;
         }
 
-        public event Action HideCurrentMenu;
-        public event Action Pausing;
-        public event Action Resuming;
-
         private void Awake()
         {
             _root = GetComponent<UIDocument>().rootVisualElement;
@@ -37,6 +33,12 @@ namespace UI.Menus.Primary
             _showMenuAction = _playerInput.actions.FindAction("Show Menu");
             _hideMenuAction = _playerInput.actions.FindAction("Hide Menu");
         }
+
+        public event Action HideCurrentMenu;
+
+        public event Action Pausing;
+
+        public event Action Resuming;
 
         private void Start()
         {

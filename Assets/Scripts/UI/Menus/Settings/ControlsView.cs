@@ -14,7 +14,7 @@ namespace UI.Menus.Settings
         private readonly Button _back;
         private readonly IHideNotify _hideNotify;
 
-        private GameSettings _gameSettings;
+        private readonly GameSettings _gameSettings;
 
         public ControlsView(VisualElement root, SettingsView parent, IHideNotify hideNotify, GameSettings gameSettings)
         {

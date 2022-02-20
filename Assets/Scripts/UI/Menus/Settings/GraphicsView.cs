@@ -9,7 +9,7 @@ namespace UI.Menus.Settings
 {
     public class GraphicsView : IMenuView
     {
-        private readonly Resolution[] _resolutions = Screen.resolutions;
+        private List<Resolution> _resolutions;
 
         private readonly VisualElement _root;
         private readonly SettingsView _parent;
@@ -24,7 +24,7 @@ namespace UI.Menus.Settings
 
         private readonly IHideNotify _hideNotify;
 
-        private GameSettings _gameSettings;
+        private readonly GameSettings _gameSettings;
 
         private PlayerInput _playerInput;
 
@@ -121,9 +121,11 @@ namespace UI.Menus.Settings
 
         private void UpdateResolution()
         {
+            FillResolutions();
+
             _resolution.choices = new List<string>();
             var currentIndex = 0;
-            for (var i = 0; i < _resolutions.Length; i++)
+            for (var i = 0; i < _resolutions.Count; i++)
             {
                 var resolution = _resolutions[i];
                 var resolutionText = resolution.ToString();
@@ -136,6 +138,13 @@ namespace UI.Menus.Settings
             }
 
             _resolution.index = currentIndex;
+        }
+
+        private void FillResolutions()
+        {
+            _resolutions = Screen.resolutions.Where(resolution =>
+                resolution.width > 1024 && resolution.height > 768 && resolution.refreshRate >= 60).ToList();
+            _resolutions.Reverse();
         }
 
         private void UpdateUiScale()

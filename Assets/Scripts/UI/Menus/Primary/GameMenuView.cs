@@ -24,6 +24,7 @@ namespace UI.Menus.Primary
         private SettingsView _settingsView;
 
         public bool Shown { get; private set; }
+        public bool ShownSubView { get; private set; }
 
         public GameMenuView(VisualElement root, IHideNotify hideNotify)
         {
@@ -47,13 +48,15 @@ namespace UI.Menus.Primary
 
         public void ShowSelf()
         {
-            _hideNotify.HideCurrentMenu += HideSelf;
+            _hideNotify.HideCurrentMenu += Resume;
 
             Shown = true;
+            ShownSubView = false;
+
             _root.Add(_tree);
             Time.timeScale = 0;
 
-            _resume.clicked += HideSelf;
+            _resume.clicked += Resume;
             _settings.clicked += Settings;
             _mainMenu.clicked += MainMenu;
             _exitGame.clicked += ExitGame;
@@ -63,9 +66,7 @@ namespace UI.Menus.Primary
 
         public void HideSelf()
         {
-            _hideNotify.HideCurrentMenu -= HideSelf;
-
-            Time.timeScale = 1;
+            _hideNotify.HideCurrentMenu -= Resume;
 
             Shown = false;
             _root.Remove(_tree);
@@ -74,12 +75,18 @@ namespace UI.Menus.Primary
             _settings.clicked -= Settings;
             _mainMenu.clicked -= MainMenu;
             _exitGame.clicked -= ExitGame;
+        }
 
+        private void Resume()
+        {
+            HideSelf();
+            Time.timeScale = 1;
             Resuming?.Invoke();
         }
 
         private void Settings()
         {
+            ShownSubView = true;
             HideSelf();
 
             _settingsView ??= new SettingsView(_root, this, _hideNotify);

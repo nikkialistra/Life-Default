@@ -75,6 +75,11 @@ namespace UI.Menus.Primary
 
         private void ShowMenu(InputAction.CallbackContext context)
         {
+            if (_gameMenuView.ShownSubView)
+            {
+                return;
+            }
+
             _gameMenuView.ShowSelf();
             _playerInput.SwitchCurrentActionMap("Menus");
         }

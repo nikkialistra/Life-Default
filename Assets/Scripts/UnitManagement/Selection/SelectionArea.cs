@@ -13,7 +13,9 @@ namespace UnitManagement.Selection
 
         private VisualElement _root;
         private VisualElement _selection;
-        private float _scale;
+
+        private float _width;
+        private float _height;
 
         private GameSettings _gameSettings;
 
@@ -27,28 +29,29 @@ namespace UnitManagement.Selection
         {
             _uiDocument = GetComponent<UIDocument>();
             _root = _uiDocument.rootVisualElement;
-            CalculateScale();
+            UpdateSize();
 
             _selection = _root.Q<VisualElement>("selection");
         }
 
         private void Start()
         {
-            _gameSettings.Resolution.Subscribe(_ => CalculateScale());
+            _gameSettings.Resolution.Subscribe(_ => UpdateSize());
         }
 
 #if UNITY_EDITOR
 
         private void Update()
         {
-            _scale = (float)_uiDocument.panelSettings.referenceResolution.x / Screen.width;
+            UpdateSize();
         }
 
 #endif
 
-        private void CalculateScale()
+        private void UpdateSize()
         {
-            _scale = (float)_uiDocument.panelSettings.referenceResolution.x / Screen.width;
+            _width = Screen.width;
+            _height = Screen.height;
         }
 
         public void Draw(Rect rect)
@@ -58,10 +61,10 @@ namespace UnitManagement.Selection
                 _selection.RemoveFromClassList("not-displayed");
             }
 
-            _selection.style.left = rect.xMin * _scale;
-            _selection.style.bottom = rect.yMin * _scale;
-            _selection.style.width = rect.width * _scale;
-            _selection.style.height = rect.height * _scale;
+            _selection.style.left = new Length(rect.xMin / _width * 100f, LengthUnit.Percent);
+            _selection.style.bottom = new Length(rect.yMin / _height * 100f, LengthUnit.Percent);
+            _selection.style.width = new Length(rect.width / _width * 100f, LengthUnit.Percent);
+            _selection.style.height = new Length(rect.height / _height * 100f, LengthUnit.Percent);
         }
 
         public void StopDrawing()

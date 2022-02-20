@@ -42,6 +42,7 @@ namespace UI.Menus.Primary
             _exitGame = _tree.Q<Button>("exit-game");
         }
 
+        public event Action Pausing;
         public event Action Resuming;
 
         public void ShowSelf()
@@ -52,30 +53,29 @@ namespace UI.Menus.Primary
             _root.Add(_tree);
             Time.timeScale = 0;
 
-            _resume.clicked += Resume;
+            _resume.clicked += HideSelf;
             _settings.clicked += Settings;
             _mainMenu.clicked += MainMenu;
             _exitGame.clicked += ExitGame;
+
+            Pausing?.Invoke();
         }
 
         public void HideSelf()
         {
             _hideNotify.HideCurrentMenu -= HideSelf;
 
+            Time.timeScale = 1;
+
             Shown = false;
             _root.Remove(_tree);
 
-            _resume.clicked -= Resume;
+            _resume.clicked -= HideSelf;
             _settings.clicked -= Settings;
             _mainMenu.clicked -= MainMenu;
             _exitGame.clicked -= ExitGame;
-        }
 
-        private void Resume()
-        {
             Resuming?.Invoke();
-            Time.timeScale = 1;
-            HideSelf();
         }
 
         private void Settings()

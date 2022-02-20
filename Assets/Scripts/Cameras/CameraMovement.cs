@@ -1,4 +1,5 @@
 ﻿using MapGeneration.Map;
+using Saving;
 using Sirenix.OdinInspector;
 using Units.Services.Selecting;
 using Units.Unit;
@@ -82,6 +83,9 @@ namespace Cameras
         private Vector3 _offset;
         private bool _following;
 
+        private float _cameraSensitivity;
+        private bool _screenEdgeMouseScroll;
+
         private PlayerInput _playerInput;
 
         private InputAction _movementAction;
@@ -145,6 +149,7 @@ namespace Cameras
             _newRotation = transform.rotation;
             _newFieldOfView = _camera.fieldOfView;
 
+            LoadSettings();
             Activate();
         }
 
@@ -155,6 +160,7 @@ namespace Cameras
                 return;
             }
 
+            LoadSettings();
             CalculateDeltas();
 
             UpdateFollowing();
@@ -194,6 +200,12 @@ namespace Cameras
             {
                 Activate();
             }
+        }
+
+        private void LoadSettings()
+        {
+            _cameraSensitivity = GameSettings.Instance.CameraSensitivity;
+            _screenEdgeMouseScroll = GameSettings.Instance.ScreenEdgeMouseScroll;
         }
 
         private void Deactivate()
@@ -308,8 +320,8 @@ namespace Cameras
             _verticalRotation = _newRotation.eulerAngles.x;
             _horizontalRotation = _newRotation.eulerAngles.y;
 
-            _verticalRotation -= _rotateVerticalSpeed * _deltaMousePositionY;
-            _horizontalRotation += _rotateHorizontalSpeed * _deltaMousePositionX;
+            _verticalRotation -= _rotateVerticalSpeed * _cameraSensitivity * _deltaMousePositionY;
+            _horizontalRotation += _rotateHorizontalSpeed * _cameraSensitivity * _deltaMousePositionX;
             _newRotation.eulerAngles =
                 new Vector3(Mathf.Clamp(_verticalRotation, _minVerticalRotation, _maxVerticalRotation),
                     _horizontalRotation, 0.0f);
@@ -328,6 +340,11 @@ namespace Cameras
 
         private void UpdatePositionFromMouseThresholdMovement()
         {
+            if (!_screenEdgeMouseScroll)
+            {
+                return;
+            }
+
             var position = _mousePositionAction.ReadValue<Vector2>();
             var normalisedPosition = GetNormalisedPosition(position);
             var movement = Vector2.zero;

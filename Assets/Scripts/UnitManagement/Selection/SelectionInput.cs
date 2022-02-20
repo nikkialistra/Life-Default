@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using UI.Game;
+using UI.Menus.Primary;
 using UnitManagement.Extensions;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -13,19 +14,22 @@ namespace UnitManagement.Selection
         private Vector2? _startPoint;
         private bool _updatingArea;
 
+        private GameViews _gameViews;
+        private GameMenuToggle _gameMenuToggle;
+
         private Coroutine _areaUpdateCouroutine;
 
         private PlayerInput _playerInput;
 
         private InputAction _selectAction;
         private InputAction _mousePositionAction;
-        private GameViews _gameViews;
 
         [Inject]
-        public void Construct(PlayerInput playerInput, GameViews gameViews)
+        public void Construct(PlayerInput playerInput, GameViews gameViews, GameMenuToggle gameMenuToggle)
         {
             _playerInput = playerInput;
             _gameViews = gameViews;
+            _gameMenuToggle = gameMenuToggle;
         }
 
         private void Awake()
@@ -41,11 +45,27 @@ namespace UnitManagement.Selection
 
         private void OnEnable()
         {
+            SubscribeToEvents();
+
+            _gameMenuToggle.Pausing += UnsubscribeFromEvents;
+            _gameMenuToggle.Resuming += SubscribeToEvents;
+        }
+
+        private void OnDisable()
+        {
+            UnsubscribeFromEvents();
+
+            _gameMenuToggle.Pausing -= UnsubscribeFromEvents;
+            _gameMenuToggle.Resuming -= SubscribeToEvents;
+        }
+
+        private void SubscribeToEvents()
+        {
             _selectAction.started += StartArea;
             _selectAction.canceled += EndArea;
         }
 
-        private void OnDisable()
+        private void UnsubscribeFromEvents()
         {
             _selectAction.started -= StartArea;
             _selectAction.canceled -= EndArea;

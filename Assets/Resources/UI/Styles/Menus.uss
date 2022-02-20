@@ -209,3 +209,18 @@
 .unity-slider-int .unity-slider-int__input {
     max-width: 160px;
 }
+
+.unity-slider {
+    align-items: center;
+}
+
+.unity-slider .unity-label {
+    margin: 0;
+    padding: 0;
+    width: 160px;
+    color: white;
+}
+
+.unity-slider .unity-slider__input {
+    max-width: 160px;
+}

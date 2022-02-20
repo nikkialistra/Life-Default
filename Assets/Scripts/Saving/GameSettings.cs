@@ -45,12 +45,12 @@ namespace Saving
             }
         }
 
-        public float MouseSensitivity
+        public float CameraSensitivity
         {
-            get => _gameSettingsData.MouseSensitivity;
+            get => _gameSettingsData.CameraSensitivity;
             set
             {
-                _gameSettingsData.MouseSensitivity = value;
+                _gameSettingsData.CameraSensitivity = value;
                 Save();
             }
         }
@@ -151,9 +151,13 @@ namespace Saving
 
         private void CreateDefaultSettings()
         {
-            Resolution = Screen.resolutions[^1].ToString();
-            Fullscreen = true;
-            UiScale = 100;
+            _gameSettingsData.Resolution = Screen.resolutions[^1].ToString();
+            _gameSettingsData.Fullscreen = true;
+            _gameSettingsData.UiScale = 100;
+
+            _gameSettingsData.ShowHelpPanelAtStart = true;
+            _gameSettingsData.CameraSensitivity = 1;
+            _gameSettingsData.ScreenEdgeMouseScroll = true;
         }
 
         private class GameSettingsData
@@ -163,7 +167,7 @@ namespace Saving
             public int UiScale;
 
             public bool ShowHelpPanelAtStart;
-            public float MouseSensitivity;
+            public float CameraSensitivity;
             public bool ScreenEdgeMouseScroll;
         }
     }

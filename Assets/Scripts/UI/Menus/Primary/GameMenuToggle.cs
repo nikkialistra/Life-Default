@@ -25,6 +25,8 @@ namespace UI.Menus.Primary
         }
 
         public event Action HideCurrentMenu;
+        public event Action Pausing;
+        public event Action Resuming;
 
         private void Awake()
         {
@@ -44,21 +46,31 @@ namespace UI.Menus.Primary
 
         private void OnEnable()
         {
-            _gameMenuView.Resuming += Resuming;
+            _gameMenuView.Pausing += DoPausing;
+            _gameMenuView.Resuming += DoResuming;
+
             _showMenuAction.started += ShowMenu;
             _hideMenuAction.started += HideMenu;
         }
 
         private void OnDisable()
         {
-            _gameMenuView.Resuming -= Resuming;
+            _gameMenuView.Pausing += DoPausing;
+            _gameMenuView.Resuming -= DoResuming;
+
             _showMenuAction.started -= ShowMenu;
             _hideMenuAction.started -= HideMenu;
         }
 
-        private void Resuming()
+        private void DoPausing()
+        {
+            Pausing?.Invoke();
+        }
+
+        private void DoResuming()
         {
             _playerInput.SwitchCurrentActionMap("Management");
+            Resuming?.Invoke();
         }
 
         private void ShowMenu(InputAction.CallbackContext context)

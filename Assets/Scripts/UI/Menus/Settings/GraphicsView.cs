@@ -42,7 +42,7 @@ namespace UI.Menus.Settings
             _back = _tree.Q<Button>("back");
 
             UpdateFullscreenToggle();
-            FillResolutions();
+            UpdateResolution();
             UpdateUiScale();
         }
 
@@ -114,7 +114,7 @@ namespace UI.Menus.Settings
             _fullscreen.value = GameSettings.Instance.Fullscreen;
         }
 
-        private void FillResolutions()
+        private void UpdateResolution()
         {
             _resolution.choices = new List<string>();
             var currentIndex = 0;

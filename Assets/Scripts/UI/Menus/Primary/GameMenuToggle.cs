@@ -1,4 +1,5 @@
 ﻿using System;
+using Game;
 using Saving;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -14,16 +15,18 @@ namespace UI.Menus.Primary
 
         private GameMenuView _gameMenuView;
 
+        private TimeToggling _timeToggling;
+        private GameSettings _gameSettings;
+
         private PlayerInput _playerInput;
 
         private InputAction _showMenuAction;
         private InputAction _hideMenuAction;
 
-        private GameSettings _gameSettings;
-
         [Inject]
-        public void Construct(PlayerInput playerInput, GameSettings gameSettings)
+        public void Construct(TimeToggling timeToggling, GameSettings gameSettings, PlayerInput playerInput)
         {
+            _timeToggling = timeToggling;
             _gameSettings = gameSettings;
             _playerInput = playerInput;
         }
@@ -76,6 +79,7 @@ namespace UI.Menus.Primary
         private void DoResuming()
         {
             _playerInput.SwitchCurrentActionMap("Management");
+            _timeToggling.Toggle();
             Resuming?.Invoke();
         }
 

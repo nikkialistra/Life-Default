@@ -1,4 +1,5 @@
 ﻿using Cameras;
+using Game;
 using ResourceManagement;
 using Saving;
 using Saving.Serialization;
@@ -6,6 +7,7 @@ using Sirenix.OdinInspector;
 using Testing;
 using UI;
 using UI.Game;
+using UI.Game.GameLook.Components;
 using UI.Menus.Primary;
 using Units.Services;
 using UnityEngine;
@@ -17,6 +19,10 @@ namespace Infrastructure
     {
         [Title("Set Up")]
         [SerializeField] private bool _isSetUpSession;
+
+        [Title("Game")]
+        [Required]
+        [SerializeField] private TimeToggling _timeToggling;
 
         [Title("Input")]
         [Required]
@@ -34,7 +40,9 @@ namespace Infrastructure
         [Required]
         [SerializeField] private GameViews _gameViews;
         [Required]
-        [SerializeField] private UnitTypesView _unitTypesView;
+        [SerializeField] private TimeTogglingView _timeTogglingView;
+        [Required]
+        [SerializeField] private ResourcesView _resourcesView;
         [Required]
         [SerializeField] private InfoPanelView _infoPanelView;
         [Required]
@@ -42,7 +50,7 @@ namespace Infrastructure
         [Required]
         [SerializeField] private UnitsInfoView _unitsInfoView;
         [Required]
-        [SerializeField] private ResourcesView _resourcesView;
+        [SerializeField] private UnitTypesView _unitTypesView;
 
         [Title("Resources")]
         [Required]
@@ -56,6 +64,8 @@ namespace Infrastructure
 
         public override void InstallBindings()
         {
+            Container.BindInstance(_timeToggling);
+
             BindInput();
             BindUi();
             BindResources();
@@ -79,11 +89,12 @@ namespace Infrastructure
         {
             Container.BindInstance(_gameMenuToggle);
             Container.BindInstance(_gameViews);
-            Container.BindInstance(_unitTypesView);
+            Container.BindInstance(_timeTogglingView);
+            Container.BindInstance(_resourcesView);
             Container.BindInstance(_infoPanelView);
             Container.BindInstance(_unitInfoView);
             Container.BindInstance(_unitsInfoView);
-            Container.BindInstance(_resourcesView);
+            Container.BindInstance(_unitTypesView);
         }
 
         private void BindResources()

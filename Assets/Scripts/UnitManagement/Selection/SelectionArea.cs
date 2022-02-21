@@ -52,10 +52,10 @@ namespace UnitManagement.Selection
 
         private void UpdateSize()
         {
-            StartCoroutine(UpdateSizeOneFrameAfter());
+            StartCoroutine(UpdateSizeAtNextFrame());
         }
 
-        private IEnumerator UpdateSizeOneFrameAfter()
+        private IEnumerator UpdateSizeAtNextFrame()
         {
             yield return null;
 

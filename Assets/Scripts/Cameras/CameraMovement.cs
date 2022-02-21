@@ -312,8 +312,8 @@ namespace Cameras
         {
             var movement = _movementAction.ReadValue<Vector2>();
 
-            _newPosition += transform.right * (_moveSpeed * Time.deltaTime * movement.x);
-            _newPosition += transform.forward * (_moveSpeed * Time.deltaTime * movement.y);
+            _newPosition += transform.right * (_moveSpeed * Time.unscaledDeltaTime * movement.x);
+            _newPosition += transform.forward * (_moveSpeed * Time.unscaledDeltaTime * movement.y);
         }
 
         private void UpdateRotation()
@@ -357,12 +357,12 @@ namespace Cameras
 
             if (Mathf.Abs(normalisedPosition.x) > _positionMoveXThreshold)
             {
-                movement.x = Mathf.Sign(normalisedPosition.x) * _moveSpeed * Time.deltaTime;
+                movement.x = Mathf.Sign(normalisedPosition.x) * _moveSpeed * Time.unscaledDeltaTime;
             }
 
             if (Mathf.Abs(normalisedPosition.y) > _positionMoveYThreshold)
             {
-                movement.y = Mathf.Sign(normalisedPosition.y) * _moveSpeed * Time.deltaTime;
+                movement.y = Mathf.Sign(normalisedPosition.y) * _moveSpeed * Time.unscaledDeltaTime;
             }
 
             if (movement != Vector2.zero)
@@ -416,9 +416,12 @@ namespace Cameras
 
         private void SmoothUpdate()
         {
-            transform.position = Vector3.Lerp(transform.position, _newPosition, _positionSmoothing * Time.deltaTime);
-            transform.rotation = Quaternion.Lerp(transform.rotation, _newRotation, _rotationSmoothing * Time.deltaTime);
-            _camera.fieldOfView = Mathf.Lerp(_camera.fieldOfView, _newFieldOfView, _zoomSmoothing * Time.deltaTime);
+            transform.position =
+                Vector3.Lerp(transform.position, _newPosition, _positionSmoothing * Time.unscaledDeltaTime);
+            transform.rotation = Quaternion.Lerp(transform.rotation, _newRotation,
+                _rotationSmoothing * Time.unscaledDeltaTime);
+            _camera.fieldOfView =
+                Mathf.Lerp(_camera.fieldOfView, _newFieldOfView, _zoomSmoothing * Time.unscaledDeltaTime);
         }
     }
 }

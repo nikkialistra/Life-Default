@@ -4,7 +4,7 @@ using ResourceManagement;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace UI.Game
+namespace UI.Game.GameLook.Components
 {
     public class ResourcesView : MonoBehaviour
     {

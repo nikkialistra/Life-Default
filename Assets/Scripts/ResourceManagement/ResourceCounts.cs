@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
-using UI.Game;
+using UI.Game.GameLook.Components;
 using UnityEngine;
 using Zenject;
 

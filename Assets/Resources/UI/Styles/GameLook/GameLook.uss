@@ -24,3 +24,9 @@
 .plug {
     width: 310px;
 }
+
+.paused {
+    border-color: rgba(255, 255, 255, 0.39);
+    border-width: 5px;
+    padding: 5px;
+}

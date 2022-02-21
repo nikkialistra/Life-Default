@@ -7,7 +7,7 @@ using Units.Unit.UnitTypes;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace UI.Game
+namespace UI.Game.GameLook.Components
 {
     [RequireComponent(typeof(InfoPanelView))]
     [RequireComponent(typeof(ChangeColorFractions))]

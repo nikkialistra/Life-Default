@@ -48,6 +48,24 @@ namespace Controls
                     ""initialStateCheck"": false
                 },
                 {
+                    ""name"": ""Pause Time"",
+                    ""type"": ""Button"",
+                    ""id"": ""2cd4ea1b-3680-4cb3-9d0e-2ba33ad61b88"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Next Time Speed"",
+                    ""type"": ""Button"",
+                    ""id"": ""86e1b1ba-a6b8-4f77-a4b7-0f51a016ba00"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""Mouse Position"",
                     ""type"": ""Value"",
                     ""id"": ""8653e1ae-6cec-4d4d-b899-be655e768b2f"",
@@ -763,6 +781,28 @@ namespace Controls
                     ""action"": ""Toggle Help Panel"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""528b5d63-456f-4828-ab43-75166919736c"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pause Time"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9c4ecdba-2da4-4078-9ee1-74913943f001"",
+                    ""path"": ""<Keyboard>/tab"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Next Time Speed"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -801,6 +841,8 @@ namespace Controls
             m_Management = asset.FindActionMap("Management", throwIfNotFound: true);
             m_Management_ShowMenu = m_Management.FindAction("Show Menu", throwIfNotFound: true);
             m_Management_ToggleHelpPanel = m_Management.FindAction("Toggle Help Panel", throwIfNotFound: true);
+            m_Management_PauseTime = m_Management.FindAction("Pause Time", throwIfNotFound: true);
+            m_Management_NextTimeSpeed = m_Management.FindAction("Next Time Speed", throwIfNotFound: true);
             m_Management_MousePosition = m_Management.FindAction("Mouse Position", throwIfNotFound: true);
             m_Management_Drag = m_Management.FindAction("Drag", throwIfNotFound: true);
             m_Management_Movement = m_Management.FindAction("Movement", throwIfNotFound: true);
@@ -887,6 +929,8 @@ namespace Controls
         private IManagementActions m_ManagementActionsCallbackInterface;
         private readonly InputAction m_Management_ShowMenu;
         private readonly InputAction m_Management_ToggleHelpPanel;
+        private readonly InputAction m_Management_PauseTime;
+        private readonly InputAction m_Management_NextTimeSpeed;
         private readonly InputAction m_Management_MousePosition;
         private readonly InputAction m_Management_Drag;
         private readonly InputAction m_Management_Movement;
@@ -915,6 +959,8 @@ namespace Controls
             public ManagementActions(@Control wrapper) { m_Wrapper = wrapper; }
             public InputAction @ShowMenu => m_Wrapper.m_Management_ShowMenu;
             public InputAction @ToggleHelpPanel => m_Wrapper.m_Management_ToggleHelpPanel;
+            public InputAction @PauseTime => m_Wrapper.m_Management_PauseTime;
+            public InputAction @NextTimeSpeed => m_Wrapper.m_Management_NextTimeSpeed;
             public InputAction @MousePosition => m_Wrapper.m_Management_MousePosition;
             public InputAction @Drag => m_Wrapper.m_Management_Drag;
             public InputAction @Movement => m_Wrapper.m_Management_Movement;
@@ -952,6 +998,12 @@ namespace Controls
                     @ToggleHelpPanel.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnToggleHelpPanel;
                     @ToggleHelpPanel.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnToggleHelpPanel;
                     @ToggleHelpPanel.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnToggleHelpPanel;
+                    @PauseTime.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnPauseTime;
+                    @PauseTime.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnPauseTime;
+                    @PauseTime.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnPauseTime;
+                    @NextTimeSpeed.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnNextTimeSpeed;
+                    @NextTimeSpeed.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnNextTimeSpeed;
+                    @NextTimeSpeed.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnNextTimeSpeed;
                     @MousePosition.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnMousePosition;
                     @MousePosition.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnMousePosition;
                     @MousePosition.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnMousePosition;
@@ -1028,6 +1080,12 @@ namespace Controls
                     @ToggleHelpPanel.started += instance.OnToggleHelpPanel;
                     @ToggleHelpPanel.performed += instance.OnToggleHelpPanel;
                     @ToggleHelpPanel.canceled += instance.OnToggleHelpPanel;
+                    @PauseTime.started += instance.OnPauseTime;
+                    @PauseTime.performed += instance.OnPauseTime;
+                    @PauseTime.canceled += instance.OnPauseTime;
+                    @NextTimeSpeed.started += instance.OnNextTimeSpeed;
+                    @NextTimeSpeed.performed += instance.OnNextTimeSpeed;
+                    @NextTimeSpeed.canceled += instance.OnNextTimeSpeed;
                     @MousePosition.started += instance.OnMousePosition;
                     @MousePosition.performed += instance.OnMousePosition;
                     @MousePosition.canceled += instance.OnMousePosition;
@@ -1135,6 +1193,8 @@ namespace Controls
         {
             void OnShowMenu(InputAction.CallbackContext context);
             void OnToggleHelpPanel(InputAction.CallbackContext context);
+            void OnPauseTime(InputAction.CallbackContext context);
+            void OnNextTimeSpeed(InputAction.CallbackContext context);
             void OnMousePosition(InputAction.CallbackContext context);
             void OnDrag(InputAction.CallbackContext context);
             void OnMovement(InputAction.CallbackContext context);

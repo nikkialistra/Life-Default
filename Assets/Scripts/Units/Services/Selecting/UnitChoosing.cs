@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using UI.Game;
+using UI.Game.GameLook.Components;
 using Units.Unit;
 using Units.Unit.UnitTypes;
 using UnityEngine;

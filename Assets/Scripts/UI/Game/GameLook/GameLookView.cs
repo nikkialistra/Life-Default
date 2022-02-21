@@ -1,4 +1,6 @@
-﻿using UI.Game.GameLook.Components;
+﻿using Game;
+using Sirenix.OdinInspector;
+using UI.Game.GameLook.Components;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -11,7 +13,11 @@ namespace UI.Game.GameLook
     [RequireComponent(typeof(TimeTogglingView))]
     public class GameLookView : MonoBehaviour
     {
+        [Required]
+        [SerializeField] private TimeToggling _timeToggling;
+
         private VisualElement _tree;
+        private VisualElement _gameLook;
 
         private BuildVersionView _buildVersionView;
         private TimeTogglingView _timeTogglingView;
@@ -19,11 +25,11 @@ namespace UI.Game.GameLook
         private InfoPanelView _infoPanelView;
         private UnitTypesView _unitTypesView;
 
-        private VisualElement _buildVersion;
-        private VisualElement _timeToggling;
-        private VisualElement _resources;
-        private VisualElement _infoPanel;
-        private VisualElement _unitTypes;
+        private VisualElement _buildVersionElement;
+        private VisualElement _timeTogglingElement;
+        private VisualElement _resourcesElement;
+        private VisualElement _infoPanelElement;
+        private VisualElement _unitTypesElement;
 
         private void Awake()
         {
@@ -35,20 +41,44 @@ namespace UI.Game.GameLook
 
             _tree = GetComponent<UIDocument>().rootVisualElement;
 
-            _buildVersion = _tree.Q<VisualElement>("build-version");
-            _timeToggling = _tree.Q<VisualElement>("time-toggling");
-            _resources = _tree.Q<VisualElement>("resources");
-            _infoPanel = _tree.Q<VisualElement>("info-panel");
-            _unitTypes = _tree.Q<VisualElement>("unit-types");
+            _gameLook = _tree.Q<VisualElement>("game-look");
+
+            _buildVersionElement = _tree.Q<VisualElement>("build-version");
+            _timeTogglingElement = _tree.Q<VisualElement>("time-toggling");
+            _resourcesElement = _tree.Q<VisualElement>("resources");
+            _infoPanelElement = _tree.Q<VisualElement>("info-panel");
+            _unitTypesElement = _tree.Q<VisualElement>("unit-types");
+        }
+
+        private void OnEnable()
+        {
+            _timeToggling.PauseChange += OnPauseChange;
+        }
+
+        private void OnDisable()
+        {
+            _timeToggling.PauseChange -= OnPauseChange;
         }
 
         private void Start()
         {
-            _buildVersion.Add(_buildVersionView.Tree);
-            _timeToggling.Add(_timeTogglingView.Tree);
-            _resources.Add(_resourcesView.Tree);
-            _infoPanel.Add(_infoPanelView.Tree);
-            _unitTypes.Add(_unitTypesView.Tree);
+            _buildVersionElement.Add(_buildVersionView.Tree);
+            _timeTogglingElement.Add(_timeTogglingView.Tree);
+            _resourcesElement.Add(_resourcesView.Tree);
+            _infoPanelElement.Add(_infoPanelView.Tree);
+            _unitTypesElement.Add(_unitTypesView.Tree);
+        }
+
+        private void OnPauseChange(bool paused)
+        {
+            if (paused)
+            {
+                _gameLook.AddToClassList("paused");
+            }
+            else
+            {
+                _gameLook.RemoveFromClassList("paused");
+            }
         }
     }
 }

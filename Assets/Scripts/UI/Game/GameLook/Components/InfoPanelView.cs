@@ -3,7 +3,7 @@ using Units.Unit;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace UI.Game
+namespace UI.Game.GameLook.Components
 {
     [RequireComponent(typeof(UnitInfoView))]
     [RequireComponent(typeof(UnitsInfoView))]

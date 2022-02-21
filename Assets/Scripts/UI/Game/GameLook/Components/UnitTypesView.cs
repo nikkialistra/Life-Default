@@ -4,7 +4,7 @@ using Units.Unit.UnitTypes;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace UI.Game
+namespace UI.Game.GameLook.Components
 {
     public class UnitTypesView : MonoBehaviour
     {

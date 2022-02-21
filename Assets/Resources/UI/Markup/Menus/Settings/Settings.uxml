@@ -2,7 +2,7 @@
          xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements"
          noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/Resources/UI/Styles/Common/Menus.uss?fileID=7433441132597879392&amp;guid=fc94daea752d98c4199c7a1217d26b0d&amp;type=3#Menus"/>
-    <ui:VisualElement name="settings" class="background background-shadow">
+    <ui:VisualElement name="settings" class="background-shadow menu">
         <ui:VisualElement name="buttons" class="buttons">
             <ui:Button text="Graphics" display-tooltip-when-elided="true" name="graphics" focusable="false"
                        class="button button-medium-normal"/>

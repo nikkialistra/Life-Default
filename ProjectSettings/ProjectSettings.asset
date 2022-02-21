@@ -12,8 +12,8 @@ PlayerSettings:
   targetDevice: 2
   useOnDemandResources: 0
   accelerometerFrequency: 60
-  companyName: CuteGamers
-  productName: Astrayland
+  companyName: Namespaced Games
+  productName: Life Default
   defaultCursor: {fileID: 2800000, guid: 747ea762ffc52ce48802b950a9e9e2e2, type: 3}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b: 0.1254902, a: 1}
@@ -134,8 +134,9 @@ PlayerSettings:
     16:10: 1
     16:9: 1
     Others: 1
-  bundleVersion: 21
+  bundleVersion: 22
   preloadedAssets:
+  - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
@@ -293,7 +294,7 @@ PlayerSettings:
   - m_BuildTarget: 
     m_Icons:
     - serializedVersion: 2
-      m_Icon: {fileID: 2800000, guid: ae8131d96bf02ba43bfdb1301c135bf7, type: 3}
+      m_Icon: {fileID: 2800000, guid: 14fab49bb30b2f34fbd8417ba64e2b6a, type: 3}
       m_Width: 128
       m_Height: 128
       m_Kind: 0

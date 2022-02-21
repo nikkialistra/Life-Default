@@ -95,7 +95,7 @@ namespace UI.Menus.Primary
 
         private static void NewGame()
         {
-            SceneManager.LoadScene("Forest", LoadSceneMode.Single);
+            SceneManager.LoadScene("Land", LoadSceneMode.Single);
         }
 
         private static void LoadGame() { }

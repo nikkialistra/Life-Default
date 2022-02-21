@@ -24,7 +24,7 @@ namespace UI.Menus.Primary
 
         private SettingsView _settingsView;
 
-        private GameSettings _gameSettings;
+        private readonly GameSettings _gameSettings;
 
         public bool Shown { get; private set; }
         public bool ShownSubView { get; private set; }

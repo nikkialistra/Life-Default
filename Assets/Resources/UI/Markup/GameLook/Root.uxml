@@ -2,5 +2,5 @@
          xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements"
          noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/Resources/UI/Styles/GameLook/Root.uss?fileID=7433441132597879392&amp;guid=c25da98b8519b944ab780ce6ea498ed7&amp;type=3#Root"/>
-    <ui:VisualElement name="root" class="root"/>
+    <ui:VisualElement name="root" picking-mode="Ignore" class="root"/>
 </ui:UXML>

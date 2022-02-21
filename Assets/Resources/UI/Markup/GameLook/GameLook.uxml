@@ -3,14 +3,14 @@
          noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/Resources/UI/Styles/GameLook/GameLook.uss?fileID=7433441132597879392&amp;guid=295c2b0dcdb1e5f4fbcbc0c651a015ef&amp;type=3#GameLook"/>
     <ui:VisualElement name="game-look" picking-mode="Ignore" class="game-look">
-        <ui:VisualElement name="top-panel" class="top-panel">
+        <ui:VisualElement name="top-panel" class="panel">
             <ui:VisualElement name="build-version"/>
-            <ui:VisualElement name="top-panel__right">
+            <ui:VisualElement name="top-panel__right" class="top-panel__right">
                 <ui:VisualElement name="time-toggling"/>
-                <ui:VisualElement name="resources"/>
+                <ui:VisualElement name="resources" class="resources"/>
             </ui:VisualElement>
         </ui:VisualElement>
-        <ui:VisualElement name="bottom-panel" picking-mode="Ignore" class="bottom-panel" style="align-items: flex-end;">
+        <ui:VisualElement name="bottom-panel" picking-mode="Ignore" class="panel" style="align-items: flex-end;">
             <ui:VisualElement name="plug" class="plug" style="width: 310px;"/>
             <ui:VisualElement name="info-panel"/>
             <ui:VisualElement name="unit-types"/>

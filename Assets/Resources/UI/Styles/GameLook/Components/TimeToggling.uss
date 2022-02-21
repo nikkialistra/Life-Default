@@ -1,0 +1,77 @@
+.time-toggling {
+    width: 138px;
+    height: 32px;
+    background-image: resource('UI/Sprites/TimeToggling/TimeTogglingPanel');
+    flex-direction: row;
+}
+
+.unity-toggle {
+    padding: 0;
+    margin: 0;
+    width: 32px;
+    height: 32px;
+}
+
+.unity-toggle .unity-label {
+    display: none;
+}
+
+.unity-toggle > .unity-toggle__input > .unity-toggle__checkmark {
+    width: 32px;
+    height: 32px;
+    border-width: 0;
+    -unity-background-image-tint-color: rgb(255, 255, 255);
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.indented {
+    margin-right: 10px;
+}
+
+.pause .unity-toggle__checkmark {
+    background-image: resource('UI/Sprites/TimeToggling/Pause/PauseToggleIdle');
+}
+
+.pause:hover .unity-toggle__checkmark {
+    background-image: resource('UI/Sprites/TimeToggling/Pause/PauseToggleHovered');
+}
+
+.pause:checked .unity-toggle__checkmark {
+    background-image: resource('UI/Sprites/TimeToggling/Pause/PauseToggleChecked');
+}
+
+.x1 .unity-toggle__checkmark {
+    background-image: resource('UI/Sprites/TimeToggling/X1/X1ToggleIdle');
+}
+
+.x1:hover .unity-toggle__checkmark {
+    background-image: resource('UI/Sprites/TimeToggling/X1/X1ToggleHovered');
+}
+
+.x1:checked .unity-toggle__checkmark {
+    background-image: resource('UI/Sprites/TimeToggling/X1/X1ToggleChecked');
+}
+
+.x2 .unity-toggle__checkmark {
+    background-image: resource('UI/Sprites/TimeToggling/X2/X2ToggleIdle');
+}
+
+.x2:hover .unity-toggle__checkmark {
+    background-image: resource('UI/Sprites/TimeToggling/X2/X2ToggleHovered');
+}
+
+.x2:checked .unity-toggle__checkmark {
+    background-image: resource('UI/Sprites/TimeToggling/X2/X2ToggleChecked');
+}
+
+.x3 .unity-toggle__checkmark {
+    background-image: resource('UI/Sprites/TimeToggling/X3/X3ToggleIdle');
+}
+
+.x3:hover .unity-toggle__checkmark {
+    background-image: resource('UI/Sprites/TimeToggling/X3/X3ToggleHovered');
+}
+
+.x3:checked .unity-toggle__checkmark {
+    background-image: resource('UI/Sprites/TimeToggling/X3/X3ToggleChecked');
+}

@@ -5,19 +5,20 @@
     height: 100%;
 }
 
-.top-panel {
+.panel {
+    width: 100%;
+    height: auto;
     flex-direction: row;
     justify-content: space-between;
     align-items: flex-start;
-    width: 100%;
 }
 
-.bottom-panel {
-    width: 100%;
-    height: auto;
+.top-panel__right {
     align-items: flex-end;
-    justify-content: space-between;
-    flex-direction: row;
+}
+
+.resources {
+    margin-top: 5px;
 }
 
 .plug {

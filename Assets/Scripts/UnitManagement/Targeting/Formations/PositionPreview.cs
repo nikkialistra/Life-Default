@@ -39,6 +39,8 @@ namespace UnitManagement.Targeting.Formations
 
         public void Activate(FormationColor formationColor)
         {
+            _decalProjector.transform.DOKill();
+
             _decalProjector.material = formationColor switch
             {
                 FormationColor.White => _white,

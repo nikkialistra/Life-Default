@@ -53,7 +53,7 @@ namespace UI.Menus.Primary
 
         public void ShowSelf()
         {
-            _hideNotify.HideCurrentMenu += Resume;
+            _hideNotify.HideCurrentMenu += HideSelf;
 
             Shown = true;
             ShownSubView = false;
@@ -61,7 +61,7 @@ namespace UI.Menus.Primary
             _root.Add(_tree);
             Time.timeScale = 0;
 
-            _resume.clicked += Resume;
+            _resume.clicked += HideSelf;
             _settings.clicked += Settings;
             _mainMenu.clicked += MainMenu;
             _exitGame.clicked += ExitGame;
@@ -71,28 +71,29 @@ namespace UI.Menus.Primary
 
         public void HideSelf()
         {
-            _hideNotify.HideCurrentMenu -= Resume;
+            HideAppearance();
+
+            Time.timeScale = 1;
+            Resuming?.Invoke();
+        }
+
+        private void HideAppearance()
+        {
+            _hideNotify.HideCurrentMenu -= HideSelf;
 
             Shown = false;
             _root.Remove(_tree);
 
-            _resume.clicked -= Resume;
+            _resume.clicked -= HideSelf;
             _settings.clicked -= Settings;
             _mainMenu.clicked -= MainMenu;
             _exitGame.clicked -= ExitGame;
         }
 
-        private void Resume()
-        {
-            HideSelf();
-            Time.timeScale = 1;
-            Resuming?.Invoke();
-        }
-
         private void Settings()
         {
             ShownSubView = true;
-            HideSelf();
+            HideAppearance();
 
             _settingsView ??= new SettingsView(_root, this, _hideNotify, _gameSettings);
             _settingsView.ShowSelf();

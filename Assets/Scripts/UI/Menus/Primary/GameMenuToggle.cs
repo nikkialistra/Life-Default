@@ -15,6 +15,8 @@ namespace UI.Menus.Primary
     {
         private VisualElement _root;
 
+        private bool _menuShown;
+
         private GameMenuView _gameMenuView;
 
         private MenuPanelView _menuPanelView;
@@ -25,8 +27,7 @@ namespace UI.Menus.Primary
 
         private PlayerInput _playerInput;
 
-        private InputAction _showMenuAction;
-        private InputAction _hideMenuAction;
+        private InputAction _toggleMenuAction;
 
         [Inject]
         public void Construct(TimeToggling timeToggling, CameraMovement cameraMovement, MenuPanelView menuPanelView,
@@ -46,8 +47,7 @@ namespace UI.Menus.Primary
 
             _gameMenuView = new GameMenuView(_root, this, _gameSettings);
 
-            _showMenuAction = _playerInput.actions.FindAction("Show Menu");
-            _hideMenuAction = _playerInput.actions.FindAction("Hide Menu");
+            _toggleMenuAction = _playerInput.actions.FindAction("Toggle Menu");
         }
 
         public event Action HideCurrentMenu;
@@ -58,7 +58,6 @@ namespace UI.Menus.Primary
         private void Start()
         {
             Time.timeScale = 1;
-            _playerInput.SwitchCurrentActionMap("Management");
         }
 
         private void OnEnable()
@@ -66,8 +65,7 @@ namespace UI.Menus.Primary
             _gameMenuView.Pausing += DoPausing;
             _gameMenuView.Resuming += DoResuming;
 
-            _showMenuAction.started += ShowMenu;
-            _hideMenuAction.started += HideMenu;
+            _toggleMenuAction.started += ToggleMenu;
 
             _menuPanelView.Click += ShowGameMenu;
         }
@@ -77,8 +75,7 @@ namespace UI.Menus.Primary
             _gameMenuView.Pausing += DoPausing;
             _gameMenuView.Resuming -= DoResuming;
 
-            _showMenuAction.started -= ShowMenu;
-            _hideMenuAction.started -= HideMenu;
+            _toggleMenuAction.started -= ToggleMenu;
 
             _menuPanelView.Click -= ShowGameMenu;
         }
@@ -91,36 +88,40 @@ namespace UI.Menus.Primary
 
         private void DoResuming()
         {
-            _playerInput.SwitchCurrentActionMap("Management");
             _timeToggling.Toggle();
             _cameraMovement.ActivateMovement();
             Resuming?.Invoke();
         }
 
-        private void ShowMenu(InputAction.CallbackContext context)
-        {
-            if (_gameMenuView.ShownSubView)
-            {
-                return;
-            }
-
-            ShowGameMenu();
-        }
-
         private void ShowGameMenu()
         {
             _gameMenuView.ShowSelf();
-            _playerInput.SwitchCurrentActionMap("Menus");
         }
 
-        private void HideMenu(InputAction.CallbackContext context)
+        private void ToggleMenu(InputAction.CallbackContext context)
         {
-            if (_gameMenuView.Shown)
+            if (_gameMenuView.ShownSubView)
             {
-                _playerInput.SwitchCurrentActionMap("Management");
+                HideCurrentMenu?.Invoke();
             }
+            else
+            {
+                ToggleGameMenu();
+            }
+        }
 
-            HideCurrentMenu?.Invoke();
+        private void ToggleGameMenu()
+        {
+            _menuShown = !_menuShown;
+
+            if (_menuShown)
+            {
+                _gameMenuView.ShowSelf();
+            }
+            else
+            {
+                _gameMenuView.HideSelf();
+            }
         }
     }
 }

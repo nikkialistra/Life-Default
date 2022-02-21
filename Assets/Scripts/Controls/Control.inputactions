@@ -6,7 +6,7 @@
             "id": "4cc9433d-d740-4593-a299-245a457e2ffd",
             "actions": [
                 {
-                    "name": "Show Menu",
+                    "name": "Toggle Menu",
                     "type": "Button",
                     "id": "bb7a1b1a-bb06-4025-af3c-a2ac225e6f9c",
                     "expectedControlType": "Button",
@@ -435,7 +435,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Show Menu",
+                    "action": "Toggle Menu",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -766,34 +766,6 @@
                     "processors": "",
                     "groups": "",
                     "action": "Next Time Speed",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                }
-            ]
-        },
-        {
-            "name": "Menus",
-            "id": "2a18fe8d-6421-4bed-bce6-1abde9ee45bc",
-            "actions": [
-                {
-                    "name": "Hide Menu",
-                    "type": "Button",
-                    "id": "e2cd4319-5092-4863-abc8-b2054a5cd28f",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                }
-            ],
-            "bindings": [
-                {
-                    "name": "",
-                    "id": "fb4bff77-1002-4636-a206-46a7ec082234",
-                    "path": "<Keyboard>/escape",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Hide Menu",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

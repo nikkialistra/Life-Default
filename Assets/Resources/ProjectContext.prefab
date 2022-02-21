@@ -156,11 +156,15 @@ MonoBehaviour:
     m_ActionName: Management/Toggle Resource Field Of View[/Keyboard/alt,/Keyboard/h]
   - m_PersistentCalls:
       m_Calls: []
-    m_ActionId: e2cd4319-5092-4863-abc8-b2054a5cd28f
-    m_ActionName: Menus/Hide Menu[/Keyboard/escape]
+    m_ActionId: 2cd4ea1b-3680-4cb3-9d0e-2ba33ad61b88
+    m_ActionName: Management/Pause Time[/Keyboard/space]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 86e1b1ba-a6b8-4f77-a4b7-0f51a016ba00
+    m_ActionName: Management/Next Time Speed[/Keyboard/tab]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
-  m_DefaultActionMap: Menus
+  m_DefaultActionMap: 4cc9433d-d740-4593-a299-245a457e2ffd
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
 --- !u!1 &7138956838183931677

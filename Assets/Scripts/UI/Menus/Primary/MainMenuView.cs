@@ -53,11 +53,6 @@ namespace UI.Menus.Primary
 
         public event Action HideCurrentMenu;
 
-        private void Start()
-        {
-            _playerInput.SwitchCurrentActionMap("Menus");
-        }
-
         private void OnEnable()
         {
             _newGame.clicked += NewGame;

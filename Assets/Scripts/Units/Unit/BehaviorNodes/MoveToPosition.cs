@@ -40,7 +40,11 @@ namespace Units.Unit.BehaviorNodes
 
         private void OnDestinationReach()
         {
-            Positions.Value.Dequeue();
+            if (Positions.Value.Count > 0)
+            {
+                Positions.Value.Dequeue();
+            }
+
             UnitMeshAgent.DestinationReach -= OnDestinationReach;
             _finished = true;
         }

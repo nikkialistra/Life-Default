@@ -48,7 +48,7 @@ namespace UI.Menus.Primary
             _settings = _tree.Q<Button>("settings");
             _exitGame = _tree.Q<Button>("exit-game");
 
-            _hideMenuAction = _playerInput.actions.FindAction("Hide Menu");
+            _hideMenuAction = _playerInput.actions.FindAction("Toggle Menu");
         }
 
         public event Action HideCurrentMenu;
@@ -75,11 +75,13 @@ namespace UI.Menus.Primary
 
         public void ShowSelf()
         {
+            _background.AddToClassList("align-left");
             _background.Add(_buttons);
         }
 
         public void HideSelf()
         {
+            _background.RemoveFromClassList("align-left");
             _background.Remove(_buttons);
         }
 

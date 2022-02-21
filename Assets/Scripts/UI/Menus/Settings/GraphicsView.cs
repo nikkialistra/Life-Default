@@ -20,6 +20,7 @@ namespace UI.Menus.Settings
         private readonly DropdownField _resolution;
         private readonly SliderInt _uiScale;
         private readonly Label _uiScaleLabel;
+        private readonly VisualElement _uiScaleDragger;
         private readonly Button _back;
 
         private readonly IHideNotify _hideNotify;
@@ -43,6 +44,7 @@ namespace UI.Menus.Settings
             _resolution = _tree.Q<DropdownField>("resolution");
             _uiScale = _tree.Q<SliderInt>("ui-scale");
             _uiScaleLabel = (Label)_uiScale.Children().First();
+            _uiScaleDragger = _uiScale.Q<VisualElement>("unity-dragger");
 
             _back = _tree.Q<Button>("back");
 
@@ -60,6 +62,7 @@ namespace UI.Menus.Settings
             _fullscreen.RegisterValueChangedCallback(OnFullscreenToggle);
             _resolution.RegisterValueChangedCallback(OnResolutionChange);
             _uiScale.RegisterValueChangedCallback(OnUiScaleChange);
+            _uiScaleDragger.RegisterCallback<MouseUpEvent>(OnUiScaleRelease);
 
             _back.clicked += Back;
         }
@@ -73,6 +76,7 @@ namespace UI.Menus.Settings
             _fullscreen.UnregisterValueChangedCallback(OnFullscreenToggle);
             _resolution.UnregisterValueChangedCallback(OnResolutionChange);
             _uiScale.UnregisterValueChangedCallback(OnUiScaleChange);
+            _uiScaleDragger.UnregisterCallback<MouseUpEvent>(OnUiScaleRelease);
 
             _back.clicked -= Back;
 
@@ -93,7 +97,10 @@ namespace UI.Menus.Settings
         private void OnUiScaleChange(ChangeEvent<int> _)
         {
             SetUiScaleLabelText();
+        }
 
+        private void OnUiScaleRelease(MouseUpEvent evt)
+        {
             var value = RoundScale(_uiScale.value);
             _gameSettings.UiScale = value;
         }

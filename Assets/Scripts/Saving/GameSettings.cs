@@ -3,11 +3,15 @@ using System.IO;
 using Sirenix.OdinInspector;
 using UniRx;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace Saving
 {
     public class GameSettings : MonoBehaviour
     {
+        [Required]
+        [SerializeField] private PanelSettings _panelSettings;
+
         public bool Fullscreen
         {
             get => _gameSettingsData.Fullscreen;
@@ -27,6 +31,7 @@ namespace Saving
             set
             {
                 _gameSettingsData.UiScale = value;
+                ChangeUiScale();
                 Save();
             }
         }
@@ -42,6 +47,7 @@ namespace Saving
         }
 
         public ReactiveProperty<float> CameraSensitivity { get; } = new();
+
         public ReactiveProperty<bool> ScreenEdgeMouseScroll { get; } = new();
 
         private bool _loaded;
@@ -75,6 +81,15 @@ namespace Saving
             Resolution.Subscribe(OnResolutionChange);
             CameraSensitivity.Subscribe(OnCameraSensitivityChange);
             ScreenEdgeMouseScroll.Subscribe(OnScreenEdgeMouseScrollChange);
+        }
+
+        private void ChangeUiScale()
+        {
+            var uiScale = _gameSettingsData.UiScale / 100f;
+            var referenceResolution =
+                new Vector2Int((int)(1920 / uiScale), (int)(1080 / uiScale));
+
+            _panelSettings.referenceResolution = referenceResolution;
         }
 
         private void OnResolutionChange(Resolution value)

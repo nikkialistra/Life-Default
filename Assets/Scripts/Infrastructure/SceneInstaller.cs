@@ -42,6 +42,8 @@ namespace Infrastructure
         [Required]
         [SerializeField] private TimeTogglingView _timeTogglingView;
         [Required]
+        [SerializeField] private MenuPanelView _menuPanelView;
+        [Required]
         [SerializeField] private ResourcesView _resourcesView;
         [Required]
         [SerializeField] private InfoPanelView _infoPanelView;
@@ -90,6 +92,7 @@ namespace Infrastructure
             Container.BindInstance(_gameMenuToggle);
             Container.BindInstance(_gameViews);
             Container.BindInstance(_timeTogglingView);
+            Container.BindInstance(_menuPanelView);
             Container.BindInstance(_resourcesView);
             Container.BindInstance(_infoPanelView);
             Container.BindInstance(_unitInfoView);

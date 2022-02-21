@@ -30,3 +30,12 @@
     border-width: 5px;
     padding: 5px;
 }
+
+.game-info {
+    flex-direction: row;
+}
+
+.indented {
+    padding-left: 2px;
+    padding-right: 2px;
+}

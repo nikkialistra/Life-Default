@@ -1,6 +1,7 @@
 ﻿using System;
 using Game;
 using Saving;
+using UI.Game.GameLook.Components;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
@@ -15,6 +16,8 @@ namespace UI.Menus.Primary
 
         private GameMenuView _gameMenuView;
 
+        private MenuPanelView _menuPanelView;
+
         private TimeToggling _timeToggling;
         private GameSettings _gameSettings;
 
@@ -24,9 +27,11 @@ namespace UI.Menus.Primary
         private InputAction _hideMenuAction;
 
         [Inject]
-        public void Construct(TimeToggling timeToggling, GameSettings gameSettings, PlayerInput playerInput)
+        public void Construct(TimeToggling timeToggling, MenuPanelView menuPanelView, GameSettings gameSettings,
+            PlayerInput playerInput)
         {
             _timeToggling = timeToggling;
+            _menuPanelView = menuPanelView;
             _gameSettings = gameSettings;
             _playerInput = playerInput;
         }
@@ -44,7 +49,6 @@ namespace UI.Menus.Primary
         public event Action HideCurrentMenu;
 
         public event Action Pausing;
-
         public event Action Resuming;
 
         private void Start()
@@ -60,6 +64,8 @@ namespace UI.Menus.Primary
 
             _showMenuAction.started += ShowMenu;
             _hideMenuAction.started += HideMenu;
+
+            _menuPanelView.Click += ShowGameMenu;
         }
 
         private void OnDisable()
@@ -69,6 +75,8 @@ namespace UI.Menus.Primary
 
             _showMenuAction.started -= ShowMenu;
             _hideMenuAction.started -= HideMenu;
+
+            _menuPanelView.Click -= ShowGameMenu;
         }
 
         private void DoPausing()
@@ -90,6 +98,11 @@ namespace UI.Menus.Primary
                 return;
             }
 
+            ShowGameMenu();
+        }
+
+        private void ShowGameMenu()
+        {
             _gameMenuView.ShowSelf();
             _playerInput.SwitchCurrentActionMap("Menus");
         }

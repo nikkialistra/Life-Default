@@ -6,7 +6,10 @@
         <ui:VisualElement name="top-panel" class="panel">
             <ui:VisualElement name="build-version"/>
             <ui:VisualElement name="top-panel__right" class="top-panel__right">
-                <ui:VisualElement name="time-toggling"/>
+                <ui:VisualElement name="game-info" class="game-info">
+                    <ui:VisualElement name="time-toggling" class="indented"/>
+                    <ui:VisualElement name="menu-panel" class="indented"/>
+                </ui:VisualElement>
                 <ui:VisualElement name="resources" class="resources"/>
             </ui:VisualElement>
         </ui:VisualElement>

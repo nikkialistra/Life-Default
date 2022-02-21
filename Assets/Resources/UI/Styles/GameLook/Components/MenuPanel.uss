@@ -1,0 +1,23 @@
+.menu-panel {
+    width: 32px;
+    height: 32px;
+    background-image: resource('UI/Sprites/MenuPanel/MenuPanel');
+}
+
+.unity-button {
+    width: 32px;
+    height: 32px;
+    border-width: 0;
+    margin: 0;
+    padding: 0;
+    background-image: resource('UI/Sprites/MenuPanel/MenuIdle');
+    background-color: rgba(188, 188, 188, 0);
+}
+
+.unity-button:hover {
+    background-image: resource('UI/Sprites/MenuPanel/MenuHovered');
+}
+
+.unity-button:active {
+    background-image: resource('UI/Sprites/MenuPanel/MenuPressed');
+}

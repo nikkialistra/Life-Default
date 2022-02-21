@@ -7,10 +7,11 @@ using UnityEngine.UIElements;
 namespace UI.Game.GameLook
 {
     [RequireComponent(typeof(UIDocument))]
+    [RequireComponent(typeof(TimeTogglingView))]
+    [RequireComponent(typeof(MenuPanelView))]
     [RequireComponent(typeof(ResourcesView))]
     [RequireComponent(typeof(InfoPanelView))]
     [RequireComponent(typeof(UnitTypesView))]
-    [RequireComponent(typeof(TimeTogglingView))]
     public class GameLookView : MonoBehaviour
     {
         [Required]
@@ -21,12 +22,14 @@ namespace UI.Game.GameLook
 
         private BuildVersionView _buildVersionView;
         private TimeTogglingView _timeTogglingView;
+        private MenuPanelView _menuPanelView;
         private ResourcesView _resourcesView;
         private InfoPanelView _infoPanelView;
         private UnitTypesView _unitTypesView;
 
         private VisualElement _buildVersionElement;
         private VisualElement _timeTogglingElement;
+        private VisualElement _menuPanelElement;
         private VisualElement _resourcesElement;
         private VisualElement _infoPanelElement;
         private VisualElement _unitTypesElement;
@@ -35,6 +38,7 @@ namespace UI.Game.GameLook
         {
             _buildVersionView = GetComponent<BuildVersionView>();
             _timeTogglingView = GetComponent<TimeTogglingView>();
+            _menuPanelView = GetComponent<MenuPanelView>();
             _resourcesView = GetComponent<ResourcesView>();
             _infoPanelView = GetComponent<InfoPanelView>();
             _unitTypesView = GetComponent<UnitTypesView>();
@@ -45,6 +49,7 @@ namespace UI.Game.GameLook
 
             _buildVersionElement = _tree.Q<VisualElement>("build-version");
             _timeTogglingElement = _tree.Q<VisualElement>("time-toggling");
+            _menuPanelElement = _tree.Q<VisualElement>("menu-panel");
             _resourcesElement = _tree.Q<VisualElement>("resources");
             _infoPanelElement = _tree.Q<VisualElement>("info-panel");
             _unitTypesElement = _tree.Q<VisualElement>("unit-types");
@@ -64,6 +69,7 @@ namespace UI.Game.GameLook
         {
             _buildVersionElement.Add(_buildVersionView.Tree);
             _timeTogglingElement.Add(_timeTogglingView.Tree);
+            _menuPanelElement.Add(_menuPanelView.Tree);
             _resourcesElement.Add(_resourcesView.Tree);
             _infoPanelElement.Add(_infoPanelView.Tree);
             _unitTypesElement.Add(_unitTypesView.Tree);

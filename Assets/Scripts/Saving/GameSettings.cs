@@ -13,12 +13,13 @@ namespace Saving
             get => _gameSettingsData.Fullscreen;
             set
             {
+                Screen.fullScreen = value;
                 _gameSettingsData.Fullscreen = value;
                 Save();
             }
         }
 
-        public ReactiveProperty<string> Resolution { get; } = new();
+        public ReactiveProperty<Resolution> Resolution { get; } = new();
 
         public int UiScale
         {
@@ -76,9 +77,10 @@ namespace Saving
             ScreenEdgeMouseScroll.Subscribe(OnScreenEdgeMouseScrollChange);
         }
 
-        private void OnResolutionChange(string value)
+        private void OnResolutionChange(Resolution value)
         {
-            _gameSettingsData.Resolution = value;
+            Screen.SetResolution(value.width, value.height, Fullscreen);
+            _gameSettingsData.Resolution = value.ToString();
             Save();
         }
 
@@ -135,14 +137,6 @@ namespace Saving
             }
 
             SetUpParameters();
-
-            foreach (var resolution in Screen.resolutions)
-            {
-                if (resolution.ToString() == Resolution.Value)
-                {
-                    Screen.SetResolution(resolution.width, resolution.height, Fullscreen);
-                }
-            }
         }
 
         private void Load()
@@ -171,12 +165,23 @@ namespace Saving
         private void SetUpParameters()
         {
             Fullscreen = _gameSettingsData.Fullscreen;
-            Resolution.Value = _gameSettingsData.Resolution;
+            FindResolution();
             UiScale = _gameSettingsData.UiScale;
 
             ShowHelpPanelAtStart = _gameSettingsData.ShowHelpPanelAtStart;
             CameraSensitivity.Value = _gameSettingsData.CameraSensitivity;
             ScreenEdgeMouseScroll.Value = _gameSettingsData.ScreenEdgeMouseScroll;
+        }
+
+        private void FindResolution()
+        {
+            foreach (var resolution in Screen.resolutions)
+            {
+                if (resolution.ToString() == _gameSettingsData.Resolution)
+                {
+                    Resolution.Value = resolution;
+                }
+            }
         }
 
         private void CreateDefaultSettings()

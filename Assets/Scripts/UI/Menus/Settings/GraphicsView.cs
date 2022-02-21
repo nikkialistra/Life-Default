@@ -37,6 +37,7 @@ namespace UI.Menus.Settings
 
             var template = Resources.Load<VisualTreeAsset>("UI/Markup/Menus/Settings/Graphics");
             _tree = template.CloneTree();
+            _tree.style.flexGrow = 1;
 
             _fullscreen = _tree.Q<Toggle>("fullscreen");
             _resolution = _tree.Q<DropdownField>("resolution");
@@ -80,17 +81,13 @@ namespace UI.Menus.Settings
 
         private void OnFullscreenToggle(ChangeEvent<bool> _)
         {
-            Screen.fullScreen = _fullscreen.value;
-
             _gameSettings.Fullscreen = _fullscreen.value;
         }
 
         private void OnResolutionChange(ChangeEvent<string> _)
         {
             var index = _resolution.index;
-            Screen.SetResolution(_resolutions[index].width, _resolutions[index].height, _fullscreen.value);
-
-            _gameSettings.Resolution.Value = _resolutions[index].ToString();
+            _gameSettings.Resolution.Value = _resolutions[index];
         }
 
         private void OnUiScaleChange(ChangeEvent<int> _)
@@ -131,7 +128,7 @@ namespace UI.Menus.Settings
                 var resolutionText = resolution.ToString();
                 _resolution.choices.Add(resolutionText);
 
-                if (resolutionText == _gameSettings.Resolution.Value)
+                if (resolutionText == _gameSettings.Resolution.Value.ToString())
                 {
                     currentIndex = i;
                 }

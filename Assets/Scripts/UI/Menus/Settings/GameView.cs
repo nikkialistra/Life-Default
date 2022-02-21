@@ -30,6 +30,7 @@ namespace UI.Menus.Settings
 
             var template = Resources.Load<VisualTreeAsset>("UI/Markup/Menus/Settings/Game");
             _tree = template.CloneTree();
+            _tree.style.flexGrow = 1;
 
             _showHelpPanelAtStart = _tree.Q<Toggle>("show-help-panel-at-start");
             _cameraSensitivity = _tree.Q<Slider>("camera-sensitivity");

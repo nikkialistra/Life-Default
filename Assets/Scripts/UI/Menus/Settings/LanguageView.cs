@@ -25,6 +25,7 @@ namespace UI.Menus.Settings
 
             var template = Resources.Load<VisualTreeAsset>("UI/Markup/Menus/Settings/Language");
             _tree = template.CloneTree();
+            _tree.style.flexGrow = 1;
 
             _back = _tree.Q<Button>("back");
         }

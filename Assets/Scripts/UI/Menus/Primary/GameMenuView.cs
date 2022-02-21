@@ -37,6 +37,7 @@ namespace UI.Menus.Primary
 
             var template = Resources.Load<VisualTreeAsset>("UI/Markup/Menus/GameMenu");
             _tree = template.CloneTree();
+            _tree.style.flexGrow = 1;
 
             _resume = _tree.Q<Button>("resume");
             _save = _tree.Q<Button>("save");

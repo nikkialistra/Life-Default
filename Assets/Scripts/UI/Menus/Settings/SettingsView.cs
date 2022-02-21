@@ -36,6 +36,7 @@ namespace UI.Menus.Settings
 
             var template = Resources.Load<VisualTreeAsset>("UI/Markup/Menus/Settings/Settings");
             _tree = template.CloneTree();
+            _tree.style.flexGrow = 1;
 
             _graphics = _tree.Q<Button>("graphics");
             _audio = _tree.Q<Button>("audio");

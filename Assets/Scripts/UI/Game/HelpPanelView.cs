@@ -7,7 +7,7 @@ using Zenject;
 namespace UI.Game
 {
     [RequireComponent(typeof(UIDocument))]
-    public class HelpPanel : MonoBehaviour
+    public class HelpPanelView : MonoBehaviour
     {
         private VisualElement _root;
 

@@ -30,7 +30,7 @@ namespace UI.Menus.Primary
 
         private void Awake()
         {
-            _root = GetComponent<UIDocument>().rootVisualElement;
+            _root = GetComponent<UIDocument>().rootVisualElement.Q<VisualElement>("root");
 
             _gameMenuView = new GameMenuView(_root, this, _gameSettings);
 

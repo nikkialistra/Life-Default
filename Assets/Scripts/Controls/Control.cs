@@ -475,17 +475,6 @@ namespace Controls
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": """",
-                    ""id"": ""854101b2-d0e3-4224-9b65-5b212b2dd351"",
-                    ""path"": ""<Touchscreen>/primaryTouch/position"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Mouse Position"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
                     ""name"": ""One Modifier"",
                     ""id"": ""137d67c8-e8b2-470d-bcb0-cce79254601f"",
                     ""path"": ""OneModifier"",

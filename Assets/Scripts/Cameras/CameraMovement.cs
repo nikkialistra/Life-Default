@@ -135,12 +135,12 @@ namespace Cameras
 
         private void OnEnable()
         {
-            _toggleCameraMovementAction.started += ToggleCameraMovementMovement;
+            _toggleCameraMovementAction.started += ToggleCameraMovement;
         }
 
         private void OnDisable()
         {
-            _toggleCameraMovementAction.started -= ToggleCameraMovementMovement;
+            _toggleCameraMovementAction.started -= ToggleCameraMovement;
         }
 
         private void Start()
@@ -191,7 +191,7 @@ namespace Cameras
             _deactivated = false;
         }
 
-        private void ToggleCameraMovementMovement(InputAction.CallbackContext context)
+        private void ToggleCameraMovement(InputAction.CallbackContext context)
         {
             _deactivated = !_deactivated;
 
@@ -203,6 +203,18 @@ namespace Cameras
             {
                 Activate();
             }
+        }
+
+        public void DeactivateMovement()
+        {
+            _deactivated = true;
+            Deactivate();
+        }
+
+        public void ActivateMovement()
+        {
+            _deactivated = false;
+            Activate();
         }
 
         private void LoadSettings()

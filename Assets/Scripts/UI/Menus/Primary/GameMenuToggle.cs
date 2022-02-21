@@ -1,4 +1,5 @@
 ﻿using System;
+using Cameras;
 using Game;
 using Saving;
 using UI.Game.GameLook.Components;
@@ -19,6 +20,7 @@ namespace UI.Menus.Primary
         private MenuPanelView _menuPanelView;
 
         private TimeToggling _timeToggling;
+        private CameraMovement _cameraMovement;
         private GameSettings _gameSettings;
 
         private PlayerInput _playerInput;
@@ -27,10 +29,12 @@ namespace UI.Menus.Primary
         private InputAction _hideMenuAction;
 
         [Inject]
-        public void Construct(TimeToggling timeToggling, MenuPanelView menuPanelView, GameSettings gameSettings,
+        public void Construct(TimeToggling timeToggling, CameraMovement cameraMovement, MenuPanelView menuPanelView,
+            GameSettings gameSettings,
             PlayerInput playerInput)
         {
             _timeToggling = timeToggling;
+            _cameraMovement = cameraMovement;
             _menuPanelView = menuPanelView;
             _gameSettings = gameSettings;
             _playerInput = playerInput;
@@ -81,6 +85,7 @@ namespace UI.Menus.Primary
 
         private void DoPausing()
         {
+            _cameraMovement.DeactivateMovement();
             Pausing?.Invoke();
         }
 
@@ -88,6 +93,7 @@ namespace UI.Menus.Primary
         {
             _playerInput.SwitchCurrentActionMap("Management");
             _timeToggling.Toggle();
+            _cameraMovement.ActivateMovement();
             Resuming?.Invoke();
         }
 

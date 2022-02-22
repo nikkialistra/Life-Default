@@ -1,22 +1,21 @@
-<ui:UXML xmlns:ui="UnityEngine.UIElements"
-         xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements"
-         noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <Style src="project://database/Assets/Resources/UI/Styles/GameLook/GameLook.uss?fileID=7433441132597879392&amp;guid=295c2b0dcdb1e5f4fbcbc0c651a015ef&amp;type=3#GameLook"/>
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Resources/UI/Styles/GameLook/GameLook.uss?fileID=7433441132597879392&amp;guid=295c2b0dcdb1e5f4fbcbc0c651a015ef&amp;type=3#GameLook" />
     <ui:VisualElement name="game-look" picking-mode="Ignore" class="game-look">
         <ui:VisualElement name="top-panel" picking-mode="Ignore" class="panel">
-            <ui:VisualElement name="build-version" picking-mode="Ignore"/>
+            <ui:VisualElement name="build-version" picking-mode="Ignore" />
             <ui:VisualElement name="top-panel__right" picking-mode="Ignore" class="top-panel__right">
                 <ui:VisualElement name="game-info" picking-mode="Ignore" class="game-info">
-                    <ui:VisualElement name="time-toggling" picking-mode="Ignore" class="indented"/>
-                    <ui:VisualElement name="menu-panel" picking-mode="Ignore" class="indented"/>
+                    <ui:VisualElement name="time-toggling" picking-mode="Ignore" />
+                    <ui:VisualElement name="time-weather" class="indented" />
+                    <ui:VisualElement name="menu-panel" picking-mode="Ignore" class="indented" />
                 </ui:VisualElement>
-                <ui:VisualElement name="resources" picking-mode="Ignore" class="resources"/>
+                <ui:VisualElement name="resources" picking-mode="Ignore" class="resources" />
             </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement name="bottom-panel" picking-mode="Ignore" class="panel" style="align-items: flex-end;">
-            <ui:VisualElement name="plug" picking-mode="Ignore" class="plug" style="width: 310px;"/>
-            <ui:VisualElement name="info-panel" picking-mode="Ignore"/>
-            <ui:VisualElement name="unit-types" picking-mode="Ignore"/>
+            <ui:VisualElement name="plug" picking-mode="Ignore" class="plug" style="width: 310px;" />
+            <ui:VisualElement name="info-panel" picking-mode="Ignore" />
+            <ui:VisualElement name="unit-types" picking-mode="Ignore" />
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

@@ -1,0 +1,47 @@
+.time-weather {
+    width: 224px;
+    height: 32px;
+    background-image: resource('UI/Sprites/TimeToggling/TimeTogglingPanel');
+    padding-left: 4px;
+    padding-right: 4px;
+    flex-direction: row;
+}
+
+.label {
+    margin: 0;
+    padding: 0;
+    -unity-font: resource('Fonts/Exo 2/Exo2-Regular');
+    -unity-font-definition: none;
+    color: rgb(255, 255, 255);
+}
+
+.label-half {
+    height: 16px;
+    font-size: 11px;
+    -unity-text-align: middle-center;
+    width: 72px;
+}
+
+.date {
+    width: 72px;
+    height: 32px;
+}
+
+.date__year {
+    font-size: 8px;
+    -unity-text-align: upper-center;
+    padding-top: 1px;
+}
+
+.hour {
+    width: 72px;
+    font-size: 28px;
+    -unity-text-align: middle-center;
+    padding-bottom: 2px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.time {
+    flex-direction: row;
+}

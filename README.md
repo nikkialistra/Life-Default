@@ -1,4 +1,4 @@
-# Astrayland #
+# Life Default #
 
 **A Realtime Strategy Game**
 

@@ -15,8 +15,6 @@ namespace UI.Menus.Primary
     {
         private VisualElement _root;
 
-        private bool _menuShown;
-
         private GameMenuView _gameMenuView;
 
         private MenuPanelView _menuPanelView;
@@ -112,15 +110,13 @@ namespace UI.Menus.Primary
 
         private void ToggleGameMenu()
         {
-            _menuShown = !_menuShown;
-
-            if (_menuShown)
+            if (_gameMenuView.Shown)
             {
-                _gameMenuView.ShowSelf();
+                _gameMenuView.HideSelf();
             }
             else
             {
-                _gameMenuView.HideSelf();
+                _gameMenuView.ShowSelf();
             }
         }
     }

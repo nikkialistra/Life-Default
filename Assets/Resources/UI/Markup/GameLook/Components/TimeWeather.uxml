@@ -1,16 +1,14 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/Resources/UI/Styles/GameLook/Components/TimeWeather.uss?fileID=7433441132597879392&amp;guid=55a245036c3857a45ba77848cab44883&amp;type=3#TimeWeather" />
     <ui:VisualElement name="time-weather" class="time-weather">
-        <ui:VisualElement name="time" class="time">
-            <ui:VisualElement name="date" class="date">
-                <ui:Label text="Spring, day 2" display-tooltip-when-elided="true" name="date__season-day" class="label label-half" />
-                <ui:Label text="2114" display-tooltip-when-elided="true" name="date__year" class="date__year label label-half" />
-            </ui:VisualElement>
-            <ui:Label text="00 h." display-tooltip-when-elided="true" name="hour" class="label hour" />
+        <ui:VisualElement name="date" class="date" style="min-width: 72px;">
+            <ui:Label text="Spring, day 2" display-tooltip-when-elided="true" name="date__season-day" class="label label-half right-aligned" />
+            <ui:Label text="2114" display-tooltip-when-elided="true" name="date__year" class="label label-half right-aligned date__year" />
         </ui:VisualElement>
+        <ui:Label text="00 h" display-tooltip-when-elided="true" name="hour" class="label hour" />
         <ui:VisualElement name="weather" class="date">
-            <ui:Label text="15 ℃ Outside" display-tooltip-when-elided="true" name="weather__temperature" class="label label-half" />
-            <ui:Label text="Cloudy" display-tooltip-when-elided="true" name="weather__conditions" class="label label-half" style="padding-bottom: 2px;" />
+            <ui:Label text="15 ℃ Outside" display-tooltip-when-elided="true" name="weather__temperature" class="label label-half left-aligned" />
+            <ui:Label text="Cloudy" display-tooltip-when-elided="true" name="weather__conditions" class="label label-half left-aligned" style="padding-bottom: 2px;" />
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

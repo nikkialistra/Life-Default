@@ -1,5 +1,5 @@
 .time-weather {
-    width: 224px;
+    width: 234px;
     height: 32px;
     background-image: resource('UI/Sprites/TimeToggling/TimeTogglingPanel');
     padding-left: 4px;
@@ -29,19 +29,22 @@
 
 .date__year {
     font-size: 8px;
-    -unity-text-align: upper-center;
-    padding-top: 1px;
+    padding-bottom: 4px;
 }
 
 .hour {
     width: 72px;
-    font-size: 28px;
+    font-size: 30px;
     -unity-text-align: middle-center;
     padding-bottom: 2px;
-    padding-left: 5px;
-    padding-right: 5px;
+    margin-left: 5px;
+    margin-right: 5px;
 }
 
-.time {
-    flex-direction: row;
+.right-aligned {
+    -unity-text-align: middle-right;
+}
+
+.left-aligned {
+    -unity-text-align: middle-left;
 }

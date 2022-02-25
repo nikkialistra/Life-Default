@@ -3,6 +3,7 @@ using Sirenix.OdinInspector;
 using UI.Game.GameLook.Components;
 using UnityEngine;
 using UnityEngine.UIElements;
+using Zenject;
 
 namespace UI.Game.GameLook
 {
@@ -15,9 +16,6 @@ namespace UI.Game.GameLook
     [RequireComponent(typeof(UnitTypesView))]
     public class GameLookView : MonoBehaviour
     {
-        [Required]
-        [SerializeField] private TimeToggling _timeToggling;
-
         private VisualElement _tree;
         private VisualElement _gameLook;
 
@@ -36,6 +34,14 @@ namespace UI.Game.GameLook
         private VisualElement _resourcesElement;
         private VisualElement _infoPanelElement;
         private VisualElement _unitTypesElement;
+        
+        private TimeToggling _timeToggling;
+
+        [Inject]
+        public void Construct(TimeToggling timeToggling)
+        {
+            _timeToggling = timeToggling;
+        }
 
         private void Awake()
         {

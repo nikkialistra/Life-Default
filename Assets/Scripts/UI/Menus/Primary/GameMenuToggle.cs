@@ -86,7 +86,7 @@ namespace UI.Menus.Primary
 
         private void DoResuming()
         {
-            _timeToggling.Toggle();
+            _timeToggling.ToggleTime();
             _cameraMovement.ActivateMovement();
             Resuming?.Invoke();
         }

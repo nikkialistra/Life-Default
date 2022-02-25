@@ -1,7 +1,9 @@
 ﻿using System;
 using Game;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
+using Zenject;
 
 namespace UI.Game.GameLook.Components
 {
@@ -12,6 +14,20 @@ namespace UI.Game.GameLook.Components
         private Toggle _x2;
         private Toggle _x3;
 
+        private TimeToggling _timeToggling;
+        
+        private PlayerInput _playerInput;
+
+        private InputAction _pauseTimeAction;
+        private InputAction _nextTimeSpeedAction;
+
+        [Inject]
+        public void Construct(TimeToggling timeToggling, PlayerInput playerInput)
+        {
+            _timeToggling = timeToggling;
+            _playerInput = playerInput;
+        }
+
         private void Awake()
         {
             Tree = Resources.Load<VisualTreeAsset>("UI/Markup/GameLook/Components/TimeToggling").CloneTree();
@@ -20,14 +36,12 @@ namespace UI.Game.GameLook.Components
             _x1 = Tree.Q<Toggle>("x1");
             _x2 = Tree.Q<Toggle>("x2");
             _x3 = Tree.Q<Toggle>("x3");
+            
+            _pauseTimeAction = _playerInput.actions.FindAction("Pause Time");
+            _nextTimeSpeedAction = _playerInput.actions.FindAction("Next Time Speed");
         }
 
         public VisualElement Tree { get; private set; }
-
-        public event Action<bool> Pause;
-        public event Action X1;
-        public event Action X2;
-        public event Action X3;
 
         private void Start()
         {
@@ -40,6 +54,9 @@ namespace UI.Game.GameLook.Components
             _x1.RegisterValueChangedCallback(OnX1Toggle);
             _x2.RegisterValueChangedCallback(OnX2Toggle);
             _x3.RegisterValueChangedCallback(OnX3Toggle);
+            
+            _pauseTimeAction.started += OnPauseTime;
+            _nextTimeSpeedAction.started += OnNextTimeSpeed;
         }
 
         private void OnDisable()
@@ -48,6 +65,9 @@ namespace UI.Game.GameLook.Components
             _x1.UnregisterValueChangedCallback(OnX1Toggle);
             _x2.UnregisterValueChangedCallback(OnX2Toggle);
             _x3.UnregisterValueChangedCallback(OnX3Toggle);
+            
+            _pauseTimeAction.started -= OnPauseTime;
+            _nextTimeSpeedAction.started -= OnNextTimeSpeed;
         }
 
         public void SetIndicators(bool paused, TimeSpeed timeSpeed)
@@ -71,28 +91,32 @@ namespace UI.Game.GameLook.Components
 
         private void OnPauseToggle(ChangeEvent<bool> _)
         {
-            Pause?.Invoke(_pause.value);
+            _timeToggling.Pause();
         }
 
         private void OnX1Toggle(ChangeEvent<bool> _)
         {
-            CheckX1Toggle();
-
-            X1?.Invoke();
+            _timeToggling.ChangeSpeed(TimeSpeed.X1);
         }
 
         private void OnX2Toggle(ChangeEvent<bool> _)
         {
-            CheckX2Toggle();
-
-            X2?.Invoke();
+            _timeToggling.ChangeSpeed(TimeSpeed.X2);
         }
 
         private void OnX3Toggle(ChangeEvent<bool> _)
         {
-            CheckX3Toggle();
+            _timeToggling.ChangeSpeed(TimeSpeed.X3);
+        }
 
-            X3?.Invoke();
+        private void OnPauseTime(InputAction.CallbackContext context)
+        {
+            _timeToggling.Pause();
+        }
+
+        private void OnNextTimeSpeed(InputAction.CallbackContext obj)
+        {
+            _timeToggling.NextSpeed();
         }
 
         private void CheckX1Toggle()

@@ -20,9 +20,11 @@ namespace Infrastructure
         [Title("Set Up")]
         [SerializeField] private bool _isSetUpSession;
 
-        [Title("Game")]
+        [Title("Game Systems")]
         [Required]
         [SerializeField] private TimeToggling _timeToggling;
+        [Required]
+        [SerializeField] private ResourceCounts _resourceCounts;
 
         [Title("Input")]
         [Required]
@@ -54,10 +56,6 @@ namespace Infrastructure
         [Required]
         [SerializeField] private UnitTypesView _unitTypesView;
 
-        [Title("Resources")]
-        [Required]
-        [SerializeField] private ResourceCounts _resourceCounts;
-
         [Title("Saving")]
         [Required]
         [SerializeField] private UnitSaveLoadHandler _unitSaveLoadHandler;
@@ -66,12 +64,16 @@ namespace Infrastructure
 
         public override void InstallBindings()
         {
-            Container.BindInstance(_timeToggling);
-
+            BindGameSystems();
             BindInput();
             BindUi();
-            BindResources();
             BindSaving();
+        }
+
+        private void BindGameSystems()
+        {
+            Container.BindInstance(_timeToggling);
+            Container.BindInstance(_resourceCounts);
         }
 
         private void BindInput()
@@ -98,11 +100,6 @@ namespace Infrastructure
             Container.BindInstance(_unitInfoView);
             Container.BindInstance(_unitsInfoView);
             Container.BindInstance(_unitTypesView);
-        }
-
-        private void BindResources()
-        {
-            Container.BindInstance(_resourceCounts);
         }
 
         private void BindSaving()

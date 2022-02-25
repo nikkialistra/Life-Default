@@ -1,4 +1,4 @@
-﻿using Environment.Indicators;
+﻿using Environment.TileIndicators;
 using Environment.TimeCycle.Seasons;
 using Environment.Weather;
 using UnityEngine;

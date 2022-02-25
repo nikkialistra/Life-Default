@@ -20,6 +20,9 @@ namespace Environment.TimeCycle.Seasons
             _timeWeatherView = timeWeatherView;
         }
 
+        public event Action SeasonDayChange;
+        public event Action<Season> SeasonChange; 
+
         private void Start()
         {
             UpdateView();
@@ -33,6 +36,11 @@ namespace Environment.TimeCycle.Seasons
             {
                 _day = 1;
                 NextSeason();
+                SeasonChange?.Invoke(_season);
+            }
+            else
+            {
+                SeasonDayChange?.Invoke();
             }
 
             UpdateView();

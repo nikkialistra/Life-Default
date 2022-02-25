@@ -1,6 +1,7 @@
 ﻿using Cameras;
 using Environment.TimeCycle.Days;
 using Environment.TimeCycle.Seasons;
+using Environment.TimeCycle.Ticking;
 using Environment.TimeCycle.TimeRegulation;
 using ResourceManagement;
 using Saving;
@@ -23,6 +24,8 @@ namespace Infrastructure
         [SerializeField] private bool _isSetUpSession;
 
         [Title("Game Systems")]
+        [Required]
+        [SerializeField] private TickingRegulator _tickingRegulator;
         [Required]
         [SerializeField] private DayCycle _dayCycle;
         [Required]
@@ -80,6 +83,7 @@ namespace Infrastructure
 
         private void BindGameSystems()
         {
+            Container.BindInstance(_tickingRegulator);
             Container.BindInstance(_dayCycle);
             Container.BindInstance(_seasonCycle);
             Container.BindInstance(_timeToggling);

@@ -1,4 +1,4 @@
-﻿namespace Game
+﻿namespace Environment.Time
 {
     public enum TimeSpeed
     {

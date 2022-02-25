@@ -1,5 +1,5 @@
 ﻿using System;
-using Game;
+using Environment.Time;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;

@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Zenject;
 
-namespace Game
+namespace Environment.Time
 {
     public class TimeToggling : MonoBehaviour
     {
@@ -53,11 +53,11 @@ namespace Game
         {
             if (_paused)
             {
-                Time.timeScale = 0;
+                UnityEngine.Time.timeScale = 0;
             }
             else
             {
-                Time.timeScale = _timeSpeed switch
+                UnityEngine.Time.timeScale = _timeSpeed switch
                 {
                     TimeSpeed.X1 => 1f,
                     TimeSpeed.X2 => 2f,

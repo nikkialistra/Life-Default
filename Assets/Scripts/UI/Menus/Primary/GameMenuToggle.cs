@@ -1,6 +1,6 @@
 ﻿using System;
 using Cameras;
-using Game;
+using Environment.Time;
 using Saving;
 using UI.Game.GameLook.Components;
 using UnityEngine;

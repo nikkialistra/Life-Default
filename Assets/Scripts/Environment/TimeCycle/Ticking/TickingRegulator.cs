@@ -25,6 +25,11 @@ namespace Environment.TimeCycle.Ticking
             _timeToggling = timeToggling;
         }
 
+        private void Start()
+        {
+            Tick();
+        }
+
         private void OnEnable()
         {
             _timeToggling.PauseChange += OnPauseChange;

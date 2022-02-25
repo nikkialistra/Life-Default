@@ -1,5 +1,5 @@
 .time-weather {
-    width: 234px;
+    width: 250px;
     height: 32px;
     background-image: resource('UI/Sprites/TimeToggling/TimeTogglingPanel');
     padding-left: 4px;
@@ -22,12 +22,12 @@
     width: 72px;
 }
 
-.date {
-    width: 72px;
+.block {
+    width: 80px;
     height: 32px;
 }
 
-.date__year {
+.year {
     font-size: 8px;
     padding-bottom: 4px;
 }

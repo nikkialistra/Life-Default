@@ -1,4 +1,5 @@
-﻿using Environment.TimeCycle.Seasons;
+﻿using System;
+using Environment.TimeCycle.Seasons;
 using Environment.TimeCycle.Ticking;
 using UI.Game.GameLook.Components;
 using UnityEngine;
@@ -9,23 +10,24 @@ namespace Environment.TimeCycle.Days
     public class DayCycle : MonoBehaviour, ITicking
     {
         [Range(0, 23)]
-        [SerializeField] private int _hours;
+        [SerializeField] private int _hours = 23;
         
         private int _ticks;
         
         private SeasonCycle _seasonCycle;
-        private TickingRegulator _tickingRegulator;
         private TimeWeatherView _timeWeatherView;
 
         [Inject]
         public void Construct(SeasonCycle seasonCycle, TickingRegulator tickingRegulator, TimeWeatherView timeWeatherView)
         {
             _seasonCycle = seasonCycle;
-            _tickingRegulator = tickingRegulator;
             _timeWeatherView = timeWeatherView;
             
-            _tickingRegulator.AddToTickables(this);
+            tickingRegulator.AddToTickables(this);
         }
+
+        public event Action DayBegin;
+        public event Action NightBegin;
 
         private void Start()
         {
@@ -47,10 +49,16 @@ namespace Environment.TimeCycle.Days
         {
             _hours++;
 
+            if (_hours == 6)
+            {
+                DayBegin?.Invoke();
+            }
+            
             if (_hours == 24)
             {
                 _hours = 0;
                 _seasonCycle.NextDay();
+                NightBegin?.Invoke();
             }
 
             UpdateView();

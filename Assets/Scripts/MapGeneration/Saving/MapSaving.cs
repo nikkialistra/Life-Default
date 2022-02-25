@@ -42,7 +42,7 @@ namespace MapGeneration.Saving
         {
             CreateBaseDirectoriesTo(SavedAssetsPath);
 
-            var path = Path.Combine(MapSaving.SavedAssetsPath, name);
+            var path = Path.Combine(SavedAssetsPath, name);
             AssetDatabase.CreateAsset(mesh, path);
         }
 

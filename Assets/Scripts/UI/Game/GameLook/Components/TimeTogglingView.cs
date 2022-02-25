@@ -1,5 +1,5 @@
 ﻿using System;
-using Environment.Time;
+using Environment.TimeCycle.TimeRegulation;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;

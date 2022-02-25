@@ -1,4 +1,4 @@
-﻿using Environment.Time;
+﻿using Environment.TimeCycle.TimeRegulation;
 using Sirenix.OdinInspector;
 using UI.Game.GameLook.Components;
 using UnityEngine;

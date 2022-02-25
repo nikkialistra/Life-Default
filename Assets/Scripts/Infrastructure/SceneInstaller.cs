@@ -1,5 +1,7 @@
 ﻿using Cameras;
-using Environment.Time;
+using Environment.TimeCycle.Days;
+using Environment.TimeCycle.Seasons;
+using Environment.TimeCycle.TimeRegulation;
 using ResourceManagement;
 using Saving;
 using Saving.Serialization;
@@ -22,6 +24,10 @@ namespace Infrastructure
 
         [Title("Game Systems")]
         [Required]
+        [SerializeField] private DayCycle _dayCycle;
+        [Required]
+        [SerializeField] private SeasonCycle _seasonCycle;
+        [Required]
         [SerializeField] private TimeToggling _timeToggling;
         [Required]
         [SerializeField] private ResourceCounts _resourceCounts;
@@ -43,6 +49,8 @@ namespace Infrastructure
         [SerializeField] private GameViews _gameViews;
         [Required]
         [SerializeField] private TimeTogglingView _timeTogglingView;
+        [Required]
+        [SerializeField] private TimeWeatherView _timeWeatherView;
         [Required]
         [SerializeField] private MenuPanelView _menuPanelView;
         [Required]
@@ -72,6 +80,8 @@ namespace Infrastructure
 
         private void BindGameSystems()
         {
+            Container.BindInstance(_dayCycle);
+            Container.BindInstance(_seasonCycle);
             Container.BindInstance(_timeToggling);
             Container.BindInstance(_resourceCounts);
         }
@@ -94,6 +104,7 @@ namespace Infrastructure
             Container.BindInstance(_gameMenuToggle);
             Container.BindInstance(_gameViews);
             Container.BindInstance(_timeTogglingView);
+            Container.BindInstance(_timeWeatherView);
             Container.BindInstance(_menuPanelView);
             Container.BindInstance(_resourcesView);
             Container.BindInstance(_infoPanelView);

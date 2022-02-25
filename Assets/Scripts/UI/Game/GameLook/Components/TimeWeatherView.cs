@@ -1,5 +1,5 @@
-﻿using Environment;
-using Environment.Indicators;
+﻿using Environment.Indicators;
+using Environment.TimeCycle.Seasons;
 using Environment.Weather;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -12,7 +12,7 @@ namespace UI.Game.GameLook.Components
         
         private Label _year;
         private Label _seasonDay;
-        private Label _time;
+        private Label _hours;
         private Label _localTemperature;
         private Label _weather;
         
@@ -29,7 +29,7 @@ namespace UI.Game.GameLook.Components
             _year = Tree.Q<Label>("year");
             _seasonDay = Tree.Q<Label>("season-day");
 
-            _time = Tree.Q<Label>("time");
+            _hours = Tree.Q<Label>("hours");
 
             _localTemperature = Tree.Q<Label>("local-temperature");
             _weather = Tree.Q<Label>("weather");
@@ -37,26 +37,18 @@ namespace UI.Game.GameLook.Components
         
         public VisualElement Tree { get; private set; }
 
-        public void ChangeYear(int year)
+        public void ChangeSeasonInfo(Season season, int day, int year)
         {
+            _season = season;
+            _day = day;
+            UpdateSeasonDay();
+            
             _year.text = year.ToString();
         }
 
-        public void ChangeSeason(Season season)
+        public void ChangeHours(int hours)
         {
-            _season = season;
-            UpdateSeasonDay();
-        }
-
-        public void ChangeDay(int day)
-        {
-            _day = day;
-            UpdateSeasonDay();
-        }
-
-        public void ChangeTime(int time)
-        {
-            _time.text = time + " h";
+            _hours.text = hours + " h";
         }
 
         public void ChangeTemperature(int temperature)

@@ -6,11 +6,13 @@ namespace UI.Game.GameLook.Components
 {
     public class MenuPanelView : MonoBehaviour
     {
+        private const string VisualTreePath = "UI/Markup/GameLook/Components/MenuPanel";
+        
         private Button _menu;
 
         private void Awake()
         {
-            Tree = Resources.Load<VisualTreeAsset>("UI/Markup/GameLook/Components/MenuPanel").CloneTree();
+            Tree = Resources.Load<VisualTreeAsset>(VisualTreePath).CloneTree();
 
             _menu = Tree.Q<Button>("menu");
         }

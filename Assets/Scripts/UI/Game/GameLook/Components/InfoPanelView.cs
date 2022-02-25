@@ -9,6 +9,8 @@ namespace UI.Game.GameLook.Components
     [RequireComponent(typeof(UnitsInfoView))]
     public class InfoPanelView : MonoBehaviour
     {
+        private const string VisualTreePath = "UI/Markup/GameLook/Components/InfoPanel";
+        
         private UnitInfoView _unitInfoView;
         private UnitsInfoView _unitsInfoView;
 
@@ -17,7 +19,7 @@ namespace UI.Game.GameLook.Components
             _unitInfoView = GetComponent<UnitInfoView>();
             _unitsInfoView = GetComponent<UnitsInfoView>();
 
-            Tree = Resources.Load<VisualTreeAsset>("UI/Markup/GameLook/Components/InfoPanel").CloneTree();
+            Tree = Resources.Load<VisualTreeAsset>(VisualTreePath).CloneTree();
 
             InfoPanel = Tree.Q<VisualElement>("info-panel");
         }

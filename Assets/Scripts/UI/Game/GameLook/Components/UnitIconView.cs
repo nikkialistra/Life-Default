@@ -9,6 +9,8 @@ namespace UI.Game.GameLook.Components
 {
     public class UnitIconView : IDisposable
     {
+        private const string VisualTreePath = "UI/Markup/GameLook/Components/UnitIcon";
+        
         private UnitFacade _unit;
 
         private readonly UnitsInfoView _parent;
@@ -33,7 +35,7 @@ namespace UI.Game.GameLook.Components
             _previews = previews;
             _changeColorFractions = changeColorFractions;
 
-            _tree = Resources.Load<VisualTreeAsset>("UI/Markup/GameLook/Components/UnitIcon").CloneTree();
+            _tree = Resources.Load<VisualTreeAsset>(VisualTreePath).CloneTree();
 
             _root = _tree.Q<VisualElement>("unit-icon");
             _image = _tree.Q<VisualElement>("image");

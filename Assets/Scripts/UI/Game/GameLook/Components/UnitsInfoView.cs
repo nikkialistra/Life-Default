@@ -13,6 +13,8 @@ namespace UI.Game.GameLook.Components
     [RequireComponent(typeof(ChangeColorFractions))]
     public class UnitsInfoView : MonoBehaviour
     {
+        private const string VisualTreePath = "UI/Markup/GameLook/Components/UnitsInfo";
+        
         [Required]
         [SerializeField] private Texture2D _multipleUnitsPreview;
 
@@ -41,7 +43,7 @@ namespace UI.Game.GameLook.Components
             _parent = GetComponent<InfoPanelView>();
             _changeColorFractions = GetComponent<ChangeColorFractions>();
 
-            _tree = Resources.Load<VisualTreeAsset>("UI/Markup/GameLook/Components/UnitsInfo").CloneTree();
+            _tree = Resources.Load<VisualTreeAsset>(VisualTreePath).CloneTree();
 
             _image = _tree.Q<VisualElement>("image");
             _unitCount = _tree.Q<Label>("description__nomination__count");

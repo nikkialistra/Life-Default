@@ -8,6 +8,8 @@ namespace UI.Game.GameLook.Components
 {
     public class UnitTypesView : MonoBehaviour
     {
+        private const string VisualTreePath = "UI/Markup/GameLook/Components/UnitTypes";
+        
         private readonly Dictionary<UnitType, Label> _unitTypeLabels = new();
 
         private VisualElement _scoutType;
@@ -18,7 +20,7 @@ namespace UI.Game.GameLook.Components
 
         private void Awake()
         {
-            Tree = Resources.Load<VisualTreeAsset>("UI/Markup/GameLook/Components/UnitTypes").CloneTree();
+            Tree = Resources.Load<VisualTreeAsset>(VisualTreePath).CloneTree();
 
             FillInTypes();
             FillInLabels();

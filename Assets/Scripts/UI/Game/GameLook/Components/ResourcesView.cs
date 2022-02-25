@@ -8,11 +8,13 @@ namespace UI.Game.GameLook.Components
 {
     public class ResourcesView : MonoBehaviour
     {
+        private const string VisualTreePath = "UI/Markup/GameLook/Components/Resources";
+        
         private readonly Dictionary<ResourceType, Label> _resourceLabels = new();
 
         private void Awake()
         {
-            Tree = Resources.Load<VisualTreeAsset>("UI/Markup/GameLook/Components/Resources").CloneTree();
+            Tree = Resources.Load<VisualTreeAsset>(VisualTreePath).CloneTree();
         }
 
         public VisualElement Tree { get; private set; }

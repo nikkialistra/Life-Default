@@ -5,9 +5,11 @@ namespace UI.Game.GameLook.Components
 {
     public class TimeWeatherView : MonoBehaviour
     {
+        private const string VisualTreePath = "UI/Markup/GameLook/Components/TimeWeather";
+        
         private void Awake()
         {
-            Tree = Resources.Load<VisualTreeAsset>("UI/Markup/GameLook/Components/TimeWeather").CloneTree();
+            Tree = Resources.Load<VisualTreeAsset>(VisualTreePath).CloneTree();
         }
 
         public VisualElement Tree { get; private set; }

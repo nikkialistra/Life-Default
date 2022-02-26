@@ -26,6 +26,7 @@ namespace Environment.TimeCycle.Days
             tickingRegulator.AddToTickables(this);
         }
 
+        public event Action<int> HourChange;
         public event Action DayBegin;
         public event Action NightBegin;
 
@@ -60,6 +61,8 @@ namespace Environment.TimeCycle.Days
                 _seasonCycle.NextDay();
                 NightBegin?.Invoke();
             }
+            
+            HourChange?.Invoke(_hours);
 
             UpdateView();
         }

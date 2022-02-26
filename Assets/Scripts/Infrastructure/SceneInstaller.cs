@@ -1,6 +1,6 @@
 ﻿using Cameras;
-using Environment;
 using Environment.TemperatureRegulation;
+using Environment.TileManagement.Tiles;
 using Environment.TimeCycle.Days;
 using Environment.TimeCycle.Seasons;
 using Environment.TimeCycle.Ticking;
@@ -12,10 +12,6 @@ using Saving.Serialization;
 using Sirenix.OdinInspector;
 using Testing;
 using UI;
-using UI.Game;
-using UI.Game.GameLook;
-using UI.Game.GameLook.Components;
-using UI.Menus.Primary;
 using Units.Services;
 using UnityEngine;
 using Zenject;
@@ -27,25 +23,33 @@ namespace Infrastructure
         [Title("Set Up")]
         [SerializeField] private bool _isSetUpSession;
 
-        [Title("Game Systems")]
+        [Title("Time")]
         [Required]
         [SerializeField] private TickingRegulator _tickingRegulator;
+        [Required]
+        [SerializeField] private TimeToggling _timeToggling;
         [Required]
         [SerializeField] private DayCycle _dayCycle;
         [Required]
         [SerializeField] private SeasonCycle _seasonCycle;
+        
+        [Title("Tiles")]
+        [Required]
+        [SerializeField] private TileGrid _tileGrid;
+        
+        [Title("Environment Conditions")]
         [Required]
         [SerializeField] private WeatherEnvironmentInfluence _weatherEnvironmentInfluence;
         [Required]
         [SerializeField] private WeatherEffectsRegistry _weatherEffectsRegistry;
         [Required]
         [SerializeField] private Temperature _temperature;
-        [Required]
-        [SerializeField] private TimeToggling _timeToggling;
+        
+        [Title("Resources")]
         [Required]
         [SerializeField] private ResourceCounts _resourceCounts;
 
-        [Title("Input")]
+        [Title("Controls")]
         [Required]
         [SerializeField] private GameCursors _gameCursors;
         [Required]
@@ -55,30 +59,6 @@ namespace Infrastructure
         [Required]
         [SerializeField] private FlyCamera _flyCamera;
 
-        [Title("UI")]
-        [Required]
-        [SerializeField] private GameLookView _gameLookView;
-        [Required]
-        [SerializeField] private GameMenuToggle _gameMenuToggle;
-        [Required]
-        [SerializeField] private GameViews _gameViews;
-        [Required]
-        [SerializeField] private TimeTogglingView _timeTogglingView;
-        [Required]
-        [SerializeField] private TimeWeatherView _timeWeatherView;
-        [Required]
-        [SerializeField] private MenuPanelView _menuPanelView;
-        [Required]
-        [SerializeField] private ResourcesView _resourcesView;
-        [Required]
-        [SerializeField] private InfoPanelView _infoPanelView;
-        [Required]
-        [SerializeField] private UnitInfoView _unitInfoView;
-        [Required]
-        [SerializeField] private UnitsInfoView _unitsInfoView;
-        [Required]
-        [SerializeField] private UnitTypesView _unitTypesView;
-
         [Title("Saving")]
         [Required]
         [SerializeField] private UnitSaveLoadHandler _unitSaveLoadHandler;
@@ -87,25 +67,40 @@ namespace Infrastructure
 
         public override void InstallBindings()
         {
-            BindGameSystems();
-            BindInput();
-            BindUi();
+            BindTimeSystems();
+            BindTileSystems();
+            BindEnvironmentConditionSystems();
+            BindResourceSystems();
+            BindControls();
             BindSaving();
         }
 
-        private void BindGameSystems()
+        private void BindTimeSystems()
         {
             Container.BindInstance(_tickingRegulator);
+            Container.BindInstance(_timeToggling);
+            Container.BindInstance(_seasonCycle);
             Container.BindInstance(_dayCycle);
+        }
+
+        private void BindTileSystems()
+        {
+            Container.BindInstance(_tileGrid);
+        }
+
+        private void BindEnvironmentConditionSystems()
+        {
             Container.BindInstance(_weatherEnvironmentInfluence);
             Container.BindInstance(_weatherEffectsRegistry);
-            Container.BindInstance(_seasonCycle);
             Container.BindInstance(_temperature);
-            Container.BindInstance(_timeToggling);
+        }
+
+        private void BindResourceSystems()
+        {
             Container.BindInstance(_resourceCounts);
         }
 
-        private void BindInput()
+        private void BindControls()
         {
             Container.BindInstance(_gameCursors);
 
@@ -116,21 +111,6 @@ namespace Infrastructure
 
             Container.BindInstance(_flyCamera);
             Container.BindInstance(_isSetUpSession).WhenInjectedInto<FlyCamera>();
-        }
-
-        private void BindUi()
-        {
-            Container.BindInstance(_gameLookView);
-            Container.BindInstance(_gameMenuToggle);
-            Container.BindInstance(_gameViews);
-            Container.BindInstance(_timeTogglingView);
-            Container.BindInstance(_timeWeatherView);
-            Container.BindInstance(_menuPanelView);
-            Container.BindInstance(_resourcesView);
-            Container.BindInstance(_infoPanelView);
-            Container.BindInstance(_unitInfoView);
-            Container.BindInstance(_unitsInfoView);
-            Container.BindInstance(_unitTypesView);
         }
 
         private void BindSaving()

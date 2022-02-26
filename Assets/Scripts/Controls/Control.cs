@@ -262,6 +262,15 @@ namespace Controls
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Select Tile"",
+                    ""type"": ""Button"",
+                    ""id"": ""90b8c4f5-8f80-42d9-ba7e-0e451b9fe0b8"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -792,6 +801,17 @@ namespace Controls
                     ""action"": ""Next Time Speed"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b5605324-1ee8-46a5-b502-17489e0a8086"",
+                    ""path"": ""<Keyboard>/y"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Select Tile"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -826,6 +846,7 @@ namespace Controls
             m_Management_NextFormation = m_Management.FindAction("Next Formation", throwIfNotFound: true);
             m_Management_ToggleEnemyFieldOfView = m_Management.FindAction("Toggle Enemy Field Of View", throwIfNotFound: true);
             m_Management_ToggleResourceFieldOfView = m_Management.FindAction("Toggle Resource Field Of View", throwIfNotFound: true);
+            m_Management_SelectTile = m_Management.FindAction("Select Tile", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -911,6 +932,7 @@ namespace Controls
         private readonly InputAction m_Management_NextFormation;
         private readonly InputAction m_Management_ToggleEnemyFieldOfView;
         private readonly InputAction m_Management_ToggleResourceFieldOfView;
+        private readonly InputAction m_Management_SelectTile;
         public struct ManagementActions
         {
             private @Control m_Wrapper;
@@ -941,6 +963,7 @@ namespace Controls
             public InputAction @NextFormation => m_Wrapper.m_Management_NextFormation;
             public InputAction @ToggleEnemyFieldOfView => m_Wrapper.m_Management_ToggleEnemyFieldOfView;
             public InputAction @ToggleResourceFieldOfView => m_Wrapper.m_Management_ToggleResourceFieldOfView;
+            public InputAction @SelectTile => m_Wrapper.m_Management_SelectTile;
             public InputActionMap Get() { return m_Wrapper.m_Management; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -1028,6 +1051,9 @@ namespace Controls
                     @ToggleResourceFieldOfView.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnToggleResourceFieldOfView;
                     @ToggleResourceFieldOfView.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnToggleResourceFieldOfView;
                     @ToggleResourceFieldOfView.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnToggleResourceFieldOfView;
+                    @SelectTile.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnSelectTile;
+                    @SelectTile.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnSelectTile;
+                    @SelectTile.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnSelectTile;
                 }
                 m_Wrapper.m_ManagementActionsCallbackInterface = instance;
                 if (instance != null)
@@ -1110,6 +1136,9 @@ namespace Controls
                     @ToggleResourceFieldOfView.started += instance.OnToggleResourceFieldOfView;
                     @ToggleResourceFieldOfView.performed += instance.OnToggleResourceFieldOfView;
                     @ToggleResourceFieldOfView.canceled += instance.OnToggleResourceFieldOfView;
+                    @SelectTile.started += instance.OnSelectTile;
+                    @SelectTile.performed += instance.OnSelectTile;
+                    @SelectTile.canceled += instance.OnSelectTile;
                 }
             }
         }
@@ -1142,6 +1171,7 @@ namespace Controls
             void OnNextFormation(InputAction.CallbackContext context);
             void OnToggleEnemyFieldOfView(InputAction.CallbackContext context);
             void OnToggleResourceFieldOfView(InputAction.CallbackContext context);
+            void OnSelectTile(InputAction.CallbackContext context);
         }
     }
 }

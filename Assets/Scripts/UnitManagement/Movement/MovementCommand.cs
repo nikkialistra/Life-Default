@@ -14,14 +14,13 @@ namespace UnitManagement.Movement
     {
         private SelectedUnits _selectedUnits;
         private OrderMarkPool _orderMarkPool;
-
-        private AstarPath _astarPath;
+        
         private FormationMovement _formationMovement;
 
         private MovementInput _movementInput;
 
         [Inject]
-        public void Construct(SelectedUnits selectedUnits, OrderMarkPool orderMarkPool, Map map, AstarPath astarPath)
+        public void Construct(SelectedUnits selectedUnits, OrderMarkPool orderMarkPool, Map map)
         {
             _selectedUnits = selectedUnits;
             _orderMarkPool = orderMarkPool;

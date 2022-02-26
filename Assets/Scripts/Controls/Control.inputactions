@@ -238,6 +238,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Select Tile",
+                    "type": "Button",
+                    "id": "90b8c4f5-8f80-42d9-ba7e-0e451b9fe0b8",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -766,6 +775,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Next Time Speed",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b5605324-1ee8-46a5-b502-17489e0a8086",
+                    "path": "<Keyboard>/y",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Select Tile",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

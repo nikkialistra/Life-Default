@@ -8,10 +8,7 @@ namespace Units.Unit.UnitTypes.UnitSpecs
     public class UnitSpecForResources
     {
         public UnitSpecForResourceDictionary Resources;
-
-        [Serializable]
-        public class UnitSpecForResourceDictionary : SerializableDictionary<ResourceType, UnitSpecForResource> { }
-
+        
         public bool CanInteractWithResource(Resource resource)
         {
             var resourceType = resource.ResourceType;
@@ -28,5 +25,8 @@ namespace Units.Unit.UnitTypes.UnitSpecs
 
             return Resources[resource.ResourceType];
         }
+        
+        [Serializable]
+        public class UnitSpecForResourceDictionary : SerializableDictionary<ResourceType, UnitSpecForResource> { }
     }
 }

@@ -24,8 +24,6 @@ namespace UI.Game.GameLook.Components
         [ValidateInput("@_iconPreviews.Count == 5", "Preview dictionary should have 5 elements for all 5 unit types.")]
         [SerializeField] private IconPreviewsDictionary _iconPreviews;
 
-        [Serializable] public class IconPreviewsDictionary : SerializableDictionary<UnitType, Texture2D> { }
-
         private int _count;
 
         private ChangeColorFractions _changeColorFractions;
@@ -154,5 +152,7 @@ namespace UI.Game.GameLook.Components
                 _unitIconViews[i].Bind(units[i]);
             }
         }
+        
+        [Serializable] public class IconPreviewsDictionary : SerializableDictionary<UnitType, Texture2D> { }
     }
 }

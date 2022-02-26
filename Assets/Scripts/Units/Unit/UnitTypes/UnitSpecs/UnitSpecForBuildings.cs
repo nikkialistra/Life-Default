@@ -10,9 +10,6 @@ namespace Units.Unit.UnitTypes.UnitSpecs
     {
         public UnitSpecForBuildingDictionary Buildings;
 
-        [Serializable]
-        public class UnitSpecForBuildingDictionary : SerializableDictionary<BuildingType, UnitSpecForBuilding> { }
-
         public bool CanInteractWithBuilding(Building building)
         {
             var buildingType = building.BuildingType;
@@ -29,5 +26,8 @@ namespace Units.Unit.UnitTypes.UnitSpecs
 
             return Buildings[building.BuildingType];
         }
+        
+        [Serializable]
+        public class UnitSpecForBuildingDictionary : SerializableDictionary<BuildingType, UnitSpecForBuilding> { }
     }
 }

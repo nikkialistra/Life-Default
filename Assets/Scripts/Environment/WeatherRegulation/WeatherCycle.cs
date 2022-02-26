@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Common;
 using Environment.TemperatureRegulation;
 using Environment.TimeCycle.Days;
 using Environment.TimeCycle.Seasons;
@@ -16,12 +17,14 @@ namespace Environment.WeatherRegulation
         [SerializeField] private float _weatherEventChancePerDay = 0.4f;
         [SerializeField] private DayRange _weatherBeginTimeRange;
 
-        [Title("Weather Event Necessary Conditions")]
-        [SerializeField] private List<WeatherEventNecessaryConditions> _weatherEventNecessaryConditions;
+        [ValidateInput("EveryWeatherHasConditions", "Not every weather has conditions")]
+        [Title("Weather Necessary Conditions")]
+        [DictionaryDrawerSettings(DisplayMode = DictionaryDisplayOptions.ExpandedFoldout)]
+        [SerializeField] private WeatherNecessaryConditionsDictionary _weatherNecessaryConditions;
 
         private Weather _currentWeather;
-
-        private WeatherEventNecessaryConditions _futureWeatherWithConditions;
+        
+        private Weather _futureWeather;
         private int _weatherBeginTime;
 
         private bool _weatherChangePending;
@@ -65,6 +68,20 @@ namespace Environment.WeatherRegulation
             _seasonCycle.SeasonChange -= OnSeasonChange;
             _seasonCycle.SeasonDayChange -= FindNewFutureWeather;
         }
+        
+        private bool EveryWeatherHasConditions(WeatherNecessaryConditionsDictionary conditions, ref string errorMessage)
+        {
+            foreach (var weatherValue in (Weather[])Enum.GetValues(typeof(Weather)))
+            {
+                if (!conditions.ContainsKey(weatherValue))
+                {
+                    errorMessage = $"{weatherValue} don't have conditions";
+                    return false;
+                }
+            }
+
+            return true;
+        }
 
         private void OnHourChange(int hour)
         {
@@ -73,9 +90,9 @@ namespace Environment.WeatherRegulation
                 return;
             }
 
-            if (hour >= _weatherBeginTime && _futureWeatherWithConditions.SuitableWith(_temperature.CurrentBaseTemperature))
+            if (hour >= _weatherBeginTime && _weatherNecessaryConditions[_futureWeather].SuitableWith(_temperature.CurrentBaseTemperature))
             {
-                _currentWeather = _futureWeatherWithConditions.Weather;
+                _currentWeather = _futureWeather;
                 _weatherChangePending = false;
                 UpdateView();
             }
@@ -90,11 +107,11 @@ namespace Environment.WeatherRegulation
         {
             if (WeatherEventOccured)
             {
-                _futureWeatherWithConditions = _weatherEventNecessaryConditions[7];
+                GenerateWeather();
             }
             else
             {
-                _futureWeatherWithConditions = _weatherEventNecessaryConditions[7];
+                _futureWeather = Weather.Clear;
             }
 
             _weatherBeginTime = _weatherBeginTimeRange.GetRandomHour();
@@ -109,50 +126,29 @@ namespace Environment.WeatherRegulation
 
             var possibleWeather = CalculatePossibleWeather(dayTemperature);
 
-            _futureWeatherWithConditions = possibleWeather[Random.Range(0, possibleWeather.Count)];
+            _futureWeather = possibleWeather[Random.Range(0, possibleWeather.Count)];
         }
 
-        private List<WeatherEventNecessaryConditions> CalculatePossibleWeather(int dayTemperature)
+        private List<Weather> CalculatePossibleWeather(int dayTemperature)
         {
-            var possibleWeather = new List<WeatherEventNecessaryConditions>();
+            var possibleWeather = new List<Weather>();
 
-            foreach (var necessaryConditions in _weatherEventNecessaryConditions)
+            foreach (var (weather, necessaryConditions) in _weatherNecessaryConditions)
             {
                 if (necessaryConditions.SuitableWith(_season, dayTemperature))
                 {
-                    possibleWeather.Add(necessaryConditions);
+                    possibleWeather.Add(weather);
                 }
             }
             
             return possibleWeather;
         }
 
-        [Serializable]
-        private class WeatherEventNecessaryConditions
-        {
-            [GUIColor(.4f, .4f, 1f)]
-            [SerializeField] private Weather _weather;
-            [Space]
-            [EnumToggleButtons]
-            [SerializeField] private Season _seasons;
-            [SerializeField] private TemperatureRange _temperatureRange;
-
-            public Weather Weather => _weather;
-
-            public bool SuitableWith(Season season, int dayTemperature)
-            {
-                return _seasons.HasFlag(season) && _temperatureRange.Contains(dayTemperature);
-            }
-            
-            public bool SuitableWith(int dayTemperature)
-            {
-                return _temperatureRange.Contains(dayTemperature);
-            }
-        }
-
         private void UpdateView()
         {
             _timeWeatherView.UpdateWeather(_currentWeather);
         }
+        
+        [Serializable] public class WeatherNecessaryConditionsDictionary : SerializableDictionary<Weather, WeatherNecessaryConditions> { }
     }
 }

@@ -13,8 +13,6 @@ namespace Units.Services
         [SerializeField] private UnitTypeSpecsDictionary _meleeTypeSpecs;
         [SerializeField] private UnitTypeSpecsDictionary _archerTypeSpecs;
 
-        [Serializable] public class UnitTypeSpecsDictionary : SerializableDictionary<UnitTypeLevel, UnitTypeSpecs> { }
-
         public UnitTypeSpecs GetFor(UnitType unitType, UnitTypeLevel level)
         {
             return unitType switch
@@ -27,5 +25,7 @@ namespace Units.Services
                 _ => throw new ArgumentOutOfRangeException(nameof(unitType))
             };
         }
+        
+        [Serializable] public class UnitTypeSpecsDictionary : SerializableDictionary<UnitTypeLevel, UnitTypeSpecs> { }
     }
 }

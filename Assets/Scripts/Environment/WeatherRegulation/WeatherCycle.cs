@@ -73,7 +73,7 @@ namespace Environment.WeatherRegulation
                 return;
             }
 
-            if (hour >= _weatherBeginTime && _futureWeatherWithConditions.SuitableWith(_temperature.CurrentTemperature))
+            if (hour >= _weatherBeginTime && _futureWeatherWithConditions.SuitableWith(_temperature.CurrentBaseTemperature))
             {
                 _currentWeather = _futureWeatherWithConditions.Weather;
                 _weatherChangePending = false;

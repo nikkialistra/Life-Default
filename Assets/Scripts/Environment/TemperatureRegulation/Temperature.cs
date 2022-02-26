@@ -23,7 +23,7 @@ namespace Environment.TemperatureRegulation
 
         private TemperatureRange _activeRange;
 
-        private float _currentTemperature;
+        private float _currentBaseTemperature;
 
         private float _valueShiftPerTick;
         private bool _shifting;
@@ -48,12 +48,12 @@ namespace Environment.TemperatureRegulation
         }
 
         public int DayTemperature { get; private set; }
-        public int CurrentTemperature => Mathf.RoundToInt(_currentTemperature);
+        public int CurrentBaseTemperature => Mathf.RoundToInt(_currentBaseTemperature);
 
         private void Start()
         {
             OnSeasonDayChange();
-            _currentTemperature = DayTemperature;
+            _currentBaseTemperature = DayTemperature;
             UpdateView();
         }
 
@@ -90,7 +90,7 @@ namespace Environment.TemperatureRegulation
 
         private void Shift()
         {
-            _currentTemperature += _valueShiftPerTick;
+            _currentBaseTemperature += _valueShiftPerTick;
             _shiftTickCount++;
         }
 
@@ -121,13 +121,13 @@ namespace Environment.TemperatureRegulation
 
         private void OnDayBegin()
         {
-            _valueShiftPerTick = (DayTemperature - _currentTemperature) / _ticksToShift;
+            _valueShiftPerTick = (DayTemperature - _currentBaseTemperature) / _ticksToShift;
             _shifting = true;
         }
 
         private void OnNightBegin()
         {
-            _valueShiftPerTick = (NightTemperature - _currentTemperature) / _ticksToShift;
+            _valueShiftPerTick = (NightTemperature - _currentBaseTemperature) / _ticksToShift;
             _shifting = true;
         }
 
@@ -135,7 +135,7 @@ namespace Environment.TemperatureRegulation
 
         private void UpdateView()
         {
-            _timeWeatherView.UpdateTemperature(Mathf.RoundToInt(_currentTemperature));
+            _timeWeatherView.UpdateTemperature(Mathf.RoundToInt(_currentBaseTemperature));
         }
     }
 }

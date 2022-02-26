@@ -27,8 +27,10 @@ namespace Infrastructure
         [SerializeField] private MenuPanelView _menuPanelView;
         [Required]
         [SerializeField] private ResourcesView _resourcesView;
-        
-        [Title("Info Panel")]
+
+        [Title("Info Panels")]
+        [Required]
+        [SerializeField] private TileInfoView _tileInfoView;
         [Required]
         [SerializeField] private InfoPanelView _infoPanelView;
         [Required]
@@ -42,7 +44,7 @@ namespace Infrastructure
         {
             BindMain();
             BindTopPanel();
-            BindInfoPanel();
+            BindInfoPanels();
         }
 
         private void BindMain()
@@ -60,8 +62,9 @@ namespace Infrastructure
             Container.BindInstance(_resourcesView);
         }
 
-        private void BindInfoPanel()
+        private void BindInfoPanels()
         {
+            Container.BindInstance(_tileInfoView);
             Container.BindInstance(_infoPanelView);
             Container.BindInstance(_unitInfoView);
             Container.BindInstance(_unitsInfoView);

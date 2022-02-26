@@ -52,8 +52,14 @@ namespace Environment.TileManagement
             var ray = _camera.ScreenPointToRay(new Vector3(position.x, position.y, _camera.nearClipPlane));
             if (Physics.Raycast(ray, out var hit, float.PositiveInfinity, _terrainMask))
             {
-                _tileGrid.ShowAtCoordinate(hit.point);
+                var tilePosition = ConvertToTilePosition(hit.point); 
+                _tileGrid.ShowAtPosition(tilePosition);
             }
+        }
+
+        private static Vector2Int ConvertToTilePosition(Vector3 hitPoint)
+        {
+            return new Vector2Int(Mathf.RoundToInt(hitPoint.x), Mathf.RoundToInt(hitPoint.z));
         }
     }
 }

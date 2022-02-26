@@ -1,0 +1,8 @@
+.label {
+    margin: 0;
+    padding: 0;
+    -unity-font: resource('Fonts/Exo 2/Exo2-Regular');
+    -unity-font-definition: none;
+    color: rgb(255, 255, 255);
+    padding-top: 1px;
+}

@@ -1,16 +1,16 @@
-﻿using Pathfinding;
+﻿using UnityEngine;
 
 namespace Environment.TileManagement.Tiles
 {
     public class Tile
     {
-        public Int3 Position;
+        public Vector2Int Position;
         
         public float Temperature;
         public int Light;
 		public int Beauty;
 
-        public Tile(Int3 position)
+        public Tile(Vector2Int position)
         {
             Position = position;
         }

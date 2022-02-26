@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using MapGeneration.Map;
 using Pathfinding;
+using UI.Game.GameLook.Components;
 using UnityEngine;
 using Zenject;
 
@@ -14,12 +15,15 @@ namespace Environment.TileManagement.Tiles
         
         private AstarPath _astarPath;
         private Map _map;
+        
+        private TileInfoView _tileInfoView;
 
         [Inject]
-        public void Construct(AstarPath astarPath, Map map)
+        public void Construct(AstarPath astarPath, Map map, TileInfoView tileInfoView)
         {
             _astarPath = astarPath;
             _map = map;
+            _tileInfoView = tileInfoView;
         }
 
         private void OnEnable()
@@ -32,15 +36,13 @@ namespace Environment.TileManagement.Tiles
             _map.Load -= Initialize;
         }
 
-        public void ShowAtCoordinate(Vector3 coordinate)
+        public void ShowAtPosition(Vector2Int position)
         {
-            var position = new Int3(coordinate);
-
             foreach (var tile in _tiles)
             {
-                if (tile.Position.Equals(position))
+                if (tile.Position == position)
                 {
-                    Debug.Log(tile);
+                    _tileInfoView.ShowFor(tile);
                     break;
                 }
             }
@@ -54,7 +56,8 @@ namespace Environment.TileManagement.Tiles
 
         private void AddNode(GraphNode node)
         {
-            var tile = new Tile(node.position);
+            var position = new Vector2Int(node.position.x / 1000, node.position.z / 1000);
+            var tile = new Tile(position);
             _tiles.Add(tile);
         }
     }

@@ -1,5 +1,4 @@
 ﻿using Environment.TimeCycle.TimeRegulation;
-using Sirenix.OdinInspector;
 using UI.Game.GameLook.Components;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -12,6 +11,7 @@ namespace UI.Game.GameLook
     [RequireComponent(typeof(TimeWeatherView))]
     [RequireComponent(typeof(MenuPanelView))]
     [RequireComponent(typeof(ResourcesView))]
+    [RequireComponent(typeof(TileInfoView))]
     [RequireComponent(typeof(InfoPanelView))]
     [RequireComponent(typeof(UnitTypesView))]
     public class GameLookView : MonoBehaviour
@@ -24,6 +24,7 @@ namespace UI.Game.GameLook
         private TimeWeatherView _timeWeatherView;
         private MenuPanelView _menuPanelView;
         private ResourcesView _resourcesView;
+        private TileInfoView _tileInfoView;
         private InfoPanelView _infoPanelView;
         private UnitTypesView _unitTypesView;
 
@@ -32,6 +33,7 @@ namespace UI.Game.GameLook
         private VisualElement _timeWeatherElement;
         private VisualElement _menuPanelElement;
         private VisualElement _resourcesElement;
+        private VisualElement _tileInfoElement;
         private VisualElement _infoPanelElement;
         private VisualElement _unitTypesElement;
         
@@ -50,6 +52,7 @@ namespace UI.Game.GameLook
             _timeWeatherView = GetComponent<TimeWeatherView>();
             _menuPanelView = GetComponent<MenuPanelView>();
             _resourcesView = GetComponent<ResourcesView>();
+            _tileInfoView = GetComponent<TileInfoView>();
             _infoPanelView = GetComponent<InfoPanelView>();
             _unitTypesView = GetComponent<UnitTypesView>();
 
@@ -62,6 +65,7 @@ namespace UI.Game.GameLook
             _timeWeatherElement = _tree.Q<VisualElement>("time-weather");
             _menuPanelElement = _tree.Q<VisualElement>("menu-panel");
             _resourcesElement = _tree.Q<VisualElement>("resources");
+            _tileInfoElement = _tree.Q<VisualElement>("tile-info");
             _infoPanelElement = _tree.Q<VisualElement>("info-panel");
             _unitTypesElement = _tree.Q<VisualElement>("unit-types");
         }
@@ -83,6 +87,7 @@ namespace UI.Game.GameLook
             _timeWeatherElement.Add(_timeWeatherView.Tree);
             _menuPanelElement.Add(_menuPanelView.Tree);
             _resourcesElement.Add(_resourcesView.Tree);
+            _tileInfoElement.Add(_tileInfoView.Tree);
             _infoPanelElement.Add(_infoPanelView.Tree);
             _unitTypesElement.Add(_unitTypesView.Tree);
         }

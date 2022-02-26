@@ -2,6 +2,7 @@
 using Environment.TimeCycle.Days;
 using Environment.TimeCycle.Seasons;
 using Environment.TimeCycle.Ticking;
+using Environment.WeatherRegulation;
 using Sirenix.OdinInspector;
 using UI.Game.GameLook.Components;
 using UnityEngine;
@@ -19,7 +20,8 @@ namespace Environment
         [SerializeField] private int _autumnLight;
         [SerializeField] private int _winterLight;
 
-        private float _currentLight;
+        private float _currentBaseLight;
+        private float _currentInfluencedLight;
         
         private int _seasonLight;
 
@@ -29,14 +31,18 @@ namespace Environment
         
         private SeasonCycle _seasonCycle;
         private DayCycle _dayCycle;
+        private WeatherEnvironmentInfluence _weatherEnvironmentInfluence;
 
         private TimeWeatherView _timeWeatherView;
 
         [Inject]
-        public void Construct(SeasonCycle seasonCycle, DayCycle dayCycle, TickingRegulator tickingRegulator, TimeWeatherView timeWeatherView)
+        public void Construct(SeasonCycle seasonCycle, DayCycle dayCycle,
+            WeatherEnvironmentInfluence weatherEnvironmentInfluence, TickingRegulator tickingRegulator,
+            TimeWeatherView timeWeatherView)
         {
             _seasonCycle = seasonCycle;
             _dayCycle = dayCycle;
+            _weatherEnvironmentInfluence = weatherEnvironmentInfluence;
 
             _timeWeatherView = timeWeatherView;
 
@@ -63,26 +69,26 @@ namespace Environment
 
         private void Start()
         {
-            _currentLight = _seasonLight;
+            _currentBaseLight = _seasonLight;
             UpdateView();
         }
 
         public void Tick()
         {
-            if (!_shifting)
+            if (_shifting)
             {
-                return;
+                Shift();
+                CheckForShiftFinish();
             }
             
-            Shift();
-            CheckForShiftFinish();
+            CalculateInfluencedLight();
 
             UpdateView();
         }
-        
+
         private void Shift()
         {
-            _currentLight += _valueShiftPerTick;
+            _currentBaseLight += _valueShiftPerTick;
             _shiftTickCount++;
         }
 
@@ -93,6 +99,11 @@ namespace Environment
                 _shifting = false;
                 _shiftTickCount = 0;
             }
+        }
+
+        private void CalculateInfluencedLight()
+        {
+            _currentInfluencedLight = Mathf.Clamp(_currentBaseLight + _weatherEnvironmentInfluence.LightSumModifier, 0, 100);
         }
 
         private void OnSeasonChange(Season season)
@@ -108,19 +119,19 @@ namespace Environment
 
         private void OnDayBegin()
         {
-            _valueShiftPerTick = (_seasonLight - _currentLight) / _ticksToShift;
+            _valueShiftPerTick = (_seasonLight - _currentBaseLight) / _ticksToShift;
             _shifting = true;
         }
 
         private void OnNightBegin()
         {
-            _valueShiftPerTick = (0 - _currentLight) / _ticksToShift;
+            _valueShiftPerTick = (0 - _currentBaseLight) / _ticksToShift;
             _shifting = true;
         }
 
         private void UpdateView()
         {
-            _timeWeatherView.UpdateLight(Mathf.RoundToInt(_currentLight));
+            _timeWeatherView.UpdateLight(Mathf.RoundToInt(_currentInfluencedLight));
         }
     }
 }

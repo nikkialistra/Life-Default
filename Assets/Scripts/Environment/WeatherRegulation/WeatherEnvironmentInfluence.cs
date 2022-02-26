@@ -16,12 +16,19 @@ namespace Environment.WeatherRegulation
         private float _lightValueShiftPerTick;
         private bool _shiftingLight;
         private int _lightShiftTickCount;
+        
+        private WeatherEffectsRegistry _weatherEffectsRegistry;
 
         [Inject]
-        public void Construct(TickingRegulator tickingRegulator)
+        public void Construct(WeatherEffectsRegistry weatherEffectsRegistry, TickingRegulator tickingRegulator)
         {
+            _weatherEffectsRegistry = weatherEffectsRegistry;
             tickingRegulator.AddToTickables(this);
         }
+        
+        public float TemperatureSumModifier { get; private set; }
+
+        public float LightSumModifier { get; private set; }
 
         public void Tick()
         {
@@ -38,21 +45,24 @@ namespace Environment.WeatherRegulation
             }
         }
 
-        public float TemperatureSumModifier { get; private set; }
-
-        public float LightSumModifier { get; private set; }
-
-        public void ShiftTemperatureBy(int temperatureDelta)
+        public void ChangeWeather(Weather weather)
         {
-            TemperatureSumModifier = 0;
-            _temperatureValueShiftPerTick = (float)temperatureDelta / _ticksToShiftTemperature;
+            var weatherEffects = _weatherEffectsRegistry.GetWeatherEffectsFor(weather);
+            
+            ShiftTemperatureBy(weatherEffects.TemperatureChange);
+            ShiftLightBy(weatherEffects.LightChange);
+        }
+
+        private void ShiftTemperatureBy(int temperatureChange)
+        {
+            _temperatureValueShiftPerTick =
+                (temperatureChange - TemperatureSumModifier) / _ticksToShiftTemperature;
             _shiftingTemperature = true;
         }
 
-        public void ShiftLightBy(int lightDelta)
+        private void ShiftLightBy(int lightChange)
         {
-            LightSumModifier = 0;
-            _lightValueShiftPerTick = (float)lightDelta / _ticksToShiftLight;
+            _lightValueShiftPerTick = (lightChange - LightSumModifier) / _ticksToShiftLight;
             _shiftingLight = true;
         }
 

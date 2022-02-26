@@ -10,6 +10,11 @@ namespace Environment.WeatherRegulation
         [ValidateInput("EveryWeatherHasEffects", "Not every weather has effects")]
         [DictionaryDrawerSettings(DisplayMode = DictionaryDisplayOptions.ExpandedFoldout)]
         [SerializeField] private WeatherEffectsDictionary _weatherEffects;
+
+        public WeatherEffects GetWeatherEffectsFor(Weather weather)
+        {
+            return _weatherEffects[weather];
+        }
         
         private bool EveryWeatherHasEffects(WeatherEffectsDictionary effects, ref string errorMessage)
         {

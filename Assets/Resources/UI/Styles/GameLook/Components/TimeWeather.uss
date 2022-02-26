@@ -23,7 +23,7 @@
 }
 
 .block {
-    width: 80px;
+    width: 90px;
     height: 32px;
     align-items: center;
 }
@@ -34,7 +34,7 @@
 }
 
 .hour {
-    width: 72px;
+    width: 52px;
     font-size: 30px;
     -unity-text-align: middle-center;
     padding-bottom: 2px;

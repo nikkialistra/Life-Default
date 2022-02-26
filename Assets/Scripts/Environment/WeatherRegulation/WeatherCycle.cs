@@ -31,15 +31,19 @@ namespace Environment.WeatherRegulation
         
         private Season _season;
 
-        private SeasonCycle _seasonCycle;
 
-        private TimeWeatherView _timeWeatherView;
-        private Temperature _temperature;
+        private WeatherEnvironmentInfluence _weatherEnvironmentInfluence;
+        private SeasonCycle _seasonCycle;
         private DayCycle _dayCycle;
+        private Temperature _temperature;
+        
+        private TimeWeatherView _timeWeatherView;
 
         [Inject]
-        public void Construct(SeasonCycle seasonCycle, DayCycle dayCycle, Temperature temperature, TimeWeatherView timeWeatherView)
+        public void Construct(WeatherEnvironmentInfluence weatherEnvironmentInfluence, SeasonCycle seasonCycle,
+            DayCycle dayCycle, Temperature temperature, TimeWeatherView timeWeatherView)
         {
+            _weatherEnvironmentInfluence = weatherEnvironmentInfluence;
             _seasonCycle = seasonCycle;
             _dayCycle = dayCycle;
             _temperature = temperature;
@@ -89,11 +93,12 @@ namespace Environment.WeatherRegulation
             {
                 return;
             }
-
+            
             if (hour >= _weatherBeginTime && _weatherNecessaryConditions[_futureWeather].SuitableWith(_temperature.CurrentBaseTemperature))
             {
                 _currentWeather = _futureWeather;
                 _weatherChangePending = false;
+                _weatherEnvironmentInfluence.ChangeWeather(_currentWeather);
                 UpdateView();
             }
         }
@@ -107,11 +112,11 @@ namespace Environment.WeatherRegulation
         {
             if (WeatherEventOccured)
             {
-                GenerateWeather();
+                _futureWeather = Weather.Rain;
             }
             else
             {
-                _futureWeather = Weather.Clear;
+                _futureWeather = Weather.Rain;
             }
 
             _weatherBeginTime = _weatherBeginTimeRange.GetRandomHour();

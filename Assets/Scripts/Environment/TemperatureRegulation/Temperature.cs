@@ -2,6 +2,7 @@
 using Environment.TimeCycle.Days;
 using Environment.TimeCycle.Seasons;
 using Environment.TimeCycle.Ticking;
+using Environment.WeatherRegulation;
 using Sirenix.OdinInspector;
 using UI.Game.GameLook.Components;
 using UnityEngine;
@@ -24,6 +25,7 @@ namespace Environment.TemperatureRegulation
         private TemperatureRange _activeRange;
 
         private float _currentBaseTemperature;
+        private float _currentInfluencedTemperature;
 
         private float _valueShiftPerTick;
         private bool _shifting;
@@ -31,14 +33,18 @@ namespace Environment.TemperatureRegulation
 
         private SeasonCycle _seasonCycle;
         private DayCycle _dayCycle;
+        private WeatherEnvironmentInfluence _weatherEnvironmentInfluence;
 
         private TimeWeatherView _timeWeatherView;
 
         [Inject]
-        public void Construct(SeasonCycle seasonCycle, DayCycle dayCycle, TickingRegulator tickingRegulator, TimeWeatherView timeWeatherView)
+        public void Construct(SeasonCycle seasonCycle, DayCycle dayCycle,
+            WeatherEnvironmentInfluence weatherEnvironmentInfluence, TickingRegulator tickingRegulator,
+            TimeWeatherView timeWeatherView)
         {
             _seasonCycle = seasonCycle;
             _dayCycle = dayCycle;
+            _weatherEnvironmentInfluence = weatherEnvironmentInfluence;
 
             _timeWeatherView = timeWeatherView;
             
@@ -77,14 +83,14 @@ namespace Environment.TemperatureRegulation
 
         public void Tick()
         {
-            if (!_shifting)
+            if (_shifting)
             {
-                return;
+                Shift();
+                CheckForShiftFinish();
             }
 
-            Shift();
-            CheckForShiftFinish();
-            
+            CalculateInfluencedTemperature();
+
             UpdateView();
         }
 
@@ -101,6 +107,12 @@ namespace Environment.TemperatureRegulation
                 _shifting = false;
                 _shiftTickCount = 0;
             }
+        }
+
+        private void CalculateInfluencedTemperature()
+        {
+            _currentInfluencedTemperature = Mathf.Clamp(
+                _currentBaseTemperature + _weatherEnvironmentInfluence.TemperatureSumModifier, -273, 273);
         }
 
         private void OnSeasonDayChange()
@@ -135,7 +147,7 @@ namespace Environment.TemperatureRegulation
 
         private void UpdateView()
         {
-            _timeWeatherView.UpdateTemperature(Mathf.RoundToInt(_currentBaseTemperature));
+            _timeWeatherView.UpdateTemperature(Mathf.RoundToInt(_currentInfluencedTemperature));
         }
     }
 }

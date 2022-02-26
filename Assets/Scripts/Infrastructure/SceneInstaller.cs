@@ -5,6 +5,7 @@ using Environment.TimeCycle.Days;
 using Environment.TimeCycle.Seasons;
 using Environment.TimeCycle.Ticking;
 using Environment.TimeCycle.TimeRegulation;
+using Environment.WeatherRegulation;
 using ResourceManagement;
 using Saving;
 using Saving.Serialization;
@@ -33,6 +34,10 @@ namespace Infrastructure
         [SerializeField] private DayCycle _dayCycle;
         [Required]
         [SerializeField] private SeasonCycle _seasonCycle;
+        [Required]
+        [SerializeField] private WeatherEnvironmentInfluence _weatherEnvironmentInfluence;
+        [Required]
+        [SerializeField] private WeatherEffectsRegistry _weatherEffectsRegistry;
         [Required]
         [SerializeField] private Temperature _temperature;
         [Required]
@@ -92,6 +97,8 @@ namespace Infrastructure
         {
             Container.BindInstance(_tickingRegulator);
             Container.BindInstance(_dayCycle);
+            Container.BindInstance(_weatherEnvironmentInfluence);
+            Container.BindInstance(_weatherEffectsRegistry);
             Container.BindInstance(_seasonCycle);
             Container.BindInstance(_temperature);
             Container.BindInstance(_timeToggling);

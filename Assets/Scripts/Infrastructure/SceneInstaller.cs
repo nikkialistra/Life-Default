@@ -1,5 +1,6 @@
 ﻿using Cameras;
 using Environment;
+using Environment.TemperatureRegulation;
 using Environment.TimeCycle.Days;
 using Environment.TimeCycle.Seasons;
 using Environment.TimeCycle.Ticking;

@@ -17,6 +17,15 @@
     align-items: flex-end;
 }
 
+.game-info {
+    flex-direction: row;
+}
+
+.indented {
+    padding-left: 6px;
+    padding-right: 0;
+}
+
 .resources {
     margin-top: 5px;
 }
@@ -31,11 +40,6 @@
     padding: 5px;
 }
 
-.game-info {
-    flex-direction: row;
-}
-
-.indented {
-    padding-left: 6px;
-    padding-right: 0;
+.time-speed-multiplied {
+    background-color: rgba(255, 0, 0, 0.03);
 }

@@ -87,6 +87,18 @@ namespace UI.Game.GameLook
             _unitTypesElement.Add(_unitTypesView.Tree);
         }
 
+        public void ToggleTimeSpeedMultipliedIndicator(bool timeSpeedMultiplied)
+        {
+            if (timeSpeedMultiplied)
+            {
+                _gameLook.AddToClassList("time-speed-multiplied");
+            }
+            else
+            {
+                _gameLook.RemoveFromClassList("time-speed-multiplied");
+            }
+        }
+
         private void OnPauseChange(bool paused)
         {
             if (paused)

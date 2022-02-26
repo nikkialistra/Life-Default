@@ -12,7 +12,6 @@ namespace Environment.TimeCycle.TimeRegulation
         private TimeSpeed _timeSpeed = TimeSpeed.X1;
 
         private TimeTogglingView _timeTogglingView;
-        private PlayerInput _playerInput;
 
         [Inject]
         public void Construct(TimeTogglingView timeTogglingView)
@@ -21,7 +20,9 @@ namespace Environment.TimeCycle.TimeRegulation
         }
 
         public event Action<bool> PauseChange;
-        public event Action<TimeSpeed> TimeSpeedChange; 
+        public event Action<TimeSpeed> TimeSpeedChange;
+
+        public int TimeSpeedMultiplier { get; set; } = 1;
 
         public void Pause()
         {
@@ -68,7 +69,7 @@ namespace Environment.TimeCycle.TimeRegulation
                     TimeSpeed.X2 => 2f,
                     TimeSpeed.X3 => 3f,
                     _ => throw new ArgumentOutOfRangeException()
-                };
+                } * TimeSpeedMultiplier;
             }
         }
 

@@ -12,6 +12,7 @@ using Sirenix.OdinInspector;
 using Testing;
 using UI;
 using UI.Game;
+using UI.Game.GameLook;
 using UI.Game.GameLook.Components;
 using UI.Menus.Primary;
 using Units.Services;
@@ -50,6 +51,8 @@ namespace Infrastructure
         [SerializeField] private FlyCamera _flyCamera;
 
         [Title("UI")]
+        [Required]
+        [SerializeField] private GameLookView _gameLookView;
         [Required]
         [SerializeField] private GameMenuToggle _gameMenuToggle;
         [Required]
@@ -110,6 +113,7 @@ namespace Infrastructure
 
         private void BindUi()
         {
+            Container.BindInstance(_gameLookView);
             Container.BindInstance(_gameMenuToggle);
             Container.BindInstance(_gameViews);
             Container.BindInstance(_timeTogglingView);

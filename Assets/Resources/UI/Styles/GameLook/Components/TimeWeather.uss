@@ -25,10 +25,11 @@
 .block {
     width: 80px;
     height: 32px;
+    align-items: center;
 }
 
 .year {
-    font-size: 8px;
+    font-size: 11px;
     padding-bottom: 4px;
 }
 
@@ -41,10 +42,15 @@
     margin-right: 5px;
 }
 
-.right-aligned {
-    -unity-text-align: middle-right;
+.center-aligned {
+    -unity-text-align: middle-center;
+    width: 100%;
 }
 
 .left-aligned {
-    -unity-text-align: middle-left;
+    -unity-text-align: middle-center;
+}
+
+.small-label {
+    font-size: 9px;
 }

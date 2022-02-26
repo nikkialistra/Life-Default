@@ -1,5 +1,4 @@
-﻿using Environment.TileIndicators;
-using Environment.TimeCycle.Seasons;
+﻿using Environment.TimeCycle.Seasons;
 using Environment.Weather;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -10,28 +9,28 @@ namespace UI.Game.GameLook.Components
     {
         private const string VisualTreePath = "UI/Markup/GameLook/Components/TimeWeather";
         
-        private Label _year;
+        private Label _yearAndLight;
         private Label _seasonDay;
         private Label _hours;
-        private Label _localTemperature;
+        private Label _temperature;
         private Label _weather;
         
         private Season _season;
         private int _day;
-        
-        private int _temperature;
-        private Openness _openness;
+
+        private int _year;
+        private int _light;
 
         private void Awake()
         {
             Tree = Resources.Load<VisualTreeAsset>(VisualTreePath).CloneTree();
 
-            _year = Tree.Q<Label>("year");
+            _yearAndLight = Tree.Q<Label>("year-and-light");
             _seasonDay = Tree.Q<Label>("season-day");
 
             _hours = Tree.Q<Label>("hours");
 
-            _localTemperature = Tree.Q<Label>("local-temperature");
+            _temperature = Tree.Q<Label>("local-temperature");
             _weather = Tree.Q<Label>("weather");
         }
         
@@ -43,39 +42,39 @@ namespace UI.Game.GameLook.Components
             _day = day;
             UpdateSeasonDay();
             
-            _year.text = year.ToString();
+            _year = year;
+            UpdateYearAndLight();
         }
 
-        public void ChangeHours(int hours)
+        public void UpdateHours(int hours)
         {
-            _hours.text = hours + " h";
+            _hours.text = $"{hours} h";
         }
 
-        public void ChangeTemperature(int temperature)
+        public void UpdateTemperature(int temperature)
         {
-            _temperature = temperature;
-            UpdateLocalTemperature();
+            _temperature.text = $"{temperature} °C Outside";
         }
 
-        public void ChangeOpenness(Openness openness)
+        public void UpdateLight(int light)
         {
-            _openness = openness;
-            UpdateLocalTemperature();
+            _light = light;
+            UpdateYearAndLight();
         }
 
-        public void ChangeWeather(Weather weather)
+        public void UpdateWeather(Weather weather)
         {
             _weather.text = weather.GetString();
         }
 
         private void UpdateSeasonDay()
         {
-            _seasonDay.text = _season + ", day " + _day;
+            _seasonDay.text = $"{_season}, day {_day}";
         }
 
-        private void UpdateLocalTemperature()
+        private void UpdateYearAndLight()
         {
-            _localTemperature.text = _temperature + " °C, " + _openness;
+            _yearAndLight.text = $"{_year}, {_light}% Lit";
         }
     }
 }

@@ -54,6 +54,7 @@ namespace Environment
         {
             OnSeasonDayChange();
             _currentTemperature = _dayTemperature;
+            UpdateView();
         }
 
         private void OnEnable()
@@ -134,7 +135,7 @@ namespace Environment
 
         private void UpdateView()
         {
-            _timeWeatherView.ChangeTemperature(Mathf.RoundToInt(_currentTemperature));
+            _timeWeatherView.UpdateTemperature(Mathf.RoundToInt(_currentTemperature));
         }
 
         [Serializable]

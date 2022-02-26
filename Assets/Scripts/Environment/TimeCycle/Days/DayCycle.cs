@@ -66,7 +66,7 @@ namespace Environment.TimeCycle.Days
 
         private void UpdateView()
         {
-            _timeWeatherView.ChangeHours(_hours);
+            _timeWeatherView.UpdateHours(_hours);
         }
     }
 }

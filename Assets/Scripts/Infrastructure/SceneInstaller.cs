@@ -1,4 +1,5 @@
 ﻿using Cameras;
+using Environment;
 using Environment.TimeCycle.Days;
 using Environment.TimeCycle.Seasons;
 using Environment.TimeCycle.Ticking;
@@ -30,6 +31,8 @@ namespace Infrastructure
         [SerializeField] private DayCycle _dayCycle;
         [Required]
         [SerializeField] private SeasonCycle _seasonCycle;
+        [Required]
+        [SerializeField] private Temperature _temperature;
         [Required]
         [SerializeField] private TimeToggling _timeToggling;
         [Required]
@@ -86,6 +89,7 @@ namespace Infrastructure
             Container.BindInstance(_tickingRegulator);
             Container.BindInstance(_dayCycle);
             Container.BindInstance(_seasonCycle);
+            Container.BindInstance(_temperature);
             Container.BindInstance(_timeToggling);
             Container.BindInstance(_resourceCounts);
         }

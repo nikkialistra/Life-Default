@@ -25,8 +25,6 @@ namespace Environment
         private TemperatureRange _activeRange;
 
         private float _currentTemperature;
-        
-        private int _dayTemperature;
 
         private float _valueShiftPerTick;
         private bool _shifting;
@@ -50,10 +48,13 @@ namespace Environment
             tickingRegulator.AddToTickables(this);
         }
 
+        public int DayTemperature { get; private set; }
+        public int CurrentTemperature => Mathf.RoundToInt(_currentTemperature);
+
         private void Start()
         {
             OnSeasonDayChange();
-            _currentTemperature = _dayTemperature;
+            _currentTemperature = DayTemperature;
             UpdateView();
         }
 
@@ -105,7 +106,7 @@ namespace Environment
 
         private void OnSeasonDayChange()
         {
-            _dayTemperature = _activeRange.GetRandomTemperature();
+            DayTemperature = _activeRange.GetRandomTemperature();
         }
 
         private void OnSeasonChange(Season season)
@@ -121,7 +122,7 @@ namespace Environment
 
         private void OnDayBegin()
         {
-            _valueShiftPerTick = (_dayTemperature - _currentTemperature) / _ticksToShift;
+            _valueShiftPerTick = (DayTemperature - _currentTemperature) / _ticksToShift;
             _shifting = true;
         }
 
@@ -131,7 +132,7 @@ namespace Environment
             _shifting = true;
         }
 
-        private int NightTemperature => _dayTemperature + _nightToDayValueDifference;
+        private int NightTemperature => DayTemperature + _nightToDayValueDifference;
 
         private void UpdateView()
         {
@@ -141,8 +142,8 @@ namespace Environment
         [Serializable]
         private struct TemperatureRange
         {
-            [SerializeField] public int _lowThreshold;
-            [SerializeField] public int _highThreshold;
+            [SerializeField] private int _lowThreshold;
+            [SerializeField] private int _highThreshold;
 
             public int GetRandomTemperature()
             {

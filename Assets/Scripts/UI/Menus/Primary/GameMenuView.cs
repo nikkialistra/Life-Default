@@ -48,8 +48,8 @@ namespace UI.Menus.Primary
             _exitGame = _tree.Q<Button>("exit-game");
         }
 
-        public event Action Pausing;
-        public event Action Resuming;
+        public event Action Pause;
+        public event Action Resume;
 
         public void ShowSelf()
         {
@@ -66,7 +66,7 @@ namespace UI.Menus.Primary
             _mainMenu.clicked += MainMenu;
             _exitGame.clicked += ExitGame;
 
-            Pausing?.Invoke();
+            Pause?.Invoke();
         }
 
         public void HideSelf()
@@ -74,7 +74,7 @@ namespace UI.Menus.Primary
             HideAppearance();
 
             Time.timeScale = 1;
-            Resuming?.Invoke();
+            Resume?.Invoke();
         }
 
         private void HideAppearance()

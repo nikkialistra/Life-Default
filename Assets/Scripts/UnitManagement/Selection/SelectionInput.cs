@@ -47,16 +47,16 @@ namespace UnitManagement.Selection
         {
             SubscribeToEvents();
 
-            _gameMenuToggle.Pausing += UnsubscribeFromEvents;
-            _gameMenuToggle.Resuming += SubscribeToEvents;
+            _gameMenuToggle.GamePause += UnsubscribeFromEvents;
+            _gameMenuToggle.GameResume += SubscribeToEvents;
         }
 
         private void OnDisable()
         {
             UnsubscribeFromEvents();
 
-            _gameMenuToggle.Pausing -= UnsubscribeFromEvents;
-            _gameMenuToggle.Resuming -= SubscribeToEvents;
+            _gameMenuToggle.GamePause -= UnsubscribeFromEvents;
+            _gameMenuToggle.GameResume -= SubscribeToEvents;
         }
 
         private void SubscribeToEvents()

@@ -1,4 +1,7 @@
-﻿using Environment.TileManagement.Tiles;
+﻿using System;
+using System.Collections;
+using Environment.TileManagement.Tiles;
+using UI.Menus.Primary;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Zenject;
@@ -7,45 +10,90 @@ namespace Environment.TileManagement
 {
     public class TileSelecting : MonoBehaviour
     {
+        [SerializeField] private float _rayRecastingTime = 0.15f;
+
         private TileGrid _tileGrid;
         
         private LayerMask _terrainMask;
 
         private Camera _camera;
+
+        private Coroutine _selectingTilesCoroutine;
+        private WaitForSeconds _waitPeriod;
         
+        private GameMenuToggle _gameMenuToggle;
+
         private PlayerInput _playerInput;
 
-        private InputAction _selectTileAction;
         private InputAction _mousePositionAction;
 
         [Inject]
-        public void Construct(TileGrid tileGrid, Camera camera, PlayerInput playerInput)
+        public void Construct(TileGrid tileGrid, Camera camera, GameMenuToggle gameMenuToggle, PlayerInput playerInput)
         {
             _tileGrid = tileGrid;
             _camera = camera;
+            _gameMenuToggle = gameMenuToggle;
             _playerInput = playerInput;
         }
 
         private void Awake()
         {
             _terrainMask = LayerMask.GetMask("Terrain");
-            
-            _selectTileAction = _playerInput.actions.FindAction("Select Tile");
-            
+
             _mousePositionAction = _playerInput.actions.FindAction("Mouse Position");
         }
 
         private void OnEnable()
         {
-            _selectTileAction.started += SelectTile;
+            _gameMenuToggle.GamePause += OnGamePause;
+            _gameMenuToggle.GameResume += OnGameResume;
         }
 
         private void OnDisable()
         {
-            _selectTileAction.started -= SelectTile;
+            _gameMenuToggle.GamePause -= OnGamePause;
+            _gameMenuToggle.GameResume -= OnGameResume;
         }
 
-        private void SelectTile(InputAction.CallbackContext context)
+        private void OnGamePause()
+        {
+            StopSelectingTiles();
+        }
+
+        private void OnGameResume()
+        {
+            StartSelectingTiles();
+        }
+
+        private void Start()
+        {
+            _waitPeriod = new WaitForSeconds(_rayRecastingTime);
+            StartSelectingTiles();
+        }
+
+        private void StartSelectingTiles()
+        {
+            _selectingTilesCoroutine = StartCoroutine(SelectingTiles());
+        }
+
+        private void StopSelectingTiles()
+        {
+            if (_selectingTilesCoroutine != null)
+            {
+                StopCoroutine(_selectingTilesCoroutine);
+            }
+        }
+
+        private IEnumerator SelectingTiles()
+        {
+            while (true)
+            {
+                yield return _waitPeriod;
+                SelectTile();
+            }
+        }
+
+        private void SelectTile()
         {
             var position = _mousePositionAction.ReadValue<Vector2>();
 

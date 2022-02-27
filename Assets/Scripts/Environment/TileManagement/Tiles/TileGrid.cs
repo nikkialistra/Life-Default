@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using MapGeneration.Map;
+﻿using MapGeneration.Map;
 using Pathfinding;
 using UI.Game.GameLook.Components;
 using UnityEngine;
@@ -17,6 +15,8 @@ namespace Environment.TileManagement.Tiles
         private int _xIndexOffset;
         private int _yIndexOffset;
 
+        private Vector2Int _lastPosition;
+        
         private AstarPath _astarPath;
         private Map _map;
 
@@ -42,6 +42,11 @@ namespace Environment.TileManagement.Tiles
 
         public void ShowAtPosition(Vector2Int position)
         {
+            if (PositionNotChanged(position))
+            {
+                return;
+            }
+
             if (PositionIsOutOfBounds(position))
             {
                 _tileInfoView.Hide();
@@ -52,6 +57,17 @@ namespace Environment.TileManagement.Tiles
             var tile = _tiles[index];
             
             _tileInfoView.ShowFor(tile);
+        }
+
+        private bool PositionNotChanged(Vector2Int position)
+        {
+            if (position == _lastPosition)
+            {
+                return true;
+            }
+
+            _lastPosition = position;
+            return false;
         }
 
         private bool PositionIsOutOfBounds(Vector2Int position)

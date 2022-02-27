@@ -50,8 +50,8 @@ namespace UI.Menus.Primary
 
         public event Action HideCurrentMenu;
 
-        public event Action Pausing;
-        public event Action Resuming;
+        public event Action GamePause;
+        public event Action GameResume;
 
         private void Start()
         {
@@ -60,8 +60,8 @@ namespace UI.Menus.Primary
 
         private void OnEnable()
         {
-            _gameMenuView.Pausing += DoPausing;
-            _gameMenuView.Resuming += DoResuming;
+            _gameMenuView.Pause += DoPause;
+            _gameMenuView.Resume += DoResume;
 
             _toggleMenuAction.started += ToggleMenu;
 
@@ -70,25 +70,25 @@ namespace UI.Menus.Primary
 
         private void OnDisable()
         {
-            _gameMenuView.Pausing += DoPausing;
-            _gameMenuView.Resuming -= DoResuming;
+            _gameMenuView.Pause += DoPause;
+            _gameMenuView.Resume -= DoResume;
 
             _toggleMenuAction.started -= ToggleMenu;
 
             _menuPanelView.Click -= ShowGameMenu;
         }
 
-        private void DoPausing()
+        private void DoPause()
         {
             _cameraMovement.DeactivateMovement();
-            Pausing?.Invoke();
+            GamePause?.Invoke();
         }
 
-        private void DoResuming()
+        private void DoResume()
         {
             _timeToggling.ToggleTime();
             _cameraMovement.ActivateMovement();
-            Resuming?.Invoke();
+            GameResume?.Invoke();
         }
 
         private void ShowGameMenu()

@@ -7,6 +7,8 @@ namespace MapGeneration.Settings
     [Serializable]
     public class NoiseSettings
     {
+        [SerializeField] private int _size;
+
         [SerializeField] private NoiseGenerator.NormalizeMode _normalizeMode;
 
         [SerializeField] private float _scale = 50;
@@ -18,6 +20,8 @@ namespace MapGeneration.Settings
 
         [SerializeField] private int _seed;
         [SerializeField] private Vector2 _offset;
+
+        public int Size => _size;
 
         public NoiseGenerator.NormalizeMode NormalizeMode => _normalizeMode;
 

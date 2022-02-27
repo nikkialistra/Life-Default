@@ -6,21 +6,23 @@ namespace MapGeneration.Generators
 {
     public static class HeightMapGenerator
     {
-        public static HeightMap GenerateHeightMap(int width, int height, HeightMapSettings settings,
+        public static HeightMap GenerateHeightMap(HeightMapSettings settings,
             Vector2 sampleCenter)
         {
-            var values = NoiseGenerator.GenerateNoiseMap(width, height, settings.NoiseSettings, sampleCenter);
+            var values = NoiseGenerator.GenerateNoiseMap(settings.NoiseSettings, sampleCenter);
 
             var heightCurveThreadSafe = new AnimationCurve(settings.HeightCurve.keys);
 
-            var falloffMap = FalloffGenerator.GenerateFalloffMap(width);
+            var size = settings.NoiseSettings.Size;
+
+            var falloffMap = FalloffGenerator.GenerateFalloffMap(size);
 
             var minValue = float.MaxValue;
             var maxValue = float.MinValue;
 
-            for (var i = 0; i < width; i++)
+            for (var i = 0; i < size; i++)
             {
-                for (var j = 0; j < height; j++)
+                for (var j = 0; j < size; j++)
                 {
                     if (settings.UseFalloff)
                     {

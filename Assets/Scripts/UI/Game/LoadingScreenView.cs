@@ -1,4 +1,4 @@
-﻿using MapGeneration.Map;
+﻿using MapGeneration;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;

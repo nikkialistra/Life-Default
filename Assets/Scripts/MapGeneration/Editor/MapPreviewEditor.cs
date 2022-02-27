@@ -1,15 +1,15 @@
-﻿using MapGeneration.Map;
+﻿using MapGeneration;
 using UnityEditor;
 using UnityEngine;
 
-namespace MapGeneration.Editor
+namespace Map.Editor
 {
-    [CustomEditor(typeof(MapPreview))]
-    public class MapPreviewEditor : UnityEditor.Editor
+    [CustomEditor(typeof(HeightMapPreview))]
+    public class HeightMapPreviewEditor : UnityEditor.Editor
     {
         public override void OnInspectorGUI()
         {
-            var mapPreview = (MapPreview)target;
+            var mapPreview = (HeightMapPreview)target;
 
             if (DrawDefaultInspector())
             {

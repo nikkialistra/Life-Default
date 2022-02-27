@@ -1,5 +1,5 @@
 ﻿using Entities;
-using MapGeneration.Map;
+using MapGeneration;
 using UnitManagement.OrderMarks;
 using UnitManagement.Targeting.Formations;
 using Units.Services.Selecting;

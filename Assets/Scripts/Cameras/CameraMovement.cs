@@ -1,4 +1,4 @@
-﻿using MapGeneration.Map;
+﻿using MapGeneration;
 using Saving;
 using Sirenix.OdinInspector;
 using UniRx;

@@ -12,10 +12,12 @@ namespace MapGeneration.Generators
             Global
         };
 
-        public static float[,] GenerateNoiseMap(int mapWidth, int mapHeight, NoiseSettings settings,
+        public static float[,] GenerateNoiseMap(NoiseSettings settings,
             Vector2 sampleCenter)
         {
-            var noiseMap = new float[mapWidth, mapHeight];
+            var size = settings.Size;
+
+            var noiseMap = new float[size, size];
 
             var prng = new Random(settings.Seed);
             var octaveOffsets = new Vector2[settings.Octaves];
@@ -37,13 +39,13 @@ namespace MapGeneration.Generators
             var maxLocalNoiseHeight = float.MinValue;
             var minLocalNoiseHeight = float.MaxValue;
 
-            var halfWidth = mapWidth / 2f;
-            var halfHeight = mapHeight / 2f;
+            var halfWidth = size / 2f;
+            var halfHeight = size / 2f;
 
 
-            for (var y = 0; y < mapHeight; y++)
+            for (var y = 0; y < size; y++)
             {
-                for (var x = 0; x < mapWidth; x++)
+                for (var x = 0; x < size; x++)
                 {
                     amplitude = 1;
                     frequency = 1;
@@ -87,9 +89,9 @@ namespace MapGeneration.Generators
             }
 
             {
-                for (var y = 0; y < mapHeight; y++)
+                for (var y = 0; y < size; y++)
                 {
-                    for (var x = 0; x < mapWidth; x++)
+                    for (var x = 0; x < size; x++)
                     {
                         noiseMap[x, y] = Mathf.InverseLerp(minLocalNoiseHeight, maxLocalNoiseHeight, noiseMap[x, y]);
                     }

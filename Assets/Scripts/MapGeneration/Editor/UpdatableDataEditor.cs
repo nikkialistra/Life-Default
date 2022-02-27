@@ -2,7 +2,7 @@
 using UnityEditor;
 using UnityEngine;
 
-namespace MapGeneration.Editor
+namespace Map.Editor
 {
     [CustomEditor(typeof(UpdatableData), true)]
     public class UpdatableDataEditor : UnityEditor.Editor

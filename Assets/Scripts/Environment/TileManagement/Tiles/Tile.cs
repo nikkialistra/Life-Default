@@ -4,7 +4,7 @@ namespace Environment.TileManagement.Tiles
 {
     public class Tile
     {
-        public Vector2Int Position;
+        public readonly Vector2Int Position;
         
         public float Temperature;
         public int Light;

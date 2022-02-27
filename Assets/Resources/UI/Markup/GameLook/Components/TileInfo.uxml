@@ -1,6 +1,7 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/Resources/UI/Styles/GameLook/Components/TileInfo.uss?fileID=7433441132597879392&amp;guid=564a1b61f5324fe0b95e05bb5733f3d2&amp;type=3#TileInfo" />
     <ui:VisualElement name="tile-info">
+        <ui:Label text="Position: 10 7" display-tooltip-when-elided="true" name="position" class="label" />
         <ui:Label text="Temperature: 5 C" display-tooltip-when-elided="true" name="temperature" class="label" />
         <ui:Label text="Light: 80%" display-tooltip-when-elided="true" name="light" class="label" />
         <ui:Label text="Beauty: 5" display-tooltip-when-elided="true" name="beauty" class="label" />

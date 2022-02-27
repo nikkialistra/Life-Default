@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using MapGeneration.Map;
 using Pathfinding;
 using UI.Game.GameLook.Components;
@@ -9,13 +10,16 @@ namespace Environment.TileManagement.Tiles
 {
     public class TileGrid : MonoBehaviour
     {
-        private NavGraph _graph;
+        private Tile[] _tiles;
 
-        private readonly List<Tile> _tiles = new();
+        private int _width;
         
+        private int _xIndexOffset;
+        private int _yIndexOffset;
+
         private AstarPath _astarPath;
         private Map _map;
-        
+
         private TileInfoView _tileInfoView;
 
         [Inject]
@@ -38,27 +42,58 @@ namespace Environment.TileManagement.Tiles
 
         public void ShowAtPosition(Vector2Int position)
         {
-            foreach (var tile in _tiles)
+            if (PositionIsOutOfBounds(position))
             {
-                if (tile.Position == position)
-                {
-                    _tileInfoView.ShowFor(tile);
-                    break;
-                }
+                _tileInfoView.Hide();
+                return;
             }
+            
+            var index = GetIndex(position);
+            var tile = _tiles[index];
+            
+            _tileInfoView.ShowFor(tile);
+        }
+
+        private bool PositionIsOutOfBounds(Vector2Int position)
+        {
+            return position.x < -_xIndexOffset || position.x > _xIndexOffset - 1 || 
+                   position.y < -_yIndexOffset || position.y > _yIndexOffset - 1;
         }
 
         private void Initialize()
         {
-            _graph = _astarPath.graphs[0];
-            _graph.GetNodes(AddNode);
+            var graph = _astarPath.data.gridGraph;
+
+            _width = graph.width;
+            
+            _xIndexOffset = graph.width / 2;
+            _yIndexOffset = graph.depth / 2;
+
+            _tiles = new Tile[graph.width * graph.depth];
+
+            graph.GetNodes(AddNode);
         }
 
         private void AddNode(GraphNode node)
         {
-            var position = new Vector2Int(node.position.x / 1000, node.position.z / 1000);
+            var position = GetNodeLeftTopCorner(node); ;
             var tile = new Tile(position);
-            _tiles.Add(tile);
+
+            var index = GetIndex(position);
+            _tiles[index] = tile;
+        }
+
+        private static Vector2Int GetNodeLeftTopCorner(GraphNode node)
+        {
+            return new Vector2Int((node.position.x - 500) / 1000, (node.position.z - 500) / 1000);
+        }
+
+        private int GetIndex(Vector2Int position)
+        {
+            var xIndex = position.x + _xIndexOffset;
+            var yIndex = position.y + _yIndexOffset;
+
+            return yIndex * _width + xIndex;
         }
     }
 }

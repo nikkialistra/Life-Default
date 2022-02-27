@@ -8,6 +8,8 @@ namespace UI.Game.GameLook.Components
     {
         private const string VisualTreePath = "UI/Markup/GameLook/Components/TileInfo";
 
+        private VisualElement _tileInfo;
+        
         private Label _position;
         private Label _temperature;
         private Label _light;
@@ -16,6 +18,8 @@ namespace UI.Game.GameLook.Components
         private void Awake()
         {
             Tree = Resources.Load<VisualTreeAsset>(VisualTreePath).CloneTree();
+
+            _tileInfo = Tree.Q<VisualElement>("tile-info");
 
             _position = Tree.Q<Label>("position");
             _temperature = Tree.Q<Label>("temperature");
@@ -27,10 +31,17 @@ namespace UI.Game.GameLook.Components
 
         public void ShowFor(Tile tile)
         {
+            _tileInfo.RemoveFromClassList("not-displayed");
+            
             _position.text = $"Position: {tile.Position}";
             _temperature.text = $"Temperature: {tile.Temperature} °C";
             _light.text = $"Light: {tile.Light}%";
             _beauty.text = $"Beauty: {tile.Beauty}";
+        }
+
+        public void Hide()
+        {
+            _tileInfo.AddToClassList("not-displayed");
         }
     }
 }

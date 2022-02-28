@@ -1,24 +1,36 @@
 ﻿using System;
+using System.Collections;
 using UnityEngine;
+using Zenject;
 
 namespace MapGeneration
 {
-    public class Map
+    public class Map : MonoBehaviour
     {
-        private readonly AstarPath _astarPath;
-        private readonly TextAsset _graphData;
+        [SerializeField] private bool _loadSavedGraphData;
+        
+        private AstarPath _astarPath;
+        private TextAsset _graphData;
 
-        private readonly bool _loadSavedGraphData;
-
-        public Map(AstarPath astarPath, TextAsset graphData,
-            bool loadSavedGraphData)
+        [Inject]
+        public void Construct(AstarPath astarPath, TextAsset graphData)
         {
             _astarPath = astarPath;
             _graphData = graphData;
-            _loadSavedGraphData = loadSavedGraphData;
         }
 
         public event Action Load;
+
+        private void Start()
+        {
+            StartCoroutine(WaitAndLoad());
+        }
+
+        private IEnumerator WaitAndLoad()
+        {
+            yield return new WaitForSeconds(.3f);
+            OnLoad();
+        }
 
         private void OnLoad()
         {
@@ -30,6 +42,7 @@ namespace MapGeneration
             {
                 AstarPath.active.Scan();
             }
+            
 
             Load?.Invoke();
         }

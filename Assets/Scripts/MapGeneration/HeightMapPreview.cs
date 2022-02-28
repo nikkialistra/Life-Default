@@ -1,5 +1,4 @@
 ﻿using System;
-using MapGeneration.Data;
 using MapGeneration.Generators;
 using MapGeneration.Settings;
 using MapGeneration.Utilities;
@@ -23,6 +22,11 @@ namespace MapGeneration
             NoiseMap,
             FalloffMap,
             HeightMap
+        }
+
+        private void Start()
+        {
+            gameObject.SetActive(false);
         }
 
         private void OnValidate()

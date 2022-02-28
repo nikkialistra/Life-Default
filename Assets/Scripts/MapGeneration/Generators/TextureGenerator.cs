@@ -1,6 +1,7 @@
 ﻿using MapGeneration.Data;
 using MapGeneration.Utilities;
 using UnityEngine;
+using UnityEngine.Experimental.Rendering;
 
 namespace MapGeneration.Generators
 {
@@ -26,11 +27,12 @@ namespace MapGeneration.Generators
 
         private static Texture2D TextureFromColorMap(Color[] colourMap, int width, int height)
         {
-            var texture = new Texture2D(width, height)
+            var texture = new Texture2D(width, height, TextureFormat.RGB48, true)
             {
                 filterMode = FilterMode.Point,
-                wrapMode = TextureWrapMode.Clamp
+                wrapMode = TextureWrapMode.Clamp,
             };
+            
             texture.SetPixels(colourMap);
             texture.Apply();
             return texture;

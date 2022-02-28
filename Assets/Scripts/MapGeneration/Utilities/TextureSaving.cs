@@ -22,12 +22,12 @@ namespace MapGeneration.Utilities
 
 #if UNITY_EDITOR
         
-        public static void SaveTexture(Texture2D texture)
+        public static void SaveTexture(Texture2D texture, string name)
         {
             CreateBaseDirectoriesTo(TexturesPath);
             
             var bytes = texture.EncodeToPNG();
-            var path = Path.Combine(TexturesPath, "HeightMap.png");
+            var path = Path.Combine(TexturesPath, name);
             
             WriteAllBytes(path, bytes);
             AssetDatabase.Refresh();

@@ -36,10 +36,10 @@ namespace MapGeneration.Generators
             return texture;
         }
 
-        public static void ExportHeightMap(HeightMap heightMap)
+        public static void ExportHeightMap(HeightMap heightMap, string name)
         {
             var texture = TextureFromHeightMap(heightMap);
-            TextureSaving.SaveTexture(texture);
+            TextureSaving.SaveTexture(texture, name);
         }
     }
 }

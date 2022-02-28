@@ -1,14 +1,17 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace MapGeneration.Settings
 {
     [CreateAssetMenu]
-    public class HeightMapSettings : UpdatableData
+    public class HeightMapSettings : ScriptableObject
     {
         [SerializeField] private NoiseSettings _noiseSettings;
 
         [SerializeField] private float _heightMultiplier;
         [SerializeField] private AnimationCurve _heightCurve;
+
+        public event Action Update;
 
         public NoiseSettings NoiseSettings => _noiseSettings;
 
@@ -17,14 +20,10 @@ namespace MapGeneration.Settings
 
         public float MinHeight => _heightMultiplier * _heightCurve.Evaluate(0);
         public float MaxHeight => _heightMultiplier * _heightCurve.Evaluate(1);
-
-#if UNITY_EDITOR
-
-        protected override void OnValidate()
+        
+        protected void OnValidate()
         {
-            _noiseSettings.ValidateValues();
-            base.OnValidate();
+            Update?.Invoke();
         }
-#endif
     }
 }

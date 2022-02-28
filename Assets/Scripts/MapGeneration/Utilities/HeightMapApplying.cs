@@ -5,28 +5,37 @@ namespace MapGeneration.Utilities
 {
 	public class HeightMapApplying
 	{
-		[MenuItem("Terrain/Heightmap From Texture")]
-		public static void ApplyHeightmap()
+		public static void ApplyHeightMapFrom(Texture2D texture)
 		{
-			var heightmap = Selection.activeObject as Texture2D;
-			if (heightmap == null)
+			UpdateTerrain(texture);
+		}
+
+		public static void ApplyHeightMapFromSelection()
+		{
+			var texture = Selection.activeObject as Texture2D;
+			if (texture == null)
 			{
 				EditorUtility.DisplayDialog("No texture selected", "Please select a texture.", "Cancel");
 				return;
 			}
 
+			UpdateTerrain(texture);
+		}
+
+		private static void UpdateTerrain(Texture2D texture)
+		{
 			Undo.RegisterCompleteObjectUndo(Terrain.activeTerrain.terrainData, "Heightmap From Texture");
 
 			var terrain = Terrain.activeTerrain.terrainData;
 			var heightmapResolution = terrain.heightmapResolution;
-			
-			if (heightmapResolution != heightmap.width || heightmapResolution != heightmap.height)
+
+			if (heightmapResolution != texture.width || heightmapResolution != texture.height)
 			{
 				EditorUtility.DisplayDialog("Incompatible sized", "Terrain and texture has different sizes", "Cancel");
 				return;
 			}
 
-			UpdateTerrainHeights(terrain, heightmapResolution, heightmap);
+			UpdateTerrainHeights(terrain, heightmapResolution, texture);
 		}
 
 		private static void UpdateTerrainHeights(TerrainData terrain, int heightmapResolution, Texture2D heightmap)

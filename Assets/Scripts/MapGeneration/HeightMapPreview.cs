@@ -2,6 +2,7 @@
 using MapGeneration.Data;
 using MapGeneration.Generators;
 using MapGeneration.Settings;
+using MapGeneration.Utilities;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -22,10 +23,29 @@ namespace MapGeneration
             NoiseMap,
             FalloffMap,
             HeightMap
-        };
+        }
 
-        public bool AutoUpdate => _autoUpdate;
+        private void OnValidate()
+        {
+            if (_autoUpdate)
+            {
+                _heightMapSettings.Update -= DrawInEditor;
+                _heightMapSettings.Update += DrawInEditor;
+            }
+            else
+            {
+                _heightMapSettings.Update -= DrawInEditor;
+            }
+        }
+        
+        [Button("Export Texture")]
+        public void ExportTexture(string name = "HeightMap.png")
+        {
+            var heightMap = HeightMapGenerator.GenerateHeightMap(_heightMapSettings, Vector2.zero);
+            TextureGenerator.ExportHeightMap(heightMap, name);
+        }
 
+        [Button("Generate")]
         public void DrawInEditor()
         {
             switch (_drawMode)
@@ -44,12 +64,24 @@ namespace MapGeneration
             }
         }
 
-        public void ExportTexture()
+        [Button("Apply To Terrain")]
+        public void ApplyToTerrain()
         {
-            var heightMap = HeightMapGenerator.GenerateHeightMap(_heightMapSettings, Vector2.zero);
-            TextureGenerator.ExportHeightMap(heightMap);
+            HeightMapApplying.ApplyHeightMapFrom(GetTexture());
+        }
+        
+        [Button("Apply To Terrain From Selection")]
+        public void ApplyToTerrainFromSelection()
+        {
+            HeightMapApplying.ApplyHeightMapFromSelection();
         }
 
+        private Texture2D GetTexture()
+        {
+            var heightMap = HeightMapGenerator.GenerateHeightMap(_heightMapSettings, Vector2.zero);
+            return TextureGenerator.TextureFromHeightMap(heightMap);
+        }
+        
         private void DrawNoiseMap()
         {
             var noiseMap = HeightMapGenerator.GenerateNoiseMap(_heightMapSettings, Vector2.zero);
@@ -72,27 +104,5 @@ namespace MapGeneration
         {
             _textureRender.sharedMaterial.mainTexture = texture;
         }
-
-        private void OnValuesUpdated()
-        {
-            if (!Application.isPlaying)
-            {
-                DrawInEditor();
-            }
-        }
-
-#if UNITY_EDITOR
-
-        private void OnValidate()
-        {
-
-            if (_heightMapSettings != null)
-            {
-                _heightMapSettings.OnValuesUpdated -= OnValuesUpdated;
-                _heightMapSettings.OnValuesUpdated += OnValuesUpdated;
-            }
-        }
-
-#endif
     }
 }

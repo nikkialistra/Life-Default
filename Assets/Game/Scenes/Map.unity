@@ -244,6 +244,11 @@ PrefabInstance:
       propertyPath: _drawMode
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5091779719103372590, guid: a5ab70e3c72f338408d1b98ab12a5670,
+        type: 3}
+      propertyPath: _autoUpdate
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a5ab70e3c72f338408d1b98ab12a5670, type: 3}
 --- !u!4 &16883967 stripped

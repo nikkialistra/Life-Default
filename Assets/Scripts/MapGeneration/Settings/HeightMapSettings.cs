@@ -7,14 +7,10 @@ namespace MapGeneration.Settings
     {
         [SerializeField] private NoiseSettings _noiseSettings;
 
-        [SerializeField] private bool _useFalloff;
-
         [SerializeField] private float _heightMultiplier;
         [SerializeField] private AnimationCurve _heightCurve;
 
         public NoiseSettings NoiseSettings => _noiseSettings;
-
-        public bool UseFalloff => _useFalloff;
 
         public float HeightMultiplier => _heightMultiplier;
         public AnimationCurve HeightCurve => _heightCurve;

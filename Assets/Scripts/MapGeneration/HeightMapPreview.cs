@@ -2,6 +2,7 @@
 using MapGeneration.Data;
 using MapGeneration.Generators;
 using MapGeneration.Settings;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace MapGeneration
@@ -12,10 +13,9 @@ namespace MapGeneration
 
         [SerializeField] private DrawMode _drawMode;
         
+        [InlineEditor(InlineEditorModes.FullEditor)]
         [SerializeField] private HeightMapSettings _heightMapSettings;
         [SerializeField] private bool _autoUpdate;
-
-        private static readonly int HeightMultiplier = Shader.PropertyToID("_Height_Multiplier");
 
         private enum DrawMode
         {
@@ -26,37 +26,58 @@ namespace MapGeneration
 
         public bool AutoUpdate => _autoUpdate;
 
-        public void DrawMapInEditor()
+        public void DrawInEditor()
         {
-            var heightMap = HeightMapGenerator.GenerateHeightMap(_heightMapSettings, Vector2.zero);
-
             switch (_drawMode)
             {
                 case DrawMode.NoiseMap:
-                    DrawTexture(TextureGenerator.TextureFromHeightMap(heightMap));
+                    DrawNoiseMap();
                     break;
                 case DrawMode.FalloffMap:
-                    DrawTexture(TextureGenerator.TextureFromHeightMap(
-                        new HeightMap(FalloffGenerator.GenerateFalloffMap(_heightMapSettings.NoiseSettings.Size), 0, 1)));
+                    DrawFalloffMap();
+                    break;
+                case DrawMode.HeightMap:
+                    DrawHeightMap();
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
         }
 
+        public void ExportTexture()
+        {
+            var heightMap = HeightMapGenerator.GenerateHeightMap(_heightMapSettings, Vector2.zero);
+            TextureGenerator.ExportHeightMap(heightMap);
+        }
+
+        private void DrawNoiseMap()
+        {
+            var noiseMap = HeightMapGenerator.GenerateNoiseMap(_heightMapSettings, Vector2.zero);
+            DrawTexture(TextureGenerator.TextureFromHeightMap(noiseMap));
+        }
+
+        private void DrawFalloffMap()
+        {
+            var falloffMap = FalloffGenerator.GenerateFalloffMap(_heightMapSettings.NoiseSettings.Size);
+            DrawTexture(TextureGenerator.TextureFromHeightMap(falloffMap));
+        }
+
+        private void DrawHeightMap()
+        {
+            var heightMap = HeightMapGenerator.GenerateHeightMap(_heightMapSettings, Vector2.zero);
+            DrawTexture(TextureGenerator.TextureFromHeightMap(heightMap));
+        }
+
         private void DrawTexture(Texture2D texture)
         {
             _textureRender.sharedMaterial.mainTexture = texture;
-            _textureRender.transform.localScale = new Vector3(texture.width, 1, texture.height) / 10f;
-
-            _textureRender.gameObject.SetActive(true);
         }
-        
+
         private void OnValuesUpdated()
         {
             if (!Application.isPlaying)
             {
-                DrawMapInEditor();
+                DrawInEditor();
             }
         }
 

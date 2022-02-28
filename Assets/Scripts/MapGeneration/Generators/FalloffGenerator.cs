@@ -1,12 +1,20 @@
-﻿using UnityEngine;
+﻿using MapGeneration.Data;
+using UnityEngine;
 
 namespace MapGeneration.Generators
 {
     public static class FalloffGenerator
     {
-        public static float[,] GenerateFalloffMap(int size)
+        public static HeightMap GenerateFalloffMap(int size)
         {
-            var map = new float[size, size];
+            var values = GenerateFalloffValues(size);
+            
+            return new HeightMap(values, 0, 1);
+        }
+
+        public static float[,] GenerateFalloffValues(int size)
+        {
+            var values = new float[size, size];
 
             for (var i = 0; i < size; i++)
             {
@@ -16,11 +24,11 @@ namespace MapGeneration.Generators
                     var y = j / (float)size * 2 - 1;
 
                     var value = Mathf.Max(Mathf.Abs(x), Mathf.Abs(y));
-                    map[i, j] = Evaluate(value);
+                    values[i, j] = Evaluate(value);
                 }
             }
 
-            return map;
+            return values;
         }
 
         private static float Evaluate(float value)

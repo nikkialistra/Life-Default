@@ -1,4 +1,5 @@
 ﻿using MapGeneration.Data;
+using MapGeneration.Utilities;
 using UnityEngine;
 
 namespace MapGeneration.Generators
@@ -33,6 +34,12 @@ namespace MapGeneration.Generators
             texture.SetPixels(colourMap);
             texture.Apply();
             return texture;
+        }
+
+        public static void ExportHeightMap(HeightMap heightMap)
+        {
+            var texture = TextureFromHeightMap(heightMap);
+            TextureSaving.SaveTexture(texture);
         }
     }
 }

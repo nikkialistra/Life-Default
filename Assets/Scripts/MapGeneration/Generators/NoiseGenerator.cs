@@ -6,18 +6,13 @@ namespace MapGeneration.Generators
 {
     public static class NoiseGenerator
     {
-        public enum NormalizeMode
-        {
-            Local,
-            Global
-        };
-
         public static float[,] GenerateNoiseMap(NoiseSettings settings,
             Vector2 sampleCenter)
         {
             var size = settings.Size;
+            var resolution = settings.Resolution;
 
-            var noiseMap = new float[size, size];
+            var noiseMap = new float[resolution, resolution];
 
             var prng = new Random(settings.Seed);
             var octaveOffsets = new Vector2[settings.Octaves];
@@ -42,19 +37,23 @@ namespace MapGeneration.Generators
             var halfWidth = size / 2f;
             var halfHeight = size / 2f;
 
+            var step = (float)size / resolution;
 
-            for (var y = 0; y < size; y++)
+            for (var y = 0; y < resolution; y++)
             {
-                for (var x = 0; x < size; x++)
+                for (var x = 0; x < resolution; x++)
                 {
+                    var offsetX = x * step;
+                    var offsetY = y * step;
+                    
                     amplitude = 1;
                     frequency = 1;
                     float noiseHeight = 0;
 
                     for (var i = 0; i < settings.Octaves; i++)
                     {
-                        var sampleX = (x - halfWidth + octaveOffsets[i].x) / settings.Scale * frequency;
-                        var sampleY = (y - halfHeight + octaveOffsets[i].y) / settings.Scale * frequency;
+                        var sampleX = (offsetX - halfWidth + octaveOffsets[i].x) / settings.Scale * frequency;
+                        var sampleY = (offsetY - halfHeight + octaveOffsets[i].y) / settings.Scale * frequency;
 
                         var perlinValue = Mathf.PerlinNoise(sampleX, sampleY) * 2 - 1;
                         noiseHeight += perlinValue * amplitude;
@@ -75,26 +74,24 @@ namespace MapGeneration.Generators
 
                     noiseMap[x, y] = noiseHeight;
 
-                    if (settings.NormalizeMode == NormalizeMode.Global)
+                    if (settings.GlobalMode)
                     {
-                        var normalizedHeight = (noiseMap[x, y] + 1) / (maxPossibleHeight / 0.9f);
+                        var normalizedHeight = (noiseMap[x, y] + 1) / (maxPossibleHeight / 0.8f);
                         noiseMap[x, y] = Mathf.Clamp(normalizedHeight, 0, int.MaxValue);
                     }
                 }
             }
 
-            if (settings.NormalizeMode != NormalizeMode.Local)
+            if (settings.GlobalMode)
             {
                 return noiseMap;
             }
 
+            for (var y = 0; y < resolution; y++)
             {
-                for (var y = 0; y < size; y++)
+                for (var x = 0; x < resolution; x++)
                 {
-                    for (var x = 0; x < size; x++)
-                    {
-                        noiseMap[x, y] = Mathf.InverseLerp(minLocalNoiseHeight, maxLocalNoiseHeight, noiseMap[x, y]);
-                    }
+                    noiseMap[x, y] = Mathf.InverseLerp(minLocalNoiseHeight, maxLocalNoiseHeight, noiseMap[x, y]);
                 }
             }
 

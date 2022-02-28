@@ -25,12 +25,12 @@ namespace MapGeneration.Generators
 
         private static float[,] PassThroughFalloffMap(float[,] values, HeightMapSettings settings)
         {
-            var size = settings.NoiseSettings.Size;
-            var falloffMap = FalloffGenerator.GenerateFalloffValues(size);
+            var resolution = settings.NoiseSettings.Resolution;
+            var falloffMap = FalloffGenerator.GenerateFalloffValues(resolution);
 
-            for (var i = 0; i < size; i++)
+            for (var i = 0; i < resolution; i++)
             {
-                for (var j = 0; j < size; j++)
+                for (var j = 0; j < resolution; j++)
                 {
                     values[i, j] = Mathf.Clamp01(values[i, j] - falloffMap[i, j]);
                 }
@@ -41,17 +41,17 @@ namespace MapGeneration.Generators
 
         private static HeightMap PassThroughCurve(float[,] values, HeightMapSettings settings)
         {
-            var size = settings.NoiseSettings.Size;
+            var resolution = settings.NoiseSettings.Resolution;
             var heightCurve = new AnimationCurve(settings.HeightCurve.keys);
             
             var minValue = float.MaxValue;
             var maxValue = float.MinValue;
 
-            for (var i = 0; i < size; i++)
+            for (var i = 0; i < resolution; i++)
             {
-                for (var j = 0; j < size; j++)
+                for (var j = 0; j < resolution; j++)
                 {
-                    values[i, j] = heightCurve.Evaluate(values[i, j]) * settings.HeightMultiplier;
+                    values[i, j] = heightCurve.Evaluate(values[i, j]);
 
                     if (values[i, j] > maxValue)
                     {

@@ -13,15 +13,15 @@ MonoBehaviour:
   m_Name: HeightMapSettings
   m_EditorClassIdentifier: 
   _noiseSettings:
+    _resolution: 2
+    _globalMode: 1
     _size: 2049
-    _normalizeMode: 0
     _scale: 250
     _octaves: 5
     _persistence: 0.387
     _lacunarity: 1.8
     _seed: 5
     _offset: {x: 49.3, y: 123.6}
-  _heightMultiplier: 57.85
   _heightCurve:
     serializedVersion: 2
     m_Curve:

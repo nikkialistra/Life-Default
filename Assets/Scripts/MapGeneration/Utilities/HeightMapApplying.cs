@@ -5,6 +5,8 @@ namespace MapGeneration.Utilities
 {
 	public class HeightMapApplying
 	{
+		private static readonly Vector3 TerrainSize = new Vector3(300f, 15f, 300f);
+
 		public static void ApplyHeightMapFrom(Texture2D texture)
 		{
 			UpdateTerrain(texture);
@@ -29,10 +31,11 @@ namespace MapGeneration.Utilities
 			var terrain = Terrain.activeTerrain.terrainData;
 			var heightmapResolution = terrain.heightmapResolution;
 
-			if (heightmapResolution != texture.width || heightmapResolution != texture.height)
+			if (heightmapResolution != texture.width)
 			{
-				EditorUtility.DisplayDialog("Incompatible sized", "Terrain and texture has different sizes", "Cancel");
-				return;
+				terrain.heightmapResolution = texture.width;
+				terrain.size = TerrainSize;
+				heightmapResolution = texture.width;
 			}
 
 			UpdateTerrainHeights(terrain, heightmapResolution, texture);

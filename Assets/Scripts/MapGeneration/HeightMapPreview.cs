@@ -94,7 +94,7 @@ namespace MapGeneration
 
         private void DrawFalloffMap()
         {
-            var falloffMap = FalloffGenerator.GenerateFalloffMap(_heightMapSettings.NoiseSettings.Size);
+            var falloffMap = FalloffGenerator.GenerateFalloffMap(_heightMapSettings.NoiseSettings.Resolution);
             DrawTexture(TextureGenerator.TextureFromHeightMap(falloffMap));
         }
 

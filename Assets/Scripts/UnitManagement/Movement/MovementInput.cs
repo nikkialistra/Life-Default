@@ -119,7 +119,7 @@ namespace UnitManagement.Movement
             {
                 return;
             }
-
+            
             if (Physics.Raycast(GetRay(), out var hit, Mathf.Infinity, _rayMask))
             {
                 var ground = hit.transform.GetComponentInParent<Ground>();

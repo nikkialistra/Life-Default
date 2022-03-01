@@ -142,6 +142,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _textureRender: {fileID: 3508007316101527980}
-  _drawMode: 0
-  _heightMapSettings: {fileID: 11400000, guid: bc1abe3f3ef07284f8b6b9a0df31b6d0, type: 2}
+  _drawMode: 2
+  _heightMapSettings: {fileID: 11400000, guid: a8c36da3898e20c4a8cdf62a1f176aae, type: 2}
+  _terrainSize: {x: 300, y: 15, z: 300}
   _autoUpdate: 0

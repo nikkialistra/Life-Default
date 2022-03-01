@@ -1,7 +1,6 @@
 ﻿using MapGeneration.Data;
 using MapGeneration.Utilities;
 using UnityEngine;
-using UnityEngine.Experimental.Rendering;
 
 namespace MapGeneration.Generators
 {
@@ -32,16 +31,19 @@ namespace MapGeneration.Generators
                 filterMode = FilterMode.Point,
                 wrapMode = TextureWrapMode.Clamp,
             };
-            
+
             texture.SetPixels(colourMap);
             texture.Apply();
             return texture;
         }
+
+#if UNITY_EDITOR
 
         public static void ExportHeightMap(HeightMap heightMap, string name)
         {
             var texture = TextureFromHeightMap(heightMap);
             TextureSaving.SaveTexture(texture, name);
         }
+#endif
     }
 }

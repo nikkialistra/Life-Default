@@ -10,11 +10,16 @@ namespace MapGeneration
     public class HeightMapPreview : MonoBehaviour
     {
         [SerializeField] private Renderer _textureRender;
-
         [SerializeField] private DrawMode _drawMode;
         
+        [Space]
         [InlineEditor(InlineEditorModes.FullEditor)]
         [SerializeField] private HeightMapSettings _heightMapSettings;
+        
+        [Space]
+        [SerializeField] private Vector3 _terrainSize = new Vector3(300f, 15, 300f);
+        
+        [Space]
         [SerializeField] private bool _autoUpdate;
 
         private enum DrawMode
@@ -41,13 +46,17 @@ namespace MapGeneration
                 _heightMapSettings.Update -= DrawInEditor;
             }
         }
-        
+
+#if UNITY_EDITOR
+
         [Button("Export Texture")]
         public void ExportTexture(string name = "HeightMap.png")
         {
             var heightMap = HeightMapGenerator.GenerateHeightMap(_heightMapSettings, Vector2.zero);
             TextureGenerator.ExportHeightMap(heightMap, name);
         }
+
+#endif
 
         [Button("Generate")]
         public void DrawInEditor()
@@ -68,17 +77,21 @@ namespace MapGeneration
             }
         }
 
+#if UNITY_EDITOR
+
         [Button("Apply To Terrain")]
         public void ApplyToTerrain()
         {
-            HeightMapApplying.ApplyHeightMapFrom(GetTexture());
+            HeightMapApplying.ApplyHeightMapFrom(GetTexture(), _terrainSize);
         }
-        
+
         [Button("Apply To Terrain From Selection")]
         public void ApplyToTerrainFromSelection()
         {
-            HeightMapApplying.ApplyHeightMapFromSelection();
+            HeightMapApplying.ApplyHeightMapFromSelection(_terrainSize);
         }
+
+#endif
 
         private Texture2D GetTexture()
         {

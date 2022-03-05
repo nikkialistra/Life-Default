@@ -1,7 +1,7 @@
 .time-weather {
     width: 250px;
     height: 32px;
-    background-image: resource('UI/Sprites/TimeToggling/TimeTogglingPanel');
+    background-image: resource('UI/Sprites/Panels/TimeWeather');
     padding-left: 4px;
     padding-right: 4px;
     flex-direction: row;

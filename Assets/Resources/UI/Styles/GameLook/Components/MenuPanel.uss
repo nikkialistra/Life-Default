@@ -1,7 +1,7 @@
 .menu-panel {
     width: 32px;
     height: 32px;
-    background-image: resource('UI/Sprites/MenuPanel/MenuPanel');
+    background-image: resource('UI/Sprites/Panels/Menu');
 }
 
 .unity-button {
@@ -10,14 +10,14 @@
     border-width: 0;
     margin: 0;
     padding: 0;
-    background-image: resource('UI/Sprites/MenuPanel/MenuIdle');
+    background-image: resource('UI/Sprites/Toggles/Menu/Default');
     background-color: rgba(188, 188, 188, 0);
 }
 
 .unity-button:hover {
-    background-image: resource('UI/Sprites/MenuPanel/MenuHovered');
+    background-image: resource('UI/Sprites/Toggles/Menu/Hovered');
 }
 
 .unity-button:active {
-    background-image: resource('UI/Sprites/MenuPanel/MenuPressed');
+    background-image: resource('UI/Sprites/Toggles/Menu/Pressed');
 }

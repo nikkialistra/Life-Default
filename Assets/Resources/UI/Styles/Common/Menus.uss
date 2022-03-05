@@ -35,91 +35,91 @@
 .button-small-normal {
     width: 128px;
     height: 32px;
-    background-image: resource('UI/Sprites/Buttons/Small/Normal/ButtonSmallNormalIdle');
+    background-image: resource('UI/Sprites/Buttons/Small/Primary/Default');
     font-size: 16px;
 }
 
 .button-small-normal:hover {
-    background-image: resource('UI/Sprites/Buttons/Small/Normal/ButtonSmallNormalHovered');
+    background-image: resource('UI/Sprites/Buttons/Small/Primary/Hovered');
 }
 
 .button-small-normal:active {
-    background-image: resource('UI/Sprites/Buttons/Small/Normal/ButtonSmallNormalPressed');
+    background-image: resource('UI/Sprites/Buttons/Small/Primary/Pressed');
 }
 
 .button-small-accented {
     width: 128px;
     height: 32px;
-    background-image: resource('UI/Sprites/Buttons/Small/Accented/ButtonSmallAccentedIdle');
+    background-image: resource('UI/Sprites/Buttons/Small/Secondary/Default');
     font-size: 16px;
 }
 
 .button-small-accented:hover {
-    background-image: resource('UI/Sprites/Buttons/Small/Accented/ButtonSmallAccentedHovered');
+    background-image: resource('UI/Sprites/Buttons/Small/Secondary/Hovered');
 }
 
 .button-small-accented:active {
-    background-image: resource('UI/Sprites/Buttons/Small/Accented/ButtonSmallAccentedPressed');
+    background-image: resource('UI/Sprites/Buttons/Small/Secondary/Pressed');
 }
 
 .button-medium-normal {
     width: 192px;
     height: 48px;
-    background-image: resource('UI/Sprites/Buttons/Medium/Normal/ButtonMediumNormalIdle');
+    background-image: resource('UI/Sprites/Buttons/Medium/Primary/Default');
     font-size: 20px;
 }
 
 .button-medium-normal:hover {
-    background-image: resource('UI/Sprites/Buttons/Medium/Normal/ButtonMediumNormalHovered');
+    background-image: resource('UI/Sprites/Buttons/Medium/Primary/Hovered');
 }
 
 .button-medium-normal:active {
-    background-image: resource('UI/Sprites/Buttons/Medium/Normal/ButtonMediumNormalPressed');
+    background-image: resource('UI/Sprites/Buttons/Medium/Primary/Pressed');
 }
 
 .button-medium-accented {
     width: 192px;
     height: 48px;
-    background-image: resource('UI/Sprites/Buttons/Medium/Accented/ButtonMediumAccentedIdle');
+    background-image: resource('UI/Sprites/Buttons/Medium/Secondary/Default');
     font-size: 20px;
 }
 
 .button-medium-accented:hover {
-    background-image: resource('UI/Sprites/Buttons/Medium/Accented/ButtonMediumAccentedHovered');
+    background-image: resource('UI/Sprites/Buttons/Medium/Secondary/Hovered');
 }
 
 .button-medium-accented:active {
-    background-image: resource('UI/Sprites/Buttons/Medium/Accented/ButtonMediumAccentedPressed');
+    background-image: resource('UI/Sprites/Buttons/Medium/Secondary/Pressed');
 }
 
 .button-large-normal {
     width: 256px;
     height: 64px;
-    background-image: resource('UI/Sprites/Buttons/Large/Normal/ButtonLargeNormalIdle');
+    background-image: resource('UI/Sprites/Buttons/Large/Primary/Default');
     font-size: 25px;
 }
 
 .button-large-normal:hover {
-    background-image: resource('UI/Sprites/Buttons/Large/Normal/ButtonLargeNormalHovered');
+    background-image: resource('UI/Sprites/Buttons/Large/Primary/Hovered');
 }
 
 .button-large-normal:active {
-    background-image: resource('UI/Sprites/Buttons/Large/Normal/ButtonLargeNormalPressed');
+    background-image: resource('UI/Sprites/Buttons/Large/Primary/Pressed');
 }
 
 .button-large-accented {
     width: 256px;
     height: 64px;
-    background-image: resource('UI/Sprites/Buttons/Large/Accented/ButtonLargeAccentedIdle');
+    background-image: resource('UI/Sprites/Buttons/Large/Secondary/Default');
     font-size: 25px;
 }
 
 .button-large-accented:hover {
-    background-image: resource('UI/Sprites/Buttons/Large/Accented/ButtonLargeAccentedHovered');
+    background-image: resource('UI/Sprites/Buttons/Large/Secondary/Hovered');
 }
 
 .button-large-accented:active {
-    background-image: resource('UI/Sprites/Buttons/Large/Accented/ButtonLargeAccentedPressed');
+    background-image: resource('UI/Sprites/Buttons/Large/Secondary/Pressed');
 }
 
 .align-left {
@@ -178,7 +178,7 @@
 }
 
 .unity-toggle:checked > .unity-toggle__input > .unity-toggle__checkmark {
-    background-image: resource('UI/Sprites/InterfaceElements/ToggleSelected');
+    background-image: resource('UI/Sprites/Controls/CheckBox/CheckMark');
 }
 
 .unity-popup-field {

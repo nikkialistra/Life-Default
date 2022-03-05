@@ -1,7 +1,7 @@
 .time-toggling {
     width: 138px;
     height: 32px;
-    background-image: resource('UI/Sprites/TimeToggling/TimeTogglingPanel');
+    background-image: resource('UI/Sprites/Panels/TimeToggling');
     flex-direction: row;
 }
 
@@ -29,49 +29,49 @@
 }
 
 .pause .unity-toggle__checkmark {
-    background-image: resource('UI/Sprites/TimeToggling/Pause/PauseToggleIdle');
+    background-image: resource('UI/Sprites/Toggles/Pause/Default');
 }
 
 .pause:hover .unity-toggle__checkmark {
-    background-image: resource('UI/Sprites/TimeToggling/Pause/PauseToggleHovered');
+    background-image: resource('UI/Sprites/Toggles/Pause/Hovered');
 }
 
 .pause:checked .unity-toggle__checkmark {
-    background-image: resource('UI/Sprites/TimeToggling/Pause/PauseToggleChecked');
+    background-image: resource('UI/Sprites/Toggles/Pause/Pressed');
 }
 
 .x1 .unity-toggle__checkmark {
-    background-image: resource('UI/Sprites/TimeToggling/X1/X1ToggleIdle');
+    background-image: resource('UI/Sprites/Toggles/X1/Default');
 }
 
 .x1:hover .unity-toggle__checkmark {
-    background-image: resource('UI/Sprites/TimeToggling/X1/X1ToggleHovered');
+    background-image: resource('UI/Sprites/Toggles/X1/Hovered');
 }
 
 .x1:checked .unity-toggle__checkmark {
-    background-image: resource('UI/Sprites/TimeToggling/X1/X1ToggleChecked');
+    background-image: resource('UI/Sprites/Toggles/X1/Pressed');
 }
 
 .x2 .unity-toggle__checkmark {
-    background-image: resource('UI/Sprites/TimeToggling/X2/X2ToggleIdle');
+    background-image: resource('UI/Sprites/Toggles/X2/Default');
 }
 
 .x2:hover .unity-toggle__checkmark {
-    background-image: resource('UI/Sprites/TimeToggling/X2/X2ToggleHovered');
+    background-image: resource('UI/Sprites/Toggles/X2/Hovered');
 }
 
 .x2:checked .unity-toggle__checkmark {
-    background-image: resource('UI/Sprites/TimeToggling/X2/X2ToggleChecked');
+    background-image: resource('UI/Sprites/Toggles/X2/Pressed');
 }
 
 .x3 .unity-toggle__checkmark {
-    background-image: resource('UI/Sprites/TimeToggling/X3/X3ToggleIdle');
+    background-image: resource('UI/Sprites/Toggles/X3/Default');
 }
 
 .x3:hover .unity-toggle__checkmark {
-    background-image: resource('UI/Sprites/TimeToggling/X3/X3ToggleHovered');
+    background-image: resource('UI/Sprites/Toggles/X3/Hovered');
 }
 
 .x3:checked .unity-toggle__checkmark {
-    background-image: resource('UI/Sprites/TimeToggling/X3/X3ToggleChecked');
+    background-image: resource('UI/Sprites/Toggles/X3/Pressed');
 }

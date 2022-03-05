@@ -7,7 +7,7 @@ namespace MapGeneration.Utilities
 {
     public static class TextureSaving
     {
-        private const string TexturesPath = "Assets/Resources/HeightMaps";
+        private const string TexturesPath = "Assets/Resources/TerrainsData/HeightMaps";
 
         public static void ClearSavedTextures()
         {

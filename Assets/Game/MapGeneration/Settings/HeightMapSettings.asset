@@ -18,7 +18,7 @@ MonoBehaviour:
     _size: 2049
     _scale: 250
     _octaves: 5
-    _persistence: 0.387
+    _persistence: 0.35
     _lacunarity: 1.8
     _seed: 5
     _offset: {x: 49.3, y: 123.6}

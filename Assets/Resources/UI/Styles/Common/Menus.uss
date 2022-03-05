@@ -140,7 +140,7 @@
 .element {
     margin: 10px 0;
     padding: 0;
-    width: 352px;
+    width: 370px;
     height: 36px;
     justify-content: space-between;
 }
@@ -150,6 +150,10 @@
     -unity-font: resource('Fonts/Ubuntu/Ubuntu-Regular');
     font-size: 18px;
     color: rgb(255, 255, 255);
+}
+
+.element > .unity-base-field__input {
+    width: 220px;
 }
 
 .unity-toggle {
@@ -171,66 +175,93 @@
 .unity-toggle > .unity-toggle__input > .unity-toggle__checkmark {
     width: 36px;
     height: 36px;
-    background-image: none;
+    border-width: 0;
+    background-color: rgba(255, 255, 255, 0);
     -unity-background-image-tint-color: white;
-    border-width: 2px;
-    border-color: black;
+    background-image: resource('UI/Sprites/Controls/CheckBox/Default');
 }
 
 .unity-toggle:checked > .unity-toggle__input > .unity-toggle__checkmark {
-    background-image: resource('UI/Sprites/Controls/CheckBox/CheckMark');
+    background-image: resource('UI/Sprites/Controls/CheckBox/Checked');
 }
 
 .unity-popup-field {
     align-items: center;
 }
 
+.unity-base-popup-field__text
+{
+    margin-left: 5px;
+}
+
 .unity-popup-field .unity-label {
     margin: 0;
     padding: 0;
-    min-width: 128px;
     color: white;
 }
 
 .unity-popup-field > .unity-popup-field__input {
     margin: 0;
     padding: 3px;
-    min-width: 128px;
+    width: 220px;
     height: 36px;
+    border-width: 0;
+    background-color: rgba(255, 255, 255, 0);
+    background-image: resource('UI/Sprites/Controls/Dropdown/Default');
 }
 
-.unity-slider-int {
-    align-items: center;
-}
-
-.unity-slider-int .unity-label {
-    margin: 0;
-    padding: 0;
-    width: 160px;
-    color: white;
-}
-
-.unity-slider-int .unity-slider-int__input {
-    max-width: 160px;
+.unity-base-popup-field__arrow {
+    display: none;
 }
 
 .unity-slider {
     align-items: center;
 }
 
-.unity-slider .unity-label {
-    margin: 0;
-    padding: 0;
-    width: 160px;
-    color: white;
+.unity-slider-int {
+    align-items: center;
 }
 
 .unity-slider .unity-slider__input {
-    max-width: 160px;
+    width: 220px;
+}
+
+.unity-slider-int .unity-slider-int__input {
+    width: 220px;
+}
+
+.unity-base-slider__drag-container {
+    width: 220px;
+}
+
+.unity-base-slider__dragger-border {
+    display: none;
+}
+
+.unity-base-slider .unity-base-slider__tracker {
+    width: 220px;
+    border-width: 0;
+    background-color: rgba(255, 255, 255, 0);
+    background-image: resource('UI/Sprites/Controls/Slider/DragLine');
+}
+
+.unity-slider .unity-label {
+    margin: 0;
+    padding: 0;
+    color: white;
+}
+
+.unity-slider-int .unity-label {
+    margin: 0;
+    padding: 0;
+    color: white;
 }
 
 .unity-base-slider__dragger {
     width: 20px;
     height: 20px;
+    border-width: 0;
     margin-top: -10px;
+    background-color: rgba(255, 255, 255, 0);
+    background-image: resource('UI/Sprites/Controls/Slider/Dragger');
 }

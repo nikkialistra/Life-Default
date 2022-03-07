@@ -806,7 +806,7 @@ PlayerSettings:
   webGLDecompressionFallback: 0
   scriptingDefineSymbols:
     Android: ODIN_INSPECTOR;ODIN_INSPECTOR_3;CROSS_PLATFORM_INPUT;MOBILE_INPUT
-    Standalone: ODIN_INSPECTOR;ODIN_INSPECTOR_3;GAIA_2_PRESENT;GAIA_PRO_PRESENT;CROSS_PLATFORM_INPUT
+    Standalone: ODIN_INSPECTOR;ODIN_INSPECTOR_3;GAIA_2_PRESENT;GAIA_PRO_PRESENT;CROSS_PLATFORM_INPUT;GENA_PRO;GeNa_URP
     Windows Store Apps: MOBILE_INPUT
     iPhone: CROSS_PLATFORM_INPUT;MOBILE_INPUT
   additionalCompilerArguments: {}
@@ -907,4 +907,3 @@ PlayerSettings:
   playerDataPath: 
   forceSRGBBlit: 1
   virtualTexturingSupportEnabled: 0
-  uploadClearedTextureDataAfterCreationFromScript: 0

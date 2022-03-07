@@ -1,0 +1,75 @@
+.colonist-info {
+    width: 320px;
+    height: 532px;
+    flex-direction: column;
+}
+
+.header {
+    width: 320px;
+    height: 32px;
+}
+
+.header_text {
+    font-size: 21px;
+    color: rgb(255, 255, 255);
+    -unity-font: resource('Fonts/Ubuntu/Ubuntu-Bold');
+    -unity-text-align: middle-left;
+    margin: 0;
+    padding: 0;
+    height: 32px;
+    width: 100px;
+    margin-left: 12px;
+}
+
+.next {
+    position: absolute;
+    right: 70px;
+    background-image: resource('UI/Sprites/Info/PanelActions/Next/Default');
+}
+
+.next:hover {
+    background-image: resource('UI/Sprites/Info/PanelActions/Next/Hovered');
+}
+
+.next:active {
+    background-image: resource('UI/Sprites/Info/PanelActions/Next/Pressed');
+}
+
+.focus {
+    position: absolute;
+    right: 35px;
+    background-image: resource('UI/Sprites/Info/PanelActions/Focus/Default');
+}
+
+.focus:hover {
+    background-image: resource('UI/Sprites/Info/PanelActions/Focus/Hovered');
+}
+
+.focus:active {
+    background-image: resource('UI/Sprites/Info/PanelActions/Focus/Pressed');
+}
+
+.body {
+    width: 320px;
+    height: 444px;
+}
+
+.picture {
+    width: 100px;
+    height: 100px;
+    background-color: rgba(196, 196, 196, 255);
+    margin-left: 12px;
+    margin-top: 12px;
+    border-left-width: 3px;
+    border-right-width: 3px;
+    border-top-width: 3px;
+    border-bottom-width: 3px;
+    border-left-color: rgba(0, 0, 0, 255);
+    border-right-color: rgba(0, 0, 0, 255);
+    border-top-color: rgba(0, 0, 0, 255);
+    border-bottom-color: rgba(0, 0, 0, 255);
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+}

@@ -1,0 +1,14 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Resources/UI/Styles/GameLook/Components/ColonistInfo.uss?fileID=7433441132597879392&amp;guid=25ebb824081a42ec86b7e9fd58427d3e&amp;type=3#ColonistInfo" />
+    <Style src="project://database/Assets/Resources/UI/Styles/Common/InfoForm.uss?fileID=7433441132597879392&amp;guid=ef46dfde628e96146b950bb6e51694e4&amp;type=3#InfoForm" />
+    <ui:VisualElement name="colonist-info" focusable="true" class="colonist-info">
+        <ui:VisualElement name="header" class="header">
+            <ui:Label text="Tiffany" display-tooltip-when-elided="true" name="name" class="header_text" />
+            <ui:Button display-tooltip-when-elided="true" name="next" class="button next" />
+            <ui:Button display-tooltip-when-elided="true" name="focus" class="button focus" />
+        </ui:VisualElement>
+        <ui:VisualElement name="body" class="body">
+            <ui:VisualElement name="picture" class="picture" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

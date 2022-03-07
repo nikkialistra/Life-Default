@@ -34,7 +34,7 @@ namespace Infrastructure
         [Required]
         [SerializeField] private InfoPanelView _infoPanelView;
         [Required]
-        [SerializeField] private UnitInfoView _unitInfoView;
+        [SerializeField] private ColonistInfoView _colonistInfoView;
         [Required]
         [SerializeField] private UnitsInfoView _unitsInfoView;
         [Required]
@@ -66,7 +66,7 @@ namespace Infrastructure
         {
             Container.BindInstance(_tileInfoView);
             Container.BindInstance(_infoPanelView);
-            Container.BindInstance(_unitInfoView);
+            Container.BindInstance(_colonistInfoView);
             Container.BindInstance(_unitsInfoView);
             Container.BindInstance(_unitTypesView);
         }

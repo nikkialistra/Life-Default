@@ -1,11 +1,39 @@
 .info-panel {
-    width: 440px;
-    height: 180px;
-    background-image: resource('UI/Sprites/Panels/Info');
+    width: 320px;
+    height: 532px;
     flex-direction: row;
-    padding: 5px;
+    margin: 0;
+    padding: 0;
 }
 
 .not-displayed {
     display: none;
+}
+
+.outline {
+    background-image: resource('UI/Sprites/Panels/Info/Outline');
+    width: 320px;
+    height: 532px;
+    position: absolute;
+}
+
+.fill {
+    width: 320px;
+    height: 532px;
+    background-image: resource('UI/Sprites/Panels/Info/Fill');
+    position: absolute;
+}
+
+.close {
+    position: absolute;
+    right: 0;
+    background-image: resource('UI/Sprites/Info/PanelActions/Close/Default');
+}
+
+.close:hover {
+    background-image: resource('UI/Sprites/Info/PanelActions/Close/Hovered');
+}
+
+.close:active {
+    background-image: resource('UI/Sprites/Info/PanelActions/Close/Pressed');
 }

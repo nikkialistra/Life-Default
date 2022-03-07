@@ -5,18 +5,18 @@ using UnityEngine.UIElements;
 
 namespace UI.Game.GameLook.Components
 {
-    [RequireComponent(typeof(UnitInfoView))]
+    [RequireComponent(typeof(ColonistInfoView))]
     [RequireComponent(typeof(UnitsInfoView))]
     public class InfoPanelView : MonoBehaviour
     {
         private const string VisualTreePath = "UI/Markup/GameLook/Components/InfoPanel";
         
-        private UnitInfoView _unitInfoView;
+        private ColonistInfoView _colonistInfoView;
         private UnitsInfoView _unitsInfoView;
 
         private void Awake()
         {
-            _unitInfoView = GetComponent<UnitInfoView>();
+            _colonistInfoView = GetComponent<ColonistInfoView>();
             _unitsInfoView = GetComponent<UnitsInfoView>();
 
             Tree = Resources.Load<VisualTreeAsset>(VisualTreePath).CloneTree();
@@ -51,7 +51,7 @@ namespace UI.Game.GameLook.Components
         public void SetUnit(UnitFacade unit)
         {
             ShowSelf();
-            ShowOneUnitDescription(unit);
+            ShowColonistInfo(unit);
         }
 
         public void HideSelf()
@@ -62,7 +62,7 @@ namespace UI.Game.GameLook.Components
         private void SetMultipleUnits(List<UnitFacade> units)
         {
             ShowSelf();
-            ShowUnitsDescription(units);
+            ShowColonistsInfo(units);
         }
 
         private void ShowSelf()
@@ -70,16 +70,16 @@ namespace UI.Game.GameLook.Components
             InfoPanel.RemoveFromClassList("not-displayed");
         }
 
-        private void ShowOneUnitDescription(UnitFacade unit)
+        private void ShowColonistInfo(UnitFacade unit)
         {
             _unitsInfoView.HideSelf();
-            _unitInfoView.ShowSelf();
-            _unitInfoView.FillIn(unit);
+            _colonistInfoView.ShowSelf();
+            _colonistInfoView.FillIn(unit);
         }
 
-        private void ShowUnitsDescription(List<UnitFacade> units)
+        private void ShowColonistsInfo(List<UnitFacade> units)
         {
-            _unitInfoView.HideSelf();
+            _colonistInfoView.HideSelf();
             _unitsInfoView.ShowSelf();
             _unitsInfoView.FillIn(units);
         }

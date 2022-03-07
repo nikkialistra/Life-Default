@@ -18,10 +18,16 @@ namespace UI.Game.GameLook.Components
         private InfoPanelView _parent;
         private TemplateContainer _tree;
 
+        private Label _name;
+        
         private Button _next;
         private Button _focus;
-        
+
         private VisualElement _picture;
+
+        private ProgressBar _healthProgress;
+        private Label _healthValue;
+        private VisualElement _healthArrow;
 
 
         private void Awake()
@@ -30,10 +36,16 @@ namespace UI.Game.GameLook.Components
 
             _tree = Resources.Load<VisualTreeAsset>(VisualTreePath).CloneTree();
 
+            _name = _tree.Q<Label>("name");
+
             _next = _tree.Q<Button>("next");
             _focus = _tree.Q<Button>("focus");
 
             _picture = _tree.Q<VisualElement>("picture");
+
+            _healthProgress = _tree.Q<ProgressBar>("health-progress");
+            _healthValue = _tree.Q<Label>("health-value");
+            _healthArrow = _tree.Q<VisualElement>("health-arrow");
         }
 
         private void OnDestroy()
@@ -74,9 +86,8 @@ namespace UI.Game.GameLook.Components
         {
             UnsubscribeFromLastUnit();
             _lastUnit = unit;
-
-            // _nominationType.text = unit.UnitType.ToString();
-            // _nominationName.text = unit.Name;
+            
+            _name.text = unit.Name;
 
             ChangeHealth();
 
@@ -100,29 +111,8 @@ namespace UI.Game.GameLook.Components
 
         private void ChangeHealth()
         {
-            // _health.value = (float)_lastUnit.Health / _lastUnit.MaxHealth;
-
-            SetHealthColor();
-        }
-
-        private void SetHealthColor()
-        {
-            // var fraction = _health.value;
-            // if (fraction > _changeColorFractions.Middle)
-            // {
-            //     _health.RemoveFromClassList("middle-health");
-            //     _health.RemoveFromClassList("low-health");
-            // }
-            // else if (fraction > _changeColorFractions.Low)
-            // {
-            //     _health.AddToClassList("middle-health");
-            //     _health.RemoveFromClassList("low-health");
-            // }
-            // else
-            // {
-            //     _health.RemoveFromClassList("middle-health");
-            //     _health.AddToClassList("low-health");
-            // }
+            _healthProgress.value = (float)_lastUnit.Health / _lastUnit.MaxHealth;
+            _healthValue.text = $"{_healthProgress.value * 100}%";
         }
     }
 }

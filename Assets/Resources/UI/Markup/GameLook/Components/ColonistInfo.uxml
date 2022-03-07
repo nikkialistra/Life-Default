@@ -8,7 +8,21 @@
             <ui:Button display-tooltip-when-elided="true" name="focus" class="button focus" />
         </ui:VisualElement>
         <ui:VisualElement name="body" class="body">
-            <ui:VisualElement name="picture" class="picture" />
+            <ui:VisualElement name="body__top" class="body__top">
+                <ui:VisualElement name="picture" class="picture" />
+                <ui:VisualElement name="bars" class="bars">
+                    <ui:VisualElement name="health-bar" class="bar red">
+                        <ui:Label text="Health" display-tooltip-when-elided="true" name="health" class="bar__label" />
+                        <ui:VisualElement name="bar__body" class="bar__body">
+                            <ui:ProgressBar title=" " name="health-progress" high-value="1" class="bar__progress-bar" />
+                            <ui:VisualElement name="bar__state" class="bar__state">
+                                <ui:Label text="83%" display-tooltip-when-elided="true" name="health-value" class="bar__label" />
+                                <ui:VisualElement name="health-arrow" class="value__arrow single-arrow-up" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

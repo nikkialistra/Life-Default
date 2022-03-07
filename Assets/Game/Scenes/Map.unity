@@ -2418,11 +2418,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e64df655116348b08ed645f4ad0d4fa8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _scoutPreview: {fileID: 2800000, guid: dd4b8bc9665852847a6ed842ade075b4, type: 3}
-  _lumberjackPreview: {fileID: 2800000, guid: 9f0c0628b556fa242b12d1f14a2c2398, type: 3}
-  _masonPreview: {fileID: 2800000, guid: 963178da7aa7b4946b71b514962c1ec1, type: 3}
-  _meleePreview: {fileID: 2800000, guid: 48b30d2af327d2245adf5cc2d7936db7, type: 3}
-  _archerPreview: {fileID: 2800000, guid: d5425443dfa96484fbce05acce7e4c77, type: 3}
 --- !u!114 &1134752484
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3147,7 +3142,7 @@ MonoBehaviour:
   _resourcesView: {fileID: 1134752487}
   _tileInfoView: {fileID: 1134752486}
   _infoPanelView: {fileID: 1134752485}
-  _unitInfoView: {fileID: 1134752483}
+  _colonistInfoView: {fileID: 0}
   _unitsInfoView: {fileID: 1134752482}
   _unitTypesView: {fileID: 1134752484}
 --- !u!114 &1371093435
@@ -4082,7 +4077,7 @@ PrefabInstance:
     - target: {fileID: 1011788162527028480, guid: 257674d53c49a0c4ebe421ac06a96ad0,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1011788162527028492, guid: 257674d53c49a0c4ebe421ac06a96ad0,
         type: 3}

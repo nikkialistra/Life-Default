@@ -1,4 +1,5 @@
 ﻿using Cameras;
+using Colonists.Services;
 using Environment.TemperatureRegulation;
 using Environment.TileManagement.Tiles;
 using Environment.TimeCycle.Days;
@@ -12,7 +13,6 @@ using Saving.Serialization;
 using Sirenix.OdinInspector;
 using Testing;
 using UI;
-using Units.Services;
 using UnityEngine;
 using Zenject;
 
@@ -59,12 +59,6 @@ namespace Infrastructure
         [Required]
         [SerializeField] private FlyCamera _flyCamera;
 
-        [Title("Saving")]
-        [Required]
-        [SerializeField] private UnitSaveLoadHandler _unitSaveLoadHandler;
-        [Required]
-        [SerializeField] private SavingLoadingGame _savingLoadingGame;
-
         public override void InstallBindings()
         {
             BindTimeSystems();
@@ -72,7 +66,6 @@ namespace Infrastructure
             BindEnvironmentConditionSystems();
             BindResourceSystems();
             BindControls();
-            BindSaving();
         }
 
         private void BindTimeSystems()
@@ -111,15 +104,6 @@ namespace Infrastructure
 
             Container.BindInstance(_flyCamera);
             Container.BindInstance(_isSetUpSession).WhenInjectedInto<FlyCamera>();
-        }
-
-        private void BindSaving()
-        {
-            Container.Bind<SaveData>().AsSingle();
-            Container.BindInstance(_unitSaveLoadHandler);
-            Container.Bind<Serialization>().AsSingle();
-            Container.BindInstance(_savingLoadingGame);
-            Container.BindInterfacesTo<UnitResetting>().AsSingle().NonLazy();
         }
     }
 }

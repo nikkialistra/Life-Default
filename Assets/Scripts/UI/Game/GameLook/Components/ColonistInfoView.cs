@@ -1,6 +1,6 @@
 ﻿using Cameras;
-using Units.Services.Selecting;
-using Units.Unit;
+using Colonists.Colonist;
+using Colonists.Services.Selecting;
 using UnityEngine;
 using UnityEngine.UIElements;
 using Zenject;
@@ -8,14 +8,20 @@ using Zenject;
 namespace UI.Game.GameLook.Components
 {
     [RequireComponent(typeof(InfoPanelView))]
-    [RequireComponent(typeof(ChangeColorFractions))]
     public class ColonistInfoView : MonoBehaviour
     {
         private const string VisualTreePath = "UI/Markup/GameLook/Components/ColonistInfo";
 
+        [SerializeField] private Sprite _singleArrowUp;
+        [SerializeField] private Sprite _singleArrowDown;
+        [SerializeField] private Sprite _doubleArrowUp;
+        [SerializeField] private Sprite _doubleArrowDown;
+        [SerializeField] private Sprite _tripleArrowUp;
+        [SerializeField] private Sprite _tripleArrowDown;
+
         private bool _shown;
         
-        private UnitFacade _unit;
+        private ColonistFacade _colonist;
 
         private InfoPanelView _parent;
         private TemplateContainer _tree;
@@ -30,14 +36,38 @@ namespace UI.Game.GameLook.Components
         private ProgressBar _healthProgress;
         private Label _healthValue;
         private VisualElement _healthArrow;
+        
+        private ProgressBar _bloodProgress;
+        private Label _bloodValue;
+        private VisualElement _bloodArrow;
+        
+        private ProgressBar _satietyProgress;
+        private Label _satietyValue;
+        private VisualElement _satietyArrow;
+        
+        private ProgressBar _consciousnessProgress;
+        private Label _consciousnessValue;
+        private VisualElement _consciousnessArrow;
+        
+        private ProgressBar _sleepProgress;
+        private Label _sleepValue;
+        private VisualElement _sleepArrow;
+        
+        private ProgressBar _happinessProgress;
+        private Label _happinessValue;
+        private VisualElement _happinessArrow;
+        
+        private ProgressBar _entertainmentProgress;
+        private Label _entertainmentValue;
+        private VisualElement _entertainmentArrow;
 
-        private UnitChoosing _unitChoosing;
+        private ColonistChoosing _colonistChoosing;
         private CameraMovement _cameraMovement;
 
         [Inject]
-        public void Construct(UnitChoosing unitChoosing, CameraMovement cameraMovement)
+        public void Construct(ColonistChoosing colonistChoosing, CameraMovement cameraMovement)
         {
-            _unitChoosing = unitChoosing;
+            _colonistChoosing = colonistChoosing;
             _cameraMovement = cameraMovement;
         }
 
@@ -58,11 +88,35 @@ namespace UI.Game.GameLook.Components
             _healthProgress = _tree.Q<ProgressBar>("health-progress");
             _healthValue = _tree.Q<Label>("health-value");
             _healthArrow = _tree.Q<VisualElement>("health-arrow");
+            
+            _bloodProgress = _tree.Q<ProgressBar>("blood-progress");
+            _bloodValue = _tree.Q<Label>("blood-value");
+            _bloodArrow = _tree.Q<VisualElement>("blood-arrow");
+            
+            _satietyProgress = _tree.Q<ProgressBar>("satiety-progress");
+            _satietyValue = _tree.Q<Label>("satiety-value");
+            _satietyArrow = _tree.Q<VisualElement>("satiety-arrow");
+            
+            _consciousnessProgress = _tree.Q<ProgressBar>("consciousness-progress");
+            _consciousnessValue = _tree.Q<Label>("consciousness-value");
+            _consciousnessArrow = _tree.Q<VisualElement>("consciousness-arrow");
+            
+            _sleepProgress = _tree.Q<ProgressBar>("sleep-progress");
+            _sleepValue = _tree.Q<Label>("sleep-value");
+            _sleepArrow = _tree.Q<VisualElement>("sleep-arrow");
+            
+            _happinessProgress = _tree.Q<ProgressBar>("happiness-progress");
+            _happinessValue = _tree.Q<Label>("happiness-value");
+            _happinessArrow = _tree.Q<VisualElement>("happiness-arrow");
+            
+            _entertainmentProgress = _tree.Q<ProgressBar>("entertainment-progress");
+            _entertainmentValue = _tree.Q<Label>("entertainment-value");
+            _entertainmentArrow = _tree.Q<VisualElement>("entertainment-arrow");
         }
 
         private void OnDestroy()
         {
-            UnsubscribeFromLastUnit();
+            UnsubscribeFromUnit();
         }
 
         public void ShowSelf()
@@ -87,6 +141,8 @@ namespace UI.Game.GameLook.Components
                 return;
             }
             
+            UnsubscribeFromUnit();
+            
             _next.clicked -= OnNext;
             _focus.clicked -= OnFocus;
             
@@ -95,20 +151,20 @@ namespace UI.Game.GameLook.Components
             _shown = false;
         }
 
-        public void FillIn(UnitFacade unit)
+        public void FillIn(ColonistFacade colonist)
         {
-            FillInPreview(unit);
-            FillInProperties(unit);
+            FillInPreview(colonist);
+            FillInProperties(colonist);
         }
 
         private void OnNext()
         {
-           _unitChoosing.NextUnitTo(_unit);
+           _colonistChoosing.NextColonistTo(_colonist);
         }
 
         private void OnFocus()
         {
-            _cameraMovement.FocusOn(_unit);
+            _cameraMovement.FocusOn(_colonist);
         }
 
         private void HidePanel()
@@ -116,42 +172,45 @@ namespace UI.Game.GameLook.Components
             _parent.HideSelf();
         }
 
-        private void FillInPreview(UnitFacade unit)
+        private void FillInPreview(ColonistFacade colonist)
         {
-            // _image.style.backgroundImage = ;
+            _name.text = colonist.Name;
         }
 
-        private void FillInProperties(UnitFacade unit)
+        private void FillInProperties(ColonistFacade colonist)
         {
-            UnsubscribeFromLastUnit();
-            _unit = unit;
-            
-            _name.text = unit.Name;
+            UnsubscribeFromUnit();
+            _colonist = colonist;
+            SubscribeToUnit();
 
             ChangeHealth();
-
-            SubscribeToUnit(unit);
         }
 
-        private void SubscribeToUnit(UnitFacade unit)
+        private void UnsubscribeFromUnit()
         {
-            unit.HealthChange += ChangeHealth;
-            unit.Die += HidePanel;
-        }
-
-        private void UnsubscribeFromLastUnit()
-        {
-            if (_unit != null)
+            if (_colonist != null)
             {
-                _unit.HealthChange -= ChangeHealth;
-                _unit.Die -= HidePanel;
+                _colonist.HealthChange -= ChangeHealth;
+                _colonist.Die -= HidePanel;
             }
+        }
+
+        private void SubscribeToUnit()
+        {
+            _colonist.HealthChange += ChangeHealth;
+            _colonist.Die += HidePanel;
         }
 
         private void ChangeHealth()
         {
-            _healthProgress.value = (float)_unit.Health / _unit.MaxHealth;
-            _healthValue.text = $"{_healthProgress.value * 100}%";
+            _healthProgress.value = _colonist.Health;
+            _healthValue.text = $"{_colonist.Health * 100}%";
+        }
+
+        private void ChangeBlood()
+        {
+            // _healthProgress.value = _colonist.Blood;
+            // _healthValue.text = $"{_colonist.Blood * 100}%";
         }
     }
 }

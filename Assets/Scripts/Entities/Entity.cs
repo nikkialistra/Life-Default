@@ -1,9 +1,9 @@
 ﻿using Buildings;
+using Colonists.Colonist;
 using Enemies.Enemy;
 using Entities.Types;
 using ResourceManagement;
 using Sirenix.OdinInspector;
-using Units.Unit;
 using UnityEngine;
 
 namespace Entities
@@ -17,7 +17,7 @@ namespace Entities
 
         [ShowIf("_entityType", EntityType.Unit)]
         [ValidateInput("UnitEntityShouldHaveUnit", "Unit entity should have unit")]
-        [SerializeField] private UnitFacade _unit;
+        [SerializeField] private ColonistFacade _colonist;
 
         [ShowIf("_entityType", EntityType.Enemy)]
         [ValidateInput("EnemyEntityShouldHaveEnemy", "Enemy entity should have enemy")]
@@ -34,7 +34,7 @@ namespace Entities
         public GameObject TargetIndicator => _targetIndicator;
 
         public EntityType EntityType => _entityType;
-        public UnitFacade Unit => _unit;
+        public ColonistFacade Colonist => _colonist;
         public EnemyFacade Enemy => _enemy;
         public Building Building => _building;
         public Resource Resource => _resource;
@@ -46,7 +46,7 @@ namespace Entities
 
         private bool UnitEntityShouldHaveUnit()
         {
-            if (_entityType == EntityType.Unit && _unit == null)
+            if (_entityType == EntityType.Unit && _colonist == null)
             {
                 return false;
             }

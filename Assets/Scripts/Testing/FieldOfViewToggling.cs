@@ -1,4 +1,4 @@
-﻿using Units.Services.Selecting;
+﻿using Colonists.Services.Selecting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Zenject;
@@ -7,7 +7,7 @@ namespace Testing
 {
     public class FieldOfViewToggling : MonoBehaviour
     {
-        private SelectedUnits _selectedUnits;
+        private SelectedColonists _selectedColonists;
 
         private InputAction _toggleEnemyFieldOfViewAction;
         private InputAction _toggleResourceFieldOfViewAction;
@@ -15,10 +15,10 @@ namespace Testing
         private PlayerInput _playerInput;
 
         [Inject]
-        public void Construct(SelectedUnits selectedUnits, PlayerInput playerInput)
+        public void Construct(SelectedColonists selectedColonists, PlayerInput playerInput)
         {
             _playerInput = playerInput;
-            _selectedUnits = selectedUnits;
+            _selectedColonists = selectedColonists;
         }
 
         private void Awake()
@@ -41,7 +41,7 @@ namespace Testing
 
         private void ToggleEnemyFieldOfView(InputAction.CallbackContext context)
         {
-            foreach (var unit in _selectedUnits.Units)
+            foreach (var unit in _selectedColonists.Colonists)
             {
                 unit.ToggleEnemyFieldOfView();
             }
@@ -49,7 +49,7 @@ namespace Testing
 
         private void ToggleResourceFieldOfView(InputAction.CallbackContext context)
         {
-            foreach (var unit in _selectedUnits.Units)
+            foreach (var unit in _selectedColonists.Colonists)
             {
                 unit.ToggleResourceFieldOfView();
             }

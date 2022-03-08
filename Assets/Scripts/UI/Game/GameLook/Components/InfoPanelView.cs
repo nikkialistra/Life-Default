@@ -1,6 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using Units.Unit;
+﻿using System.Collections.Generic;
+using Colonists.Colonist;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -37,26 +36,26 @@ namespace UI.Game.GameLook.Components
             HideSelf();
         }
 
-        public void SetUnits(List<UnitFacade> units)
+        public void SetUnits(List<ColonistFacade> colonists)
         {
-            switch (units.Count)
+            switch (colonists.Count)
             {
                 case 0:
                     HideSelf();
                     break;
                 case 1:
-                    SetUnit(units[0]);
+                    SetColonist(colonists[0]);
                     break;
                 default:
-                    SetMultipleUnits(units);
+                    SetColonists(colonists);
                     break;
             }
         }
 
-        public void SetUnit(UnitFacade unit)
+        public void SetColonist(ColonistFacade colonist)
         {
             ShowSelf();
-            ShowColonistInfo(unit);
+            ShowColonistInfo(colonist);
         }
 
         public void HideSelf()
@@ -66,10 +65,10 @@ namespace UI.Game.GameLook.Components
             _close.clicked -= HideSelf;
         }
 
-        private void SetMultipleUnits(List<UnitFacade> units)
+        private void SetColonists(List<ColonistFacade> colonists)
         {
             ShowSelf();
-            ShowColonistsInfo(units);
+            ShowColonistsInfo(colonists);
         }
 
         private void ShowSelf()
@@ -79,18 +78,18 @@ namespace UI.Game.GameLook.Components
             _close.clicked += HideSelf;
         }
 
-        private void ShowColonistInfo(UnitFacade unit)
+        private void ShowColonistInfo(ColonistFacade colonist)
         {
             _unitsInfoView.HideSelf();
             _colonistInfoView.ShowSelf();
-            _colonistInfoView.FillIn(unit);
+            _colonistInfoView.FillIn(colonist);
         }
 
-        private void ShowColonistsInfo(List<UnitFacade> units)
+        private void ShowColonistsInfo(List<ColonistFacade> colonists)
         {
             _colonistInfoView.HideSelf();
             _unitsInfoView.ShowSelf();
-            _unitsInfoView.FillIn(units);
+            _unitsInfoView.FillIn(colonists);
         }
     }
 }

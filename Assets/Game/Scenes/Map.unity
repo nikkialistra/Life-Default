@@ -2377,6 +2377,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e64df655116348b08ed645f4ad0d4fa8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _singleArrowUp: {fileID: 21300000, guid: 45cfaa730237ed844ada1a8c912b2a41, type: 3}
+  _singleArrowDown: {fileID: 21300000, guid: c6182b21a1fac014b9044925004df9d0, type: 3}
+  _doubleArrowUp: {fileID: 21300000, guid: 6bc99aac1706b5f49af62dbd5fa2d7c0, type: 3}
+  _doubleArrowDown: {fileID: 21300000, guid: 69c928a203344b24e829aeefcbf708c9, type: 3}
+  _tripleArrowUp: {fileID: 21300000, guid: a97042837a1158645b508cfea3058f78, type: 3}
+  _tripleArrowDown: {fileID: 0}
 --- !u!114 &1134752485
 MonoBehaviour:
   m_ObjectHideFlags: 0

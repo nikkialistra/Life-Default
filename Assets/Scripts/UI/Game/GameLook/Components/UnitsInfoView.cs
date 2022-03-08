@@ -1,16 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using Colonists.Colonist;
 using Common;
 using Sirenix.OdinInspector;
-using Units.Unit;
-using Units.Unit.UnitTypes;
 using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace UI.Game.GameLook.Components
 {
     [RequireComponent(typeof(InfoPanelView))]
-    [RequireComponent(typeof(ChangeColorFractions))]
     public class UnitsInfoView : MonoBehaviour
     {
         private const string VisualTreePath = "UI/Markup/GameLook/Components/UnitsInfo";
@@ -18,15 +16,7 @@ namespace UI.Game.GameLook.Components
         [Required]
         [SerializeField] private Texture2D _multipleUnitsPreview;
 
-        [MinValue(0)]
-        [SerializeField] private int _maximumUnitIconsShowing;
-
-        [ValidateInput("@_iconPreviews.Count == 5", "Preview dictionary should have 5 elements for all 5 unit types.")]
-        [SerializeField] private IconPreviewsDictionary _iconPreviews;
-
         private int _count;
-
-        private ChangeColorFractions _changeColorFractions;
 
         private InfoPanelView _parent;
         private TemplateContainer _tree;
@@ -34,12 +24,9 @@ namespace UI.Game.GameLook.Components
         private VisualElement _image;
         private Label _unitCount;
 
-        private readonly List<UnitIconView> _unitIconViews = new();
-
         private void Awake()
         {
             _parent = GetComponent<InfoPanelView>();
-            _changeColorFractions = GetComponent<ChangeColorFractions>();
 
             _tree = Resources.Load<VisualTreeAsset>(VisualTreePath).CloneTree();
 
@@ -50,31 +37,12 @@ namespace UI.Game.GameLook.Components
             InitializeUnitIconViews();
         }
 
-        public event Action<UnitFacade> SelectUnit;
+        public event Action<ColonistFacade> SelectColonist;
 
         public VisualElement IconContainer { get; private set; }
 
-        private void OnDestroy()
-        {
-            foreach (var unitIconView in _unitIconViews)
-            {
-                unitIconView.Click -= OnUnitIconClick;
-                unitIconView.Remove -= OnUnitIconRemove;
-
-                unitIconView.Dispose();
-            }
-        }
-
         private void InitializeUnitIconViews()
         {
-            for (var i = 0; i < _maximumUnitIconsShowing; i++)
-            {
-                var unitIconView = new UnitIconView(this, _iconPreviews, _changeColorFractions);
-                unitIconView.Click += OnUnitIconClick;
-                unitIconView.Remove += OnUnitIconRemove;
-
-                _unitIconViews.Add(unitIconView);
-            }
         }
 
         private void OnUnitIconRemove()
@@ -83,9 +51,9 @@ namespace UI.Game.GameLook.Components
             UpdateCountText();
         }
 
-        private void OnUnitIconClick(UnitFacade unit)
+        private void OnUnitIconClick(ColonistFacade colonist)
         {
-            SelectUnit?.Invoke(unit);
+            SelectColonist?.Invoke(colonist);
         }
 
         public void ShowSelf()
@@ -106,10 +74,10 @@ namespace UI.Game.GameLook.Components
             _parent.HideSelf();
         }
 
-        public void FillIn(List<UnitFacade> units)
+        public void FillIn(List<ColonistFacade> colonists)
         {
             FillInPreview();
-            FillInProperties(units);
+            FillInProperties(colonists);
         }
 
         private void FillInPreview()
@@ -117,15 +85,13 @@ namespace UI.Game.GameLook.Components
             _image.style.backgroundImage = new StyleBackground(_multipleUnitsPreview);
         }
 
-        private void FillInProperties(List<UnitFacade> units)
+        private void FillInProperties(List<ColonistFacade> units)
         {
             _count = units.Count;
             UpdateCountText();
 
             units.Sort((x, y) =>
-                x.UnitType.CompareTo(y.UnitType));
-
-            ShowUnitIcons(units);
+                x.ColonistType.CompareTo(y.ColonistType));
         }
 
         private void UpdateCountText()
@@ -137,22 +103,5 @@ namespace UI.Game.GameLook.Components
 
             _unitCount.text = $"Units ({_count})";
         }
-
-        private void ShowUnitIcons(List<UnitFacade> units)
-        {
-            foreach (var unitIconView in _unitIconViews)
-            {
-                unitIconView.Unbind();
-            }
-
-            var iconsToShow = units.Count <= _maximumUnitIconsShowing ? units.Count : _maximumUnitIconsShowing;
-
-            for (var i = 0; i < iconsToShow; i++)
-            {
-                _unitIconViews[i].Bind(units[i]);
-            }
-        }
-        
-        [Serializable] public class IconPreviewsDictionary : SerializableDictionary<UnitType, Texture2D> { }
     }
 }

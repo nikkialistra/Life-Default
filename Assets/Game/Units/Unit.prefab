@@ -2525,6 +2525,7 @@ GameObject:
   - component: {fileID: 648114809178795117}
   - component: {fileID: 6633013369567803270}
   - component: {fileID: 6716084818144742275}
+  - component: {fileID: 2081193202370333819}
   - component: {fileID: 4807083641721281678}
   - component: {fileID: 1036043928785350050}
   - component: {fileID: 8477657715684973058}
@@ -2683,6 +2684,26 @@ MonoBehaviour:
   bezierTangentLength: 0.4
   offset: 0.2
   factor: 0.1
+--- !u!114 &2081193202370333819
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4193433063631040808}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dce9e4411e0542efb57ffb09778333e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _indicators:
+    Health: 1
+    Blood: 1
+    Satiety: 0.729
+    Consciousness: 0.364
+    Sleep: 1
+    Happiness: 0.651
+    Entertainment: 0.358
 --- !u!114 &4807083641721281678
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2998,19 +3019,6 @@ Transform:
   m_Father: {fileID: 4193433063631040809}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &152656352870599827
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8798134291776930515}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 576d6b86c6c04a618edd737e66f731a8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _rotationSpeed: 45
 --- !u!1 &8880330762545429468
 GameObject:
   m_ObjectHideFlags: 0
@@ -3133,6 +3141,19 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 4117707195017809343}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &152656352870599827
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8798134291776930515}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 576d6b86c6c04a618edd737e66f731a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _rotationSpeed: 45
 --- !u!1001 &6246873699801615622
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3474,12 +3495,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 913322246f662fd4dbbe41ec891db6fa, type: 3}
---- !u!224 &2739363764289895897 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 6241910357395849221, guid: 913322246f662fd4dbbe41ec891db6fa,
-    type: 3}
-  m_PrefabInstance: {fileID: 8114242647297244636}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1935489896466272434 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7658276042284526958, guid: 913322246f662fd4dbbe41ec891db6fa,
@@ -3492,3 +3507,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 097ac27b1d4041c9801158a11a534c58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!224 &2739363764289895897 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 6241910357395849221, guid: 913322246f662fd4dbbe41ec891db6fa,
+    type: 3}
+  m_PrefabInstance: {fileID: 8114242647297244636}
+  m_PrefabAsset: {fileID: 0}

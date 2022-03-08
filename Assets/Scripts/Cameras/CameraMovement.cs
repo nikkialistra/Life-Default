@@ -1,10 +1,10 @@
 ﻿using System.Collections;
+using Colonists.Colonist;
 using DG.Tweening;
 using MapGeneration;
 using Saving;
 using Sirenix.OdinInspector;
 using UniRx;
-using Units.Unit;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Zenject;
@@ -75,7 +75,7 @@ namespace Cameras
         private Map _map;
         private bool _deactivated;
 
-        private UnitFacade _unit;
+        private ColonistFacade _colonist;
         private Transform _followTransform;
         private Vector3 _offset;
         private bool _following;
@@ -194,14 +194,14 @@ namespace Cameras
             Activate();
         }
 
-        public void FocusOn(UnitFacade unit)
+        public void FocusOn(ColonistFacade colonist)
         {
             ResetFollow();
             
             var yRotation = Quaternion.Euler(new Vector3(0, transform.rotation.eulerAngles.y, 0));
             var forward = yRotation * Vector3.forward;
 
-            var position = unit.Center + (forward * -_focusDistance);
+            var position = colonist.Center + (forward * -_focusDistance);
             position.y = _yPosition;
 
             var eulerAngles = new Vector3(_focusRotation, _newRotation.eulerAngles.y, _newRotation.eulerAngles.z);
@@ -210,10 +210,10 @@ namespace Cameras
             {
                 StopCoroutine(_focusingCoroutine);
             }
-            _focusingCoroutine = StartCoroutine(Focusing(position, eulerAngles, unit));
+            _focusingCoroutine = StartCoroutine(Focusing(position, eulerAngles, colonist));
         }
 
-        private IEnumerator Focusing(Vector3 position, Vector3 eulerAngles, UnitFacade unit)
+        private IEnumerator Focusing(Vector3 position, Vector3 eulerAngles, ColonistFacade colonist)
         {
             _focusing = true;
 
@@ -229,7 +229,7 @@ namespace Cameras
             
             _newPosition = transform.position;
             
-            SetFollow(unit);
+            SetFollow(colonist);
 
             _focusing = false;
         }
@@ -307,9 +307,9 @@ namespace Cameras
 
             if (Physics.Raycast(ray, out var hit))
             {
-                if (hit.transform.gameObject.TryGetComponent<UnitFacade>(out var unit))
+                if (hit.transform.gameObject.TryGetComponent<ColonistFacade>(out var colonist))
                 {
-                    SetFollow(unit);
+                    SetFollow(colonist);
                 }
                 else
                 {
@@ -318,15 +318,15 @@ namespace Cameras
             }
         }
 
-        private void SetFollow(UnitFacade unit)
+        private void SetFollow(ColonistFacade colonist)
         {
             UnsubscribeFromLastUnit();
 
-            _unit = unit;
-            _followTransform = unit.transform;
+            _colonist = colonist;
+            _followTransform = colonist.transform;
             _offset = _newPosition - _followTransform.position;
 
-            unit.Die += ResetFollow;
+            colonist.Die += ResetFollow;
 
             _following = true;
         }
@@ -339,9 +339,9 @@ namespace Cameras
 
         private void UnsubscribeFromLastUnit()
         {
-            if (_unit != null)
+            if (_colonist != null)
             {
-                _unit.Die -= ResetFollow;
+                _colonist.Die -= ResetFollow;
             }
         }
 

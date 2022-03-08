@@ -1,11 +1,11 @@
 .colonist-info {
-    width: 320px;
+    width: 330px;
     height: 532px;
     flex-direction: column;
 }
 
 .header {
-    width: 320px;
+    width: 330px;
     height: 32px;
 }
 
@@ -19,6 +19,7 @@
     height: 32px;
     width: 100px;
     margin-left: 12px;
+    -unity-font-style: bold;
 }
 
 .next {
@@ -50,7 +51,7 @@
 }
 
 .body {
-    width: 320px;
+    width: 330px;
     height: 444px;
 }
 
@@ -65,7 +66,7 @@
 
 .body__top {
     flex-direction: row;
-    width: 304px;
+    width: 312px;
     height: 100px;
     margin-left: 12px;
     margin-top: 12px;
@@ -73,11 +74,11 @@
 }
 
 .bars {
-    width: 192px;
+    width: 202px;
 }
 
 .bar {
-    width: 192px;
+    width: 202px;
     height: 50px;
 }
 
@@ -88,6 +89,9 @@
     font-size: 17px;
     color: rgb(255, 255, 255);
     -unity-text-align: middle-left;
+    -unity-font-style: bold;
+    max-width: 43px;
+    letter-spacing: -4px;
 }
 
 .bar__body {
@@ -117,15 +121,16 @@
 }
 
 .bar__state {
-    width: 60px;
+    width: 71px;
     height: 24px;
-    margin-left: 3px;
+    margin-left: 8px;
     flex-direction: row;
 }
 
 .value__arrow {
     width: 14px;
     height: 24px;
+    margin-left: 4px;
 }
 
 .single-arrow-up {

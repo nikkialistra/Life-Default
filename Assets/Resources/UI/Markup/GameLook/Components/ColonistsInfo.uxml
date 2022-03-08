@@ -1,0 +1,16 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements"
+         xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements"
+         noNamespaceSchemaLocation="../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Resources/UI/Styles/Common/InfoDescription.uss?fileID=7433441132597879392&amp;guid=ef46dfde628e96146b950bb6e51694e4&amp;type=3#InfoDescription"/>
+    <Style src="project://database/Assets/Resources/UI/Styles/GameLook/Components/UnitsInfo.uss?fileID=7433441132597879392&amp;guid=c07f81844bc14aa499532ccc61f19612&amp;type=3#UnitsInfo"/>
+    <ui:VisualElement name="units-info" class="info">
+        <ui:VisualElement name="image" class="image"/>
+        <ui:VisualElement name="description" class="description">
+            <ui:VisualElement name="description__nomination" class="units-description__top">
+                <ui:Label text="Type" display-tooltip-when-elided="true" name="description__nomination__count"
+                          class="units-count nomination__type"/>
+            </ui:VisualElement>
+            <ui:VisualElement name="description__icon-container" class="description__bottom" style="height: 142px;"/>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

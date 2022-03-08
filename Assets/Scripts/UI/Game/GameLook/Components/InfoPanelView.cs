@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Units.Unit;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -11,6 +12,8 @@ namespace UI.Game.GameLook.Components
     {
         private const string VisualTreePath = "UI/Markup/GameLook/Components/InfoPanel";
         
+        private Button _close;
+
         private ColonistInfoView _colonistInfoView;
         private UnitsInfoView _unitsInfoView;
 
@@ -22,11 +25,13 @@ namespace UI.Game.GameLook.Components
             Tree = Resources.Load<VisualTreeAsset>(VisualTreePath).CloneTree();
 
             InfoPanel = Tree.Q<VisualElement>("info-panel");
+
+            _close = Tree.Q<Button>("close");
         }
 
         public VisualElement Tree { get; private set; }
         public VisualElement InfoPanel { get; private set; }
-
+        
         private void Start()
         {
             HideSelf();
@@ -57,6 +62,8 @@ namespace UI.Game.GameLook.Components
         public void HideSelf()
         {
             InfoPanel.AddToClassList("not-displayed");
+            
+            _close.clicked -= HideSelf;
         }
 
         private void SetMultipleUnits(List<UnitFacade> units)
@@ -68,6 +75,8 @@ namespace UI.Game.GameLook.Components
         private void ShowSelf()
         {
             InfoPanel.RemoveFromClassList("not-displayed");
+            
+            _close.clicked += HideSelf;
         }
 
         private void ShowColonistInfo(UnitFacade unit)

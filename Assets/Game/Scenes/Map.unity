@@ -1782,7 +1782,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2131547641}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &986309144
 MonoBehaviour:
@@ -1816,50 +1816,6 @@ MonoBehaviour:
     _keys: 00000000
     _values:
     - {fileID: 11400000, guid: f132185c4ea80f14880f22d54d0f1e1a, type: 2}
---- !u!1 &1001838372
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1001838373}
-  - component: {fileID: 1001838374}
-  m_Layer: 0
-  m_Name: Unit Types Counts
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1001838373
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1001838372}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 2131547641}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1001838374
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1001838372}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5bd3b5b728c44b798b7477d30c66067, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1007085183
 GameObject:
   m_ObjectHideFlags: 0
@@ -2317,7 +2273,6 @@ GameObject:
   - component: {fileID: 1134752487}
   - component: {fileID: 1134752486}
   - component: {fileID: 1134752485}
-  - component: {fileID: 1134752484}
   - component: {fileID: 1134752483}
   - component: {fileID: 1134752482}
   - component: {fileID: 1134752481}
@@ -2418,18 +2373,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e64df655116348b08ed645f4ad0d4fa8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1134752484
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1134752477}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 03ea1f136e87557459798b645480d1d3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1134752485
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2449,7 +2392,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1134752477}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 897afa57686a4a518bc6358fea0f74df, type: 3}
   m_Name: 
@@ -3144,7 +3087,6 @@ MonoBehaviour:
   _infoPanelView: {fileID: 1134752485}
   _colonistInfoView: {fileID: 0}
   _unitsInfoView: {fileID: 1134752482}
-  _unitTypesView: {fileID: 1134752484}
 --- !u!114 &1371093435
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3184,7 +3126,6 @@ MonoBehaviour:
   _unitsParent: {fileID: 1493657905}
   _unitTypeSpecsRepository: {fileID: 986309144}
   _unitRepository: {fileID: 1859130728}
-  _unitTypeCounts: {fileID: 1001838374}
   _unitTypeAppearanceRegistry: {fileID: 1572529985}
 --- !u!114 &1371093437
 MonoBehaviour:
@@ -3362,7 +3303,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2131547641}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1572529985
 MonoBehaviour:
@@ -3789,7 +3730,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2131547641}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1836642877
 MonoBehaviour:
@@ -4250,7 +4191,6 @@ Transform:
   - {fileID: 1859130727}
   - {fileID: 1142148854}
   - {fileID: 1310350103}
-  - {fileID: 1001838373}
   - {fileID: 1836642876}
   - {fileID: 1572529984}
   - {fileID: 986309143}

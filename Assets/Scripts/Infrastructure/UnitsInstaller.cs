@@ -40,8 +40,6 @@ namespace Infrastructure
         [Required]
         [SerializeField] private UnitRepository _unitRepository;
         [Required]
-        [SerializeField] private UnitTypeCounts _unitTypeCounts;
-        [Required]
         [SerializeField] private UnitTypeAppearanceRegistry _unitTypeAppearanceRegistry;
 
         public override void InstallBindings()
@@ -72,7 +70,6 @@ namespace Infrastructure
         {
             Container.BindInstance(_unitTypeSpecsRepository);
             Container.BindInstance(_unitRepository);
-            Container.BindInstance(_unitTypeCounts);
             Container.BindInstance(_unitTypeAppearanceRegistry);
         }
 

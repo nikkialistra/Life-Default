@@ -43,3 +43,8 @@
 .time-speed-multiplied {
     background-color: rgba(255, 0, 0, 0.03);
 }
+
+.info-panel {
+    width: 330px;
+    height: 532px;
+}

@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using UI.Game.GameLook.Components;
 using Units.Unit;
-using Units.Unit.UnitTypes;
 using UnityEngine;
 using Zenject;
 
@@ -11,26 +9,19 @@ namespace Units.Services.Selecting
 {
     public class UnitChoosing : MonoBehaviour
     {
-        private UnitTypesView _unitTypesView;
         private UnitsInfoView _unitsInfoView;
         private UnitRepository _unitRepository;
         private SelectedUnits _selectedUnits;
-
-        private readonly Dictionary<UnitType, int> _lastSelectedUnitByType = new();
+        
+        private int _indexToTake;
 
         [Inject]
-        public void Construct(UnitTypesView unitTypesView, UnitsInfoView unitsInfoView, UnitRepository unitRepository,
+        public void Construct(UnitsInfoView unitsInfoView, UnitRepository unitRepository,
             SelectedUnits selectedUnits)
         {
-            _unitTypesView = unitTypesView;
             _unitsInfoView = unitsInfoView;
             _unitRepository = unitRepository;
             _selectedUnits = selectedUnits;
-        }
-
-        private void Awake()
-        {
-            InitializeUnitByTypeDictionary();
         }
 
         public Action<UnitFacade> UnitChosen;
@@ -38,72 +29,53 @@ namespace Units.Services.Selecting
         private void OnEnable()
         {
             _unitsInfoView.SelectUnit += ChooseUnit;
-
-            _unitTypesView.LeftClick += ChooseUnitByType;
-            _unitTypesView.RightClick += ChooseUnits;
         }
 
         private void OnDisable()
         {
             _unitsInfoView.SelectUnit -= ChooseUnit;
-
-            _unitTypesView.LeftClick -= ChooseUnitByType;
-            _unitTypesView.RightClick -= ChooseUnits;
         }
-
-        private void InitializeUnitByTypeDictionary()
-        {
-            foreach (UnitType unitType in Enum.GetValues(typeof(UnitType)))
-            {
-                _lastSelectedUnitByType.Add(unitType, 0);
-            }
-        }
-
+        
         private void ChooseUnit(UnitFacade unit)
         {
             _selectedUnits.Set(unit);
         }
 
-        private void ChooseUnitByType(UnitType unitType)
+        public void NextUnitTo(UnitFacade unit)
         {
-            var units = _unitRepository.GetUnitsByType(unitType).ToArray();
+            var units = _unitRepository.GetUnits().ToArray();
 
-            if (units.Length == 0)
-            {
-                return;
-            }
-
-            ChooseWithDictionary(unitType, units);
+            var index = GetUnitIndex(units, unit);
+            ChangeToNextUnit(units, index);
         }
 
-        private void ChooseWithDictionary(UnitType unitType, UnitFacade[] units)
+        private int GetUnitIndex(UnitFacade[] units, UnitFacade unit)
         {
-            var indexToTake = _lastSelectedUnitByType[unitType] + 1;
-            if (units.Length > indexToTake)
+            for (var i = 0; i < units.Length; i++)
             {
-                var unit = units[indexToTake];
+                if (units[i] == unit)
+                {
+                    return i;
+                }
+            }
+
+            return -1;
+        }
+
+        private void ChangeToNextUnit(UnitFacade[] units, int index)
+        {
+            index++;
+            if (index < units.Length)
+            {
+                var unit = units[index];
                 _selectedUnits.Set(unit);
                 UnitChosen?.Invoke(unit);
-
-                _lastSelectedUnitByType[unitType] = indexToTake;
             }
             else
             {
                 var unit = units[0];
                 _selectedUnits.Set(units[0]);
                 UnitChosen?.Invoke(unit);
-
-                _lastSelectedUnitByType[unitType] = 0;
-            }
-        }
-
-        private void ChooseUnits(UnitType unitType)
-        {
-            var units = _unitRepository.GetUnitsByType(unitType).ToList();
-
-            if (units.Count != 0)
-            {
-                _selectedUnits.Set(units);
             }
         }
     }

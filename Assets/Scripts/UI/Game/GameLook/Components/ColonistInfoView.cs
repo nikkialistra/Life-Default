@@ -1,9 +1,8 @@
-﻿using System;
-using Sirenix.OdinInspector;
+﻿using Units.Services.Selecting;
 using Units.Unit;
-using Units.Unit.UnitTypes;
 using UnityEngine;
 using UnityEngine.UIElements;
+using Zenject;
 
 namespace UI.Game.GameLook.Components
 {
@@ -13,13 +12,15 @@ namespace UI.Game.GameLook.Components
     {
         private const string VisualTreePath = "UI/Markup/GameLook/Components/ColonistInfo";
 
-        private UnitFacade _lastUnit;
+        private bool _shown;
+        
+        private UnitFacade _unit;
 
         private InfoPanelView _parent;
         private TemplateContainer _tree;
 
         private Label _name;
-        
+
         private Button _next;
         private Button _focus;
 
@@ -29,12 +30,20 @@ namespace UI.Game.GameLook.Components
         private Label _healthValue;
         private VisualElement _healthArrow;
 
+        private UnitChoosing _unitChoosing;
+
+        [Inject]
+        public void Construct(UnitChoosing unitChoosing)
+        {
+            _unitChoosing = unitChoosing;
+        }
 
         private void Awake()
         {
             _parent = GetComponent<InfoPanelView>();
 
             _tree = Resources.Load<VisualTreeAsset>(VisualTreePath).CloneTree();
+            _tree.pickingMode = PickingMode.Ignore;
 
             _name = _tree.Q<Label>("name");
 
@@ -55,26 +64,44 @@ namespace UI.Game.GameLook.Components
 
         public void ShowSelf()
         {
+            if (_shown)
+            {
+                return;
+            }
+
+            _shown = true;
+            
             _parent.InfoPanel.Add(_tree);
+            _next.clicked += OnNext;
         }
 
         public void HideSelf()
         {
-            if (_parent.InfoPanel.Contains(_tree))
+            if (!_shown)
             {
-                _parent.InfoPanel.Remove(_tree);
+                return;
             }
-        }
 
-        private void HidePanel()
-        {
-            _parent.HideSelf();
+            _next.clicked -= OnNext;
+            _parent.InfoPanel.Remove(_tree);
+
+            _shown = false;
         }
 
         public void FillIn(UnitFacade unit)
         {
             FillInPreview(unit);
             FillInProperties(unit);
+        }
+
+        private void OnNext()
+        {
+           _unitChoosing.NextUnitTo(_unit);
+        }
+
+        private void HidePanel()
+        {
+            _parent.HideSelf();
         }
 
         private void FillInPreview(UnitFacade unit)
@@ -85,7 +112,7 @@ namespace UI.Game.GameLook.Components
         private void FillInProperties(UnitFacade unit)
         {
             UnsubscribeFromLastUnit();
-            _lastUnit = unit;
+            _unit = unit;
             
             _name.text = unit.Name;
 
@@ -102,16 +129,16 @@ namespace UI.Game.GameLook.Components
 
         private void UnsubscribeFromLastUnit()
         {
-            if (_lastUnit != null)
+            if (_unit != null)
             {
-                _lastUnit.HealthChange -= ChangeHealth;
-                _lastUnit.Die -= HidePanel;
+                _unit.HealthChange -= ChangeHealth;
+                _unit.Die -= HidePanel;
             }
         }
 
         private void ChangeHealth()
         {
-            _healthProgress.value = (float)_lastUnit.Health / _lastUnit.MaxHealth;
+            _healthProgress.value = (float)_unit.Health / _unit.MaxHealth;
             _healthValue.text = $"{_healthProgress.value * 100}%";
         }
     }

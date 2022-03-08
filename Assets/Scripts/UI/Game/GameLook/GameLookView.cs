@@ -13,7 +13,6 @@ namespace UI.Game.GameLook
     [RequireComponent(typeof(ResourcesView))]
     [RequireComponent(typeof(TileInfoView))]
     [RequireComponent(typeof(InfoPanelView))]
-    [RequireComponent(typeof(UnitTypesView))]
     public class GameLookView : MonoBehaviour
     {
         private VisualElement _tree;
@@ -26,7 +25,6 @@ namespace UI.Game.GameLook
         private ResourcesView _resourcesView;
         private TileInfoView _tileInfoView;
         private InfoPanelView _infoPanelView;
-        private UnitTypesView _unitTypesView;
 
         private VisualElement _buildVersionElement;
         private VisualElement _timeTogglingElement;
@@ -35,8 +33,7 @@ namespace UI.Game.GameLook
         private VisualElement _resourcesElement;
         private VisualElement _tileInfoElement;
         private VisualElement _infoPanelElement;
-        private VisualElement _unitTypesElement;
-        
+
         private TimeToggling _timeToggling;
 
         [Inject]
@@ -54,7 +51,6 @@ namespace UI.Game.GameLook
             _resourcesView = GetComponent<ResourcesView>();
             _tileInfoView = GetComponent<TileInfoView>();
             _infoPanelView = GetComponent<InfoPanelView>();
-            _unitTypesView = GetComponent<UnitTypesView>();
 
             _tree = GetComponent<UIDocument>().rootVisualElement;
 
@@ -67,7 +63,6 @@ namespace UI.Game.GameLook
             _resourcesElement = _tree.Q<VisualElement>("resources");
             _tileInfoElement = _tree.Q<VisualElement>("tile-info");
             _infoPanelElement = _tree.Q<VisualElement>("info-panel");
-            _unitTypesElement = _tree.Q<VisualElement>("unit-types");
         }
 
         private void OnEnable()
@@ -89,7 +84,6 @@ namespace UI.Game.GameLook
             _resourcesElement.Add(_resourcesView.Tree);
             _tileInfoElement.Add(_tileInfoView.Tree);
             _infoPanelElement.Add(_infoPanelView.Tree);
-            _unitTypesElement.Add(_unitTypesView.Tree);
         }
 
         public void ToggleTimeSpeedMultipliedIndicator(bool timeSpeedMultiplied)

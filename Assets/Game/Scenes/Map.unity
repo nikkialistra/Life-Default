@@ -443,7 +443,7 @@ MonoBehaviour:
   _focusFov: 40
   _focusDistance: 30
   _focusRotation: 45
-  _focusDuration: 0.12
+  _focusDuration: 0.15
   _positionSmoothing: 8
   _rotationSmoothing: 12
   _zoomSmoothing: 20

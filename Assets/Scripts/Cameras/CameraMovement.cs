@@ -86,6 +86,8 @@ namespace Cameras
         private bool _screenEdgeMouseScroll;
 
         private GameSettings _gameSettings;
+        
+        private Coroutine _focusingCoroutine;
 
         private PlayerInput _playerInput;
 
@@ -202,12 +204,16 @@ namespace Cameras
             var position = unit.Center + (forward * -_focusDistance);
             position.y = _yPosition;
 
-            var eulerAngles = new Vector3(_focusRotation, _newRotation.eulerAngles.y, _newRotation.eulerAngles.z);;
+            var eulerAngles = new Vector3(_focusRotation, _newRotation.eulerAngles.y, _newRotation.eulerAngles.z);
 
-            StartCoroutine(UpdateCameraLookAfter(position, eulerAngles, unit));
+            if (_focusingCoroutine != null)
+            {
+                StopCoroutine(_focusingCoroutine);
+            }
+            _focusingCoroutine = StartCoroutine(Focusing(position, eulerAngles, unit));
         }
 
-        private IEnumerator UpdateCameraLookAfter(Vector3 position, Vector3 eulerAngles, UnitFacade unit)
+        private IEnumerator Focusing(Vector3 position, Vector3 eulerAngles, UnitFacade unit)
         {
             _focusing = true;
 
@@ -215,6 +221,7 @@ namespace Cameras
             
             yield return new WaitForSeconds(_focusDuration / 2f);
             
+            // Start to change fov and rotation in the middle of movement
             _newFieldOfView = _focusFov;
             _newRotation.eulerAngles = eulerAngles;
             

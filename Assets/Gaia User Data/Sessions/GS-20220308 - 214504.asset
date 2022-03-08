@@ -24,7 +24,7 @@ MonoBehaviour:
   m_terrainDepth: 512
   m_terrainHeight: 512
   m_seaLevel: 12.5
-  m_spawnDensity: 0.8
+  m_spawnDensity: 0.5
   m_isLocked: 0
   m_previewImageBytes: 
   m_previewImageWidth: 0
@@ -106,25 +106,63 @@ MonoBehaviour:
     sessionPlaybackState: 1
     m_terrainsFoldedOut: 0
     m_serializedExternalAction: 
+  - m_description: Spawning - Giant Forest-Small Tree(Clone)
+    m_operationType: 7
+    m_isActive: 1
+    m_affectedTerrainNames:
+    - Terrain_0_0-20220308 - 214505
+    m_operationDateTime: 3/9/2022 1:44:17 AM
+    scriptableObjectAssetGUID: b0c63a2d628c6fd43bdbb68d5dbb6ed6
+    m_isFoldedOut: 0
+    sessionPlaybackState: 1
+    m_terrainsFoldedOut: 0
+    m_serializedExternalAction: 
+  - m_description: Spawning - Giant Forest-Small Tree(Clone)
+    m_operationType: 7
+    m_isActive: 1
+    m_affectedTerrainNames:
+    - Terrain_0_0-20220308 - 214505
+    m_operationDateTime: 3/9/2022 1:44:55 AM
+    scriptableObjectAssetGUID: df70b559c65429749a2066fe7ce619c5
+    m_isFoldedOut: 0
+    sessionPlaybackState: 1
+    m_terrainsFoldedOut: 0
+    m_serializedExternalAction: 
+  - m_description: Spawning - Giant Forest-Small Tree(Clone)
+    m_operationType: 7
+    m_isActive: 1
+    m_affectedTerrainNames:
+    - Terrain_0_0-20220308 - 214505
+    m_operationDateTime: 3/9/2022 1:45:20 AM
+    scriptableObjectAssetGUID: 355f68b7278272548ac9233d7c93b8fa
+    m_isFoldedOut: 0
+    sessionPlaybackState: 1
+    m_terrainsFoldedOut: 0
+    m_serializedExternalAction: 
   m_terrainMinMaxCache:
   - guid: 0ff5b3a9090a979499935bc3718244fc
     isWorldmap: 0
     recalculate: 1
-    min: 0.18750286
-    max: 39.359974
+    min: 0
+    max: 38.219334
+  - guid: 596336a55ebcd554daf1ccdde8eb8cc4
+    isWorldmap: 0
+    recalculate: 0
+    min: 0
+    max: 6.163882
   m_bakedMaskCacheEntries:
-  - fileName: Terrain_0_0-20220308 - 214505_LayerTree_12801_1
-    assetPath: Assets/Procedural Worlds/Procedural Worlds/Gaia/TerrainCollisionData/Terrain_0_0-20220308
-      - 214505/Terrain_0_0-20220308 - 214505_LayerTree_12801_1
-    fullPath: C:/Users/Alistra/Documents/UnityProjects/Life Default/Assets/Procedural
-      Worlds/Procedural Worlds/Gaia/TerrainCollisionData/Terrain_0_0-20220308 - 214505/Terrain_0_0-20220308
-      - 214505_LayerTree_12801_1
-    texture: {fileID: 0}
   - fileName: Terrain_0_0-20220308 - 214505_LayerGameObject_12800_5
     assetPath: Assets/Procedural Worlds/Procedural Worlds/Gaia/TerrainCollisionData/Terrain_0_0-20220308
       - 214505/Terrain_0_0-20220308 - 214505_LayerGameObject_12800_5
     fullPath: C:/Users/Alistra/Documents/UnityProjects/Life Default/Assets/Procedural
       Worlds/Procedural Worlds/Gaia/TerrainCollisionData/Terrain_0_0-20220308 - 214505/Terrain_0_0-20220308
       - 214505_LayerGameObject_12800_5
+    texture: {fileID: 0}
+  - fileName: Terrain_0_0-20220308 - 214505_LayerTree_12864_5
+    assetPath: Assets/Procedural Worlds/Procedural Worlds/Gaia/TerrainCollisionData/Terrain_0_0-20220308
+      - 214505/Terrain_0_0-20220308 - 214505_LayerTree_12864_5
+    fullPath: C:/Users/Alistra/Documents/UnityProjects/Life Default/Assets/Procedural
+      Worlds/Procedural Worlds/Gaia/TerrainCollisionData/Terrain_0_0-20220308 - 214505/Terrain_0_0-20220308
+      - 214505_LayerTree_12864_5
     texture: {fileID: 0}
   m_worldBiomeMaskSettings: {fileID: 0}

@@ -2,7 +2,7 @@
 using ColonistManagement.Targeting.Formations;
 using Colonists.Services.Selecting;
 using Entities;
-using MapGeneration;
+using Game;
 using UnityEngine;
 using Zenject;
 

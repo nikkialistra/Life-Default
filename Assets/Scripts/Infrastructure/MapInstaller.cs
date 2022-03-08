@@ -1,4 +1,4 @@
-﻿using MapGeneration;
+﻿using Game;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using Zenject;

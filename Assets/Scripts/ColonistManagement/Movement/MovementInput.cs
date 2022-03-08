@@ -55,7 +55,7 @@ namespace ColonistManagement.Movement
 
         private void Awake()
         {
-            _rayMask = LayerMask.GetMask("Terrain", "Units", "Enemies", "Resources", "Buildings");
+            _rayMask = LayerMask.GetMask("Terrain", "Colonists", "Enemies", "Resources", "Buildings");
             _terrainMask = LayerMask.GetMask("Terrain");
 
             _multiCommandAction = _playerInput.actions.FindAction("Multi Command");

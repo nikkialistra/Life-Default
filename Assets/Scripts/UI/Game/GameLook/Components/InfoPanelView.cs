@@ -36,25 +36,26 @@ namespace UI.Game.GameLook.Components
             HideSelf();
         }
 
-        public void SetUnits(List<ColonistFacade> colonists)
+        public void SetColonists(List<ColonistFacade> colonists)
         {
+            ShowSelf();
+            
             switch (colonists.Count)
             {
                 case 0:
                     HideSelf();
                     break;
                 case 1:
-                    SetColonist(colonists[0]);
+                    ShowColonistInfo(colonists[0]);
                     break;
                 default:
-                    SetColonists(colonists);
+                    ShowColonistsInfo(colonists);
                     break;
             }
         }
 
         public void SetColonist(ColonistFacade colonist)
         {
-            ShowSelf();
             ShowColonistInfo(colonist);
         }
 
@@ -63,12 +64,6 @@ namespace UI.Game.GameLook.Components
             InfoPanel.AddToClassList("not-displayed");
             
             _close.clicked -= HideSelf;
-        }
-
-        private void SetColonists(List<ColonistFacade> colonists)
-        {
-            ShowSelf();
-            ShowColonistsInfo(colonists);
         }
 
         private void ShowSelf()

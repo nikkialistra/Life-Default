@@ -1,6 +1,6 @@
-﻿using Cameras;
-using Colonists.Colonist;
+﻿using Colonists.Colonist;
 using Colonists.Services.Selecting;
+using Game;
 using UnityEngine;
 using UnityEngine.UIElements;
 using Zenject;

@@ -75,13 +75,13 @@ namespace ColonistManagement.Targeting.Formations
             return farthestPointIndex;
         }
 
-        public static int ClosestUnitIndexTo(List<ColonistFacade> colonists, Vector3 targetPoint, bool[] assignedUnitsBitmask)
+        public static int ClosestUnitIndexTo(List<ColonistFacade> colonists, Vector3 targetPoint, bool[] assignedColonistsBitmask)
         {
             var closestUnitDistance = 1000f;
             var closestUnitIndex = 0;
-            for (var i = 0; i < assignedUnitsBitmask.Length; i++)
+            for (var i = 0; i < assignedColonistsBitmask.Length; i++)
             {
-                if (assignedUnitsBitmask[i])
+                if (assignedColonistsBitmask[i])
                 {
                     continue;
                 }

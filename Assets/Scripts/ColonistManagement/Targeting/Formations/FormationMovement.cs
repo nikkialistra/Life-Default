@@ -71,9 +71,9 @@ namespace ColonistManagement.Targeting.Formations
             _shown = true;
             _lastAngle = 0f;
 
-            UnsubscribeFromUnits();
+            UnsubscribeFromColonists();
             _colonists = colonists;
-            SubscribeToUnits();
+            SubscribeToColonists();
 
             _colonistPositions.Clear();
             foreach (var colonist in _colonists)
@@ -117,22 +117,22 @@ namespace ColonistManagement.Targeting.Formations
 
             _formationPositions = GenerateFormationWithRotation(_lastAngle);
 
-            UnsubscribeFromUnits();
+            UnsubscribeFromColonists();
 
             if (_formationPreviewDrawing.ShowDirectionArrow)
             {
-                MoveUnitsToPositions(_formationPositions.Skip(1).ToArray(), _regionFormation.CurrentYRotation,
+                MoveColonistsToPositions(_formationPositions.Skip(1).ToArray(), _regionFormation.CurrentYRotation,
                     additional);
             }
             else
             {
-                MoveUnitsToPositions(_formationPositions, null, additional);
+                MoveColonistsToPositions(_formationPositions, null, additional);
             }
 
             _formationPreviewDrawing.Animate();
         }
 
-        private void SubscribeToUnits()
+        private void SubscribeToColonists()
         {
             foreach (var colonist in _colonists)
             {
@@ -140,7 +140,7 @@ namespace ColonistManagement.Targeting.Formations
             }
         }
 
-        private void UnsubscribeFromUnits()
+        private void UnsubscribeFromColonists()
         {
             foreach (var colonist in _colonists)
             {
@@ -220,16 +220,16 @@ namespace ColonistManagement.Targeting.Formations
             Show();
         }
 
-        private void MoveUnitsToPositions(Vector3[] formationPositions, float? lastAngle, bool additional)
+        private void MoveColonistsToPositions(Vector3[] formationPositions, float? lastAngle, bool additional)
         {
-            var orderedUnits = new ColonistFacade[formationPositions.Length];
+            var orderedColonists = new ColonistFacade[formationPositions.Length];
             var orderedFormationPositions = new Vector3[formationPositions.Length];
 
-            FindMappingBetweenUnitsAndPositions(formationPositions, orderedFormationPositions, orderedUnits);
+            FindMappingBetweenColonistsAndPositions(formationPositions, orderedFormationPositions, orderedColonists);
 
-            for (var i = 0; i < orderedUnits.Length; i++)
+            for (var i = 0; i < orderedColonists.Length; i++)
             {
-                OrderUnit(orderedUnits[i], formationPositions[i], lastAngle, additional);
+                OrderUnit(orderedColonists[i], formationPositions[i], lastAngle, additional);
             }
         }
 
@@ -251,12 +251,12 @@ namespace ColonistManagement.Targeting.Formations
             }
         }
 
-        private void FindMappingBetweenUnitsAndPositions(Vector3[] formationPositions,
+        private void FindMappingBetweenColonistsAndPositions(Vector3[] formationPositions,
             Vector3[] orderedFormationPositions,
             ColonistFacade[] orderedColonists)
         {
             var assignedPositionsBitmask = new bool[formationPositions.Length];
-            var assignedUnitsBitmask = new bool[formationPositions.Length];
+            var assignedColonistsBitmask = new bool[formationPositions.Length];
 
             var middlePoint = FormationUtils.FindMiddlePoint(_colonistPositions);
 
@@ -267,10 +267,10 @@ namespace ColonistManagement.Targeting.Formations
                     : i;
 
                 var closestUnitIndex =
-                    FormationUtils.ClosestUnitIndexTo(_colonists, formationPositions[formationIndex], assignedUnitsBitmask);
+                    FormationUtils.ClosestUnitIndexTo(_colonists, formationPositions[formationIndex], assignedColonistsBitmask);
 
                 assignedPositionsBitmask[formationIndex] = true;
-                assignedUnitsBitmask[closestUnitIndex] = true;
+                assignedColonistsBitmask[closestUnitIndex] = true;
 
                 orderedFormationPositions[i] = formationPositions[formationIndex];
                 orderedColonists[i] = _colonists[closestUnitIndex];

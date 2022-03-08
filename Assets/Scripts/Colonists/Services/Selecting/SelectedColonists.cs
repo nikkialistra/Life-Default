@@ -15,11 +15,11 @@ namespace Colonists.Services.Selecting
         }
 
         public List<ColonistFacade> Colonists { get; private set; } = new();
-        private List<ColonistFacade> _lastSelectedUnits = new();
+        private List<ColonistFacade> _lastSelectedColonists = new();
 
         public void Clear()
         {
-            UnsubscribeFromUnits();
+            UnsubscribeFromColonists();
 
             foreach (var colonist in Colonists)
             {
@@ -31,27 +31,27 @@ namespace Colonists.Services.Selecting
 
         public void Set(List<ColonistFacade> colonists)
         {
-            UnsubscribeFromUnits();
+            UnsubscribeFromColonists();
 
             Colonists = colonists.ToList();
             UpdateSelectionStatuses();
-            _infoPanelView.SetUnits(Colonists);
+            _infoPanelView.SetColonists(Colonists);
 
-            SubscribeToUnits();
+            SubscribeToColonists();
         }
 
         public void Set(ColonistFacade colonist)
         {
-            UnsubscribeFromUnits();
+            UnsubscribeFromColonists();
 
             Colonists = new List<ColonistFacade>() { colonist };
             UpdateSelectionStatuses();
             _infoPanelView.SetColonist(colonist);
 
-            SubscribeToUnits();
+            SubscribeToColonists();
         }
 
-        private void SubscribeToUnits()
+        private void SubscribeToColonists()
         {
             foreach (var colonist in Colonists)
             {
@@ -59,7 +59,7 @@ namespace Colonists.Services.Selecting
             }
         }
 
-        private void UnsubscribeFromUnits()
+        private void UnsubscribeFromColonists()
         {
             foreach (var colonist in Colonists)
             {
@@ -79,12 +79,12 @@ namespace Colonists.Services.Selecting
                 selected.Select();
             }
 
-            foreach (var deselected in _lastSelectedUnits.Except(Colonists))
+            foreach (var deselected in _lastSelectedColonists.Except(Colonists))
             {
                 deselected.Deselect();
             }
 
-            _lastSelectedUnits = new List<ColonistFacade>(Colonists);
+            _lastSelectedColonists = new List<ColonistFacade>(Colonists);
         }
     }
 }

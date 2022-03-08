@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Colonists.Colonist;
-using Common;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.UIElements;

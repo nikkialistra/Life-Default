@@ -29,7 +29,7 @@ namespace Entities.Services
         private void Awake()
         {
             _mousePositionAction = _playerInput.actions.FindAction("Mouse Position");
-            _entitiesMask = LayerMask.GetMask("Units", "Enemies");
+            _entitiesMask = LayerMask.GetMask("Colonists", "Enemies");
         }
 
         private void OnEnable()

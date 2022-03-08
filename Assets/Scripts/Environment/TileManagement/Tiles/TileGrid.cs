@@ -1,4 +1,4 @@
-﻿using MapGeneration;
+﻿using Game;
 using Pathfinding;
 using UI.Game.GameLook.Components;
 using UnityEngine;
@@ -32,7 +32,7 @@ namespace Environment.TileManagement.Tiles
 
         private void OnEnable()
         {
-            //_map.Load += Initialize;
+            _map.Load += Initialize;
         }
 
         private void OnDisable()
@@ -82,8 +82,8 @@ namespace Environment.TileManagement.Tiles
 
             _width = graph.width;
             
-            _xIndexOffset = graph.width / 2;
-            _yIndexOffset = graph.depth / 2;
+            _xIndexOffset = graph.width / 2 - (int)graph.center.x;
+            _yIndexOffset = graph.depth / 2 - (int)graph.center.z;
 
             _tiles = new Tile[graph.width * graph.depth];
 
@@ -92,7 +92,7 @@ namespace Environment.TileManagement.Tiles
 
         private void AddNode(GraphNode node)
         {
-            var position = GetNodeLeftTopCorner(node); ;
+            var position = GetNodeLeftTopCorner(node);
             var tile = new Tile(position);
 
             var index = GetIndex(position);

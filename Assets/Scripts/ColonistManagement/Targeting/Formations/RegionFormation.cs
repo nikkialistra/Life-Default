@@ -5,7 +5,7 @@ namespace ColonistManagement.Targeting.Formations
 {
     public class RegionFormation : MonoBehaviour
     {
-        [SerializeField] private float _unitSize = 1f;
+        [SerializeField] private float _colonistSize = 1f;
         [Space]
         [SerializeField] private float _distanceMultiplierForPacked = 2f;
         [SerializeField] private float _distanceMultiplierForSparse = 3f;
@@ -191,9 +191,9 @@ namespace ColonistManagement.Targeting.Formations
             float rowsOffset, float leftIndent)
         {
             var targetUnitPosition = new Vector3(
-                targetPointFlat.x + leftIndent * _unitSize * _distanceMultiplier,
+                targetPointFlat.x + leftIndent * _colonistSize * _distanceMultiplier,
                 0f,
-                targetPointFlat.z + rowsOffset * _unitSize * _distanceMultiplier
+                targetPointFlat.z + rowsOffset * _colonistSize * _distanceMultiplier
             );
 
             return targetUnitPosition;

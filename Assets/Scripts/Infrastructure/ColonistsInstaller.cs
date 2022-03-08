@@ -1,7 +1,6 @@
 ﻿using ColonistManagement.OrderMarks;
 using ColonistManagement.Selection;
 using Colonists.Colonist;
-using Colonists.Colonist.ColonistTypes;
 using Colonists.Services;
 using Colonists.Services.Selecting;
 using Sirenix.OdinInspector;
@@ -10,7 +9,7 @@ using Zenject;
 
 namespace Infrastructure
 {
-    public class UnitsInstaller : MonoInstaller
+    public class ColonistsInstaller : MonoInstaller
     {
         [Title("Selection")]
         [Required]
@@ -30,9 +29,9 @@ namespace Infrastructure
 
         [Title("Spawning")]
         [Required]
-        [SerializeField] private GameObject _unitPrefab;
+        [SerializeField] private GameObject _colonistPrefab;
         [Required]
-        [SerializeField] private Transform _unitsParent;
+        [SerializeField] private Transform _colonistsParent;
 
         [Title("Services")]
         [Required]
@@ -72,9 +71,9 @@ namespace Infrastructure
 
         private void BindUnitSpawning()
         {
-            Container.BindFactory<ColonistType, Vector3, ColonistFacade, ColonistFacade.Factory>()
-                .FromComponentInNewPrefab(_unitPrefab)
-                .UnderTransform(_unitsParent);
+            Container.BindFactory<Vector3, ColonistFacade, ColonistFacade.Factory>()
+                .FromComponentInNewPrefab(_colonistPrefab)
+                .UnderTransform(_colonistsParent);
         }
     }
 }

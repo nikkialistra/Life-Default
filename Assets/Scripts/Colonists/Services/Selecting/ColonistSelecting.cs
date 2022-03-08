@@ -38,14 +38,14 @@ namespace Colonists.Services.Selecting
 
             if (Physics.Raycast(ray, out var hit))
             {
-                foreach (var unitFacade in GetUnitsFromHit(hit))
+                foreach (var colonist in GetColonistsFromHit(hit))
                 {
-                    yield return unitFacade;
+                    yield return colonist;
                 }
             }
         }
 
-        private static IEnumerable<ColonistFacade> GetUnitsFromHit(RaycastHit hit)
+        private static IEnumerable<ColonistFacade> GetColonistsFromHit(RaycastHit hit)
         {
             if (hit.transform.TryGetComponent(out ColonistFacade clickedUnit) && clickedUnit.Alive)
             {

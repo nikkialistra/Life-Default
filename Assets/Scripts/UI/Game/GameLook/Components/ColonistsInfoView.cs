@@ -9,9 +9,9 @@ using UnityEngine.UIElements;
 namespace UI.Game.GameLook.Components
 {
     [RequireComponent(typeof(InfoPanelView))]
-    public class UnitsInfoView : MonoBehaviour
+    public class ColonistsInfoView : MonoBehaviour
     {
-        private const string VisualTreePath = "UI/Markup/GameLook/Components/UnitsInfo";
+        private const string VisualTreePath = "UI/Markup/GameLook/Components/ColonistsInfo";
         
         [Required]
         [SerializeField] private Texture2D _multipleUnitsPreview;
@@ -22,7 +22,7 @@ namespace UI.Game.GameLook.Components
         private TemplateContainer _tree;
 
         private VisualElement _image;
-        private Label _unitCount;
+        private Label _colonistCount;
 
         private void Awake()
         {
@@ -31,7 +31,7 @@ namespace UI.Game.GameLook.Components
             _tree = Resources.Load<VisualTreeAsset>(VisualTreePath).CloneTree();
 
             _image = _tree.Q<VisualElement>("image");
-            _unitCount = _tree.Q<Label>("description__nomination__count");
+            _colonistCount = _tree.Q<Label>("description__nomination__count");
             IconContainer = _tree.Q<VisualElement>("description__icon-container");
 
             InitializeUnitIconViews();
@@ -101,7 +101,7 @@ namespace UI.Game.GameLook.Components
                 HidePanel();
             }
 
-            _unitCount.text = $"Units ({_count})";
+            _colonistCount.text = $"Colonists ({_count})";
         }
     }
 }

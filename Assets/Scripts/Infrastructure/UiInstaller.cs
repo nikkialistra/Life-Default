@@ -36,7 +36,7 @@ namespace Infrastructure
         [Required]
         [SerializeField] private ColonistInfoView _colonistInfoView;
         [Required]
-        [SerializeField] private UnitsInfoView _unitsInfoView;
+        [SerializeField] private ColonistsInfoView _colonistsInfoView;
 
         public override void InstallBindings()
         {
@@ -65,7 +65,7 @@ namespace Infrastructure
             Container.BindInstance(_tileInfoView);
             Container.BindInstance(_infoPanelView);
             Container.BindInstance(_colonistInfoView);
-            Container.BindInstance(_unitsInfoView);
+            Container.BindInstance(_colonistsInfoView);
         }
     }
 }

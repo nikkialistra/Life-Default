@@ -16,7 +16,7 @@ namespace Entities
         [SerializeField] private EntityType _entityType;
 
         [ShowIf("_entityType", EntityType.Unit)]
-        [ValidateInput("UnitEntityShouldHaveUnit", "Unit entity should have unit")]
+        [ValidateInput("UnitEntityShouldHaveUnit", "Colonist entity should have colonist")]
         [SerializeField] private ColonistFacade _colonist;
 
         [ShowIf("_entityType", EntityType.Enemy)]

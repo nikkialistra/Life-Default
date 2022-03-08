@@ -21,19 +21,19 @@ namespace Colonists.Services.Selecting
         {
             UnsubscribeFromUnits();
 
-            foreach (var unit in Colonists)
+            foreach (var colonist in Colonists)
             {
-                unit.Deselect();
+                colonist.Deselect();
             }
 
             Colonists.Clear();
         }
 
-        public void Set(List<ColonistFacade> units)
+        public void Set(List<ColonistFacade> colonists)
         {
             UnsubscribeFromUnits();
 
-            Colonists = units.ToList();
+            Colonists = colonists.ToList();
             UpdateSelectionStatuses();
             _infoPanelView.SetUnits(Colonists);
 

@@ -33,9 +33,9 @@ namespace Colonists.Services
             };
         }
 
-        private ColonistTypeAppearance GetFrom(List<ColonistTypeAppearance> unitTypeAppearances)
+        private ColonistTypeAppearance GetFrom(List<ColonistTypeAppearance> colonistTypeAppearances)
         {
-            return unitTypeAppearances[Random.Range(0, unitTypeAppearances.Count)];
+            return colonistTypeAppearances[Random.Range(0, colonistTypeAppearances.Count)];
         }
     }
 }

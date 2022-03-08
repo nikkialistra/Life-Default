@@ -148,9 +148,9 @@ namespace ColonistManagement.Targeting.Formations
             }
         }
 
-        private void RemoveFromFormation(ColonistFacade unit)
+        private void RemoveFromFormation(ColonistFacade colonist)
         {
-            _colonists.Remove(unit);
+            _colonists.Remove(colonist);
 
             if (_colonists.Count > 0)
             {

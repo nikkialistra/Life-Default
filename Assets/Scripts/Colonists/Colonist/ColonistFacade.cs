@@ -239,6 +239,6 @@ namespace Colonists.Colonist
             HealthChange?.Invoke();
         }
 
-        public class Factory : PlaceholderFactory<ColonistType, Vector3, ColonistFacade> { }
+        public class Factory : PlaceholderFactory<Vector3, ColonistFacade> { }
     }
 }

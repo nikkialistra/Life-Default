@@ -6,7 +6,7 @@ using UnityEngine.UIElements;
 namespace UI.Game.GameLook.Components
 {
     [RequireComponent(typeof(ColonistInfoView))]
-    [RequireComponent(typeof(UnitsInfoView))]
+    [RequireComponent(typeof(ColonistsInfoView))]
     public class InfoPanelView : MonoBehaviour
     {
         private const string VisualTreePath = "UI/Markup/GameLook/Components/InfoPanel";
@@ -14,12 +14,12 @@ namespace UI.Game.GameLook.Components
         private Button _close;
 
         private ColonistInfoView _colonistInfoView;
-        private UnitsInfoView _unitsInfoView;
+        private ColonistsInfoView _colonistsInfoView;
 
         private void Awake()
         {
             _colonistInfoView = GetComponent<ColonistInfoView>();
-            _unitsInfoView = GetComponent<UnitsInfoView>();
+            _colonistsInfoView = GetComponent<ColonistsInfoView>();
 
             Tree = Resources.Load<VisualTreeAsset>(VisualTreePath).CloneTree();
 
@@ -80,7 +80,7 @@ namespace UI.Game.GameLook.Components
 
         private void ShowColonistInfo(ColonistFacade colonist)
         {
-            _unitsInfoView.HideSelf();
+            _colonistsInfoView.HideSelf();
             _colonistInfoView.ShowSelf();
             _colonistInfoView.FillIn(colonist);
         }
@@ -88,8 +88,8 @@ namespace UI.Game.GameLook.Components
         private void ShowColonistsInfo(List<ColonistFacade> colonists)
         {
             _colonistInfoView.HideSelf();
-            _unitsInfoView.ShowSelf();
-            _unitsInfoView.FillIn(colonists);
+            _colonistsInfoView.ShowSelf();
+            _colonistsInfoView.FillIn(colonists);
         }
     }
 }

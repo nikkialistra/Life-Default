@@ -32,7 +32,7 @@ namespace Environment.TileManagement.Tiles
 
         private void OnEnable()
         {
-            _map.Load += Initialize;
+            //_map.Load += Initialize;
         }
 
         private void OnDisable()

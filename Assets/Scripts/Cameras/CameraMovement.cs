@@ -465,10 +465,14 @@ namespace Cameras
         private void SmoothUpdate()
         {
             if (!_focusing)
-            {transform.position =
-                Vector3.Lerp(transform.position, _newPosition, _positionSmoothing * Time.unscaledDeltaTime);}
+            {
+                transform.position = Vector3.Lerp(transform.position, _newPosition,
+                    _positionSmoothing * Time.unscaledDeltaTime);
+            }
+            
             transform.rotation = Quaternion.Lerp(transform.rotation, _newRotation,
                 _rotationSmoothing * Time.unscaledDeltaTime);
+            
             _camera.fieldOfView =
                 Mathf.Lerp(_camera.fieldOfView, _newFieldOfView, _zoomSmoothing * Time.unscaledDeltaTime);
         }

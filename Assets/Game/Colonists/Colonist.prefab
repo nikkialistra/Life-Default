@@ -2530,7 +2530,6 @@ GameObject:
   - component: {fileID: 8477657715684973058}
   - component: {fileID: 2308330324105463307}
   - component: {fileID: 5149874996177493612}
-  - component: {fileID: 4755672356916494619}
   - component: {fileID: 5715635598172236793}
   - component: {fileID: 7905390231065561626}
   - component: {fileID: 7183938458047524081}
@@ -2699,7 +2698,6 @@ MonoBehaviour:
   _resourceFieldOfView: {fileID: 3861131080668585495}
   _selectionIndicator: {fileID: 3207950516897515159}
   _center: {fileID: 1556855133966464186}
-  _colonistType: 0
   _name: 
   _indicators:
     Health: 1
@@ -2740,8 +2738,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 582025014378409e8a9e7bb956e95378, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxHealth: 100
-  _startHealth: 100
+  _startHealth: 1
 --- !u!114 &2308330324105463307
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2768,23 +2765,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _rotationSpeed: 120
   _entityOffsetForPathRecalculation: 0.6
---- !u!114 &4755672356916494619
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4193433063631040808}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 127e15f091d94a0298ca35181d530c61, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _headEnd: {fileID: 2433883250142294428}
-  _head: {fileID: 2433883250142294418}
-  _rightHand: {fileID: 2433883250142294470}
-  _upperChest: {fileID: 2433883250142294508}
-  _skinnedMeshRenderer: {fileID: 2433883250139472052}
 --- !u!114 &5715635598172236793
 MonoBehaviour:
   m_ObjectHideFlags: 0

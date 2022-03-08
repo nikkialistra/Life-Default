@@ -65,7 +65,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2625714277779515755}
   - component: {fileID: 2534072106452490296}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Direction Arrow
   m_TagString: Untagged
   m_Icon: {fileID: 0}

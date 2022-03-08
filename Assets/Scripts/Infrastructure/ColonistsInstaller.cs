@@ -36,14 +36,12 @@ namespace Infrastructure
         [Title("Services")]
         [Required]
         [SerializeField] private ColonistRepository _colonistRepository;
-        [Required]
-        [SerializeField] private ColonistTypeAppearanceRegistry _colonistTypeAppearanceRegistry;
 
         public override void InstallBindings()
         {
             BindUnitSelectionSystem();
             BindTargeting();
-            BindUnitServices();
+            BindColonistServices();
             BindUnitSpawning();
         }
 
@@ -63,10 +61,9 @@ namespace Infrastructure
             Container.BindInstance(_orderMarksParent).WhenInjectedInto<OrderMarkPool>();
         }
 
-        private void BindUnitServices()
+        private void BindColonistServices()
         {
             Container.BindInstance(_colonistRepository);
-            Container.BindInstance(_colonistTypeAppearanceRegistry);
         }
 
         private void BindUnitSpawning()

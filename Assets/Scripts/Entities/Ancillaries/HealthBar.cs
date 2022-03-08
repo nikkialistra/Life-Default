@@ -7,8 +7,6 @@ namespace Entities.Ancillaries
     public class HealthBar : MonoBehaviour
     {
         [SerializeField] private Slider _slider;
-        [SerializeField] private Image _fill;
-        [SerializeField] private Gradient _fillGradient;
 
         private bool _shown;
 
@@ -42,10 +40,9 @@ namespace Entities.Ancillaries
             transform.LookAt(transform.position + _cameraTransform.forward);
         }
 
-        public void SetHealth(int value)
+        public void SetHealth(float value)
         {
             _slider.value = value;
-            _fill.color = _fillGradient.Evaluate(_slider.normalizedValue);
 
             UpdateShowStatus();
         }
@@ -77,14 +74,6 @@ namespace Entities.Ancillaries
             {
                 Hide();
             }
-        }
-
-        public void SetMaxHealth(int health)
-        {
-            _slider.maxValue = health;
-            _slider.value = health;
-
-            _fill.color = _fillGradient.Evaluate(1f);
         }
 
         private void Show()

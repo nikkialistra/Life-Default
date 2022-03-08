@@ -8,19 +8,17 @@ namespace Entities.Creature
 {
     public class EntityHealth : MonoBehaviour, IDamageable
     {
-        [MinValue(0)]
-        [SerializeField] private int _maxHealth;
-        [MinValue(0), ValidateInput("@_startHealth <= _maxHealth", "Start health cannon be greater than max health")]
-        [SerializeField] private int _startHealth;
+        [ProgressBar(0, 1, r: 0.929f, g: 0.145f, b: 0.145f, Height = 20)]
+        [SerializeField] private float _startHealth = 1;
 
-        private int _health;
+        private float _health;
 
         private Coroutine _takingDamage;
 
         public event Action Die;
-        public event Action<int> HealthChange;
+        public event Action<float> HealthChange;
 
-        public int Health
+        public float Health
         {
             get => _health;
             set
@@ -33,8 +31,7 @@ namespace Entities.Creature
                 _health = value;
             }
         }
-
-        public int MaxHealth => _maxHealth;
+        
         private bool IsAlive => _health > 0;
 
         private void OnTriggerEnter(Collider other)
@@ -58,14 +55,14 @@ namespace Entities.Creature
             _health = _startHealth;
         }
 
-        public void TakeHealing(int value)
+        public void TakeHealing(float value)
         {
             if (!IsAlive)
             {
                 throw new InvalidOperationException("Healing cannot be applied to the died entity");
             }
 
-            _health = Math.Min(_health + _maxHealth, _maxHealth);
+            _health = Math.Min(_health + value, 1f);
         }
 
         public void TakeDamage(int value)

@@ -1,6 +1,4 @@
 ﻿using Colonists.Colonist;
-using Colonists.Colonist.ColonistTypes;
-using Common;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Zenject;

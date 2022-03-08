@@ -28,12 +28,6 @@ namespace Game
 
         private IEnumerator WaitAndLoad()
         {
-            yield return new WaitForSeconds(.3f);
-            OnLoad();
-        }
-
-        private void OnLoad()
-        {
             if (_loadSavedGraphData)
             {
                 _astarPath.data.DeserializeGraphs(_graphData.bytes);
@@ -43,7 +37,8 @@ namespace Game
                 AstarPath.active.Scan();
             }
             
-
+            yield return new WaitForSeconds(.3f);
+            
             Load?.Invoke();
         }
     }

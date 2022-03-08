@@ -73,6 +73,7 @@ namespace Game
 
         private Map _map;
         private bool _deactivated;
+        private bool _canMouseScroll;
 
         private ColonistFacade _colonist;
         private Transform _followTransform;
@@ -85,7 +86,7 @@ namespace Game
         private bool _screenEdgeMouseScroll;
 
         private GameSettings _gameSettings;
-        
+
         private Coroutine _focusingCoroutine;
 
         private PlayerInput _playerInput;
@@ -177,7 +178,7 @@ namespace Game
             UpdateZoom();
 
             ClampPositionByConstraints();
-            
+
             SmoothUpdate();
         }
         
@@ -238,6 +239,7 @@ namespace Game
             _map.Load -= OnMapLoad;
 
             _deactivated = false;
+            _canMouseScroll = true;
         }
 
         private void ToggleCameraMovement(InputAction.CallbackContext context)
@@ -358,7 +360,7 @@ namespace Game
         private void UpdatePosition()
         {
             var movement = _movementAction.ReadValue<Vector2>();
-
+            
             _newPosition += transform.right * (_moveSpeed * Time.unscaledDeltaTime * movement.x);
             _newPosition += transform.forward * (_moveSpeed * Time.unscaledDeltaTime * movement.y);
         }
@@ -393,7 +395,7 @@ namespace Game
 
         private void UpdatePositionFromMouseThresholdMovement()
         {
-            if (!_screenEdgeMouseScroll)
+            if (!_canMouseScroll || !_screenEdgeMouseScroll)
             {
                 return;
             }

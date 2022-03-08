@@ -88,9 +88,6 @@ namespace UI.Game.GameLook.Components
         {
             _count = units.Count;
             UpdateCountText();
-
-            units.Sort((x, y) =>
-                x.ColonistType.CompareTo(y.ColonistType));
         }
 
         private void UpdateCountText()

@@ -91,8 +91,7 @@ namespace Enemies.Enemy
             _died = false;
 
             _health.Initialize();
-
-            _healthBar.SetMaxHealth(_health.MaxHealth);
+            
             _healthBar.SetHealth(_health.Health);
         }
 
@@ -106,7 +105,7 @@ namespace Enemies.Enemy
             Destroy(gameObject);
         }
 
-        private void OnHealthChange(int value)
+        private void OnHealthChange(float value)
         {
             _healthBar.SetHealth(value);
         }

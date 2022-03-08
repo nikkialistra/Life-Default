@@ -1,8 +1,9 @@
-﻿using MapGeneration;
+﻿using System.Collections;
+using DG.Tweening;
+using MapGeneration;
 using Saving;
 using Sirenix.OdinInspector;
 using UniRx;
-using Units.Services.Selecting;
 using Units.Unit;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -37,22 +38,18 @@ namespace Cameras
         [SerializeField] private float _maxFov;
 
         [Title("Boundaries")]
-        [ValidateInput("@_minimumPositionX < _maximumPositionX",
-            "Minimum position should be less than maximum position")]
         [SerializeField] private float _minimumPositionX;
-
-        [ValidateInput("@_minimumPositionX < _maximumPositionX",
-            "Minimum position should be less than maximum position")]
         [SerializeField] private float _maximumPositionX;
 
         [Space]
-        [ValidateInput("@_minimumPositionZ < _maximumPositionZ",
-            "Minimum position should be less than maximum position")]
         [SerializeField] private float _minimumPositionZ;
-
-        [ValidateInput("@_minimumPositionZ < _maximumPositionZ",
-            "Minimum position should be less than maximum position")]
         [SerializeField] private float _maximumPositionZ;
+        
+        [Title("Focusing")]
+        [SerializeField] private float _focusFov = 40f;
+        [SerializeField] private float _focusDistance = 30f;
+        [SerializeField] private float _focusRotation = 45f;
+        [SerializeField] private float _focusDuration = .3f;
 
         [Title("Smoothing")]
         [SerializeField] private float _positionSmoothing;
@@ -78,11 +75,12 @@ namespace Cameras
         private Map _map;
         private bool _deactivated;
 
-        private UnitChoosing _unitChoosing;
         private UnitFacade _unit;
         private Transform _followTransform;
         private Vector3 _offset;
         private bool _following;
+
+        private bool _focusing;
 
         private float _cameraSensitivity;
         private bool _screenEdgeMouseScroll;
@@ -102,15 +100,12 @@ namespace Cameras
         private InputAction _toggleCameraMovementAction;
 
         [Inject]
-        public void Construct(bool isSetUpSession, Map map, UnitChoosing unitChoosing, GameSettings gameSettings,
-            PlayerInput playerInput)
+        public void Construct(bool isSetUpSession, Map map, GameSettings gameSettings, PlayerInput playerInput)
         {
             if (isSetUpSession)
             {
                 _deactivated = true;
             }
-
-            _unitChoosing = unitChoosing;
 
             _map = map;
 
@@ -181,7 +176,55 @@ namespace Cameras
             UpdateZoom();
 
             ClampPositionByConstraints();
+            
             SmoothUpdate();
+        }
+        
+        public void DeactivateMovement()
+        {
+            _deactivated = true;
+            Deactivate();
+        }
+
+        public void ActivateMovement()
+        {
+            _deactivated = false;
+            Activate();
+        }
+
+        public void FocusOn(UnitFacade unit)
+        {
+            ResetFollow();
+            
+            var yRotation = Quaternion.Euler(new Vector3(0, transform.rotation.eulerAngles.y, 0));
+            var forward = yRotation * Vector3.forward;
+
+            var position = unit.Center + (forward * -_focusDistance);
+            position.y = _yPosition;
+
+            var eulerAngles = new Vector3(_focusRotation, _newRotation.eulerAngles.y, _newRotation.eulerAngles.z);;
+
+            StartCoroutine(UpdateCameraLookAfter(position, eulerAngles, unit));
+        }
+
+        private IEnumerator UpdateCameraLookAfter(Vector3 position, Vector3 eulerAngles, UnitFacade unit)
+        {
+            _focusing = true;
+
+            transform.DOMove(position, _focusDuration);
+            
+            yield return new WaitForSeconds(_focusDuration / 2f);
+            
+            _newFieldOfView = _focusFov;
+            _newRotation.eulerAngles = eulerAngles;
+            
+            yield return new WaitForSeconds(_focusDuration / 2f);
+            
+            _newPosition = transform.position;
+            
+            SetFollow(unit);
+
+            _focusing = false;
         }
 
         private void OnMapLoad()
@@ -205,18 +248,6 @@ namespace Cameras
             }
         }
 
-        public void DeactivateMovement()
-        {
-            _deactivated = true;
-            Deactivate();
-        }
-
-        public void ActivateMovement()
-        {
-            _deactivated = false;
-            Activate();
-        }
-
         private void LoadSettings()
         {
             _cameraSensitivity = _gameSettings.CameraSensitivity.Value;
@@ -229,13 +260,11 @@ namespace Cameras
         private void Deactivate()
         {
             _setFollowAction.started -= TryFollow;
-            _unitChoosing.UnitChosen -= SetFollow;
         }
 
         private void Activate()
         {
             _setFollowAction.started += TryFollow;
-            _unitChoosing.UnitChosen += SetFollow;
 
             var mousePosition = _mousePositionAction.ReadValue<Vector2>();
 
@@ -428,8 +457,9 @@ namespace Cameras
 
         private void SmoothUpdate()
         {
-            transform.position =
-                Vector3.Lerp(transform.position, _newPosition, _positionSmoothing * Time.unscaledDeltaTime);
+            if (!_focusing)
+            {transform.position =
+                Vector3.Lerp(transform.position, _newPosition, _positionSmoothing * Time.unscaledDeltaTime);}
             transform.rotation = Quaternion.Lerp(transform.rotation, _newRotation,
                 _rotationSmoothing * Time.unscaledDeltaTime);
             _camera.fieldOfView =

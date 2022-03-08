@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using UI.Game.GameLook.Components;
 using Units.Unit;
 using UnityEngine;
@@ -23,8 +22,6 @@ namespace Units.Services.Selecting
             _unitRepository = unitRepository;
             _selectedUnits = selectedUnits;
         }
-
-        public Action<UnitFacade> UnitChosen;
 
         private void OnEnable()
         {
@@ -69,13 +66,11 @@ namespace Units.Services.Selecting
             {
                 var unit = units[index];
                 _selectedUnits.Set(unit);
-                UnitChosen?.Invoke(unit);
             }
             else
             {
                 var unit = units[0];
-                _selectedUnits.Set(units[0]);
-                UnitChosen?.Invoke(unit);
+                _selectedUnits.Set(unit);
             }
         }
     }

@@ -1,4 +1,5 @@
-﻿using Units.Services.Selecting;
+﻿using Cameras;
+using Units.Services.Selecting;
 using Units.Unit;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -31,11 +32,13 @@ namespace UI.Game.GameLook.Components
         private VisualElement _healthArrow;
 
         private UnitChoosing _unitChoosing;
+        private CameraMovement _cameraMovement;
 
         [Inject]
-        public void Construct(UnitChoosing unitChoosing)
+        public void Construct(UnitChoosing unitChoosing, CameraMovement cameraMovement)
         {
             _unitChoosing = unitChoosing;
+            _cameraMovement = cameraMovement;
         }
 
         private void Awake()
@@ -72,7 +75,9 @@ namespace UI.Game.GameLook.Components
             _shown = true;
             
             _parent.InfoPanel.Add(_tree);
+            
             _next.clicked += OnNext;
+            _focus.clicked += OnFocus;
         }
 
         public void HideSelf()
@@ -81,8 +86,10 @@ namespace UI.Game.GameLook.Components
             {
                 return;
             }
-
+            
             _next.clicked -= OnNext;
+            _focus.clicked -= OnFocus;
+            
             _parent.InfoPanel.Remove(_tree);
 
             _shown = false;
@@ -97,6 +104,11 @@ namespace UI.Game.GameLook.Components
         private void OnNext()
         {
            _unitChoosing.NextUnitTo(_unit);
+        }
+
+        private void OnFocus()
+        {
+            _cameraMovement.FocusOn(_unit);
         }
 
         private void HidePanel()

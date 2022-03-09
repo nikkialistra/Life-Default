@@ -194,7 +194,8 @@ namespace Colonists.Colonist
 
             Health.Initialize();
             
-            _healthBars.SetHealth(Health.Vitality);
+            _healthBars.SetVitality(Health.Vitality);
+            _healthBars.SetBlood(Health.Blood);
         }
 
         private void ActivateComponents()
@@ -214,9 +215,10 @@ namespace Colonists.Colonist
             DestinationReach?.Invoke(this);
         }
 
-        private void OnHealthChange(float value)
+        private void OnHealthChange(float vitality, float blood)
         {
-            _healthBars.SetHealth(value);
+            _healthBars.SetVitality(vitality);
+            _healthBars.SetBlood(blood);
             HealthChange?.Invoke();
         }
 

@@ -19,7 +19,7 @@ namespace Entities.Creature
         private Coroutine _takingDamage;
 
         public event Action Die;
-        public event Action<float> HealthChange;
+        public event Action<float, float> HealthChange;
 
         public float Vitality
         {
@@ -95,7 +95,7 @@ namespace Entities.Creature
                 Die?.Invoke();
             }
 
-            HealthChange?.Invoke(_vitality);
+            HealthChange?.Invoke(_vitality, _blood);
         }
 
         public void TakeDamageContinuously(float value, float interval, float time = float.PositiveInfinity)

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Sirenix.OdinInspector;
+using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
 
@@ -6,11 +7,19 @@ namespace Entities.Ancillaries
 {
     public class HealthBars : MonoBehaviour
     {
-        [SerializeField] private Slider _slider;
+        [Required]
+        [SerializeField] private Slider _vitalitySlider;
+        [Required]
+        [SerializeField] private Slider _bloodSlider;
+
+        [Required]
+        [SerializeField] private GameObject _sliders;
 
         private bool _shown;
 
-        private GameObject _sliderGameObject;
+        private GameObject _vitalityGameObject;
+        private GameObject _bloodGameObject;
+        
         private Transform _cameraTransform;
         private bool _selected;
 
@@ -18,11 +27,6 @@ namespace Entities.Ancillaries
         public void Construct(Camera camera)
         {
             _cameraTransform = camera.transform;
-        }
-
-        private void Awake()
-        {
-            _sliderGameObject = _slider.gameObject;
         }
 
         public bool Selected
@@ -40,9 +44,16 @@ namespace Entities.Ancillaries
             transform.LookAt(transform.position + _cameraTransform.forward);
         }
 
-        public void SetHealth(float value)
+        public void SetVitality(float value)
         {
-            _slider.value = value;
+            _vitalitySlider.value = value;
+
+            UpdateShowStatus();
+        }
+        
+        public void SetBlood(float value)
+        {
+            _bloodSlider.value = value;
 
             UpdateShowStatus();
         }
@@ -61,12 +72,12 @@ namespace Entities.Ancillaries
 
         private bool Dead()
         {
-            return _slider.normalizedValue == 0;
+            return _vitalitySlider.value == 0 || _bloodSlider.value == 0;
         }
 
         private void ShowIfSelectedOrHit()
         {
-            if (Selected || _slider.normalizedValue != 1)
+            if (Selected || NotFull())
             {
                 Show();
             }
@@ -76,14 +87,19 @@ namespace Entities.Ancillaries
             }
         }
 
+        private bool NotFull()
+        {
+            return _vitalitySlider.value != 1f || _bloodSlider.value != 1f;
+        }
+
         private void Show()
         {
-            _sliderGameObject.SetActive(true);
+            _sliders.SetActive(true);
         }
 
         private void Hide()
         {
-            _sliderGameObject.SetActive(false);
+            _sliders.SetActive(false);
         }
     }
 }

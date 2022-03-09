@@ -92,7 +92,7 @@ namespace Enemies.Enemy
 
             _health.Initialize();
             
-            _healthBars.SetHealth(_health.Vitality);
+            _healthBars.SetVitality(_health.Vitality);
         }
 
         private void InitializeComponents()
@@ -105,9 +105,10 @@ namespace Enemies.Enemy
             Destroy(gameObject);
         }
 
-        private void OnHealthChange(float value)
+        private void OnHealthChange(float vitality, float blood)
         {
-            _healthBars.SetHealth(value);
+            _healthBars.SetVitality(vitality);
+            _healthBars.SetBlood(blood);
         }
 
         public class Factory : PlaceholderFactory<EnemyType, Vector3, EnemyFacade> { }

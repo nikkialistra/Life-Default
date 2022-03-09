@@ -6,38 +6,11 @@
 }
 
 .description {
+    margin-left: 30px;
+    margin-top: 30px;
     height: 170px;
     width: 260px;
-    margin-left: 10px;
     align-items: flex-start;
-}
-
-.nomination__type {
-    width: 100px;
-    -unity-font: resource('Fonts/Ubuntu/Ubuntu-Regular');
-    font-size: 16px;
-    -unity-text-align: middle-left;
-    color: rgb(255, 255, 255);
-    -unity-font-definition: none;
-    margin: 0;
-    padding: 0 0 0 4px;
-}
-
-.unity-progress-bar__background {
-    background-color: rgb(48, 48, 48);
-    border-color: rgb(37, 37, 37);
-}
-
-.unity-progress-bar__progress {
-    background-color: rgb(44, 93, 135);
-}
-
-.middle-health .unity-progress-bar__progress {
-    background-color: rgb(188, 184, 24);
-}
-
-.low-health .unity-progress-bar__progress {
-    background-color: rgb(188, 24, 24);
 }
 
 .button {
@@ -55,7 +28,21 @@
     height: 362px;
 }
 
-.description {
-    margin-left: 30px;
-    margin-top: 54px;
+.header {
+    width: 260px;
+    min-height: 24px;
+    height: 24px;
+}
+
+.header_text {
+    font-size: 17px;
+    color: rgb(255, 255, 255);
+    -unity-font: resource('Fonts/Ubuntu/Ubuntu-Bold');
+    -unity-text-align: middle-left;
+    margin: 0;
+    padding: 0;
+    height: 24px;
+    width: 100px;
+    margin-left: 12px;
+    -unity-font-style: bold;
 }

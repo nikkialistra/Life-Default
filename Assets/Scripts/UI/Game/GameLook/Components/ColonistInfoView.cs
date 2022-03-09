@@ -219,13 +219,13 @@ namespace UI.Game.GameLook.Components
         private void UpdateVitality()
         {
             _vitalityProgress.value = _colonist.Health.Vitality;
-            _vitalityValue.text = $"{(int)_colonist.Health.Vitality * 100}%";
+            _vitalityValue.text = $"{_colonist.Health.VitalityPercent}%";
         }
 
         private void UpdateBlood()
         {
             _bloodProgress.value = _colonist.Health.Blood;
-            _bloodValue.text = $"{(int)_colonist.Health.Blood * 100}%";
+            _bloodValue.text = $"{_colonist.Health.BloodPercent}%";
         }
     }
 }

@@ -2528,6 +2528,7 @@ GameObject:
   - component: {fileID: 2081193202370333819}
   - component: {fileID: 1036043928785350050}
   - component: {fileID: 8477657715684973058}
+  - component: {fileID: 3901218142366084769}
   - component: {fileID: 2308330324105463307}
   - component: {fileID: 5149874996177493612}
   - component: {fileID: 5715635598172236793}
@@ -2699,14 +2700,7 @@ MonoBehaviour:
   _selectionIndicator: {fileID: 3207950516897515159}
   _center: {fileID: 1556855133966464186}
   _name: 
-  _indicators:
-    Health: 1
-    Blood: 1
-    Satiety: 0.729
-    Consciousness: 0.364
-    Sleep: 1
-    Happiness: 0.651
-    Entertainment: 0.358
+  _colonistIndicators: {fileID: 3901218142366084769}
 --- !u!114 &1036043928785350050
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2738,8 +2732,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 582025014378409e8a9e7bb956e95378, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _startVitality: 1
-  _startBlood: 1
+  _maxVitality: 100
+  _maxBlood: 100
+  _startVitality: 100
+  _startBlood: 100
+--- !u!114 &3901218142366084769
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4193433063631040808}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ffdae9c415c435185cb30e85bc9576c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Satiety: 100
+  Consciousness: 100
+  Sleep: 100
+  Happiness: 100
+  Entertainment: 100
 --- !u!114 &2308330324105463307
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3421,6 +3434,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 9137008855364342625, guid: 913322246f662fd4dbbe41ec891db6fa,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9137008855364342625, guid: 913322246f662fd4dbbe41ec891db6fa,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 913322246f662fd4dbbe41ec891db6fa, type: 3}

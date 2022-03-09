@@ -8,10 +8,16 @@ namespace Entities.Creature
 {
     public class EntityHealth : MonoBehaviour, IDamageable
     {
-        [ProgressBar(0, 1, r: 0.929f, g: 0.145f, b: 0.145f, Height = 20)]
-        [SerializeField] private float _startVitality = 1;
-        [ProgressBar(0, 1, r: 0.929f, g: 0.145f, b: 0.145f, Height = 20)]
-        [SerializeField] private float _startBlood = 1;
+        [MinValue(1)]
+        [SerializeField] private float _maxVitality;
+        [MinValue(1)]
+        [SerializeField] private float _maxBlood;
+
+        [Space]
+        [ProgressBar(0, "_maxVitality", r: 0.929f, g: 0.145f, b: 0.145f, Height = 20)]
+        [SerializeField] private float _startVitality = 100;
+        [ProgressBar(0, "_maxBlood", r: 0.929f, g: 0.145f, b: 0.145f, Height = 20)]
+        [SerializeField] private float _startBlood = 100;
 
         private float _vitality;
         private float _blood;
@@ -21,33 +27,12 @@ namespace Entities.Creature
         public event Action Die;
         public event Action<float, float> HealthChange;
 
-        public float Vitality
-        {
-            get => _vitality;
-            set
-            {
-                if (value <= 0)
-                {
-                    throw new ArgumentOutOfRangeException(nameof(Vitality));
-                }
+        public float Vitality => _vitality / _maxVitality;
 
-                _vitality = value;
-            }
-        }
-        
-        public float Blood
-        {
-            get => _blood;
-            set
-            {
-                if (value <= 0)
-                {
-                    throw new ArgumentOutOfRangeException(nameof(Blood));
-                }
+        public float Blood => _blood / _maxBlood;
 
-                _blood = value;
-            }
-        }
+        public int VitalityPercent => (int)(Vitality * 100);
+        public int BloodPercent => (int)(Blood * 100);
         
         private bool IsAlive => _vitality > 0 && _blood > 0;
 
@@ -80,7 +65,7 @@ namespace Entities.Creature
                 throw new InvalidOperationException("Healing cannot be applied to the died entity");
             }
 
-            _vitality = Math.Min(_vitality + value, 1f);
+            _vitality = Math.Min(_vitality + value, _maxVitality);
         }
 
         public void TakeDamage(float value)
@@ -95,7 +80,7 @@ namespace Entities.Creature
                 Die?.Invoke();
             }
 
-            HealthChange?.Invoke(_vitality, _blood);
+            HealthChange?.Invoke(_vitality / _maxVitality, _blood / _maxBlood);
         }
 
         public void TakeDamageContinuously(float value, float interval, float time = float.PositiveInfinity)

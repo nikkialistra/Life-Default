@@ -86,6 +86,26 @@ namespace ColonistManagement.Movement
 
         private void SelectMove(InputAction.CallbackContext context)
         {
+            SelectMove();
+        }
+
+        private void SelectAttack(InputAction.CallbackContext context)
+        {
+            SelectAttack();
+        }
+
+        private void SelectHold(InputAction.CallbackContext context)
+        {
+            SelectHold();
+        }
+
+        private void SelectPatrol(InputAction.CallbackContext context)
+        {
+            SelectPatrol();
+        }
+
+        public void SelectMove()
+        {
             if (IfNoColonistsSelected())
             {
                 return;
@@ -96,7 +116,7 @@ namespace ColonistManagement.Movement
             _gameCursors.SetMoveCursor();
         }
 
-        private void SelectAttack(InputAction.CallbackContext context)
+        public void SelectAttack()
         {
             if (IfNoColonistsSelected() || Keyboard.current.altKey.isPressed)
             {
@@ -108,7 +128,7 @@ namespace ColonistManagement.Movement
             _gameCursors.SetAttackCursor();
         }
 
-        private void SelectHold(InputAction.CallbackContext context)
+        public void SelectHold()
         {
             if (IfNoColonistsSelected())
             {
@@ -119,7 +139,7 @@ namespace ColonistManagement.Movement
             PauseAnotherInput();
         }
 
-        private void SelectPatrol(InputAction.CallbackContext context)
+        public void SelectPatrol()
         {
             if (IfNoColonistsSelected())
             {

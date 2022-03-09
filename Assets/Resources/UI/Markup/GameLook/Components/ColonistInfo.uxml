@@ -4,8 +4,8 @@
     <ui:VisualElement name="colonist-info" picking-mode="Ignore" class="colonist-info">
         <ui:VisualElement name="header" picking-mode="Ignore" class="header" style="height: 24px;">
             <ui:Label text="Tiffany" display-tooltip-when-elided="true" name="name" class="header_text" />
-            <ui:Button display-tooltip-when-elided="true" name="next" class="button next" />
-            <ui:Button display-tooltip-when-elided="true" name="focus" class="button focus" />
+            <ui:Button name="next" class="button next" />
+            <ui:Button name="focus" class="button focus" />
         </ui:VisualElement>
         <ui:VisualElement name="body" class="body">
             <ui:VisualElement name="body__top" class="body__top">

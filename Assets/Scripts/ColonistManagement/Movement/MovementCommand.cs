@@ -82,7 +82,7 @@ namespace ColonistManagement.Movement
             _formationMovement.MoveToFormationPositions(additional, formationColor);
         }
 
-        private void Stop()
+        public void Stop()
         {
             foreach (var colonist in _selectedColonists.Colonists)
             {

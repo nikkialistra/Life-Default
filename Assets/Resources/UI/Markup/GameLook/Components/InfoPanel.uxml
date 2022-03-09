@@ -3,7 +3,7 @@
     <Style src="project://database/Assets/Resources/UI/Styles/Common/InfoForm.uss?fileID=7433441132597879392&amp;guid=ef46dfde628e96146b950bb6e51694e4&amp;type=3#InfoForm" />
     <ui:VisualElement name="info-panel" picking-mode="Ignore" class="info-panel">
         <ui:VisualElement name="fill" picking-mode="Ignore" class="fill" />
-        <ui:Button display-tooltip-when-elided="true" name="close" class="button close" />
-        <ui:VisualElement name="outline" class="outline" />
+        <ui:Button name="close" class="button close" />
+        <ui:VisualElement name="outline" picking-mode="Ignore" class="outline" />
     </ui:VisualElement>
 </ui:UXML>

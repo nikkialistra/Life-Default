@@ -12,6 +12,11 @@
 .command {
     width: 52px;
     height: 42px;
+    margin: 0;
+    padding: 0;
+    -unity-background-image-tint-color: rgb(255, 255, 255);
+    border-width: 0;
+    background-color: rgba(255, 255, 255, 0);
 }
 
 .move {

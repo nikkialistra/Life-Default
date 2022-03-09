@@ -1,5 +1,7 @@
-﻿using UnityEngine;
+﻿using ColonistManagement.Movement;
+using UnityEngine;
 using UnityEngine.UIElements;
+using Zenject;
 
 namespace UI.Game.GameLook.Components
 {
@@ -13,9 +15,21 @@ namespace UI.Game.GameLook.Components
         private Button _hold;
         private Button _patrol;
         
+        private bool _shown;
+        
         private InfoPanelView _parent;
         
         private TemplateContainer _tree;
+
+        private MovementCommand _movementCommand;
+        private MovementActionInput _movementActionInput;
+
+        [Inject]
+        public void Construct(MovementCommand movementCommand, MovementActionInput movementActionInput)
+        {
+            _movementCommand = movementCommand;
+            _movementActionInput = movementActionInput;
+        }
 
         private void Awake()
         {
@@ -32,15 +46,72 @@ namespace UI.Game.GameLook.Components
 
         public void ShowSelf()
         {
+            if (_shown)
+            {
+                return;
+            }
+
             _parent.InfoPanel.Add(_tree);
+            _shown = true;
+
+            BindButtons();
         }
 
         public void HideSelf()
         {
-            if (_parent.InfoPanel.Contains(_tree))
+            if (!_shown)
             {
-                _parent.InfoPanel.Remove(_tree);
+                return;
             }
+            
+            UnbindButtons();
+            
+            _parent.InfoPanel.Remove(_tree);
+
+            _shown = false;
+        }
+
+        private void BindButtons()
+        {
+            _move.clicked += Move;
+            _stop.clicked += Stop;
+            _attack.clicked += Attack;
+            _hold.clicked += Hold;
+            _patrol.clicked += Patrol;
+        }
+
+        private void UnbindButtons()
+        {
+            _move.clicked -= Move;
+            _stop.clicked -= Stop;
+            _attack.clicked -= Attack;
+            _hold.clicked -= Hold;
+            _patrol.clicked -= Patrol;  
+        }
+
+        private void Move()
+        {
+            _movementActionInput.SelectMove();
+        }
+        
+        private void Stop()
+        {
+            _movementCommand.Stop();
+        }
+        
+        private void Attack()
+        {
+            _movementActionInput.SelectAttack();
+        }
+        
+        private void Hold()
+        {
+            _movementActionInput.SelectHold();
+        }
+        
+        private void Patrol()
+        {
+            _movementActionInput.SelectPatrol();
         }
     }
 }

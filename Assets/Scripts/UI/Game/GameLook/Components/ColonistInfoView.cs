@@ -126,12 +126,10 @@ namespace UI.Game.GameLook.Components
                 return;
             }
 
-            _shown = true;
-            
             _parent.InfoPanel.Add(_tree);
-            
-            _next.clicked += OnNext;
-            _focus.clicked += OnFocus;
+            _shown = true;
+
+            BindPanelActions();
         }
 
         public void HideSelf()
@@ -142,14 +140,12 @@ namespace UI.Game.GameLook.Components
             }
             
             UnsubscribeFromUnit();
-            
-            _next.clicked -= OnNext;
-            _focus.clicked -= OnFocus;
-            
-            _parent.InfoPanel.Remove(_tree);
+            UnbindPanelActions();
 
+            _parent.InfoPanel.Remove(_tree);
             _shown = false;
         }
+        
 
         public void FillIn(ColonistFacade colonist)
         {
@@ -160,6 +156,18 @@ namespace UI.Game.GameLook.Components
         private void OnNext()
         {
            _colonistChoosing.NextColonistTo(_colonist);
+        }
+        
+        private void BindPanelActions()
+        {
+            _next.clicked += OnNext;
+            _focus.clicked += OnFocus;
+        }
+
+        private void UnbindPanelActions()
+        {
+            _next.clicked -= OnNext;
+            _focus.clicked -= OnFocus;
         }
 
         private void OnFocus()

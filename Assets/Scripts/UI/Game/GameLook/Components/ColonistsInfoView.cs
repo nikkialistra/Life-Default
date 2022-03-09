@@ -12,6 +12,8 @@ namespace UI.Game.GameLook.Components
         private TemplateContainer _tree;
         
         private Label _count;
+        
+        private bool _shown;
 
         private void Awake()
         {
@@ -25,15 +27,24 @@ namespace UI.Game.GameLook.Components
         
         public void ShowSelf()
         {
+            if (_shown)
+            {
+                return;
+            }
+
             _parent.InfoPanel.Add(_tree);
+            _shown = true;
         }
 
         public void HideSelf()
         {
-            if (_parent.InfoPanel.Contains(_tree))
+            if (!_shown)
             {
-                _parent.InfoPanel.Remove(_tree);
+                return;
             }
+            
+            _parent.InfoPanel.Remove(_tree);
+            _shown = false;
         }
 
         public void SetCount(int count)

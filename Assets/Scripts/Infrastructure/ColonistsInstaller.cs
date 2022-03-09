@@ -1,4 +1,5 @@
-﻿using ColonistManagement.OrderMarks;
+﻿using ColonistManagement.Movement;
+using ColonistManagement.OrderMarks;
 using ColonistManagement.Selection;
 using Colonists.Colonist;
 using Colonists.Services;
@@ -32,6 +33,12 @@ namespace Infrastructure
         [SerializeField] private GameObject _colonistPrefab;
         [Required]
         [SerializeField] private Transform _colonistsParent;
+        
+        [Title("Commands")]
+        [Required]
+        [SerializeField] private MovementCommand _movementCommand;
+        [Required]
+        [SerializeField] private MovementActionInput _movementActionInput;
 
         [Title("Services")]
         [Required]
@@ -39,13 +46,14 @@ namespace Infrastructure
 
         public override void InstallBindings()
         {
-            BindUnitSelectionSystem();
+            BindSelection();
             BindTargeting();
-            BindColonistServices();
-            BindUnitSpawning();
+            BindSpawning();
+            BindCommands();
+            BindServices();
         }
 
-        private void BindUnitSelectionSystem()
+        private void BindSelection()
         {
             Container.Bind<ColonistSelecting>().AsSingle();
             Container.Bind<SelectedColonists>().AsSingle();
@@ -61,16 +69,22 @@ namespace Infrastructure
             Container.BindInstance(_orderMarksParent).WhenInjectedInto<OrderMarkPool>();
         }
 
-        private void BindColonistServices()
-        {
-            Container.BindInstance(_colonistRepository);
-        }
-
-        private void BindUnitSpawning()
+        private void BindSpawning()
         {
             Container.BindFactory<Vector3, ColonistFacade, ColonistFacade.Factory>()
                 .FromComponentInNewPrefab(_colonistPrefab)
                 .UnderTransform(_colonistsParent);
+        }
+
+        private void BindCommands()
+        {
+            Container.BindInstance(_movementCommand);
+            Container.BindInstance(_movementActionInput);
+        }
+
+        private void BindServices()
+        {
+            Container.BindInstance(_colonistRepository);
         }
     }
 }

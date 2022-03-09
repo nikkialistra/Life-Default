@@ -1,0 +1,13 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Resources/UI/Styles/GameLook/Components/Commands.uss?fileID=7433441132597879392&amp;guid=009dc3fa060fa3f4180ad29c3cd03f8d&amp;type=3#Commands" />
+    <ui:VisualElement name="commands" class="commands">
+        <ui:VisualElement name="elements" class="elements">
+            <ui:VisualElement name="stop" class="command stop" />
+            <ui:VisualElement name="attack" class="command attack" />
+            <ui:VisualElement name="hold" class="command hold" />
+            <ui:VisualElement name="patrol" class="command patrol" />
+            <ui:VisualElement name="move" class="command move" />
+        </ui:VisualElement>
+        <ui:VisualElement name="dividers" picking-mode="Ignore" class="dividers" />
+    </ui:VisualElement>
+</ui:UXML>

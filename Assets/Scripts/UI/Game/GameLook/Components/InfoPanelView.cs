@@ -7,25 +7,30 @@ namespace UI.Game.GameLook.Components
 {
     [RequireComponent(typeof(ColonistInfoView))]
     [RequireComponent(typeof(ColonistsInfoView))]
+    [RequireComponent(typeof(CommandsView))]
     public class InfoPanelView : MonoBehaviour
     {
         private const string VisualTreePath = "UI/Markup/GameLook/Components/InfoPanel";
         
         private Button _close;
+        private VisualElement _outline;
 
         private ColonistInfoView _colonistInfoView;
         private ColonistsInfoView _colonistsInfoView;
+        private CommandsView _commandsView;
 
         private void Awake()
         {
             _colonistInfoView = GetComponent<ColonistInfoView>();
             _colonistsInfoView = GetComponent<ColonistsInfoView>();
+            _commandsView = GetComponent<CommandsView>();
 
             Tree = Resources.Load<VisualTreeAsset>(VisualTreePath).CloneTree();
 
             InfoPanel = Tree.Q<VisualElement>("info-panel");
 
             _close = Tree.Q<Button>("close");
+            _outline = Tree.Q<VisualElement>("outline");
         }
 
         public VisualElement Tree { get; private set; }
@@ -75,16 +80,33 @@ namespace UI.Game.GameLook.Components
 
         private void ShowColonistInfo(ColonistFacade colonist)
         {
-            _colonistsInfoView.HideSelf();
+            HidePanels();
+            
             _colonistInfoView.ShowSelf();
             _colonistInfoView.FillIn(colonist);
+            
+            _commandsView.ShowSelf();
+            
+            _outline.BringToFront();
         }
 
         private void ShowColonistsInfo(int count)
         {
-            _colonistInfoView.HideSelf();
+            HidePanels();
+            
             _colonistsInfoView.ShowSelf();
             _colonistsInfoView.SetCount(count);
+            
+            _commandsView.ShowSelf();
+            
+            _outline.BringToFront();
+        }
+
+        private void HidePanels()
+        {
+            _colonistInfoView.HideSelf();
+            _colonistsInfoView.HideSelf();
+            _commandsView.HideSelf();
         }
     }
 }

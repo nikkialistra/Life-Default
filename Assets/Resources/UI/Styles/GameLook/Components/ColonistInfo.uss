@@ -1,11 +1,12 @@
 .colonist-info {
     width: 260px;
-    height: 404px;
+    height: 362px;
     flex-direction: column;
 }
 
 .header {
     width: 260px;
+    min-height: 24px;
     height: 24px;
 }
 
@@ -51,8 +52,8 @@
 }
 
 .body {
-    width: 330px;
-    height: 444px;
+    width: 260px;
+    height: 336px;
 }
 
 .picture {
@@ -155,5 +156,5 @@
 }
 
 .status-bars .bar {
-    padding-bottom: 5px;
+    margin-bottom: 5px;
 }

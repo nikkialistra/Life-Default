@@ -1,0 +1,82 @@
+.commands {
+    width: 260px;
+    height: 42px;
+}
+
+.elements {
+    width: 260px;
+    height: 42px;
+    flex-direction: row;
+}
+
+.command {
+    width: 52px;
+    height: 42px;
+}
+
+.move {
+    background-image: resource('UI/Sprites/Info/Commands/Move/Default');
+}
+
+.move:hover {
+    background-image: resource('UI/Sprites/Info/Commands/Move/Hovered');
+}
+
+.move:active {
+    background-image: resource('UI/Sprites/Info/Commands/Move/Pressed');
+}
+
+.stop {
+    background-image: resource('UI/Sprites/Info/Commands/Stop/Default');
+}
+
+.stop:hover {
+    background-image: resource('UI/Sprites/Info/Commands/Stop/Hovered');
+}
+
+.stop:active {
+    background-image: resource('UI/Sprites/Info/Commands/Stop/Pressed');
+}
+
+.attack {
+    background-image: resource('UI/Sprites/Info/Commands/Attack/Default');
+}
+
+.attack:hover {
+    background-image: resource('UI/Sprites/Info/Commands/Attack/Hovered');
+}
+
+.attack:active {
+    background-image: resource('UI/Sprites/Info/Commands/Attack/Pressed');
+}
+
+.hold {
+    background-image: resource('UI/Sprites/Info/Commands/Hold/Default');
+}
+
+.hold:hover {
+    background-image: resource('UI/Sprites/Info/Commands/Hold/Hovered');
+}
+
+.hold:active {
+    background-image: resource('UI/Sprites/Info/Commands/Hold/Pressed');
+}
+
+.patrol {
+    background-image: resource('UI/Sprites/Info/Commands/Patrol/Default');
+}
+
+.patrol:hover {
+    background-image: resource('UI/Sprites/Info/Commands/Patrol/Hovered');
+}
+
+.patrol:active {
+    background-image: resource('UI/Sprites/Info/Commands/Patrol/Pressed');
+}
+
+.dividers {
+    width: 260px;
+    height: 42px;
+    position: absolute;
+    background-image: resource('UI/Sprites/Info/Commands/Dividers');
+}

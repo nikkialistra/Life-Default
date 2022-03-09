@@ -52,7 +52,7 @@
 
 .colonists-info {
     width: 260px;
-    height: 404px;
+    height: 362px;
 }
 
 .description {

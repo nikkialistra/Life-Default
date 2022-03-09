@@ -4,6 +4,6 @@
     <ui:VisualElement name="info-panel" picking-mode="Ignore" class="info-panel">
         <ui:VisualElement name="fill" picking-mode="Ignore" class="fill" />
         <ui:Button display-tooltip-when-elided="true" name="close" class="button close" />
-        <ui:VisualElement name="outline" picking-mode="Ignore" class="outline" />
+        <ui:VisualElement name="outline" class="outline" />
     </ui:VisualElement>
 </ui:UXML>

@@ -88,7 +88,7 @@ namespace Entities.Creature
             CheckTakeDamageValidity(value);
 
             _vitality -= value;
-            
+
             if (!IsAlive)
             {
                 StopTakingDamage();

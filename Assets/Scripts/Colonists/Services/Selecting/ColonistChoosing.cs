@@ -8,34 +8,16 @@ namespace Colonists.Services.Selecting
 {
     public class ColonistChoosing : MonoBehaviour
     {
-        private ColonistsInfoView _colonistsInfoView;
         private ColonistRepository _colonistRepository;
         private SelectedColonists _selectedColonists;
         
         private int _indexToTake;
 
         [Inject]
-        public void Construct(ColonistsInfoView colonistsInfoView, ColonistRepository colonistRepository,
-            SelectedColonists selectedColonists)
+        public void Construct(ColonistsInfoView colonistsInfoView, ColonistRepository colonistRepository, SelectedColonists selectedColonists)
         {
-            _colonistsInfoView = colonistsInfoView;
             _colonistRepository = colonistRepository;
             _selectedColonists = selectedColonists;
-        }
-
-        private void OnEnable()
-        {
-            _colonistsInfoView.SelectColonist += ChooseColonist;
-        }
-
-        private void OnDisable()
-        {
-            _colonistsInfoView.SelectColonist -= ChooseColonist;
-        }
-        
-        private void ChooseColonist(ColonistFacade colonist)
-        {
-            _selectedColonists.Set(colonist);
         }
 
         public void NextColonistTo(ColonistFacade colonist)

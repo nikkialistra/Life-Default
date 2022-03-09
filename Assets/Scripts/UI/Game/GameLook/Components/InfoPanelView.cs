@@ -49,7 +49,7 @@ namespace UI.Game.GameLook.Components
                     ShowColonistInfo(colonists[0]);
                     break;
                 default:
-                    ShowColonistsInfo(colonists);
+                    ShowColonistsInfo(colonists.Count);
                     break;
             }
         }
@@ -80,11 +80,11 @@ namespace UI.Game.GameLook.Components
             _colonistInfoView.FillIn(colonist);
         }
 
-        private void ShowColonistsInfo(List<ColonistFacade> colonists)
+        private void ShowColonistsInfo(int count)
         {
             _colonistInfoView.HideSelf();
             _colonistsInfoView.ShowSelf();
-            _colonistsInfoView.FillIn(colonists);
+            _colonistsInfoView.SetCount(count);
         }
     }
 }

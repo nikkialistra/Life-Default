@@ -11,7 +11,7 @@ namespace Entities.Creature
         [Required]
         [SerializeField] private HoverIndicator _hoverIndicator;
         [Required]
-        [SerializeField] private HealthBar _healthBar;
+        [SerializeField] private HealthBars _healthBars;
         [MinValue(0)]
         [SerializeField] private float _waitingTimeValue = 0.05f;
 
@@ -77,13 +77,13 @@ namespace Entities.Creature
         private void ShowHoverIndicator()
         {
             _hoverIndicator.Activate();
-            _healthBar.Selected = true;
+            _healthBars.Selected = true;
         }
 
         private void HideHoverIndicator()
         {
             _hoverIndicator.Deactivate();
-            _healthBar.Selected = false;
+            _healthBars.Selected = false;
         }
     }
 }

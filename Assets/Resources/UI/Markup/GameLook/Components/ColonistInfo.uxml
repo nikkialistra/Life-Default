@@ -11,13 +11,13 @@
             <ui:VisualElement name="body__top" class="body__top">
                 <ui:VisualElement name="picture" class="picture" />
                 <ui:VisualElement name="health-bars" class="bars">
-                    <ui:VisualElement name="health-bar" class="bar red">
-                        <ui:Label text="Health" display-tooltip-when-elided="true" name="health" class="bar__label bar__header " />
+                    <ui:VisualElement name="vitality-bar" class="bar red">
+                        <ui:Label text="Vitality" display-tooltip-when-elided="true" name="vitality" class="bar__label bar__header " />
                         <ui:VisualElement name="bar__body" class="bar__body">
-                            <ui:ProgressBar title=" " name="health-progress" high-value="1" class="bar__progress-bar" />
+                            <ui:ProgressBar title=" " name="vitality-progress" high-value="1" class="bar__progress-bar" />
                             <ui:VisualElement name="bar__state" class="bar__state">
-                                <ui:Label text="100%" display-tooltip-when-elided="true" name="health-value" class="bar__label" />
-                                <ui:VisualElement name="health-arrow" class="value__arrow" />
+                                <ui:Label text="100%" display-tooltip-when-elided="true" name="vitality-value" class="bar__label" />
+                                <ui:VisualElement name="vitality-arrow" class="value__arrow" />
                             </ui:VisualElement>
                         </ui:VisualElement>
                     </ui:VisualElement>
@@ -44,16 +44,6 @@
                         </ui:VisualElement>
                     </ui:VisualElement>
                 </ui:VisualElement>
-                <ui:VisualElement name="consciousness-bar" class="bar light-blue">
-                    <ui:Label text="Consciousness" display-tooltip-when-elided="true" name="consciousness" class="bar__label bar__header " />
-                    <ui:VisualElement name="bar__body" class="bar__body">
-                        <ui:ProgressBar title=" " name="consiousness-progress" high-value="1" class="bar__progress-bar" />
-                        <ui:VisualElement name="bar__state" class="bar__state">
-                            <ui:Label text="100%" display-tooltip-when-elided="true" name="consciousness-value" class="bar__label" />
-                            <ui:VisualElement name="consciousness-arrow" class="value__arrow" />
-                        </ui:VisualElement>
-                    </ui:VisualElement>
-                </ui:VisualElement>
                 <ui:VisualElement name="sleep-bar" class="bar light-blue">
                     <ui:Label text="Sleep" display-tooltip-when-elided="true" name="sleep" class="bar__label bar__header " />
                     <ui:VisualElement name="bar__body" class="bar__body">
@@ -71,6 +61,16 @@
                         <ui:VisualElement name="bar__state" class="bar__state">
                             <ui:Label text="100%" display-tooltip-when-elided="true" name="happiness-value" class="bar__label" />
                             <ui:VisualElement name="happiness-arrow" class="value__arrow" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:VisualElement name="consciousness-bar" class="bar light-blue">
+                    <ui:Label text="Consciousness" display-tooltip-when-elided="true" name="consciousness" class="bar__label bar__header " />
+                    <ui:VisualElement name="bar__body" class="bar__body">
+                        <ui:ProgressBar title=" " name="consiousness-progress" high-value="1" class="bar__progress-bar" />
+                        <ui:VisualElement name="bar__state" class="bar__state">
+                            <ui:Label text="100%" display-tooltip-when-elided="true" name="consciousness-value" class="bar__label" />
+                            <ui:VisualElement name="consciousness-arrow" class="value__arrow" />
                         </ui:VisualElement>
                     </ui:VisualElement>
                 </ui:VisualElement>

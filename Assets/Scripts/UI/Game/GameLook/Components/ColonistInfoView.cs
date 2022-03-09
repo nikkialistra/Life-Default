@@ -33,9 +33,9 @@ namespace UI.Game.GameLook.Components
 
         private VisualElement _picture;
 
-        private ProgressBar _healthProgress;
-        private Label _healthValue;
-        private VisualElement _healthArrow;
+        private ProgressBar _vitalityProgress;
+        private Label _vitalityValue;
+        private VisualElement _vitalityArrow;
         
         private ProgressBar _bloodProgress;
         private Label _bloodValue;
@@ -85,9 +85,9 @@ namespace UI.Game.GameLook.Components
 
             _picture = _tree.Q<VisualElement>("picture");
 
-            _healthProgress = _tree.Q<ProgressBar>("health-progress");
-            _healthValue = _tree.Q<Label>("health-value");
-            _healthArrow = _tree.Q<VisualElement>("health-arrow");
+            _vitalityProgress = _tree.Q<ProgressBar>("vitality-progress");
+            _vitalityValue = _tree.Q<Label>("vitality-value");
+            _vitalityArrow = _tree.Q<VisualElement>("vitality-arrow");
             
             _bloodProgress = _tree.Q<ProgressBar>("blood-progress");
             _bloodValue = _tree.Q<Label>("blood-value");
@@ -183,34 +183,41 @@ namespace UI.Game.GameLook.Components
             _colonist = colonist;
             SubscribeToUnit();
 
-            ChangeHealth();
+            UpdateHealth();
         }
 
         private void UnsubscribeFromUnit()
         {
             if (_colonist != null)
             {
-                _colonist.HealthChange -= ChangeHealth;
+                _colonist.HealthChange -= UpdateHealth;
                 _colonist.Die -= HidePanel;
             }
         }
 
         private void SubscribeToUnit()
         {
-            _colonist.HealthChange += ChangeHealth;
+            _colonist.HealthChange += UpdateHealth;
             _colonist.Die += HidePanel;
         }
 
-        private void ChangeHealth()
+        private void UpdateHealth()
         {
-            _healthProgress.value = _colonist.Health;
-            _healthValue.text = $"{_colonist.Health * 100}%";
+            UpdateVitality();
+            UpdateBlood();
         }
 
-        private void ChangeBlood()
+
+        private void UpdateVitality()
         {
-            // _healthProgress.value = _colonist.Blood;
-            // _healthValue.text = $"{_colonist.Blood * 100}%";
+            _vitalityProgress.value = _colonist.Health.Vitality;
+            _vitalityValue.text = $"{(int)_colonist.Health.Vitality * 100}%";
+        }
+
+        private void UpdateBlood()
+        {
+            _bloodProgress.value = _colonist.Health.Blood;
+            _bloodValue.text = $"{(int)_colonist.Health.Blood * 100}%";
         }
     }
 }

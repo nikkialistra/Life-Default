@@ -2,8 +2,8 @@
 {
     public interface IDamageable
     {
-        void TakeDamage(int value);
-        void TakeDamageContinuously(int value, float interval, float time);
+        void TakeDamage(float value);
+        void TakeDamageContinuously(float value, float interval, float time);
         void StopTakingDamage();
     }
 }

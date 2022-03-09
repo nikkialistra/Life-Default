@@ -2280,7 +2280,7 @@ MonoBehaviour:
   _destinationPoint: {fileID: 2346717340988269411}
   _targetIndicator: {fileID: 1552918263597400682}
   _entityType: 1
-  _unit: {fileID: 0}
+  _colonist: {fileID: 0}
   _enemy: {fileID: 1694927052233020396}
   _building: {fileID: 0}
   _resource: {fileID: 0}
@@ -2296,8 +2296,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 582025014378409e8a9e7bb956e95378, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxHealth: 100
-  _startHealth: 100
+  _startVitality: 1
+  _startBlood: 1
 --- !u!114 &1694927052233020396
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2310,7 +2310,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: adf04c0e1fa74f64bd1708f8571414bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _healthBar: {fileID: 1935489896466272434}
+  _healthBars: {fileID: 1935489896466272434}
   _enemyAnimator: {fileID: 8649587662547813455}
   _enemyType: 0
 --- !u!114 &2084052397746752856
@@ -2709,7 +2709,7 @@ PrefabInstance:
     - target: {fileID: 6241910357395849225, guid: 913322246f662fd4dbbe41ec891db6fa,
         type: 3}
       propertyPath: m_Name
-      value: Health Bar
+      value: Health Bars
       objectReference: {fileID: 0}
     - target: {fileID: 6241910357395849225, guid: 913322246f662fd4dbbe41ec891db6fa,
         type: 3}
@@ -2738,12 +2738,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 913322246f662fd4dbbe41ec891db6fa, type: 3}
---- !u!224 &2739363764289895897 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 6241910357395849221, guid: 913322246f662fd4dbbe41ec891db6fa,
-    type: 3}
-  m_PrefabInstance: {fileID: 8114242647297244636}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1935489896466272434 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7658276042284526958, guid: 913322246f662fd4dbbe41ec891db6fa,
@@ -2756,3 +2750,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 097ac27b1d4041c9801158a11a534c58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!224 &2739363764289895897 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 6241910357395849221, guid: 913322246f662fd4dbbe41ec891db6fa,
+    type: 3}
+  m_PrefabInstance: {fileID: 8114242647297244636}
+  m_PrefabAsset: {fileID: 0}

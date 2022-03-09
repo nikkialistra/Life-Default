@@ -4,7 +4,7 @@ using Zenject;
 
 namespace Entities.Ancillaries
 {
-    public class HealthBar : MonoBehaviour
+    public class HealthBars : MonoBehaviour
     {
         [SerializeField] private Slider _slider;
 

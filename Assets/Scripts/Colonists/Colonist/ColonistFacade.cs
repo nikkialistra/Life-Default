@@ -15,7 +15,7 @@ namespace Colonists.Colonist
     public class ColonistFacade : MonoBehaviour
     {
         [Required]
-        [SerializeField] private HealthBar _healthBar;
+        [SerializeField] private HealthBars _healthBars;
         [Required]
         [SerializeField] private ColonistAnimator _colonistAnimator;
 
@@ -34,11 +34,11 @@ namespace Colonists.Colonist
         [Title("Properties")]
         [SerializeField] private string _name;
         
+        [Required]
         [SerializeField] private ColonistIndicators _indicators;
         
         private bool _died;
 
-        private EntityHealth _health;
         private EntityHovering _entityHovering;
         private ColonistMeshAgent _colonistMeshAgent;
         private ColonistBehavior _colonistBehavior;
@@ -51,7 +51,7 @@ namespace Colonists.Colonist
 
         private void Awake()
         {
-            _health = GetComponent<EntityHealth>();
+            Health = GetComponent<EntityHealth>();
             _entityHovering = GetComponent<EntityHovering>();
             _colonistMeshAgent = GetComponent<ColonistMeshAgent>();
             _colonistBehavior = GetComponent<ColonistBehavior>();
@@ -68,8 +68,8 @@ namespace Colonists.Colonist
         
         public ColonistIndicators Indicators => _indicators;
 
-        public float Health => _health.Health;
-        
+        public EntityHealth Health { get; private set; }
+
         public bool Alive => !_died;
 
         public Vector3 Center => _center.position;
@@ -84,29 +84,29 @@ namespace Colonists.Colonist
 
         private void OnEnable()
         {
-            _health.HealthChange += OnHealthChange;
-            _health.Die += Dying;
+            Health.HealthChange += OnHealthChange;
+            Health.Die += Dying;
 
             _colonistMeshAgent.DestinationReach += OnDestinationReach;
         }
 
         private void OnDisable()
         {
-            _health.HealthChange -= OnHealthChange;
-            _health.Die -= Dying;
+            Health.HealthChange -= OnHealthChange;
+            Health.Die -= Dying;
 
             _colonistMeshAgent.DestinationReach -= OnDestinationReach;
         }
 
         [Button(ButtonSizes.Large)]
-        public void TakeDamage(int value)
+        public void TakeDamage(float value)
         {
             if (_died)
             {
                 return;
             }
 
-            _health.TakeDamage(value);
+            Health.TakeDamage(value);
         }
 
         public void Select()
@@ -119,7 +119,7 @@ namespace Colonists.Colonist
             _entityHovering.Select();
 
             _selectionIndicator.SetActive(true);
-            _healthBar.Selected = true;
+            _healthBars.Selected = true;
         }
 
         public void Deselect()
@@ -127,7 +127,7 @@ namespace Colonists.Colonist
             _entityHovering.Deselect();
 
             _selectionIndicator.SetActive(false);
-            _healthBar.Selected = false;
+            _healthBars.Selected = false;
         }
 
         public void Stop()
@@ -192,9 +192,9 @@ namespace Colonists.Colonist
                 _name = ColonistNameGenerator.GetRandomName();
             }
 
-            _health.Initialize();
+            Health.Initialize();
             
-            _healthBar.SetHealth(_health.Health);
+            _healthBars.SetHealth(Health.Vitality);
         }
 
         private void ActivateComponents()
@@ -216,7 +216,7 @@ namespace Colonists.Colonist
 
         private void OnHealthChange(float value)
         {
-            _healthBar.SetHealth(value);
+            _healthBars.SetHealth(value);
             HealthChange?.Invoke();
         }
 

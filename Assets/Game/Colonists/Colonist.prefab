@@ -2692,7 +2692,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dce9e4411e0542efb57ffb09778333e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _healthBar: {fileID: 1935489896466272434}
+  _healthBars: {fileID: 1935489896466272434}
   _colonistAnimator: {fileID: 6719723555887211134}
   _enemyFieldOfView: {fileID: 6786474178297105745}
   _resourceFieldOfView: {fileID: 3861131080668585495}
@@ -2738,7 +2738,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 582025014378409e8a9e7bb956e95378, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _startHealth: 1
+  _startVitality: 1
+  _startBlood: 1
 --- !u!114 &2308330324105463307
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2790,7 +2791,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _hoverIndicator: {fileID: 152656352870599827}
-  _healthBar: {fileID: 1935489896466272434}
+  _healthBars: {fileID: 1935489896466272434}
   _waitingTimeValue: 0.05
 --- !u!114 &7183938458047524081
 MonoBehaviour:
@@ -3394,7 +3395,7 @@ PrefabInstance:
     - target: {fileID: 6241910357395849225, guid: 913322246f662fd4dbbe41ec891db6fa,
         type: 3}
       propertyPath: m_Name
-      value: Health Bar
+      value: Health Bars
       objectReference: {fileID: 0}
     - target: {fileID: 6241910357395849225, guid: 913322246f662fd4dbbe41ec891db6fa,
         type: 3}

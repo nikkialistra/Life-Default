@@ -14,7 +14,7 @@ namespace Enemies.Enemy
     public class EnemyFacade : MonoBehaviour
     {
         [Required]
-        [SerializeField] private HealthBar _healthBar;
+        [SerializeField] private HealthBars _healthBars;
         [Space]
         [Required]
         [SerializeField] private EnemyAnimator _enemyAnimator;
@@ -92,7 +92,7 @@ namespace Enemies.Enemy
 
             _health.Initialize();
             
-            _healthBar.SetHealth(_health.Health);
+            _healthBars.SetHealth(_health.Vitality);
         }
 
         private void InitializeComponents()
@@ -107,7 +107,7 @@ namespace Enemies.Enemy
 
         private void OnHealthChange(float value)
         {
-            _healthBar.SetHealth(value);
+            _healthBars.SetHealth(value);
         }
 
         public class Factory : PlaceholderFactory<EnemyType, Vector3, EnemyFacade> { }

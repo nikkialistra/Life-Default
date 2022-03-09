@@ -9,30 +9,47 @@ namespace Entities.Creature
     public class EntityHealth : MonoBehaviour, IDamageable
     {
         [ProgressBar(0, 1, r: 0.929f, g: 0.145f, b: 0.145f, Height = 20)]
-        [SerializeField] private float _startHealth = 1;
+        [SerializeField] private float _startVitality = 1;
+        [ProgressBar(0, 1, r: 0.929f, g: 0.145f, b: 0.145f, Height = 20)]
+        [SerializeField] private float _startBlood = 1;
 
-        private float _health;
+        private float _vitality;
+        private float _blood;
 
         private Coroutine _takingDamage;
 
         public event Action Die;
         public event Action<float> HealthChange;
 
-        public float Health
+        public float Vitality
         {
-            get => _health;
+            get => _vitality;
             set
             {
                 if (value <= 0)
                 {
-                    throw new ArgumentOutOfRangeException(nameof(Health));
+                    throw new ArgumentOutOfRangeException(nameof(Vitality));
                 }
 
-                _health = value;
+                _vitality = value;
             }
         }
         
-        private bool IsAlive => _health > 0;
+        public float Blood
+        {
+            get => _blood;
+            set
+            {
+                if (value <= 0)
+                {
+                    throw new ArgumentOutOfRangeException(nameof(Blood));
+                }
+
+                _blood = value;
+            }
+        }
+        
+        private bool IsAlive => _vitality > 0 && _blood > 0;
 
         private void OnTriggerEnter(Collider other)
         {
@@ -52,7 +69,8 @@ namespace Entities.Creature
 
         public void Initialize()
         {
-            _health = _startHealth;
+            _vitality = _startVitality;
+            _blood = _startBlood;
         }
 
         public void TakeHealing(float value)
@@ -62,25 +80,25 @@ namespace Entities.Creature
                 throw new InvalidOperationException("Healing cannot be applied to the died entity");
             }
 
-            _health = Math.Min(_health + value, 1f);
+            _vitality = Math.Min(_vitality + value, 1f);
         }
 
-        public void TakeDamage(int value)
+        public void TakeDamage(float value)
         {
             CheckTakeDamageValidity(value);
 
-            _health -= value;
-
+            _vitality -= value;
+            
             if (!IsAlive)
             {
                 StopTakingDamage();
                 Die?.Invoke();
             }
 
-            HealthChange?.Invoke(_health);
+            HealthChange?.Invoke(_vitality);
         }
 
-        public void TakeDamageContinuously(int value, float interval, float time = float.PositiveInfinity)
+        public void TakeDamageContinuously(float value, float interval, float time = float.PositiveInfinity)
         {
             if (_takingDamage != null)
             {
@@ -98,7 +116,7 @@ namespace Entities.Creature
             }
         }
 
-        private IEnumerator TakingDamage(int value, float interval, float time)
+        private IEnumerator TakingDamage(float value, float interval, float time)
         {
             yield return null;
 
@@ -112,7 +130,7 @@ namespace Entities.Creature
             }
         }
 
-        private void CheckTakeDamageValidity(int value)
+        private void CheckTakeDamageValidity(float value)
         {
             if (value <= 0)
             {

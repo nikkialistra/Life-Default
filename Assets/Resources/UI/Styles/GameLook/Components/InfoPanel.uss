@@ -1,6 +1,6 @@
 .info-panel {
-    width: 330px;
-    height: 532px;
+    width: 260px;
+    height: 404px;
     flex-direction: row;
     margin: 0;
     padding: 0;
@@ -12,14 +12,14 @@
 
 .outline {
     background-image: resource('UI/Sprites/Panels/Info/Outline');
-    width: 330px;
-    height: 532px;
+    width: 260px;
+    height: 404px;
     position: absolute;
 }
 
 .fill {
-    width: 330px;
-    height: 532px;
+    width: 260px;
+    height: 404px;
     background-image: resource('UI/Sprites/Panels/Info/Fill');
     position: absolute;
 }

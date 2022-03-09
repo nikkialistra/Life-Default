@@ -1,22 +1,22 @@
 .colonist-info {
-    width: 330px;
-    height: 532px;
+    width: 260px;
+    height: 404px;
     flex-direction: column;
 }
 
 .header {
-    width: 330px;
-    height: 32px;
+    width: 260px;
+    height: 24px;
 }
 
 .header_text {
-    font-size: 21px;
+    font-size: 17px;
     color: rgb(255, 255, 255);
     -unity-font: resource('Fonts/Ubuntu/Ubuntu-Bold');
     -unity-text-align: middle-left;
     margin: 0;
     padding: 0;
-    height: 32px;
+    height: 24px;
     width: 100px;
     margin-left: 12px;
     -unity-font-style: bold;
@@ -24,7 +24,7 @@
 
 .next {
     position: absolute;
-    right: 70px;
+    right: 56px;
     background-image: resource('UI/Sprites/Info/PanelActions/Next/Default');
 }
 
@@ -38,7 +38,7 @@
 
 .focus {
     position: absolute;
-    right: 35px;
+    right: 28px;
     background-image: resource('UI/Sprites/Info/PanelActions/Focus/Default');
 }
 
@@ -56,8 +56,8 @@
 }
 
 .picture {
-    width: 100px;
-    height: 100px;
+    width: 80px;
+    height: 80px;
     background-color: rgb(196, 196, 196);
     border-width: 3px;
     border-color: rgb(0, 0, 0);
@@ -66,41 +66,43 @@
 
 .body__top {
     flex-direction: row;
-    width: 312px;
-    height: 100px;
-    margin-left: 12px;
-    margin-top: 12px;
+    width: 240px;
+    height: 80px;
+    margin-left: 10px;
+    margin-top: 10px;
     justify-content: space-between;
 }
 
 .bars {
-    width: 202px;
+    width: 152px;
 }
 
 .bar {
-    width: 202px;
-    height: 50px;
+    width: 152px;
+    height: 40px;
 }
 
 .bar__label {
     margin: 0;
     padding: 0;
     -unity-font: resource('Fonts/Ubuntu/Ubuntu-Bold');
-    font-size: 16px;
+    font-size: 12px;
     color: rgb(255, 255, 255);
-    -unity-text-align: middle-left;
     -unity-font-style: bold;
     max-width: 43px;
     letter-spacing: -4px;
+    height: 20px;
 }
 
 .bar__header {
     margin-left: 4px;
+    height: 17px;
+    -unity-text-align: upper-left;
 }
 
 .bar__body {
-    height: 24px;
-    margin-top: 3px;
+    height: 20px;
+    margin-top: 0;
     margin-bottom: 3px;
     flex-direction: row;
     align-items: center;
@@ -108,8 +110,8 @@
 
 .bar__progress-bar {
     margin: 0;
-    width: 128px;
-    height: 24px;
+    width: 96px;
+    height: 20px;
 }
 
 .bar .unity-progress-bar__background {
@@ -117,6 +119,11 @@
     border-color: black;
     border-width: 3px;
     border-radius: 3px;
+}
+
+.bar .unity-progress-bar__container {
+    min-height: 20px;
+    max-height: 20px;
 }
 
 .bar.red .unity-progress-bar__progress {
@@ -131,18 +138,22 @@
 
 .bar__state {
     width: 71px;
-    height: 24px;
-    margin-left: 8px;
+    height: 20px;
+    margin-left: 6px;
     flex-direction: row;
 }
 
 .value__arrow {
     width: 14px;
-    height: 24px;
+    height: 20px;
     margin-left: 4px;
 }
 
 .status-bars {
     margin-left: 24px;
-    margin-top: 20px;
+    margin-top: 10px;
+}
+
+.status-bars .bar {
+    padding-bottom: 5px;
 }

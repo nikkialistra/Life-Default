@@ -2,7 +2,7 @@
 {
     public interface IHittable
     {
-        int Damage { get; }
+        float Damage { get; }
         float Interval { get; }
     }
 }

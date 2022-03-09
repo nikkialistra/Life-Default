@@ -37,7 +37,7 @@
                 <ui:VisualElement name="satiety-bar" class="bar light-blue">
                     <ui:Label text="Satiety" display-tooltip-when-elided="true" name="satiety" class="bar__label bar__header " />
                     <ui:VisualElement name="bar__body" class="bar__body">
-                        <ui:ProgressBar title=" " name="satiety-progress" high-value="1" class="bar__progress-bar" />
+                        <ui:ProgressBar title=" " name="satiety-progress" high-value="100" class="bar__progress-bar" />
                         <ui:VisualElement name="bar__state" class="bar__state">
                             <ui:Label text="100%" display-tooltip-when-elided="true" name="satiety-value" class="bar__label" />
                             <ui:VisualElement name="satiety-arrow" class="value__arrow" />
@@ -47,7 +47,7 @@
                 <ui:VisualElement name="sleep-bar" class="bar light-blue">
                     <ui:Label text="Sleep" display-tooltip-when-elided="true" name="sleep" class="bar__label bar__header " />
                     <ui:VisualElement name="bar__body" class="bar__body">
-                        <ui:ProgressBar title=" " name="sleep-progress" high-value="1" class="bar__progress-bar" />
+                        <ui:ProgressBar title=" " name="sleep-progress" high-value="100" class="bar__progress-bar" />
                         <ui:VisualElement name="bar__state" class="bar__state">
                             <ui:Label text="100%" display-tooltip-when-elided="true" name="sleep-value" class="bar__label" />
                             <ui:VisualElement name="sleep-arrow" class="value__arrow" />
@@ -57,7 +57,7 @@
                 <ui:VisualElement name="happiness-bar" class="bar light-blue">
                     <ui:Label text="Happiness" display-tooltip-when-elided="true" name="happiness" class="bar__label bar__header " />
                     <ui:VisualElement name="bar__body" class="bar__body">
-                        <ui:ProgressBar title=" " name="happiness-progress" high-value="1" class="bar__progress-bar" />
+                        <ui:ProgressBar title=" " name="happiness-progress" high-value="100" class="bar__progress-bar" />
                         <ui:VisualElement name="bar__state" class="bar__state">
                             <ui:Label text="100%" display-tooltip-when-elided="true" name="happiness-value" class="bar__label" />
                             <ui:VisualElement name="happiness-arrow" class="value__arrow" />
@@ -67,7 +67,7 @@
                 <ui:VisualElement name="consciousness-bar" class="bar light-blue">
                     <ui:Label text="Consciousness" display-tooltip-when-elided="true" name="consciousness" class="bar__label bar__header " />
                     <ui:VisualElement name="bar__body" class="bar__body">
-                        <ui:ProgressBar title=" " name="consiousness-progress" high-value="1" class="bar__progress-bar" />
+                        <ui:ProgressBar title=" " name="consciousness-progress" high-value="100" class="bar__progress-bar" />
                         <ui:VisualElement name="bar__state" class="bar__state">
                             <ui:Label text="100%" display-tooltip-when-elided="true" name="consciousness-value" class="bar__label" />
                             <ui:VisualElement name="consciousness-arrow" class="value__arrow" />
@@ -77,7 +77,7 @@
                 <ui:VisualElement name="entertainment-bar" class="bar light-blue">
                     <ui:Label text="Entertainment" display-tooltip-when-elided="true" name="entertainment" class="bar__label bar__header " />
                     <ui:VisualElement name="bar__body" class="bar__body">
-                        <ui:ProgressBar title=" " name="entertainment-progress" high-value="1" class="bar__progress-bar" />
+                        <ui:ProgressBar title=" " name="entertainment-progress" high-value="100" class="bar__progress-bar" />
                         <ui:VisualElement name="bar__state" class="bar__state">
                             <ui:Label text="100%" display-tooltip-when-elided="true" name="entertainment-value" class="bar__label" />
                             <ui:VisualElement name="entertainment-arrow" class="value__arrow" />

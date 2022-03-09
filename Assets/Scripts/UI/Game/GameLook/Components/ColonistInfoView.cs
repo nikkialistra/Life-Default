@@ -97,10 +97,6 @@ namespace UI.Game.GameLook.Components
             _satietyValue = _tree.Q<Label>("satiety-value");
             _satietyArrow = _tree.Q<VisualElement>("satiety-arrow");
             
-            _consciousnessProgress = _tree.Q<ProgressBar>("consciousness-progress");
-            _consciousnessValue = _tree.Q<Label>("consciousness-value");
-            _consciousnessArrow = _tree.Q<VisualElement>("consciousness-arrow");
-            
             _sleepProgress = _tree.Q<ProgressBar>("sleep-progress");
             _sleepValue = _tree.Q<Label>("sleep-value");
             _sleepArrow = _tree.Q<VisualElement>("sleep-arrow");
@@ -109,6 +105,10 @@ namespace UI.Game.GameLook.Components
             _happinessValue = _tree.Q<Label>("happiness-value");
             _happinessArrow = _tree.Q<VisualElement>("happiness-arrow");
             
+            _consciousnessProgress = _tree.Q<ProgressBar>("consciousness-progress");
+            _consciousnessValue = _tree.Q<Label>("consciousness-value");
+            _consciousnessArrow = _tree.Q<VisualElement>("consciousness-arrow");
+
             _entertainmentProgress = _tree.Q<ProgressBar>("entertainment-progress");
             _entertainmentValue = _tree.Q<Label>("entertainment-value");
             _entertainmentArrow = _tree.Q<VisualElement>("entertainment-arrow");
@@ -192,6 +192,7 @@ namespace UI.Game.GameLook.Components
             SubscribeToUnit();
 
             UpdateHealth();
+            UpdateIndicators();
         }
 
         private void UnsubscribeFromUnit()
@@ -215,6 +216,14 @@ namespace UI.Game.GameLook.Components
             UpdateBlood();
         }
 
+        private void UpdateIndicators()
+        {
+            UpdateSatiety();
+            UpdateSleep();
+            UpdateHappiness();
+            UpdateConsciousness();
+            UpdateEntertainment();
+        }
 
         private void UpdateVitality()
         {
@@ -226,6 +235,36 @@ namespace UI.Game.GameLook.Components
         {
             _bloodProgress.value = _colonist.Health.Blood;
             _bloodValue.text = $"{_colonist.Health.BloodPercent}%";
+        }
+
+        private void UpdateSatiety()
+        {
+            _satietyProgress.value = _colonist.Indicators.Satiety;
+            _satietyValue.text = $"{_colonist.Indicators.Satiety}%";
+        }
+
+        private void UpdateSleep()
+        {
+            _sleepProgress.value = _colonist.Indicators.Sleep;
+            _sleepValue.text = $"{_colonist.Indicators.Sleep}%";
+        }
+
+        private void UpdateHappiness()
+        {
+            _happinessProgress.value = _colonist.Indicators.Happiness;
+            _happinessValue.text = $"{_colonist.Indicators.Happiness}%";
+        }
+
+        private void UpdateConsciousness()
+        {
+            _consciousnessProgress.value = _colonist.Indicators.Consciousness;
+            _consciousnessValue.text = $"{_colonist.Indicators.Consciousness}%";
+        }
+
+        private void UpdateEntertainment()
+        {
+            _entertainmentProgress.value = _colonist.Indicators.Entertainment;
+            _entertainmentValue.text = $"{_colonist.Indicators.Entertainment}%";
         }
     }
 }

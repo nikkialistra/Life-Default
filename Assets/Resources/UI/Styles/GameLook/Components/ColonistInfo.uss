@@ -74,6 +74,7 @@
     max-width: 43px;
     letter-spacing: -4px;
     height: 20px;
+    -unity-text-align: middle-left;
 }
 
 .bar__header {

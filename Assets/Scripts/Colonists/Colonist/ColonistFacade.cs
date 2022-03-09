@@ -53,7 +53,7 @@ namespace Colonists.Colonist
         private void Awake()
         {
             Health = GetComponent<EntityHealth>();
-            ColonistIndicators = GetComponent<ColonistIndicators>();
+            Indicators = GetComponent<ColonistIndicators>();
             _entityHovering = GetComponent<EntityHovering>();
             _colonistMeshAgent = GetComponent<ColonistMeshAgent>();
             _colonistBehavior = GetComponent<ColonistBehavior>();
@@ -69,7 +69,7 @@ namespace Colonists.Colonist
         public string Name => _name;
         
         public EntityHealth Health { get; private set; }
-        public ColonistIndicators ColonistIndicators { get; private set; }
+        public ColonistIndicators Indicators { get; private set; }
 
         public bool Alive => !_died;
 

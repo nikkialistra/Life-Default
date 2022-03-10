@@ -34,10 +34,8 @@ namespace Game
             }
             else
             {
-                AstarPath.active.Scan();
+                yield return _astarPath.ScanAsync();
             }
-            
-            yield return new WaitForSeconds(.3f);
             
             Load?.Invoke();
         }

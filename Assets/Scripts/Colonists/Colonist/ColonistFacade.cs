@@ -179,7 +179,6 @@ namespace Colonists.Colonist
 
         private void DeactivateComponents()
         {
-            _entityHovering.Deactivate();
             _colonistMeshAgent.Deactivate();
             _colonistBehavior.Deactivate();
         }

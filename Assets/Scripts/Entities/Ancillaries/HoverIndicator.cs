@@ -10,12 +10,22 @@ namespace Entities.Ancillaries
 
         public void Activate()
         {
+            if (_activated)
+            {
+                return;
+            }
+            
             _activated = true;
             gameObject.SetActive(true);
         }
 
         public void Deactivate()
         {
+            if (!_activated)
+            {
+                return;
+            }
+            
             _activated = false;
             gameObject.SetActive(false);
         }

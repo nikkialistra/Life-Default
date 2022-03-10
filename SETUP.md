@@ -1,8 +1,8 @@
-﻿For importing project there are 3 folders with used assets, which is in folder Plugins, Graphics and Procedural Worlds which should be moved to the project directory 
+﻿For importing project there are 3 folders with used assets, which is in folders "Plugins", "Graphics" and "Procedural Worlds" which should be moved to the project directory.
 
-*Modifications to restore on assets updates:*
+**Modifications to restore on assets updates:**
 
-Create asmdef ProceduralWorlds in Procedural Worlds directory for separating gaia and gena plugins from main game code.
+Create asmdef ProceduralWorlds in "Procedural Worlds" directory for separating Gaia and GeNa plugins from main game code.
 
 Modify SRDebugger StandardConsoleService method to this for flashing on all log types:
     

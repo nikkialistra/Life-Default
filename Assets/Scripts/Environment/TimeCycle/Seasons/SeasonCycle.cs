@@ -64,7 +64,7 @@ namespace Environment.TimeCycle.Seasons
 
         private void UpdateView()
         {
-            _timeWeatherView.ChangeSeasonInfo(_season, _day, _year);
+            _timeWeatherView.UpdateDate(_day, _season, _year);
         }
     }
 }

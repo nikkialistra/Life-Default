@@ -13,6 +13,7 @@ namespace Environment.TimeCycle.Days
         [SerializeField] private int _hours = 23;
         
         private int _ticks;
+        private int _minutes;
         
         private SeasonCycle _seasonCycle;
         private TimeWeatherView _timeWeatherView;
@@ -39,10 +40,26 @@ namespace Environment.TimeCycle.Days
         {
             _ticks++;
 
+            UpdateMinutes();
+
             if (_ticks == 25)
             {
                 _ticks = 0;
                 UpdateHours();
+            }
+            
+            UpdateView();
+        }
+
+        private void UpdateMinutes()
+        {
+            _minutes = Mathf.RoundToInt((float)_ticks / 25 * 60);
+
+            _minutes -= _minutes % 10;
+            
+            if (_minutes == 60)
+            {
+                _minutes = 0;
             }
         }
 
@@ -63,13 +80,11 @@ namespace Environment.TimeCycle.Days
             }
             
             HourChange?.Invoke(_hours);
-
-            UpdateView();
         }
 
         private void UpdateView()
         {
-            _timeWeatherView.UpdateHours(_hours);
+            _timeWeatherView.UpdateTime(_hours, _minutes);
         }
     }
 }

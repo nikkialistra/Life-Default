@@ -24,8 +24,6 @@ namespace Infrastructure
         [Required]
         [SerializeField] private TimeWeatherView _timeWeatherView;
         [Required]
-        [SerializeField] private MenuPanelView _menuPanelView;
-        [Required]
         [SerializeField] private ResourcesView _resourcesView;
 
         [Title("Info Panels")]
@@ -56,7 +54,6 @@ namespace Infrastructure
         {
             Container.BindInstance(_timeTogglingView);
             Container.BindInstance(_timeWeatherView);
-            Container.BindInstance(_menuPanelView);
             Container.BindInstance(_resourcesView);
         }
 

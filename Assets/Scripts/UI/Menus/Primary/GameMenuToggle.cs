@@ -17,8 +17,6 @@ namespace UI.Menus.Primary
 
         private GameMenuView _gameMenuView;
 
-        private MenuPanelView _menuPanelView;
-
         private TimeToggling _timeToggling;
         private CameraMovement _cameraMovement;
         private GameSettings _gameSettings;
@@ -28,13 +26,12 @@ namespace UI.Menus.Primary
         private InputAction _toggleMenuAction;
 
         [Inject]
-        public void Construct(TimeToggling timeToggling, CameraMovement cameraMovement, MenuPanelView menuPanelView,
+        public void Construct(TimeToggling timeToggling, CameraMovement cameraMovement,
             GameSettings gameSettings,
             PlayerInput playerInput)
         {
             _timeToggling = timeToggling;
             _cameraMovement = cameraMovement;
-            _menuPanelView = menuPanelView;
             _gameSettings = gameSettings;
             _playerInput = playerInput;
         }
@@ -64,8 +61,6 @@ namespace UI.Menus.Primary
             _gameMenuView.Resume += DoResume;
 
             _toggleMenuAction.started += ToggleMenu;
-
-            _menuPanelView.Click += ShowGameMenu;
         }
 
         private void OnDisable()
@@ -74,8 +69,6 @@ namespace UI.Menus.Primary
             _gameMenuView.Resume -= DoResume;
 
             _toggleMenuAction.started -= ToggleMenu;
-
-            _menuPanelView.Click -= ShowGameMenu;
         }
 
         private void DoPause()

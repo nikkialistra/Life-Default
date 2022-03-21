@@ -1,5 +1,6 @@
 ﻿using Environment.TimeCycle.Seasons;
 using Environment.WeatherRegulation;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -9,72 +10,77 @@ namespace UI.Game.GameLook.Components
     {
         private const string VisualTreePath = "UI/Markup/GameLook/Components/TimeWeather";
         
-        private Label _yearAndLight;
-        private Label _seasonDay;
-        private Label _hours;
-        private Label _temperature;
-        private Label _weather;
+        [Title("Time Status")]
+        [SerializeField] private Sprite _iconDay;
+        [SerializeField] private Sprite _iconNight;
         
-        private Season _season;
-        private int _day;
+        [Title("Weather Icons")]
+        [SerializeField] private Sprite _iconClear;
 
-        private int _year;
-        private int _light;
+        private Label _day;
+        private Label _seasonYear;
+
+        private VisualElement _timeStatus;
+        private Label _temperature;
+
+        private VisualElement _weatherIcon;
+        private Label _light;
+        private Label _weather;
+
+        private Label _time;
 
         private void Awake()
         {
             Tree = Resources.Load<VisualTreeAsset>(VisualTreePath).CloneTree();
 
-            _yearAndLight = Tree.Q<Label>("year-and-light");
-            _seasonDay = Tree.Q<Label>("season-day");
+            _day = Tree.Q<Label>("day");
+            _seasonYear = Tree.Q<Label>("season-year");
+            
+            _timeStatus = Tree.Q<VisualElement>("time-status");
+            _temperature = Tree.Q<Label>("temperature");
 
-            _hours = Tree.Q<Label>("hours");
-
-            _temperature = Tree.Q<Label>("local-temperature");
+            _weatherIcon = Tree.Q<Label>("weather-icon");
+            _light = Tree.Q<Label>("light");
             _weather = Tree.Q<Label>("weather");
+
+            _time = Tree.Q<Label>("time");
         }
         
         public VisualElement Tree { get; private set; }
 
-        public void ChangeSeasonInfo(Season season, int day, int year)
+        public void UpdateDate(int day, Season season, int year)
         {
-            _season = season;
-            _day = day;
-            UpdateSeasonDay();
-            
-            _year = year;
-            UpdateYearAndLight();
-        }
-
-        public void UpdateHours(int hours)
-        {
-            _hours.text = $"{hours} h";
+            _day.text = $"Day {day} of";
+            _seasonYear.text = $"{season}, {year}";
         }
 
         public void UpdateTemperature(int temperature)
         {
-            _temperature.text = $"{temperature} °C Outside";
-        }
-
-        public void UpdateLight(int light)
-        {
-            _light = light;
-            UpdateYearAndLight();
+            _temperature.text = $"{temperature} °C";
         }
 
         public void UpdateWeather(Weather weather)
         {
             _weather.text = weather.GetString();
+
+            _weatherIcon.style.backgroundImage = weather switch
+            {
+                Weather.Clear => new StyleBackground(_iconClear),
+                _ => new StyleBackground(_iconClear)
+            };
         }
 
-        private void UpdateSeasonDay()
+        public void UpdateLight(int light)
         {
-            _seasonDay.text = $"{_season}, day {_day}";
+            _light.text = $"{light}% Lit,";
         }
 
-        private void UpdateYearAndLight()
+        public void UpdateTime(int hours, int minutes)
         {
-            _yearAndLight.text = $"{_year}, {_light}% Lit";
+            _time.text = $"{hours}:{minutes:D2}";
+
+            _timeStatus.style.backgroundImage =
+                hours <= 5 ? new StyleBackground(_iconNight) : new StyleBackground(_iconDay);
         }
     }
 }

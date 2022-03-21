@@ -178,11 +178,11 @@
     border-width: 0;
     background-color: rgba(255, 255, 255, 0);
     -unity-background-image-tint-color: white;
-    background-image: resource('UI/Sprites/Controls/CheckBox/Default');
+    background-image: resource('UI/Sprites/Controls/CheckBox_Default');
 }
 
 .unity-toggle:checked > .unity-toggle__input > .unity-toggle__checkmark {
-    background-image: resource('UI/Sprites/Controls/CheckBox/Checked');
+    background-image: resource('UI/Sprites/Controls/CheckBox_Checked');
 }
 
 .unity-popup-field {
@@ -207,7 +207,7 @@
     height: 36px;
     border-width: 0;
     background-color: rgba(255, 255, 255, 0);
-    background-image: resource('UI/Sprites/Controls/Dropdown/Default');
+    background-image: resource('UI/Sprites/Controls/Dropdown');
 }
 
 .unity-base-popup-field__arrow {
@@ -242,7 +242,7 @@
     width: 220px;
     border-width: 0;
     background-color: rgba(255, 255, 255, 0);
-    background-image: resource('UI/Sprites/Controls/Slider/DragLine');
+    background-image: resource('UI/Sprites/Controls/DragLine');
 }
 
 .unity-slider .unity-label {
@@ -263,5 +263,5 @@
     border-width: 0;
     margin-top: -10px;
     background-color: rgba(255, 255, 255, 0);
-    background-image: resource('UI/Sprites/Controls/Slider/Dragger');
+    background-image: resource('UI/Sprites/Controls/Dragger');
 }

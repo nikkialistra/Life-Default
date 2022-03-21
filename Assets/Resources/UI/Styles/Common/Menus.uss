@@ -35,91 +35,91 @@
 .button-small-normal {
     width: 128px;
     height: 32px;
-    background-image: resource('UI/Sprites/Buttons/Small/Primary/Default');
+    background-image: resource('UI/Sprites/Buttons/ButtonSmallNormal_Default');
     font-size: 16px;
 }
 
 .button-small-normal:hover {
-    background-image: resource('UI/Sprites/Buttons/Small/Primary/Hovered');
+    background-image: resource('UI/Sprites/Buttons/ButtonSmallNormal_Hovered');
 }
 
 .button-small-normal:active {
-    background-image: resource('UI/Sprites/Buttons/Small/Primary/Pressed');
+    background-image: resource('UI/Sprites/Buttons/ButtonSmallNormal_Hovered');
 }
 
 .button-small-accented {
     width: 128px;
     height: 32px;
-    background-image: resource('UI/Sprites/Buttons/Small/Secondary/Default');
+    background-image: resource('UI/Sprites/Buttons/ButtonSmallAccented_Default');
     font-size: 16px;
 }
 
 .button-small-accented:hover {
-    background-image: resource('UI/Sprites/Buttons/Small/Secondary/Hovered');
+    background-image: resource('UI/Sprites/Buttons/ButtonSmallAccented_Hovered');
 }
 
 .button-small-accented:active {
-    background-image: resource('UI/Sprites/Buttons/Small/Secondary/Pressed');
+    background-image: resource('UI/Sprites/Buttons/ButtonSmallAccented_Hovered');
 }
 
 .button-medium-normal {
     width: 192px;
     height: 48px;
-    background-image: resource('UI/Sprites/Buttons/Medium/Primary/Default');
+    background-image: resource('UI/Sprites/Buttons/ButtonMediumNormal_Default');
     font-size: 20px;
 }
 
 .button-medium-normal:hover {
-    background-image: resource('UI/Sprites/Buttons/Medium/Primary/Hovered');
+    background-image: resource('UI/Sprites/Buttons/ButtonMediumNormal_Hovered');
 }
 
 .button-medium-normal:active {
-    background-image: resource('UI/Sprites/Buttons/Medium/Primary/Pressed');
+    background-image: resource('UI/Sprites/Buttons/ButtonMediumNormal_Pressed');
 }
 
 .button-medium-accented {
     width: 192px;
     height: 48px;
-    background-image: resource('UI/Sprites/Buttons/Medium/Secondary/Default');
+    background-image: resource('UI/Sprites/Buttons/ButtonMediumAccented_Default');
     font-size: 20px;
 }
 
 .button-medium-accented:hover {
-    background-image: resource('UI/Sprites/Buttons/Medium/Secondary/Hovered');
+    background-image: resource('UI/Sprites/Buttons/ButtonMediumAccented_Hovered');
 }
 
 .button-medium-accented:active {
-    background-image: resource('UI/Sprites/Buttons/Medium/Secondary/Pressed');
+    background-image: resource('UI/Sprites/Buttons/ButtonMediumAccented_Pressed');
 }
 
 .button-large-normal {
     width: 256px;
     height: 64px;
-    background-image: resource('UI/Sprites/Buttons/Large/Primary/Default');
+    background-image: resource('UI/Sprites/Buttons/ButtonLargeNormal_Default');
     font-size: 25px;
 }
 
 .button-large-normal:hover {
-    background-image: resource('UI/Sprites/Buttons/Large/Primary/Hovered');
+    background-image: resource('UI/Sprites/Buttons/ButtonLargeNormal_Hovered');
 }
 
 .button-large-normal:active {
-    background-image: resource('UI/Sprites/Buttons/Large/Primary/Pressed');
+    background-image: resource('UI/Sprites/Buttons/ButtonLargeNormal_Pressed');
 }
 
 .button-large-accented {
     width: 256px;
     height: 64px;
-    background-image: resource('UI/Sprites/Buttons/Large/Secondary/Default');
+    background-image: resource('UI/Sprites/Buttons/ButtonLargeAccented_Default');
     font-size: 25px;
 }
 
 .button-large-accented:hover {
-    background-image: resource('UI/Sprites/Buttons/Large/Secondary/Hovered');
+    background-image: resource('UI/Sprites/Buttons/ButtonLargeAccented_Hovered');
 }
 
 .button-large-accented:active {
-    background-image: resource('UI/Sprites/Buttons/Large/Secondary/Pressed');
+    background-image: resource('UI/Sprites/Buttons/ButtonLargeAccented_Pressed');
 }
 
 .align-left {

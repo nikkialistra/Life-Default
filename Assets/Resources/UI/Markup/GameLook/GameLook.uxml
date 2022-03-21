@@ -5,9 +5,8 @@
             <ui:VisualElement name="build-version" picking-mode="Ignore" />
             <ui:VisualElement name="top-panel__right" picking-mode="Ignore" class="top-panel__right">
                 <ui:VisualElement name="game-info" picking-mode="Ignore" class="game-info">
+                    <ui:VisualElement name="time-weather" class="indented bottom-margin" />
                     <ui:VisualElement name="time-toggling" picking-mode="Ignore" />
-                    <ui:VisualElement name="time-weather" class="indented" />
-                    <ui:VisualElement name="menu-panel" picking-mode="Ignore" class="indented" />
                 </ui:VisualElement>
                 <ui:VisualElement name="resources" picking-mode="Ignore" class="resources" />
             </ui:VisualElement>

@@ -1,56 +1,124 @@
 .time-weather {
-    width: 250px;
-    height: 32px;
-    background-image: resource('UI/Sprites/Panels/TimeWeather');
-    padding-left: 4px;
-    padding-right: 4px;
+    width: 300px;
+    height: 78px;
+    padding: 2px 7px;
+    background-color: rgb(34, 36, 38);
+    border-width: 3px;
+    border-radius: 5px;
+    border-color: rgb(9, 10, 10);
+    justify-content: center;
+    align-items: center;
+}
+
+.top-panel {
+    width: 280px;
+    height: 40px;
+    margin-bottom: 4px;
     flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.side-panel {
+    width: 105px;
+    height: 40px;
+    justify-content: center;
+    align-items: center;
+}
+
+.temperature-panel {
+    width: 70px;
+    height: 40px;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
 }
 
 .label {
     margin: 0;
     padding: 0;
-    -unity-font: resource('Fonts/Exo 2/Exo2-Regular');
+    -unity-font: resource('Fonts/Ubuntu/Ubuntu-Bold');
     -unity-font-definition: none;
     color: rgb(255, 255, 255);
-}
-
-.label-half {
-    height: 16px;
-    font-size: 11px;
     -unity-text-align: middle-center;
-    width: 72px;
+    -unity-text-outline-width: 0.8px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+    text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.25);
 }
 
-.block {
-    width: 90px;
-    height: 32px;
+.day {
+    height: 24px;
+}
+
+.season-year {
+    height: 16px;
+}
+
+.thermometer {
+    width: 19px;
+    height: 35px;
+    margin-right: 1px;
+    background-image: resource('UI/Sprites/Icons/TimeWeather/IconThermometer');
+}
+
+.temperature-panel__right {
+    width: 34px;
+    height: 40px;
     align-items: center;
 }
 
-.year {
-    font-size: 11px;
-    padding-bottom: 4px;
+.label-big {
+    font-size: 16px;
 }
 
-.hour {
-    width: 52px;
-    font-size: 30px;
-    -unity-text-align: middle-center;
-    padding-bottom: 2px;
-    margin-left: 5px;
+.temperature {
+    height: 14px;
+}
+
+.time-status {
+    width: 26px;
+    height: 26px;
+    background-image: resource('UI/Sprites/Icons/TimeWeather/IconDay');
+}
+
+.weather-panel__top {
+    height: 24px;
+    flex-direction: row;
+    justify-content: center;
+    align-content: center;
+}
+
+.weather-icon {
+    width: 26px;
+    height: 26px;
     margin-right: 5px;
+    background-image: resource('UI/Sprites/Icons/TimeWeather/IconDay');
 }
 
-.center-aligned {
+.time-block {
+    width: 216px;
+    height: 25px;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.time {
+    margin: 0;
+    padding: 0;
+    -unity-font: resource('Fonts/Ubuntu/Ubuntu-Bold');
+    font-size: 22px;
+    -unity-font-definition: none;
+    height: 22px;
     -unity-text-align: middle-center;
-    width: 100%;
+    color: rgb(255, 255, 255);
+    -unity-text-outline-width: 1px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+    text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.25);
 }
 
-.left-aligned {
-    -unity-text-align: middle-center;
-}
-
-.small-label {
-    font-size: 9px;
+.separator {
+    width: 62px;
+    height: 7px;
+    background-image: resource('UI/Sprites/TimeWeather/TimeSeparator');
 }

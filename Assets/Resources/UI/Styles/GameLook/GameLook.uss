@@ -18,7 +18,7 @@
 }
 
 .game-info {
-    flex-direction: row;
+    align-items: flex-end;
 }
 
 .indented {
@@ -42,4 +42,8 @@
 
 .time-speed-multiplied {
     background-color: rgba(255, 0, 0, 0.03);
+}
+
+.bottom-margin {
+    margin-bottom: 10px;
 }

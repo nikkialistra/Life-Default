@@ -1,14 +1,30 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/Resources/UI/Styles/GameLook/Components/TimeWeather.uss?fileID=7433441132597879392&amp;guid=55a245036c3857a45ba77848cab44883&amp;type=3#TimeWeather" />
     <ui:VisualElement name="time-weather" class="time-weather">
-        <ui:VisualElement name="date" class="block" style="min-width: 72px;">
-            <ui:Label text="Spring, day 2" display-tooltip-when-elided="true" name="season-day" class="label label-half center-aligned" />
-            <ui:Label text="2114, 100% Lit" display-tooltip-when-elided="true" name="year-and-light" class="label label-half year center-aligned small-label" />
+        <ui:VisualElement name="top-panel" class="top-panel">
+            <ui:VisualElement name="date-panel" class="side-panel">
+                <ui:Label text="Day 7 of" display-tooltip-when-elided="true" name="day" class="label day" />
+                <ui:Label text="Spring, 2114" display-tooltip-when-elided="true" name="season-year" class="label season-year" />
+            </ui:VisualElement>
+            <ui:VisualElement name="temperature-panel" class="temperature-panel">
+                <ui:VisualElement name="thermometer" class="thermometer" style="background-image: resource(&apos;UI/Sprites/Icons/TimeWeather/IconThermometer&apos;);" />
+                <ui:VisualElement name="temperature-panel__right" class="temperature-panel__right">
+                    <ui:VisualElement name="time-status" class="time-status" />
+                    <ui:Label text="13 C" display-tooltip-when-elided="true" name="temperature" class="label label-big temperature" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="weather-panel" class="side-panel">
+                <ui:VisualElement name="weather-panel__top" class="weather-panel__top">
+                    <ui:VisualElement name="weather-icon" class="weather-icon" />
+                    <ui:Label text="75% Lit," display-tooltip-when-elided="true" name="light" class="label" />
+                </ui:VisualElement>
+                <ui:Label text="Thunderstorm" display-tooltip-when-elided="true" name="weather" class="label" />
+            </ui:VisualElement>
         </ui:VisualElement>
-        <ui:Label text="00 h" display-tooltip-when-elided="true" name="hours" class="label hour" />
-        <ui:VisualElement name="weather" class="block">
-            <ui:Label text="15 ℃ Outside" display-tooltip-when-elided="true" name="local-temperature" class="label label-half center-aligned" />
-            <ui:Label text="Thunderstorm" display-tooltip-when-elided="true" name="weather" class="label label-half center-aligned small-label" style="padding-bottom: 2px;" />
+        <ui:VisualElement name="time-block" class="time-block">
+            <ui:VisualElement name="separator" class="separator" />
+            <ui:Label text="23:15" display-tooltip-when-elided="true" name="time" class="time" style="-unity-text-outline-width: 1px; -unity-text-outline-color: rgb(0, 0, 0); text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.25);" />
+            <ui:VisualElement name="separator" class="separator" />
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

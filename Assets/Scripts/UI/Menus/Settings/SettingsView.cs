@@ -6,6 +6,8 @@ namespace UI.Menus.Settings
 {
     public class SettingsView : IMenuView
     {
+        private const string VisualTreePath = "UI/Markup/Menus/Settings/Settings";
+        
         private readonly VisualElement _root;
         private readonly IMenuView _parent;
 
@@ -34,7 +36,7 @@ namespace UI.Menus.Settings
             _hideNotify = hideNotify;
             _gameSettings = gameSettings;
 
-            var template = Resources.Load<VisualTreeAsset>("UI/Markup/Menus/Settings/Settings");
+            var template = Resources.Load<VisualTreeAsset>(VisualTreePath);
             _tree = template.CloneTree();
             _tree.style.flexGrow = 1;
 

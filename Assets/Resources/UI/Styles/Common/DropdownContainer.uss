@@ -1,0 +1,11 @@
+﻿.unity-base-dropdown__container-outer {
+    border-width: 0;
+    margin-left: 3px;
+}
+
+.unity-scroll-view {
+    max-width: 214px;
+    border-width: 3px;
+    border-radius: 3px;
+    border-color: rgb(9, 10, 10);
+}

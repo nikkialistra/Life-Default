@@ -33,8 +33,8 @@
 }
 
 .button-small-normal {
-    width: 128px;
-    height: 32px;
+    width: 130px;
+    height: 34px;
     background-image: resource('UI/Sprites/Buttons/ButtonSmallNormal_Default');
     font-size: 16px;
 }
@@ -48,8 +48,8 @@
 }
 
 .button-small-accented {
-    width: 128px;
-    height: 32px;
+    width: 130px;
+    height: 34px;
     background-image: resource('UI/Sprites/Buttons/ButtonSmallAccented_Default');
     font-size: 16px;
 }
@@ -63,8 +63,8 @@
 }
 
 .button-medium-normal {
-    width: 192px;
-    height: 48px;
+    width: 195px;
+    height: 51px;
     background-image: resource('UI/Sprites/Buttons/ButtonMediumNormal_Default');
     font-size: 20px;
 }
@@ -78,8 +78,8 @@
 }
 
 .button-medium-accented {
-    width: 192px;
-    height: 48px;
+    width: 195px;
+    height: 51px;
     background-image: resource('UI/Sprites/Buttons/ButtonMediumAccented_Default');
     font-size: 20px;
 }
@@ -93,8 +93,8 @@
 }
 
 .button-large-normal {
-    width: 256px;
-    height: 64px;
+    width: 260px;
+    height: 68px;
     background-image: resource('UI/Sprites/Buttons/ButtonLargeNormal_Default');
     font-size: 25px;
 }
@@ -108,8 +108,8 @@
 }
 
 .button-large-accented {
-    width: 256px;
-    height: 64px;
+    width: 260px;
+    height: 68px;
     background-image: resource('UI/Sprites/Buttons/ButtonLargeAccented_Default');
     font-size: 25px;
 }
@@ -141,7 +141,7 @@
     margin: 10px 0;
     padding: 0;
     width: 370px;
-    height: 36px;
+    height: 40px;
     justify-content: space-between;
 }
 
@@ -153,7 +153,7 @@
 }
 
 .element > .unity-base-field__input {
-    width: 220px;
+    width: 224px;
 }
 
 .unity-toggle {
@@ -168,13 +168,13 @@
 
 .unity-toggle > .unity-toggle__input {
     flex-direction: row-reverse;
-    width: 36px;
-    height: 36px;
+    width: 40px;
+    height: 40px;
 }
 
 .unity-toggle > .unity-toggle__input > .unity-toggle__checkmark {
-    width: 36px;
-    height: 36px;
+    width: 40px;
+    height: 40px;
     border-width: 0;
     background-color: rgba(255, 255, 255, 0);
     -unity-background-image-tint-color: white;
@@ -200,11 +200,15 @@
     color: white;
 }
 
+.unity-base-field__input .unity-text-element {
+    margin-left: 10px;
+}
+
 .unity-popup-field > .unity-popup-field__input {
     margin: 0;
     padding: 3px;
-    width: 220px;
-    height: 36px;
+    width: 224px;
+    height: 40px;
     border-width: 0;
     background-color: rgba(255, 255, 255, 0);
     background-image: resource('UI/Sprites/Controls/Dropdown');
@@ -223,15 +227,15 @@
 }
 
 .unity-slider .unity-slider__input {
-    width: 220px;
+    width: 218px;
 }
 
 .unity-slider-int .unity-slider-int__input {
-    width: 220px;
+    width: 218px;
 }
 
 .unity-base-slider__drag-container {
-    width: 220px;
+    width: 218px;
 }
 
 .unity-base-slider__dragger-border {
@@ -239,7 +243,7 @@
 }
 
 .unity-base-slider .unity-base-slider__tracker {
-    width: 220px;
+    width: 218px;
     border-width: 0;
     background-color: rgba(255, 255, 255, 0);
     background-image: resource('UI/Sprites/Controls/DragLine');
@@ -258,10 +262,10 @@
 }
 
 .unity-base-slider__dragger {
-    width: 20px;
-    height: 20px;
+    width: 24px;
+    height: 24px;
     border-width: 0;
-    margin-top: -10px;
+    margin-top: -12px;
     background-color: rgba(255, 255, 255, 0);
     background-image: resource('UI/Sprites/Controls/Dragger');
 }

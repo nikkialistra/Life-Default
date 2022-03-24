@@ -1,17 +1,21 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using Saving;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
 
 namespace UI.Menus.Settings
 {
     public class GraphicsView : IMenuView
     {
+        private const string VisualTreePath = "UI/Markup/Menus/Settings/Graphics";
+        private const string DropdownContainerStyles = "UI/Styles/Common/DropdownContainer";
+        
         private List<Resolution> _resolutions;
 
         private readonly VisualElement _root;
+        private readonly VisualElement _uiPanel;
         private readonly SettingsView _parent;
 
         private readonly TemplateContainer _tree;
@@ -27,16 +31,15 @@ namespace UI.Menus.Settings
 
         private readonly GameSettings _gameSettings;
 
-        private PlayerInput _playerInput;
-
         public GraphicsView(VisualElement root, SettingsView parent, IHideNotify hideNotify, GameSettings gameSettings)
         {
             _root = root;
+            _uiPanel = root.parent.parent;
             _parent = parent;
             _hideNotify = hideNotify;
             _gameSettings = gameSettings;
 
-            var template = Resources.Load<VisualTreeAsset>("UI/Markup/Menus/Settings/Graphics");
+            var template = Resources.Load<VisualTreeAsset>(VisualTreePath);
             _tree = template.CloneTree();
             _tree.style.flexGrow = 1;
 
@@ -61,6 +64,7 @@ namespace UI.Menus.Settings
 
             _fullscreen.RegisterValueChangedCallback(OnFullscreenToggle);
             _resolution.RegisterValueChangedCallback(OnResolutionChange);
+            _resolution.RegisterCallback<FocusInEvent>(OnResolutionFocus);
             _uiScale.RegisterValueChangedCallback(OnUiScaleChange);
             _uiScaleDragger.RegisterCallback<MouseUpEvent>(OnUiScaleRelease);
 
@@ -75,6 +79,7 @@ namespace UI.Menus.Settings
 
             _fullscreen.UnregisterValueChangedCallback(OnFullscreenToggle);
             _resolution.UnregisterValueChangedCallback(OnResolutionChange);
+            _resolution.UnregisterCallback<FocusInEvent>(OnResolutionFocus);
             _uiScale.UnregisterValueChangedCallback(OnUiScaleChange);
             _uiScaleDragger.UnregisterCallback<MouseUpEvent>(OnUiScaleRelease);
 
@@ -92,6 +97,18 @@ namespace UI.Menus.Settings
         {
             var index = _resolution.index;
             _gameSettings.Resolution.Value = _resolutions[index];
+        }
+
+        private void OnResolutionFocus(FocusInEvent evt)
+        {
+            _gameSettings.StartCoroutine(RestyleScrollView());
+        }
+
+        private IEnumerator RestyleScrollView()
+        {
+            yield return null;
+            var scrollView = _uiPanel.Children().Last();
+            scrollView.styleSheets.Add(Resources.Load<StyleSheet>(DropdownContainerStyles));
         }
 
         private void OnUiScaleChange(ChangeEvent<int> _)

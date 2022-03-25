@@ -47,3 +47,7 @@
 .bottom-margin {
     margin-bottom: 10px;
 }
+
+.top-panel__left {
+    flex-direction: row;
+}

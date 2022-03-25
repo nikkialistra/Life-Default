@@ -1,26 +1,18 @@
-<ui:UXML xmlns:ui="UnityEngine.UIElements"
-         xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements"
-         noNamespaceSchemaLocation="../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <Style src="project://database/Assets/Resources/UI/Styles/GameLook/Components/Resources.uss?fileID=7433441132597879392&amp;guid=fe876db04f944cf0be7bcf78ae9f0c00&amp;type=3#Resources"/>
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Resources/UI/Styles/GameLook/Components/Resources.uss?fileID=7433441132597879392&amp;guid=fe876db04f944cf0be7bcf78ae9f0c00&amp;type=3#Resources" />
     <ui:VisualElement name="resources" class="resources">
-        <ui:VisualElement name="wood" class="resources__element">
-            <ui:VisualElement name="wood__icon" class="resources__element__icon wood__icon"/>
-            <ui:Label text="0" display-tooltip-when-elided="true" name="wood__count" class="resources__element__count"/>
-        </ui:VisualElement>
-        <ui:VisualElement name="stone" class="resources__element">
-            <ui:VisualElement name="stone__icon" class="resources__element__icon stone__icon"/>
-            <ui:Label text="0" display-tooltip-when-elided="true" name="stone__count"
-                      class="resources__element__count"/>
-        </ui:VisualElement>
-        <ui:VisualElement name="emerald" class="resources__element">
-            <ui:VisualElement name="emerald__icon" class="resources__element__icon emerald__icon"/>
-            <ui:Label text="0" display-tooltip-when-elided="true" name="emerald__count"
-                      class="resources__element__count"/>
-        </ui:VisualElement>
-        <ui:VisualElement name="crystal" class="resources__element">
-            <ui:VisualElement name="crystal__icon" class="resources__element__icon crystal__icon"/>
-            <ui:Label text="0" display-tooltip-when-elided="true" name="crystal__count"
-                      class="resources__element__count"/>
+        <ui:VisualElement name="separator" class="separator" />
+        <ui:VisualElement name="content" class="content">
+            <ui:VisualElement name="content__row" class="content__row">
+                <ui:VisualElement name="wood" class="element">
+                    <ui:VisualElement name="wood__icon" class="element__icon wood__icon" />
+                    <ui:Label text="0" display-tooltip-when-elided="true" name="wood__count" class="element__text" />
+                </ui:VisualElement>
+                <ui:VisualElement name="stone" class="element">
+                    <ui:VisualElement name="stone__icon" class="element__icon stone__icon" />
+                    <ui:Label text="0" display-tooltip-when-elided="true" name="stone__count" class="element__text" />
+                </ui:VisualElement>
+            </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

@@ -1,0 +1,10 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Resources/UI/Styles/GameLook/Components/Stock.uss?fileID=7433441132597879392&amp;guid=eaa0abd48a7981e4eb7329f2dba6839a&amp;type=3#Stock" />
+    <ui:VisualElement name="stock">
+        <ui:VisualElement name="buttons">
+            <ui:Button display-tooltip-when-elided="true" name="resources" class="button">
+                <ui:VisualElement name="resources__icon" class="resources__icon" />
+            </ui:Button>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

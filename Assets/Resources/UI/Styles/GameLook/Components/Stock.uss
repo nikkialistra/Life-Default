@@ -1,0 +1,16 @@
+.button {
+    width: 54px;
+    height: 54px;
+    margin: 0 0 10px 0;
+    padding: 0;
+    background-color: rgb(34, 36, 38);
+    border-width: 2px;
+    border-radius: 3px;
+    border-color: rgb(9, 10, 10);
+}
+
+.resources__icon {
+    width: 50px;
+    height: 50px;
+    background-image: resource('UI/Sprites/Icons/Stock/IconBuild');
+}

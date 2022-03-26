@@ -1,0 +1,90 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Resources/UI/Styles/GameLook/Components/ColonistInfo.uss?fileID=7433441132597879392&amp;guid=25ebb824081a42ec86b7e9fd58427d3e&amp;type=3#ColonistInfo" />
+    <Style src="project://database/Assets/Resources/UI/Styles/Common/InfoForm.uss?fileID=7433441132597879392&amp;guid=ef46dfde628e96146b950bb6e51694e4&amp;type=3#InfoForm" />
+    <ui:VisualElement name="colonist-info" picking-mode="Ignore" class="colonist-info">
+        <ui:VisualElement name="header" picking-mode="Ignore" class="header" style="height: 24px;">
+            <ui:Label text="Tiffany" display-tooltip-when-elided="true" name="name" class="header_text" />
+            <ui:Button name="next" class="button next" />
+            <ui:Button name="focus" class="button focus" />
+        </ui:VisualElement>
+        <ui:VisualElement name="body" class="body">
+            <ui:VisualElement name="body__top" class="body__top">
+                <ui:VisualElement name="picture" class="picture" />
+                <ui:VisualElement name="health-bars" class="bars">
+                    <ui:VisualElement name="vitality-bar" class="bar red">
+                        <ui:Label text="Vitality" display-tooltip-when-elided="true" name="vitality" class="bar__label bar__header " />
+                        <ui:VisualElement name="bar__body" class="bar__body">
+                            <ui:ProgressBar title=" " name="vitality-progress" high-value="1" class="bar__progress-bar" />
+                            <ui:VisualElement name="bar__state" class="bar__state">
+                                <ui:Label text="100%" display-tooltip-when-elided="true" name="vitality-value" class="bar__label" />
+                                <ui:VisualElement name="vitality-arrow" class="value__arrow" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                    <ui:VisualElement name="blood-bar" class="bar red">
+                        <ui:Label text="Blood" display-tooltip-when-elided="true" name="blood" class="bar__label bar__header " />
+                        <ui:VisualElement name="bar__body" class="bar__body">
+                            <ui:ProgressBar title=" " name="blood-progress" high-value="1" class="bar__progress-bar" />
+                            <ui:VisualElement name="bar__state" class="bar__state">
+                                <ui:Label text="100%" display-tooltip-when-elided="true" name="blood-value" class="bar__label" />
+                                <ui:VisualElement name="blood-arrow" class="value__arrow" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="status-bars" class="bars status-bars">
+                <ui:VisualElement name="satiety-bar" class="bar light-blue">
+                    <ui:Label text="Satiety" display-tooltip-when-elided="true" name="satiety" class="bar__label bar__header " />
+                    <ui:VisualElement name="bar__body" class="bar__body">
+                        <ui:ProgressBar title=" " name="satiety-progress" high-value="100" class="bar__progress-bar" />
+                        <ui:VisualElement name="bar__state" class="bar__state">
+                            <ui:Label text="100%" display-tooltip-when-elided="true" name="satiety-value" class="bar__label" />
+                            <ui:VisualElement name="satiety-arrow" class="value__arrow" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:VisualElement name="sleep-bar" class="bar light-blue">
+                    <ui:Label text="Sleep" display-tooltip-when-elided="true" name="sleep" class="bar__label bar__header " />
+                    <ui:VisualElement name="bar__body" class="bar__body">
+                        <ui:ProgressBar title=" " name="sleep-progress" high-value="100" class="bar__progress-bar" />
+                        <ui:VisualElement name="bar__state" class="bar__state">
+                            <ui:Label text="100%" display-tooltip-when-elided="true" name="sleep-value" class="bar__label" />
+                            <ui:VisualElement name="sleep-arrow" class="value__arrow" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:VisualElement name="happiness-bar" class="bar light-blue">
+                    <ui:Label text="Happiness" display-tooltip-when-elided="true" name="happiness" class="bar__label bar__header " />
+                    <ui:VisualElement name="bar__body" class="bar__body">
+                        <ui:ProgressBar title=" " name="happiness-progress" high-value="100" class="bar__progress-bar" />
+                        <ui:VisualElement name="bar__state" class="bar__state">
+                            <ui:Label text="100%" display-tooltip-when-elided="true" name="happiness-value" class="bar__label" />
+                            <ui:VisualElement name="happiness-arrow" class="value__arrow" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:VisualElement name="consciousness-bar" class="bar light-blue">
+                    <ui:Label text="Consciousness" display-tooltip-when-elided="true" name="consciousness" class="bar__label bar__header " />
+                    <ui:VisualElement name="bar__body" class="bar__body">
+                        <ui:ProgressBar title=" " name="consciousness-progress" high-value="100" class="bar__progress-bar" />
+                        <ui:VisualElement name="bar__state" class="bar__state">
+                            <ui:Label text="100%" display-tooltip-when-elided="true" name="consciousness-value" class="bar__label" />
+                            <ui:VisualElement name="consciousness-arrow" class="value__arrow" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:VisualElement name="entertainment-bar" class="bar light-blue">
+                    <ui:Label text="Entertainment" display-tooltip-when-elided="true" name="entertainment" class="bar__label bar__header " />
+                    <ui:VisualElement name="bar__body" class="bar__body">
+                        <ui:ProgressBar title=" " name="entertainment-progress" high-value="100" class="bar__progress-bar" />
+                        <ui:VisualElement name="bar__state" class="bar__state">
+                            <ui:Label text="100%" display-tooltip-when-elided="true" name="entertainment-value" class="bar__label" />
+                            <ui:VisualElement name="entertainment-arrow" class="value__arrow" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

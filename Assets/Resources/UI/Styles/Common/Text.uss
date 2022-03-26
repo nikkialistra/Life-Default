@@ -28,31 +28,6 @@
     -unity-text-outline-width: 1px;
 }
 
-.h1 {
-    -unity-font: resource('Fonts/Ubuntu/Ubuntu-Bold');
-    font-size: 30px;
-    -unity-text-align: middle-center;
-    -unity-font-definition: none;
-    padding: 10px 0 0;
-    color: rgb(255, 255, 255);
-}
-
-.h3 {
-    -unity-font-definition: none;
-    -unity-font: resource('Fonts/Ubuntu/Ubuntu-Regular');
-    font-size: 18px;
-    color: rgb(255, 255, 255);
-    padding: 5px 5px 5px 10px;
-}
-
-.p {
-    -unity-font-definition: none;
-    -unity-font: resource('Fonts/Exo 2/Exo2-Regular');
-    font-size: 14px;
-    color: rgb(255, 255, 255);
-    padding: 1px 0;
-}
-
 .left-aligned {
     -unity-text-align: middle-left;
 }

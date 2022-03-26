@@ -1,5 +1,6 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/Resources/UI/Styles/GameLook/Components/TimeWeather.uss?fileID=7433441132597879392&amp;guid=55a245036c3857a45ba77848cab44883&amp;type=3#TimeWeather" />
+    <Style src="project://database/Assets/Resources/UI/Styles/Common/Text.uss?fileID=7433441132597879392&amp;guid=158167a2c7cf4f5292d78d1ed2683cfc&amp;type=3#Text" />
     <ui:VisualElement name="time-weather" class="time-weather">
         <ui:VisualElement name="top-panel" class="top-panel">
             <ui:VisualElement name="date-panel" class="side-panel">
@@ -23,7 +24,7 @@
         </ui:VisualElement>
         <ui:VisualElement name="time-block" class="time-block">
             <ui:VisualElement name="separator" class="separator" />
-            <ui:Label text="23:15" display-tooltip-when-elided="true" name="time" class="time" style="-unity-text-outline-width: 1px; -unity-text-outline-color: rgb(0, 0, 0); text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.25);" />
+            <ui:Label text="23:15" display-tooltip-when-elided="true" name="time" class="label label-big" style="-unity-text-outline-width: 1px; -unity-text-outline-color: rgb(0, 0, 0); text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.25);" />
             <ui:VisualElement name="separator" class="separator" />
         </ui:VisualElement>
     </ui:VisualElement>

@@ -1,4 +1,34 @@
-﻿.h1 {
+.not-displayed {
+    display: none;
+}
+
+.label {
+    margin: 0;
+    padding: 0;
+    -unity-font: resource('Fonts/Ubuntu/Ubuntu-Bold');
+    -unity-font-definition: none;
+    color: rgb(255, 255, 255);
+    -unity-text-align: middle-center;
+    -unity-text-outline-width: 0.8px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+    text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.25);
+}
+
+.label-small {
+    font-size: 12px;
+}
+
+.label-medium {
+    font-size: 20px;
+    -unity-text-outline-width: 1px;
+}
+
+.label-big {
+    font-size: 22px;
+    -unity-text-outline-width: 1px;
+}
+
+.h1 {
     -unity-font: resource('Fonts/Ubuntu/Ubuntu-Bold');
     font-size: 30px;
     -unity-text-align: middle-center;
@@ -21,4 +51,8 @@
     font-size: 14px;
     color: rgb(255, 255, 255);
     padding: 1px 0;
+}
+
+.left-aligned {
+    -unity-text-align: middle-left;
 }

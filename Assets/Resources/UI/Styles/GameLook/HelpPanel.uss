@@ -11,9 +11,12 @@
 }
 
 .help-panel {
-    background-image: resource('UI/Sprites/Panels/Help');
     width: 512px;
     height: 860px;
+    background-color: rgb(34, 36, 38);
+    border-width: 3px;
+    border-radius: 5px;
+    border-color: rgb(9, 10, 10);
     padding-left: 15px;
     padding-right: 15px;
 }
@@ -34,10 +37,7 @@
     color: rgb(0, 0, 0);
     -unity-font: resource('Fonts/Ubuntu/Ubuntu-Bold');
     -unity-font-style: bold;
-    border-left-color: rgb(0, 0, 0);
-    border-right-color: rgb(0, 0, 0);
-    border-top-color: rgb(0, 0, 0);
-    border-bottom-color: rgb(0, 0, 0);
+    border-color: rgb(0, 0, 0);
     background-color: rgb(255, 255, 255);
     border-radius: 2px;
 }

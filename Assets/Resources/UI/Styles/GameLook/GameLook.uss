@@ -19,7 +19,7 @@
 
 .build-version {
     position: absolute;
-    left: -150px;
+    left: 30px;
 }
 
 .top-panel__right {

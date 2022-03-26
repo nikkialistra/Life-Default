@@ -1,16 +1,17 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/Resources/UI/Styles/GameLook/Components/Resources.uss?fileID=7433441132597879392&amp;guid=fe876db04f944cf0be7bcf78ae9f0c00&amp;type=3#Resources" />
+    <Style src="project://database/Assets/Resources/UI/Styles/Common/Text.uss?fileID=7433441132597879392&amp;guid=158167a2c7cf4f5292d78d1ed2683cfc&amp;type=3#Text" />
     <ui:VisualElement name="resources" class="resources">
         <ui:VisualElement name="separator" class="separator" />
         <ui:VisualElement name="content" class="content">
             <ui:VisualElement name="content__row" class="content__row">
                 <ui:VisualElement name="wood" class="element">
                     <ui:VisualElement name="wood__icon" class="element__icon wood__icon" />
-                    <ui:Label text="0" display-tooltip-when-elided="true" name="wood__count" class="element__text" />
+                    <ui:Label text="0" display-tooltip-when-elided="true" name="wood__count" class="element__text label label-small" />
                 </ui:VisualElement>
                 <ui:VisualElement name="stone" class="element">
                     <ui:VisualElement name="stone__icon" class="element__icon stone__icon" />
-                    <ui:Label text="0" display-tooltip-when-elided="true" name="stone__count" class="element__text" />
+                    <ui:Label text="0" display-tooltip-when-elided="true" name="stone__count" class="element__text label label-small" />
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>

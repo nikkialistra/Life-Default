@@ -26,6 +26,11 @@ namespace UI.Game.GameLook.Components
         public VisualElement Tree { get; private set; }
         public VisualElement Content { get; private set; }
 
+        private void Start()
+        {
+            _resourcesView.ShowSelf();
+        }
+
         private void OnEnable()
         {
             _resources.clicked += OnResourcesClick;

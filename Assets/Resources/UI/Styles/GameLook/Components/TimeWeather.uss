@@ -34,18 +34,6 @@
     align-items: center;
 }
 
-.label {
-    margin: 0;
-    padding: 0;
-    -unity-font: resource('Fonts/Ubuntu/Ubuntu-Bold');
-    -unity-font-definition: none;
-    color: rgb(255, 255, 255);
-    -unity-text-align: middle-center;
-    -unity-text-outline-width: 0.8px;
-    -unity-text-outline-color: rgb(0, 0, 0);
-    text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.25);
-}
-
 .day {
     height: 24px;
 }
@@ -101,20 +89,6 @@
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
-}
-
-.time {
-    margin: 0;
-    padding: 0;
-    -unity-font: resource('Fonts/Ubuntu/Ubuntu-Bold');
-    font-size: 22px;
-    -unity-font-definition: none;
-    height: 22px;
-    -unity-text-align: middle-center;
-    color: rgb(255, 255, 255);
-    -unity-text-outline-width: 1px;
-    -unity-text-outline-color: rgb(0, 0, 0);
-    text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.25);
 }
 
 .separator {

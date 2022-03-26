@@ -229,3 +229,67 @@
 .indicators {
     width: 260px;
 }
+
+.current-action {
+    width: 260px;
+    height: 58px;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.current-action__content {
+    width: 202px;
+    height: 58px;
+    justify-content: space-between;
+}
+
+.current-action__label {
+    height: 25px;
+}
+
+.to-do-row {
+    width: 202px;
+    height: 32px;
+    justify-content: flex-start;
+    flex-direction: row;
+}
+
+.nomination {
+    width: 142px;
+    height: 32px;
+    padding-left: 8px;
+    min-height: 32px;
+    flex-direction: row;
+}
+
+.nomination__icon {
+    width: 32px;
+    height: 32px;
+}
+
+.to-do-row .count {
+    color: rgb(121, 123, 128);
+}
+
+.action-type {
+    width: 52px;
+    height: 52px;
+    background-image: resource('UI/Sprites/ColonistInfo/BigButton_Default');
+    justify-content: center;
+    align-items: center;
+}
+
+.action-type:hover {
+    background-image: resource('UI/Sprites/ColonistInfo/BigButton_Hovered');
+}
+
+.action-type:active {
+    background-image: resource('UI/Sprites/ColonistInfo/BigButton_Pressed');
+}
+
+.action-type__icon {
+    width: 48px;
+    height: 48px;
+    background-image: resource('UI/Sprites/Icons/ColonistInfo/IconTasks');
+}

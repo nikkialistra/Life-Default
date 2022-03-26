@@ -92,5 +92,20 @@
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>
+        <ui:VisualElement name="current-action" class="current-action">
+            <ui:VisualElement name="current-action__content" class="current-action__content">
+                <ui:Label text="Current Action" display-tooltip-when-elided="true" name="current-action__label" class="label label-general current-action__label" />
+                <ui:VisualElement name="to-do-row" class="to-do-row">
+                    <ui:VisualElement name="nomination" class="nomination">
+                        <ui:VisualElement name="nomination__icon" class="nomination__icon" style="background-image: resource(&apos;UI/Sprites/Icons/ColonistInfo/Skills/IconStrength&apos;); max-width: 32px; max-height: 32px;" />
+                        <ui:Label text="Cut - Wood" display-tooltip-when-elided="true" name="nomination__name" class="label label-no-outline" />
+                    </ui:VisualElement>
+                    <ui:Label text="2 more" display-tooltip-when-elided="true" name="count" class="label label-small label-no-outline count" style="display: none;" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:Button name="action-type" class="button action-type">
+                <ui:VisualElement name="action-type__icon" class="action-type__icon" />
+            </ui:Button>
+        </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

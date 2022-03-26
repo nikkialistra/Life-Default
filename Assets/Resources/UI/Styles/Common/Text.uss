@@ -18,6 +18,11 @@
     font-size: 12px;
 }
 
+.label-general {
+    font-size: 18px;
+    -unity-text-align: middle-left;
+}
+
 .label-medium {
     font-size: 20px;
     -unity-text-outline-width: 1px;
@@ -26,6 +31,11 @@
 .label-big {
     font-size: 22px;
     -unity-text-outline-width: 1px;
+}
+
+.label-no-outline {
+    -unity-text-outline-width: 0;
+    text-shadow: none;
 }
 
 .left-aligned {

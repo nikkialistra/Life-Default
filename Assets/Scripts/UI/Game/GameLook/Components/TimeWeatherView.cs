@@ -39,7 +39,7 @@ namespace UI.Game.GameLook.Components
             _timeStatus = Tree.Q<VisualElement>("time-status");
             _temperature = Tree.Q<Label>("temperature");
 
-            _weatherIcon = Tree.Q<Label>("weather-icon");
+            _weatherIcon = Tree.Q<VisualElement>("weather-icon");
             _light = Tree.Q<Label>("light");
             _weather = Tree.Q<Label>("weather");
 

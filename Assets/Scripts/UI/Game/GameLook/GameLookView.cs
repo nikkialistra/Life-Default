@@ -9,7 +9,7 @@ namespace UI.Game.GameLook
     [RequireComponent(typeof(UIDocument))]
     [RequireComponent(typeof(TimeTogglingView))]
     [RequireComponent(typeof(TimeWeatherView))]
-    [RequireComponent(typeof(ResourcesView))]
+    [RequireComponent(typeof(StockView))]
     [RequireComponent(typeof(TileInfoView))]
     [RequireComponent(typeof(InfoPanelView))]
     public class GameLookView : MonoBehaviour
@@ -20,14 +20,14 @@ namespace UI.Game.GameLook
         private BuildVersionView _buildVersionView;
         private TimeTogglingView _timeTogglingView;
         private TimeWeatherView _timeWeatherView;
-        private ResourcesView _resourcesView;
+        private StockView _stockView;
         private TileInfoView _tileInfoView;
         private InfoPanelView _infoPanelView;
 
         private VisualElement _buildVersionElement;
         private VisualElement _timeTogglingElement;
         private VisualElement _timeWeatherElement;
-        private VisualElement _resourcesElement;
+        private VisualElement _stockElement;
         private VisualElement _tileInfoElement;
         private VisualElement _infoPanelElement;
 
@@ -44,7 +44,7 @@ namespace UI.Game.GameLook
             _buildVersionView = GetComponent<BuildVersionView>();
             _timeTogglingView = GetComponent<TimeTogglingView>();
             _timeWeatherView = GetComponent<TimeWeatherView>();
-            _resourcesView = GetComponent<ResourcesView>();
+            _stockView = GetComponent<StockView>();
             _tileInfoView = GetComponent<TileInfoView>();
             _infoPanelView = GetComponent<InfoPanelView>();
 
@@ -55,7 +55,7 @@ namespace UI.Game.GameLook
             _buildVersionElement = _tree.Q<VisualElement>("build-version");
             _timeTogglingElement = _tree.Q<VisualElement>("time-toggling");
             _timeWeatherElement = _tree.Q<VisualElement>("time-weather");
-            _resourcesElement = _tree.Q<VisualElement>("resources");
+            _stockElement = _tree.Q<VisualElement>("stock");
             _tileInfoElement = _tree.Q<VisualElement>("tile-info");
             _infoPanelElement = _tree.Q<VisualElement>("info-panel");
         }
@@ -75,7 +75,7 @@ namespace UI.Game.GameLook
             _buildVersionElement.Add(_buildVersionView.Tree);
             _timeTogglingElement.Add(_timeTogglingView.Tree);
             _timeWeatherElement.Add(_timeWeatherView.Tree);
-            _resourcesElement.Add(_resourcesView.Tree);
+            _stockElement.Add(_stockView.Tree);
             _tileInfoElement.Add(_tileInfoView.Tree);
             _infoPanelElement.Add(_infoPanelView.Tree);
         }

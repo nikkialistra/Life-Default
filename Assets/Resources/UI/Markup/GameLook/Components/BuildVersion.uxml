@@ -1,6 +1,6 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/Resources/UI/Styles/GameLook/Components/BuildVersion.uss?fileID=7433441132597879392&amp;guid=d6f9c7009803415d8e5d398cbe78c305&amp;type=3#BuildVersion" />
-    <ui:VisualElement name="build-version">
-        <ui:Label display-tooltip-when-elided="true" name="label" text="[Build: X]" class="build-version" style="margin-left: 50px;" />
+    <ui:VisualElement name="build-version" class="build-version" style="position: absolute; left: 224px;">
+        <ui:Label display-tooltip-when-elided="true" name="label" text="[Build: X]" class="build-version" />
     </ui:VisualElement>
 </ui:UXML>

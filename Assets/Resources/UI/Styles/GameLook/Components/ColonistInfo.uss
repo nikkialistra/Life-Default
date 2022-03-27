@@ -112,7 +112,10 @@
 .base-info {
     flex-direction: row;
     width: 260px;
-    margin-bottom: 8px;
+    height: 84px;
+    align-items: center;
+    margin-top: 2px;
+    margin-bottom: 7px;
 }
 
 .picture {
@@ -144,8 +147,8 @@
     justify-content: space-between;
 }
 
-.bar__label {
-    margin-left: 4px;
+.bar .bar__label {
+    margin: 3px 0 0 4px;
     padding: 0;
     -unity-font: resource('Fonts/Ubuntu/Ubuntu-Bold');
     font-size: 12px;
@@ -153,21 +156,21 @@
     -unity-font-style: bold;
     max-width: 43px;
     letter-spacing: -4px;
-    height: 17px;
+    height: 16px;
     text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.25);
     -unity-text-align: upper-left;
 }
 
 .bar__body {
     height: 18px;
-    margin-top: 0;
     flex-direction: row;
     align-items: center;
+    margin-left: 1px;
 }
 
 .bar__progress-bar {
     margin: 0;
-    width: 112px;
+    width: 108px;
     height: 18px;
     border-radius: 4px;
 }
@@ -211,14 +214,14 @@
 .bar__state {
     width: 50px;
     height: 20px;
-    margin-left: 6px;
+    margin-left: 16px;
     flex-direction: row;
     align-items: center;
 }
 
-.bar__text {
+.bar .bar__text {
     margin: 0;
-    width: 35px;
+    width: 31px;
     height: 20px;
     margin-right: 1px;
     -unity-text-align: middle-right;
@@ -232,6 +235,7 @@
 
 .indicators {
     width: 260px;
+    margin-top: 2px;
 }
 
 .current-action {
@@ -240,6 +244,8 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
+    margin-top: 2px;
+    margin-bottom: 7px;
 }
 
 .current-action__content {
@@ -314,5 +320,26 @@
 
 .commands {
     width: 260px;
-    height: 46px;
+    height: 42px;
+}
+
+.panel-part {
+    margin-bottom: 5px;
+}
+
+.header__label {
+    height: 32px;
+    margin-bottom: 2px;
+}
+
+.bars {
+    height: 84px;
+}
+
+.bar-small__state {
+    margin-left: 13px;
+}
+
+.statuses .statuses__label {
+    margin-bottom: 2px;
 }

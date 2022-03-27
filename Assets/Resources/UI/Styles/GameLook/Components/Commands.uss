@@ -1,24 +1,25 @@
 .commands {
     width: 260px;
-    height: 46px;
+    height: 42px;
 }
 
 .elements {
     width: 260px;
-    height: 46px;
+    height: 42px;
     flex-direction: row;
     justify-content: space-between;
 }
 
 .command {
     width: 48px;
-    height: 40px;
+    height: 42px;
     margin: 0;
     padding: 0;
     -unity-background-image-tint-color: rgb(255, 255, 255);
     border-width: 0;
     border-radius: 3px;
     background-color: rgba(0, 0, 0, 0);
+    justify-content: center;
 }
 
 .command:hover {
@@ -31,7 +32,7 @@
 
 .icon {
     width: 48px;
-    height: 40px
+    height: 40px;
 }
 
 .move__icon {

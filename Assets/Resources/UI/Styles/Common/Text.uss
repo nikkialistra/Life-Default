@@ -33,6 +33,12 @@
     -unity-text-outline-width: 1px;
 }
 
+.label-very-big {
+    font-size: 26px;
+    -unity-text-outline-width: 1px;
+    margin-bottom: 2px;
+}
+
 .label-no-outline {
     -unity-text-outline-width: 0;
     text-shadow: none;

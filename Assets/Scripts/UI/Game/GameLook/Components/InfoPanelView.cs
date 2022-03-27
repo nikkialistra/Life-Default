@@ -11,26 +11,18 @@ namespace UI.Game.GameLook.Components
     public class InfoPanelView : MonoBehaviour
     {
         private const string VisualTreePath = "UI/Markup/GameLook/Components/InfoPanel";
-        
-        private Button _close;
-        private VisualElement _outline;
 
         private ColonistInfoView _colonistInfoView;
         private ColonistsInfoView _colonistsInfoView;
-        private CommandsView _commandsView;
 
         private void Awake()
         {
             _colonistInfoView = GetComponent<ColonistInfoView>();
             _colonistsInfoView = GetComponent<ColonistsInfoView>();
-            _commandsView = GetComponent<CommandsView>();
 
             Tree = Resources.Load<VisualTreeAsset>(VisualTreePath).CloneTree();
 
             InfoPanel = Tree.Q<VisualElement>("info-panel");
-
-            _close = Tree.Q<Button>("close");
-            _outline = Tree.Q<VisualElement>("outline");
         }
 
         public VisualElement Tree { get; private set; }
@@ -67,15 +59,11 @@ namespace UI.Game.GameLook.Components
         public void HideSelf()
         {
             InfoPanel.AddToClassList("not-displayed");
-            
-            _close.clicked -= HideSelf;
         }
 
         private void ShowSelf()
         {
             InfoPanel.RemoveFromClassList("not-displayed");
-            
-            _close.clicked += HideSelf;
         }
 
         private void ShowColonistInfo(ColonistFacade colonist)
@@ -84,10 +72,6 @@ namespace UI.Game.GameLook.Components
             
             _colonistInfoView.ShowSelf();
             _colonistInfoView.FillIn(colonist);
-            
-            _commandsView.ShowSelf();
-            
-            _outline.BringToFront();
         }
 
         private void ShowColonistsInfo(int count)
@@ -96,17 +80,12 @@ namespace UI.Game.GameLook.Components
             
             _colonistsInfoView.ShowSelf();
             _colonistsInfoView.SetCount(count);
-            
-            _commandsView.ShowSelf();
-            
-            _outline.BringToFront();
         }
 
         private void HidePanels()
         {
             _colonistInfoView.HideSelf();
             _colonistsInfoView.HideSelf();
-            _commandsView.HideSelf();
         }
     }
 }

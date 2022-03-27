@@ -1,14 +1,22 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/Resources/UI/Styles/GameLook/Components/Commands.uss?fileID=7433441132597879392&amp;guid=009dc3fa060fa3f4180ad29c3cd03f8d&amp;type=3#Commands" />
-    <Style src="project://database/Assets/Resources/UI/Styles/Common/InfoForm.uss?fileID=7433441132597879392&amp;guid=ef46dfde628e96146b950bb6e51694e4&amp;type=3#InfoForm" />
     <ui:VisualElement name="commands" class="commands">
         <ui:VisualElement name="elements" class="elements">
-            <ui:Button name="move" class="command move" />
-            <ui:Button name="stop" class="command stop" />
-            <ui:Button name="attack" class="command attack" />
-            <ui:Button name="hold" class="command hold" />
-            <ui:Button name="patrol" class="command patrol" />
+            <ui:Button name="move" class="command move">
+                <ui:VisualElement name="move__icon" class="icon move__icon" />
+            </ui:Button>
+            <ui:Button name="stop" class="command stop">
+                <ui:VisualElement name="stop__icon" class="icon stop__icon" />
+            </ui:Button>
+            <ui:Button name="attack" class="command attack">
+                <ui:VisualElement name="attack__icon" class="icon attack__icon" />
+            </ui:Button>
+            <ui:Button name="hold" class="command hold">
+                <ui:VisualElement name="hold__icon" class="icon hold__icon" />
+            </ui:Button>
+            <ui:Button name="patrol" class="command patrol">
+                <ui:VisualElement name="patrol__icon" class="icon patrol__icon" />
+            </ui:Button>
         </ui:VisualElement>
-        <ui:VisualElement name="dividers" picking-mode="Ignore" class="dividers" />
     </ui:VisualElement>
 </ui:UXML>

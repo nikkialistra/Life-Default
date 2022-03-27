@@ -6,7 +6,7 @@ namespace UI.Game.GameLook.Components
     [RequireComponent(typeof(InfoPanelView))]
     public class ColonistsInfoView : MonoBehaviour
     {
-        private const string VisualTreePath = "UI/Markup/GameLook/Components/ColonistsInfo";
+        private const string VisualTreePath = "UI/Markup/GameLook/Components/ColonistInfo";
 
         private InfoPanelView _parent;
         private TemplateContainer _tree;

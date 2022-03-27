@@ -16,9 +16,7 @@ namespace UI.Game.GameLook.Components
         private Button _patrol;
         
         private bool _shown;
-        
-        private InfoPanelView _parent;
-        
+
         private TemplateContainer _tree;
 
         private MovementCommand _movementCommand;
@@ -33,8 +31,6 @@ namespace UI.Game.GameLook.Components
 
         private void Awake()
         {
-            _parent = GetComponent<InfoPanelView>();
-            
             _tree = Resources.Load<VisualTreeAsset>(VisualTreePath).CloneTree();
 
             _move = _tree.Q<Button>("move");
@@ -44,14 +40,14 @@ namespace UI.Game.GameLook.Components
             _patrol = _tree.Q<Button>("patrol");
         }
 
-        public void ShowSelf()
+        public void ShowSelf(VisualElement parent)
         {
             if (_shown)
             {
                 return;
             }
-
-            _parent.InfoPanel.Add(_tree);
+            
+            parent.Add(_tree);
             _shown = true;
 
             BindButtons();
@@ -65,8 +61,6 @@ namespace UI.Game.GameLook.Components
             }
             
             UnbindButtons();
-            
-            _parent.InfoPanel.Remove(_tree);
 
             _shown = false;
         }

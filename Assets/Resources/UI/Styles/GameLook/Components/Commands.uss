@@ -1,87 +1,55 @@
 .commands {
     width: 260px;
-    height: 42px;
+    height: 46px;
 }
 
 .elements {
     width: 260px;
-    height: 42px;
+    height: 46px;
     flex-direction: row;
+    justify-content: space-between;
 }
 
 .command {
-    width: 52px;
-    height: 42px;
+    width: 48px;
+    height: 40px;
     margin: 0;
     padding: 0;
     -unity-background-image-tint-color: rgb(255, 255, 255);
     border-width: 0;
-    background-color: rgba(255, 255, 255, 0);
+    border-radius: 3px;
+    background-color: rgba(0, 0, 0, 0);
 }
 
-.move {
-    background-image: resource('UI/Sprites/Info/Commands/Move/Default');
+.command:hover {
+    background-color: rgb(58, 60, 64);
 }
 
-.move:hover {
-    background-image: resource('UI/Sprites/Info/Commands/Move/Hovered');
+.command:active {
+    background-color: rgb(72, 74, 79);
 }
 
-.move:active {
-    background-image: resource('UI/Sprites/Info/Commands/Move/Pressed');
+.icon {
+    width: 48px;
+    height: 40px
 }
 
-.stop {
-    background-image: resource('UI/Sprites/Info/Commands/Stop/Default');
+.move__icon {
+    background-image: resource('UI/Sprites/ColonistInfo/Commands/CommandMove');
 }
 
-.stop:hover {
-    background-image: resource('UI/Sprites/Info/Commands/Stop/Hovered');
+.stop__icon {
+    background-image: resource('UI/Sprites/ColonistInfo/Commands/CommandStop');
 }
 
-.stop:active {
-    background-image: resource('UI/Sprites/Info/Commands/Stop/Pressed');
+.attack__icon {
+    background-image: resource('UI/Sprites/ColonistInfo/Commands/CommandAttack');
 }
 
-.attack {
-    background-image: resource('UI/Sprites/Info/Commands/Attack/Default');
+.hold__icon {
+    background-image: resource('UI/Sprites/ColonistInfo/Commands/CommandHold');
 }
 
-.attack:hover {
-    background-image: resource('UI/Sprites/Info/Commands/Attack/Hovered');
-}
-
-.attack:active {
-    background-image: resource('UI/Sprites/Info/Commands/Attack/Pressed');
-}
-
-.hold {
-    background-image: resource('UI/Sprites/Info/Commands/Hold/Default');
-}
-
-.hold:hover {
-    background-image: resource('UI/Sprites/Info/Commands/Hold/Hovered');
-}
-
-.hold:active {
-    background-image: resource('UI/Sprites/Info/Commands/Hold/Pressed');
-}
-
-.patrol {
-    background-image: resource('UI/Sprites/Info/Commands/Patrol/Default');
-}
-
-.patrol:hover {
-    background-image: resource('UI/Sprites/Info/Commands/Patrol/Hovered');
-}
-
-.patrol:active {
-    background-image: resource('UI/Sprites/Info/Commands/Patrol/Pressed');
-}
-
-.dividers {
-    width: 260px;
-    height: 42px;
-    position: absolute;
-    background-image: resource('UI/Sprites/Info/Commands/Dividers');
+.patrol__icon {
+    background-image: resource('UI/Sprites/ColonistInfo/Commands/CommandPatrol');
 }

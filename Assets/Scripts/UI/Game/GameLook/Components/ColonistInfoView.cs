@@ -8,6 +8,7 @@ using Zenject;
 namespace UI.Game.GameLook.Components
 {
     [RequireComponent(typeof(InfoPanelView))]
+    [RequireComponent(typeof(CommandsView))]
     public class ColonistInfoView : MonoBehaviour
     {
         private const string VisualTreePath = "UI/Markup/GameLook/Components/ColonistInfo";
@@ -61,6 +62,10 @@ namespace UI.Game.GameLook.Components
         private Label _entertainmentValue;
         private VisualElement _entertainmentArrow;
 
+        private VisualElement _commands;
+
+        private CommandsView _commandsView;
+        
         private ColonistChoosing _colonistChoosing;
         private CameraMovement _cameraMovement;
 
@@ -74,6 +79,8 @@ namespace UI.Game.GameLook.Components
         private void Awake()
         {
             _parent = GetComponent<InfoPanelView>();
+
+            _commandsView = GetComponent<CommandsView>();
 
             _tree = Resources.Load<VisualTreeAsset>(VisualTreePath).CloneTree();
             _tree.pickingMode = PickingMode.Ignore;
@@ -112,6 +119,8 @@ namespace UI.Game.GameLook.Components
             _entertainmentProgress = _tree.Q<ProgressBar>("entertainment-progress");
             _entertainmentValue = _tree.Q<Label>("entertainment-value");
             _entertainmentArrow = _tree.Q<VisualElement>("entertainment-arrow");
+
+            _commands = _tree.Q<VisualElement>("commands");
         }
 
         private void OnDestroy()
@@ -127,6 +136,7 @@ namespace UI.Game.GameLook.Components
             }
 
             _parent.InfoPanel.Add(_tree);
+            _commandsView.ShowSelf(_commands);
             _shown = true;
 
             BindPanelActions();

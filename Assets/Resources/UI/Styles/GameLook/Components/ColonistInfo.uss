@@ -7,6 +7,8 @@
     border-color: rgb(9, 10, 10);
     justify-content: flex-start;
     align-items: center;
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
 
 .details {
@@ -167,19 +169,21 @@
     margin: 0;
     width: 112px;
     height: 18px;
+    border-radius: 4px;
 }
 
 .bar-small__progress-bar {
     margin: 0;
     width: 75px;
     height: 14px;
+    border-radius: 4px;
 }
 
 .bar .unity-progress-bar__background {
     background-color: rgba(255, 255, 255, 0);
     border-color: black;
     border-width: 2px;
-    border-radius: 3px;
+    border-radius: 4px;
 }
 
 .bar .unity-progress-bar__container {
@@ -244,7 +248,7 @@
     justify-content: space-between;
 }
 
-.current-action__label {
+.head-label {
     height: 25px;
 }
 
@@ -268,10 +272,6 @@
     height: 32px;
 }
 
-.to-do-row .count {
-    color: rgb(121, 123, 128);
-}
-
 .action-type {
     width: 52px;
     height: 52px;
@@ -292,4 +292,27 @@
     width: 48px;
     height: 48px;
     background-image: resource('UI/Sprites/Icons/ColonistInfo/IconTasks');
+}
+
+.statuses {
+    width: 260px;
+    height: 116px;
+}
+
+.statuses__row {
+    flex-direction: row;
+}
+
+.statuses__row .status {
+    padding: 5px;
+    margin: 0 5px 5px 0;
+    border-radius: 3px;
+    flex-shrink: 1;
+    -unity-text-align: middle-center;
+    background-color: rgb(58, 60, 64);
+}
+
+.commands {
+    width: 260px;
+    height: 46px;
 }

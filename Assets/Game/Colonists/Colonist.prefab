@@ -2528,7 +2528,6 @@ GameObject:
   - component: {fileID: 2081193202370333819}
   - component: {fileID: 1036043928785350050}
   - component: {fileID: 8477657715684973058}
-  - component: {fileID: 3901218142366084769}
   - component: {fileID: 2308330324105463307}
   - component: {fileID: 5149874996177493612}
   - component: {fileID: 5715635598172236793}
@@ -2700,7 +2699,6 @@ MonoBehaviour:
   _selectionIndicator: {fileID: 3207950516897515159}
   _center: {fileID: 1556855133966464186}
   _name: 
-  _colonistIndicators: {fileID: 3901218142366084769}
 --- !u!114 &1036043928785350050
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2736,23 +2734,6 @@ MonoBehaviour:
   _maxBlood: 100
   _startVitality: 100
   _startBlood: 100
---- !u!114 &3901218142366084769
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4193433063631040808}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1ffdae9c415c435185cb30e85bc9576c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Satiety: 100
-  Consciousness: 100
-  Sleep: 100
-  Happiness: 100
-  Entertainment: 100
 --- !u!114 &2308330324105463307
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,4 +1,5 @@
 ﻿using Environment.TimeCycle.TimeRegulation;
+using Sirenix.OdinInspector;
 using UI.Game.GameLook.Components;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -11,9 +12,11 @@ namespace UI.Game.GameLook
     [RequireComponent(typeof(TimeWeatherView))]
     [RequireComponent(typeof(StockView))]
     [RequireComponent(typeof(TileInfoView))]
-    [RequireComponent(typeof(InfoPanelView))]
     public class GameLookView : MonoBehaviour
     {
+        [Required]
+        [SerializeField] private InfoPanelView _infoPanelView;
+        
         private VisualElement _tree;
         private VisualElement _gameLook;
 
@@ -22,7 +25,6 @@ namespace UI.Game.GameLook
         private TimeWeatherView _timeWeatherView;
         private StockView _stockView;
         private TileInfoView _tileInfoView;
-        private InfoPanelView _infoPanelView;
 
         private VisualElement _buildVersionElement;
         private VisualElement _timeTogglingElement;
@@ -46,7 +48,6 @@ namespace UI.Game.GameLook
             _timeWeatherView = GetComponent<TimeWeatherView>();
             _stockView = GetComponent<StockView>();
             _tileInfoView = GetComponent<TileInfoView>();
-            _infoPanelView = GetComponent<InfoPanelView>();
 
             _tree = GetComponent<UIDocument>().rootVisualElement;
 

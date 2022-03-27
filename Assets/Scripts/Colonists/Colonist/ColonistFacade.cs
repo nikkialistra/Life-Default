@@ -9,7 +9,6 @@ using Zenject;
 namespace Colonists.Colonist
 {
     [RequireComponent(typeof(EntityHealth))]
-    [RequireComponent(typeof(ColonistIndicators))]
     [RequireComponent(typeof(ColonistMeshAgent))]
     [RequireComponent(typeof(EntityHovering))]
     [RequireComponent(typeof(ColonistBehavior))]
@@ -34,10 +33,7 @@ namespace Colonists.Colonist
 
         [Title("Properties")]
         [SerializeField] private string _name;
-        
-        [Required]
-        [SerializeField] private ColonistIndicators _colonistIndicators;
-        
+
         private bool _died;
 
         private EntityHovering _entityHovering;
@@ -53,7 +49,6 @@ namespace Colonists.Colonist
         private void Awake()
         {
             Health = GetComponent<EntityHealth>();
-            Indicators = GetComponent<ColonistIndicators>();
             _entityHovering = GetComponent<EntityHovering>();
             _colonistMeshAgent = GetComponent<ColonistMeshAgent>();
             _colonistBehavior = GetComponent<ColonistBehavior>();
@@ -69,7 +64,6 @@ namespace Colonists.Colonist
         public string Name => _name;
         
         public EntityHealth Health { get; private set; }
-        public ColonistIndicators Indicators { get; private set; }
 
         public bool Alive => !_died;
 

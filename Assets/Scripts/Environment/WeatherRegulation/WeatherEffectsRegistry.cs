@@ -7,7 +7,7 @@ namespace Environment.WeatherRegulation
 {
     public class WeatherEffectsRegistry : MonoBehaviour
     {
-        [ValidateInput("EveryWeatherHasEffects", "Not every weather has effects")]
+        [ValidateInput(nameof(EveryWeatherHasEffects), "Not every weather has effects")]
         [DictionaryDrawerSettings(DisplayMode = DictionaryDisplayOptions.ExpandedFoldout)]
         [SerializeField] private WeatherEffectsDictionary _weatherEffects;
         

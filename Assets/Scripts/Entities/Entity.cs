@@ -15,20 +15,20 @@ namespace Entities
 
         [SerializeField] private EntityType _entityType;
 
-        [ShowIf("_entityType", EntityType.Unit)]
-        [ValidateInput("UnitEntityShouldHaveUnit", "Colonist entity should have colonist")]
+        [ShowIf(nameof(_entityType), EntityType.Unit)]
+        [ValidateInput(nameof(UnitEntityShouldHaveUnit), "Colonist entity should have colonist")]
         [SerializeField] private ColonistFacade _colonist;
 
-        [ShowIf("_entityType", EntityType.Enemy)]
-        [ValidateInput("EnemyEntityShouldHaveEnemy", "Enemy entity should have enemy")]
+        [ShowIf(nameof(_entityType), EntityType.Enemy)]
+        [ValidateInput(nameof(EnemyEntityShouldHaveEnemy), "Enemy entity should have enemy")]
         [SerializeField] private EnemyFacade _enemy;
 
-        [ShowIf("_entityType", EntityType.Building)]
-        [ValidateInput("BuildingEntityShouldHaveBuilding", "Building entity should have resource")]
+        [ShowIf(nameof(_entityType), EntityType.Building)]
+        [ValidateInput(nameof(BuildingEntityShouldHaveBuilding), "Building entity should have resource")]
         [SerializeField] private Building _building;
 
-        [ShowIf("_entityType", EntityType.Resource)]
-        [ValidateInput("ResourceEntityShouldHaveResource", "Resource entity should have resource")]
+        [ShowIf(nameof(_entityType), EntityType.Resource)]
+        [ValidateInput(nameof(ResourceEntityShouldHaveResource), "Resource entity should have resource")]
         [SerializeField] private Resource _resource;
 
         public GameObject TargetIndicator => _targetIndicator;

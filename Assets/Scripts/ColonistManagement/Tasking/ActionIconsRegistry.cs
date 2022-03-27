@@ -7,7 +7,7 @@ namespace ColonistManagement.Tasking
 {
     public class ActionIconsRegistry : MonoBehaviour
     {
-        [ValidateInput("EveryActionHaveIcon", "Not every task has icon")]
+        [ValidateInput(nameof(EveryActionHaveIcon), "Not every task has icon")]
         [DictionaryDrawerSettings(DisplayMode = DictionaryDisplayOptions.ExpandedFoldout)]
         [SerializeField] private TaskIconsDictionary _taskIcons;
 

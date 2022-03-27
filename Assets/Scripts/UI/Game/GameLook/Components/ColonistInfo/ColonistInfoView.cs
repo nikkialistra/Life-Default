@@ -1,6 +1,8 @@
-﻿using Colonists.Colonist;
+﻿using ColonistManagement.Statuses;
+using Colonists.Colonist;
 using Colonists.Services.Selecting;
 using Game;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.UIElements;
 using Zenject;
@@ -80,7 +82,7 @@ namespace UI.Game.GameLook.Components.ColonistInfo
             _colonistIndicators.Initialize(_tree);
             _colonistActions.Initialize(_tree);
             _colonistStatuses = new ColonistStatuses(_tree);
-            
+
             _name = _tree.Q<Label>("name");
 
             _next = _tree.Q<Button>("next");
@@ -235,6 +237,18 @@ namespace UI.Game.GameLook.Components.ColonistInfo
         private void UpdateEntertainment()
         {
             _colonistIndicators.UpdateEntertainment(100);
+        }
+
+        [Button(ButtonSizes.Medium)]
+        private void AddStatus(StatusType statusType)
+        {
+            _colonistStatuses.AddStatus(statusType);
+        }
+
+        [Button(ButtonSizes.Medium)]
+        private void RemoveStatus(StatusType statusType)
+        {
+            _colonistStatuses.RemoveStatus(statusType);
         }
     }
 }

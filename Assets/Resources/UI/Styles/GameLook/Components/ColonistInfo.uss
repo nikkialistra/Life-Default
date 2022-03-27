@@ -249,7 +249,7 @@
 }
 
 .actions__content {
-    width: 202px;
+    width: 208px;
     height: 58px;
     justify-content: space-between;
 }

@@ -9,6 +9,7 @@ namespace UI.Game.GameLook.Components.ColonistInfo
 {
     [RequireComponent(typeof(InfoPanelView))]
     [RequireComponent(typeof(ColonistIndicators))]
+    [RequireComponent(typeof(ColonistActions))]
     [RequireComponent(typeof(CommandsView))]
     public class ColonistInfoView : MonoBehaviour
     {
@@ -52,6 +53,7 @@ namespace UI.Game.GameLook.Components.ColonistInfo
             _parent = GetComponent<InfoPanelView>();
 
             _colonistIndicators = GetComponent<ColonistIndicators>();
+            _colonistActions = GetComponent<ColonistActions>();
             _commandsView = GetComponent<CommandsView>();
 
             _tree = Resources.Load<VisualTreeAsset>(VisualTreePath).CloneTree();
@@ -62,19 +64,21 @@ namespace UI.Game.GameLook.Components.ColonistInfo
 
         private void OnEnable()
         {
-            _colonistDetails.OnEnable();
+            _colonistDetails.BindSelf();
+            _colonistActions.BindSelf();
         }
 
         private void OnDisable()
         {
-            _colonistDetails.OnDisable();
+            _colonistDetails.UnbindSelf();
+            _colonistActions.UnbindSelf();
         }
 
         private void BindElements()
         {
             _colonistDetails = new ColonistDetails(_tree);
             _colonistIndicators.Initialize(_tree);
-            _colonistActions = new ColonistActions(_tree);
+            _colonistActions.Initialize(_tree);
             _colonistStatuses = new ColonistStatuses(_tree);
             
             _name = _tree.Q<Label>("name");

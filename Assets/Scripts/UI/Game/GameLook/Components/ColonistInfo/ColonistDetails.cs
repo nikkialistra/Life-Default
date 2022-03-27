@@ -17,7 +17,7 @@ namespace UI.Game.GameLook.Components.ColonistInfo
             _info = tree.Q<Toggle>("info");
         }
 
-        public void OnEnable()
+        public void BindSelf()
         {
             _equipment.RegisterValueChangedCallback(OnEquipmentToggle);
             _stats.RegisterValueChangedCallback(OnStatsToggle);
@@ -25,7 +25,7 @@ namespace UI.Game.GameLook.Components.ColonistInfo
             _info.RegisterValueChangedCallback(OnInfoToggle);
         }
 
-        public void OnDisable()
+        public void UnbindSelf()
         {
             _equipment.UnregisterValueChangedCallback(OnEquipmentToggle);
             _stats.UnregisterValueChangedCallback(OnStatsToggle);

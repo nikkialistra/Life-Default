@@ -1,6 +1,7 @@
 ﻿using ColonistManagement.Movement;
 using ColonistManagement.OrderMarks;
 using ColonistManagement.Selection;
+using ColonistManagement.Tasking;
 using Colonists.Colonist;
 using Colonists.Services;
 using Colonists.Services.Selecting;
@@ -19,6 +20,10 @@ namespace Infrastructure
         [SerializeField] private SelectionInput _selectionInput;
         [Required]
         [SerializeField] private ColonistChoosing _colonistChoosing;
+        
+        [Title("Actions")]
+        [Required]
+        [SerializeField] private ActionIconsRegistry _actionIconsRegistry;
 
         [Title("Ordering")]
         [Required]
@@ -47,7 +52,8 @@ namespace Infrastructure
         public override void InstallBindings()
         {
             BindSelection();
-            BindTargeting();
+            BindActions();
+            BindOrdering();
             BindSpawning();
             BindCommands();
             BindServices();
@@ -62,7 +68,12 @@ namespace Infrastructure
             Container.BindInstance(_colonistChoosing);
         }
 
-        private void BindTargeting()
+        private void BindActions()
+        {
+            Container.BindInstance(_actionIconsRegistry);
+        }
+
+        private void BindOrdering()
         {
             Container.BindInstance(_orderMarkPool);
             Container.BindInstance(_orderMarkPrefab).WhenInjectedInto<OrderMarkPool>();

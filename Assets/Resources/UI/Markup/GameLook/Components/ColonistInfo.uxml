@@ -97,7 +97,7 @@
                 <ui:Label text="Current Action" display-tooltip-when-elided="true" name="current-action__label" class="label label-general head-label" />
                 <ui:VisualElement name="current-action" class="current-action">
                     <ui:VisualElement name="current-action__icon" class="nomination__icon current-action__icon" style="background-image: resource(&apos;UI/Sprites/Icons/ColonistInfo/Skills/IconStrength&apos;); max-width: 32px; max-height: 32px;" />
-                    <ui:Label text="Cut - Wood" display-tooltip-when-elided="true" name="current-action__text" class="label label-no-outline" />
+                    <ui:Label text="Cutting - Wood" display-tooltip-when-elided="true" name="current-action__text" class="label label-no-outline" />
                 </ui:VisualElement>
             </ui:VisualElement>
             <ui:Button name="action-type" class="button action-type">

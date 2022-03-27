@@ -1,5 +1,7 @@
-﻿using UnityEngine;
+﻿using ColonistManagement.Tasking;
+using UnityEngine;
 using UnityEngine.UIElements;
+using Zenject;
 
 namespace UI.Game.GameLook.Components.ColonistInfo
 {
@@ -15,6 +17,14 @@ namespace UI.Game.GameLook.Components.ColonistInfo
         private VisualElement _actionTypeIcon;
 
         private bool _isOrdering;
+        
+        private ActionIconsRegistry _actionIconsRegistry;
+
+        [Inject]
+        public void Construct(ActionIconsRegistry actionIconsRegistry)
+        {
+            _actionIconsRegistry = actionIconsRegistry;
+        }
 
         public void Initialize(VisualElement tree)
         {
@@ -39,8 +49,32 @@ namespace UI.Game.GameLook.Components.ColonistInfo
         {
             _isOrdering = !_isOrdering;
 
-            _actionTypeIcon.style.backgroundImage =
-                _isOrdering ? new StyleBackground(_iconOrders) : new StyleBackground(_iconTasks);
+            if (_isOrdering)
+            {
+                SwitchToOrdering();
+            }
+            else
+            {
+                SwitchToTasking();
+            }
+        }
+
+        private void SwitchToOrdering()
+        {
+            _actionTypeIcon.style.backgroundImage = new StyleBackground(_iconOrders);
+
+            _currentActionIcon.style.backgroundImage =
+                new StyleBackground(_actionIconsRegistry[ActionType.FollowingOrders]);
+            _currentAction.text = ActionType.FollowingOrders.GetString();
+        }
+
+        private void SwitchToTasking()
+        {
+            _actionTypeIcon.style.backgroundImage = new StyleBackground(_iconTasks);
+            
+            _currentActionIcon.style.backgroundImage =
+                new StyleBackground(_actionIconsRegistry[ActionType.Relaxing]);
+            _currentAction.text = ActionType.Relaxing.GetString();
         }
     }
 }

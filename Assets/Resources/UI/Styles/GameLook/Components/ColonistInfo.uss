@@ -259,7 +259,7 @@
 }
 
 .current-action {
-    width: 142px;
+    width: 190px;
     height: 32px;
     padding-left: 8px;
     min-height: 32px;
@@ -269,6 +269,7 @@
 .current-action__icon {
     width: 32px;
     height: 32px;
+    margin-right: 3px;
 }
 
 .action-type {

@@ -47,7 +47,7 @@ namespace Environment.WeatherRegulation
 
         public void ChangeWeather(Weather weather)
         {
-            var weatherEffects = _weatherEffectsRegistry.GetWeatherEffectsFor(weather);
+            var weatherEffects = _weatherEffectsRegistry[weather];
             
             ShiftTemperatureBy(weatherEffects.TemperatureChange);
             ShiftLightBy(weatherEffects.LightChange);

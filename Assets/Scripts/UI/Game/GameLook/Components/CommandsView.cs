@@ -40,20 +40,24 @@ namespace UI.Game.GameLook.Components
             _patrol = _tree.Q<Button>("patrol");
         }
 
-        public void ShowSelf(VisualElement parent)
+        public void BindSelf(VisualElement parent)
         {
             if (_shown)
             {
                 return;
             }
+
+            if (parent.childCount == 0)
+            {
+                parent.Add(_tree);
+            }
             
-            parent.Add(_tree);
             _shown = true;
 
             BindButtons();
         }
 
-        public void HideSelf()
+        public void UnbindSelf()
         {
             if (!_shown)
             {

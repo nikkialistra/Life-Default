@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Colonists.Colonist;
+using UI.Game.GameLook.Components.ColonistInfo;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -14,7 +15,7 @@ namespace UI.Game.GameLook.Components
 
         private ColonistInfoView _colonistInfoView;
         private ColonistsInfoView _colonistsInfoView;
-
+        
         private void Awake()
         {
             _colonistInfoView = GetComponent<ColonistInfoView>();
@@ -27,7 +28,7 @@ namespace UI.Game.GameLook.Components
 
         public VisualElement Tree { get; private set; }
         public VisualElement InfoPanel { get; private set; }
-        
+
         private void Start()
         {
             HideSelf();
@@ -58,12 +59,12 @@ namespace UI.Game.GameLook.Components
 
         public void HideSelf()
         {
-            InfoPanel.AddToClassList("not-displayed");
+            InfoPanel.style.display = DisplayStyle.None;
         }
 
         private void ShowSelf()
         {
-            InfoPanel.RemoveFromClassList("not-displayed");
+            InfoPanel.style.display = DisplayStyle.Flex;
         }
 
         private void ShowColonistInfo(ColonistFacade colonist)

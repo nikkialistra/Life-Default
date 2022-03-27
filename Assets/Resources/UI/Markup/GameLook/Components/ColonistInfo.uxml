@@ -92,14 +92,12 @@
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>
-        <ui:VisualElement name="current-action" class="current-action">
-            <ui:VisualElement name="current-action__content" class="current-action__content">
+        <ui:VisualElement name="actions" class="actions">
+            <ui:VisualElement name="actions__content" class="actions__content">
                 <ui:Label text="Current Action" display-tooltip-when-elided="true" name="current-action__label" class="label label-general head-label" />
-                <ui:VisualElement name="to-do-row" class="to-do-row">
-                    <ui:VisualElement name="nomination" class="nomination">
-                        <ui:VisualElement name="nomination__icon" class="nomination__icon" style="background-image: resource(&apos;UI/Sprites/Icons/ColonistInfo/Skills/IconStrength&apos;); max-width: 32px; max-height: 32px;" />
-                        <ui:Label text="Cut - Wood" display-tooltip-when-elided="true" name="nomination__name" class="label label-no-outline" />
-                    </ui:VisualElement>
+                <ui:VisualElement name="current-action" class="current-action">
+                    <ui:VisualElement name="current-action__icon" class="nomination__icon current-action__icon" style="background-image: resource(&apos;UI/Sprites/Icons/ColonistInfo/Skills/IconStrength&apos;); max-width: 32px; max-height: 32px;" />
+                    <ui:Label text="Cut - Wood" display-tooltip-when-elided="true" name="current-action__text" class="label label-no-outline" />
                 </ui:VisualElement>
             </ui:VisualElement>
             <ui:Button name="action-type" class="button action-type">
@@ -109,16 +107,16 @@
         <ui:VisualElement name="statuses" class="statuses panel-part">
             <ui:Label text="Statuses" name="statuses-label" class="label label-general head-label statuses__label" />
             <ui:VisualElement name="statuses__row" class="statuses__row">
-                <ui:Label text="Hungry" name="status1" class="status label label-small label-no-outline" />
-                <ui:Label text="Don’t have enough sleep" name="status2" class="status label label-small label-no-outline" />
+                <ui:Label text="Hungry" name="status-one" class="status label label-small label-no-outline" />
+                <ui:Label text="Don’t have enough sleep" name="status-two" class="status label label-small label-no-outline" />
             </ui:VisualElement>
             <ui:VisualElement name="statuses__row" class="statuses__row">
-                <ui:Label text="Dizzy" name="status3" class="status label label-small label-no-outline" />
-                <ui:Label text="Don’t have enough sleep" name="status4" class="status label label-small label-no-outline" style="display: none;" />
+                <ui:Label text="Dizzy" name="status-three" class="status label label-small label-no-outline" />
+                <ui:Label text="Don’t have enough sleep" name="status-four" class="status label label-small label-no-outline" style="display: none;" />
             </ui:VisualElement>
             <ui:VisualElement name="statuses__row" class="statuses__row">
-                <ui:Label text="Hungry" name="status5" class="status label label-small label-no-outline" style="display: none;" />
-                <ui:Label text="Don’t have enough sleep" name="status6" class="status label label-small label-no-outline" style="display: none;" />
+                <ui:Label text="Hungry" name="status-five" class="status label label-small label-no-outline" style="display: none;" />
+                <ui:Label text="Don’t have enough sleep" name="status-six" class="status label label-small label-no-outline" style="display: none;" />
             </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement name="commands" class="commands" />

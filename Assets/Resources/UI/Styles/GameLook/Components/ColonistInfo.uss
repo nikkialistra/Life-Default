@@ -238,7 +238,7 @@
     margin-top: 2px;
 }
 
-.current-action {
+.actions {
     width: 260px;
     height: 58px;
     flex-direction: row;
@@ -248,7 +248,7 @@
     margin-bottom: 7px;
 }
 
-.current-action__content {
+.actions__content {
     width: 202px;
     height: 58px;
     justify-content: space-between;
@@ -258,14 +258,7 @@
     height: 25px;
 }
 
-.to-do-row {
-    width: 202px;
-    height: 32px;
-    justify-content: flex-start;
-    flex-direction: row;
-}
-
-.nomination {
+.current-action {
     width: 142px;
     height: 32px;
     padding-left: 8px;
@@ -273,7 +266,7 @@
     flex-direction: row;
 }
 
-.nomination__icon {
+.current-action__icon {
     width: 32px;
     height: 32px;
 }

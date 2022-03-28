@@ -11,6 +11,12 @@
     padding-bottom: 5px;
 }
 
+.multiple {
+    height: 160px;
+    justify-content: space-between;
+    padding-top: 10px;
+}
+
 .details {
     flex-direction: row;
     justify-content: space-between;

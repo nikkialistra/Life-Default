@@ -123,6 +123,7 @@ namespace UI.Game.GameLook.Components.ColonistInfo
             UnbindPanelActions();
 
             _parent.InfoPanel.Remove(_tree);
+            _commandsView.UnbindSelf();
             _shown = false;
         }
 

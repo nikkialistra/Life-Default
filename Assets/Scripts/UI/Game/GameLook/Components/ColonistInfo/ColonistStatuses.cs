@@ -1,4 +1,6 @@
-﻿using ColonistManagement.Statuses;
+﻿using System.Collections.Generic;
+using System.Linq;
+using ColonistManagement.Statuses;
 using UnityEngine.UIElements;
 
 namespace UI.Game.GameLook.Components.ColonistInfo
@@ -6,19 +8,12 @@ namespace UI.Game.GameLook.Components.ColonistInfo
     public class ColonistStatuses
     {
         private const int MaxStatuses = 6;
-        
-        private readonly StatusType[] _statusTypes = new StatusType[MaxStatuses];
+
+        private readonly LinkedList<StatusType> _statusTypes = new();
         private readonly Label[] _statuses = new Label[MaxStatuses];
 
-        private int _freeIndex;
-        
         public ColonistStatuses(VisualElement tree)
         {
-            for (var i = 0; i < _statusTypes.Length; i++)
-            {
-                _statusTypes[i] = StatusType.None;
-            }
-            
             _statuses[0] = tree.Q<Label>("status-one");
             _statuses[1] = tree.Q<Label>("status-two");
             _statuses[2] = tree.Q<Label>("status-three");
@@ -29,95 +24,39 @@ namespace UI.Game.GameLook.Components.ColonistInfo
 
         public void AddStatus(StatusType statusType)
         {
-            if (_freeIndex >= _statuses.Length - 1 || HasStatus(statusType))
+            if (_statusTypes.Count >= MaxStatuses || HasStatus(statusType))
             {
                 return;
             }
+            
+            _statuses[_statusTypes.Count].style.display = DisplayStyle.Flex;
+            _statuses[_statusTypes.Count].text = statusType.GetString();
 
-            _statusTypes[_freeIndex] = statusType;
-            _statuses[_freeIndex].style.display = DisplayStyle.Flex;
-            _statuses[_freeIndex].text = statusType.GetString();
-
-            _freeIndex++;
+            _statusTypes.AddLast(statusType);
         }
 
         private bool HasStatus(StatusType statusType)
         {
-            for (var i = 0; i < _freeIndex; i++)
-            {
-                if (_statusTypes[i] == statusType)
-                {
-                    return true;
-                }
-            }
-
-            return false;
+            return _statusTypes.Any(value => value == statusType);
         }
 
         public void RemoveStatus(StatusType statusType)
         {
-            for (var i = 0; i < _freeIndex; i++)
-            {
-                if (_statusTypes[i] == statusType)
-                {
-                    _statusTypes[i] = StatusType.None;
-                }
-            }
-
+            _statusTypes.Remove(statusType);
+            
             UpdateShownStatuses();
         }
 
         private void UpdateShownStatuses()
         {
-            ShiftWhenNoneStatuses();
-            UpdateStatusTexts();
-        }
-
-        private void ShiftWhenNoneStatuses()
-        {
-            for (var i = 0; i < MaxStatuses; i++)
+            for (var i = 0; i < _statusTypes.Count; i++)
             {
-                if (TryFinishShifting(i))
-                {
-                    break;
-                }
-            }
-        }
-
-        private bool TryFinishShifting(int i)
-        {
-            if (_statusTypes[i] == StatusType.None)
-            {
-                if (_statusTypes[i + 1] != StatusType.None)
-                {
-                    Shift(i);
-                }
-                else
-                {
-                    _freeIndex = i;
-                    return true;
-                }
+                _statuses[i].text = _statusTypes.ElementAt(i).GetString();
             }
 
-            return false;
-        }
-
-        private void Shift(int i)
-        {
-            _statusTypes[i] = _statusTypes[i + 1];
-            _statusTypes[i + 1] = StatusType.None;
-        }
-
-        private void UpdateStatusTexts()
-        {
-            for (var i = 0; i < _freeIndex; i++)
+            for (var i = _statusTypes.Count; i < MaxStatuses; i++)
             {
-                _statuses[i].text = _statusTypes[i].GetString();
-            }
-
-            for (var i = _freeIndex; i < MaxStatuses; i++)
-            {
-                _statuses[_freeIndex].style.display = DisplayStyle.None;
+                _statuses[i].style.display = DisplayStyle.None;
             }
         }
     }

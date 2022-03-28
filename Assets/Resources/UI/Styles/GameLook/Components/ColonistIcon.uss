@@ -1,33 +1,34 @@
 .colonist-icon {
-    width: 72px;
+    width: 70px;
     height: 96px;
     align-items: center;
-    margin-left: 5px;
-    margin-right: 5px;
+    margin-left: 3px;
+    margin-right: 3px;
 }
 
-.colonist-icon {
-    width: 72px;
-    height: 96px;
-}
-
-.outline {
-    width: 66px;
-    height: 66px;
-    align-items: center;
-    justify-content: center;
-    background-image: resource('UI/Sprites/ColonistIcon/Outline');
-    -unity-background-image-tint-color: rgba(255, 255, 255, 0);
-}
-
-.show-outline {
-    -unity-background-image-tint-color: rgba(255, 255, 255, 255);
+.name {
+    padding: 1px 3px 1px 3px;
+    border-radius: 3px;
+    background-color: rgba(34, 36, 38, 0.5);
 }
 
 .picture {
     width: 56px;
     height: 56px;
     background-image: resource('UI/Sprites/ColonistIcon/ColonistIcon');
+    align-items: center;
+    justify-content: center;
+}
+
+.outline {
+    width: 52px;
+    height: 52px;
+    background-image: resource('UI/Sprites/ColonistIcon/Outline');
+    -unity-background-image-tint-color: rgba(255, 255, 255, 0);
+}
+
+.show-outline {
+    -unity-background-image-tint-color: rgb(255, 255, 255);
 }
 
 .bottom-indent {
@@ -72,6 +73,5 @@
 .bar .unity-progress-bar__progress {
     height: 6px;
     margin: 0 1px 0 1px;
-    border-radius: 1px;
     background-color: rgb(168, 35, 49);
 }

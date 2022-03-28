@@ -15,15 +15,15 @@
 
 .top-panel__left {
     flex-direction: row;
+    width: 300px;
 }
 
 .build-version {
-    position: absolute;
-    left: 30px;
 }
 
 .top-panel__right {
     align-items: flex-end;
+    width: 300px;
 }
 
 .indented {

@@ -69,6 +69,7 @@ namespace UI.Game.GameLook.Components
 
         private void ShowColonistInfo(ColonistFacade colonist)
         {
+            ShowSelf();
             HidePanels();
             
             _colonistInfoView.ShowSelf();
@@ -77,6 +78,7 @@ namespace UI.Game.GameLook.Components
 
         private void ShowColonistsInfo(int count)
         {
+            ShowSelf();
             HidePanels();
             
             _colonistsInfoView.ShowSelf();

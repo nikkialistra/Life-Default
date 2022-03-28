@@ -14,7 +14,7 @@ namespace UI.Game.GameLook.Components
         
         private readonly VisualElement _root;
         
-        private readonly VisualElement _name;
+        private readonly Label _name;
         
         private readonly VisualElement _outline;
         private readonly VisualElement _picture;
@@ -32,7 +32,7 @@ namespace UI.Game.GameLook.Components
             
             _root = _tree.Q<VisualElement>("colonist-icon");
 
-            _name = _tree.Q<VisualElement>("name");
+            _name = _tree.Q<Label>("name");
 
             _outline = _tree.Q<VisualElement>("outline");
             _picture = _tree.Q<VisualElement>("picture");
@@ -53,8 +53,8 @@ namespace UI.Game.GameLook.Components
             
             _colonist.HealthChange += UpdateHealth;
             _colonist.Die += Unbind;
-            
-            UpdateHealth();
+
+            FillIn(colonist);
         }
 
         public void Unbind()
@@ -72,7 +72,7 @@ namespace UI.Game.GameLook.Components
             _colonist.Die -= Unbind;
             _colonist = null;
         }
-        
+
         public void ShowOutline()
         {
             _outline.AddToClassList("show-outline");
@@ -81,6 +81,12 @@ namespace UI.Game.GameLook.Components
         public void HideOutline()
         {
             _outline.RemoveFromClassList("show-outline");
+        }
+
+        private void FillIn(ColonistFacade colonist)
+        {
+            _name.text = colonist.Name;
+            UpdateHealth();
         }
 
         private void OnMouseDownEvent(MouseDownEvent _)

@@ -54,6 +54,15 @@ namespace Colonists.Services.Selecting
             SubscribeToColonists();
         }
 
+        public void Add(ColonistFacade colonist)
+        {
+            Colonists.Add(colonist);
+            UpdateSelectionStatuses();
+            _infoPanelView.SetColonists(Colonists);
+            
+            colonist.ColonistDie += RemoveFromSelected;
+        }
+
         private void SubscribeToColonists()
         {
             foreach (var colonist in Colonists)

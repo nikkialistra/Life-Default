@@ -4,6 +4,7 @@ using Colonists.Colonist;
 using Colonists.Services;
 using Colonists.Services.Selecting;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
 using Zenject;
 
@@ -81,23 +82,15 @@ namespace UI.Game.GameLook.Components
 
         private void OnColonistClick(ColonistFacade colonist)
         {
-            _selectedColonists.Set(colonist);
-
-            UpdateOutlines(colonist);
-        }
-
-        private void UpdateOutlines(ColonistFacade selectedColonist)
-        {
-            foreach (var (colonist, colonistIconView) in _colonistIconViews)
+            if (Keyboard.current.shiftKey.isPressed)
             {
-                if (selectedColonist == colonist)
-                {
-                    colonistIconView.ShowOutline();
-                }
-                else
-                {
-                    colonistIconView.HideOutline();
-                }
+                _selectedColonists.Add(colonist);
+                AddToOutlines(colonist);
+            }
+            else
+            {
+                _selectedColonists.Set(colonist);
+                UpdateOutlines(new List<ColonistFacade>() { colonist });
             }
         }
 
@@ -112,6 +105,17 @@ namespace UI.Game.GameLook.Components
                 else
                 {
                     colonistIconView.HideOutline();
+                }
+            }
+        }
+
+        private void AddToOutlines(ColonistFacade selectedColonist)
+        {
+            foreach (var (colonist, colonistIconView) in _colonistIconViews)
+            {
+                if (selectedColonist == colonist)
+                {
+                    colonistIconView.ShowOutline();
                 }
             }
         }

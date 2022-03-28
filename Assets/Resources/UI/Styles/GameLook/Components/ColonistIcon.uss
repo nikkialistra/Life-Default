@@ -1,0 +1,61 @@
+.colonist-icon {
+    width: 72px;
+    height: 96px;
+    align-items: center;
+}
+
+.colonist-icon {
+    width: 72px;
+    height: 96px;
+}
+
+.picture {
+    width: 56px;
+    height: 56px;
+    background-image: resource('UI/Sprites/ColonistIcon/ColonistIcon');
+}
+
+.bottom-indent {
+    margin-bottom: 3px;
+}
+
+.bars {
+    width: 52px;
+    height: 12px;
+}
+
+.bar {
+    margin: 0;
+    width: 52px;
+    height: 6px;
+}
+
+.bar .unity-progress-bar__background {
+    border-width: 0;
+    background-color: rgba(255, 255, 255, 0);
+}
+
+.bar .background {
+    position: absolute;
+    width: 52px;
+    height: 6px;
+}
+
+.bar.top .background {
+    background-image: resource('UI/Sprites/ColonistIcon/BarTop');
+}
+
+.bar.bottom .background {
+    background-image: resource('UI/Sprites/ColonistIcon/BarBottom');
+}
+
+.bar .unity-progress-bar__container {
+    min-height: 6px;
+    max-height: 6px;
+}
+
+.bar .unity-progress-bar__progress {
+    height: 5px;
+    border-radius: 1px;
+    background-color: rgb(168, 35, 49);
+}

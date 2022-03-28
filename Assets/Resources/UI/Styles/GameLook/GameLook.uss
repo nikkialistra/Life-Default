@@ -26,10 +26,6 @@
     align-items: flex-end;
 }
 
-.game-info {
-    align-items: flex-end;
-}
-
 .indented {
     padding-left: 6px;
     padding-right: 0;

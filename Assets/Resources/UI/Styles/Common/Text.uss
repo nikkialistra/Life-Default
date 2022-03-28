@@ -44,6 +44,18 @@
     text-shadow: none;
 }
 
+.label-no-shadow {
+    text-shadow: none;
+}
+
 .left-aligned {
     -unity-text-align: middle-left;
+}
+
+.outline {
+    width: 66px;
+    height: 66px;
+    align-items: center;
+    justify-content: center;
+    background-image: resource('UI/Sprites/ColonistIcon/Outline');
 }

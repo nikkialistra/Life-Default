@@ -6,11 +6,12 @@
                 <ui:VisualElement name="build-version" picking-mode="Ignore" class="build-version" />
                 <ui:VisualElement name="stock" picking-mode="Ignore" class="stock" />
             </ui:VisualElement>
+            <ui:VisualElement name="top-panel__center">
+                <ui:VisualElement name="colonist-icons" />
+            </ui:VisualElement>
             <ui:VisualElement name="top-panel__right" picking-mode="Ignore" class="top-panel__right">
-                <ui:VisualElement name="game-info" picking-mode="Ignore" class="game-info">
-                    <ui:VisualElement name="time-weather" class="indented bottom-margin" />
-                    <ui:VisualElement name="time-toggling" picking-mode="Ignore" />
-                </ui:VisualElement>
+                <ui:VisualElement name="time-weather" class="indented bottom-margin" />
+                <ui:VisualElement name="time-toggling" picking-mode="Ignore" />
             </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement name="bottom-panel" picking-mode="Ignore" class="panel" style="align-items: flex-end;">

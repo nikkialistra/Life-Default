@@ -8,9 +8,11 @@ using Zenject;
 namespace UI.Game.GameLook
 {
     [RequireComponent(typeof(UIDocument))]
-    [RequireComponent(typeof(TimeTogglingView))]
-    [RequireComponent(typeof(TimeWeatherView))]
     [RequireComponent(typeof(StockView))]
+    [RequireComponent(typeof(BuildVersionView))]
+    [RequireComponent(typeof(ColonistIconsView))]
+    [RequireComponent(typeof(TimeWeatherView))]
+    [RequireComponent(typeof(TimeTogglingView))]
     [RequireComponent(typeof(TileInfoView))]
     public class GameLookView : MonoBehaviour
     {
@@ -20,16 +22,18 @@ namespace UI.Game.GameLook
         private VisualElement _tree;
         private VisualElement _gameLook;
 
+        private StockView _stockView;
         private BuildVersionView _buildVersionView;
+        private ColonistIconsView _colonistIconsView;
         private TimeTogglingView _timeTogglingView;
         private TimeWeatherView _timeWeatherView;
-        private StockView _stockView;
         private TileInfoView _tileInfoView;
 
-        private VisualElement _buildVersionElement;
-        private VisualElement _timeTogglingElement;
-        private VisualElement _timeWeatherElement;
         private VisualElement _stockElement;
+        private VisualElement _colonistIconsElement;
+        private VisualElement _buildVersionElement;
+        private VisualElement _timeWeatherElement;
+        private VisualElement _timeTogglingElement;
         private VisualElement _tileInfoElement;
         private VisualElement _infoPanelElement;
 
@@ -43,20 +47,22 @@ namespace UI.Game.GameLook
 
         private void Awake()
         {
-            _buildVersionView = GetComponent<BuildVersionView>();
-            _timeTogglingView = GetComponent<TimeTogglingView>();
-            _timeWeatherView = GetComponent<TimeWeatherView>();
             _stockView = GetComponent<StockView>();
+            _colonistIconsView = GetComponent<ColonistIconsView>();
+            _buildVersionView = GetComponent<BuildVersionView>();
+            _timeWeatherView = GetComponent<TimeWeatherView>();
+            _timeTogglingView = GetComponent<TimeTogglingView>();
             _tileInfoView = GetComponent<TileInfoView>();
 
             _tree = GetComponent<UIDocument>().rootVisualElement;
 
             _gameLook = _tree.Q<VisualElement>("game-look");
 
-            _buildVersionElement = _tree.Q<VisualElement>("build-version");
-            _timeTogglingElement = _tree.Q<VisualElement>("time-toggling");
-            _timeWeatherElement = _tree.Q<VisualElement>("time-weather");
             _stockElement = _tree.Q<VisualElement>("stock");
+            _colonistIconsElement = _tree.Q<VisualElement>("colonist-icons");
+            _buildVersionElement = _tree.Q<VisualElement>("build-version");
+            _timeWeatherElement = _tree.Q<VisualElement>("time-weather");
+            _timeTogglingElement = _tree.Q<VisualElement>("time-toggling");
             _tileInfoElement = _tree.Q<VisualElement>("tile-info");
             _infoPanelElement = _tree.Q<VisualElement>("info-panel");
         }
@@ -73,10 +79,11 @@ namespace UI.Game.GameLook
 
         private void Start()
         {
-            _buildVersionElement.Add(_buildVersionView.Tree);
-            _timeTogglingElement.Add(_timeTogglingView.Tree);
-            _timeWeatherElement.Add(_timeWeatherView.Tree);
             _stockElement.Add(_stockView.Tree);
+            _colonistIconsElement.Add(_colonistIconsView.Tree);
+            _buildVersionElement.Add(_buildVersionView.Tree);
+            _timeWeatherElement.Add(_timeWeatherView.Tree);
+            _timeTogglingElement.Add(_timeTogglingView.Tree);
             _tileInfoElement.Add(_tileInfoView.Tree);
             _infoPanelElement.Add(_infoPanelView.Tree);
         }

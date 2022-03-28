@@ -29,13 +29,13 @@ namespace Colonists.Services
             }
         }
 
-        public void AddUnit(ColonistFacade colonist)
+        public void AddColonist(ColonistFacade colonist)
         {
             _colonists.Add(colonist);
             Add?.Invoke(colonist);
         }
 
-        public void RemoveUnit(ColonistFacade colonist)
+        public void RemoveColonist(ColonistFacade colonist)
         {
             _colonists.Remove(colonist);
             Remove?.Invoke(colonist);

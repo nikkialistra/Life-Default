@@ -71,7 +71,7 @@ namespace Colonists.Colonist
         {
             switch (entity.EntityType)
             {
-                case EntityType.Unit:
+                case EntityType.Colonist:
                     break;
                 case EntityType.Enemy:
                     _enemy.Value = entity.Enemy;

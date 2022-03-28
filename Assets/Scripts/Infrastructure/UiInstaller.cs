@@ -21,13 +21,15 @@ namespace Infrastructure
         
         [Title("Top Panels")]
         [Required]
-        [SerializeField] private TimeTogglingView _timeTogglingView;
+        [SerializeField] private ResourcesView _resourcesView;
+        [Required]
+        [SerializeField] private ColonistIconsView _colonistIconsView;
         [Required]
         [SerializeField] private TimeWeatherView _timeWeatherView;
         [Required]
-        [SerializeField] private ResourcesView _resourcesView;
+        [SerializeField] private TimeTogglingView _timeTogglingView;
 
-        [Title("Info Panels")]
+        [Title("Bottom Panels")]
         [Required]
         [SerializeField] private TileInfoView _tileInfoView;
         [Required]
@@ -41,7 +43,7 @@ namespace Infrastructure
         {
             BindMain();
             BindTopPanel();
-            BindInfoPanels();
+            BindBottomPanels();
         }
 
         private void BindMain()
@@ -53,12 +55,13 @@ namespace Infrastructure
 
         private void BindTopPanel()
         {
-            Container.BindInstance(_timeTogglingView);
-            Container.BindInstance(_timeWeatherView);
             Container.BindInstance(_resourcesView);
+            Container.BindInstance(_colonistIconsView);
+            Container.BindInstance(_timeWeatherView);
+            Container.BindInstance(_timeTogglingView);
         }
 
-        private void BindInfoPanels()
+        private void BindBottomPanels()
         {
             Container.BindInstance(_tileInfoView);
             Container.BindInstance(_infoPanelView);

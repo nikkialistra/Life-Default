@@ -15,7 +15,7 @@ namespace Entities
 
         [SerializeField] private EntityType _entityType;
 
-        [ShowIf(nameof(_entityType), EntityType.Unit)]
+        [ShowIf(nameof(_entityType), EntityType.Colonist)]
         [ValidateInput(nameof(UnitEntityShouldHaveUnit), "Colonist entity should have colonist")]
         [SerializeField] private ColonistFacade _colonist;
 
@@ -46,7 +46,7 @@ namespace Entities
 
         private bool UnitEntityShouldHaveUnit()
         {
-            if (_entityType == EntityType.Unit && _colonist == null)
+            if (_entityType == EntityType.Colonist && _colonist == null)
             {
                 return false;
             }

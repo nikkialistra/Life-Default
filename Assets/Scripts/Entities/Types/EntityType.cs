@@ -2,7 +2,7 @@
 {
     public enum EntityType
     {
-        Unit,
+        Colonist,
         Enemy,
         Building,
         Resource

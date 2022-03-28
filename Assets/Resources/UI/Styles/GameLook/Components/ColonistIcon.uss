@@ -2,11 +2,26 @@
     width: 72px;
     height: 96px;
     align-items: center;
+    margin-left: 5px;
+    margin-right: 5px;
 }
 
 .colonist-icon {
     width: 72px;
     height: 96px;
+}
+
+.outline {
+    width: 66px;
+    height: 66px;
+    align-items: center;
+    justify-content: center;
+    background-image: resource('UI/Sprites/ColonistIcon/Outline');
+    -unity-background-image-tint-color: rgba(255, 255, 255, 0);
+}
+
+.show-outline {
+    -unity-background-image-tint-color: rgba(255, 255, 255, 255);
 }
 
 .picture {
@@ -55,7 +70,8 @@
 }
 
 .bar .unity-progress-bar__progress {
-    height: 5px;
+    height: 6px;
+    margin: 0 1px 0 1px;
     border-radius: 1px;
     background-color: rgb(168, 35, 49);
 }

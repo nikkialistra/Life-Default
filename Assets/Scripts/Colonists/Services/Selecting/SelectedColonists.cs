@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Colonists.Colonist;
 using UI.Game.GameLook.Components;
@@ -13,6 +14,8 @@ namespace Colonists.Services.Selecting
         {
             _infoPanelView = infoPanelView;
         }
+
+        public event Action<List<ColonistFacade>> SelectionChange; 
 
         public List<ColonistFacade> Colonists { get; private set; } = new();
         private List<ColonistFacade> _lastSelectedColonists = new();
@@ -85,6 +88,8 @@ namespace Colonists.Services.Selecting
             }
 
             _lastSelectedColonists = new List<ColonistFacade>(Colonists);
+            
+            SelectionChange?.Invoke(_lastSelectedColonists);
         }
     }
 }

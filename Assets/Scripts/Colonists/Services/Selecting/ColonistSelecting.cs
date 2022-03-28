@@ -47,9 +47,9 @@ namespace Colonists.Services.Selecting
 
         private static IEnumerable<ColonistFacade> GetColonistsFromHit(RaycastHit hit)
         {
-            if (hit.transform.TryGetComponent(out ColonistFacade clickedUnit) && clickedUnit.Alive)
+            if (hit.transform.TryGetComponent(out ColonistFacade clickedColonist) && clickedColonist.Alive)
             {
-                yield return clickedUnit;
+                yield return clickedColonist;
             }
         }
     }

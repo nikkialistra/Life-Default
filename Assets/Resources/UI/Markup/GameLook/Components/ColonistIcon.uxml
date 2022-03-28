@@ -7,10 +7,10 @@
             <ui:VisualElement name="picture" class="picture" />
         </ui:VisualElement>
         <ui:VisualElement name="bars" class="bars">
-            <ui:ProgressBar name="vitality-progress" class="bar top">
+            <ui:ProgressBar name="vitality-progress" high-value="1" class="bar top">
                 <ui:VisualElement name="background" class="background" />
             </ui:ProgressBar>
-            <ui:ProgressBar name="blood-progress" class="bar bottom background">
+            <ui:ProgressBar name="blood-progress" high-value="1" class="bar bottom background">
                 <ui:VisualElement name="background" class="background" />
             </ui:ProgressBar>
         </ui:VisualElement>

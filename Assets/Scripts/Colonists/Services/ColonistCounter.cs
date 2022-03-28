@@ -36,12 +36,12 @@ namespace Colonists.Services
 
         private void OnSpawn()
         {
-            _colonistRepository.AddUnit(_colonist);
+            _colonistRepository.AddColonist(_colonist);
         }
 
         private void OnDie()
         {
-            _colonistRepository.RemoveUnit(_colonist);
+            _colonistRepository.RemoveColonist(_colonist);
         }
     }
 }

@@ -1,0 +1,18 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Resources/UI/Styles/Common/Text.uss?fileID=7433441132597879392&amp;guid=158167a2c7cf4f5292d78d1ed2683cfc&amp;type=3#Text" />
+    <Style src="project://database/Assets/Resources/UI/Styles/GameLook/Components/ColonistIcon.uss?fileID=7433441132597879392&amp;guid=5ebc6191b618bba4aa397789c8546056&amp;type=3#ColonistIcon" />
+    <ui:VisualElement name="colonist-icon" class="colonist-icon colonist-icon-small">
+        <ui:Label display-tooltip-when-elided="true" name="name" text="Tiffany" class="label label-small bottom-indent label-no-shadow name name-small" />
+        <ui:VisualElement name="picture" class="picture bottom-indent picture-small">
+            <ui:VisualElement name="outline" class="outline outline-small" />
+        </ui:VisualElement>
+        <ui:VisualElement name="bars" class="bars bars-small">
+            <ui:ProgressBar name="vitality-progress" high-value="1" class="bar top bar-small">
+                <ui:VisualElement name="background" class="background" />
+            </ui:ProgressBar>
+            <ui:ProgressBar name="blood-progress" high-value="1" class="bar bottom background bar-small">
+                <ui:VisualElement name="background" class="background" />
+            </ui:ProgressBar>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

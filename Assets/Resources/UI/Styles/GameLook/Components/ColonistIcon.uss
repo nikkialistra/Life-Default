@@ -1,15 +1,24 @@
 .colonist-icon {
     width: 70px;
-    height: 96px;
+    height: 90px;
     align-items: center;
     margin-left: 3px;
     margin-right: 3px;
+}
+
+.colonist-icon-small {
+    width: 54px;
+    height: 82px;
 }
 
 .name {
     padding: 1px 3px 1px 3px;
     border-radius: 3px;
     background-color: rgba(34, 36, 38, 0.5);
+}
+
+.name-small {
+    font-size: 10px;
 }
 
 .picture {
@@ -20,11 +29,21 @@
     justify-content: center;
 }
 
+.picture-small {
+    width: 48px;
+    height: 48px;
+}
+
 .outline {
     width: 52px;
     height: 52px;
     background-image: resource('UI/Sprites/ColonistIcon/Outline');
     -unity-background-image-tint-color: rgba(255, 255, 255, 0);
+}
+
+.outline-small {
+    width: 44px;
+    height: 44px;
 }
 
 .show-outline {
@@ -40,10 +59,20 @@
     height: 12px;
 }
 
+.bars-small {
+    width: 44px;
+    height: 10px;
+}
+
 .bar {
     margin: 0;
     width: 52px;
     height: 6px;
+}
+
+.bar-small {
+    width: 44px;
+    height: 5px;
 }
 
 .bar .unity-progress-bar__background {
@@ -57,12 +86,26 @@
     height: 6px;
 }
 
+.bar-small .background {
+    position: absolute;
+    width: 44px;
+    height: 5px;
+}
+
 .bar.top .background {
     background-image: resource('UI/Sprites/ColonistIcon/BarTop');
 }
 
+.bar-small.top .background {
+    background-image: resource('UI/Sprites/ColonistIcon/BarTopSmall');
+}
+
 .bar.bottom .background {
     background-image: resource('UI/Sprites/ColonistIcon/BarBottom');
+}
+
+.bar-small.bottom .background {
+    background-image: resource('UI/Sprites/ColonistIcon/BarBottomSmall');
 }
 
 .bar .unity-progress-bar__container {
@@ -70,8 +113,17 @@
     max-height: 6px;
 }
 
+.bar-small .unity-progress-bar__container {
+    min-height: 5px;
+    max-height: 5px;
+}
+
 .bar .unity-progress-bar__progress {
     height: 6px;
     margin: 0 1px 0 1px;
     background-color: rgb(168, 35, 49);
+}
+
+.bar-small .unity-progress-bar__progress {
+    height: 5px;
 }

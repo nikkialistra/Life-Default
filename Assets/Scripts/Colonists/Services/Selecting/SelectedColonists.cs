@@ -47,7 +47,7 @@ namespace Colonists.Services.Selecting
         {
             UnsubscribeFromColonists();
 
-            Colonists = new List<ColonistFacade>() { colonist };
+            Colonists = new List<ColonistFacade> { colonist };
             UpdateSelectionStatuses();
             _infoPanelView.SetColonist(colonist);
 

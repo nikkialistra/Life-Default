@@ -8,6 +8,7 @@ namespace UI.Game.GameLook.Components
     public class ColonistIconView
     {
         private const string VisualTreePath = "UI/Markup/GameLook/Components/ColonistIcon";
+        private const string VisualTreePathSmall = "UI/Markup/GameLook/Components/ColonistIconSmall";
         
         private readonly ColonistIconsView _parent;
         private readonly TemplateContainer _tree;
@@ -24,11 +25,12 @@ namespace UI.Game.GameLook.Components
         
         private ColonistFacade _colonist;
 
-        public ColonistIconView(ColonistIconsView parent)
+        public ColonistIconView(ColonistIconsView parent, IconSize iconSize)
         {
             _parent = parent;
-            
-            _tree = Resources.Load<VisualTreeAsset>(VisualTreePath).CloneTree();
+
+            var assetPath = iconSize == IconSize.Normal ? VisualTreePath : VisualTreePathSmall;
+            _tree = Resources.Load<VisualTreeAsset>(assetPath).CloneTree();
             
             _root = _tree.Q<VisualElement>("colonist-icon");
 
@@ -42,6 +44,12 @@ namespace UI.Game.GameLook.Components
         }
         
         public event Action<ColonistFacade> Click;
+        
+        public enum IconSize
+        {
+            Normal,
+            Small
+        }
 
         public void Bind(ColonistFacade colonist)
         {
@@ -52,7 +60,6 @@ namespace UI.Game.GameLook.Components
             _root.RegisterCallback<MouseDownEvent>(OnMouseDownEvent);
             
             _colonist.HealthChange += UpdateHealth;
-            _colonist.Die += Unbind;
 
             FillIn(colonist);
         }
@@ -69,7 +76,6 @@ namespace UI.Game.GameLook.Components
             }
 
             _colonist.HealthChange -= UpdateHealth;
-            _colonist.Die -= Unbind;
             _colonist = null;
         }
 

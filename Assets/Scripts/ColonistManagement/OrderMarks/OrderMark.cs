@@ -94,7 +94,10 @@ namespace ColonistManagement.OrderMarks
             yield return targetIndicator.transform.DOScale(new Vector3(0f, 0f, 1f), _targetIndicatorFlashDuration)
                 .WaitForCompletion();
 
-            targetIndicator.SetActive(false);
+            if (Entity.TargetIndicator != null)
+            {
+                Entity.TargetIndicator.SetActive(false);
+            }
         }
 
         private void UpdateState()

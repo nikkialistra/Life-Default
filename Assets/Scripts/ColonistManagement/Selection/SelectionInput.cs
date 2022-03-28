@@ -17,7 +17,7 @@ namespace ColonistManagement.Selection
         private GameViews _gameViews;
         private GameMenuToggle _gameMenuToggle;
 
-        private Coroutine _areaUpdateCouroutine;
+        private Coroutine _areaUpdateCoroutine;
 
         private PlayerInput _playerInput;
 
@@ -80,12 +80,12 @@ namespace ColonistManagement.Selection
 
             _startPoint = _mousePositionAction.ReadValue<Vector2>();
 
-            if (_areaUpdateCouroutine != null)
+            if (_areaUpdateCoroutine != null)
             {
-                StopCoroutine(_areaUpdateCouroutine);
+                StopCoroutine(_areaUpdateCoroutine);
             }
 
-            _areaUpdateCouroutine = StartCoroutine(UpdateArea());
+            _areaUpdateCoroutine = StartCoroutine(UpdateArea());
         }
 
         private IEnumerator UpdateArea()
@@ -112,7 +112,7 @@ namespace ColonistManagement.Selection
                 return;
             }
 
-            if (_startPoint == null || _areaUpdateCouroutine == null)
+            if (_startPoint == null || _areaUpdateCoroutine == null)
             {
                 throw new InvalidOperationException();
             }
@@ -122,7 +122,7 @@ namespace ColonistManagement.Selection
             _startPoint = null;
             _updatingArea = false;
 
-            StopCoroutine(_areaUpdateCouroutine);
+            StopCoroutine(_areaUpdateCoroutine);
         }
 
         private Rect GetRect(Vector2 a, Vector2 b)

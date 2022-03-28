@@ -86,14 +86,18 @@ namespace Colonists.Services.Selecting
 
         private void UpdateSelectionStatuses()
         {
-            foreach (var selected in Colonists)
+            foreach (var forSelection in Colonists)
             {
-                selected.Select();
+                forSelection.Select();
             }
-
-            foreach (var deselected in _lastSelectedColonists.Except(Colonists))
+            foreach (var forDeselection in _lastSelectedColonists.Except(Colonists))
             {
-                deselected.Deselect();
+                if (!forDeselection.Alive)
+                {
+                    continue;
+                }
+                
+                forDeselection.Deselect();
             }
 
             _lastSelectedColonists = new List<ColonistFacade>(Colonists);

@@ -10,8 +10,6 @@ namespace Colonists.Services.Selecting
     [RequireComponent(typeof(SelectionArea))]
     public class ColonistSelection : MonoBehaviour
     {
-        [SerializeField] private float _doubleClickDeltaTime;
-
         private SelectionArea _selectionArea;
 
         private ColonistSelecting _selecting;

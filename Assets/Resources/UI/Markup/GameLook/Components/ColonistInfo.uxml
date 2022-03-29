@@ -2,11 +2,12 @@
     <Style src="project://database/Assets/Resources/UI/Styles/GameLook/Components/ColonistInfo.uss?fileID=7433441132597879392&amp;guid=2dd66992b3fa42d8b520b5b60e195239&amp;type=3#ColonistInfo" />
     <Style src="project://database/Assets/Resources/UI/Styles/Common/Text.uss?fileID=7433441132597879392&amp;guid=158167a2c7cf4f5292d78d1ed2683cfc&amp;type=3#Text" />
     <ui:VisualElement name="colonist-info" picking-mode="Ignore" class="colonist-info">
+        <ui:TextField picking-mode="Ignore" text="Name" name="name-field" class="label header__label label-very-big name-field" style="-unity-background-image-tint-color: rgba(255, 255, 255, 0.89); display: none;" />
         <ui:VisualElement name="details" class="details panel-part">
             <ui:Toggle label="Equipment" name="equipment" focusable="false" class="label details__toggle label-small" />
-            <ui:Toggle label="Stats" name="stats" focusable="false" class="details__toggle label label-small" />
-            <ui:Toggle label="Skills" name="skills" focusable="false" class="details__toggle label label-small" />
-            <ui:Toggle label="Info" name="info" focusable="false" class="details__toggle label label-small" />
+            <ui:Toggle label="Stats" name="stats" focusable="false" class="details__toggle label label-small label-bold" />
+            <ui:Toggle label="Skills" name="skills" focusable="false" class="details__toggle label label-small label-bold" />
+            <ui:Toggle label="Info" name="info" focusable="false" class="details__toggle label label-small label-bold" />
         </ui:VisualElement>
         <ui:VisualElement name="header" picking-mode="Ignore" class="header panel-part">
             <ui:Label text="Tiffany" display-tooltip-when-elided="true" name="name" class="label header__label label-very-big" />
@@ -19,21 +20,21 @@
             <ui:VisualElement name="picture" class="picture" />
             <ui:VisualElement name="health-bars" class="bars" style="justify-content: center;">
                 <ui:VisualElement name="vitality-bar" class="bar red">
-                    <ui:Label text="Vitality" display-tooltip-when-elided="true" name="vitality" class="bar__label" />
+                    <ui:Label text="Vitality" display-tooltip-when-elided="true" name="vitality" class="bar__label label" />
                     <ui:VisualElement name="bar__body" class="bar__body">
                         <ui:ProgressBar name="vitality-progress" high-value="1" class="bar__progress-bar" />
                         <ui:VisualElement name="bar__state" class="bar__state">
-                            <ui:Label text="100%" name="vitality-value" class="bar__label bar__text" />
+                            <ui:Label text="100%" name="vitality-value" class="bar__label bar__text label" />
                             <ui:VisualElement name="vitality-arrow" class="value__arrow" style="background-image: resource(&apos;UI/Sprites/ColonistInfo/Arrows/DoubleArrowDown&apos;);" />
                         </ui:VisualElement>
                     </ui:VisualElement>
                 </ui:VisualElement>
                 <ui:VisualElement name="blood-bar" class="bar red">
-                    <ui:Label text="Blood" display-tooltip-when-elided="true" name="blood" class="bar__label" />
+                    <ui:Label text="Blood" display-tooltip-when-elided="true" name="blood" class="bar__label label" />
                     <ui:VisualElement name="bar__body" class="bar__body">
                         <ui:ProgressBar title=" " name="blood-progress" high-value="1" class="bar__progress-bar" />
                         <ui:VisualElement name="bar__state" class="bar__state">
-                            <ui:Label text="100%" name="blood-value" class="bar__label bar__text" />
+                            <ui:Label text="100%" name="blood-value" class="bar__label bar__text label" />
                             <ui:VisualElement name="blood-arrow" class="value__arrow" />
                         </ui:VisualElement>
                     </ui:VisualElement>
@@ -42,51 +43,51 @@
         </ui:VisualElement>
         <ui:VisualElement name="indicators" class="indicators panel-part">
             <ui:VisualElement name="satiety-bar" class="bar bar-small green">
-                <ui:Label text="Satiety" display-tooltip-when-elided="true" name="satiety" class="bar__label" />
+                <ui:Label text="Satiety" display-tooltip-when-elided="true" name="satiety" class="bar__label label" />
                 <ui:VisualElement name="bar__body" class="bar__body">
                     <ui:ProgressBar title=" " name="satiety-progress" high-value="100" class="bar-small__progress-bar" />
                     <ui:VisualElement name="bar__state" class="bar__state bar-small__state">
-                        <ui:Label text="100%" display-tooltip-when-elided="true" name="satiety-value" class="bar__label" />
+                        <ui:Label text="100%" display-tooltip-when-elided="true" name="satiety-value" class="bar__label label" />
                         <ui:VisualElement name="satiety-arrow" class="value__arrow" />
                     </ui:VisualElement>
                 </ui:VisualElement>
             </ui:VisualElement>
             <ui:VisualElement name="sleep-bar" class="bar bar-small green">
-                <ui:Label text="Sleep" display-tooltip-when-elided="true" name="sleep" class="bar__label" />
+                <ui:Label text="Sleep" display-tooltip-when-elided="true" name="sleep" class="bar__label label" />
                 <ui:VisualElement name="bar__body" class="bar__body">
                     <ui:ProgressBar title=" " name="sleep-progress" high-value="100" class="bar-small__progress-bar" />
                     <ui:VisualElement name="bar__state" class="bar__state bar-small__state">
-                        <ui:Label text="100%" display-tooltip-when-elided="true" name="sleep-value" class="bar__label" />
+                        <ui:Label text="100%" display-tooltip-when-elided="true" name="sleep-value" class="bar__label label" />
                         <ui:VisualElement name="sleep-arrow" class="value__arrow" />
                     </ui:VisualElement>
                 </ui:VisualElement>
             </ui:VisualElement>
             <ui:VisualElement name="happiness-bar" class="bar bar-small green">
-                <ui:Label text="Happiness" display-tooltip-when-elided="true" name="happiness" class="bar__label" />
+                <ui:Label text="Happiness" display-tooltip-when-elided="true" name="happiness" class="bar__label label" />
                 <ui:VisualElement name="bar__body" class="bar__body">
                     <ui:ProgressBar title=" " name="happiness-progress" high-value="100" class="bar-small__progress-bar" />
                     <ui:VisualElement name="bar__state" class="bar__state bar-small__state">
-                        <ui:Label text="100%" display-tooltip-when-elided="true" name="happiness-value" class="bar__label" />
+                        <ui:Label text="100%" display-tooltip-when-elided="true" name="happiness-value" class="bar__label label" />
                         <ui:VisualElement name="happiness-arrow" class="value__arrow" />
                     </ui:VisualElement>
                 </ui:VisualElement>
             </ui:VisualElement>
             <ui:VisualElement name="consciousness-bar" class="bar bar-small green">
-                <ui:Label text="Consciousness" display-tooltip-when-elided="true" name="consciousness" class="bar__label" />
+                <ui:Label text="Consciousness" display-tooltip-when-elided="true" name="consciousness" class="bar__label label" />
                 <ui:VisualElement name="bar__body" class="bar__body">
                     <ui:ProgressBar title=" " name="consciousness-progress" high-value="100" class="bar-small__progress-bar" />
                     <ui:VisualElement name="bar__state" class="bar__state bar-small__state">
-                        <ui:Label text="100%" display-tooltip-when-elided="true" name="consciousness-value" class="bar__label" />
+                        <ui:Label text="100%" display-tooltip-when-elided="true" name="consciousness-value" class="bar__label label" />
                         <ui:VisualElement name="consciousness-arrow" class="value__arrow" />
                     </ui:VisualElement>
                 </ui:VisualElement>
             </ui:VisualElement>
             <ui:VisualElement name="entertainment-bar" class="bar bar-small green">
-                <ui:Label text="Entertainment" display-tooltip-when-elided="true" name="entertainment" class="bar__label" />
+                <ui:Label text="Entertainment" display-tooltip-when-elided="true" name="entertainment" class="bar__label label" />
                 <ui:VisualElement name="bar__body" class="bar__body">
                     <ui:ProgressBar title=" " name="entertainment-progress" high-value="100" class="bar-small__progress-bar" />
                     <ui:VisualElement name="bar__state" class="bar__state bar-small__state">
-                        <ui:Label text="100%" display-tooltip-when-elided="true" name="entertainment-value" class="bar__label" />
+                        <ui:Label text="100%" display-tooltip-when-elided="true" name="entertainment-value" class="bar__label label" />
                         <ui:VisualElement name="entertainment-arrow" class="value__arrow" />
                     </ui:VisualElement>
                 </ui:VisualElement>
@@ -97,7 +98,7 @@
                 <ui:Label text="Current Action" display-tooltip-when-elided="true" name="current-action__label" class="label label-general head-label" />
                 <ui:VisualElement name="current-action" class="current-action">
                     <ui:VisualElement name="current-action__icon" class="nomination__icon current-action__icon" style="background-image: resource(&apos;UI/Sprites/Icons/ColonistInfo/Skills/IconStrength&apos;); max-width: 32px; max-height: 32px;" />
-                    <ui:Label text="Cutting - Wood" display-tooltip-when-elided="true" name="current-action__text" class="label label-no-outline" />
+                    <ui:Label text="Cutting - Wood" display-tooltip-when-elided="true" name="current-action__text" class="label" />
                 </ui:VisualElement>
             </ui:VisualElement>
             <ui:Button name="action-type" class="button action-type">

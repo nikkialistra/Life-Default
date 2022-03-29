@@ -7,11 +7,11 @@
             <ui:VisualElement name="content__row" class="content__row">
                 <ui:VisualElement name="wood" class="element">
                     <ui:VisualElement name="wood__icon" class="element__icon wood__icon" />
-                    <ui:Label text="0" display-tooltip-when-elided="true" name="wood__count" class="element__text label label-small" />
+                    <ui:Label text="0" name="wood__count" class="element__text label label-small label-outlined-small" />
                 </ui:VisualElement>
                 <ui:VisualElement name="stone" class="element">
                     <ui:VisualElement name="stone__icon" class="element__icon stone__icon" />
-                    <ui:Label text="0" display-tooltip-when-elided="true" name="stone__count" class="element__text label label-small" />
+                    <ui:Label text="0" name="stone__count" class="element__text label label-small label-outlined-small" />
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>

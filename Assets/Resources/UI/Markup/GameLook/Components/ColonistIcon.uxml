@@ -2,7 +2,7 @@
     <Style src="project://database/Assets/Resources/UI/Styles/Common/Text.uss?fileID=7433441132597879392&amp;guid=158167a2c7cf4f5292d78d1ed2683cfc&amp;type=3#Text" />
     <Style src="project://database/Assets/Resources/UI/Styles/GameLook/Components/ColonistIcon.uss?fileID=7433441132597879392&amp;guid=5ebc6191b618bba4aa397789c8546056&amp;type=3#ColonistIcon" />
     <ui:VisualElement name="colonist-icon" class="colonist-icon">
-        <ui:Label display-tooltip-when-elided="true" name="name" text="Tiffany" class="label label-small bottom-indent label-no-shadow name" />
+        <ui:Label display-tooltip-when-elided="true" name="name" text="Tiffany" class="label bottom-indent name label-outlined-small" />
         <ui:VisualElement name="picture" class="picture bottom-indent">
             <ui:VisualElement name="outline" class="outline" />
         </ui:VisualElement>

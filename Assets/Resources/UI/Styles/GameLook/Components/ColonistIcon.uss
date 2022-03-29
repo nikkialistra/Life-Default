@@ -19,6 +19,7 @@
 
 .name-small {
     font-size: 10px;
+    -unity-text-outline-width: 0.6px;
 }
 
 .picture {

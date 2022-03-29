@@ -4,27 +4,27 @@
     <ui:VisualElement name="time-weather" class="time-weather">
         <ui:VisualElement name="top-panel" class="top-panel">
             <ui:VisualElement name="date-panel" class="side-panel">
-                <ui:Label text="Day 7 of" display-tooltip-when-elided="true" name="day" class="label day" />
-                <ui:Label text="Spring, 2114" display-tooltip-when-elided="true" name="season-year" class="label season-year" />
+                <ui:Label text="Day 7 of" display-tooltip-when-elided="true" name="day" class="label day label-small" />
+                <ui:Label text="Spring, 2114" display-tooltip-when-elided="true" name="season-year" class="label season-year label-small" />
             </ui:VisualElement>
             <ui:VisualElement name="temperature-panel" class="temperature-panel">
                 <ui:VisualElement name="thermometer" class="thermometer" style="background-image: resource(&apos;UI/Sprites/Icons/TimeWeather/IconThermometer&apos;);" />
                 <ui:VisualElement name="temperature-panel__right" class="temperature-panel__right">
                     <ui:VisualElement name="time-status" class="time-status" />
-                    <ui:Label text="13 C" display-tooltip-when-elided="true" name="temperature" class="label label-big temperature" />
+                    <ui:Label text="13 C" display-tooltip-when-elided="true" name="temperature" class="label temperature label-general" />
                 </ui:VisualElement>
             </ui:VisualElement>
             <ui:VisualElement name="weather-panel" class="side-panel">
                 <ui:VisualElement name="weather-panel__top" class="weather-panel__top">
                     <ui:VisualElement name="weather-icon" class="weather-icon" />
-                    <ui:Label text="75% Lit," display-tooltip-when-elided="true" name="light" class="label" />
+                    <ui:Label text="75% Lit," display-tooltip-when-elided="true" name="light" class="label label-small" />
                 </ui:VisualElement>
-                <ui:Label text="Thunderstorm" display-tooltip-when-elided="true" name="weather" class="label" />
+                <ui:Label text="Thunderstorm" display-tooltip-when-elided="true" name="weather" class="label label-small" />
             </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement name="time-block" class="time-block">
             <ui:VisualElement name="separator" class="separator" />
-            <ui:Label text="23:15" display-tooltip-when-elided="true" name="time" class="label label-big" style="-unity-text-outline-width: 1px; -unity-text-outline-color: rgb(0, 0, 0); text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.25);" />
+            <ui:Label text="23:15" display-tooltip-when-elided="true" name="time" class="label label-medium" />
             <ui:VisualElement name="separator" class="separator" />
         </ui:VisualElement>
     </ui:VisualElement>

@@ -22,7 +22,7 @@
                 <ui:VisualElement name="recovery-speed-bar" class="bar red">
                     <ui:Label text="Health" name="health" class="bar__label label" />
                     <ui:VisualElement name="bar__body" class="bar__body">
-                        <ui:ProgressBar name="health-progress" high-value="1" class="bar__progress-bar">
+                        <ui:ProgressBar name="health-progress" high-value="1" title="100/100" class="bar__progress-bar">
                             <ui:VisualElement name="background" class="background" />
                         </ui:ProgressBar>
                         <ui:VisualElement name="bar__state" class="bar__state">
@@ -34,7 +34,7 @@
                 <ui:VisualElement name="recovery-speed-bar" class="bar red">
                     <ui:Label text="Recovery Speed" name="recovery-speed" class="bar__label label" />
                     <ui:VisualElement name="bar__body" class="bar__body">
-                        <ui:ProgressBar title=" " name="recovery-speed-progress" high-value="1" class="bar__progress-bar">
+                        <ui:ProgressBar title="3/3" name="recovery-speed-progress" high-value="1" class="bar__progress-bar">
                             <ui:VisualElement name="background" class="background" />
                         </ui:ProgressBar>
                         <ui:VisualElement name="bar__state" class="bar__state">

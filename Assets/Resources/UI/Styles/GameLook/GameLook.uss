@@ -18,9 +18,6 @@
     width: 300px;
 }
 
-.build-version {
-}
-
 .top-panel__right {
     align-items: flex-end;
     width: 300px;
@@ -36,9 +33,7 @@
 }
 
 .paused {
-    border-color: rgba(255, 255, 255, 0.39);
-    border-width: 5px;
-    padding: 5px;
+    background-image: resource('UI/Sprites/PauseOutline');
 }
 
 .time-speed-multiplied {

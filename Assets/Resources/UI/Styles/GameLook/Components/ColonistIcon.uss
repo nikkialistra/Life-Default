@@ -11,13 +11,17 @@
     height: 82px;
 }
 
-.name {
+.colonist-icon .name {
+    height: 16px;
     padding: 1px 3px 1px 3px;
+    overflow: hidden;
     border-radius: 3px;
     background-color: rgba(34, 36, 38, 0.5);
+    -unity-text-align: middle-left;
 }
 
-.name-small {
+.colonist-icon .name-small {
+    height: 14px;
     font-size: 10px;
     -unity-text-outline-width: 0.6px;
 }

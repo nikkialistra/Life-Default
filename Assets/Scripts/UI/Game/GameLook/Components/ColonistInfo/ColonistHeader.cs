@@ -11,6 +11,9 @@ namespace UI.Game.GameLook.Components.ColonistInfo
 {
     public class ColonistHeader : MonoBehaviour
     {
+        private const string InputMap = "Input";
+        private const string ManagementMap = "Management";
+        
         private TextField _name;
         private Button _rename;
         private Button _focus;
@@ -110,7 +113,7 @@ namespace UI.Game.GameLook.Components.ColonistInfo
 
         private void OnRename()
         {
-            if (_playerInput.currentActionMap.name == "Management")
+            if (_playerInput.currentActionMap.name == ManagementMap)
             {
                 StartInput();
             }
@@ -136,12 +139,14 @@ namespace UI.Game.GameLook.Components.ColonistInfo
             _name.Focus();
             _name.focusable = false;
 
-            _playerInput.SwitchCurrentActionMap("Input");
+            _playerInput.SwitchCurrentActionMap(InputMap);
         }
 
         private void FinishInput()
         {
-            _playerInput.SwitchCurrentActionMap("Management");
+            _colonist.Name = _name.value;
+            
+            _playerInput.SwitchCurrentActionMap(ManagementMap);
         }
     }
 }

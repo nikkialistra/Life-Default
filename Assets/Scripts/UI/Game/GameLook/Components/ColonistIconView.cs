@@ -60,6 +60,7 @@ namespace UI.Game.GameLook.Components
             _root.RegisterCallback<MouseDownEvent>(OnMouseDownEvent);
             
             _colonist.HealthChange += UpdateHealth;
+            _colonist.NameChange += UpdateName;
 
             FillIn(colonist);
         }
@@ -75,6 +76,7 @@ namespace UI.Game.GameLook.Components
                 return;
             }
 
+            _colonist.HealthChange -= UpdateHealth;
             _colonist.HealthChange -= UpdateHealth;
             _colonist = null;
         }
@@ -104,6 +106,11 @@ namespace UI.Game.GameLook.Components
         {
             _vitalityProgress.value = _colonist.Vitality.Health;
             _bloodProgress.value = _colonist.Vitality.RecoverySpeed;
+        }
+
+        private void UpdateName(string name)
+        {
+            _name.text = name;
         }
     }
 }

@@ -58,11 +58,21 @@ namespace Colonists.Colonist
         public event Action HealthChange;
         public event Action Die;
         public event Action<ColonistFacade> ColonistDie;
-
+        
+        public event Action<string> NameChange;
+        
         public event Action<ColonistFacade> DestinationReach;
         
-        public string Name => _name;
-        
+        public string Name
+        {
+            get => _name;
+            set
+            {
+                _name = value;
+                NameChange?.Invoke(_name);
+            }
+        }
+
         public EntityVitality Vitality { get; private set; }
 
         public bool Alive => !_died;

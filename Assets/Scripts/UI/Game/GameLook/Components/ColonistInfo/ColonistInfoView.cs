@@ -4,6 +4,7 @@ using Colonists.Services.Selecting;
 using Game;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
 using Zenject;
 
@@ -29,10 +30,11 @@ namespace UI.Game.GameLook.Components.ColonistInfo
         private ColonistActions _colonistActions;
         private ColonistStatuses _colonistStatuses;
         
-        private Label _name;
+        private TextField _name;
 
-        private Button _next;
+        private Button _rename;
         private Button _focus;
+        private Button _next;
 
         private VisualElement _picture;
 
@@ -42,12 +44,17 @@ namespace UI.Game.GameLook.Components.ColonistInfo
 
         private ColonistChoosing _colonistChoosing;
         private CameraMovement _cameraMovement;
+        
+        private PlayerInput _playerInput;
+        
+        private InputAction _enterAction;
 
         [Inject]
-        public void Construct(ColonistChoosing colonistChoosing, CameraMovement cameraMovement)
+        public void Construct(ColonistChoosing colonistChoosing, CameraMovement cameraMovement, PlayerInput playerInput)
         {
             _colonistChoosing = colonistChoosing;
             _cameraMovement = cameraMovement;
+            _playerInput = playerInput;
         }
 
         private void Awake()
@@ -62,18 +69,24 @@ namespace UI.Game.GameLook.Components.ColonistInfo
             _tree.pickingMode = PickingMode.Ignore;
 
             BindElements();
+
+            _enterAction = _playerInput.actions.FindAction("Enter");
         }
 
         private void OnEnable()
         {
             _colonistDetails.BindSelf();
             _colonistActions.BindSelf();
+
+            _enterAction.started += FinishInput;
         }
 
         private void OnDisable()
         {
             _colonistDetails.UnbindSelf();
             _colonistActions.UnbindSelf();
+
+            _enterAction.started -= FinishInput;
         }
 
         private void BindElements()
@@ -83,10 +96,11 @@ namespace UI.Game.GameLook.Components.ColonistInfo
             _colonistActions.Initialize(_tree);
             _colonistStatuses = new ColonistStatuses(_tree);
 
-            _name = _tree.Q<Label>("name");
+            _name = _tree.Q<TextField>("name-field");
 
-            _next = _tree.Q<Button>("next");
+            _rename = _tree.Q<Button>("rename");
             _focus = _tree.Q<Button>("focus");
+            _next = _tree.Q<Button>("next");
             
             _picture = _tree.Q<VisualElement>("picture");
 
@@ -133,6 +147,11 @@ namespace UI.Game.GameLook.Components.ColonistInfo
             FillInProperties(colonist);
         }
 
+        private void FinishInput(InputAction.CallbackContext context)
+        {
+            FinishInput();
+        }
+
         private void OnNext()
         {
            _colonistChoosing.NextColonistTo(_colonist);
@@ -140,14 +159,42 @@ namespace UI.Game.GameLook.Components.ColonistInfo
         
         private void BindPanelActions()
         {
-            _next.clicked += OnNext;
+            _rename.clicked += OnRename;
             _focus.clicked += OnFocus;
+            _next.clicked += OnNext;
         }
 
         private void UnbindPanelActions()
         {
-            _next.clicked -= OnNext;
+            _rename.clicked -= OnRename;
             _focus.clicked -= OnFocus;
+            _next.clicked -= OnNext;
+        }
+
+        private void OnRename()
+        {
+            if (_playerInput.inputIsActive)
+            {
+                StartInput();
+            }
+            else
+            {
+                FinishInput();
+            }
+        }
+
+        private void StartInput()
+        {
+            _name.focusable = true;
+            _name.Focus();
+            _name.focusable = false;
+
+            _playerInput.DeactivateInput();
+        }
+
+        private void FinishInput()
+        {
+            _playerInput.ActivateInput();
         }
 
         private void OnFocus()
@@ -162,7 +209,7 @@ namespace UI.Game.GameLook.Components.ColonistInfo
 
         private void FillInPreview(ColonistFacade colonist)
         {
-            _name.text = colonist.Name;
+            _name.value = colonist.Name;
         }
 
         private void FillInProperties(ColonistFacade colonist)

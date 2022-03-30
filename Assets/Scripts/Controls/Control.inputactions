@@ -24,6 +24,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "Enter",
+                    "type": "Button",
+                    "id": "7cad3597-89d2-4760-8ab3-6f685eb52666",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Pause Time",
                     "type": "Button",
                     "id": "2cd4ea1b-3680-4cb3-9d0e-2ba33ad61b88",
@@ -786,6 +795,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Select Tile",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ff210ee0-2f47-4d1c-b1d3-5ab286cd6a10",
+                    "path": "<Keyboard>/enter",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Enter",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

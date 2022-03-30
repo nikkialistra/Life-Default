@@ -53,26 +53,32 @@
 .header {
     flex-direction: row;
     width: 260px;
-    height: 34px;
+    height: 36px;
     justify-content: space-between;
     align-items: center;
 }
 
-.name-field {
+.header .name-field {
+    height: 36px;
     border-width: 0;
     text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.25);
 }
 
 .name-field .unity-text-field__input {
-    margin: 0;
-    padding: 0;
+    height: 36px;
+    padding: 4px;
     border-width: 0;
+    border-radius: 2px;
     background-color: rgba(255, 255, 255, 0);
-    text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.25);
+    text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.7);
+}
+
+.name-field .unity-text-field__input:focus {
+    background-color: rgb(86, 89, 94);
 }
 
 .header .header__label {
-    width: 120px;
+    width: 150px;
     -unity-text-align: middle-left;
 }
 
@@ -104,27 +110,39 @@
 }
 
 .next {
-    background-image: resource('UI/Sprites/ColonistInfo/Actions/Next_Default');
+    background-image: resource('UI/Sprites/ColonistInfo/Actions/ActionNext_Default');
 }
 
 .next:hover {
-    background-image: resource('UI/Sprites/ColonistInfo/Actions/Next_Hovered');
+    background-image: resource('UI/Sprites/ColonistInfo/Actions/ActionNext_Hovered');
 }
 
 .next:active {
-    background-image: resource('UI/Sprites/ColonistInfo/Actions/Next_Pressed');
+    background-image: resource('UI/Sprites/ColonistInfo/Actions/ActionNext_Pressed');
 }
 
 .focus {
-    background-image: resource('UI/Sprites/ColonistInfo/Actions/Focus_Default');
+    background-image: resource('UI/Sprites/ColonistInfo/Actions/ActionFocus_Default');
 }
 
 .focus:hover {
-    background-image: resource('UI/Sprites/ColonistInfo/Actions/Focus_Hovered');
+    background-image: resource('UI/Sprites/ColonistInfo/Actions/ActionFocus_Hovered');
 }
 
 .focus:active {
-    background-image: resource('UI/Sprites/ColonistInfo/Actions/Focus_Pressed');
+    background-image: resource('UI/Sprites/ColonistInfo/Actions/ActionFocus_Pressed');
+}
+
+.rename {
+    background-image: resource('UI/Sprites/ColonistInfo/Actions/ActionRename_Default');
+}
+
+.rename:hover {
+    background-image: resource('UI/Sprites/ColonistInfo/Actions/ActionRename_Hovered');
+}
+
+.rename:active {
+    background-image: resource('UI/Sprites/ColonistInfo/Actions/ActionRename_Pressed');
 }
 
 .base-info {

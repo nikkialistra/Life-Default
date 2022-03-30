@@ -7,7 +7,7 @@ using Zenject;
 
 namespace Enemies.Enemy
 {
-    [RequireComponent(typeof(EntityHealth))]
+    [RequireComponent(typeof(EntityVitality))]
     [RequireComponent(typeof(EnemyMeshAgent))]
     [RequireComponent(typeof(EnemyBehavior))]
     [RequireComponent(typeof(Entity))]
@@ -24,7 +24,7 @@ namespace Enemies.Enemy
 
         private bool _died;
 
-        private EntityHealth _health;
+        private EntityVitality _vitality;
         private EnemyMeshAgent _enemyMeshAgent;
         private EnemyBehavior _enemyBehavior;
 
@@ -37,7 +37,7 @@ namespace Enemies.Enemy
 
         private void Awake()
         {
-            _health = GetComponent<EntityHealth>();
+            _vitality = GetComponent<EntityVitality>();
             _enemyMeshAgent = GetComponent<EnemyMeshAgent>();
             _enemyBehavior = GetComponent<EnemyBehavior>();
 
@@ -55,14 +55,14 @@ namespace Enemies.Enemy
 
         private void OnEnable()
         {
-            _health.HealthChange += OnHealthChange;
-            _health.Die += Dying;
+            _vitality.HealthChange += OnVitalityChange;
+            _vitality.Die += Dying;
         }
 
         private void OnDisable()
         {
-            _health.HealthChange -= OnHealthChange;
-            _health.Die -= Dying;
+            _vitality.HealthChange -= OnVitalityChange;
+            _vitality.Die -= Dying;
         }
 
         [Button(ButtonSizes.Large)]
@@ -73,7 +73,7 @@ namespace Enemies.Enemy
                 return;
             }
 
-            _health.TakeDamage(value);
+            _vitality.TakeDamage(value);
         }
 
         private void Dying()
@@ -90,9 +90,9 @@ namespace Enemies.Enemy
         {
             _died = false;
 
-            _health.Initialize();
+            _vitality.Initialize();
             
-            _healthBars.SetVitality(_health.Vitality);
+            _healthBars.SetVitality(_vitality.Health);
         }
 
         private void InitializeComponents()
@@ -105,7 +105,7 @@ namespace Enemies.Enemy
             Destroy(gameObject);
         }
 
-        private void OnHealthChange(float vitality, float blood)
+        private void OnVitalityChange(float vitality, float blood)
         {
             _healthBars.SetVitality(vitality);
             _healthBars.SetBlood(blood);

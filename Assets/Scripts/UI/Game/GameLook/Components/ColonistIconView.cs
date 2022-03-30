@@ -102,8 +102,8 @@ namespace UI.Game.GameLook.Components
 
         private void UpdateHealth()
         {
-            _vitalityProgress.value = _colonist.Health.Vitality;
-            _bloodProgress.value = _colonist.Health.Blood;
+            _vitalityProgress.value = _colonist.Vitality.Health;
+            _bloodProgress.value = _colonist.Vitality.RecoverySpeed;
         }
     }
 }

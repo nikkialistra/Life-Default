@@ -2,7 +2,7 @@
     <Style src="project://database/Assets/Resources/UI/Styles/GameLook/Components/ColonistInfo.uss?fileID=7433441132597879392&amp;guid=2dd66992b3fa42d8b520b5b60e195239&amp;type=3#ColonistInfo" />
     <Style src="project://database/Assets/Resources/UI/Styles/Common/Text.uss?fileID=7433441132597879392&amp;guid=158167a2c7cf4f5292d78d1ed2683cfc&amp;type=3#Text" />
     <ui:VisualElement name="colonist-info" picking-mode="Ignore" class="colonist-info">
-        <ui:TextField picking-mode="Ignore" text="Name" name="name-field" class="label header__label label-very-big name-field" style="-unity-background-image-tint-color: rgba(255, 255, 255, 0.89); display: none;" />
+        <ui:TextField picking-mode="Ignore" text="Name" name="name-field" class="label header__label label-very-big name-field" style="-unity-background-image-tint-color: rgba(255, 255, 255, 0.89);" />
         <ui:VisualElement name="details" class="details panel-part">
             <ui:Toggle label="Equipment" name="equipment" focusable="false" class="label details__toggle label-small" />
             <ui:Toggle label="Stats" name="stats" focusable="false" class="details__toggle label label-small label-bold" />
@@ -22,7 +22,7 @@
                 <ui:VisualElement name="recovery-speed-bar" class="bar red">
                     <ui:Label text="Health" name="health" class="bar__label label" />
                     <ui:VisualElement name="bar__body" class="bar__body">
-                        <ui:ProgressBar name="health-progress" high-value="1" title="100/100" class="bar__progress-bar">
+                        <ui:ProgressBar name="health-progress" high-value="100" title="100/100" class="bar__progress-bar">
                             <ui:VisualElement name="background" class="background" />
                         </ui:ProgressBar>
                         <ui:VisualElement name="bar__state" class="bar__state">
@@ -34,7 +34,7 @@
                 <ui:VisualElement name="recovery-speed-bar" class="bar red">
                     <ui:Label text="Recovery Speed" name="recovery-speed" class="bar__label label" />
                     <ui:VisualElement name="bar__body" class="bar__body">
-                        <ui:ProgressBar title="3/3" name="recovery-speed-progress" high-value="1" class="bar__progress-bar">
+                        <ui:ProgressBar title="3/3" name="recovery-speed-progress" high-value="3" class="bar__progress-bar">
                             <ui:VisualElement name="background" class="background" />
                         </ui:ProgressBar>
                         <ui:VisualElement name="bar__state" class="bar__state">

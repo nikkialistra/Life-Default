@@ -8,7 +8,7 @@ using Zenject;
 
 namespace Colonists.Colonist
 {
-    [RequireComponent(typeof(EntityHealth))]
+    [RequireComponent(typeof(EntityVitality))]
     [RequireComponent(typeof(ColonistMeshAgent))]
     [RequireComponent(typeof(EntityHovering))]
     [RequireComponent(typeof(ColonistBehavior))]
@@ -48,7 +48,7 @@ namespace Colonists.Colonist
 
         private void Awake()
         {
-            Health = GetComponent<EntityHealth>();
+            Vitality = GetComponent<EntityVitality>();
             _entityHovering = GetComponent<EntityHovering>();
             _colonistMeshAgent = GetComponent<ColonistMeshAgent>();
             _colonistBehavior = GetComponent<ColonistBehavior>();
@@ -63,7 +63,7 @@ namespace Colonists.Colonist
         
         public string Name => _name;
         
-        public EntityHealth Health { get; private set; }
+        public EntityVitality Vitality { get; private set; }
 
         public bool Alive => !_died;
 
@@ -79,16 +79,16 @@ namespace Colonists.Colonist
 
         private void OnEnable()
         {
-            Health.HealthChange += OnHealthChange;
-            Health.Die += Dying;
+            Vitality.HealthChange += OnHealthChange;
+            Vitality.Die += Dying;
 
             _colonistMeshAgent.DestinationReach += OnDestinationReach;
         }
 
         private void OnDisable()
         {
-            Health.HealthChange -= OnHealthChange;
-            Health.Die -= Dying;
+            Vitality.HealthChange -= OnHealthChange;
+            Vitality.Die -= Dying;
 
             _colonistMeshAgent.DestinationReach -= OnDestinationReach;
         }
@@ -101,7 +101,7 @@ namespace Colonists.Colonist
                 return;
             }
 
-            Health.TakeDamage(value);
+            Vitality.TakeDamage(value);
         }
 
         public void Select()
@@ -186,10 +186,10 @@ namespace Colonists.Colonist
                 _name = ColonistNameGenerator.GetRandomName();
             }
 
-            Health.Initialize();
+            Vitality.Initialize();
             
-            _healthBars.SetVitality(Health.Vitality);
-            _healthBars.SetBlood(Health.Blood);
+            _healthBars.SetVitality(Vitality.Health);
+            _healthBars.SetBlood(Vitality.RecoverySpeed);
         }
 
         private void ActivateComponents()

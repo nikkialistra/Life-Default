@@ -13,13 +13,13 @@ namespace UI.Game.GameLook.Components.ColonistInfo
         [SerializeField] private Sprite _tripleArrowUp;
         [SerializeField] private Sprite _tripleArrowDown;
         
-        private ProgressBar _vitalityProgress;
-        private Label _vitalityValue;
-        private VisualElement _vitalityArrow;
+        private ProgressBar _healthProgress;
+        private Label _healthValue;
+        private VisualElement _healthArrow;
 
-        private ProgressBar _bloodProgress;
-        private Label _bloodValue;
-        private VisualElement _bloodArrow;
+        private ProgressBar _recoverySpeedProgress;
+        private Label _recoverySpeedValue;
+        private VisualElement _recoverySpeedArrow;
 
         private ProgressBar _satietyProgress;
         private Label _satietyValue;
@@ -42,14 +42,14 @@ namespace UI.Game.GameLook.Components.ColonistInfo
         private VisualElement _entertainmentArrow;
         
         public void Initialize(VisualElement tree)
-        {
-            _vitalityProgress = tree.Q<ProgressBar>("vitality-progress");
-            _vitalityValue = tree.Q<Label>("vitality-value");
-            _vitalityArrow = tree.Q<VisualElement>("vitality-arrow");
+        { 
+            _healthProgress = tree.Q<ProgressBar>("health-progress");
+            _healthValue = tree.Q<Label>("health-value");
+            _healthArrow = tree.Q<VisualElement>("health-arrow");
 
-            _bloodProgress = tree.Q<ProgressBar>("blood-progress");
-            _bloodValue = tree.Q<Label>("blood-value");
-            _bloodArrow = tree.Q<VisualElement>("blood-arrow");
+            _recoverySpeedProgress = tree.Q<ProgressBar>("recovery-speed-progress");
+            _recoverySpeedValue = tree.Q<Label>("recovery-speed-value");
+            _recoverySpeedArrow = tree.Q<VisualElement>("recovery-speed-arrow");
             
             _satietyProgress = tree.Q<ProgressBar>("satiety-progress");
             _satietyValue = tree.Q<Label>("satiety-value");
@@ -72,16 +72,16 @@ namespace UI.Game.GameLook.Components.ColonistInfo
             _entertainmentArrow = tree.Q<VisualElement>("entertainment-arrow");
         }
         
-        public void UpdateVitality(EntityHealth health)
+        public void UpdateHealth(EntityVitality vitality)
         {
-            _vitalityProgress.value = health.Vitality;
-            _vitalityValue.text = $"{health.VitalityPercent}%";
+            _healthProgress.value = vitality.Health;
+            _healthValue.text = $"{vitality.HealthPercent}%";
         }
 
-        public void UpdateBlood(EntityHealth health)
+        public void UpdateRecoverySpeed(EntityVitality vitality)
         {
-            _bloodProgress.value = health.Blood;
-            _bloodValue.text = $"{health.BloodPercent}%";
+            _recoverySpeedProgress.value = vitality.RecoverySpeed;
+            _recoverySpeedValue.text = $"{vitality.RecoverySpeedPercent}%";
         }
 
         public void UpdateSatiety(float satiety)

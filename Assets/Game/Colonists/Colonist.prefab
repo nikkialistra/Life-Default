@@ -2730,10 +2730,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 582025014378409e8a9e7bb956e95378, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxVitality: 100
-  _maxBlood: 100
-  _startVitality: 100
-  _startBlood: 100
+  _maxHealth: 100
+  _maxRecoverySpeed: 3
+  _startHealth: 100
+  _startRecoverySpeed: 3
 --- !u!114 &2308330324105463307
 MonoBehaviour:
   m_ObjectHideFlags: 0

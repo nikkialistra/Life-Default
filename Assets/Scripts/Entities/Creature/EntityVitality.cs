@@ -6,35 +6,35 @@ using UnityEngine;
 
 namespace Entities.Creature
 {
-    public class EntityHealth : MonoBehaviour, IDamageable
+    public class EntityVitality : MonoBehaviour, IDamageable
     {
         [MinValue(1)]
-        [SerializeField] private float _maxVitality;
+        [SerializeField] private float _maxHealth = 100;
         [MinValue(1)]
-        [SerializeField] private float _maxBlood;
+        [SerializeField] private float _maxRecoverySpeed = 3;
 
         [Space]
-        [ProgressBar(0, "_maxVitality", r: 0.929f, g: 0.145f, b: 0.145f, Height = 20)]
-        [SerializeField] private float _startVitality = 100;
-        [ProgressBar(0, "_maxBlood", r: 0.929f, g: 0.145f, b: 0.145f, Height = 20)]
-        [SerializeField] private float _startBlood = 100;
+        [ProgressBar(0, nameof(_maxHealth), r: 0.929f, g: 0.145f, b: 0.145f, Height = 20)]
+        [SerializeField] private float _startHealth = 100;
+        [ProgressBar(0, nameof(_maxRecoverySpeed), r: 0.929f, g: 0.145f, b: 0.145f, Height = 20)]
+        [SerializeField] private float _startRecoverySpeed = 3;
 
-        private float _vitality;
-        private float _blood;
+        private float _health;
+        private float _recoverySpeed;
 
         private Coroutine _takingDamage;
 
         public event Action Die;
         public event Action<float, float> HealthChange;
 
-        public float Vitality => _vitality / _maxVitality;
+        public float Health => _health;
 
-        public float Blood => _blood / _maxBlood;
+        public float RecoverySpeed => _recoverySpeed;
 
-        public int VitalityPercent => (int)(Vitality * 100);
-        public int BloodPercent => (int)(Blood * 100);
+        public int HealthPercent => (int)((Health / _maxHealth) * 100);
+        public int RecoverySpeedPercent => (int)((RecoverySpeed / _maxRecoverySpeed) * 100);
         
-        private bool IsAlive => _vitality > 0 && _blood > 0;
+        private bool IsAlive => _health > 0;
 
         private void OnTriggerEnter(Collider other)
         {
@@ -54,8 +54,8 @@ namespace Entities.Creature
 
         public void Initialize()
         {
-            _vitality = _startVitality;
-            _blood = _startBlood;
+            _health = _startHealth;
+            _recoverySpeed = _startRecoverySpeed;
         }
 
         public void TakeHealing(float value)
@@ -65,14 +65,14 @@ namespace Entities.Creature
                 throw new InvalidOperationException("Healing cannot be applied to the died entity");
             }
 
-            _vitality = Math.Min(_vitality + value, _maxVitality);
+            _health = Math.Min(_health + value, _maxHealth);
         }
 
         public void TakeDamage(float value)
         {
             CheckTakeDamageValidity(value);
 
-            _vitality -= value;
+            _health -= value;
 
             if (!IsAlive)
             {
@@ -80,7 +80,7 @@ namespace Entities.Creature
                 Die?.Invoke();
             }
 
-            HealthChange?.Invoke(_vitality / _maxVitality, _blood / _maxBlood);
+            HealthChange?.Invoke(_health / _maxHealth, _recoverySpeed / _maxRecoverySpeed);
         }
 
         public void TakeDamageContinuously(float value, float interval, float time = float.PositiveInfinity)

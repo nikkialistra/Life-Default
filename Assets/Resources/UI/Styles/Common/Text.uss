@@ -9,34 +9,34 @@
     -unity-font-definition: none;
     color: rgb(255, 255, 255);
     -unity-text-align: middle-center;
-    text-shadow: 1.5px 1.5px 0 rgba(0, 0, 0, 0.7);
+    text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.7);
 }
 
 .label-small {
     font-size: 12px;
-    text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.7);
+    text-shadow: 0.8px 0.8px 0 rgba(0, 0, 0, 0.7);
 }
 
 .label-general {
     font-size: 16px;
     -unity-text-align: middle-left;
-    text-shadow: 1.5px 1.5px 0 rgba(0, 0, 0, 0.7);
+    text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.7);
 }
 
 .label-medium {
     font-size: 20px;
-    text-shadow: 1.5px 1.5px 0 rgba(0, 0, 0, 0.7);
+    text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.7);
 }
 
 .label-big {
     font-size: 22px;
-    text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.7);
+    text-shadow: 1.4px 1.4px 0 rgba(0, 0, 0, 0.7);
 }
 
 .label-very-big {
     font-size: 26px;
     margin-bottom: 2px;
-    text-shadow: 2.4px 2.4px 0 rgba(0, 0, 0, 0.7);
+    text-shadow: 1.7px 1.7px 0 rgba(0, 0, 0, 0.7);
 }
 
 .label-outlined-small {
@@ -44,7 +44,7 @@
     -unity-font: resource('Fonts/Ubuntu/Ubuntu-Bold');
     -unity-text-outline-width: 0.7px;
     -unity-text-outline-color: rgb(0, 0, 0);
-    text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.4);
+    text-shadow: 0.8px 0.8px 0 rgba(0, 0, 0, 0.5);
 }
 
 .label-outlined-general {
@@ -52,21 +52,21 @@
     -unity-text-align: middle-left;
     -unity-text-outline-width: 0.8px;
     -unity-text-outline-color: rgb(0, 0, 0);
-    text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.4);
+    text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.5);
 }
 
 .label-outlined-medium {
     font-size: 20px;
     -unity-text-outline-width: 0.8px;
     -unity-text-outline-color: rgb(0, 0, 0);
-    text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.4);
+    text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.5);
 }
 
 .label-outlined-big {
     font-size: 22px;
     -unity-text-outline-width: 1px;
     -unity-text-outline-color: rgb(0, 0, 0);
-    text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.4);
+    text-shadow: 1.4px 1.4px 0 rgba(0, 0, 0, 0.5);
 }
 
 .label-outlined-very-big {
@@ -74,7 +74,7 @@
     margin-bottom: 2px;
     -unity-text-outline-width: 1.2px;
     -unity-text-outline-color: rgb(0, 0, 0);
-    text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.4);
+    text-shadow: 1.7px 1.7px 0 rgba(0, 0, 0, 0.5);
 }
 
 .no-shadow {

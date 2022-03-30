@@ -4,11 +4,16 @@
 }
 
 .separator {
-    width: 0;
+    width: 3.5px;
     height: 100%;
     border-width: 1.5px;
     border-color: rgb(34, 36, 38);
     border-radius: 1.5px;
+    background-color: rgba(34, 36, 38, 255);
+    border-left-width: 0;
+    border-right-width: 0;
+    border-top-width: 0;
+    border-bottom-width: 0;
 }
 
 .content {

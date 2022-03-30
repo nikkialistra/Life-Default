@@ -18,28 +18,28 @@
         </ui:VisualElement>
         <ui:VisualElement name="base-info" class="base-info">
             <ui:VisualElement name="picture" class="picture" />
-            <ui:VisualElement name="health-bars" class="bars" style="justify-content: center;">
-                <ui:VisualElement name="vitality-bar" class="bar red">
-                    <ui:Label text="Vitality" display-tooltip-when-elided="true" name="vitality" class="bar__label label" />
+            <ui:VisualElement name="vitality-bars" class="bars" style="justify-content: center;">
+                <ui:VisualElement name="recovery-speed-bar" class="bar red">
+                    <ui:Label text="Health" name="health" class="bar__label label" />
                     <ui:VisualElement name="bar__body" class="bar__body">
-                        <ui:ProgressBar name="vitality-progress" high-value="1" class="bar__progress-bar">
+                        <ui:ProgressBar name="health-progress" high-value="1" class="bar__progress-bar">
                             <ui:VisualElement name="background" class="background" />
                         </ui:ProgressBar>
                         <ui:VisualElement name="bar__state" class="bar__state">
-                            <ui:Label text="100%" name="vitality-value" class="bar__label bar__text label" />
-                            <ui:VisualElement name="vitality-arrow" class="value__arrow" style="background-image: resource(&apos;UI/Sprites/ColonistInfo/Arrows/DoubleArrowDown&apos;);" />
+                            <ui:Label text="100%" name="health-value" class="bar__label bar__text label" />
+                            <ui:VisualElement name="health-arrow" class="value__arrow" style="background-image: resource(&apos;UI/Sprites/ColonistInfo/Arrows/DoubleArrowDown&apos;);" />
                         </ui:VisualElement>
                     </ui:VisualElement>
                 </ui:VisualElement>
-                <ui:VisualElement name="blood-bar" class="bar red">
-                    <ui:Label text="Blood" display-tooltip-when-elided="true" name="blood" class="bar__label label" />
+                <ui:VisualElement name="recovery-speed-bar" class="bar red">
+                    <ui:Label text="Recovery Speed" name="recovery-speed" class="bar__label label" />
                     <ui:VisualElement name="bar__body" class="bar__body">
-                        <ui:ProgressBar title=" " name="blood-progress" high-value="1" class="bar__progress-bar">
+                        <ui:ProgressBar title=" " name="recovery-speed-progress" high-value="1" class="bar__progress-bar">
                             <ui:VisualElement name="background" class="background" />
                         </ui:ProgressBar>
                         <ui:VisualElement name="bar__state" class="bar__state">
-                            <ui:Label text="100%" name="blood-value" class="bar__label bar__text label" />
-                            <ui:VisualElement name="blood-arrow" class="value__arrow" />
+                            <ui:Label text="100%" name="recovery-speed-value" class="bar__label bar__text label" />
+                            <ui:VisualElement name="recovery-speed-arrow" class="value__arrow" />
                         </ui:VisualElement>
                     </ui:VisualElement>
                 </ui:VisualElement>

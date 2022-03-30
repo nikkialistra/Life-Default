@@ -48,15 +48,6 @@ namespace Controls
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Enter"",
-                    ""type"": ""Button"",
-                    ""id"": ""7cad3597-89d2-4760-8ab3-6f685eb52666"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
                     ""name"": ""Pause Time"",
                     ""type"": ""Button"",
                     ""id"": ""2cd4ea1b-3680-4cb3-9d0e-2ba33ad61b88"",
@@ -821,15 +812,52 @@ namespace Controls
                     ""action"": ""Select Tile"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""Input"",
+            ""id"": ""c4427cef-9168-4025-8af2-62b440fdbb93"",
+            ""actions"": [
+                {
+                    ""name"": ""Enter"",
+                    ""type"": ""Button"",
+                    ""id"": ""4a3031e6-c830-4805-bd40-00b2234d1d02"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 },
                 {
+                    ""name"": ""LeftClick"",
+                    ""type"": ""Button"",
+                    ""id"": ""8b1b1386-a67c-4c10-8db0-93183ead096d"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
                     ""name"": """",
-                    ""id"": ""ff210ee0-2f47-4d1c-b1d3-5ab286cd6a10"",
+                    ""id"": ""562183c0-2d38-461f-9802-72c1236d6594"",
                     ""path"": ""<Keyboard>/enter"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Enter"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c18f8244-1be5-48cc-a7dd-206055ad5a96"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""LeftClick"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -842,7 +870,6 @@ namespace Controls
             m_Management = asset.FindActionMap("Management", throwIfNotFound: true);
             m_Management_ToggleMenu = m_Management.FindAction("Toggle Menu", throwIfNotFound: true);
             m_Management_ToggleHelpPanel = m_Management.FindAction("Toggle Help Panel", throwIfNotFound: true);
-            m_Management_Enter = m_Management.FindAction("Enter", throwIfNotFound: true);
             m_Management_PauseTime = m_Management.FindAction("Pause Time", throwIfNotFound: true);
             m_Management_NextTimeSpeed = m_Management.FindAction("Next Time Speed", throwIfNotFound: true);
             m_Management_MousePosition = m_Management.FindAction("Mouse Position", throwIfNotFound: true);
@@ -868,6 +895,10 @@ namespace Controls
             m_Management_ToggleEnemyFieldOfView = m_Management.FindAction("Toggle Enemy Field Of View", throwIfNotFound: true);
             m_Management_ToggleResourceFieldOfView = m_Management.FindAction("Toggle Resource Field Of View", throwIfNotFound: true);
             m_Management_SelectTile = m_Management.FindAction("Select Tile", throwIfNotFound: true);
+            // Input
+            m_Input = asset.FindActionMap("Input", throwIfNotFound: true);
+            m_Input_Enter = m_Input.FindAction("Enter", throwIfNotFound: true);
+            m_Input_LeftClick = m_Input.FindAction("LeftClick", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -929,7 +960,6 @@ namespace Controls
         private IManagementActions m_ManagementActionsCallbackInterface;
         private readonly InputAction m_Management_ToggleMenu;
         private readonly InputAction m_Management_ToggleHelpPanel;
-        private readonly InputAction m_Management_Enter;
         private readonly InputAction m_Management_PauseTime;
         private readonly InputAction m_Management_NextTimeSpeed;
         private readonly InputAction m_Management_MousePosition;
@@ -961,7 +991,6 @@ namespace Controls
             public ManagementActions(@Control wrapper) { m_Wrapper = wrapper; }
             public InputAction @ToggleMenu => m_Wrapper.m_Management_ToggleMenu;
             public InputAction @ToggleHelpPanel => m_Wrapper.m_Management_ToggleHelpPanel;
-            public InputAction @Enter => m_Wrapper.m_Management_Enter;
             public InputAction @PauseTime => m_Wrapper.m_Management_PauseTime;
             public InputAction @NextTimeSpeed => m_Wrapper.m_Management_NextTimeSpeed;
             public InputAction @MousePosition => m_Wrapper.m_Management_MousePosition;
@@ -1002,9 +1031,6 @@ namespace Controls
                     @ToggleHelpPanel.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnToggleHelpPanel;
                     @ToggleHelpPanel.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnToggleHelpPanel;
                     @ToggleHelpPanel.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnToggleHelpPanel;
-                    @Enter.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnEnter;
-                    @Enter.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnEnter;
-                    @Enter.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnEnter;
                     @PauseTime.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnPauseTime;
                     @PauseTime.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnPauseTime;
                     @PauseTime.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnPauseTime;
@@ -1090,9 +1116,6 @@ namespace Controls
                     @ToggleHelpPanel.started += instance.OnToggleHelpPanel;
                     @ToggleHelpPanel.performed += instance.OnToggleHelpPanel;
                     @ToggleHelpPanel.canceled += instance.OnToggleHelpPanel;
-                    @Enter.started += instance.OnEnter;
-                    @Enter.performed += instance.OnEnter;
-                    @Enter.canceled += instance.OnEnter;
                     @PauseTime.started += instance.OnPauseTime;
                     @PauseTime.performed += instance.OnPauseTime;
                     @PauseTime.canceled += instance.OnPauseTime;
@@ -1172,11 +1195,51 @@ namespace Controls
             }
         }
         public ManagementActions @Management => new ManagementActions(this);
+
+        // Input
+        private readonly InputActionMap m_Input;
+        private IInputActions m_InputActionsCallbackInterface;
+        private readonly InputAction m_Input_Enter;
+        private readonly InputAction m_Input_LeftClick;
+        public struct InputActions
+        {
+            private @Control m_Wrapper;
+            public InputActions(@Control wrapper) { m_Wrapper = wrapper; }
+            public InputAction @Enter => m_Wrapper.m_Input_Enter;
+            public InputAction @LeftClick => m_Wrapper.m_Input_LeftClick;
+            public InputActionMap Get() { return m_Wrapper.m_Input; }
+            public void Enable() { Get().Enable(); }
+            public void Disable() { Get().Disable(); }
+            public bool enabled => Get().enabled;
+            public static implicit operator InputActionMap(InputActions set) { return set.Get(); }
+            public void SetCallbacks(IInputActions instance)
+            {
+                if (m_Wrapper.m_InputActionsCallbackInterface != null)
+                {
+                    @Enter.started -= m_Wrapper.m_InputActionsCallbackInterface.OnEnter;
+                    @Enter.performed -= m_Wrapper.m_InputActionsCallbackInterface.OnEnter;
+                    @Enter.canceled -= m_Wrapper.m_InputActionsCallbackInterface.OnEnter;
+                    @LeftClick.started -= m_Wrapper.m_InputActionsCallbackInterface.OnLeftClick;
+                    @LeftClick.performed -= m_Wrapper.m_InputActionsCallbackInterface.OnLeftClick;
+                    @LeftClick.canceled -= m_Wrapper.m_InputActionsCallbackInterface.OnLeftClick;
+                }
+                m_Wrapper.m_InputActionsCallbackInterface = instance;
+                if (instance != null)
+                {
+                    @Enter.started += instance.OnEnter;
+                    @Enter.performed += instance.OnEnter;
+                    @Enter.canceled += instance.OnEnter;
+                    @LeftClick.started += instance.OnLeftClick;
+                    @LeftClick.performed += instance.OnLeftClick;
+                    @LeftClick.canceled += instance.OnLeftClick;
+                }
+            }
+        }
+        public InputActions @Input => new InputActions(this);
         public interface IManagementActions
         {
             void OnToggleMenu(InputAction.CallbackContext context);
             void OnToggleHelpPanel(InputAction.CallbackContext context);
-            void OnEnter(InputAction.CallbackContext context);
             void OnPauseTime(InputAction.CallbackContext context);
             void OnNextTimeSpeed(InputAction.CallbackContext context);
             void OnMousePosition(InputAction.CallbackContext context);
@@ -1202,6 +1265,11 @@ namespace Controls
             void OnToggleEnemyFieldOfView(InputAction.CallbackContext context);
             void OnToggleResourceFieldOfView(InputAction.CallbackContext context);
             void OnSelectTile(InputAction.CallbackContext context);
+        }
+        public interface IInputActions
+        {
+            void OnEnter(InputAction.CallbackContext context);
+            void OnLeftClick(InputAction.CallbackContext context);
         }
     }
 }

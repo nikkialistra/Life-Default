@@ -24,15 +24,6 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Enter",
-                    "type": "Button",
-                    "id": "7cad3597-89d2-4760-8ab3-6f685eb52666",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "Pause Time",
                     "type": "Button",
                     "id": "2cd4ea1b-3680-4cb3-9d0e-2ba33ad61b88",
@@ -797,15 +788,52 @@
                     "action": "Select Tile",
                     "isComposite": false,
                     "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "Input",
+            "id": "c4427cef-9168-4025-8af2-62b440fdbb93",
+            "actions": [
+                {
+                    "name": "Enter",
+                    "type": "Button",
+                    "id": "4a3031e6-c830-4805-bd40-00b2234d1d02",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
+                    "name": "LeftClick",
+                    "type": "Button",
+                    "id": "8b1b1386-a67c-4c10-8db0-93183ead096d",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
                     "name": "",
-                    "id": "ff210ee0-2f47-4d1c-b1d3-5ab286cd6a10",
+                    "id": "562183c0-2d38-461f-9802-72c1236d6594",
                     "path": "<Keyboard>/enter",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Enter",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c18f8244-1be5-48cc-a7dd-206055ad5a96",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "LeftClick",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

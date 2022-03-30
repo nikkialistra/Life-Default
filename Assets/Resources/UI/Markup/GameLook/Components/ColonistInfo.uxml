@@ -9,7 +9,7 @@
             <ui:Toggle label="Info" name="info" focusable="false" class="details__toggle label label-small label-bold" />
         </ui:VisualElement>
         <ui:VisualElement name="header" picking-mode="Ignore" class="header panel-part">
-            <ui:TextField picking-mode="Ignore" text="Tiffany" name="name-field" focusable="false" class="label header__label label-very-big name-field" style="-unity-background-image-tint-color: rgba(255, 255, 255, 0.89);" />
+            <ui:TextField picking-mode="Ignore" text="Tiffany" name="name-field" focusable="false" class="label header__label name-field label-big" style="-unity-background-image-tint-color: rgba(255, 255, 255, 0.89);" />
             <ui:VisualElement name="header__actions" class="header__actions">
                 <ui:Button name="rename" class="button rename" />
                 <ui:Button name="focus" class="button focus" />

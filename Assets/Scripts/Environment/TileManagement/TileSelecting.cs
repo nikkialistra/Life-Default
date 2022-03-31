@@ -17,6 +17,8 @@ namespace Environment.TileManagement
         private LayerMask _terrainMask;
 
         private Camera _camera;
+        
+        private Guid _managementMapId;
 
         private Coroutine _selectingTilesCoroutine;
         private WaitForSeconds _waitPeriod;
@@ -41,6 +43,8 @@ namespace Environment.TileManagement
             _terrainMask = LayerMask.GetMask("Terrain");
 
             _mousePositionAction = _playerInput.actions.FindAction("Mouse Position");
+
+            _managementMapId = _playerInput.currentActionMap.id;
         }
 
         private void OnEnable()
@@ -95,6 +99,11 @@ namespace Environment.TileManagement
 
         private void SelectTile()
         {
+            if (_playerInput.currentActionMap.id != _managementMapId)
+            {
+                return;
+            }
+            
             var position = _mousePositionAction.ReadValue<Vector2>();
 
             var ray = _camera.ScreenPointToRay(new Vector3(position.x, position.y, _camera.nearClipPlane));

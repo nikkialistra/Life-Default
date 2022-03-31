@@ -60,6 +60,7 @@ namespace UI.Game
         private void ShowCursor()
         {
             Cursor.visible = true;
+            Mouse.current.WarpCursorPosition(new Vector2(Screen.width / 2f, Screen.height / 2f));
             Cursor.lockState = CursorLockMode.None;
         }
     }

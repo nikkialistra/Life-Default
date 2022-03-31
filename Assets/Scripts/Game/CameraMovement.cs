@@ -249,8 +249,13 @@ namespace Game
         private void OnMapLoad()
         {
             _map.Load -= OnMapLoad;
-
             _deactivated = false;
+            StartCoroutine(AllowMouseScrollALittleLater());
+        }
+
+        private IEnumerator AllowMouseScrollALittleLater()
+        {
+            yield return new WaitForSeconds(0.1f);
             _canMouseScroll = true;
         }
 

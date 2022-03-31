@@ -44,6 +44,8 @@ namespace UI.Game.GameLook.Components
         }
         
         public event Action<ColonistFacade> Click;
+
+        public Vector2 Center => _root.LocalToWorld(_root.layout.center);
         
         public enum IconSize
         {

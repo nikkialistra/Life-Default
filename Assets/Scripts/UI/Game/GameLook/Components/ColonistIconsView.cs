@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using ColonistManagement.Selection;
 using Colonists.Colonist;
 using Colonists.Services;
 using Colonists.Services.Selecting;
@@ -11,29 +12,38 @@ using static UI.Game.GameLook.Components.ColonistIconView;
 
 namespace UI.Game.GameLook.Components
 {
+    [RequireComponent(typeof(UIDocument))]
     public class ColonistIconsView : MonoBehaviour
     {
         private const string VisualTreePath = "UI/Markup/GameLook/Components/ColonistIcons";
 
         [SerializeField] private int _maxShownColonists = 20;
         [SerializeField] private int _iconSizeChangeNumber = 12;
-        
+
+        private UIDocument _uiDocument;
+        private int _uiYResolution;
+
         private readonly Dictionary<ColonistFacade, ColonistIconView> _colonistIconViews = new();
 
         private IconSize _currentIconSize = IconSize.Normal;
 
         private ColonistRepository _colonistRepository;
         private SelectedColonists _selectedColonists;
+        private SelectionInput _selectionInput;
 
         [Inject]
-        public void Construct(ColonistRepository colonistRepository, SelectedColonists selectedColonists)
+        public void Construct(ColonistRepository colonistRepository, SelectedColonists selectedColonists, SelectionInput selectionInput)
         {
             _colonistRepository = colonistRepository;
             _selectedColonists = selectedColonists;
+            _selectionInput = selectionInput;
         }
 
         private void Awake()
         {
+            _uiDocument = GetComponent<UIDocument>();
+            _uiYResolution = _uiDocument.panelSettings.referenceResolution.y;
+
             Tree = Resources.Load<VisualTreeAsset>(VisualTreePath).CloneTree();
 
             ColonistIcons = Tree.Q<VisualElement>("colonist-icons");
@@ -47,7 +57,9 @@ namespace UI.Game.GameLook.Components
             _colonistRepository.Add += Add;
             _colonistRepository.Remove += Remove;
 
-            _selectedColonists.SelectionChange += OnSelectionChange;
+            _selectedColonists.SelectionChange += UpdateOutlines;
+            
+            _selectionInput.SelectingEnd += SelectColonists;
         }
 
         private void OnDisable()
@@ -55,7 +67,9 @@ namespace UI.Game.GameLook.Components
             _colonistRepository.Add -= Add;
             _colonistRepository.Remove -= Remove;
 
-            _selectedColonists.SelectionChange -= OnSelectionChange;
+            _selectedColonists.SelectionChange -= UpdateOutlines;
+            
+            _selectionInput.SelectingEnd -= SelectColonists;
         }
 
         private void Add(ColonistFacade colonist)
@@ -124,9 +138,28 @@ namespace UI.Game.GameLook.Components
             RecreateIconsOnIconChangeCondition();
         }
 
-        private void OnSelectionChange(List<ColonistFacade> selectedColonists)
+        private void SelectColonists(Rect rect)
         {
-            UpdateOutlines(selectedColonists);
+            var colonists = new List<ColonistFacade>();
+            
+            foreach (var (colonist, colonistIconView) in _colonistIconViews)
+            {
+                var transformedCenter = TransformPoint(colonistIconView.Center);
+                
+                if (rect.Contains(transformedCenter))
+                {
+                    colonists.Add(colonist);
+                }
+            }
+
+            _selectedColonists.SetFromIcons(colonists);
+        }
+
+        private Vector2 TransformPoint(Vector2 point)
+        {
+            var pointWithInversedY = new Vector2(point.x, _uiYResolution - point.y);
+
+            return pointWithInversedY;
         }
 
         private void OnColonistClick(ColonistFacade colonist)
@@ -134,37 +167,26 @@ namespace UI.Game.GameLook.Components
             if (Keyboard.current.shiftKey.isPressed)
             {
                 _selectedColonists.Add(colonist);
-                AddToOutlines(colonist);
             }
             else
             {
                 _selectedColonists.Set(colonist);
-                UpdateOutlines(new List<ColonistFacade>() { colonist });
             }
+            
+            UpdateOutlines();
         }
 
-        private void UpdateOutlines(List<ColonistFacade> selectedColonists)
+        private void UpdateOutlines()
         {
             foreach (var (colonist, colonistIconView) in _colonistIconViews)
             {
-                if (selectedColonists.Contains(colonist))
+                if (_selectedColonists.Contains(colonist))
                 {
                     colonistIconView.ShowOutline();
                 }
                 else
                 {
                     colonistIconView.HideOutline();
-                }
-            }
-        }
-
-        private void AddToOutlines(ColonistFacade selectedColonist)
-        {
-            foreach (var (colonist, colonistIconView) in _colonistIconViews)
-            {
-                if (selectedColonist == colonist)
-                {
-                    colonistIconView.ShowOutline();
                 }
             }
         }

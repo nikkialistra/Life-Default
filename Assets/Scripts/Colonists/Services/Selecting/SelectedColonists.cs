@@ -10,12 +10,14 @@ namespace Colonists.Services.Selecting
     {
         private readonly InfoPanelView _infoPanelView;
 
+        private List<ColonistFacade> _colonistsFromIcons;
+
         public SelectedColonists(InfoPanelView infoPanelView)
         {
             _infoPanelView = infoPanelView;
         }
 
-        public event Action<List<ColonistFacade>> SelectionChange; 
+        public event Action SelectionChange; 
 
         public List<ColonistFacade> Colonists { get; private set; } = new();
         private List<ColonistFacade> _lastSelectedColonists = new();
@@ -36,7 +38,8 @@ namespace Colonists.Services.Selecting
         {
             UnsubscribeFromColonists();
 
-            Colonists = colonists.ToList();
+            Colonists = colonists;
+            AddFromIcons();
             UpdateSelectionStatuses();
             _infoPanelView.SetColonists(Colonists);
 
@@ -48,10 +51,25 @@ namespace Colonists.Services.Selecting
             UnsubscribeFromColonists();
 
             Colonists = new List<ColonistFacade> { colonist };
+            AddFromIcons();
             UpdateSelectionStatuses();
             _infoPanelView.SetColonist(colonist);
 
             SubscribeToColonists();
+        }
+
+        public void SetFromIcons(List<ColonistFacade> colonists)
+        {
+            _colonistsFromIcons = colonists;
+        }
+
+        private void AddFromIcons()
+        {
+            if (_colonistsFromIcons != null)
+            {
+                Colonists.AddRange(_colonistsFromIcons);
+                _colonistsFromIcons = null;
+            }
         }
 
         public void Add(ColonistFacade colonist)
@@ -61,6 +79,11 @@ namespace Colonists.Services.Selecting
             _infoPanelView.SetColonists(Colonists);
             
             colonist.ColonistDie += RemoveFromSelected;
+        }
+
+        public bool Contains(ColonistFacade colonist)
+        {
+            return Colonists.Contains(colonist);
         }
 
         private void SubscribeToColonists()
@@ -102,7 +125,7 @@ namespace Colonists.Services.Selecting
 
             _lastSelectedColonists = new List<ColonistFacade>(Colonists);
             
-            SelectionChange?.Invoke(_lastSelectedColonists);
+            SelectionChange?.Invoke();
         }
     }
 }

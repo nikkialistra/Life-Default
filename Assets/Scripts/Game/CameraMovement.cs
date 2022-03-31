@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using ColonistManagement.Selection;
 using Colonists.Colonist;
 using DG.Tweening;
 using Saving;
@@ -84,10 +85,13 @@ namespace Game
 
         private float _cameraSensitivity;
         private bool _screenEdgeMouseScroll;
+        private bool _isSelectingInput;
 
         private GameSettings _gameSettings;
 
         private Coroutine _focusingCoroutine;
+        
+        private SelectionInput _selectionInput;
 
         private PlayerInput _playerInput;
 
@@ -102,7 +106,7 @@ namespace Game
         private InputAction _toggleCameraMovementAction;
 
         [Inject]
-        public void Construct(bool isSetUpSession, Map map, GameSettings gameSettings, PlayerInput playerInput)
+        public void Construct(bool isSetUpSession, Map map, GameSettings gameSettings, SelectionInput selectionInput, PlayerInput playerInput)
         {
             if (isSetUpSession)
             {
@@ -112,6 +116,7 @@ namespace Game
             _map = map;
 
             _gameSettings = gameSettings;
+            _selectionInput = selectionInput;
             _playerInput = playerInput;
         }
 
@@ -133,11 +138,18 @@ namespace Game
         private void OnEnable()
         {
             _toggleCameraMovementAction.started += ToggleCameraMovement;
+
+            _selectionInput.Selecting += OnSelecting;
+            _selectionInput.SelectingEnd += OnSelectingEnd;
         }
 
         private void OnDisable()
         {
             _toggleCameraMovementAction.started -= ToggleCameraMovement;
+            
+            _selectionInput.Selecting -= OnSelecting;
+            _selectionInput.SelectingEnd -= OnSelectingEnd;
+
         }
 
         private void Start()
@@ -181,7 +193,7 @@ namespace Game
 
             SmoothUpdate();
         }
-        
+
         public void DeactivateMovement()
         {
             _deactivated = true;
@@ -254,6 +266,16 @@ namespace Game
             {
                 Activate();
             }
+        }
+        
+        private void OnSelecting(Rect _)
+        {
+            _isSelectingInput = true;
+        }
+
+        private void OnSelectingEnd(Rect _)
+        {
+            _isSelectingInput = false;
         }
 
         private void LoadSettings()
@@ -395,7 +417,7 @@ namespace Game
 
         private void UpdatePositionFromMouseThresholdMovement()
         {
-            if (!_canMouseScroll || !_screenEdgeMouseScroll)
+            if (!_canMouseScroll || !_screenEdgeMouseScroll || _isSelectingInput)
             {
                 return;
             }

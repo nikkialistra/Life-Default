@@ -2732,8 +2732,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _maxHealth: 100
   _maxRecoverySpeed: 3
-  _startHealth: 100
-  _startRecoverySpeed: 3
+  _possibleMaxHealths: 640000005000000078000000
+  _possibleRecoverySpeeds:
+  - 3
+  - 2
+  - 3.5
 --- !u!114 &2308330324105463307
 MonoBehaviour:
   m_ObjectHideFlags: 0

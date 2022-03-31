@@ -1,6 +1,6 @@
 # Life Default #
 
-**A Realtime Strategy Game**
+**Colony Simulator with RTS elements**
 
 ## Prerequisites ##
 

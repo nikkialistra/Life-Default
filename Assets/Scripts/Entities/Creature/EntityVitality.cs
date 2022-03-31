@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using Entities.Interfaces;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Entities.Creature
 {
@@ -13,11 +15,11 @@ namespace Entities.Creature
         [MinValue(1)]
         [SerializeField] private float _maxRecoverySpeed = 3;
 
-        [Space]
-        [ProgressBar(0, nameof(_maxHealth), r: 0.929f, g: 0.145f, b: 0.145f, Height = 20)]
-        [SerializeField] private float _startHealth = 100;
-        [ProgressBar(0, nameof(_maxRecoverySpeed), r: 0.929f, g: 0.145f, b: 0.145f, Height = 20)]
-        [SerializeField] private float _startRecoverySpeed = 3;
+        [ValidateInput("@_possibleMaxHealths.Count > 0", "Max health variant count should be greater than zero")]
+        [SerializeField] private List<int> _possibleMaxHealths;
+        
+        [ValidateInput("@_possibleRecoverySpeeds.Count > 0", "Recovery speed variant count should be greater than zero")]
+        [SerializeField] private List<float> _possibleRecoverySpeeds;
 
         private float _health;
         private float _recoverySpeed;
@@ -28,8 +30,10 @@ namespace Entities.Creature
         public event Action<float, float> HealthChange;
 
         public float Health => _health;
+        public float MaxHealth => _maxHealth;
 
         public float RecoverySpeed => _recoverySpeed;
+        public float MaxRecoverySpeed => _maxRecoverySpeed;
 
         public int HealthPercent => (int)((Health / _maxHealth) * 100);
         public int RecoverySpeedPercent => (int)((RecoverySpeed / _maxRecoverySpeed) * 100);
@@ -54,8 +58,11 @@ namespace Entities.Creature
 
         public void Initialize()
         {
-            _health = _startHealth;
-            _recoverySpeed = _startRecoverySpeed;
+            _maxHealth = _possibleMaxHealths[Random.Range(0, _possibleMaxHealths.Count)];
+            _health = _maxHealth;
+            
+            _maxRecoverySpeed = _possibleRecoverySpeeds[Random.Range(0, _possibleRecoverySpeeds.Count)];
+            _recoverySpeed = _maxRecoverySpeed;
         }
 
         public void TakeHealing(float value)

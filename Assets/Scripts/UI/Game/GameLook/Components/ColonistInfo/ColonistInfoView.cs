@@ -132,6 +132,8 @@ namespace UI.Game.GameLook.Components.ColonistInfo
             _colonistHeader.FillInColonist(colonist);
             SubscribeToUnit();
 
+            _colonistIndicators.UpdateVitalityMaxValues(colonist.Vitality);
+            
             UpdateVitality();
             UpdateIndicators();
         }

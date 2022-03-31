@@ -1,4 +1,5 @@
-﻿using Entities.Creature;
+﻿using System;
+using Entities.Creature;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -72,15 +73,23 @@ namespace UI.Game.GameLook.Components.ColonistInfo
             _entertainmentArrow = tree.Q<VisualElement>("entertainment-arrow");
         }
         
+        public void UpdateVitalityMaxValues(EntityVitality vitality)
+        {
+            _healthProgress.highValue = vitality.MaxHealth;
+            _recoverySpeedProgress.highValue = vitality.MaxRecoverySpeed;
+        }
+        
         public void UpdateHealth(EntityVitality vitality)
         {
             _healthProgress.value = vitality.Health;
+            _healthProgress.title = $"{(int)vitality.Health}/{vitality.MaxHealth}";
             _healthValue.text = $"{vitality.HealthPercent}%";
         }
 
         public void UpdateRecoverySpeed(EntityVitality vitality)
         {
             _recoverySpeedProgress.value = vitality.RecoverySpeed;
+            _recoverySpeedProgress.title = $"{Math.Round(vitality.RecoverySpeed, 1)}/{Math.Round(vitality.MaxRecoverySpeed, 1)}";
             _recoverySpeedValue.text = $"{vitality.RecoverySpeedPercent}%";
         }
 

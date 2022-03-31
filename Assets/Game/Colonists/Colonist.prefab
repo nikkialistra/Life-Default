@@ -1113,10 +1113,20 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4388148404320863287, guid: e41904d6956316246baf8d8b0a54caa0,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6688171930611654228, guid: e41904d6956316246baf8d8b0a54caa0,
         type: 3}
       propertyPath: m_Name
       value: ColonistModel
+      objectReference: {fileID: 0}
+    - target: {fileID: 8764030381807435932, guid: e41904d6956316246baf8d8b0a54caa0,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e41904d6956316246baf8d8b0a54caa0, type: 3}
@@ -1294,7 +1304,7 @@ PrefabInstance:
     - target: {fileID: 6241910357395849221, guid: 913322246f662fd4dbbe41ec891db6fa,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6241910357395849221, guid: 913322246f662fd4dbbe41ec891db6fa,
         type: 3}

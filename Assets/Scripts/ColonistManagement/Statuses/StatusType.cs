@@ -3,8 +3,11 @@
     public enum StatusType
     {
         None,
+        Injured,
         Hungry,
         NoEnoughSleep,
-        Dizzy
+        Unhappy,
+        Dizzy,
+        Bored
     }
 }

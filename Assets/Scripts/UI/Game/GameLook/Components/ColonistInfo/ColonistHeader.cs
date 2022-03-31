@@ -93,6 +93,8 @@ namespace UI.Game.GameLook.Components.ColonistInfo
         private void OnLeftClick(InputAction.CallbackContext context)
         {
             _inputFinished = true;
+            
+            // cancel finish only if a user doesn't click on the name field, its event can be checked a frame later
             StartCoroutine(TryFinishInput());
         }
 

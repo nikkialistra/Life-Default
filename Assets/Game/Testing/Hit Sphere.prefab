@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1011788162527028481}
   - component: {fileID: 1011788162527028493}
   m_Layer: 2
-  m_Name: HitSphere
+  m_Name: Hit Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -21,7 +21,6 @@ namespace UI.Game.GameLook.Components
         [SerializeField] private int _iconSizeChangeNumber = 12;
 
         private UIDocument _uiDocument;
-        private int _uiYResolution;
 
         private readonly Dictionary<ColonistFacade, ColonistIconView> _colonistIconViews = new();
 
@@ -45,7 +44,6 @@ namespace UI.Game.GameLook.Components
         private void Awake()
         {
             _uiDocument = GetComponent<UIDocument>();
-            _uiYResolution = _uiDocument.panelSettings.referenceResolution.y;
 
             Tree = Resources.Load<VisualTreeAsset>(VisualTreePath).CloneTree();
 
@@ -143,13 +141,12 @@ namespace UI.Game.GameLook.Components
 
         private void SelectColonists(Rect rect)
         {
+            var transformedRect = TransformRect(rect);
             var colonists = new List<ColonistFacade>();
             
             foreach (var (colonist, colonistIconView) in _colonistIconViews)
             {
-                var transformedCenter = TransformPoint(colonistIconView.Center);
-                
-                if (rect.Contains(transformedCenter))
+                if (transformedRect.Contains(colonistIconView.Center))
                 {
                     colonists.Add(colonist);
                 }
@@ -162,11 +159,27 @@ namespace UI.Game.GameLook.Components
             }
         }
 
-        private Vector2 TransformPoint(Vector2 point)
+        private Rect TransformRect(Rect rect)
         {
-            var pointWithInversedY = new Vector2(point.x, _uiYResolution - point.y);
+            var referenceResolution = (Vector2)_uiDocument.panelSettings.referenceResolution;
+            var xScale = Screen.width / referenceResolution.x;
+            var yScale = Screen.height / referenceResolution.y;
 
-            return pointWithInversedY;
+            var xMin = rect.xMin / xScale;
+            var xMax = rect.xMax / xScale;
+
+            var yMin = (Screen.height - rect.yMax) / yScale;
+            var yMax = (Screen.height - rect.yMin) / yScale;
+
+            var transformedRect = new Rect
+            {
+                xMin = xMin,
+                xMax = xMax,
+                yMin = yMin,
+                yMax = yMax
+            };
+
+            return transformedRect;
         }
 
         private void OnColonistClick(ColonistFacade colonist)

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8725535555889025126}
   - component: {fileID: 4798373599406781753}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Projector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24,14 +24,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4060342899279895009}
-  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 1.5, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0, z: -2}
+  m_LocalScale: {x: 1, y: 0.99999976, z: 0.99999976}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2625714277779515755}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4798373599406781753
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0777d029ed3dffa4692f417d4aba19ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 2100000, guid: 3eba4a0088c5530458288ca4b5ceb3bd, type: 2}
+  m_Material: {fileID: 2100000, guid: 5ed8ca31bf502d245b4acf524c3ea163, type: 2}
   m_DrawDistance: 1000
   m_FadeScale: 0.9
   m_StartAngleFade: 180
@@ -64,9 +64,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2625714277779515755}
-  - component: {fileID: 2534072106452490296}
+  - component: {fileID: 2455781365447844047}
   m_Layer: 8
-  m_Name: DirectionArrow
+  m_Name: Position Preview
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -79,7 +79,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6556408309098693840}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -87,8 +87,8 @@ Transform:
   - {fileID: 8725535555889025126}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2534072106452490296
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!114 &2455781365447844047
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -102,6 +102,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _decalProjector: {fileID: 4798373599406781753}
   _animationTime: 0.3
-  _animationKind: 1
-  _white: {fileID: 2100000, guid: 3eba4a0088c5530458288ca4b5ceb3bd, type: 2}
-  _red: {fileID: 2100000, guid: b59d2d72df507624d8860551c6538876, type: 2}
+  _animationKind: 0
+  _white: {fileID: 2100000, guid: 5ed8ca31bf502d245b4acf524c3ea163, type: 2}
+  _red: {fileID: 2100000, guid: d8a58bc85840653488164b33a9eb61fb, type: 2}

@@ -30,13 +30,16 @@ namespace UI.Game.GameLook.Components
         private ColonistRepository _colonistRepository;
         private SelectedColonists _selectedColonists;
         private SelectionInput _selectionInput;
+        private ColonistSelection _colonistSelection;
 
         [Inject]
-        public void Construct(ColonistRepository colonistRepository, SelectedColonists selectedColonists, SelectionInput selectionInput)
+        public void Construct(ColonistRepository colonistRepository, SelectedColonists selectedColonists,
+            SelectionInput selectionInput, ColonistSelection colonistSelection)
         {
             _colonistRepository = colonistRepository;
             _selectedColonists = selectedColonists;
             _selectionInput = selectionInput;
+            _colonistSelection = colonistSelection;
         }
 
         private void Awake()
@@ -152,7 +155,11 @@ namespace UI.Game.GameLook.Components
                 }
             }
 
-            _selectedColonists.SetFromIcons(colonists);
+            if (colonists.Count != 0)
+            {
+                _selectedColonists.Set(colonists);
+                _colonistSelection.CancelSelection();
+            }
         }
 
         private Vector2 TransformPoint(Vector2 point)

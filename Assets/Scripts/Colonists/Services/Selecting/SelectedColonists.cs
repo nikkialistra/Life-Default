@@ -10,8 +10,6 @@ namespace Colonists.Services.Selecting
     {
         private readonly InfoPanelView _infoPanelView;
 
-        private List<ColonistFacade> _colonistsFromIcons;
-
         public SelectedColonists(InfoPanelView infoPanelView)
         {
             _infoPanelView = infoPanelView;
@@ -39,7 +37,6 @@ namespace Colonists.Services.Selecting
             UnsubscribeFromColonists();
 
             Colonists = colonists;
-            AddFromIcons();
             UpdateSelectionStatuses();
             _infoPanelView.SetColonists(Colonists);
 
@@ -51,25 +48,10 @@ namespace Colonists.Services.Selecting
             UnsubscribeFromColonists();
 
             Colonists = new List<ColonistFacade> { colonist };
-            AddFromIcons();
             UpdateSelectionStatuses();
             _infoPanelView.SetColonist(colonist);
 
             SubscribeToColonists();
-        }
-
-        public void SetFromIcons(List<ColonistFacade> colonists)
-        {
-            _colonistsFromIcons = colonists;
-        }
-
-        private void AddFromIcons()
-        {
-            if (_colonistsFromIcons != null)
-            {
-                Colonists.AddRange(_colonistsFromIcons);
-                _colonistsFromIcons = null;
-            }
         }
 
         public void Add(ColonistFacade colonist)

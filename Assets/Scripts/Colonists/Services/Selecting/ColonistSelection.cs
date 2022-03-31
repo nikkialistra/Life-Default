@@ -18,12 +18,19 @@ namespace Colonists.Services.Selecting
 
         private float _lastClickTime;
 
+        private bool _cancelSelection;
+
         [Inject]
         public void Construct(ColonistSelecting selecting, SelectionInput selectionInput, SelectedColonists selectedColonists)
         {
             _selectedColonists = selectedColonists;
             _selecting = selecting;
             _selectionInput = selectionInput;
+        }
+
+        public void CancelSelection()
+        {
+            _cancelSelection = true;
         }
 
         private void Awake()
@@ -53,11 +60,17 @@ namespace Colonists.Services.Selecting
 
         private void Select(Rect rect)
         {
+            _selectionArea.StopDrawing();
+            
+            if (_cancelSelection)
+            {
+                _cancelSelection = false;
+                return;
+            }
+            
             var newSelected = GetSelected(rect).ToList();
 
             _selectedColonists.Set(newSelected);
-
-            _selectionArea.StopDrawing();
         }
 
         private IEnumerable<ColonistFacade> GetSelected(Rect rect)

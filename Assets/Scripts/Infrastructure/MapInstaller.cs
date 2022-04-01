@@ -1,4 +1,4 @@
-﻿using Game;
+﻿using General;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using Zenject;

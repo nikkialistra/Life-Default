@@ -1,6 +1,6 @@
 ﻿using System;
-using Environment.TimeCycle.TimeRegulation;
-using Game;
+using General.TimeCycle.TimeRegulation;
+using General;
 using Saving;
 using UnityEngine;
 using UnityEngine.InputSystem;

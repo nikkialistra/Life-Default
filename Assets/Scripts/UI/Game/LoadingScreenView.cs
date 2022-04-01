@@ -1,4 +1,4 @@
-﻿using Game;
+﻿using General;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;

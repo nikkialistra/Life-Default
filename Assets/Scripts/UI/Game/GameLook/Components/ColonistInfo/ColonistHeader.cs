@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using Colonists.Colonist;
 using Colonists.Services.Selecting;
-using Game;
+using General;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;

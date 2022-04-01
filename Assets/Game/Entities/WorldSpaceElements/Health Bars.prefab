@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 9137008855364342625}
   - component: {fileID: 6285772040447471745}
   - component: {fileID: 2181880316563459108}
-  m_Layer: 10
+  m_Layer: 5
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -86,7 +86,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7321243180070026609}
   - component: {fileID: 3148344304270028384}
-  m_Layer: 10
+  m_Layer: 5
   m_Name: BloodSlider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -175,7 +175,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8362001261894528883}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Sliders
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -210,7 +210,7 @@ GameObject:
   - component: {fileID: 6241910357246859300}
   - component: {fileID: 6241910357246859298}
   - component: {fileID: 6241910357246859299}
-  m_Layer: 10
+  m_Layer: 5
   m_Name: Border
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -288,7 +288,7 @@ GameObject:
   - component: {fileID: 6241910357395849223}
   - component: {fileID: 6241910357395849224}
   - component: {fileID: 7658276042284526958}
-  m_Layer: 10
+  m_Layer: 5
   m_Name: Health Bars
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -359,7 +359,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 1
+  m_PresetInfoIsWorld: 0
 --- !u!114 &6241910357395849224
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -402,7 +402,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6241910357500236743}
   - component: {fileID: 6241910357500236741}
-  m_Layer: 10
+  m_Layer: 5
   m_Name: VitalitySlider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -493,7 +493,7 @@ GameObject:
   - component: {fileID: 6241910358025274541}
   - component: {fileID: 6241910358025274539}
   - component: {fileID: 6241910358025274540}
-  m_Layer: 10
+  m_Layer: 5
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -569,7 +569,7 @@ GameObject:
   - component: {fileID: 3757732481741442434}
   - component: {fileID: 1481567667703906711}
   - component: {fileID: 3872948604704090196}
-  m_Layer: 10
+  m_Layer: 5
   m_Name: Border
   m_TagString: Untagged
   m_Icon: {fileID: 0}

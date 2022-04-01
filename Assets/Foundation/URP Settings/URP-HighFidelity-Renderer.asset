@@ -18,9 +18,9 @@ MonoBehaviour:
   m_RendererFeatures:
   - {fileID: 1322995633582650381}
   - {fileID: 1123496916092895349}
-  - {fileID: 8598333544084514887}
   - {fileID: 5628860152977092763}
-  m_RendererFeatureMap: 0d3416eb84395c1275c0f61d7e76970f47a87b6bcd6a53779bf08c747cba1d4e
+  - {fileID: 8598333544084514887}
+  m_RendererFeatureMap: 0d3416eb84395c1275c0f61d7e76970f9bf08c747cba1d4e47a87b6bcd6a5377
   m_UseNativeRenderPass: 0
   postProcessData: {fileID: 11400000, guid: 41439944d30ece34e96484bdb6645b55, type: 2}
   xrSystemData: {fileID: 11400000, guid: 60e1133243b97e347b653163a8c01b64, type: 2}
@@ -42,10 +42,10 @@ MonoBehaviour:
   m_AssetVersion: 1
   m_OpaqueLayerMask:
     serializedVersion: 2
-    m_Bits: 247
+    m_Bits: 65
   m_TransparentLayerMask:
     serializedVersion: 2
-    m_Bits: 1535
+    m_Bits: 20
   m_DefaultStencilState:
     overrideStencilState: 0
     stencilReference: 0
@@ -75,12 +75,12 @@ MonoBehaviour:
   m_Active: 1
   settings:
     passTag: RenderDecalIgnorers
-    Event: 300
+    Event: 500
     filterSettings:
       RenderQueueType: 0
       LayerMask:
         serializedVersion: 2
-        m_Bits: 776
+        m_Bits: 17160
       PassNames: []
     overrideMaterial: {fileID: 0}
     overrideMaterialPassIndex: 0
@@ -113,13 +113,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Active: 1
   m_Settings:
-    technique: 0
+    technique: 2
     maxDrawDistance: 1000
     dBufferSettings:
       surfaceData: 2
     screenSpaceSettings:
       normalBlend: 0
-      useGBuffer: 1
+      useGBuffer: 0
   m_CopyDepthPS: {fileID: 4800000, guid: d6dae50ee9e1bfa4db75f19f99355220, type: 3}
   m_DBufferClear: {fileID: 4800000, guid: f056d8bd2a1c7e44e9729144b4c70395, type: 3}
 --- !u!114 &5628860152977092763
@@ -134,15 +134,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b3d386ba5cd94485973aee1479b272e, type: 3}
   m_Name: RenderObjects
   m_EditorClassIdentifier: 
-  m_Active: 1
+  m_Active: 0
   settings:
     passTag: RenderObjects
-    Event: 150
+    Event: 350
     filterSettings:
       RenderQueueType: 0
       LayerMask:
         serializedVersion: 2
-        m_Bits: 65536
+        m_Bits: 196608
       PassNames: []
     overrideMaterial: {fileID: 2100000, guid: e94ea5c8fe755c944b4867fdb2f85e9a, type: 2}
     overrideMaterialPassIndex: 0

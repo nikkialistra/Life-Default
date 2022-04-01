@@ -2,7 +2,7 @@
     <Style src="project://database/Assets/Resources/UI/Styles/Common/Text.uss?fileID=7433441132597879392&amp;guid=158167a2c7cf4f5292d78d1ed2683cfc&amp;type=3#Text" />
     <Style src="project://database/Assets/Resources/UI/Styles/GameLook/Components/ColonistInfo.uss?fileID=7433441132597879392&amp;guid=2dd66992b3fa42d8b520b5b60e195239&amp;type=3#ColonistInfo" />
     <ui:VisualElement name="colonists-info" picking-mode="Ignore" class="colonist-info multiple">
-        <ui:Label text="Colonists (2)" display-tooltip-when-elided="true" name="count" class="label header__label label-very-big" />
+        <ui:Label text="Colonists (2)" display-tooltip-when-elided="true" name="count" class="label label-big header__label" />
         <ui:VisualElement name="commands" class="commands" />
     </ui:VisualElement>
 </ui:UXML>

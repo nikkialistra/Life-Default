@@ -149,7 +149,6 @@ namespace General
             
             _selectionInput.Selecting -= OnSelecting;
             _selectionInput.SelectingEnd -= OnSelectingEnd;
-
         }
 
         private void Start()
@@ -197,6 +196,7 @@ namespace General
         public void DeactivateMovement()
         {
             _deactivated = true;
+            _canMouseScroll = false;
             Deactivate();
         }
 
@@ -204,6 +204,7 @@ namespace General
         {
             _deactivated = false;
             Activate();
+            StartCoroutine(AllowMouseScrollALittleLater());
         }
 
         public void FocusOn(ColonistFacade colonist)

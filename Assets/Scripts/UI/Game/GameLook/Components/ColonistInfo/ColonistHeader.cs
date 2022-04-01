@@ -142,6 +142,7 @@ namespace UI.Game.GameLook.Components.ColonistInfo
             _name.focusable = false;
 
             _playerInput.SwitchCurrentActionMap(InputMap);
+            _cameraMovement.DeactivateMovement();
         }
 
         private void FinishInput()
@@ -149,6 +150,7 @@ namespace UI.Game.GameLook.Components.ColonistInfo
             _colonist.Name = _name.value;
             
             _playerInput.SwitchCurrentActionMap(ManagementMap);
+            _cameraMovement.ActivateMovement();
         }
     }
 }

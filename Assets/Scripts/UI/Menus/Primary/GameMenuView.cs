@@ -101,7 +101,7 @@ namespace UI.Menus.Primary
 
         private static void MainMenu()
         {
-            SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);
+            SceneManager.LoadScene("Main Menu", LoadSceneMode.Single);
         }
 
         private static void ExitGame()

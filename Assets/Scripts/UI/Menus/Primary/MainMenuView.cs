@@ -92,7 +92,7 @@ namespace UI.Menus.Primary
 
         private static void NewGame()
         {
-            SceneManager.LoadScene("Map", LoadSceneMode.Single);
+            SceneManager.LoadScene("Game", LoadSceneMode.Single);
         }
 
         private static void LoadGame() { }

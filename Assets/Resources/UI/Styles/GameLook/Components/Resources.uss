@@ -9,7 +9,7 @@
     border-width: 1.5px;
     border-color: rgb(34, 36, 38);
     border-radius: 1.5px;
-    background-color: rgba(34, 36, 38, 255);
+    background-color: rgba(34, 36, 38, 0.97);
     border-left-width: 0;
     border-right-width: 0;
     border-top-width: 0;
@@ -41,7 +41,7 @@
 .element__icon {
     min-width: 40px;
     min-height: 40px;
-    background-color: rgb(34, 36, 38);
+    background-color: rgba(34, 36, 38, 0.97);
     border-width: 2px;
     border-radius: 3px;
 }

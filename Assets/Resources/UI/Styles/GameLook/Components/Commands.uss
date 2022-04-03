@@ -23,11 +23,11 @@
 }
 
 .command:hover {
-    background-color: rgb(58, 60, 64);
+    background-color: rgba(58, 60, 64, 0.6);
 }
 
 .command:active {
-    background-color: rgb(72, 74, 79);
+    background-color: rgba(72, 74, 79, 0.6);
 }
 
 .icon {

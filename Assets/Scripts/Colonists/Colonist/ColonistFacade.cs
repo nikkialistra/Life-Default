@@ -198,8 +198,8 @@ namespace Colonists.Colonist
 
             Vitality.Initialize();
             
-            _healthBars.SetVitality(Vitality.Health);
-            _healthBars.SetBlood(Vitality.RecoverySpeed);
+            _healthBars.SetHealth(Vitality.Health);
+            _healthBars.SetRecoverySpeed(Vitality.RecoverySpeed);
         }
 
         private void ActivateComponents()
@@ -219,10 +219,10 @@ namespace Colonists.Colonist
             DestinationReach?.Invoke(this);
         }
 
-        private void OnHealthChange(float vitality, float blood)
+        private void OnHealthChange(float health, float blood)
         {
-            _healthBars.SetVitality(vitality);
-            _healthBars.SetBlood(blood);
+            _healthBars.SetHealth(health);
+            _healthBars.SetRecoverySpeed(blood);
             HealthChange?.Invoke();
         }
 

@@ -92,7 +92,7 @@ namespace Enemies.Enemy
 
             _vitality.Initialize();
             
-            _healthBars.SetVitality(_vitality.Health);
+            _healthBars.SetHealth(_vitality.Health);
         }
 
         private void InitializeComponents()
@@ -107,8 +107,8 @@ namespace Enemies.Enemy
 
         private void OnVitalityChange(float vitality, float blood)
         {
-            _healthBars.SetVitality(vitality);
-            _healthBars.SetBlood(blood);
+            _healthBars.SetHealth(vitality);
+            _healthBars.SetRecoverySpeed(blood);
         }
 
         public class Factory : PlaceholderFactory<EnemyType, Vector3, EnemyFacade> { }

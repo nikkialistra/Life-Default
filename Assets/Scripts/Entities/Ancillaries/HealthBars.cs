@@ -8,17 +8,17 @@ namespace Entities.Ancillaries
     public class HealthBars : MonoBehaviour
     {
         [Required]
-        [SerializeField] private Slider _vitalitySlider;
+        [SerializeField] private Slider _healthSlider;
         [Required]
-        [SerializeField] private Slider _bloodSlider;
+        [SerializeField] private Slider _recoverySpeedSlider;
 
         [Required]
         [SerializeField] private GameObject _sliders;
 
         private bool _shown;
 
-        private GameObject _vitalityGameObject;
-        private GameObject _bloodGameObject;
+        private GameObject _healthGameObject;
+        private GameObject _recoverySpeedGameObject;
         
         private Transform _cameraTransform;
         private bool _selected;
@@ -44,16 +44,16 @@ namespace Entities.Ancillaries
             transform.LookAt(transform.position + _cameraTransform.forward);
         }
 
-        public void SetVitality(float value)
+        public void SetHealth(float value)
         {
-            _vitalitySlider.value = value;
+            _healthSlider.value = value;
 
             UpdateShowStatus();
         }
         
-        public void SetBlood(float value)
+        public void SetRecoverySpeed(float value)
         {
-            _bloodSlider.value = value;
+            _recoverySpeedSlider.value = value;
 
             UpdateShowStatus();
         }
@@ -72,7 +72,7 @@ namespace Entities.Ancillaries
 
         private bool Dead()
         {
-            return _vitalitySlider.value == 0 || _bloodSlider.value == 0;
+            return _healthSlider.value == 0 || _recoverySpeedSlider.value == 0;
         }
 
         private void ShowIfSelectedOrHit()
@@ -89,7 +89,7 @@ namespace Entities.Ancillaries
 
         private bool NotFull()
         {
-            return _vitalitySlider.value != 1f || _bloodSlider.value != 1f;
+            return _healthSlider.value != 1f || _recoverySpeedSlider.value != 1f;
         }
 
         private void Show()

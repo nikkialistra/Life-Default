@@ -20,8 +20,8 @@ namespace UI.Game.GameLook.Components
         private readonly VisualElement _outline;
         private readonly VisualElement _picture;
         
-        private readonly ProgressBar _vitalityProgress;
-        private readonly ProgressBar _bloodProgress;
+        private readonly ProgressBar _healthProgress;
+        private readonly ProgressBar _recoverySpeedProgress;
         
         private ColonistFacade _colonist;
 
@@ -39,8 +39,8 @@ namespace UI.Game.GameLook.Components
             _outline = _tree.Q<VisualElement>("outline");
             _picture = _tree.Q<VisualElement>("picture");
 
-            _vitalityProgress = _tree.Q<ProgressBar>("vitality-progress");
-            _bloodProgress = _tree.Q<ProgressBar>("blood-progress");
+            _healthProgress = _tree.Q<ProgressBar>("health-progress");
+            _recoverySpeedProgress = _tree.Q<ProgressBar>("recovery-speed-progress");
         }
         
         public event Action<ColonistFacade> Click;
@@ -56,7 +56,7 @@ namespace UI.Game.GameLook.Components
         public void Bind(ColonistFacade colonist)
         {
             _colonist = colonist;
-            
+
             _parent.ColonistIcons.Add(_tree);
             
             _root.RegisterCallback<MouseDownEvent>(OnMouseDownEvent);
@@ -95,6 +95,11 @@ namespace UI.Game.GameLook.Components
 
         private void FillIn(ColonistFacade colonist)
         {
+            _healthProgress.highValue = _colonist.Vitality.MaxHealth;
+
+            _recoverySpeedProgress.lowValue = -_colonist.Vitality.MaxRecoverySpeed;
+            _recoverySpeedProgress.highValue = _colonist.Vitality.MaxRecoverySpeed;
+
             _name.text = colonist.Name;
             UpdateHealth();
         }
@@ -106,8 +111,8 @@ namespace UI.Game.GameLook.Components
 
         private void UpdateHealth()
         {
-            _vitalityProgress.value = _colonist.Vitality.Health;
-            _bloodProgress.value = _colonist.Vitality.RecoverySpeed;
+            _healthProgress.value = _colonist.Vitality.Health;
+            _recoverySpeedProgress.value = _colonist.Vitality.RecoverySpeed;
         }
 
         private void UpdateName(string name)

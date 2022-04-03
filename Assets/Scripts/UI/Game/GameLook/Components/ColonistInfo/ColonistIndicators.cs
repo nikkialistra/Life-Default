@@ -76,6 +76,8 @@ namespace UI.Game.GameLook.Components.ColonistInfo
         public void UpdateVitalityMaxValues(EntityVitality vitality)
         {
             _healthProgress.highValue = vitality.MaxHealth;
+            
+            _recoverySpeedProgress.lowValue = -vitality.MaxRecoverySpeed;
             _recoverySpeedProgress.highValue = vitality.MaxRecoverySpeed;
         }
         

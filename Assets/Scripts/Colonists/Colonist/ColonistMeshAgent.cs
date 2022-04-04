@@ -3,6 +3,7 @@ using Enemies.Enemy;
 using Entities;
 using Entities.Creature;
 using ResourceManagement;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Colonists.Colonist
@@ -10,6 +11,9 @@ namespace Colonists.Colonist
     [RequireComponent(typeof(EntityMeshAgent))]
     public class ColonistMeshAgent : MonoBehaviour
     {
+        [Required]
+        [SerializeField] private ColonistAnimator _animator;
+
         private bool _activated;
         private bool _hasPendingOrder;
 
@@ -22,8 +26,7 @@ namespace Colonists.Colonist
 
         public event Action DestinationReach;
         public event Action RotationEnd;
-
-        public bool IsMoving => _entityMeshAgent.IsMoving;
+        
         public bool IsRotating => _entityMeshAgent.IsRotating;
 
         private void OnEnable()
@@ -36,6 +39,11 @@ namespace Colonists.Colonist
         {
             _entityMeshAgent.DestinationReach -= OnDestinationReach;
             _entityMeshAgent.RotationEnd -= OnRotationEnd;
+        }
+
+        private void Update()
+        {
+            _animator.Move(_entityMeshAgent.IsMoving);
         }
 
         public void SetDestinationToPosition(Vector3 position)

@@ -1,6 +1,5 @@
 ﻿using System;
 using Entities.Creature;
-using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Colonists.Colonist
@@ -9,9 +8,6 @@ namespace Colonists.Colonist
     [RequireComponent(typeof(Animator))]
     public class ColonistAnimator : MonoBehaviour
     {
-        [Required]
-        [SerializeField] private ColonistMeshAgent _colonistMeshAgent;
-
         private EntityAnimator _entityAnimator;
         private Animator _animator;
 
@@ -24,9 +20,9 @@ namespace Colonists.Colonist
             _animator = GetComponent<Animator>();
         }
 
-        private void Update()
+        public void Move(bool value)
         {
-            _entityAnimator.Move(_colonistMeshAgent.IsMoving);
+            _entityAnimator.Move(value);
         }
 
         public void Interact(bool value)

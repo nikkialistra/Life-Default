@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Common;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Colonists.Colonist
@@ -9,8 +10,8 @@ namespace Colonists.Colonist
         [SerializeField] private CharacterObjectRoots _maleRoots;
         [SerializeField] private CharacterObjectRoots _femaleRoots;
 
-        private readonly CharacterObjectGroups _male = new();
-        private readonly CharacterObjectGroups _female = new();
+        [SerializeField] private CharacterObjectGroups _maleBase;
+        [SerializeField] private CharacterObjectGroups _femaleBase;
         
         private readonly List<GameObject> _enabledItems = new();
 
@@ -18,8 +19,6 @@ namespace Colonists.Colonist
 
         private void Start()
         {
-            BuildLists();
-            
             if (_enabledItems.Count != 0)
             {
                 foreach (var enabledObject in _enabledItems)
@@ -33,39 +32,40 @@ namespace Colonists.Colonist
             ActivateDefaultItems();
         }
 
+        [Button(ButtonSizes.Medium)]
         private void BuildLists()
         {
-            BuildList(_male.HeadAllElements, _maleRoots.HeadAllElements);
-            BuildList(_male.HeadNoElements, _maleRoots.HeadNoElements);
-            BuildList(_male.Eyebrow, _maleRoots.Eyebrow);
-            BuildList(_male.FacialHair, _maleRoots.FacialHair);
-            BuildList(_male.Torso, _maleRoots.Torso);
-            BuildList(_male.ArmUpperRight, _maleRoots.ArmUpperRight);
-            BuildList(_male.ArmUpperLeft, _maleRoots.ArmUpperLeft);
-            BuildList(_male.ArmLowerRight, _maleRoots.ArmLowerRight);
-            BuildList(_male.ArmLowerLeft, _maleRoots.ArmLowerLeft);
-            BuildList(_male.HandRight, _maleRoots.HandRight);
-            BuildList(_male.HandLeft, _maleRoots.HandLeft);
-            BuildList(_male.Hips, _maleRoots.Hips);
-            BuildList(_male.LegRight, _maleRoots.LegRight);
-            BuildList(_male.LegLeft, _maleRoots.LegLeft);
+            BuildList(_maleBase.HeadAllElements, _maleRoots.HeadAllElements);
+            BuildList(_maleBase.HeadNoElements, _maleRoots.HeadNoElements);
+            BuildList(_maleBase.Eyebrow, _maleRoots.Eyebrow);
+            BuildList(_maleBase.FacialHair, _maleRoots.FacialHair);
+            BuildList(_maleBase.Torso, _maleRoots.Torso);
+            BuildList(_maleBase.ArmUpperRight, _maleRoots.ArmUpperRight);
+            BuildList(_maleBase.ArmUpperLeft, _maleRoots.ArmUpperLeft);
+            BuildList(_maleBase.ArmLowerRight, _maleRoots.ArmLowerRight);
+            BuildList(_maleBase.ArmLowerLeft, _maleRoots.ArmLowerLeft);
+            BuildList(_maleBase.HandRight, _maleRoots.HandRight);
+            BuildList(_maleBase.HandLeft, _maleRoots.HandLeft);
+            BuildList(_maleBase.Hips, _maleRoots.Hips);
+            BuildList(_maleBase.LegRight, _maleRoots.LegRight);
+            BuildList(_maleBase.LegLeft, _maleRoots.LegLeft);
             
-            BuildList(_female.HeadAllElements, _femaleRoots.HeadAllElements);
-            BuildList(_female.HeadNoElements, _femaleRoots.HeadNoElements);
-            BuildList(_female.Eyebrow, _femaleRoots.Eyebrow);
-            BuildList(_female.FacialHair, _femaleRoots.FacialHair);
-            BuildList(_female.Torso, _femaleRoots.Torso);
-            BuildList(_female.ArmUpperRight, _femaleRoots.ArmUpperRight);
-            BuildList(_female.ArmUpperLeft, _femaleRoots.ArmUpperLeft);
-            BuildList(_female.ArmLowerRight, _femaleRoots.ArmLowerRight);
-            BuildList(_female.ArmLowerLeft, _femaleRoots.ArmLowerLeft);
-            BuildList(_female.HandRight, _femaleRoots.HandRight);
-            BuildList(_female.HandLeft, _femaleRoots.HandLeft);
-            BuildList(_female.Hips, _femaleRoots.Hips);
-            BuildList(_female.LegRight, _femaleRoots.LegRight);
-            BuildList(_female.LegLeft, _femaleRoots.LegLeft);
+            BuildList(_femaleBase.HeadAllElements, _femaleRoots.HeadAllElements);
+            BuildList(_femaleBase.HeadNoElements, _femaleRoots.HeadNoElements);
+            BuildList(_femaleBase.Eyebrow, _femaleRoots.Eyebrow);
+            BuildList(_femaleBase.FacialHair, _femaleRoots.FacialHair);
+            BuildList(_femaleBase.Torso, _femaleRoots.Torso);
+            BuildList(_femaleBase.ArmUpperRight, _femaleRoots.ArmUpperRight);
+            BuildList(_femaleBase.ArmUpperLeft, _femaleRoots.ArmUpperLeft);
+            BuildList(_femaleBase.ArmLowerRight, _femaleRoots.ArmLowerRight);
+            BuildList(_femaleBase.ArmLowerLeft, _femaleRoots.ArmLowerLeft);
+            BuildList(_femaleBase.HandRight, _femaleRoots.HandRight);
+            BuildList(_femaleBase.HandLeft, _femaleRoots.HandLeft);
+            BuildList(_femaleBase.Hips, _femaleRoots.Hips);
+            BuildList(_femaleBase.LegRight, _femaleRoots.LegRight);
+            BuildList(_femaleBase.LegLeft, _femaleRoots.LegLeft);
         }
-
+        
         private void BuildList(List<GameObject> itemList, Transform root)
         {
             itemList.Clear();
@@ -87,11 +87,11 @@ namespace Colonists.Colonist
 
         private void ActivateDefaultItemsForGender(Gender gender)
         {
-            var characterGroups = gender == Gender.Male ? _male : _female;
+            var characterGroups = gender == Gender.Male ? _maleBase : _femaleBase;
             
             ActivateItem(characterGroups.HeadAllElements[0]);
             ActivateItem(characterGroups.Eyebrow[0]);
-            ActivateItem(characterGroups.FacialHair[0]);
+            //ActivateItem(characterGroups.FacialHair[0]);
             ActivateItem(characterGroups.Torso[0]);
             ActivateItem(characterGroups.ArmUpperRight[0]);
             ActivateItem(characterGroups.ArmUpperLeft[0]);

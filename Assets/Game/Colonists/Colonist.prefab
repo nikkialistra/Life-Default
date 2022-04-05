@@ -1135,7 +1135,7 @@ PrefabInstance:
     - target: {fileID: 8231338212499708899, guid: 4b62fb2d703ed6c41824a7ad351de2a3,
         type: 3}
       propertyPath: m_Name
-      value: Colonist
+      value: ColonistModel
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4b62fb2d703ed6c41824a7ad351de2a3, type: 3}

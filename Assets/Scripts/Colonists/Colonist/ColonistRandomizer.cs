@@ -1,152 +1,105 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Common;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Colonists.Colonist
 {
     public class ColonistRandomizer : MonoBehaviour
     {
-        [SerializeField] private CharacterObjectRoots _maleRoots;
-        [SerializeField] private CharacterObjectRoots _femaleRoots;
+        [SerializeField] private ItemRoots _itemRoots;
 
-        [SerializeField] private CharacterObjectGroups _maleBase;
-        [SerializeField] private CharacterObjectGroups _femaleBase;
-        
-        private readonly List<GameObject> _enabledItems = new();
+        [SerializeField] private ItemVariants _maleItemVariants;
+        [SerializeField] private ItemVariants _femaleItemVariants;
 
         private enum Gender { Male, Female }
 
         private void Start()
         {
-            if (_enabledItems.Count != 0)
-            {
-                foreach (var enabledObject in _enabledItems)
-                {
-                    enabledObject.SetActive(false);
-                }
-            }
-            
-            _enabledItems.Clear();
-
-            ActivateDefaultItems();
+            RandomizeAppearance();
         }
 
         [Button(ButtonSizes.Medium)]
-        private void BuildLists()
-        {
-            BuildList(_maleBase.HeadAllElements, _maleRoots.HeadAllElements);
-            BuildList(_maleBase.HeadNoElements, _maleRoots.HeadNoElements);
-            BuildList(_maleBase.Eyebrow, _maleRoots.Eyebrow);
-            BuildList(_maleBase.FacialHair, _maleRoots.FacialHair);
-            BuildList(_maleBase.Torso, _maleRoots.Torso);
-            BuildList(_maleBase.ArmUpperRight, _maleRoots.ArmUpperRight);
-            BuildList(_maleBase.ArmUpperLeft, _maleRoots.ArmUpperLeft);
-            BuildList(_maleBase.ArmLowerRight, _maleRoots.ArmLowerRight);
-            BuildList(_maleBase.ArmLowerLeft, _maleRoots.ArmLowerLeft);
-            BuildList(_maleBase.HandRight, _maleRoots.HandRight);
-            BuildList(_maleBase.HandLeft, _maleRoots.HandLeft);
-            BuildList(_maleBase.Hips, _maleRoots.Hips);
-            BuildList(_maleBase.LegRight, _maleRoots.LegRight);
-            BuildList(_maleBase.LegLeft, _maleRoots.LegLeft);
-            
-            BuildList(_femaleBase.HeadAllElements, _femaleRoots.HeadAllElements);
-            BuildList(_femaleBase.HeadNoElements, _femaleRoots.HeadNoElements);
-            BuildList(_femaleBase.Eyebrow, _femaleRoots.Eyebrow);
-            BuildList(_femaleBase.FacialHair, _femaleRoots.FacialHair);
-            BuildList(_femaleBase.Torso, _femaleRoots.Torso);
-            BuildList(_femaleBase.ArmUpperRight, _femaleRoots.ArmUpperRight);
-            BuildList(_femaleBase.ArmUpperLeft, _femaleRoots.ArmUpperLeft);
-            BuildList(_femaleBase.ArmLowerRight, _femaleRoots.ArmLowerRight);
-            BuildList(_femaleBase.ArmLowerLeft, _femaleRoots.ArmLowerLeft);
-            BuildList(_femaleBase.HandRight, _femaleRoots.HandRight);
-            BuildList(_femaleBase.HandLeft, _femaleRoots.HandLeft);
-            BuildList(_femaleBase.Hips, _femaleRoots.Hips);
-            BuildList(_femaleBase.LegRight, _femaleRoots.LegRight);
-            BuildList(_femaleBase.LegLeft, _femaleRoots.LegLeft);
-        }
-        
-        private void BuildList(List<GameObject> itemList, Transform root)
-        {
-            itemList.Clear();
-            
-            for (var i = 0; i < root.childCount; i++)
-            {
-                var go = root.GetChild(i).gameObject;
-                go.SetActive(false);
-                itemList.Add(go);
-            }
-        }
-
-        private void ActivateDefaultItems()
+        private void RandomizeAppearance()
         {
             var randomGender = EnumUtils.RandomEnumValue<Gender>();
 
-            ActivateDefaultItemsForGender(randomGender);
-        }
-
-        private void ActivateDefaultItemsForGender(Gender gender)
-        {
-            var characterGroups = gender == Gender.Male ? _maleBase : _femaleBase;
-            
-            ActivateItem(characterGroups.HeadAllElements[0]);
-            ActivateItem(characterGroups.Eyebrow[0]);
-            //ActivateItem(characterGroups.FacialHair[0]);
-            ActivateItem(characterGroups.Torso[0]);
-            ActivateItem(characterGroups.ArmUpperRight[0]);
-            ActivateItem(characterGroups.ArmUpperLeft[0]);
-            ActivateItem(characterGroups.ArmLowerRight[0]);
-            ActivateItem(characterGroups.ArmLowerLeft[0]);
-            ActivateItem(characterGroups.HandRight[0]);
-            ActivateItem(characterGroups.HandLeft[0]);
-            ActivateItem(characterGroups.Hips[0]);
-            ActivateItem(characterGroups.LegRight[0]);
-            ActivateItem(characterGroups.LegLeft[0]);
-        }
-
-        private void ActivateItem(GameObject item)
-        {
-            item.SetActive(true);
-            
-            _enabledItems.Add(item);
+            RandomizeAppearanceForGender(randomGender);
         }
         
-        [System.Serializable]
-        private class CharacterObjectRoots
+        [Button(ButtonSizes.Medium)]
+        private void RandomizeAppearanceForGender(Gender gender)
         {
-            public Transform HeadAllElements;
-            public Transform HeadNoElements;
-            public Transform Eyebrow;
-            public Transform FacialHair;
-            public Transform Torso;
-            public Transform ArmUpperRight;
-            public Transform ArmUpperLeft;
-            public Transform ArmLowerRight;
-            public Transform ArmLowerLeft;
-            public Transform HandRight;
-            public Transform HandLeft;
-            public Transform Hips;
-            public Transform LegRight;
-            public Transform LegLeft;
+            var itemVariants = gender == Gender.Male ? _maleItemVariants : _femaleItemVariants;
+            
+            ActivateItem(_itemRoots.Head, itemVariants.Head);
+            ActivateItem(_itemRoots.Eyebrows, itemVariants.Eyebrows);
+            ActivateItem(_itemRoots.Torso, itemVariants.Torso);
+            ActivateItem(_itemRoots.ArmUpperRight, itemVariants.ArmUpperRight);
+            ActivateItem(_itemRoots.ArmUpperLeft, itemVariants.ArmUpperLeft);
+            ActivateItem(_itemRoots.ArmLowerRight, itemVariants.ArmLowerRight);
+            ActivateItem(_itemRoots.ArmLowerLeft, itemVariants.ArmLowerLeft);
+            ActivateItem(_itemRoots.HandRight, itemVariants.HandRight);
+            ActivateItem(_itemRoots.HandLeft, itemVariants.HandLeft);
+            ActivateItem(_itemRoots.Hips, itemVariants.Hips);
+            ActivateItem(_itemRoots.LegRight, itemVariants.LegRight);
+            ActivateItem(_itemRoots.LegLeft, itemVariants.LegLeft);
+
+            if (gender == Gender.Male)
+            {
+                ActivateItem(_itemRoots.FacialHair, itemVariants.FacialHair);
+            }
+            else
+            {
+                _itemRoots.FacialHair.sharedMesh = null;
+            }
         }
 
-        [System.Serializable]
-        private class CharacterObjectGroups
+        private void ActivateItem(SkinnedMeshRenderer root, List<Mesh> meshVariants)
         {
-            public List<GameObject> HeadAllElements = new();
-            public List<GameObject> HeadNoElements = new();
-            public List<GameObject> Eyebrow = new();
-            public List<GameObject> FacialHair = new();
-            public List<GameObject> Torso = new();
-            public List<GameObject> ArmUpperRight = new();
-            public List<GameObject> ArmUpperLeft = new();
-            public List<GameObject> ArmLowerRight = new();
-            public List<GameObject> ArmLowerLeft = new();
-            public List<GameObject> HandRight = new();
-            public List<GameObject> HandLeft = new();
-            public List<GameObject> Hips = new();
-            public List<GameObject> LegRight = new();
-            public List<GameObject> LegLeft = new();
+            var randomMesh = meshVariants[Random.Range(0, meshVariants.Count)];
+
+            root.sharedMesh = randomMesh;
+        }
+
+        [Serializable]
+        private class ItemRoots
+        {
+            public SkinnedMeshRenderer Head;
+            public SkinnedMeshRenderer HeadAccessory;
+            public SkinnedMeshRenderer Eyebrows;
+            public SkinnedMeshRenderer FacialHair;
+            public SkinnedMeshRenderer Torso;
+            public SkinnedMeshRenderer ArmUpperRight;
+            public SkinnedMeshRenderer ArmUpperLeft;
+            public SkinnedMeshRenderer ArmLowerRight;
+            public SkinnedMeshRenderer ArmLowerLeft;
+            public SkinnedMeshRenderer HandRight;
+            public SkinnedMeshRenderer HandLeft;
+            public SkinnedMeshRenderer Hips;
+            public SkinnedMeshRenderer LegRight;
+            public SkinnedMeshRenderer LegLeft;
+        }
+
+        [Serializable]
+        private class ItemVariants
+        {
+            public List<Mesh> Head;
+            public List<Mesh> HeadAccessory;
+            public List<Mesh> Eyebrows;
+            public List<Mesh> FacialHair;
+            public List<Mesh> Torso;
+            public List<Mesh> ArmUpperRight;
+            public List<Mesh> ArmUpperLeft;
+            public List<Mesh> ArmLowerRight;
+            public List<Mesh> ArmLowerLeft;
+            public List<Mesh> HandRight;
+            public List<Mesh> HandLeft;
+            public List<Mesh> Hips;
+            public List<Mesh> LegRight;
+            public List<Mesh> LegLeft;
         }
     }
 }

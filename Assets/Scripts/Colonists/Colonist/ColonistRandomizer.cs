@@ -9,7 +9,11 @@ namespace Colonists.Colonist
 {
     public class ColonistRandomizer : MonoBehaviour
     {
-        [SerializeField] private ItemRoots _itemRoots;
+        [SerializeField] private GameObject _maleRoot;
+        [SerializeField] private GameObject _femaleRoot;
+
+        [SerializeField] private Items _maleItems;
+        [SerializeField] private Items _femaleItems;
 
         [SerializeField] private ItemVariants _maleItemVariants;
         [SerializeField] private ItemVariants _femaleItemVariants;
@@ -32,40 +36,52 @@ namespace Colonists.Colonist
         [Button(ButtonSizes.Medium)]
         private void RandomizeAppearanceForGender(Gender gender)
         {
-            var itemVariants = gender == Gender.Male ? _maleItemVariants : _femaleItemVariants;
-            
-            ActivateItem(_itemRoots.Head, itemVariants.Head);
-            ActivateItem(_itemRoots.Eyebrows, itemVariants.Eyebrows);
-            ActivateItem(_itemRoots.Torso, itemVariants.Torso);
-            ActivateItem(_itemRoots.ArmUpperRight, itemVariants.ArmUpperRight);
-            ActivateItem(_itemRoots.ArmUpperLeft, itemVariants.ArmUpperLeft);
-            ActivateItem(_itemRoots.ArmLowerRight, itemVariants.ArmLowerRight);
-            ActivateItem(_itemRoots.ArmLowerLeft, itemVariants.ArmLowerLeft);
-            ActivateItem(_itemRoots.HandRight, itemVariants.HandRight);
-            ActivateItem(_itemRoots.HandLeft, itemVariants.HandLeft);
-            ActivateItem(_itemRoots.Hips, itemVariants.Hips);
-            ActivateItem(_itemRoots.LegRight, itemVariants.LegRight);
-            ActivateItem(_itemRoots.LegLeft, itemVariants.LegLeft);
-
             if (gender == Gender.Male)
             {
-                ActivateItem(_itemRoots.FacialHair, itemVariants.FacialHair);
+                _maleRoot.SetActive(true);
+                _femaleRoot.SetActive(false);
             }
             else
             {
-                _itemRoots.FacialHair.sharedMesh = null;
+                _maleRoot.SetActive(false);
+                _femaleRoot.SetActive(true);
+            }
+            
+            var (items, itemVariants) = gender switch
+            {
+                Gender.Male => (_maleItems, _maleItemVariants),
+                Gender.Female => (_femaleItems, _femaleItemVariants),
+                _ => throw new ArgumentOutOfRangeException(nameof(gender), gender, null)
+            };
+
+            ActivateItem(items.Head, itemVariants.Head);
+            ActivateItem(items.Eyebrows, itemVariants.Eyebrows);
+            ActivateItem(items.Torso, itemVariants.Torso);
+            ActivateItem(items.ArmUpperRight, itemVariants.ArmUpperRight);
+            ActivateItem(items.ArmUpperLeft, itemVariants.ArmUpperLeft);
+            ActivateItem(items.ArmLowerRight, itemVariants.ArmLowerRight);
+            ActivateItem(items.ArmLowerLeft, itemVariants.ArmLowerLeft);
+            ActivateItem(items.HandRight, itemVariants.HandRight);
+            ActivateItem(items.HandLeft, itemVariants.HandLeft);
+            ActivateItem(items.Hips, itemVariants.Hips);
+            ActivateItem(items.LegRight, itemVariants.LegRight);
+            ActivateItem(items.LegLeft, itemVariants.LegLeft);
+
+            if (gender == Gender.Male)
+            {
+                ActivateItem(items.FacialHair, itemVariants.FacialHair);
             }
         }
 
-        private void ActivateItem(SkinnedMeshRenderer root, List<Mesh> meshVariants)
+        private void ActivateItem(SkinnedMeshRenderer renderer, List<Mesh> meshVariants)
         {
             var randomMesh = meshVariants[Random.Range(0, meshVariants.Count)];
 
-            root.sharedMesh = randomMesh;
+            renderer.sharedMesh = randomMesh;
         }
 
         [Serializable]
-        private class ItemRoots
+        private class Items
         {
             public SkinnedMeshRenderer Head;
             public SkinnedMeshRenderer HeadAccessory;

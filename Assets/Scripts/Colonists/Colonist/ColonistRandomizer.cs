@@ -80,19 +80,14 @@ namespace Colonists.Colonist
         private void ActivateAgenderItems()
         {
             ActivateItem(_agenderItems.Hair, _agenderItemVariants.Hair);
+            ActivateItem(_agenderItems.Ears, _agenderItemVariants.Ears);
             ActivateItem(_agenderItems.HeadCoveringHair, _agenderItemVariants.HeadCoveringHair);
             ActivateItem(_agenderItems.BackAttachment, _agenderItemVariants.BackAttachment);
             ActivateItem(_agenderItems.HipsAttachment, _agenderItemVariants.HipsAttachment);
-            ActivateItem(_agenderItems.Ears, _agenderItemVariants.Ears);
         }
 
         private void ActivateItem(SkinnedMeshRenderer renderer, List<Mesh> meshVariants)
         {
-            if (renderer == null)
-            {
-                return;
-            }
-            
             if (meshVariants.Count == 0)
             {
                 return;

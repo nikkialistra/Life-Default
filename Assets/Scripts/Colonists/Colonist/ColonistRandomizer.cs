@@ -9,8 +9,8 @@ namespace Colonists.Colonist
 {
     public class ColonistRandomizer : MonoBehaviour
     {
-        [SerializeField] private GameObject _maleRoot;
-        [SerializeField] private GameObject _femaleRoot;
+        [SerializeField] private GameObject _male;
+        [SerializeField] private GameObject _female;
 
         [SerializeField] private GenderItems _maleItems;
         [SerializeField] private GenderItems _femaleItems;
@@ -40,13 +40,13 @@ namespace Colonists.Colonist
         {
             if (gender == Gender.Male)
             {
-                _maleRoot.SetActive(true);
-                _femaleRoot.SetActive(false);
+                _male.SetActive(true);
+                _female.SetActive(false);
             }
             else
             {
-                _maleRoot.SetActive(false);
-                _femaleRoot.SetActive(true);
+                _male.SetActive(false);
+                _female.SetActive(true);
             }
             
             var (items, itemVariants) = gender switch
@@ -88,6 +88,11 @@ namespace Colonists.Colonist
 
         private void ActivateItem(SkinnedMeshRenderer renderer, List<Mesh> meshVariants)
         {
+            if (renderer == null)
+            {
+                return;
+            }
+            
             if (meshVariants.Count == 0)
             {
                 return;

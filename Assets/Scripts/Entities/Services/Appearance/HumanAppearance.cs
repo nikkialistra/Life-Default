@@ -1,4 +1,5 @@
-﻿using Entities.Types;
+﻿using Entities.Services.Appearance.Variants;
+using Entities.Types;
 using UnityEngine;
 
 namespace Entities.Services.Appearance

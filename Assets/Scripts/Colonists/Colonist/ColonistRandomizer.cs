@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using Common;
 using Entities.Services.Appearance;
+using Entities.Services.Appearance.ItemVariants;
+using Entities.Services.Appearance.Variants;
 using Entities.Types;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -25,6 +27,7 @@ namespace Colonists.Colonist
         [SerializeField] private AgenderItemVariants _agenderItemVariants;
         
         private static readonly int Color = Shader.PropertyToID("_BaseColor");
+        private static readonly int Texture = Shader.PropertyToID("_BaseMap");
 
         public void RandomizeAppearanceWith(Gender gender, HumanAppearance humanAppearance)
         {
@@ -67,7 +70,7 @@ namespace Colonists.Colonist
 
         private void RandomizeColors(Gender gender, GenderItems genderItems, ColorVariants colorVariants)
         {
-            RandomizeColor(genderItems.Head, colorVariants.SkinColors);
+            RandomizeTexture(genderItems.Head, colorVariants.SkinColorTextures);
             RandomizeColor(_agenderItems.Hair, colorVariants.HairColors);
             
             if (gender == Gender.Male)
@@ -76,16 +79,21 @@ namespace Colonists.Colonist
             }
         }
 
-        private void RandomizeItem(SkinnedMeshRenderer renderer, ItemVariants itemVariants)
+        private void RandomizeItem(SkinnedMeshRenderer renderer, IItemVariants<Mesh> meshVariants)
         {
-            var randomMesh = itemVariants.GetRandom();
+            var randomMesh = meshVariants.GetRandom();
             
             renderer.sharedMesh = randomMesh;
         }
 
-        private void RandomizeColor(SkinnedMeshRenderer renderer, List<Color> colors)
+        private void RandomizeColor(SkinnedMeshRenderer renderer, IItemVariants<Color> colorVariants)
         {
-            renderer.material.SetColor(Color, colors[Random.Range(0, colors.Count)]);
+            renderer.material.SetColor(Color, colorVariants.GetRandom());
+        }
+
+        private void RandomizeTexture(SkinnedMeshRenderer renderer, IItemVariants<Texture2D> textureVariants)
+        {
+            renderer.material.SetTexture(Texture, textureVariants.GetRandom());
         }
 
         [Button(ButtonSizes.Medium)]

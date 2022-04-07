@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using Colonists.Colonist.Appearance;
 using Common;
+using Entities.Services.Appearance;
 using Entities.Types;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -24,18 +24,29 @@ namespace Colonists.Colonist
         [SerializeField] private GenderItemVariants _femaleItemVariants;
         [SerializeField] private AgenderItemVariants _agenderItemVariants;
 
-        private void Start()
+        public void RandomizeAppearanceWith(Gender gender, HeadVariants headVariants)
         {
-            RandomizeAppearance();
-        }
-
-        public void RandomizeAppearanceWith(HeadVariants headVariants)
-        {
-            RandomizeItem(_maleItems.Head, headVariants.Head);
+            GenderItems genderItems;
+            if (gender == Gender.Male)
+            {
+                genderItems = _maleItems;
+                
+                _male.SetActive(true);
+                _female.SetActive(false);
+            }
+            else
+            {
+                genderItems = _femaleItems;
+                
+                _male.SetActive(false);
+                _female.SetActive(true);
+            }
+            
+            RandomizeItem(genderItems.Head, headVariants.Head);
             RandomizeItem(_agenderItems.Hair, headVariants.Hair);
             RandomizeItem(_agenderItems.Ears, headVariants.Ears);
-            RandomizeItem(_maleItems.Eyebrows, headVariants.Eyebrows);
-            RandomizeItem(_maleItems.FacialHair, headVariants.FacialHair);
+            RandomizeItem(genderItems.Eyebrows, headVariants.Eyebrows);
+            RandomizeItem(genderItems.FacialHair, headVariants.FacialHair);
         }
 
         [Button(ButtonSizes.Medium)]

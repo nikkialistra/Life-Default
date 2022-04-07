@@ -1,0 +1,132 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65fc910bd6564cbda9b136754b4b55ca, type: 3}
+  m_Name: Human Head Variants Female
+  m_EditorClassIdentifier: 
+  _head:
+    Variants:
+    - Mesh: {fileID: 4301056, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+      Chance: 1
+      RelativeChance: 0.25
+    - Mesh: {fileID: 4300984, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+      Chance: 1
+      RelativeChance: 0.25
+    - Mesh: {fileID: 4300988, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+      Chance: 1
+      RelativeChance: 0.25
+    - Mesh: {fileID: 4300992, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+      Chance: 1
+      RelativeChance: 0.25
+  _hair:
+    Variants:
+    - Mesh: {fileID: 4300060, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+      Chance: 1
+      RelativeChance: 0.04347826
+    - Mesh: {fileID: 4300062, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+      Chance: 1
+      RelativeChance: 0.04347826
+    - Mesh: {fileID: 4300066, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+      Chance: 1
+      RelativeChance: 0.04347826
+    - Mesh: {fileID: 4300070, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+      Chance: 1
+      RelativeChance: 0.04347826
+    - Mesh: {fileID: 4300076, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+      Chance: 1
+      RelativeChance: 0.04347826
+    - Mesh: {fileID: 4300082, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+      Chance: 1
+      RelativeChance: 0.04347826
+    - Mesh: {fileID: 4300084, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+      Chance: 1
+      RelativeChance: 0.04347826
+    - Mesh: {fileID: 4300094, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+      Chance: 1
+      RelativeChance: 0.04347826
+    - Mesh: {fileID: 4300096, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+      Chance: 1
+      RelativeChance: 0.04347826
+    - Mesh: {fileID: 4300098, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+      Chance: 1
+      RelativeChance: 0.04347826
+    - Mesh: {fileID: 4300104, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+      Chance: 1
+      RelativeChance: 0.04347826
+    - Mesh: {fileID: 4300106, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+      Chance: 1
+      RelativeChance: 0.04347826
+    - Mesh: {fileID: 4300108, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+      Chance: 1
+      RelativeChance: 0.04347826
+    - Mesh: {fileID: 4300110, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+      Chance: 1
+      RelativeChance: 0.04347826
+    - Mesh: {fileID: 4300112, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+      Chance: 1
+      RelativeChance: 0.04347826
+    - Mesh: {fileID: 4300116, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+      Chance: 1
+      RelativeChance: 0.04347826
+    - Mesh: {fileID: 4300118, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+      Chance: 1
+      RelativeChance: 0.04347826
+    - Mesh: {fileID: 4300120, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+      Chance: 1
+      RelativeChance: 0.04347826
+    - Mesh: {fileID: 4300122, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+      Chance: 1
+      RelativeChance: 0.04347826
+    - Mesh: {fileID: 4300124, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+      Chance: 1
+      RelativeChance: 0.04347826
+    - Mesh: {fileID: 4300126, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+      Chance: 1
+      RelativeChance: 0.04347826
+    - Mesh: {fileID: 4300128, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+      Chance: 1
+      RelativeChance: 0.04347826
+    - Mesh: {fileID: 4300130, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+      Chance: 1
+      RelativeChance: 0.04347826
+  _ears:
+    Variants:
+    - Mesh: {fileID: 0}
+      Chance: 95
+      RelativeChance: 0.97938144
+    - Mesh: {fileID: 4301330, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+      Chance: 1
+      RelativeChance: 0.010309278
+    - Mesh: {fileID: 4301332, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+      Chance: 1
+      RelativeChance: 0.010309278
+  _eyebrows:
+    Variants:
+    - Mesh: {fileID: 4302116, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+      Chance: 1
+      RelativeChance: 0.2
+    - Mesh: {fileID: 4302122, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+      Chance: 1
+      RelativeChance: 0.2
+    - Mesh: {fileID: 4302124, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+      Chance: 1
+      RelativeChance: 0.2
+    - Mesh: {fileID: 4302126, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+      Chance: 1
+      RelativeChance: 0.2
+    - Mesh: {fileID: 4302128, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+      Chance: 1
+      RelativeChance: 0.2
+  _facialHair:
+    Variants:
+    - Mesh: {fileID: 0}
+      Chance: 1
+      RelativeChance: 1

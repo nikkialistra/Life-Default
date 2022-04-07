@@ -1,9 +1,10 @@
 ﻿using System;
-using Colonists.Colonist.Appearance;
 using Common;
 using Entities;
 using Entities.Ancillaries;
 using Entities.Creature;
+using Entities.Services;
+using Entities.Services.Appearance;
 using Entities.Types;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -42,14 +43,25 @@ namespace Colonists.Colonist
 
         private bool _died;
         
+        private HumanAppearance _humanAppearance;
+        private HumanNames _humanNames;
+        
         private EntityHovering _entityHovering;
         private ColonistMeshAgent _colonistMeshAgent;
         private ColonistBehavior _colonistBehavior;
 
-        [Inject]
-        public void Construct(Vector3 position)
+        public void Initialize(Vector3 position)
         {
             transform.position = position;
+            _gender = EnumUtils.RandomEnumValue<Gender>();
+        }
+        
+        [Inject]
+        public void Construct(HumanAppearance humanAppearance , HumanNames humanNames)
+        {
+            _humanAppearance = humanAppearance;
+            _humanNames = humanNames;
+            
             _gender = EnumUtils.RandomEnumValue<Gender>();
         }
 
@@ -80,8 +92,6 @@ namespace Colonists.Colonist
                 NameChange?.Invoke(_name);
             }
         }
-        
-        public Gender Gender => _gender;
 
         public EntityVitality Vitality { get; private set; }
 
@@ -115,7 +125,7 @@ namespace Colonists.Colonist
 
         public void RandomizeAppearanceWith(HeadVariants headVariants)
         {
-            _colonistRandomizer.RandomizeAppearanceWith(headVariants);
+            _colonistRandomizer.RandomizeAppearanceWith(_gender, headVariants);
         }
 
         [Button(ButtonSizes.Large)]
@@ -204,12 +214,8 @@ namespace Colonists.Colonist
 
         private void InitializeSelf()
         {
-            _died = false;
-
-            if (_name == "")
-            {
-                _name = ColonistNameGenerator.GetRandomName();
-            }
+            _name = _humanNames.GetRandomNameFor(_gender);
+            _colonistRandomizer.RandomizeAppearanceWith(_gender, _humanAppearance.GetVariantsFor(_gender));
 
             Vitality.Initialize();
             
@@ -240,7 +246,7 @@ namespace Colonists.Colonist
             _healthBars.SetRecoverySpeed(blood);
             HealthChange?.Invoke();
         }
-
-        public class Factory : PlaceholderFactory<Vector3, ColonistFacade> { }
+        
+        public class Factory : PlaceholderFactory<ColonistFacade> { }
     }
 }

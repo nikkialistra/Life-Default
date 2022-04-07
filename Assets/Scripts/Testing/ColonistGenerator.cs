@@ -62,7 +62,8 @@ namespace Testing
                     return;
                 }
                 
-                _colonistFactory.Create(hit.point);
+                var colonist = _colonistFactory.Create();
+                colonist.Initialize(hit.point);
             }
         }
     }

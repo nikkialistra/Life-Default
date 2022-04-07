@@ -82,7 +82,7 @@ namespace Infrastructure
 
         private void BindSpawning()
         {
-            Container.BindFactory<Vector3, ColonistFacade, ColonistFacade.Factory>()
+            Container.BindFactory<ColonistFacade, ColonistFacade.Factory>()
                 .FromComponentInNewPrefab(_colonistPrefab)
                 .UnderTransform(_colonistsParent);
         }

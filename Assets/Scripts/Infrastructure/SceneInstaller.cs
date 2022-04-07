@@ -1,4 +1,6 @@
-﻿using General;
+﻿using Entities.Services;
+using Entities.Services.Appearance;
+using General;
 using General.TemperatureRegulation;
 using General.TileManagement.Tiles;
 using General.TimeCycle.Days;
@@ -55,6 +57,13 @@ namespace Infrastructure
         [SerializeField] private CameraMovement _cameraMovement;
         [Required]
         [SerializeField] private FlyCamera _flyCamera;
+        
+        [Title("Entities")]
+        [Required]
+        [SerializeField] private HumanNames _humanNames;
+        [Required]
+        [SerializeField] private HumanAppearance _humanAppearance;
+        
 
         public override void InstallBindings()
         {
@@ -63,6 +72,7 @@ namespace Infrastructure
             BindEnvironmentConditionSystems();
             BindResourceSystems();
             BindControls();
+            BindEntities();
         }
 
         private void BindTimeSystems()
@@ -101,6 +111,12 @@ namespace Infrastructure
 
             Container.BindInstance(_flyCamera);
             Container.BindInstance(_isSetUpSession).WhenInjectedInto<FlyCamera>();
+        }
+
+        private void BindEntities()
+        {
+            Container.BindInstance(_humanNames);
+            Container.BindInstance(_humanAppearance);
         }
     }
 }

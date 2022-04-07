@@ -8,9 +8,13 @@ namespace Entities.Services.Appearance
         [SerializeField] private HeadVariants _maleHeadVariants;
         [SerializeField] private HeadVariants _femaleHeadVariants;
 
-        public HeadVariants GetVariantsFor(Gender gender)
+        [SerializeField] private ColorVariants _colorVariants;
+
+        public HeadVariants HeadVariantsFor(Gender gender)
         {
             return gender == Gender.Male ? _maleHeadVariants : _femaleHeadVariants;
         }
+        
+        public ColorVariants ColorVariants => _colorVariants;
     }
 }

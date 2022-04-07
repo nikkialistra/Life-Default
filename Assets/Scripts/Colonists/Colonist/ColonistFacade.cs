@@ -53,7 +53,7 @@ namespace Colonists.Colonist
         public void Initialize(Vector3 position)
         {
             transform.position = position;
-            _gender = EnumUtils.RandomEnumValue<Gender>();
+            _gender = EnumUtils.RandomValue<Gender>();
         }
         
         [Inject]
@@ -62,7 +62,7 @@ namespace Colonists.Colonist
             _humanAppearance = humanAppearance;
             _humanNames = humanNames;
             
-            _gender = EnumUtils.RandomEnumValue<Gender>();
+            _gender = EnumUtils.RandomValue<Gender>();
         }
 
         private void Awake()
@@ -123,9 +123,9 @@ namespace Colonists.Colonist
             _colonistMeshAgent.DestinationReach -= OnDestinationReach;
         }
 
-        public void RandomizeAppearanceWith(HeadVariants headVariants)
+        public void SetAt(Vector3 position)
         {
-            _colonistRandomizer.RandomizeAppearanceWith(_gender, headVariants);
+            transform.position = position;
         }
 
         [Button(ButtonSizes.Large)]
@@ -214,8 +214,9 @@ namespace Colonists.Colonist
 
         private void InitializeSelf()
         {
+            _gender = EnumUtils.RandomValue<Gender>();
             _name = _humanNames.GetRandomNameFor(_gender);
-            _colonistRandomizer.RandomizeAppearanceWith(_gender, _humanAppearance.GetVariantsFor(_gender));
+            _colonistRandomizer.RandomizeAppearanceWith(_gender, _humanAppearance);
 
             Vitality.Initialize();
             

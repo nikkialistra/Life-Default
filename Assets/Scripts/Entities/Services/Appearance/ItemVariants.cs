@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using Sirenix.OdinInspector;
+using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Entities.Services.Appearance
 {
@@ -24,6 +26,28 @@ namespace Entities.Services.Appearance
             {
                 variant.RelativeChance = (float)variant.Chance / sum;
             }
+        }
+
+        public Mesh GetRandom()
+        {
+            if (Variants.Count == 0)
+            {
+                return null;
+            }
+            
+            var randomValue = Random.Range(0f, 1f);
+
+            for (var i = 0; i < Variants.Count; i++)
+            {
+                if (randomValue <= Variants[i].RelativeChance)
+                {
+                    return Variants[i].Mesh;
+                }
+                
+                randomValue -= Variants[i].Chance;
+            }
+
+            return null;
         }
     }
 }

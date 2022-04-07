@@ -23,8 +23,10 @@ namespace Colonists.Colonist
         [SerializeField] private GenderItemVariants _maleItemVariants;
         [SerializeField] private GenderItemVariants _femaleItemVariants;
         [SerializeField] private AgenderItemVariants _agenderItemVariants;
+        
+        private static readonly int Color = Shader.PropertyToID("_BaseColor");
 
-        public void RandomizeAppearanceWith(Gender gender, HeadVariants headVariants)
+        public void RandomizeAppearanceWith(Gender gender, HumanAppearance humanAppearance)
         {
             GenderItems genderItems;
             if (gender == Gender.Male)
@@ -42,17 +44,54 @@ namespace Colonists.Colonist
                 _female.SetActive(true);
             }
             
+            RandomizeHeadItems(gender, genderItems,  humanAppearance.HeadVariantsFor(gender));
+            RandomizeColors(gender, genderItems, humanAppearance.ColorVariants);
+        }
+
+        private void RandomizeHeadItems(Gender gender, GenderItems genderItems, HeadVariants headVariants)
+        {
             RandomizeItem(genderItems.Head, headVariants.Head);
+            
+            
             RandomizeItem(_agenderItems.Hair, headVariants.Hair);
+            
+
             RandomizeItem(_agenderItems.Ears, headVariants.Ears);
             RandomizeItem(genderItems.Eyebrows, headVariants.Eyebrows);
-            RandomizeItem(genderItems.FacialHair, headVariants.FacialHair);
+
+            if (gender == Gender.Male)
+            {
+                RandomizeItem(genderItems.FacialHair, headVariants.FacialHair);
+            }
+        }
+
+        private void RandomizeColors(Gender gender, GenderItems genderItems, ColorVariants colorVariants)
+        {
+            RandomizeColor(genderItems.Head, colorVariants.SkinColors);
+            RandomizeColor(_agenderItems.Hair, colorVariants.HairColors);
+            
+            if (gender == Gender.Male)
+            {
+                RandomizeColor(genderItems.FacialHair, colorVariants.HairColors);
+            }
+        }
+
+        private void RandomizeItem(SkinnedMeshRenderer renderer, ItemVariants itemVariants)
+        {
+            var randomMesh = itemVariants.GetRandom();
+            
+            renderer.sharedMesh = randomMesh;
+        }
+
+        private void RandomizeColor(SkinnedMeshRenderer renderer, List<Color> colors)
+        {
+            renderer.material.SetColor(Color, colors[Random.Range(0, colors.Count)]);
         }
 
         [Button(ButtonSizes.Medium)]
         private void RandomizeAppearance()
         {
-            var randomGender = EnumUtils.RandomEnumValue<Gender>();
+            var randomGender = EnumUtils.RandomValue<Gender>();
 
             RandomizeAppearanceForGender(randomGender);
         }
@@ -108,21 +147,16 @@ namespace Colonists.Colonist
             RandomizeItem(_agenderItems.HipsAttachment, _agenderItemVariants.HipsAttachment);
         }
 
-        private void RandomizeItem(SkinnedMeshRenderer renderer, List<Mesh> meshVariants)
+        private void RandomizeItem(SkinnedMeshRenderer renderer, List<Mesh> variants)
         {
-            if (meshVariants.Count == 0)
+            if (variants.Count == 0)
             {
                 return;
             }
-            
-            var randomMesh = meshVariants[Random.Range(0, meshVariants.Count)];
 
-            renderer.sharedMesh = randomMesh;
-        }
+            var itemMesh = variants[Random.Range(0, variants.Count)];
 
-        private void RandomizeItem(SkinnedMeshRenderer maleItemsHead, List<Item> variants)
-        {
-            
+            renderer.sharedMesh = itemMesh;
         }
 
         [Serializable]

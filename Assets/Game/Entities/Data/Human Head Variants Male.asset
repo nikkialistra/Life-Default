@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65fc910bd6564cbda9b136754b4b55ca, type: 3}
   m_Name: Human Head Variants Male
   m_EditorClassIdentifier: 
-  _head:
+  Head:
     Variants:
     - Mesh: {fileID: 4301026, guid: 038320a534bd8b444b43734860d1a211, type: 3}
       Chance: 1
@@ -26,7 +26,7 @@ MonoBehaviour:
     - Mesh: {fileID: 4300376, guid: 038320a534bd8b444b43734860d1a211, type: 3}
       Chance: 1
       RelativeChance: 0.25
-  _hair:
+  Hair:
     Variants:
     - Mesh: {fileID: 4300060, guid: 038320a534bd8b444b43734860d1a211, type: 3}
       Chance: 1
@@ -97,7 +97,7 @@ MonoBehaviour:
     - Mesh: {fileID: 4300130, guid: 038320a534bd8b444b43734860d1a211, type: 3}
       Chance: 1
       RelativeChance: 0.04347826
-  _ears:
+  Ears:
     Variants:
     - Mesh: {fileID: 0}
       Chance: 95
@@ -108,7 +108,7 @@ MonoBehaviour:
     - Mesh: {fileID: 4301332, guid: 038320a534bd8b444b43734860d1a211, type: 3}
       Chance: 1
       RelativeChance: 0.010309278
-  _eyebrows:
+  Eyebrows:
     Variants:
     - Mesh: {fileID: 4300420, guid: 038320a534bd8b444b43734860d1a211, type: 3}
       Chance: 1
@@ -125,35 +125,32 @@ MonoBehaviour:
     - Mesh: {fileID: 4300432, guid: 038320a534bd8b444b43734860d1a211, type: 3}
       Chance: 1
       RelativeChance: 0.2
-  _facialHair:
+  FacialHair:
     Variants:
-    - Mesh: {fileID: 0}
-      Chance: 27
-      RelativeChance: 0.75
     - Mesh: {fileID: 4301342, guid: 038320a534bd8b444b43734860d1a211, type: 3}
       Chance: 1
-      RelativeChance: 0.027777778
+      RelativeChance: 0.11111111
     - Mesh: {fileID: 4301346, guid: 038320a534bd8b444b43734860d1a211, type: 3}
       Chance: 1
-      RelativeChance: 0.027777778
+      RelativeChance: 0.11111111
     - Mesh: {fileID: 4301350, guid: 038320a534bd8b444b43734860d1a211, type: 3}
       Chance: 1
-      RelativeChance: 0.027777778
+      RelativeChance: 0.11111111
     - Mesh: {fileID: 4301352, guid: 038320a534bd8b444b43734860d1a211, type: 3}
       Chance: 1
-      RelativeChance: 0.027777778
+      RelativeChance: 0.11111111
     - Mesh: {fileID: 4301356, guid: 038320a534bd8b444b43734860d1a211, type: 3}
       Chance: 1
-      RelativeChance: 0.027777778
+      RelativeChance: 0.11111111
     - Mesh: {fileID: 4301362, guid: 038320a534bd8b444b43734860d1a211, type: 3}
       Chance: 1
-      RelativeChance: 0.027777778
+      RelativeChance: 0.11111111
     - Mesh: {fileID: 4301366, guid: 038320a534bd8b444b43734860d1a211, type: 3}
       Chance: 1
-      RelativeChance: 0.027777778
+      RelativeChance: 0.11111111
     - Mesh: {fileID: 4301370, guid: 038320a534bd8b444b43734860d1a211, type: 3}
       Chance: 1
-      RelativeChance: 0.027777778
+      RelativeChance: 0.11111111
     - Mesh: {fileID: 4301372, guid: 038320a534bd8b444b43734860d1a211, type: 3}
       Chance: 1
-      RelativeChance: 0.027777778
+      RelativeChance: 0.11111111

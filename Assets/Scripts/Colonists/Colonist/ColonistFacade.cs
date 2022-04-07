@@ -1,7 +1,10 @@
 ﻿using System;
+using Colonists.Colonist.Appearance;
+using Common;
 using Entities;
 using Entities.Ancillaries;
 using Entities.Creature;
+using Entities.Types;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using Zenject;
@@ -14,11 +17,17 @@ namespace Colonists.Colonist
     [RequireComponent(typeof(ColonistBehavior))]
     public class ColonistFacade : MonoBehaviour
     {
+        [Title("Properties")]
+        [SerializeField] private string _name;
+        [SerializeField] private Gender _gender;
+        
         [Required]
         [SerializeField] private HealthBars _healthBars;
         [Required]
         [SerializeField] private ColonistAnimator _colonistAnimator;
-
+        [Required]
+        [SerializeField] private ColonistRandomizer _colonistRandomizer;
+        
         [Space]
         [Required]
         [SerializeField] private FieldOfView _enemyFieldOfView;
@@ -31,11 +40,8 @@ namespace Colonists.Colonist
         [Required]
         [SerializeField] private Transform _center;
 
-        [Title("Properties")]
-        [SerializeField] private string _name;
-
         private bool _died;
-
+        
         private EntityHovering _entityHovering;
         private ColonistMeshAgent _colonistMeshAgent;
         private ColonistBehavior _colonistBehavior;
@@ -44,11 +50,13 @@ namespace Colonists.Colonist
         public void Construct(Vector3 position)
         {
             transform.position = position;
+            _gender = EnumUtils.RandomEnumValue<Gender>();
         }
 
         private void Awake()
         {
             Vitality = GetComponent<EntityVitality>();
+            
             _entityHovering = GetComponent<EntityHovering>();
             _colonistMeshAgent = GetComponent<ColonistMeshAgent>();
             _colonistBehavior = GetComponent<ColonistBehavior>();
@@ -72,6 +80,8 @@ namespace Colonists.Colonist
                 NameChange?.Invoke(_name);
             }
         }
+        
+        public Gender Gender => _gender;
 
         public EntityVitality Vitality { get; private set; }
 
@@ -101,6 +111,11 @@ namespace Colonists.Colonist
             Vitality.Die -= Dying;
 
             _colonistMeshAgent.DestinationReach -= OnDestinationReach;
+        }
+
+        public void RandomizeAppearanceWith(HeadVariants headVariants)
+        {
+            _colonistRandomizer.RandomizeAppearanceWith(headVariants);
         }
 
         [Button(ButtonSizes.Large)]

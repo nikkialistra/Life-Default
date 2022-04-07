@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using Colonists.Colonist.Appearance;
 using Common;
+using Entities.Types;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -9,6 +11,7 @@ namespace Colonists.Colonist
 {
     public class ColonistRandomizer : MonoBehaviour
     {
+        [Title("Bindings")]
         [SerializeField] private GameObject _male;
         [SerializeField] private GameObject _female;
 
@@ -16,15 +19,23 @@ namespace Colonists.Colonist
         [SerializeField] private GenderItems _femaleItems;
         [SerializeField] private AgenderItems _agenderItems;
 
+        [Title("Variants")]
         [SerializeField] private GenderItemVariants _maleItemVariants;
         [SerializeField] private GenderItemVariants _femaleItemVariants;
         [SerializeField] private AgenderItemVariants _agenderItemVariants;
 
-        private enum Gender { Male, Female }
-
         private void Start()
         {
             RandomizeAppearance();
+        }
+
+        public void RandomizeAppearanceWith(HeadVariants headVariants)
+        {
+            RandomizeItem(_maleItems.Head, headVariants.Head);
+            RandomizeItem(_agenderItems.Hair, headVariants.Hair);
+            RandomizeItem(_agenderItems.Ears, headVariants.Ears);
+            RandomizeItem(_maleItems.Eyebrows, headVariants.Eyebrows);
+            RandomizeItem(_maleItems.FacialHair, headVariants.FacialHair);
         }
 
         [Button(ButtonSizes.Medium)]
@@ -34,7 +45,7 @@ namespace Colonists.Colonist
 
             RandomizeAppearanceForGender(randomGender);
         }
-        
+
         [Button(ButtonSizes.Medium)]
         private void RandomizeAppearanceForGender(Gender gender)
         {
@@ -56,37 +67,37 @@ namespace Colonists.Colonist
                 _ => throw new ArgumentOutOfRangeException(nameof(gender), gender, null)
             };
 
-            ActivateGenderItems(items, itemVariants);
-            ActivateAgenderItems();
+            RandomizeGenderItems(items, itemVariants);
+            RandomizeAgenderItems();
         }
 
-        private void ActivateGenderItems(GenderItems items, GenderItemVariants itemVariants)
+        private void RandomizeGenderItems(GenderItems items, GenderItemVariants itemVariants)
         {
-            ActivateItem(items.Head, itemVariants.Head);
-            ActivateItem(items.Eyebrows, itemVariants.Eyebrows);
-            ActivateItem(items.FacialHair, itemVariants.FacialHair);
-            ActivateItem(items.Torso, itemVariants.Torso);
-            ActivateItem(items.ArmUpperRight, itemVariants.ArmUpperRight);
-            ActivateItem(items.ArmUpperLeft, itemVariants.ArmUpperLeft);
-            ActivateItem(items.ArmLowerRight, itemVariants.ArmLowerRight);
-            ActivateItem(items.ArmLowerLeft, itemVariants.ArmLowerLeft);
-            ActivateItem(items.HandRight, itemVariants.HandRight);
-            ActivateItem(items.HandLeft, itemVariants.HandLeft);
-            ActivateItem(items.Hips, itemVariants.Hips);
-            ActivateItem(items.LegRight, itemVariants.LegRight);
-            ActivateItem(items.LegLeft, itemVariants.LegLeft);
+            RandomizeItem(items.Head, itemVariants.Head);
+            RandomizeItem(items.Eyebrows, itemVariants.Eyebrows);
+            RandomizeItem(items.FacialHair, itemVariants.FacialHair);
+            RandomizeItem(items.Torso, itemVariants.Torso);
+            RandomizeItem(items.ArmUpperRight, itemVariants.ArmUpperRight);
+            RandomizeItem(items.ArmUpperLeft, itemVariants.ArmUpperLeft);
+            RandomizeItem(items.ArmLowerRight, itemVariants.ArmLowerRight);
+            RandomizeItem(items.ArmLowerLeft, itemVariants.ArmLowerLeft);
+            RandomizeItem(items.HandRight, itemVariants.HandRight);
+            RandomizeItem(items.HandLeft, itemVariants.HandLeft);
+            RandomizeItem(items.Hips, itemVariants.Hips);
+            RandomizeItem(items.LegRight, itemVariants.LegRight);
+            RandomizeItem(items.LegLeft, itemVariants.LegLeft);
         }
 
-        private void ActivateAgenderItems()
+        private void RandomizeAgenderItems()
         {
-            ActivateItem(_agenderItems.Hair, _agenderItemVariants.Hair);
-            ActivateItem(_agenderItems.Ears, _agenderItemVariants.Ears);
-            ActivateItem(_agenderItems.HeadCoveringHair, _agenderItemVariants.HeadCoveringHair);
-            ActivateItem(_agenderItems.BackAttachment, _agenderItemVariants.BackAttachment);
-            ActivateItem(_agenderItems.HipsAttachment, _agenderItemVariants.HipsAttachment);
+            RandomizeItem(_agenderItems.Hair, _agenderItemVariants.Hair);
+            RandomizeItem(_agenderItems.Ears, _agenderItemVariants.Ears);
+            RandomizeItem(_agenderItems.HeadCoveringHair, _agenderItemVariants.HeadCoveringHair);
+            RandomizeItem(_agenderItems.BackAttachment, _agenderItemVariants.BackAttachment);
+            RandomizeItem(_agenderItems.HipsAttachment, _agenderItemVariants.HipsAttachment);
         }
 
-        private void ActivateItem(SkinnedMeshRenderer renderer, List<Mesh> meshVariants)
+        private void RandomizeItem(SkinnedMeshRenderer renderer, List<Mesh> meshVariants)
         {
             if (meshVariants.Count == 0)
             {
@@ -96,6 +107,11 @@ namespace Colonists.Colonist
             var randomMesh = meshVariants[Random.Range(0, meshVariants.Count)];
 
             renderer.sharedMesh = randomMesh;
+        }
+
+        private void RandomizeItem(SkinnedMeshRenderer maleItemsHead, List<Item> variants)
+        {
+            
         }
 
         [Serializable]

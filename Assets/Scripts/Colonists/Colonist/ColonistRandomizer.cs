@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using BehaviorDesigner.Runtime.Tasks.Unity.UnityRenderer;
 using Common;
 using Entities.Services.Appearance;
 using Entities.Services.Appearance.ItemVariants;
@@ -70,16 +71,36 @@ namespace Colonists.Colonist
 
         private void RandomizeColors(Gender gender, GenderItems genderItems, ColorVariants colorVariants)
         {
-            RandomizeTexture(genderItems.Head, colorVariants.SkinColorTextures);
-
+            var randomSkinMaterial = colorVariants.SkinColorMaterials.GetRandom();
             var randomColor = colorVariants.HairColors.GetRandom();
-            
+
+            SetSkinMaterial(genderItems, randomSkinMaterial);
             SetColor(_agenderItems.Hair, randomColor);
             
             if (gender == Gender.Male)
             {
                 SetColor(genderItems.FacialHair, randomColor);
             }
+        }
+
+        private void SetSkinMaterial(GenderItems genderItems, Material randomSkinMaterial)
+        {
+            SetMaterial(genderItems.Head, randomSkinMaterial);
+            SetMaterial(_agenderItems.Ears, randomSkinMaterial);
+            
+            SetMaterial(genderItems.Torso, randomSkinMaterial);
+            SetMaterial(genderItems.ArmUpperRight, randomSkinMaterial);
+            SetMaterial(genderItems.ArmUpperLeft, randomSkinMaterial);
+            SetMaterial(genderItems.ArmLowerRight, randomSkinMaterial);
+            SetMaterial(genderItems.ArmLowerLeft, randomSkinMaterial);
+
+            SetMaterial(genderItems.HandRight, randomSkinMaterial);
+            SetMaterial(genderItems.HandLeft, randomSkinMaterial);
+            
+            SetMaterial(genderItems.Hips, randomSkinMaterial);
+            
+            SetMaterial(genderItems.LegRight, randomSkinMaterial);
+            SetMaterial(genderItems.LegLeft, randomSkinMaterial);
         }
 
         private void RandomizeItem(SkinnedMeshRenderer renderer, IItemVariants<Mesh> meshVariants)
@@ -94,9 +115,9 @@ namespace Colonists.Colonist
             renderer.material.SetColor(Color, color);
         }
 
-        private void RandomizeTexture(SkinnedMeshRenderer renderer, IItemVariants<Texture2D> textureVariants)
+        private void SetMaterial(SkinnedMeshRenderer renderer, Material material)
         {
-            renderer.material.SetTexture(Texture, textureVariants.GetRandom());
+            renderer.material = material;
         }
 
         [Button(ButtonSizes.Medium)]

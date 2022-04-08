@@ -1,5 +1,6 @@
 ﻿using Entities.Services.Appearance.ItemVariants;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Entities.Services.Appearance.Variants
 {
@@ -7,9 +8,9 @@ namespace Entities.Services.Appearance.Variants
     public class ColorVariants : ScriptableObject
     {
         [SerializeField] private ItemValueVariants<Color> _hairColors;
-        [SerializeField] private ItemObjectVariants<Texture2D> _skinColorTextures;
+        [SerializeField] private ItemObjectVariants<Material> _skinColorMaterials;
 
         public IItemVariants<Color> HairColors => _hairColors;
-        public IItemVariants<Texture2D> SkinColorTextures => _skinColorTextures;
+        public IItemVariants<Material> SkinColorMaterials => _skinColorMaterials;
     }
 }

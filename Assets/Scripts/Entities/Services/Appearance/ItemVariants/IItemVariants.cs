@@ -42,7 +42,7 @@ namespace Entities.Services.Appearance.ItemVariants
                     return variant.Value;
                 }
                 
-                randomValue -= variant.Chance;
+                randomValue -= variant.RelativeChance;
             }
 
             return default;

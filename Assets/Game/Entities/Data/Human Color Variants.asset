@@ -14,11 +14,32 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _hairColors:
     _variants:
-    - _value: {r: 0, g: 0, b: 0, a: 0}
+    - _value: {r: 0.09433961, g: 0.09433961, b: 0.09433961, a: 0}
       _chance: 1
-      _relativeChance: 0
+      _relativeChance: 0.16666667
+    - _value: {r: 0.18867922, g: 0.1698113, b: 0.1698113, a: 0}
+      _chance: 1
+      _relativeChance: 0.16666667
+    - _value: {r: 0.2264151, g: 0.1888685, b: 0.13114987, a: 0}
+      _chance: 1
+      _relativeChance: 0.16666667
+    - _value: {r: 0.2264151, g: 0.12553643, b: 0.043574218, a: 0}
+      _chance: 1
+      _relativeChance: 0.16666667
+    - _value: {r: 0.3962264, g: 0.3790317, b: 0.3790317, a: 0}
+      _chance: 1
+      _relativeChance: 0.16666667
+    - _value: {r: 0.15846787, g: 0.14291562, b: 0.3490566, a: 0}
+      _chance: 1
+      _relativeChance: 0.16666667
   _skinColorTextures:
     _variants:
-    - _value: {fileID: 0}
+    - _value: {fileID: 2800000, guid: 7dd0476daa9e82447856b542d1d238eb, type: 3}
       _chance: 1
-      _relativeChance: 0
+      _relativeChance: 0.33333334
+    - _value: {fileID: 2800000, guid: 4afc5eb74030b844096c502333ca35dd, type: 3}
+      _chance: 1
+      _relativeChance: 0.33333334
+    - _value: {fileID: 2800000, guid: 78976e27f82a5e845a7cab27d8f444ca, type: 3}
+      _chance: 1
+      _relativeChance: 0.33333334

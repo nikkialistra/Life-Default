@@ -71,11 +71,14 @@ namespace Colonists.Colonist
         private void RandomizeColors(Gender gender, GenderItems genderItems, ColorVariants colorVariants)
         {
             RandomizeTexture(genderItems.Head, colorVariants.SkinColorTextures);
-            RandomizeColor(_agenderItems.Hair, colorVariants.HairColors);
+
+            var randomColor = colorVariants.HairColors.GetRandom();
+            
+            SetColor(_agenderItems.Hair, randomColor);
             
             if (gender == Gender.Male)
             {
-                RandomizeColor(genderItems.FacialHair, colorVariants.HairColors);
+                SetColor(genderItems.FacialHair, randomColor);
             }
         }
 
@@ -86,9 +89,9 @@ namespace Colonists.Colonist
             renderer.sharedMesh = randomMesh;
         }
 
-        private void RandomizeColor(SkinnedMeshRenderer renderer, IItemVariants<Color> colorVariants)
+        private void SetColor(SkinnedMeshRenderer renderer, Color color)
         {
-            renderer.material.SetColor(Color, colorVariants.GetRandom());
+            renderer.material.SetColor(Color, color);
         }
 
         private void RandomizeTexture(SkinnedMeshRenderer renderer, IItemVariants<Texture2D> textureVariants)

@@ -140,7 +140,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _resourceType: 0
-  _quantity: 10
+  _quantity: 40
   _holder: {fileID: 1620543646530164832}
 --- !u!1 &1817383417853709863
 GameObject:
@@ -348,6 +348,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1620543646530164832}
     m_Modifications:
+    - target: {fileID: 426169995026989783, guid: 51e1923cb239c86419b06383c273132f,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 1.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 426169995026989783, guid: 51e1923cb239c86419b06383c273132f,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 1.6
+      objectReference: {fileID: 0}
     - target: {fileID: 2625714277779515755, guid: 51e1923cb239c86419b06383c273132f,
         type: 3}
       propertyPath: m_RootOrder

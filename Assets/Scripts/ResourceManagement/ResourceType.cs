@@ -6,6 +6,6 @@ namespace ResourceManagement
     public enum ResourceType
     {
         Wood,
-        Stone,
+        Stone
     }
 }

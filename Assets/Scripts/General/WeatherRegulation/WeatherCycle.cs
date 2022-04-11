@@ -17,7 +17,7 @@ namespace General.WeatherRegulation
         [SerializeField] private float _weatherEventChancePerDay = 0.4f;
         [SerializeField] private DayRange _weatherBeginTimeRange;
 
-        [ValidateInput(nameof(EveryWeatherHasConditions), "Not every weather has conditions")]
+        [ValidateInput(nameof(EveryWeatherHasConditions))]
         [Title("Weather Necessary Conditions")]
         [DictionaryDrawerSettings(DisplayMode = DictionaryDisplayOptions.ExpandedFoldout)]
         [SerializeField] private WeatherNecessaryConditionsDictionary _weatherNecessaryConditions;

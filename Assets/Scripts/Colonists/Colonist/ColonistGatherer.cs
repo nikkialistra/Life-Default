@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections;
+using Common;
 using Entities.Interfaces;
 using ResourceManagement;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using Zenject;
 
@@ -11,6 +13,9 @@ namespace Colonists.Colonist
     [RequireComponent(typeof(ColonistStats))]
     public class ColonistGatherer : MonoBehaviour
     {
+        [ValidateInput(nameof(EveryResourceHasDistanceInteraction))]
+        [SerializeField] private ResourceInteractionDistanceDictionary _resourceInteractionDistances;
+
         private Action _onInteractionFinish;
 
         private Coroutine _gatheringCoroutine;
@@ -32,6 +37,11 @@ namespace Colonists.Colonist
         {
             _colonistAnimator = GetComponent<ColonistAnimator>();
             _colonistStats = GetComponent<ColonistStats>();
+        }
+
+        public float InteractionDistanceFor(ResourceType resourceType)
+        {
+            return _resourceInteractionDistances[resourceType];
         }
 
         public bool CanGather(Resource resource)
@@ -95,5 +105,21 @@ namespace Colonists.Colonist
                 _acquired = null;
             }
         }
+        
+        private bool EveryResourceHasDistanceInteraction(ResourceInteractionDistanceDictionary distances, ref string errorMessage)
+        {
+            foreach (var resourceType in (ResourceType[])Enum.GetValues(typeof(ResourceType)))
+            {
+                if (!distances.ContainsKey(resourceType))
+                {
+                    errorMessage = $"{resourceType} don't have distance";
+                    return false;
+                }
+            }
+
+            return true;
+        }
+        
+        [Serializable] public class ResourceInteractionDistanceDictionary : SerializableDictionary<ResourceType, float> { }
     }
 }

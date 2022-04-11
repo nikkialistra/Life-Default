@@ -15,7 +15,7 @@ namespace Colonists.Colonist
         private EntityAnimator _entityAnimator;
 
         private readonly int _cuttingWood = Animator.StringToHash("cuttingWood");
-        private readonly int _miningStone = Animator.StringToHash("miningStone");
+        private readonly int _miningRock = Animator.StringToHash("miningRock");
         private readonly int _attacking = Animator.StringToHash("attacking");
 
         private void Awake()
@@ -33,7 +33,7 @@ namespace Colonists.Colonist
             var interactionType = resource.ResourceType switch
             {
                 ResourceType.Wood => _cuttingWood,
-                ResourceType.Stone => _miningStone,
+                ResourceType.Stone => _miningRock,
                 _ => throw new ArgumentOutOfRangeException()
             };
 
@@ -43,7 +43,7 @@ namespace Colonists.Colonist
         public void StopGathering()
         {
             _animator.SetBool(_cuttingWood, false);
-            _animator.SetBool(_miningStone, false);
+            _animator.SetBool(_miningRock, false);
         }
         
         public void Attack(bool value)

@@ -105,6 +105,7 @@ namespace Colonists.Colonist
             _positions.Value.Enqueue(position);
             if (angle.HasValue)
             {
+                Debug.Log(angle.Value);
                 _rotation.Value = angle.Value;
             }
 

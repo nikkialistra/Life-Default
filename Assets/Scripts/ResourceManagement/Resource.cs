@@ -12,7 +12,7 @@ namespace ResourceManagement
     {
         [SerializeField] private ResourceType _resourceType;
         [MinValue(1)]
-        [SerializeField] private int _quantity;
+        [SerializeField] private float _quantity;
 
         [Space]
         [Required]
@@ -32,11 +32,11 @@ namespace ResourceManagement
         public ResourceType ResourceType => _resourceType;
         public bool Exhausted => _quantity == 0;
 
-        public ResourceOutput Extract(int value)
+        public ResourceOutput Extract(float value, float extractionFraction)
         {
             var extractedQuantity = ApplyExtraction(value);
 
-            return new ResourceOutput(_resourceType, extractedQuantity);
+            return new ResourceOutput(_resourceType, extractedQuantity * extractionFraction);
         }
 
         public void Acquire()
@@ -67,14 +67,14 @@ namespace ResourceManagement
             Destroy(_holder.gameObject);
         }
 
-        private int ApplyExtraction(int value)
+        private float ApplyExtraction(float value)
         {
             if (_quantity <= 0)
             {
                 throw new InvalidOperationException("Making damage cannot be applied to the destroyed resource");
             }
 
-            int extractedQuantity;
+            float extractedQuantity;
 
             if (_quantity > value)
             {

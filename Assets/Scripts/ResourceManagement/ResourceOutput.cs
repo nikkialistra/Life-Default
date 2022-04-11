@@ -3,9 +3,9 @@
     public class ResourceOutput
     {
         public readonly ResourceType ResourceType;
-        public readonly int Quantity;
+        public readonly float Quantity;
 
-        public ResourceOutput(ResourceType resourceType, int quantity)
+        public ResourceOutput(ResourceType resourceType, float quantity)
         {
             ResourceType = resourceType;
             Quantity = quantity;

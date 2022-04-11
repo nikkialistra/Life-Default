@@ -10,8 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2965568335686965089}
   - component: {fileID: 4276003193240939519}
-  - component: {fileID: 4426591291709704455}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: SM_Tree_Pine_02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -58,19 +57,6 @@ LODGroup:
     renderers:
     - renderer: {fileID: 4273545882290183830}
   m_Enabled: 1
---- !u!65 &4426591291709704455
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 120450240373283440}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 3.7, z: 1}
-  m_Center: {x: 0, y: 1.77, z: 0}
 --- !u!1 &1620543646530389056
 GameObject:
   m_ObjectHideFlags: 0
@@ -80,7 +66,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1620543646530164832}
-  - component: {fileID: 3396503226979777919}
+  - component: {fileID: 5199866085836727873}
   - component: {fileID: 1221772295278586055}
   - component: {fileID: 8716837362799385936}
   m_Layer: 17
@@ -108,8 +94,8 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &3396503226979777919
-BoxCollider:
+--- !u!136 &5199866085836727873
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -118,9 +104,10 @@ BoxCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 2.4, y: 5, z: 2.4}
-  m_Center: {x: 0, y: 2, z: 0}
+  m_Radius: 0.7
+  m_Height: 5.13
+  m_Direction: 1
+  m_Center: {x: 0, y: 1.71, z: 0}
 --- !u!114 &1221772295278586055
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -197,7 +184,7 @@ GameObject:
   - component: {fileID: 7566736330375474262}
   - component: {fileID: 5847672210398187284}
   - component: {fileID: 7338941988186966059}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: SM_Tree_Pine_02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -281,7 +268,7 @@ GameObject:
   - component: {fileID: 3154097202681531378}
   - component: {fileID: 897398404946700910}
   - component: {fileID: 4273545882290183830}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: SM_Tree_Pine_02_LOD_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}

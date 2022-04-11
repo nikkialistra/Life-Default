@@ -1,22 +1,18 @@
 ﻿using System;
 using System.Collections;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Entities.Creature
 {
-    [RequireComponent(typeof(Animator))]
     public class EntityAnimator : MonoBehaviour
     {
+        [Required]
+        [SerializeField] private Animator _animator;
+
         private readonly int _moving = Animator.StringToHash("moving");
         private readonly int _death = Animator.StringToHash("death");
-
-        private Animator _animator;
-
-        private void Awake()
-        {
-            _animator = GetComponent<Animator>();
-        }
-
+        
         public void Die(Action died)
         {
             _animator.SetTrigger(_death);

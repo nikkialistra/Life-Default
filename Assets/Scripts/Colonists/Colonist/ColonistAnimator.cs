@@ -1,23 +1,26 @@
 ﻿using System;
 using Entities.Creature;
+using ResourceManagement;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Colonists.Colonist
 {
     [RequireComponent(typeof(EntityAnimator))]
-    [RequireComponent(typeof(Animator))]
     public class ColonistAnimator : MonoBehaviour
     {
-        private EntityAnimator _entityAnimator;
-        private Animator _animator;
+        [Required]
+        [SerializeField] private Animator _animator;
 
-        private readonly int _interacting = Animator.StringToHash("interacting");
+        private EntityAnimator _entityAnimator;
+
+        private readonly int _cuttingWood = Animator.StringToHash("cuttingWood");
+        private readonly int _miningStone = Animator.StringToHash("miningStone");
         private readonly int _attacking = Animator.StringToHash("attacking");
 
         private void Awake()
         {
             _entityAnimator = GetComponent<EntityAnimator>();
-            _animator = GetComponent<Animator>();
         }
 
         public void Move(bool value)
@@ -25,11 +28,24 @@ namespace Colonists.Colonist
             _entityAnimator.Move(value);
         }
 
-        public void Interact(bool value)
+        public void Gather(Resource resource)
         {
-            _animator.SetBool(_interacting, value);
+            var interactionType = resource.ResourceType switch
+            {
+                ResourceType.Wood => _cuttingWood,
+                ResourceType.Stone => _miningStone,
+                _ => throw new ArgumentOutOfRangeException()
+            };
+
+            _animator.SetBool(interactionType, true);
         }
 
+        public void StopGathering()
+        {
+            _animator.SetBool(_cuttingWood, false);
+            _animator.SetBool(_miningStone, false);
+        }
+        
         public void Attack(bool value)
         {
             _animator.SetBool(_attacking, value);

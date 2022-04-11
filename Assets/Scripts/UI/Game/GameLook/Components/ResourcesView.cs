@@ -52,12 +52,12 @@ namespace UI.Game.GameLook.Components
             Shown = false;
         }
 
-        public void ChangeResourceTypeCount(ResourceType resourceType, int amount)
+        public void ChangeResourceTypeCount(ResourceType resourceType, float amount)
         {
             CheckResourceTypeExistence(resourceType);
 
             var label = _resourceLabels[resourceType];
-            label.text = $"{amount}";
+            label.text = $"{Mathf.Floor(amount)}";
         }
 
         private void CheckResourceTypeExistence(ResourceType resourceType)
@@ -72,8 +72,6 @@ namespace UI.Game.GameLook.Components
         {
             _resourceLabels.Add(ResourceType.Wood, Tree.Q<Label>("wood__count"));
             _resourceLabels.Add(ResourceType.Stone, Tree.Q<Label>("stone__count"));
-            _resourceLabels.Add(ResourceType.Emerald, Tree.Q<Label>("emerald__count"));
-            _resourceLabels.Add(ResourceType.Crystal, Tree.Q<Label>("crystal__count"));
         }
     }
 }

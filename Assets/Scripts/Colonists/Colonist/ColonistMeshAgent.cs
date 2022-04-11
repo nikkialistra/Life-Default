@@ -8,19 +8,19 @@ using UnityEngine;
 
 namespace Colonists.Colonist
 {
+    [RequireComponent(typeof(ColonistAnimator))]
     [RequireComponent(typeof(EntityMeshAgent))]
     public class ColonistMeshAgent : MonoBehaviour
     {
-        [Required]
-        [SerializeField] private ColonistAnimator _animator;
-
         private bool _activated;
         private bool _hasPendingOrder;
 
+        private ColonistAnimator _animator;
         private EntityMeshAgent _entityMeshAgent;
 
         private void Awake()
         {
+            _animator = GetComponent<ColonistAnimator>();
             _entityMeshAgent = GetComponent<EntityMeshAgent>();
         }
 

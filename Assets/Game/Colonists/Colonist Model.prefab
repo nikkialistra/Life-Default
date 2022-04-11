@@ -3311,8 +3311,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4005077195242232}
   - component: {fileID: 95241917264262668}
-  - component: {fileID: 7319244257553421757}
-  - component: {fileID: 2666782124828171162}
   - component: {fileID: 3388593450940659954}
   m_Layer: 0
   m_Name: Colonist Model
@@ -3358,30 +3356,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &7319244257553421757
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1588895830433058}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0f4dba6f7a1d41e088b31ab63bb17cba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &2666782124828171162
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1588895830433058}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba595e31a6f447b083af3159b6b18989, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &3388593450940659954
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -7,7 +7,5 @@ namespace ResourceManagement
     {
         Wood,
         Stone,
-        Emerald,
-        Crystal
     }
 }

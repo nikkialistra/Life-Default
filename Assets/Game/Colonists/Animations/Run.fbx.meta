@@ -8,7 +8,7 @@ ModelImporter:
     second: Take 001
   - first:
       74: -203655887218126122
-    second: Run
+    second: Run (Running Forward Quickly)
   - first:
       74: -3780516532778130023
     second: mixamo.com (1)
@@ -42,7 +42,7 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Run
+      name: Run (Running Forward Quickly)
       takeName: mixamo.com
       internalID: 0
       firstFrame: 0

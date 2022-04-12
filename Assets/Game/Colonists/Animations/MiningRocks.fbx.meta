@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: fd4f09b7b7d9d044483dab4bdee9dd69
+guid: b91cd245e1b92834b976f31dac486bcc
 ModelImporter:
   serializedVersion: 21202
   internalIDToNameTable:
@@ -8,7 +8,7 @@ ModelImporter:
     second: Take 001
   - first:
       74: -203655887218126122
-    second: Idle (Weight Shift Idle)
+    second: MiningRocks (Standing Melee Attach Horizontal)
   externalObjects: {}
   materials:
     materialImportMode: 2
@@ -39,13 +39,13 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Idle (Weight Shift Idle)
+      name: MiningRocks (Standing Melee Attach Horizontal)
       takeName: mixamo.com
       internalID: 0
       firstFrame: 0
-      lastFrame: 997
+      lastFrame: 85
       wrapMode: 0
-      orientationOffsetY: 0
+      orientationOffsetY: -40
       level: 0
       cycleOffset: 0
       loop: 0

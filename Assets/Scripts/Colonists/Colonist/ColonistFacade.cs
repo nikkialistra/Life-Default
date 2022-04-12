@@ -13,6 +13,7 @@ using Zenject;
 namespace Colonists.Colonist
 {
     [RequireComponent(typeof(EntityVitality))]
+    [RequireComponent(typeof(ColonistAnimator))]
     [RequireComponent(typeof(ColonistMeshAgent))]
     [RequireComponent(typeof(EntityHovering))]
     [RequireComponent(typeof(ColonistBehavior))]
@@ -24,8 +25,6 @@ namespace Colonists.Colonist
         
         [Required]
         [SerializeField] private HealthBars _healthBars;
-        [Required]
-        [SerializeField] private ColonistAnimator _colonistAnimator;
         [Required]
         [SerializeField] private ColonistRandomizer _colonistRandomizer;
         
@@ -47,8 +46,9 @@ namespace Colonists.Colonist
         private HumanNames _humanNames;
         
         private EntityHovering _entityHovering;
-        private ColonistMeshAgent _colonistMeshAgent;
-        private ColonistBehavior _colonistBehavior;
+        private ColonistAnimator _animator;
+        private ColonistMeshAgent _meshAgent;
+        private ColonistBehavior _behavior;
 
         public void Initialize(Vector3 position)
         {
@@ -70,8 +70,9 @@ namespace Colonists.Colonist
             Vitality = GetComponent<EntityVitality>();
             
             _entityHovering = GetComponent<EntityHovering>();
-            _colonistMeshAgent = GetComponent<ColonistMeshAgent>();
-            _colonistBehavior = GetComponent<ColonistBehavior>();
+            _animator = GetComponent<ColonistAnimator>();
+            _meshAgent = GetComponent<ColonistMeshAgent>();
+            _behavior = GetComponent<ColonistBehavior>();
         }
 
         public event Action Spawn;
@@ -112,7 +113,7 @@ namespace Colonists.Colonist
             Vitality.HealthChange += OnHealthChange;
             Vitality.Die += Dying;
 
-            _colonistMeshAgent.DestinationReach += OnDestinationReach;
+            _meshAgent.DestinationReach += OnDestinationReach;
         }
 
         private void OnDisable()
@@ -120,7 +121,7 @@ namespace Colonists.Colonist
             Vitality.HealthChange -= OnHealthChange;
             Vitality.Die -= Dying;
 
-            _colonistMeshAgent.DestinationReach -= OnDestinationReach;
+            _meshAgent.DestinationReach -= OnDestinationReach;
         }
 
         public void SetAt(Vector3 position)
@@ -162,22 +163,22 @@ namespace Colonists.Colonist
 
         public void Stop()
         {
-            _colonistBehavior.Stop();
+            _behavior.Stop();
         }
 
         public bool TryOrderToEntity(Entity entity)
         {
-            return _colonistBehavior.TryOrderToEntity(entity);
+            return _behavior.TryOrderToEntity(entity);
         }
 
         public bool TryOrderToPosition(Vector3 position, float? angle)
         {
-            return _colonistBehavior.TryOrderToPosition(position, angle);
+            return _behavior.TryOrderToPosition(position, angle);
         }
 
         public bool TryAddPositionToOrder(Vector3 position, float? angle)
         {
-            return _colonistBehavior.TryAddPositionToOrder(position, angle);
+            return _behavior.TryAddPositionToOrder(position, angle);
         }
 
         public void ToggleEnemyFieldOfView()
@@ -203,13 +204,13 @@ namespace Colonists.Colonist
             Die?.Invoke();
             ColonistDie?.Invoke(this);
 
-            _colonistAnimator.Die(DestroySelf);
+            _animator.Die(DestroySelf);
         }
 
         private void DeactivateComponents()
         {
-            _colonistMeshAgent.Deactivate();
-            _colonistBehavior.Deactivate();
+            _meshAgent.Deactivate();
+            _behavior.Deactivate();
         }
 
         private void InitializeSelf()
@@ -227,8 +228,8 @@ namespace Colonists.Colonist
         private void ActivateComponents()
         {
             _entityHovering.Activate();
-            _colonistMeshAgent.Activate();
-            _colonistBehavior.Activate();
+            _meshAgent.Activate();
+            _behavior.Activate();
         }
 
         private void DestroySelf()

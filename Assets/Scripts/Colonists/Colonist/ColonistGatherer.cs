@@ -13,6 +13,9 @@ namespace Colonists.Colonist
     [RequireComponent(typeof(ColonistStats))]
     public class ColonistGatherer : MonoBehaviour
     {
+        [Required]
+        [SerializeField] private ColonistHandEquipment _handEquipment;
+
         [ValidateInput(nameof(EveryResourceHasDistanceInteraction))]
         [SerializeField] private ResourceInteractionDistanceDictionary _resourceInteractionDistances;
 
@@ -22,9 +25,10 @@ namespace Colonists.Colonist
 
         private ICountable _acquired;
         
-        private ColonistAnimator _colonistAnimator;
+        private ColonistAnimator _animator;
+
         private ColonistStats _colonistStats;
-        
+
         private ResourceCounts _resourceCounts;
 
         [Inject]
@@ -35,7 +39,7 @@ namespace Colonists.Colonist
 
         private void Awake()
         {
-            _colonistAnimator = GetComponent<ColonistAnimator>();
+            _animator = GetComponent<ColonistAnimator>();
             _colonistStats = GetComponent<ColonistStats>();
         }
 
@@ -59,7 +63,7 @@ namespace Colonists.Colonist
             if (_gatheringCoroutine != null)
             {
                 StopCoroutine(_gatheringCoroutine);
-                _colonistAnimator.StopGathering();
+                _animator.StopGathering();
             }
 
             ReleaseAcquired();
@@ -67,7 +71,8 @@ namespace Colonists.Colonist
 
         private IEnumerator Gathering(Resource resource, Action onInteractionFinish)
         {
-            _colonistAnimator.Gather(resource);
+            _handEquipment.EquipInstrumentFor(resource.ResourceType);
+            _animator.Gather(resource);
         
             AddToAcquired(resource);
         
@@ -87,7 +92,8 @@ namespace Colonists.Colonist
         
             ReleaseAcquired();
         
-            _colonistAnimator.StopGathering();
+            _animator.StopGathering();
+
             onInteractionFinish();
         }
 

@@ -29,7 +29,6 @@ namespace UI.Game.GameLook.Components
         
         private void OnEnable()
         {
-            Application.logMessageReceivedThreaded -= OnLogMessageReceive;
             Application.logMessageReceivedThreaded += OnLogMessageReceive;
         }
 
@@ -46,7 +45,7 @@ namespace UI.Game.GameLook.Components
                     UpdateErrors();
                     break;
                 case LogType.Assert:
-                    UpdateWarnings();
+                    UpdateErrors();
                     break;
                 case LogType.Warning:
                     UpdateWarnings();

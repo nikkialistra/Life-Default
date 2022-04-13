@@ -64,6 +64,8 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 
+/Extra/
+
 /[Aa]ssets/Plugins/
 /[Aa]ssets/Graphics/
 /[Aa]ssets/Procedural Worlds/

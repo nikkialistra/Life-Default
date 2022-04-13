@@ -1,0 +1,18 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Resources/UI/Styles/GameLook/Components/LogMessageCounts.uss?fileID=7433441132597879392&amp;guid=8a789d9375a51da4b85d394082f3f57a&amp;type=3#LogMessageCounts" />
+    <Style src="project://database/Assets/Resources/UI/Styles/Common/Text.uss?fileID=7433441132597879392&amp;guid=158167a2c7cf4f5292d78d1ed2683cfc&amp;type=3#Text" />
+    <ui:VisualElement name="log-message-counts" class="log-message-counts">
+        <ui:VisualElement name="info" class="element">
+            <ui:VisualElement name="info__icon" class="icon info" style="background-image: resource(&apos;UI/Sprites/Icons/Console/IconInfo&apos;);" />
+            <ui:Label text="0" display-tooltip-when-elided="true" name="info__count" class="count label label-outlined-small" />
+        </ui:VisualElement>
+        <ui:VisualElement name="warnings" class="element">
+            <ui:VisualElement name="warnings__icon" class="icon warning" />
+            <ui:Label text="0" display-tooltip-when-elided="true" name="warnings__count" class="count label label-outlined-small" />
+        </ui:VisualElement>
+        <ui:VisualElement name="errors" class="element">
+            <ui:VisualElement name="errors__icon" class="icon error" />
+            <ui:Label text="0" display-tooltip-when-elided="true" name="errors__count" class="count label label-outlined-small" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

@@ -10,6 +10,7 @@ namespace UI.Game.GameLook
     [RequireComponent(typeof(UIDocument))]
     [RequireComponent(typeof(StockView))]
     [RequireComponent(typeof(BuildVersionView))]
+    [RequireComponent(typeof(LogMessageCountsView))]
     [RequireComponent(typeof(ColonistIconsView))]
     [RequireComponent(typeof(TimeWeatherView))]
     [RequireComponent(typeof(TimeTogglingView))]
@@ -24,6 +25,7 @@ namespace UI.Game.GameLook
 
         private StockView _stockView;
         private BuildVersionView _buildVersionView;
+        private LogMessageCountsView _logMessageCountsView;
         private ColonistIconsView _colonistIconsView;
         private TimeTogglingView _timeTogglingView;
         private TimeWeatherView _timeWeatherView;
@@ -32,6 +34,7 @@ namespace UI.Game.GameLook
         private VisualElement _stockElement;
         private VisualElement _colonistIconsElement;
         private VisualElement _buildVersionElement;
+        private VisualElement _logMessageCountsElement;
         private VisualElement _timeWeatherElement;
         private VisualElement _timeTogglingElement;
         private VisualElement _tileInfoElement;
@@ -50,6 +53,7 @@ namespace UI.Game.GameLook
             _stockView = GetComponent<StockView>();
             _colonistIconsView = GetComponent<ColonistIconsView>();
             _buildVersionView = GetComponent<BuildVersionView>();
+            _logMessageCountsView = GetComponent<LogMessageCountsView>();
             _timeWeatherView = GetComponent<TimeWeatherView>();
             _timeTogglingView = GetComponent<TimeTogglingView>();
             _tileInfoView = GetComponent<TileInfoView>();
@@ -61,6 +65,7 @@ namespace UI.Game.GameLook
             _stockElement = _tree.Q<VisualElement>("stock");
             _colonistIconsElement = _tree.Q<VisualElement>("colonist-icons");
             _buildVersionElement = _tree.Q<VisualElement>("build-version");
+            _logMessageCountsElement = _tree.Q<VisualElement>("log-message-counts");
             _timeWeatherElement = _tree.Q<VisualElement>("time-weather");
             _timeTogglingElement = _tree.Q<VisualElement>("time-toggling");
             _tileInfoElement = _tree.Q<VisualElement>("tile-info");
@@ -82,6 +87,7 @@ namespace UI.Game.GameLook
             _stockElement.Add(_stockView.Tree);
             _colonistIconsElement.Add(_colonistIconsView.Tree);
             _buildVersionElement.Add(_buildVersionView.Tree);
+            _logMessageCountsElement.Add(_logMessageCountsView.Tree);
             _timeWeatherElement.Add(_timeWeatherView.Tree);
             _timeTogglingElement.Add(_timeTogglingView.Tree);
             _tileInfoElement.Add(_tileInfoView.Tree);

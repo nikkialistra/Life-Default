@@ -188,14 +188,17 @@ namespace ColonistManagement.Movement
             switch (_movementAction)
             {
                 case MovementAction.Move:
+                    Debug.Log("move");
                     _movementInput.Move(FormationColor.White);
                     break;
                 case MovementAction.Attack:
+                    Debug.LogWarning("Attack");
                     _movementInput.Move(FormationColor.Red);
                     break;
                 case MovementAction.Hold:
                     break;
                 case MovementAction.Patrol:
+                    Debug.LogError("Patrol");
                     _movementInput.Move(FormationColor.White);
                     break;
                 case MovementAction.None:

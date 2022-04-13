@@ -1,5 +1,6 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/Resources/UI/Styles/GameLook/GameLook.uss?fileID=7433441132597879392&amp;guid=295c2b0dcdb1e5f4fbcbc0c651a015ef&amp;type=3#GameLook" />
+    <Style src="project://database/Assets/Resources/UI/Styles/Common/Text.uss?fileID=7433441132597879392&amp;guid=158167a2c7cf4f5292d78d1ed2683cfc&amp;type=3#Text" />
     <ui:VisualElement name="game-look" picking-mode="Ignore" class="game-look">
         <ui:VisualElement name="top-panel" picking-mode="Ignore" class="panel">
             <ui:VisualElement name="top-panel__left" class="top-panel__left">
@@ -11,7 +12,8 @@
             <ui:VisualElement name="top-panel__right" picking-mode="Ignore" class="top-panel__right">
                 <ui:VisualElement name="time-weather" class="indented bottom-margin" />
                 <ui:VisualElement name="time-toggling" picking-mode="Ignore" class="bottom-margin" />
-                <ui:VisualElement name="build-version" picking-mode="Ignore" class="build-version" />
+                <ui:VisualElement name="build-version" picking-mode="Ignore" class="bottom-margin" />
+                <ui:VisualElement name="log-message-counts" picking-mode="Ignore" />
             </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement name="bottom-panel" picking-mode="Ignore" class="panel" style="align-items: flex-end;">

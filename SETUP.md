@@ -1,1 +1,0 @@
-﻿For importing project there are 3 folders with used assets, which is in folders "Plugins", "Graphics" and "Procedural Worlds" which should be moved to the project directory.

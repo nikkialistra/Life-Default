@@ -34,3 +34,9 @@
 ## Author ##
 - **Nikki Alistra** - https://github.com/nikkialistra
 
+## Setup ##
+
+- Clone this git repository
+- Clone repository with plugins and graphics under directory name "Extra" to the project root directory
+- Run "create_symlinks_to_extra.bat" as administrator
+

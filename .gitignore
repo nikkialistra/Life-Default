@@ -66,6 +66,6 @@ crashlytics-build.properties
 
 /Extra/
 
-/[Aa]ssets/Plugins/
-/[Aa]ssets/Graphics/
-/[Aa]ssets/Procedural Worlds/
+/[Aa]ssets/Plugins
+/[Aa]ssets/Graphics
+/[Aa]ssets/Procedural Worlds

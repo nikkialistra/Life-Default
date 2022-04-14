@@ -15,20 +15,18 @@ MonoBehaviour:
   m_Active: 1
   _outlineResources: {fileID: 11400000, guid: 231d88937a104094b8e4e0fdb8d2e77b, type: 2}
   _outlineLayers: {fileID: 11400000, guid: 5924c5214a424b94f9c641d3eecd52d5, type: 2}
-  _outlineSettings:
-    _outlineSettings: {fileID: 0}
-    _outlineColor: {r: 1, g: 1, b: 1, a: 1}
-    _outlineWidth: 6
-    _outlineIntensity: 2
-    _outlineAlphaCutoff: 0.9
-    _outlineMode: 0
-    _filterMode: 1
-    _layerMask:
-      serializedVersion: 2
+  _outlineSettings: {_outlineSettings: {fileID: 0}, _outlineColor:
+      r: 1
+      g: 1
+      b: 1
+      a: 1
+, _outlineWidth: 6, _outlineIntensity: 2, _outlineAlphaCutoff: 0.9, _outlineMode: 0,
+    _filterMode: 1, _layerMask:
       m_Bits: 0
-    _renderingLayerMask: 1
+, _renderingLayerMask: 1}
   _renderPassEvent: 400
   _shaderPassNames: []
+  _featureName: Outline-0
 --- !u!114 &-5915448172620004158
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -91,9 +89,7 @@ MonoBehaviour:
   - {fileID: 1123496916092895349}
   - {fileID: 5628860152977092763}
   - {fileID: 8598333544084514887}
-  - {fileID: 1147981654233806859}
-  - {fileID: -7494844845237907706}
-  m_RendererFeatureMap: 0d3416eb84395c1275c0f61d7e76970f9bf08c747cba1d4e47a87b6bcd6a53770b7845753b73ee0f064fed9852f6fc97
+  m_RendererFeatureMap: 0d3416eb84395c1275c0f61d7e76970f9bf08c747cba1d4e47a87b6bcd6a5377
   m_UseNativeRenderPass: 0
   postProcessData: {fileID: 11400000, guid: 41439944d30ece34e96484bdb6645b55, type: 2}
   xrSystemData: {fileID: 11400000, guid: 60e1133243b97e347b653163a8c01b64, type: 2}

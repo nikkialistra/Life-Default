@@ -145,7 +145,7 @@ MonoBehaviour:
   _quantity: 40
   _holder: {fileID: 1620543646530164832}
   _timeToHideHover: 0.05
-  _timeToDarkenSelection: 10
+  _timeToHideSelection: 0.2
   _renderer: {fileID: 7338941988186966059}
   _materialIndex: 1
   _propertyName: Color_FA85148A

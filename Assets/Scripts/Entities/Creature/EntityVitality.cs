@@ -24,7 +24,7 @@ namespace Entities.Creature
         private float _health;
         private float _recoverySpeed;
 
-        private Coroutine _takingDamage;
+        private Coroutine _takingDamageCoroutine;
 
         public event Action Die;
         public event Action<float, float> HealthChange;
@@ -92,19 +92,21 @@ namespace Entities.Creature
 
         public void TakeDamageContinuously(float value, float interval, float time = float.PositiveInfinity)
         {
-            if (_takingDamage != null)
+            if (_takingDamageCoroutine != null)
             {
-                StopCoroutine(_takingDamage);
+                StopCoroutine(_takingDamageCoroutine);
+                _takingDamageCoroutine = null;
             }
 
-            _takingDamage = StartCoroutine(TakingDamage(value, interval, time));
+            _takingDamageCoroutine = StartCoroutine(TakingDamage(value, interval, time));
         }
 
         public void StopTakingDamage()
         {
-            if (_takingDamage != null)
+            if (_takingDamageCoroutine != null)
             {
-                StopCoroutine(_takingDamage);
+                StopCoroutine(_takingDamageCoroutine);
+                _takingDamageCoroutine = null;
             }
         }
 

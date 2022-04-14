@@ -42,7 +42,7 @@ namespace ResourceManagement
 
         private int _emissiveColor;
 
-        private Coroutine _hideHoveringCoroutine;
+        private Coroutine _hoveringCoroutine;
         private Coroutine _hideSelectionCoroutine;
 
         private bool _hovered;
@@ -90,20 +90,34 @@ namespace ResourceManagement
 
             _hovered = true;
             
-            if (_hideHoveringCoroutine != null)
-            {
-                StopCoroutine(_hideHoveringCoroutine);
-            }
-            
+            _hoveringCoroutine ??= StartCoroutine(Hovering());
+        }
+
+        private IEnumerator Hovering()
+        {
             SetColor(_hoverColor);
 
-            _hideHoveringCoroutine = StartCoroutine(HideHoveringAfter());
+            while (true)
+            {
+                _hovered = false;
+
+                yield return new WaitForSeconds(_timeToHideHover);
+
+                if (!_hovered)
+                {
+                    SetColor(Color.black);
+                    break;
+                }
+            }
+            
+            _hoveringCoroutine = null;
         }
 
         public void Select()
         {
             StopDisplayChangingCoroutines();
-            
+
+            _hovered = false;
             _selected = true;
             _infoPanelView.SetResource(this);
 
@@ -115,6 +129,8 @@ namespace ResourceManagement
             StopDisplayChangingCoroutines();
             
             SetColor(_selectionColor);
+
+            _hovered = false;
             _selected = true;
 
             _hideSelectionCoroutine = StartCoroutine(HideSelectionAfter());
@@ -122,14 +138,16 @@ namespace ResourceManagement
 
         private void StopDisplayChangingCoroutines()
         {
-            if (_hideHoveringCoroutine != null)
+            if (_hoveringCoroutine != null)
             {
-                StopCoroutine(_hideHoveringCoroutine);
+                StopCoroutine(_hoveringCoroutine);
+                _hoveringCoroutine = null;
             }
 
             if (_hideSelectionCoroutine != null)
             {
                 StopCoroutine(_hideSelectionCoroutine);
+                _hideSelectionCoroutine = null;
             }
         }
 
@@ -139,13 +157,6 @@ namespace ResourceManagement
             SetColor(Color.black);
             
             _infoPanelView.UnsetEntityInfo();
-        }
-
-        private IEnumerator HideHoveringAfter()
-        {
-            yield return new WaitForSeconds(_timeToHideHover);
-            
-            SetColor(Color.black);
         }
 
         private IEnumerator HideSelectionAfter()

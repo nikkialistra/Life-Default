@@ -132,6 +132,7 @@ namespace Entities.Creature
             if (_movingCoroutine != null)
             {
                 StopCoroutine(_movingCoroutine);
+                _movingCoroutine = null;
             }
 
             _aiPath.isStopped = true;
@@ -150,6 +151,7 @@ namespace Entities.Creature
             if (_rotatingToCoroutine != null)
             {
                 StopCoroutine(_rotatingToCoroutine);
+                _rotatingToCoroutine = null;
             }
         }
 
@@ -160,6 +162,7 @@ namespace Entities.Creature
             if (_rotatingToCoroutine != null)
             {
                 StopCoroutine(_rotatingToCoroutine);
+                _rotatingToCoroutine = null;
             }
 
             _rotatingToCoroutine = StartCoroutine(RotatingTo(position));
@@ -172,6 +175,7 @@ namespace Entities.Creature
             if (_rotatingToCoroutine != null)
             {
                 StopCoroutine(_rotatingToCoroutine);
+                _rotatingToCoroutine = null;
             }
 
             _rotatingToCoroutine = StartCoroutine(RotatingToAngle(angle));
@@ -182,6 +186,7 @@ namespace Entities.Creature
             if (_movingCoroutine != null)
             {
                 StopCoroutine(_movingCoroutine);
+                _movingCoroutine = null;
             }
 
             _movingCoroutine = StartCoroutine(Moving());

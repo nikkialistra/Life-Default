@@ -112,6 +112,7 @@ namespace ColonistManagement.Targeting.Formations
             if (_flashFinishCoroutine != null)
             {
                 StopCoroutine(_flashFinishCoroutine);
+                _flashFinishCoroutine = null;
             }
 
             if (_directionArrow.Activated)

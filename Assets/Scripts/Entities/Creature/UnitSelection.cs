@@ -18,14 +18,8 @@ namespace Entities.Creature
         private bool _hovered;
         private bool _selected;
         private bool _activated;
-
-        private WaitForSeconds _hoveringHideTime;
+        
         private Coroutine _hoveringCoroutine;
-
-        private void Start()
-        {
-            _hoveringHideTime = new WaitForSeconds(_timeToHideHover);
-        }
 
         public void Activate()
         {
@@ -69,16 +63,17 @@ namespace Entities.Creature
             while (true)
             {
                 _hovered = false;
-                
-                yield return _hoveringHideTime;
+
+                yield return new WaitForSeconds(_timeToHideHover);
 
                 if (!_hovered)
                 {
                     HideHoverIndicator();
-                    _hovered = false;
                     break;
                 }
             }
+
+            _hoveringCoroutine = null;
         }
 
         private void ShowHoverIndicator()

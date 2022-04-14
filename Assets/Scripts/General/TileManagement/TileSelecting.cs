@@ -85,6 +85,7 @@ namespace General.TileManagement
             if (_selectingTilesCoroutine != null)
             {
                 StopCoroutine(_selectingTilesCoroutine);
+                _selectingTilesCoroutine = null;
             }
         }
 

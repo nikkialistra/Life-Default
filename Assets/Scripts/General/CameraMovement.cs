@@ -219,7 +219,9 @@ namespace General
             if (_focusingCoroutine != null)
             {
                 StopCoroutine(_focusingCoroutine);
+                _focusingCoroutine = null;
             }
+            
             _focusingCoroutine = StartCoroutine(Focusing(position, eulerAngles, colonist));
         }
 

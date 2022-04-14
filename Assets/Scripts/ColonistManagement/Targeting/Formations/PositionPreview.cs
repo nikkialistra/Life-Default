@@ -59,6 +59,7 @@ namespace ColonistManagement.Targeting.Formations
             if (_animateCoroutine != null)
             {
                 StopCoroutine(_animateCoroutine);
+                _animateCoroutine = null;
             }
         }
 

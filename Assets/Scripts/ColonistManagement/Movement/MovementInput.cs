@@ -144,6 +144,7 @@ namespace ColonistManagement.Movement
                 if (_positionRotatingCoroutine != null)
                 {
                     StopCoroutine(_positionRotatingCoroutine);
+                    _positionRotatingCoroutine = null;
                 }
 
                 _isPositionRotating = false;

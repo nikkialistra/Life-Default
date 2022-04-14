@@ -88,7 +88,7 @@ MonoBehaviour:
   _quantity: 30
   _holder: {fileID: 1620543646530164832}
   _timeToHideHover: 0.05
-  _timeToDarkenSelection: 0.1
+  _timeToHideSelection: 0.2
   _renderer: {fileID: 13312498855100429}
   _materialIndex: 0
   _propertyName: _EmissionColor

@@ -10,15 +10,13 @@ namespace Entities.Services
 {
     public class EntitiesSelecting : MonoBehaviour
     {
-        [SerializeField] private float _hoverRecastingTime = 0.05f;
+        [SerializeField] private float _hoverRecastingTime = 0.03f;
         
         private bool _canHover = true;
 
         private Camera _camera;
         private GameMenuToggle _gameMenuToggle;
-        
-        private SelectionInput _selectionInput;
-        
+
         private LayerMask _entitiesMask;
         
         private ISelectable _lastSelectable;
@@ -33,12 +31,11 @@ namespace Entities.Services
         private InputAction _selectAction;
 
         [Inject]
-        public void Construct(Camera camera, GameMenuToggle gameMenuToggle, SelectionInput selectionInput, PlayerInput playerInput)
+        public void Construct(Camera camera, GameMenuToggle gameMenuToggle, PlayerInput playerInput)
         {
             _camera = camera;
             _gameMenuToggle = gameMenuToggle;
             
-            _selectionInput = selectionInput;
             _playerInput = playerInput;
         }
 
@@ -54,9 +51,6 @@ namespace Entities.Services
         {
             _gameMenuToggle.GamePause += OnGamePause;
             _gameMenuToggle.GameResume += OnGameResume;
-            
-            _selectionInput.Selecting += OnSelecting;
-            _selectionInput.SelectingEnd += OnSelectingEnd;
 
             _selectAction.canceled += OnSelect;
         }
@@ -65,9 +59,6 @@ namespace Entities.Services
         {
             _gameMenuToggle.GamePause -= OnGamePause;
             _gameMenuToggle.GameResume -= OnGameResume;
-            
-            _selectionInput.Selecting -= OnSelecting;
-            _selectionInput.SelectingEnd -= OnSelectingEnd;
 
             _selectAction.canceled -= OnSelect;
         }
@@ -98,6 +89,7 @@ namespace Entities.Services
             if (_hoveringCoroutine != null)
             {
                 StopCoroutine(_hoveringCoroutine);
+                _hoveringCoroutine = null;
             }
         }
 
@@ -148,16 +140,6 @@ namespace Entities.Services
             var ray = _camera.ScreenPointToRay(point);
 
             return Physics.Raycast(ray, out hit, float.PositiveInfinity, _entitiesMask);
-        }
-
-        private void OnSelecting(Rect _)
-        {
-            _canHover = false;
-        }
-
-        private void OnSelectingEnd(Rect _)
-        {
-            _canHover = true;
         }
     }
 }

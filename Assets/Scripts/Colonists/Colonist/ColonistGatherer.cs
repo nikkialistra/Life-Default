@@ -19,17 +19,21 @@ namespace Colonists.Colonist
         [ValidateInput(nameof(EveryResourceHasDistanceInteraction))]
         [SerializeField] private ResourceInteractionDistanceDictionary _resourceInteractionDistances;
 
+        private const float WaitTime = 0.5f;
+
         private Action _onInteractionFinish;
 
-        private Coroutine _gatheringCoroutine;
+        private Resource _gatheringResource;
+        
+        private ColonistAnimator _animator;
+        private ColonistStats _colonistStats;
 
         private ICountable _acquired;
         
-        private ColonistAnimator _animator;
-
-        private ColonistStats _colonistStats;
-
         private ResourceCounts _resourceCounts;
+        
+        private Coroutine _gatheringCoroutine;
+        private Coroutine _stopGatheringCoroutine;
 
         [Inject]
         public void Construct(ResourceCounts resourceCounts)
@@ -55,18 +59,48 @@ namespace Colonists.Colonist
 
         public void Gather(Resource resource, Action onInteractionFinish)
         {
+            if (_gatheringResource == resource)
+            {
+                StopCoroutine(_stopGatheringCoroutine);
+                _stopGatheringCoroutine = null;
+                return;
+            }
+            
+            if (_gatheringCoroutine != null)
+            {
+                return;
+            }
+
+            _gatheringResource = resource;
+            
             _gatheringCoroutine = StartCoroutine(Gathering(resource, onInteractionFinish));
         }
 
         public void StopGathering()
         {
+            _stopGatheringCoroutine = StartCoroutine(StopGatheringLater());
+        }
+
+        private IEnumerator StopGatheringLater()
+        {
+            yield return new WaitForSeconds(WaitTime);
+
+            FinishGathering();
+        }
+
+        private void FinishGathering()
+        {
             if (_gatheringCoroutine != null)
             {
                 StopCoroutine(_gatheringCoroutine);
+                _gatheringCoroutine = null;
+                
                 _animator.StopGathering();
             }
 
             ReleaseAcquired();
+
+            _gatheringResource = null;
         }
 
         private IEnumerator Gathering(Resource resource, Action onInteractionFinish)

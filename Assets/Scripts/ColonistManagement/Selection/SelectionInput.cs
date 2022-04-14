@@ -83,6 +83,7 @@ namespace ColonistManagement.Selection
             if (_areaUpdateCoroutine != null)
             {
                 StopCoroutine(_areaUpdateCoroutine);
+                _areaUpdateCoroutine = null;
             }
 
             _areaUpdateCoroutine = StartCoroutine(UpdateArea());
@@ -123,6 +124,7 @@ namespace ColonistManagement.Selection
             _updatingArea = false;
 
             StopCoroutine(_areaUpdateCoroutine);
+            _areaUpdateCoroutine = null;
         }
 
         private Rect GetRect(Vector2 a, Vector2 b)

@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using Colonists.Colonist;
-using DG.Tweening;
 using Entities;
 using UnityEngine;
 
@@ -10,11 +8,9 @@ namespace ColonistManagement.OrderMarks
 {
     public class OrderMark : MonoBehaviour
     {
-        [SerializeField] private float _targetIndicatorFlashDuration = 0.8f;
-
         private readonly List<ColonistFacade> _colonists = new();
 
-        private Coroutine _flashTargetIndicatorCoroutine;
+        private Coroutine _collapseTargetIndicatorCoroutine;
 
         private bool _activated;
 
@@ -63,41 +59,12 @@ namespace ColonistManagement.OrderMarks
 
             _activated = true;
 
-            if (Entity != null)
-            {
-                _flashTargetIndicatorCoroutine = StartCoroutine(CollapseTargetIndicator(Entity.TargetIndicator));
-            }
+            Entity?.Flash();
         }
 
         public void Deactivate()
         {
-            if (_flashTargetIndicatorCoroutine != null)
-            {
-                StopCoroutine(_flashTargetIndicatorCoroutine);
-            }
-
-            if (Entity != null)
-            {
-                Entity.TargetIndicator.SetActive(false);
-            }
-
             _activated = false;
-        }
-
-        private IEnumerator CollapseTargetIndicator(GameObject targetIndicator)
-        {
-            targetIndicator.transform.localScale = Vector3.one;
-            targetIndicator.SetActive(true);
-
-            targetIndicator.transform.DOKill();
-
-            yield return targetIndicator.transform.DOScale(new Vector3(0f, 0f, 1f), _targetIndicatorFlashDuration)
-                .WaitForCompletion();
-
-            if (Entity.TargetIndicator != null)
-            {
-                Entity.TargetIndicator.SetActive(false);
-            }
         }
 
         private void UpdateState()

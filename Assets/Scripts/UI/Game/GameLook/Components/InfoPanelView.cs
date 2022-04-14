@@ -54,10 +54,12 @@ namespace UI.Game.GameLook.Components
                     break;
                 case 1:
                     PrepareEmptyPanel();
+                    _colonistInfoShown = true;
                     ShowColonistInfo(colonists[0]);
                     break;
                 default:
                     PrepareEmptyPanel();
+                    _colonistInfoShown = true;
                     ShowColonistsInfo(colonists.Count);
                     break;
             }
@@ -111,13 +113,11 @@ namespace UI.Game.GameLook.Components
         private void HideSelf()
         {
             InfoPanel.style.display = DisplayStyle.None;
-            Debug.Log(Time.frameCount);
         }
 
         private void ShowSelf()
         {
             InfoPanel.style.display = DisplayStyle.Flex;
-            Debug.Log(Time.frameCount);
         }
 
         private void PrepareEmptyPanel()

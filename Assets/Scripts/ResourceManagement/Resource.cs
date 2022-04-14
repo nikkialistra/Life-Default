@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections;
-using BehaviorDesigner.Runtime.Tasks.Unity.UnityLight;
 using Entities;
 using Entities.Interfaces;
 using Sirenix.OdinInspector;
@@ -29,8 +28,8 @@ namespace ResourceManagement
         [SerializeField] private Transform _holder;
         [MinValue(0)]
         [SerializeField] private float _timeToHideHover = 0.05f;
-        [SerializeField] private float _timeToDarkenSelection = 0.1f;
-        
+        [SerializeField] private float _timeToHideSelection = 0.12f;
+
         [Title("Selection Settings")]
         [Required]
         [SerializeField] private MeshRenderer _renderer;
@@ -44,7 +43,9 @@ namespace ResourceManagement
         private int _emissiveColor;
 
         private Coroutine _hideHoveringCoroutine;
+        private Coroutine _hideSelectionCoroutine;
 
+        private bool _hovered;
         private bool _selected;
 
         private Collider _collider;
@@ -82,10 +83,12 @@ namespace ResourceManagement
 
         public void Hover()
         {
-            if (_selected)
+            if (_hovered || _selected)
             {
                 return;
             }
+
+            _hovered = true;
             
             if (_hideHoveringCoroutine != null)
             {
@@ -99,15 +102,35 @@ namespace ResourceManagement
 
         public void Select()
         {
+            StopDisplayChangingCoroutines();
+            
             _selected = true;
             _infoPanelView.SetResource(this);
+
+            SetColor(_selectionColor);
+        }
+
+        public void Flash()
+        {
+            StopDisplayChangingCoroutines();
             
+            SetColor(_selectionColor);
+            _selected = true;
+
+            _hideSelectionCoroutine = StartCoroutine(HideSelectionAfter());
+        }
+
+        private void StopDisplayChangingCoroutines()
+        {
             if (_hideHoveringCoroutine != null)
             {
                 StopCoroutine(_hideHoveringCoroutine);
             }
-            
-            SetColor(_selectionColor);
+
+            if (_hideSelectionCoroutine != null)
+            {
+                StopCoroutine(_hideSelectionCoroutine);
+            }
         }
 
         public void Deselect()
@@ -123,6 +146,14 @@ namespace ResourceManagement
             yield return new WaitForSeconds(_timeToHideHover);
             
             SetColor(Color.black);
+        }
+
+        private IEnumerator HideSelectionAfter()
+        {
+            yield return new WaitForSeconds(_timeToHideSelection);
+            
+            SetColor(Color.black);
+            _selected = false;
         }
 
         private void SetColor(Color color)

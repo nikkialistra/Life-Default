@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Entities.Creature
 {
-    public class EntityHovering : MonoBehaviour, ISelectable
+    public class UnitSelection : MonoBehaviour, ISelectable
     {
         [Required]
         [SerializeField] private HoverIndicator _hoverIndicator;
@@ -15,12 +15,12 @@ namespace Entities.Creature
         [MinValue(0)]
         [SerializeField] private float _timeToHideHover = 0.05f;
 
+        private bool _hovered;
         private bool _selected;
-        
-        private WaitForSeconds _hoveringHideTime;
-        private Coroutine _hideHoveringCoroutine;
-
         private bool _activated;
+
+        private WaitForSeconds _hoveringHideTime;
+        private Coroutine _hoveringCoroutine;
 
         private void Start()
         {
@@ -52,26 +52,33 @@ namespace Entities.Creature
 
         public void Hover()
         {
-            if (!_activated || _selected)
+            if (_hovered || _selected || !_activated)
             {
                 return;
             }
 
-            if (_hideHoveringCoroutine != null)
-            {
-                StopCoroutine(_hideHoveringCoroutine);
-            }
+            _hovered = true;
 
-            ShowHoverIndicator();
-
-            _hideHoveringCoroutine = StartCoroutine(HideHoveringAfter());
+            _hoveringCoroutine ??= StartCoroutine(Hovering());
         }
 
-        private IEnumerator HideHoveringAfter()
+        private IEnumerator Hovering()
         {
-            yield return _hoveringHideTime;
+            ShowHoverIndicator();
+            
+            while (true)
+            {
+                _hovered = false;
+                
+                yield return _hoveringHideTime;
 
-            HideHoverIndicator();
+                if (!_hovered)
+                {
+                    HideHoverIndicator();
+                    _hovered = false;
+                    break;
+                }
+            }
         }
 
         private void ShowHoverIndicator()

@@ -15,7 +15,7 @@ namespace Colonists.Colonist
     [RequireComponent(typeof(EntityVitality))]
     [RequireComponent(typeof(ColonistAnimator))]
     [RequireComponent(typeof(ColonistMeshAgent))]
-    [RequireComponent(typeof(EntityHovering))]
+    [RequireComponent(typeof(UnitSelection))]
     [RequireComponent(typeof(ColonistBehavior))]
     public class ColonistFacade : MonoBehaviour
     {
@@ -45,7 +45,7 @@ namespace Colonists.Colonist
         private HumanAppearance _humanAppearance;
         private HumanNames _humanNames;
         
-        private EntityHovering _entityHovering;
+        private UnitSelection _unitSelection;
         private ColonistAnimator _animator;
         private ColonistMeshAgent _meshAgent;
         private ColonistBehavior _behavior;
@@ -69,7 +69,7 @@ namespace Colonists.Colonist
         {
             Vitality = GetComponent<EntityVitality>();
             
-            _entityHovering = GetComponent<EntityHovering>();
+            _unitSelection = GetComponent<UnitSelection>();
             _animator = GetComponent<ColonistAnimator>();
             _meshAgent = GetComponent<ColonistMeshAgent>();
             _behavior = GetComponent<ColonistBehavior>();
@@ -147,7 +147,7 @@ namespace Colonists.Colonist
                 return;
             }
 
-            _entityHovering.Select();
+            _unitSelection.Select();
 
             _selectionIndicator.SetActive(true);
             _healthBars.Selected = true;
@@ -155,7 +155,7 @@ namespace Colonists.Colonist
 
         public void Deselect()
         {
-            _entityHovering.Deselect();
+            _unitSelection.Deselect();
 
             _selectionIndicator.SetActive(false);
             _healthBars.Selected = false;
@@ -227,7 +227,7 @@ namespace Colonists.Colonist
 
         private void ActivateComponents()
         {
-            _entityHovering.Activate();
+            _unitSelection.Activate();
             _meshAgent.Activate();
             _behavior.Activate();
         }

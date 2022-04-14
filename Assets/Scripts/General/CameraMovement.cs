@@ -14,6 +14,8 @@ namespace General
     [RequireComponent(typeof(Camera))]
     public class CameraMovement : MonoBehaviour
     {
+        [SerializeField] private bool _activatedAtStartup = true;
+
         [Title("Movement")]
         [SerializeField] private float _moveSpeed;
 
@@ -73,7 +75,7 @@ namespace General
         private float _newFieldOfView;
 
         private Map _map;
-        private bool _deactivated;
+        private bool _activated;
         private bool _canMouseScroll;
 
         private ColonistFacade _colonist;
@@ -108,11 +110,6 @@ namespace General
         [Inject]
         public void Construct(bool isSetUpSession, Map map, GameSettings gameSettings, SelectionInput selectionInput, PlayerInput playerInput)
         {
-            if (isSetUpSession)
-            {
-                _deactivated = true;
-            }
-
             _map = map;
 
             _gameSettings = gameSettings;
@@ -167,7 +164,7 @@ namespace General
 
         private void LateUpdate()
         {
-            if (_deactivated)
+            if (!_activated)
             {
                 return;
             }
@@ -195,14 +192,14 @@ namespace General
 
         public void DeactivateMovement()
         {
-            _deactivated = true;
+            _activated = false;
             _canMouseScroll = false;
             Deactivate();
         }
 
         public void ActivateMovement()
         {
-            _deactivated = false;
+            _activated = true;
             Activate();
             StartCoroutine(AllowMouseScrollALittleLater());
         }
@@ -250,7 +247,12 @@ namespace General
         private void OnMapLoad()
         {
             _map.Load -= OnMapLoad;
-            _deactivated = false;
+
+            if (_activatedAtStartup)
+            {
+                _activated = true;
+            }
+            
             StartCoroutine(AllowMouseScrollALittleLater());
         }
 
@@ -262,15 +264,15 @@ namespace General
 
         private void ToggleCameraMovement(InputAction.CallbackContext context)
         {
-            _deactivated = !_deactivated;
+            _activated = !_activated;
 
-            if (_deactivated)
+            if (_activated)
             {
-                Deactivate();
+                Activate();
             }
             else
             {
-                Activate();
+                Deactivate();
             }
         }
         

@@ -31,8 +31,6 @@ namespace Entities
         [ValidateInput(nameof(ResourceEntityShouldHaveResource), "Resource entity should have resource")]
         [SerializeField] private Resource _resource;
 
-        public GameObject TargetIndicator => _targetIndicator;
-
         public EntityType EntityType => _entityType;
         public ColonistFacade Colonist => _colonist;
         public EnemyFacade Enemy => _enemy;
@@ -42,6 +40,14 @@ namespace Entities
         public Vector3 GetDestinationPoint()
         {
             return _destinationPoint.position;
+        }
+
+        public void Flash()
+        {
+            if (_entityType == EntityType.Resource)
+            {
+                _resource.Flash();
+            }
         }
 
         private bool UnitEntityShouldHaveUnit()

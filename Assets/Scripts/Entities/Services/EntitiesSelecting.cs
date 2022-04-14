@@ -58,7 +58,7 @@ namespace Entities.Services
             _selectionInput.Selecting += OnSelecting;
             _selectionInput.SelectingEnd += OnSelectingEnd;
 
-            _selectAction.started += OnSelect;
+            _selectAction.canceled += OnSelect;
         }
 
         private void OnDisable()
@@ -69,7 +69,7 @@ namespace Entities.Services
             _selectionInput.Selecting -= OnSelecting;
             _selectionInput.SelectingEnd -= OnSelectingEnd;
 
-            _selectAction.started -= OnSelect;
+            _selectAction.canceled -= OnSelect;
         }
 
         private void Start()

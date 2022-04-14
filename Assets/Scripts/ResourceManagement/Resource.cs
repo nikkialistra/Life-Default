@@ -22,13 +22,24 @@ namespace ResourceManagement
         [MinValue(1)]
         [SerializeField] private float _quantity;
         
-        [Space]
-        [MinValue(0)]
-        [SerializeField] private float _timeToHideHover = 0.05f;
-
-        [Space]
+        
+        [Title("Configuration")]
         [Required]
         [SerializeField] private Transform _holder;
+        [MinValue(0)]
+        [SerializeField] private float _timeToHideHover = 0.05f;
+        
+        [Title("Hover Settings")]
+        [Required]
+        [SerializeField] private MeshRenderer _renderer;
+        [SerializeField] private int _hoverMaterialIndex;
+        [SerializeField] private string _hoverPropertyName;
+        
+        [Space]
+        [SerializeField] private Color _hoverColor;
+        [SerializeField] private Color _clickColor;
+
+        private int _emissiveColor;
 
         private WaitForSeconds _hoveringHideTime;
         private Coroutine _hideHoveringCoroutine;
@@ -54,6 +65,7 @@ namespace ResourceManagement
         private void Start()
         {
             _hoveringHideTime = new WaitForSeconds(_timeToHideHover);
+            _emissiveColor = Shader.PropertyToID(_hoverPropertyName);
         }
 
         public Entity Entity { get; private set; }
@@ -74,6 +86,7 @@ namespace ResourceManagement
             }
             
             _infoPanelView.SetResource(this);
+            _renderer.materials[_hoverMaterialIndex].SetColor(_emissiveColor, _hoverColor);
 
             _hideHoveringCoroutine = StartCoroutine(HideHoveringAfter());
         }
@@ -83,6 +96,7 @@ namespace ResourceManagement
             yield return _hoveringHideTime;
 
             _infoPanelView.HideSelf();
+            _renderer.materials[_hoverMaterialIndex].SetColor(_emissiveColor, Color.black);
         }
 
         public ResourceOutput Extract(float value, float extractionFraction)

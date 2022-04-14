@@ -27,8 +27,8 @@ namespace Colonists.Colonist
         [SerializeField] private GenderItemVariants _femaleItemVariants;
         [SerializeField] private AgenderItemVariants _agenderItemVariants;
         
-        private static readonly int Color = Shader.PropertyToID("_BaseColor");
-        private static readonly int Texture = Shader.PropertyToID("_BaseMap");
+        private readonly int _color = Shader.PropertyToID("_BaseColor");
+        private readonly int _texture = Shader.PropertyToID("_BaseMap");
 
         public void RandomizeAppearanceWith(Gender gender, HumanAppearance humanAppearance)
         {
@@ -112,7 +112,7 @@ namespace Colonists.Colonist
 
         private void SetColor(SkinnedMeshRenderer renderer, Color color)
         {
-            renderer.material.SetColor(Color, color);
+            renderer.material.SetColor(_color, color);
         }
 
         private void SetMaterial(SkinnedMeshRenderer renderer, Material material)

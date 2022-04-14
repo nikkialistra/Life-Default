@@ -253,8 +253,13 @@ MonoBehaviour:
   _name: Tree (Birch)
   _health: 60
   _quantity: 30
-  _timeToHideHover: 0.05
   _holder: {fileID: 1620543646530164832}
+  _timeToHideHover: 0.05
+  _renderer: {fileID: 2732921882253803955}
+  _hoverMaterialIndex: 1
+  _hoverPropertyName: Color_FA85148A
+  _hoverColor: {r: 0.39215687, g: 0.39215687, b: 0.39215687, a: 0}
+  _clickColor: {r: 0.27450982, g: 0.27450982, b: 0.27450982, a: 0}
 --- !u!1 &1817383417853709863
 GameObject:
   m_ObjectHideFlags: 0

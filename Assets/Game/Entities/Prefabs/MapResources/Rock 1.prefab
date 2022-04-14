@@ -190,8 +190,13 @@ MonoBehaviour:
   _name: Rock (Big)
   _health: 50
   _quantity: 50
-  _timeToHideHover: 0.05
   _holder: {fileID: 1620543646530164832}
+  _timeToHideHover: 0.05
+  _renderer: {fileID: 2469122063667357389}
+  _hoverMaterialIndex: 0
+  _hoverPropertyName: _EmissionColor
+  _hoverColor: {r: 0.15686275, g: 0.15686275, b: 0.15686275, a: 0}
+  _clickColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &1817383417853709863
 GameObject:
   m_ObjectHideFlags: 0

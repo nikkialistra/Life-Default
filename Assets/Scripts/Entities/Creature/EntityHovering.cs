@@ -13,18 +13,18 @@ namespace Entities.Creature
         [Required]
         [SerializeField] private HealthBars _healthBars;
         [MinValue(0)]
-        [SerializeField] private float _waitingTimeValue = 0.05f;
+        [SerializeField] private float _timeToHideHover = 0.05f;
 
-        private WaitForSeconds _waitingTime;
         private bool _selected;
-
-        private Coroutine _hideHoverIndicatorCoroutine;
+        
+        private WaitForSeconds _hoveringHideTime;
+        private Coroutine _hideHoveringCoroutine;
 
         private bool _activated;
 
-        private void Awake()
+        private void Start()
         {
-            _waitingTime = new WaitForSeconds(_waitingTimeValue);
+            _hoveringHideTime = new WaitForSeconds(_timeToHideHover);
         }
 
         public void Activate()
@@ -57,19 +57,19 @@ namespace Entities.Creature
                 return;
             }
 
-            if (_hideHoverIndicatorCoroutine != null)
+            if (_hideHoveringCoroutine != null)
             {
-                StopCoroutine(_hideHoverIndicatorCoroutine);
+                StopCoroutine(_hideHoveringCoroutine);
             }
 
             ShowHoverIndicator();
 
-            _hideHoverIndicatorCoroutine = StartCoroutine(HideHoverIndicatorAfter());
+            _hideHoveringCoroutine = StartCoroutine(HideHoveringAfter());
         }
 
-        private IEnumerator HideHoverIndicatorAfter()
+        private IEnumerator HideHoveringAfter()
         {
-            yield return _waitingTime;
+            yield return _hoveringHideTime;
 
             HideHoverIndicator();
         }

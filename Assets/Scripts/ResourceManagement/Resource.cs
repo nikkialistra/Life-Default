@@ -1,26 +1,49 @@
 ﻿using System;
+using System.Collections;
 using Entities;
 using Entities.Interfaces;
 using Sirenix.OdinInspector;
+using UI.Game.GameLook.Components;
 using UnityEngine;
+using Zenject;
 
 namespace ResourceManagement
 {
     [RequireComponent(typeof(Entity))]
     [RequireComponent(typeof(Collider))]
-    public class Resource : MonoBehaviour, ICountable
+    public class Resource : MonoBehaviour, ICountable, IHoverable
     {
         [SerializeField] private ResourceType _resourceType;
+        [Space]
+        [SerializeField] private string _name;
+        [Space]
+        [MinValue(1)]
+        [SerializeField] private float _health;
         [MinValue(1)]
         [SerializeField] private float _quantity;
+        
+        [Space]
+        [MinValue(0)]
+        [SerializeField] private float _timeToHideHover = 0.05f;
 
         [Space]
         [Required]
         [SerializeField] private Transform _holder;
 
+        private WaitForSeconds _hoveringHideTime;
+        private Coroutine _hideHoveringCoroutine;
+        
         private Collider _collider;
 
         private int _acquiredCount = 0;
+
+        private InfoPanelView _infoPanelView;
+
+        [Inject]
+        public void Construct(InfoPanelView infoPanelView)
+        {
+            _infoPanelView = infoPanelView;
+        }
 
         private void Awake()
         {
@@ -28,9 +51,39 @@ namespace ResourceManagement
             Entity = GetComponent<Entity>();
         }
 
+        private void Start()
+        {
+            _hoveringHideTime = new WaitForSeconds(_timeToHideHover);
+        }
+
         public Entity Entity { get; private set; }
+        
         public ResourceType ResourceType => _resourceType;
+        
+        public string Name => _name;
+        public float Health => _health;
+        public float Quantity => _quantity;
+        
         public bool Exhausted => _quantity == 0;
+
+        public void OnHover()
+        {
+            if (_hideHoveringCoroutine != null)
+            {
+                StopCoroutine(_hideHoveringCoroutine);
+            }
+            
+            _infoPanelView.SetResource(this);
+
+            _hideHoveringCoroutine = StartCoroutine(HideHoveringAfter());
+        }
+
+        private IEnumerator HideHoveringAfter()
+        {
+            yield return _hoveringHideTime;
+
+            _infoPanelView.HideSelf();
+        }
 
         public ResourceOutput Extract(float value, float extractionFraction)
         {

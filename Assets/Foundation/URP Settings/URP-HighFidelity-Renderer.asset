@@ -17,15 +17,15 @@ MonoBehaviour:
   _outlineLayers: {fileID: 11400000, guid: 5924c5214a424b94f9c641d3eecd52d5, type: 2}
   _outlineSettings:
     _outlineSettings: {fileID: 0}
-    _outlineColor: {r: 0.5566038, g: 0, b: 0, a: 1}
-    _outlineWidth: 14
+    _outlineColor: {r: 1, g: 1, b: 1, a: 1}
+    _outlineWidth: 6
     _outlineIntensity: 2
     _outlineAlphaCutoff: 0.9
     _outlineMode: 0
     _filterMode: 1
     _layerMask:
       serializedVersion: 2
-      m_Bits: 2147483647
+      m_Bits: 0
     _renderingLayerMask: 1
   _renderPassEvent: 400
   _shaderPassNames: []

@@ -6,6 +6,7 @@ using Sirenix.OdinInspector;
 using UI.Game.GameLook.Components;
 using UnityEngine;
 using Zenject;
+using Random = UnityEngine.Random;
 
 namespace ResourceManagement
 {
@@ -18,11 +19,16 @@ namespace ResourceManagement
         [SerializeField] private string _name;
         [Space]
         [MinValue(1)]
-        [SerializeField] private float _health;
+        [SerializeField] private float _durability;
         [MinValue(1)]
         [SerializeField] private float _quantity;
+        [Space]
+        [MinValue(1)]
+        [SerializeField] private int _minExtractedQuantityForDrop;
+        [MinValue(1)]
+        [SerializeField] private int _maxExtractedQuantityForDrop;
         
-        
+
         [Title("Configuration")]
         [Required]
         [SerializeField] private Transform _holder;
@@ -40,6 +46,9 @@ namespace ResourceManagement
         [SerializeField] private Color _hoverColor;
         [SerializeField] private Color _selectionColor;
 
+        private int _requiredQuantityToDrop;
+        private float _preservedExtractedQuantity;
+
         private int _emissiveColor;
 
         private Coroutine _hoveringCoroutine;
@@ -50,13 +59,16 @@ namespace ResourceManagement
 
         private Collider _collider;
 
-        private int _acquiredCount = 0;
+        private int _acquiredCount;
+
+        private ResourceCounts _resourceCounts;
 
         private InfoPanelView _infoPanelView;
 
         [Inject]
-        public void Construct(InfoPanelView infoPanelView)
+        public void Construct(ResourceCounts resourceCounts, InfoPanelView infoPanelView)
         {
+            _resourceCounts = resourceCounts;
             _infoPanelView = infoPanelView;
         }
 
@@ -69,6 +81,7 @@ namespace ResourceManagement
         private void Start()
         {
             _emissiveColor = Shader.PropertyToID(_propertyName);
+            _requiredQuantityToDrop = CalculateNextRequiredQuantityToDrop();
         }
 
         public Entity Entity { get; private set; }
@@ -76,10 +89,10 @@ namespace ResourceManagement
         public ResourceType ResourceType => _resourceType;
         
         public string Name => _name;
-        public float Health => _health;
+        public float Durability => _durability;
         public float Quantity => _quantity;
         
-        public bool Exhausted => _quantity == 0;
+        public bool Exhausted => _durability == 0;
 
         public void Hover()
         {
@@ -172,11 +185,22 @@ namespace ResourceManagement
             _renderer.materials[_materialIndex].SetColor(_emissiveColor, color);
         }
 
-        public ResourceOutput Extract(float value, float extractionFraction)
+        public void Extract(float destructionValue, float extractionEfficiency)
         {
-            var extractedQuantity = ApplyExtraction(value);
+            _preservedExtractedQuantity += ApplyDestruction(destructionValue);
 
-            return new ResourceOutput(_resourceType, extractedQuantity * extractionFraction);
+            if (_preservedExtractedQuantity > _requiredQuantityToDrop)
+            {
+                _resourceCounts.ChangeResourceTypeCount(_resourceType, _preservedExtractedQuantity * extractionEfficiency);
+                _preservedExtractedQuantity = 0;
+
+                _requiredQuantityToDrop = CalculateNextRequiredQuantityToDrop();
+            }
+        }
+
+        private int CalculateNextRequiredQuantityToDrop()
+        {
+            return Random.Range(_minExtractedQuantityForDrop, _maxExtractedQuantityForDrop + 1);
         }
 
         public void Acquire()
@@ -207,24 +231,26 @@ namespace ResourceManagement
             Destroy(_holder.gameObject);
         }
 
-        private float ApplyExtraction(float value)
+        private float ApplyDestruction(float value)
         {
-            if (_quantity <= 0)
+            if (_durability <= 0)
             {
                 throw new InvalidOperationException("Making damage cannot be applied to the destroyed resource");
             }
+            
+            var quantityToDurabilityFraction = _quantity / _durability;
 
             float extractedQuantity;
 
-            if (_quantity > value)
+            if (_durability > value)
             {
-                extractedQuantity = value;
-                _quantity -= value;
+                _durability -= value;
+                extractedQuantity = value * quantityToDurabilityFraction;
             }
             else
             {
-                extractedQuantity = _quantity;
-                _quantity = 0;
+                _durability = 0;
+                extractedQuantity = _durability * quantityToDurabilityFraction;
             }
 
             return extractedQuantity;

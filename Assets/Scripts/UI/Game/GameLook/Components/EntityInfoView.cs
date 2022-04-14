@@ -65,7 +65,7 @@ namespace UI.Game.GameLook.Components
             _name.text = $"{resource.Name}";
 
             FillRow(0, $"{resource.ResourceType}:", $"{resource.Quantity}");
-            FillRow(1, $"Health:", $"{resource.Health}");
+            FillRow(1, $"Health:", $"{resource.Durability}");
         }
 
         private void FillRow(int index, string name, string value)

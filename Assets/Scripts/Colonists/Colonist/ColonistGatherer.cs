@@ -119,9 +119,7 @@ namespace Colonists.Colonist
                     break;
                 }
         
-                var resourceOutput = resource.Extract(_colonistStats.ResourceExtractionSpeed, _colonistStats.ResourceExtractionEfficiency);
-        
-                _resourceCounts.ChangeResourceTypeCount(resourceOutput.ResourceType, resourceOutput.Quantity);
+                resource.Extract(_colonistStats.ResourceDestructionSpeed, _colonistStats.ResourceExtractionEfficiency);
             }
         
             ReleaseAcquired();

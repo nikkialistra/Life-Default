@@ -141,8 +141,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _resourceType: 0
   _name: Tree (Pine)
-  _health: 80
-  _quantity: 40
+  _durability: 80
+  _quantity: 20
+  _minExtractedQuantityForDrop: 3
+  _maxExtractedQuantityForDrop: 5
   _holder: {fileID: 1620543646530164832}
   _timeToHideHover: 0.05
   _timeToHideSelection: 0.2

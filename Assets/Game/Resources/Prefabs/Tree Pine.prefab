@@ -184,6 +184,7 @@ GameObject:
   - component: {fileID: 7566736330375474262}
   - component: {fileID: 5847672210398187284}
   - component: {fileID: 7338941988186966059}
+  - component: {fileID: 5945588276457483107}
   m_Layer: 0
   m_Name: SM_Tree_Pine_02
   m_TagString: Untagged
@@ -257,6 +258,18 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &5945588276457483107
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2934674524320623367}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 034bc47afcbf5e141a58d5c20b7808e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3462311362371714413
 GameObject:
   m_ObjectHideFlags: 0
@@ -268,6 +281,7 @@ GameObject:
   - component: {fileID: 3154097202681531378}
   - component: {fileID: 897398404946700910}
   - component: {fileID: 4273545882290183830}
+  - component: {fileID: 7030288630344152263}
   m_Layer: 0
   m_Name: SM_Tree_Pine_02_LOD_01
   m_TagString: Untagged
@@ -341,6 +355,18 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &7030288630344152263
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3462311362371714413}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 034bc47afcbf5e141a58d5c20b7808e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &9186437254096902045
 PrefabInstance:
   m_ObjectHideFlags: 0

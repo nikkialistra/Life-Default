@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using BehaviorDesigner.Runtime.Tasks.Unity.UnityLight;
 using Entities;
 using Entities.Interfaces;
 using Sirenix.OdinInspector;
@@ -11,7 +12,7 @@ namespace ResourceManagement
 {
     [RequireComponent(typeof(Entity))]
     [RequireComponent(typeof(Collider))]
-    public class Resource : MonoBehaviour, ICountable, IHoverable
+    public class Resource : MonoBehaviour, ICountable, ISelectable
     {
         [SerializeField] private ResourceType _resourceType;
         [Space]
@@ -28,22 +29,24 @@ namespace ResourceManagement
         [SerializeField] private Transform _holder;
         [MinValue(0)]
         [SerializeField] private float _timeToHideHover = 0.05f;
+        [SerializeField] private float _timeToDarkenSelection = 0.1f;
         
-        [Title("Hover Settings")]
+        [Title("Selection Settings")]
         [Required]
         [SerializeField] private MeshRenderer _renderer;
-        [SerializeField] private int _hoverMaterialIndex;
-        [SerializeField] private string _hoverPropertyName;
+        [SerializeField] private int _materialIndex;
+        [SerializeField] private string _propertyName;
         
         [Space]
         [SerializeField] private Color _hoverColor;
-        [SerializeField] private Color _clickColor;
+        [SerializeField] private Color _selectionColor;
 
         private int _emissiveColor;
 
-        private WaitForSeconds _hoveringHideTime;
         private Coroutine _hideHoveringCoroutine;
-        
+
+        private bool _selected;
+
         private Collider _collider;
 
         private int _acquiredCount = 0;
@@ -64,8 +67,7 @@ namespace ResourceManagement
 
         private void Start()
         {
-            _hoveringHideTime = new WaitForSeconds(_timeToHideHover);
-            _emissiveColor = Shader.PropertyToID(_hoverPropertyName);
+            _emissiveColor = Shader.PropertyToID(_propertyName);
         }
 
         public Entity Entity { get; private set; }
@@ -78,25 +80,54 @@ namespace ResourceManagement
         
         public bool Exhausted => _quantity == 0;
 
-        public void OnHover()
+        public void Hover()
         {
+            if (_selected)
+            {
+                return;
+            }
+            
             if (_hideHoveringCoroutine != null)
             {
                 StopCoroutine(_hideHoveringCoroutine);
             }
             
-            _infoPanelView.SetResource(this);
-            _renderer.materials[_hoverMaterialIndex].SetColor(_emissiveColor, _hoverColor);
+            SetColor(_hoverColor);
 
             _hideHoveringCoroutine = StartCoroutine(HideHoveringAfter());
         }
 
+        public void Select()
+        {
+            _selected = true;
+            _infoPanelView.SetResource(this);
+            
+            if (_hideHoveringCoroutine != null)
+            {
+                StopCoroutine(_hideHoveringCoroutine);
+            }
+            
+            SetColor(_selectionColor);
+        }
+
+        public void Deselect()
+        {
+            _selected = false;
+            SetColor(Color.black);
+            
+            _infoPanelView.UnsetEntityInfo();
+        }
+
         private IEnumerator HideHoveringAfter()
         {
-            yield return _hoveringHideTime;
+            yield return new WaitForSeconds(_timeToHideHover);
+            
+            SetColor(Color.black);
+        }
 
-            _infoPanelView.HideSelf();
-            _renderer.materials[_hoverMaterialIndex].SetColor(_emissiveColor, Color.black);
+        private void SetColor(Color color)
+        {
+            _renderer.materials[_materialIndex].SetColor(_emissiveColor, color);
         }
 
         public ResourceOutput Extract(float value, float extractionFraction)

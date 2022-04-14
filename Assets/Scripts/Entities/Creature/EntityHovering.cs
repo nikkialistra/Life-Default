@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Entities.Creature
 {
-    public class EntityHovering : MonoBehaviour, IHoverable
+    public class EntityHovering : MonoBehaviour, ISelectable
     {
         [Required]
         [SerializeField] private HoverIndicator _hoverIndicator;
@@ -50,7 +50,7 @@ namespace Entities.Creature
             HideHoverIndicator();
         }
 
-        public void OnHover()
+        public void Hover()
         {
             if (!_activated || _selected)
             {

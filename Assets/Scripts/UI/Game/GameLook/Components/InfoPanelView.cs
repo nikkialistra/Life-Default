@@ -21,6 +21,9 @@ namespace UI.Game.GameLook.Components
         private ColonistInfoView _colonistInfoView;
         private ColonistsInfoView _colonistsInfoView;
         private EntityInfoView _entityInfoView;
+
+        private bool _colonistInfoShown;
+        private bool _entityInfoShown;
         
         private void Awake()
         {
@@ -43,17 +46,18 @@ namespace UI.Game.GameLook.Components
 
         public void SetColonists(List<ColonistFacade> colonists)
         {
-            PrepareEmptyPanel();
-
             switch (colonists.Count)
             {
                 case 0:
-                    HideSelf();
+                    _colonistInfoShown = false;
+                    HideIfNothingToShow();
                     break;
                 case 1:
+                    PrepareEmptyPanel();
                     ShowColonistInfo(colonists[0]);
                     break;
                 default:
+                    PrepareEmptyPanel();
                     ShowColonistsInfo(colonists.Count);
                     break;
             }
@@ -62,6 +66,7 @@ namespace UI.Game.GameLook.Components
         public void SetColonist(ColonistFacade colonist)
         {
             PrepareEmptyPanel();
+            _colonistInfoShown = true;
             
             ShowColonistInfo(colonist);
         }
@@ -69,8 +74,31 @@ namespace UI.Game.GameLook.Components
         public void SetResource(Resource resource)
         {
             PrepareEmptyPanel();
+            _entityInfoShown = true;
             
             ShowResourceInfo(resource);
+        }
+
+        public void UnsetEntityInfo()
+        {
+            _entityInfoShown = false;
+
+            HideIfNothingToShow();
+        }
+
+        public void UnsetColonistInfo()
+        {
+            _colonistInfoShown = false;
+            
+            HideIfNothingToShow();
+        }
+
+        private void HideIfNothingToShow()
+        {
+            if (!_colonistInfoShown && !_entityInfoShown)
+            {
+                HideSelf();
+            }
         }
 
         private void ShowResourceInfo(Resource resource)
@@ -80,14 +108,16 @@ namespace UI.Game.GameLook.Components
             _entityInfoView.FillIn(resource);
         }
 
-        public void HideSelf()
+        private void HideSelf()
         {
             InfoPanel.style.display = DisplayStyle.None;
+            Debug.Log(Time.frameCount);
         }
 
         private void ShowSelf()
         {
             InfoPanel.style.display = DisplayStyle.Flex;
+            Debug.Log(Time.frameCount);
         }
 
         private void PrepareEmptyPanel()

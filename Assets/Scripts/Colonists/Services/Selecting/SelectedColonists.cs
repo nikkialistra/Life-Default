@@ -38,6 +38,7 @@ namespace Colonists.Services.Selecting
 
             Colonists = colonists;
             UpdateSelectionStatuses();
+            
             _infoPanelView.SetColonists(Colonists);
 
             SubscribeToColonists();

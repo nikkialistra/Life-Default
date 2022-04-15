@@ -52,12 +52,12 @@ namespace UI.Game.GameLook.Components
             Shown = false;
         }
 
-        public void ChangeResourceTypeCount(ResourceType resourceType, float amount)
+        public void ChangeResourceTypeCount(ResourceType resourceType, int amount)
         {
             CheckResourceTypeExistence(resourceType);
 
             var label = _resourceLabels[resourceType];
-            label.text = $"{Mathf.Floor(amount)}";
+            label.text = $"{amount}";
         }
 
         private void CheckResourceTypeExistence(ResourceType resourceType)

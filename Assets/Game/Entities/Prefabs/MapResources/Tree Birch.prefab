@@ -230,7 +230,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _destinationPoint: {fileID: 7565753558687889147}
-  _targetIndicator: {fileID: 0}
   _entityType: 3
   _colonist: {fileID: 0}
   _enemy: {fileID: 0}
@@ -250,8 +249,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _resourceType: 0
   _name: Tree (Birch)
+  _storedQuantity: 15
   _durability: 60
-  _quantity: 15
   _minExtractedQuantityForDrop: 2
   _maxExtractedQuantityForDrop: 4
   _holder: {fileID: 1620543646530164832}

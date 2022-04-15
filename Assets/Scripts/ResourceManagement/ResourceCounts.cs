@@ -11,7 +11,7 @@ namespace ResourceManagement
     {
         private ResourcesView _resourcesView;
 
-        private readonly Dictionary<ResourceType, float> _resourceCounts = new();
+        private readonly Dictionary<ResourceType, int> _resourceCounts = new();
 
         [Inject]
         public void Construct(ResourcesView resourcesView)
@@ -25,7 +25,7 @@ namespace ResourceManagement
         }
 
         [Button(ButtonSizes.Large)]
-        public void ChangeResourceTypeCount(ResourceType resourceType, float amount)
+        public void ChangeResourceTypeCount(ResourceType resourceType, int amount)
         {
             _resourceCounts[resourceType] += amount;
 

@@ -18,6 +18,8 @@ namespace UI.Game.GameLook.Components
         private readonly List<Label> _rowNames = new(3);
         private readonly List<Label> _rowValues = new(3);
         
+        private Resource _resource;
+
         private bool _shown;
 
         private void Awake()
@@ -38,6 +40,11 @@ namespace UI.Game.GameLook.Components
             _rowValues.Add(_tree.Q<Label>("row-three__value"));
         }
         
+        private void OnDestroy()
+        {
+            UnsubscribeFromResource();
+        }
+        
         public void ShowSelf()
         {
             if (_shown)
@@ -56,16 +63,49 @@ namespace UI.Game.GameLook.Components
                 return;
             }
             
+            UnsubscribeFromResource();
+            
             _parent.InfoPanel.Remove(_tree);
             _shown = false;
         }
         
         public void FillIn(Resource resource)
         {
+            UnsubscribeFromResource();
+            
+            _resource = resource;
+            
             _name.text = $"{resource.Name}";
 
-            FillRow(0, $"{resource.ResourceType}:", $"{resource.Quantity}");
-            FillRow(1, $"Health:", $"{resource.Durability}");
+            FillRow(0, $"{resource.ResourceType}:", $"~{resource.Quantity}");
+            FillRow(1, $"Durability:", $"{resource.Durability}");
+
+            SubscribeToResource();
+        }
+
+        private void SubscribeToResource()
+        {
+            _resource.QuantityChange += UpdateFirstRow;
+            _resource.DurabilityChange += UpdateSecondRow;
+        }
+        
+        private void UnsubscribeFromResource()
+        {
+            if (_resource != null)
+            {
+                _resource.QuantityChange -= UpdateFirstRow;
+                _resource.DurabilityChange -= UpdateSecondRow;
+            }
+        }
+
+        private void UpdateFirstRow(float value)
+        {
+            _rowValues[0].text = $"~{value}";
+        }
+
+        private void UpdateSecondRow(float value)
+        {
+            _rowValues[1].text = $"{value}";
         }
 
         private void FillRow(int index, string name, string value)

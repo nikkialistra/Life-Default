@@ -19,16 +19,15 @@ namespace ResourceManagement
         [SerializeField] private string _name;
         [Space]
         [MinValue(1)]
-        [SerializeField] private float _durability;
+        [SerializeField] private float _storedQuantity;
         [MinValue(1)]
-        [SerializeField] private float _quantity;
+        [SerializeField] private float _durability;
         [Space]
         [MinValue(1)]
         [SerializeField] private int _minExtractedQuantityForDrop;
         [MinValue(1)]
         [SerializeField] private int _maxExtractedQuantityForDrop;
         
-
         [Title("Configuration")]
         [Required]
         [SerializeField] private Transform _holder;
@@ -78,21 +77,24 @@ namespace ResourceManagement
             Entity = GetComponent<Entity>();
         }
 
-        private void Start()
-        {
-            _emissiveColor = Shader.PropertyToID(_propertyName);
-            _requiredQuantityToDrop = CalculateNextRequiredQuantityToDrop();
-        }
+        public event Action<float> QuantityChange;
+        public event Action<float> DurabilityChange;
 
         public Entity Entity { get; private set; }
         
         public ResourceType ResourceType => _resourceType;
         
         public string Name => _name;
+        public float Quantity => _storedQuantity + _preservedExtractedQuantity;
         public float Durability => _durability;
-        public float Quantity => _quantity;
-        
+
         public bool Exhausted => _durability == 0;
+        
+        private void Start()
+        {
+            _emissiveColor = Shader.PropertyToID(_propertyName);
+            _requiredQuantityToDrop = CalculateNextRequiredQuantityToDrop();
+        }
 
         public void Hover()
         {
@@ -128,6 +130,11 @@ namespace ResourceManagement
 
         public void Select()
         {
+            if (Exhausted)
+            {
+                return;
+            }
+            
             StopDisplayChangingCoroutines();
 
             _hovered = false;
@@ -187,19 +194,40 @@ namespace ResourceManagement
 
         public void Extract(float destructionValue, float extractionEfficiency)
         {
-            _preservedExtractedQuantity += ApplyDestruction(destructionValue);
+            _preservedExtractedQuantity += ApplyDestruction(destructionValue) * extractionEfficiency;
 
             if (_preservedExtractedQuantity > _requiredQuantityToDrop)
             {
-                _resourceCounts.ChangeResourceTypeCount(_resourceType, _preservedExtractedQuantity * extractionEfficiency);
-                _preservedExtractedQuantity = 0;
-
-                _requiredQuantityToDrop = CalculateNextRequiredQuantityToDrop();
+                DropPreservedQuantity();
             }
-            else if (Exhausted && _preservedExtractedQuantity > _minExtractedQuantityForDrop)
+            else if (Exhausted && _preservedExtractedQuantity >= 1f)
             {
-                _resourceCounts.ChangeResourceTypeCount(_resourceType, _preservedExtractedQuantity * extractionEfficiency);
+                DropRemainingQuantity();
             }
+        }
+
+        private void DropPreservedQuantity()
+        {
+            _preservedExtractedQuantity -= _requiredQuantityToDrop;
+            _resourceCounts.ChangeResourceTypeCount(_resourceType, _requiredQuantityToDrop);
+
+            _requiredQuantityToDrop = CalculateNextRequiredQuantityToDrop();
+
+            if (Quantity >= 1f)
+            {
+                QuantityChange?.Invoke(Mathf.Round(Quantity));
+            }
+            else
+            {
+                QuantityChange?.Invoke(0);
+            }
+        }
+
+        private void DropRemainingQuantity()
+        {
+            _resourceCounts.ChangeResourceTypeCount(_resourceType, (int)_preservedExtractedQuantity);
+            
+            QuantityChange?.Invoke(0);
         }
 
         private int CalculateNextRequiredQuantityToDrop()
@@ -218,6 +246,8 @@ namespace ResourceManagement
             {
                 throw new InvalidOperationException("Cannot release resource which not acquired");
             }
+
+            Deselect();
 
             _acquiredCount--;
 
@@ -244,20 +274,24 @@ namespace ResourceManagement
                 throw new InvalidOperationException("Making damage cannot be applied to the destroyed resource");
             }
             
-            var quantityToDurabilityFraction = _quantity / _durability;
+            var quantityToDurabilityFraction = _storedQuantity / _durability;
 
             float extractedQuantity;
 
             if (_durability > value)
             {
-                _durability -= value;
                 extractedQuantity = value * quantityToDurabilityFraction;
+                _durability -= value;
             }
             else
             {
-                _durability = 0;
                 extractedQuantity = _durability * quantityToDurabilityFraction;
+                _durability = 0;
             }
+            
+            _storedQuantity -= extractedQuantity;
+            
+            DurabilityChange?.Invoke(_durability);
 
             return extractedQuantity;
         }

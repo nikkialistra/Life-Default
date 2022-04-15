@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6327830605668479184}
   - component: {fileID: 4825986323994969602}
-  - component: {fileID: 7190040345897544072}
   m_Layer: 8
   m_Name: Order Mark
   m_TagString: Untagged
@@ -45,17 +44,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22cb9fff2e374a9f88f47f0bf7f4eda2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _targetIndicatorFlashDuration: 0.8
---- !u!65 &7190040345897544072
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 719698589249946672}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 2, y: 2, z: 2}
-  m_Center: {x: 0, y: 0, z: 0}

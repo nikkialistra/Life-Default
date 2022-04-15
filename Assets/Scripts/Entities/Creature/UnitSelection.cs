@@ -64,7 +64,7 @@ namespace Entities.Creature
             {
                 _hovered = false;
 
-                yield return new WaitForSeconds(_timeToHideHover);
+                yield return new WaitForSecondsRealtime(_timeToHideHover);
 
                 if (!_hovered)
                 {

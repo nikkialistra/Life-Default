@@ -11,7 +11,6 @@ namespace Entities
     public class Entity : MonoBehaviour
     {
         [SerializeField] private Transform _destinationPoint;
-        [SerializeField] private GameObject _targetIndicator;
 
         [SerializeField] private EntityType _entityType;
 

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using ColonistManagement.Selection;
 using Entities.Interfaces;
+using UI.Game;
 using UI.Menus.Primary;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -15,25 +16,28 @@ namespace Entities.Services
         private bool _canHover = true;
 
         private Camera _camera;
+        private GameViews _gameViews;
         private GameMenuToggle _gameMenuToggle;
 
         private LayerMask _entitiesMask;
-        
+
         private ISelectable _lastSelectable;
-        
+
         private Coroutine _hoveringCoroutine;
 
         private WaitForSeconds _waitPeriod;
-        
+
         private PlayerInput _playerInput;
 
         private InputAction _mousePositionAction;
         private InputAction _selectAction;
 
         [Inject]
-        public void Construct(Camera camera, GameMenuToggle gameMenuToggle, PlayerInput playerInput)
+        public void Construct(Camera camera, GameViews gameViews, GameMenuToggle gameMenuToggle, PlayerInput playerInput)
         {
             _camera = camera;
+            
+            _gameViews = gameViews;
             _gameMenuToggle = gameMenuToggle;
             
             _playerInput = playerInput;
@@ -95,6 +99,11 @@ namespace Entities.Services
 
         private void OnSelect(InputAction.CallbackContext context)
         {
+            if (_gameViews.MouseOverUi)
+            {
+                return;
+            }
+            
             _lastSelectable?.Deselect();
             _lastSelectable = null;
             
@@ -120,7 +129,7 @@ namespace Entities.Services
 
         private void Hover()
         {
-            if (!_canHover)
+            if (_gameViews.MouseOverUi || !_canHover)
             {
                 return;
             }

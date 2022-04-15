@@ -122,9 +122,10 @@ namespace Colonists.Colonist
                 resource.Extract(_colonistStats.ResourceDestructionSpeed, _colonistStats.ResourceExtractionEfficiency);
             }
         
-            ReleaseAcquired();
-        
             _animator.StopGathering();
+            
+            ReleaseAcquired();
+            _gatheringCoroutine = null;
 
             onInteractionFinish();
         }

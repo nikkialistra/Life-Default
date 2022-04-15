@@ -114,7 +114,7 @@ namespace ResourceManagement
             {
                 _hovered = false;
 
-                yield return new WaitForSeconds(_timeToHideHover);
+                yield return new WaitForSecondsRealtime(_timeToHideHover);
 
                 if (!_hovered)
                 {
@@ -174,7 +174,7 @@ namespace ResourceManagement
 
         private IEnumerator HideSelectionAfter()
         {
-            yield return new WaitForSeconds(_timeToHideSelection);
+            yield return new WaitForSecondsRealtime(_timeToHideSelection);
             
             SetColor(Color.black);
             _selected = false;
@@ -195,6 +195,10 @@ namespace ResourceManagement
                 _preservedExtractedQuantity = 0;
 
                 _requiredQuantityToDrop = CalculateNextRequiredQuantityToDrop();
+            }
+            else if (Exhausted && _preservedExtractedQuantity > _minExtractedQuantityForDrop)
+            {
+                _resourceCounts.ChangeResourceTypeCount(_resourceType, _preservedExtractedQuantity * extractionEfficiency);
             }
         }
 
@@ -226,6 +230,8 @@ namespace ResourceManagement
         [Button]
         private void Destroy()
         {
+            StopDisplayChangingCoroutines();
+            
             AstarPath.active.UpdateGraphs(_collider.bounds);
 
             Destroy(_holder.gameObject);

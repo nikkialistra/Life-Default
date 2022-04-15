@@ -229,15 +229,15 @@ namespace General
         {
             _focusing = true;
 
-            transform.DOMove(position, _focusDuration);
+            transform.DOMove(position, _focusDuration * Time.timeScale);
             
-            yield return new WaitForSeconds(_focusDuration / 2f);
+            yield return new WaitForSecondsRealtime(_focusDuration / 2f);
             
             // Start to change fov and rotation in the middle of movement
             _newFieldOfView = _focusFov;
             _newRotation.eulerAngles = eulerAngles;
             
-            yield return new WaitForSeconds(_focusDuration / 2f);
+            yield return new WaitForSecondsRealtime(_focusDuration / 2f);
             
             _newPosition = transform.position;
             

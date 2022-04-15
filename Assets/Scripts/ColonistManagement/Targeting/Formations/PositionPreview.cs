@@ -92,7 +92,7 @@ namespace ColonistManagement.Targeting.Formations
 
         private IEnumerator Hide()
         {
-            yield return new WaitForSeconds(_animationTime);
+            yield return new WaitForSecondsRealtime(_animationTime);
 
             _decalProjector.fadeFactor = 0f;
         }

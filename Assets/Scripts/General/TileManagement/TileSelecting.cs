@@ -21,7 +21,7 @@ namespace General.TileManagement
         private Guid _managementMapId;
 
         private Coroutine _selectingTilesCoroutine;
-        private WaitForSeconds _waitPeriod;
+        private WaitForSecondsRealtime _waitPeriod;
         
         private GameMenuToggle _gameMenuToggle;
 
@@ -71,7 +71,7 @@ namespace General.TileManagement
 
         private void Start()
         {
-            _waitPeriod = new WaitForSeconds(_rayRecastingTime);
+            _waitPeriod = new WaitForSecondsRealtime(_rayRecastingTime);
             StartSelectingTiles();
         }
 

@@ -24,11 +24,13 @@ namespace Entities.Services
         private Coroutine _hoveringCoroutine;
 
         private WaitForSeconds _waitPeriod;
+        
+        private bool _canSelect = true;
 
         private ColonistSelectionInput _colonistSelectionInput;
         private GameViews _gameViews;
         private GameMenuToggle _gameMenuToggle;
-        
+
         private PlayerInput _playerInput;
 
         private InputAction _mousePositionAction;
@@ -100,16 +102,29 @@ namespace Entities.Services
         private void OnColonistSelecting(Rect _)
         {
             StopHovering();
+            BlockSelection();
         }
 
         private void OnColonistSelectingEnd(Rect _)
         {
             StartHovering();
+            StartCoroutine(UnblockSelectionAfter());
+        }
+
+        private void BlockSelection()
+        {
+            _canSelect = false;
+        }
+
+        private IEnumerator UnblockSelectionAfter()
+        {
+            yield return null;
+            _canSelect = true;
         }
 
         private void OnSelect(InputAction.CallbackContext context)
         {
-            if (_gameViews.MouseOverUi)
+            if (_gameViews.MouseOverUi || !_canSelect)
             {
                 return;
             }

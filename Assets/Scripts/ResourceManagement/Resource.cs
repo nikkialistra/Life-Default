@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using Entities;
+using Entities.Animations;
 using Entities.Interfaces;
 using Sirenix.OdinInspector;
 using UI.Game.GameLook.Components;
@@ -44,6 +45,9 @@ namespace ResourceManagement
         [Space]
         [SerializeField] private Color _hoverColor;
         [SerializeField] private Color _selectionColor;
+        
+        [Title("Animations")]
+        [SerializeReference] private IAnimations _animations;
 
         private int _requiredQuantityToDrop;
         private float _preservedExtractedQuantity;
@@ -202,6 +206,7 @@ namespace ResourceManagement
             }
             else if (Exhausted && _preservedExtractedQuantity >= 1f)
             {
+                Debug.Log(1122661);
                 DropRemainingQuantity();
             }
         }

@@ -13,10 +13,8 @@
 .help-panel {
     width: 512px;
     height: 860px;
-    background-color: rgba(34, 36, 38, 0.97);
-    border-width: 2px;
+    background-color: rgba(34, 36, 38, 0.95);
     border-radius: 5px;
-    border-color: rgb(9, 10, 10);
     padding-left: 15px;
     padding-right: 15px;
 }

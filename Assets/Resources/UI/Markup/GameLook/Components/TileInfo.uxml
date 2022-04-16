@@ -1,9 +1,9 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/Resources/UI/Styles/Common/Text.uss?fileID=7433441132597879392&amp;guid=158167a2c7cf4f5292d78d1ed2683cfc&amp;type=3#Text" />
     <ui:VisualElement name="tile-info">
-        <ui:Label text="Position: 10 7" display-tooltip-when-elided="true" name="position" class="label left-aligned label-outlined-big" />
-        <ui:Label text="Temperature: 5 C" display-tooltip-when-elided="true" name="temperature" class="label left-aligned label-outlined-big" />
-        <ui:Label text="Light: 80%" display-tooltip-when-elided="true" name="light" class="label left-aligned label-outlined-big" />
-        <ui:Label text="Beauty: 5" display-tooltip-when-elided="true" name="beauty" class="label left-aligned label-outlined-big" />
+        <ui:Label text="Position: 10 7" display-tooltip-when-elided="true" name="position" class="label left-aligned label-outlined-medium" />
+        <ui:Label text="Temperature: 5 C" display-tooltip-when-elided="true" name="temperature" class="label left-aligned label-outlined-medium" />
+        <ui:Label text="Light: 80%" display-tooltip-when-elided="true" name="light" class="label left-aligned label-outlined-medium" />
+        <ui:Label text="Beauty: 5" display-tooltip-when-elided="true" name="beauty" class="label left-aligned label-outlined-medium" />
     </ui:VisualElement>
 </ui:UXML>

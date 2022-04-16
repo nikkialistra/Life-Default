@@ -1,14 +1,12 @@
 .colonist-info {
     width: 280px;
     height: 530px;
-    background-color: rgba(34, 36, 38, 0.97);
-    border-width: 2px;
+    background-color: rgba(34, 36, 38, 0.95);
     border-radius: 5px;
-    border-color: rgba(9, 10, 10, 0.97);
     justify-content: flex-start;
     align-items: center;
-    padding-top: 6px;
-    padding-bottom: 6px;
+    padding-top: 8px;
+    padding-bottom: 8px;
 }
 
 .multiple {
@@ -21,7 +19,7 @@
     flex-direction: row;
     justify-content: space-between;
     width: 260px;
-    height: 36px;
+    height: 32px;
 }
 
 .details__toggle {
@@ -33,11 +31,11 @@
 }
 
 .details__toggle:hover {
-    background-color: rgba(58, 60, 64, 0.6);
+    background-color: rgba(191, 194, 199, 0.02);
 }
 
 .details__toggle:checked {
-    background-color: rgba(72, 74, 79, 0.6);
+    background-color: rgba(191, 194, 199, 0.04);
 }
 
 .details__toggle Label {
@@ -170,8 +168,17 @@
     justify-content: space-between;
 }
 
+.bars {
+    width: 172px;
+    height: 84px;
+}
+
+.bar-small__state {
+    margin-left: 13px;
+}
+
 .bar {
-    width: 152px;
+    width: 172px;
     height: 40px;
 }
 
@@ -258,8 +265,8 @@
 }
 
 .bar-small .unity-progress-bar__progress {
-    height: 12px;
-    margin: 2px 4px 2px 4px;
+    height: 10px;
+    margin: 4px 4px 2px 4px;
     border-radius: 1px;
 }
 
@@ -368,7 +375,7 @@
 
 .statuses {
     width: 260px;
-    height: 116px;
+    height: 112px;
 }
 
 .statuses__row {
@@ -396,14 +403,6 @@
 .header__label {
     height: 32px;
     margin-bottom: 2px;
-}
-
-.bars {
-    height: 84px;
-}
-
-.bar-small__state {
-    margin-left: 13px;
 }
 
 .statuses .statuses__label {

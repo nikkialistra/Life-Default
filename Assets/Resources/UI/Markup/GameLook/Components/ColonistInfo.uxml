@@ -18,7 +18,7 @@
         </ui:VisualElement>
         <ui:VisualElement name="base-info" class="base-info">
             <ui:VisualElement name="picture" class="picture" />
-            <ui:VisualElement name="vitality-bars" class="bars" style="justify-content: center;">
+            <ui:VisualElement name="vitality-bars" class="bars">
                 <ui:VisualElement name="recovery-speed-bar" class="bar red">
                     <ui:Label text="Health" name="health" class="bar__label label" />
                     <ui:VisualElement name="bar__body" class="bar__body">

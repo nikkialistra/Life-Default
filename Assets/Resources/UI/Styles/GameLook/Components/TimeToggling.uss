@@ -1,11 +1,9 @@
 .time-toggling {
-    width: 184px;
-    height: 48px;
+    width: 155px;
+    height: 40px;
     padding: 0 6px;
-    background-color: rgba(34, 36, 38, 0.97);
-    border-width: 2px;
+    background-color: rgba(34, 36, 38, 0.95);
     border-radius: 5px;
-    border-color: rgb(9, 10, 10);
     justify-content: space-between;
     align-items: center;
     flex-direction: row;
@@ -14,8 +12,8 @@
 .unity-toggle {
     padding: 0;
     margin: 0;
-    width: 38px;
-    height: 38px;
+    width: 34px;
+    height: 34px;
 }
 
 .unity-toggle .unity-label {
@@ -23,8 +21,8 @@
 }
 
 .unity-toggle > .unity-toggle__input > .unity-toggle__checkmark {
-    width: 38px;
-    height: 38px;
+    width: 34px;
+    height: 34px;
     border-width: 0;
     -unity-background-image-tint-color: rgb(255, 255, 255);
     background-color: rgba(0, 0, 0, 0);

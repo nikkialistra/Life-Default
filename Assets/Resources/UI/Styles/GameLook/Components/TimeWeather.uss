@@ -1,11 +1,9 @@
 .time-weather {
     width: 300px;
     height: 78px;
-    padding: 3px 8px;
-    background-color: rgba(34, 36, 38, 0.97);
-    border-width: 2px;
+    padding: 5px 10px;
+    background-color: rgba(34, 36, 38, 0.95);
     border-radius: 5px;
-    border-color: rgba(9, 10, 10, 0.97);
     justify-content: center;
     align-items: center;
 }

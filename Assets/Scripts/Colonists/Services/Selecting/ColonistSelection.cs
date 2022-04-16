@@ -13,7 +13,7 @@ namespace Colonists.Services.Selecting
         private SelectionArea _selectionArea;
 
         private ColonistSelecting _selecting;
-        private SelectionInput _selectionInput;
+        private ColonistSelectionInput _colonistSelectionInput;
         private SelectedColonists _selectedColonists;
 
         private float _lastClickTime;
@@ -21,11 +21,11 @@ namespace Colonists.Services.Selecting
         private bool _cancelSelection;
 
         [Inject]
-        public void Construct(ColonistSelecting selecting, SelectionInput selectionInput, SelectedColonists selectedColonists)
+        public void Construct(ColonistSelecting selecting, ColonistSelectionInput colonistSelectionInput, SelectedColonists selectedColonists)
         {
             _selectedColonists = selectedColonists;
             _selecting = selecting;
-            _selectionInput = selectionInput;
+            _colonistSelectionInput = colonistSelectionInput;
         }
 
         public void CancelSelection()
@@ -40,14 +40,14 @@ namespace Colonists.Services.Selecting
 
         public void OnEnable()
         {
-            _selectionInput.Selecting += Draw;
-            _selectionInput.SelectingEnd += Select;
+            _colonistSelectionInput.Selecting += Draw;
+            _colonistSelectionInput.SelectingEnd += Select;
         }
 
         public void OnDisable()
         {
-            _selectionInput.Selecting -= Draw;
-            _selectionInput.SelectingEnd -= Select;
+            _colonistSelectionInput.Selecting -= Draw;
+            _colonistSelectionInput.SelectingEnd -= Select;
         }
 
         private void Draw(Rect rect)

@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Colonists.Colonist;
-using Entities;
-using Entities.Types;
 using ResourceManagement;
 using UI.Game.GameLook.Components.ColonistInfo;
 using UnityEngine;
@@ -22,9 +19,9 @@ namespace UI.Game.GameLook.Components
         private ColonistsInfoView _colonistsInfoView;
         private EntityInfoView _entityInfoView;
 
-        private bool _colonistInfoShown;
-        private bool _entityInfoShown;
-        
+        private ColonistFacade _shownColonist;
+        private Resource _shownResource;
+
         private void Awake()
         {
             _colonistInfoView = GetComponent<ColonistInfoView>();
@@ -49,17 +46,18 @@ namespace UI.Game.GameLook.Components
             switch (colonists.Count)
             {
                 case 0:
-                    _colonistInfoShown = false;
-                    HideIfNothingToShow();
+                    if (_shownResource == null)
+                    {
+                        HidePanels();
+                        HideSelf();
+                    }
                     break;
                 case 1:
                     PrepareEmptyPanel();
-                    _colonistInfoShown = true;
                     ShowColonistInfo(colonists[0]);
                     break;
                 default:
                     PrepareEmptyPanel();
-                    _colonistInfoShown = true;
                     ShowColonistsInfo(colonists.Count);
                     break;
             }
@@ -68,37 +66,34 @@ namespace UI.Game.GameLook.Components
         public void SetColonist(ColonistFacade colonist)
         {
             PrepareEmptyPanel();
-            _colonistInfoShown = true;
-            
             ShowColonistInfo(colonist);
         }
 
         public void SetResource(Resource resource)
         {
             PrepareEmptyPanel();
-            _entityInfoShown = true;
-            
+
+            _shownResource = resource;
+
             ShowResourceInfo(resource);
         }
 
-        public void UnsetEntityInfo()
+        public void UnsetResource(Resource resource)
         {
-            _entityInfoShown = false;
-
-            HideIfNothingToShow();
-        }
-
-        public void UnsetColonistInfo()
-        {
-            _colonistInfoShown = false;
-            
-            HideIfNothingToShow();
-        }
-
-        private void HideIfNothingToShow()
-        {
-            if (!_colonistInfoShown && !_entityInfoShown)
+            if (_shownResource == resource)
             {
+                _shownResource = null;
+                _entityInfoView.HideSelf();
+                HideSelf();
+            }
+        }
+
+        public void UnsetColonistInfo(ColonistFacade colonist)
+        {
+            if (_shownColonist == colonist)
+            {
+                _shownColonist = null;
+                _colonistInfoView.HideSelf();
                 HideSelf();
             }
         }
@@ -122,12 +117,21 @@ namespace UI.Game.GameLook.Components
 
         private void PrepareEmptyPanel()
         {
+            UnsetAll();
             ShowSelf();
             HidePanels();
         }
 
+        private void UnsetAll()
+        {
+            _shownColonist = null;
+            _shownResource = null;
+        }
+
         private void ShowColonistInfo(ColonistFacade colonist)
         {
+            _shownColonist = colonist;
+            
             _colonistInfoView.ShowSelf();
             _colonistInfoView.FillIn(colonist);
         }

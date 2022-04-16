@@ -17,7 +17,7 @@ namespace ColonistManagement.Movement
         private MovementInput _movementInput;
 
         private SelectedColonists _selectedColonists;
-        private SelectionInput _selectionInput;
+        private ColonistSelectionInput _colonistSelectionInput;
 
         private GameCursors _gameCursors;
 
@@ -32,12 +32,12 @@ namespace ColonistManagement.Movement
         private InputAction _cancelAction;
 
         [Inject]
-        public void Construct(PlayerInput playerInput, SelectedColonists selectedColonists, SelectionInput selectionInput,
+        public void Construct(PlayerInput playerInput, SelectedColonists selectedColonists, ColonistSelectionInput colonistSelectionInput,
             GameCursors gameCursors)
         {
             _playerInput = playerInput;
             _selectedColonists = selectedColonists;
-            _selectionInput = selectionInput;
+            _colonistSelectionInput = colonistSelectionInput;
             _gameCursors = gameCursors;
         }
 
@@ -162,7 +162,7 @@ namespace ColonistManagement.Movement
 
         private void PauseAnotherInput()
         {
-            _selectionInput.Deactivated = true;
+            _colonistSelectionInput.Deactivated = true;
             _movementInput.UnsubscribeFromActions();
         }
 
@@ -226,7 +226,7 @@ namespace ColonistManagement.Movement
 
         private void ResumeAnotherInput()
         {
-            _selectionInput.Deactivated = false;
+            _colonistSelectionInput.Deactivated = false;
             _movementInput.SubscribeToActions();
             _gameCursors.SetDefaultCursor();
         }

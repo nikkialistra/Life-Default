@@ -98,14 +98,14 @@ namespace UI.Game.GameLook.Components
             }
         }
 
-        private void UpdateFirstRow(float value)
+        private void UpdateFirstRow()
         {
-            _rowValues[0].text = $"~{value}";
+            _rowValues[0].text = $"~{_resource.Quantity}";
         }
 
-        private void UpdateSecondRow(float value)
+        private void UpdateSecondRow()
         {
-            _rowValues[1].text = $"{value}";
+            _rowValues[1].text = $"{_resource.Durability}";
         }
 
         private void FillRow(int index, string name, string value)

@@ -28,16 +28,16 @@ namespace UI.Game.GameLook.Components
 
         private ColonistRepository _colonistRepository;
         private SelectedColonists _selectedColonists;
-        private SelectionInput _selectionInput;
+        private ColonistSelectionInput _colonistSelectionInput;
         private ColonistSelection _colonistSelection;
 
         [Inject]
         public void Construct(ColonistRepository colonistRepository, SelectedColonists selectedColonists,
-            SelectionInput selectionInput, ColonistSelection colonistSelection)
+            ColonistSelectionInput colonistSelectionInput, ColonistSelection colonistSelection)
         {
             _colonistRepository = colonistRepository;
             _selectedColonists = selectedColonists;
-            _selectionInput = selectionInput;
+            _colonistSelectionInput = colonistSelectionInput;
             _colonistSelection = colonistSelection;
         }
 
@@ -60,7 +60,7 @@ namespace UI.Game.GameLook.Components
 
             _selectedColonists.SelectionChange += UpdateOutlines;
             
-            _selectionInput.SelectingEnd += SelectColonists;
+            _colonistSelectionInput.SelectingEnd += SelectColonists;
         }
 
         private void OnDisable()
@@ -70,7 +70,7 @@ namespace UI.Game.GameLook.Components
 
             _selectedColonists.SelectionChange -= UpdateOutlines;
             
-            _selectionInput.SelectingEnd -= SelectColonists;
+            _colonistSelectionInput.SelectingEnd -= SelectColonists;
         }
 
         private void Add(ColonistFacade colonist)

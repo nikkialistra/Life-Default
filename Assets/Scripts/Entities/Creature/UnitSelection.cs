@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using ColonistManagement.Selection;
 using Entities.Ancillaries;
 using Entities.Interfaces;
 using Sirenix.OdinInspector;
@@ -20,6 +21,8 @@ namespace Entities.Creature
         private bool _activated;
         
         private Coroutine _hoveringCoroutine;
+        
+        private ColonistSelectionInput _colonistSelectionInput;
 
         public void Activate()
         {

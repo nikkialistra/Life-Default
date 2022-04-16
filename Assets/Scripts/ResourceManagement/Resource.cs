@@ -81,15 +81,22 @@ namespace ResourceManagement
             Entity = GetComponent<Entity>();
         }
 
-        public event Action<float> QuantityChange;
-        public event Action<float> DurabilityChange;
+        public event Action QuantityChange;
+        public event Action DurabilityChange;
 
         public Entity Entity { get; private set; }
         
         public ResourceType ResourceType => _resourceType;
         
         public string Name => _name;
-        public float Quantity => _storedQuantity + _preservedExtractedQuantity;
+        public float Quantity
+        {
+            get
+            {
+                var quantity = _storedQuantity + _preservedExtractedQuantity;
+                return quantity >= 1f ? Mathf.Floor(_storedQuantity + _preservedExtractedQuantity) : 0;
+            }
+        }
         public float Durability => _durability;
 
         public bool Exhausted => _durability == 0;
@@ -177,10 +184,15 @@ namespace ResourceManagement
 
         public void Deselect()
         {
+            if (Exhausted)
+            {
+                return;
+            }
+            
             _selected = false;
             SetColor(Color.black);
             
-            _infoPanelView.UnsetEntityInfo();
+            _infoPanelView.UnsetResource(this);
         }
 
         private IEnumerator HideSelectionAfter()
@@ -206,7 +218,6 @@ namespace ResourceManagement
             }
             else if (Exhausted && _preservedExtractedQuantity >= 1f)
             {
-                Debug.Log(1122661);
                 DropRemainingQuantity();
             }
         }
@@ -217,22 +228,15 @@ namespace ResourceManagement
             _resourceCounts.ChangeResourceTypeCount(_resourceType, _requiredQuantityToDrop);
 
             _requiredQuantityToDrop = CalculateNextRequiredQuantityToDrop();
-
-            if (Quantity >= 1f)
-            {
-                QuantityChange?.Invoke(Mathf.Round(Quantity));
-            }
-            else
-            {
-                QuantityChange?.Invoke(0);
-            }
+            
+            QuantityChange?.Invoke();
         }
 
         private void DropRemainingQuantity()
         {
             _resourceCounts.ChangeResourceTypeCount(_resourceType, (int)_preservedExtractedQuantity);
             
-            QuantityChange?.Invoke(0);
+            QuantityChange?.Invoke();
         }
 
         private int CalculateNextRequiredQuantityToDrop()
@@ -265,6 +269,8 @@ namespace ResourceManagement
         [Button]
         private void Destroy()
         {
+            _infoPanelView.UnsetResource(this);
+            
             StopDisplayChangingCoroutines();
             
             AstarPath.active.UpdateGraphs(_collider.bounds);
@@ -296,7 +302,7 @@ namespace ResourceManagement
             
             _storedQuantity -= extractedQuantity;
             
-            DurabilityChange?.Invoke(_durability);
+            DurabilityChange?.Invoke();
 
             return extractedQuantity;
         }

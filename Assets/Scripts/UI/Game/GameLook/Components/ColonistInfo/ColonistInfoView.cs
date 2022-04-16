@@ -117,7 +117,7 @@ namespace UI.Game.GameLook.Components.ColonistInfo
 
         private void HidePanel()
         {
-            _parent.UnsetColonistInfo();
+            _parent.UnsetColonistInfo(_colonist);
         }
 
         private void FillInPreview(ColonistFacade colonist)

@@ -93,7 +93,7 @@ namespace General
 
         private Coroutine _focusingCoroutine;
         
-        private SelectionInput _selectionInput;
+        private ColonistSelectionInput _colonistSelectionInput;
 
         private PlayerInput _playerInput;
 
@@ -108,12 +108,12 @@ namespace General
         private InputAction _toggleCameraMovementAction;
 
         [Inject]
-        public void Construct(bool isSetUpSession, Map map, GameSettings gameSettings, SelectionInput selectionInput, PlayerInput playerInput)
+        public void Construct(bool isSetUpSession, Map map, GameSettings gameSettings, ColonistSelectionInput colonistSelectionInput, PlayerInput playerInput)
         {
             _map = map;
 
             _gameSettings = gameSettings;
-            _selectionInput = selectionInput;
+            _colonistSelectionInput = colonistSelectionInput;
             _playerInput = playerInput;
         }
 
@@ -136,16 +136,16 @@ namespace General
         {
             _toggleCameraMovementAction.started += ToggleCameraMovement;
 
-            _selectionInput.Selecting += OnSelecting;
-            _selectionInput.SelectingEnd += OnSelectingEnd;
+            _colonistSelectionInput.Selecting += OnColonistSelecting;
+            _colonistSelectionInput.SelectingEnd += OnColonistSelectingEnd;
         }
 
         private void OnDisable()
         {
             _toggleCameraMovementAction.started -= ToggleCameraMovement;
             
-            _selectionInput.Selecting -= OnSelecting;
-            _selectionInput.SelectingEnd -= OnSelectingEnd;
+            _colonistSelectionInput.Selecting -= OnColonistSelecting;
+            _colonistSelectionInput.SelectingEnd -= OnColonistSelectingEnd;
         }
 
         private void Start()
@@ -278,12 +278,12 @@ namespace General
             }
         }
         
-        private void OnSelecting(Rect _)
+        private void OnColonistSelecting(Rect _)
         {
             _isSelectingInput = true;
         }
 
-        private void OnSelectingEnd(Rect _)
+        private void OnColonistSelectingEnd(Rect _)
         {
             _isSelectingInput = false;
         }

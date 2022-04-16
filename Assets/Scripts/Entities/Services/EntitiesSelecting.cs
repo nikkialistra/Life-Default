@@ -16,8 +16,6 @@ namespace Entities.Services
         private bool _canHover = true;
 
         private Camera _camera;
-        private GameViews _gameViews;
-        private GameMenuToggle _gameMenuToggle;
 
         private LayerMask _entitiesMask;
 
@@ -27,17 +25,23 @@ namespace Entities.Services
 
         private WaitForSeconds _waitPeriod;
 
+        private ColonistSelectionInput _colonistSelectionInput;
+        private GameViews _gameViews;
+        private GameMenuToggle _gameMenuToggle;
+        
         private PlayerInput _playerInput;
 
         private InputAction _mousePositionAction;
         private InputAction _selectAction;
 
         [Inject]
-        public void Construct(Camera camera, GameViews gameViews, GameMenuToggle gameMenuToggle, PlayerInput playerInput)
+        public void Construct(Camera camera, GameViews gameViews, ColonistSelectionInput colonistSelectionInput,
+            GameMenuToggle gameMenuToggle, PlayerInput playerInput)
         {
             _camera = camera;
-            
+
             _gameViews = gameViews;
+            _colonistSelectionInput = colonistSelectionInput;
             _gameMenuToggle = gameMenuToggle;
             
             _playerInput = playerInput;
@@ -53,16 +57,22 @@ namespace Entities.Services
 
         private void OnEnable()
         {
-            _gameMenuToggle.GamePause += OnGamePause;
-            _gameMenuToggle.GameResume += OnGameResume;
+            _gameMenuToggle.GamePause += StopHovering;
+            _gameMenuToggle.GameResume += StartHovering;
+            
+            _colonistSelectionInput.Selecting += OnColonistSelecting;
+            _colonistSelectionInput.SelectingEnd += OnColonistSelectingEnd;
 
             _selectAction.canceled += OnSelect;
         }
 
         private void OnDisable()
         {
-            _gameMenuToggle.GamePause -= OnGamePause;
-            _gameMenuToggle.GameResume -= OnGameResume;
+            _gameMenuToggle.GamePause -= StopHovering;
+            _gameMenuToggle.GameResume -= StartHovering;
+            
+            _colonistSelectionInput.Selecting -= OnColonistSelecting;
+            _colonistSelectionInput.SelectingEnd -= OnColonistSelectingEnd;
 
             _selectAction.canceled -= OnSelect;
         }
@@ -70,16 +80,6 @@ namespace Entities.Services
         private void Start()
         {
             _waitPeriod = new WaitForSeconds(_hoverRecastingTime);
-            StartHovering();
-        }
-
-        private void OnGamePause()
-        {
-            StopHovering();
-        }
-
-        private void OnGameResume()
-        {
             StartHovering();
         }
 
@@ -95,6 +95,16 @@ namespace Entities.Services
                 StopCoroutine(_hoveringCoroutine);
                 _hoveringCoroutine = null;
             }
+        }
+
+        private void OnColonistSelecting(Rect _)
+        {
+            StopHovering();
+        }
+
+        private void OnColonistSelectingEnd(Rect _)
+        {
+            StartHovering();
         }
 
         private void OnSelect(InputAction.CallbackContext context)

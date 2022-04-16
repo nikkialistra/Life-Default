@@ -17,7 +17,7 @@ namespace Infrastructure
         [Required]
         [SerializeField] private ColonistSelection _colonistSelection;
         [Required]
-        [SerializeField] private SelectionInput _selectionInput;
+        [SerializeField] private ColonistSelectionInput _colonistSelectionInput;
         [Required]
         [SerializeField] private ColonistChoosing _colonistChoosing;
         
@@ -64,7 +64,7 @@ namespace Infrastructure
             Container.Bind<ColonistSelecting>().AsSingle();
             Container.Bind<SelectedColonists>().AsSingle();
             Container.BindInstance(_colonistSelection);
-            Container.BindInstance(_selectionInput);
+            Container.BindInstance(_colonistSelectionInput);
             Container.BindInstance(_colonistChoosing);
         }
 

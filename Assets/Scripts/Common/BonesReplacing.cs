@@ -18,7 +18,7 @@ namespace Common
             var meshRenderer = GetComponent<SkinnedMeshRenderer>();
 
             meshRenderer.rootBone = _rootBone;
-            
+
             var newBones = new Transform[meshRenderer.bones.Length];
             
             for (var i = 0; i < meshRenderer.bones.Length; ++i)

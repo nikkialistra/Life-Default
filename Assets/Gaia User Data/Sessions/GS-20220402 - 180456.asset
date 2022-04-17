@@ -56,12 +56,12 @@ MonoBehaviour:
     isWorldmap: 0
     recalculate: 0
     min: 0
-    max: 39.813107
+    max: 38.703716
   m_bakedMaskCacheEntries:
   - fileName: Terrain_0_0-20220402 - 180457_LayerGameObject_12800_5
     assetPath: Assets/Procedural Worlds/Procedural Worlds/Gaia/TerrainCollisionData/Terrain_0_0-20220402
       - 180457/Terrain_0_0-20220402 - 180457_LayerGameObject_12800_5
-    fullPath: C:/Users/Alistra/Documents/UnityProjects/Life Default/Assets/Procedural
+    fullPath: C:/Users/Alistra/Documents/UnityProjects/Life-Default/Assets/Procedural
       Worlds/Procedural Worlds/Gaia/TerrainCollisionData/Terrain_0_0-20220402 - 180457/Terrain_0_0-20220402
       - 180457_LayerGameObject_12800_5
     texture: {fileID: 0}

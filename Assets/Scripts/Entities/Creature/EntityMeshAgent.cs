@@ -41,7 +41,7 @@ namespace Entities.Creature
         public event Action RotationEnd;
 
         public bool IsMoving => !_aiPath.isStopped;
-        public bool IsRotating { get; private set; }
+        private bool IsRotating { get; set; }
 
         public void SetDestinationToPosition(Vector3 position)
         {

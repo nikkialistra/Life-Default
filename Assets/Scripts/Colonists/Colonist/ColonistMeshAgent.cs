@@ -26,8 +26,6 @@ namespace Colonists.Colonist
 
         public event Action DestinationReach;
         public event Action RotationEnd;
-        
-        public bool IsRotating => _entityMeshAgent.IsRotating;
 
         private void OnEnable()
         {

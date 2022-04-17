@@ -23,10 +23,10 @@ namespace General
 
         private void Start()
         {
-            StartCoroutine(WaitAndLoad());
+            StartCoroutine(GetAstarGraph());
         }
 
-        private IEnumerator WaitAndLoad()
+        private IEnumerator GetAstarGraph()
         {
             if (_loadSavedGraphData)
             {

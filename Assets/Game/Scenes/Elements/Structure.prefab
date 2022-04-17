@@ -131,7 +131,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f39dcb5b9cd14014bd1251bf5f4be809, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _activatedAtStartup: 0
+  _deactivateAtStartup: 1
   _moveSpeed: 30
   _positionMoveXThreshold: 0.97
   _positionMoveYThreshold: 0.97
@@ -151,7 +151,7 @@ MonoBehaviour:
   _focusDistance: 8
   _focusRotation: 45
   _focusDuration: 0.18
-  _positionSmoothing: 8
+  _positionSmoothing: 9
   _rotationSmoothing: 15
   _zoomSmoothing: 20
 --- !u!1 &5177722664609282016

@@ -120,7 +120,7 @@ namespace ColonistManagement.Movement
                 return;
             }
             
-            if (Physics.Raycast(GetRay(), out var hit, Mathf.Infinity, _rayMask))
+            if (Physics.Raycast(GetRayFromMouse(), out var hit, Mathf.Infinity, _rayMask))
             {
                 var ground = hit.transform.GetComponentInParent<Ground>();
                 if (ground != null)
@@ -172,7 +172,7 @@ namespace ColonistManagement.Movement
 
         private bool TargetEntity()
         {
-            if (Physics.Raycast(GetRay(), out var hit, Mathf.Infinity, _rayMask))
+            if (Physics.Raycast(GetRayFromMouse(), out var hit, Mathf.Infinity, _rayMask))
             {
                 var entity = hit.transform.GetComponentInParent<Entity>();
                 if (entity != null)
@@ -214,7 +214,7 @@ namespace ColonistManagement.Movement
 
         private bool GotSufficientMouseOffset(Vector3 position)
         {
-            if (Physics.Raycast(GetRay(), out var hit, Mathf.Infinity, _terrainMask))
+            if (Physics.Raycast(GetRayFromMouse(), out var hit, Mathf.Infinity, _terrainMask))
             {
                 var direction = hit.point - position;
                 var planeDirection = new Vector2(direction.x, direction.z);
@@ -232,7 +232,7 @@ namespace ColonistManagement.Movement
 
         private void UpdateAngle(Vector3 position)
         {
-            if (Physics.Raycast(GetRay(), out var hit, Mathf.Infinity, _terrainMask))
+            if (Physics.Raycast(GetRayFromMouse(), out var hit, Mathf.Infinity, _terrainMask))
             {
                 var direction = hit.point - position;
                 var planeDirection = new Vector2(direction.x, direction.z);
@@ -254,7 +254,7 @@ namespace ColonistManagement.Movement
             Stop?.Invoke();
         }
 
-        private Ray GetRay()
+        private Ray GetRayFromMouse()
         {
             var mousePosition = _mousePositionAction.ReadValue<Vector2>();
             var ray = _camera.ScreenPointToRay(new Vector3(mousePosition.x, mousePosition.y, _camera.nearClipPlane));

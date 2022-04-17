@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using ColonistManagement.Selection;
 using Colonists;
 using DG.Tweening;
@@ -60,7 +61,7 @@ namespace General
 
         private float _horizontalRotation;
         private float _verticalRotation;
-        private float _yPosition;
+        private float _heightAboveTerrain;
 
         private Camera _camera;
 
@@ -89,10 +90,13 @@ namespace General
         private bool _screenEdgeMouseScroll;
         private bool _isSelectingInput;
 
+        private LayerMask _terrainMask;
+        private float _raiseDistance;
+
         private GameSettings _gameSettings;
 
         private Coroutine _focusingCoroutine;
-        
+
         private ColonistSelectionInput _colonistSelectionInput;
 
         private PlayerInput _playerInput;
@@ -120,6 +124,8 @@ namespace General
         private void Awake()
         {
             _camera = GetComponent<Camera>();
+            
+            _terrainMask = LayerMask.GetMask("Terrain");
 
             _movementAction = _playerInput.actions.FindAction("Movement");
             _dragAction = _playerInput.actions.FindAction("Drag");
@@ -152,7 +158,7 @@ namespace General
         {
             _map.Load += OnMapLoad;
 
-            _yPosition = transform.position.y;
+            _heightAboveTerrain = GetDistanceAboveTerrain();
 
             _newPosition = transform.position;
             _newRotation = transform.rotation;
@@ -212,7 +218,7 @@ namespace General
             var forward = yRotation * Vector3.forward;
 
             var position = colonist.Center + (forward * -_focusDistance);
-            position.y = _yPosition;
+            position = RaiseAboveTerrain(position);
 
             var eulerAngles = new Vector3(_focusRotation, _newRotation.eulerAngles.y, _newRotation.eulerAngles.z);
 
@@ -223,6 +229,19 @@ namespace General
             }
             
             _focusingCoroutine = StartCoroutine(Focusing(position, eulerAngles, colonist));
+        }
+
+        private float GetDistanceAboveTerrain()
+        {
+            if (Physics.Raycast(new Ray(transform.position, Vector3.down), out var hit,
+                float.PositiveInfinity, _terrainMask))
+            {
+                return hit.distance;
+            }
+            else
+            {
+                throw new InvalidOperationException("Camera is not above terrain");
+            }
         }
 
         private IEnumerator Focusing(Vector3 position, Vector3 eulerAngles, Colonist colonist)
@@ -466,8 +485,8 @@ namespace General
         private void ClampPositionByConstraints()
         {
             var position = _newPosition;
-
-            position.y = _yPosition;
+            
+            position = RaiseAboveTerrain(position);
 
             if (position.x < _minimumPositionX)
             {
@@ -492,12 +511,32 @@ namespace General
             _newPosition = position;
         }
 
+        private Vector3 RaiseAboveTerrain(Vector3 position)
+        {
+            if (Physics.Raycast(new Ray(transform.position, Vector3.down), out var hitUnder,
+                float.PositiveInfinity, _terrainMask))
+            {
+                position.y = hitUnder.point.y + _heightAboveTerrain;
+            }
+            else if (Physics.Raycast(new Ray(transform.position, Vector3.up), out var hitAbove,
+                float.PositiveInfinity, _terrainMask))
+            {
+                position.y = hitAbove.point.y + _heightAboveTerrain;
+            }
+            else
+            {
+                throw new InvalidOperationException("Camera could not find terrain");
+            }
+
+            return position;
+        }
+
         private void SmoothUpdate()
         {
             if (!_focusing)
             {
                 transform.position = Vector3.Lerp(transform.position, _newPosition,
-                    _positionSmoothing * Time.unscaledDeltaTime);
+                    _positionSmoothing * Time.unscaledDeltaTime) + new Vector3(0, _raiseDistance, 0);
             }
             
             transform.rotation = Quaternion.Lerp(transform.rotation, _newRotation,

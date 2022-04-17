@@ -24,9 +24,6 @@ MonoBehaviour:
     _filterMode: 1, _layerMask:
       m_Bits: 0
 , _renderingLayerMask: 1}
-  _renderPassEvent: 400
-  _shaderPassNames: []
-  _featureName: Outline-0
 --- !u!114 &-5915448172620004158
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -111,7 +108,7 @@ MonoBehaviour:
   m_AssetVersion: 1
   m_OpaqueLayerMask:
     serializedVersion: 2
-    m_Bits: 131137
+    m_Bits: 65
   m_TransparentLayerMask:
     serializedVersion: 2
     m_Bits: 20
@@ -149,7 +146,7 @@ MonoBehaviour:
       RenderQueueType: 0
       LayerMask:
         serializedVersion: 2
-        m_Bits: 279304
+        m_Bits: 410376
       PassNames: []
     overrideMaterial: {fileID: 0}
     overrideMaterialPassIndex: 0

@@ -12,8 +12,6 @@ namespace Entities.Services
     public class EntitiesSelecting : MonoBehaviour
     {
         [SerializeField] private float _hoverRecastingTime = 0.03f;
-        
-        private bool _canHover = true;
 
         private Camera _camera;
 
@@ -62,7 +60,7 @@ namespace Entities.Services
             _gameMenuToggle.GamePause += StopHovering;
             _gameMenuToggle.GameResume += StartHovering;
             
-            _colonistSelectionInput.Selecting += OnColonistSelecting;
+            _colonistSelectionInput.SelectingArea += OnColonistSelectingArea;
             _colonistSelectionInput.SelectingEnd += OnColonistSelectingEnd;
 
             _selectAction.canceled += OnSelect;
@@ -73,7 +71,7 @@ namespace Entities.Services
             _gameMenuToggle.GamePause -= StopHovering;
             _gameMenuToggle.GameResume -= StartHovering;
             
-            _colonistSelectionInput.Selecting -= OnColonistSelecting;
+            _colonistSelectionInput.SelectingArea -= OnColonistSelectingArea;
             _colonistSelectionInput.SelectingEnd -= OnColonistSelectingEnd;
 
             _selectAction.canceled -= OnSelect;
@@ -99,7 +97,7 @@ namespace Entities.Services
             }
         }
 
-        private void OnColonistSelecting(Rect _)
+        private void OnColonistSelectingArea()
         {
             StopHovering();
             BlockSelection();
@@ -154,7 +152,7 @@ namespace Entities.Services
 
         private void Hover()
         {
-            if (_gameViews.MouseOverUi || !_canHover)
+            if (_gameViews.MouseOverUi)
             {
                 return;
             }

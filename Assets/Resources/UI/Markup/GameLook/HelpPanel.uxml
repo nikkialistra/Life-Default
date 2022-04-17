@@ -12,8 +12,7 @@
             </ui:VisualElement>
             <ui:VisualElement name="body">
                 <ui:VisualElement name="camera-controls">
-                    <ui:Label text="Камера" display-tooltip-when-elided="true" name="camera-title" class="h3"
-                              style="-unity-font: resource(&apos;Fonts/Ubuntu/Ubuntu-Bold&apos;);"/>
+                    <ui:Label text="Камера" display-tooltip-when-elided="true" name="camera-title" class="h3"/>
                     <ui:Label text="Передвижение - WASD" display-tooltip-when-elided="true" name="camera-movement"
                               class="p"/>
                     <ui:Label text="Вращение - удерживание колеса мышки" display-tooltip-when-elided="true"
@@ -26,8 +25,7 @@
                               name="camera-follow" class="p"/>
                 </ui:VisualElement>
                 <ui:VisualElement name="generation-controls">
-                    <ui:Label text="Генерация" display-tooltip-when-elided="true" name="generation-title" class="h3"
-                              style="-unity-font: resource(&apos;Fonts/Ubuntu/Ubuntu-Bold&apos;);"/>
+                    <ui:Label text="Генерация" display-tooltip-when-elided="true" name="generation-title" class="h3"/>
                     <ui:Label text="Создать колониста - Alt + ЛКМ" display-tooltip-when-elided="true"
                               name="generation-unit" class="p"/>
                     <ui:Label text="Сменить тип генерации колониста - Alt + [1-5]" display-tooltip-when-elided="true"
@@ -40,8 +38,7 @@
                               name="camera-toggle-movement" class="p"/>
                 </ui:VisualElement>
                 <ui:VisualElement name="unit-controls">
-                    <ui:Label text="Управление юнитами" display-tooltip-when-elided="true" name="unit-title" class="h3"
-                              style="-unity-font: resource(&apos;Fonts/Ubuntu/Ubuntu-Bold&apos;);"/>
+                    <ui:Label text="Управление юнитами" display-tooltip-when-elided="true" name="unit-title" class="h3"/>
                     <ui:Label text="Отправить в точку или на объект - ПКМ" display-tooltip-when-elided="true"
                               name="unit-set-target" class="p"/>
                     <ui:Label text="Отправить в точку - M" display-tooltip-when-elided="true" name="unit-move"
@@ -59,16 +56,14 @@
                               class="p"/>
                 </ui:VisualElement>
                 <ui:VisualElement name="formation-controls">
-                    <ui:Label text="Формации" display-tooltip-when-elided="true" name="formation-title" class="h3"
-                              style="-unity-font: resource(&apos;Fonts/Ubuntu/Ubuntu-Bold&apos;);"/>
+                    <ui:Label text="Формации" display-tooltip-when-elided="true" name="formation-title" class="h3"/>
                     <ui:Label text="Предыдущая формация - F" display-tooltip-when-elided="true"
                               name="formation-previous" class="p"/>
                     <ui:Label text="Следующая формация - R" display-tooltip-when-elided="true" name="formation-next"
                               class="p"/>
                 </ui:VisualElement>
                 <ui:VisualElement name="misc">
-                    <ui:Label text="Разное" display-tooltip-when-elided="true" name="misc-title" class="h3"
-                              style="-unity-font: resource(&apos;Fonts/Ubuntu/Ubuntu-Bold&apos;);"/>
+                    <ui:Label text="Разное" display-tooltip-when-elided="true" name="misc-title" class="h3"/>
                     <ui:Label text="Переключить отображение поля зрения врагов - Alt + G"
                               display-tooltip-when-elided="true" name="misc-toggle-enemy-fov" class="p"/>
                     <ui:Label text="Переключить отображение поля зрения ресурсов - Alt + H"

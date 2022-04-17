@@ -12,7 +12,7 @@
 
 .help-panel {
     width: 512px;
-    height: 860px;
+    height: 790px;
     background-color: rgba(34, 36, 38, 0.95);
     border-radius: 5px;
     padding-left: 15px;

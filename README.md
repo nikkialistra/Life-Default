@@ -15,7 +15,6 @@
 **Used Plugins:**
 
 - [Gaia Pro](https://assetstore.unity.com/packages/tools/terrain/gaia-pro-2021-terrain-scene-generator-193476)
-- [GeNa Pro](https://assetstore.unity.com/packages/tools/terrain/gena-pro-terrains-villages-roads-rivers-183186)
 - [A* Pathfinding Project](https://assetstore.unity.com/packages/tools/ai/a-pathfinding-project-pro-87744)
 - [Behavior Designer](https://assetstore.unity.com/packages/tools/visual-scripting/behavior-designer-behavior-trees-for-everyone-15277)
 - [DOTween](https://assetstore.unity.com/packages/tools/visual-scripting/dotween-pro-32416)

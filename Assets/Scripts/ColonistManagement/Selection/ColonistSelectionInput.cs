@@ -41,6 +41,7 @@ namespace ColonistManagement.Selection
         public bool Deactivated { get; set; }
 
         public event Action<Rect> Selecting;
+        public event Action SelectingArea;
         public event Action<Rect> SelectingEnd;
 
         private void OnEnable()
@@ -100,10 +101,22 @@ namespace ColonistManagement.Selection
                     throw new InvalidOperationException();
                 }
 
-                Selecting?.Invoke(GetRect(_startPoint.Value, _mousePositionAction.ReadValue<Vector2>()));
+                var rect = GetRect(_startPoint.Value, _mousePositionAction.ReadValue<Vector2>());
+
+                Selecting?.Invoke(rect);
+
+                if (IsArea(rect))
+                {
+                    SelectingArea?.Invoke();
+                }
 
                 yield return null;
             }
+        }
+        
+        private static bool IsArea(Rect rect)
+        {
+            return rect.width > 3f && rect.height > 3f;
         }
 
         private void EndArea(InputAction.CallbackContext context)

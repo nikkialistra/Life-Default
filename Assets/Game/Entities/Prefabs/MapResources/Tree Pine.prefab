@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2965568335686965089}
   - component: {fileID: 4276003193240939519}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: SM_Tree_Pine_02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -151,6 +151,13 @@ MonoBehaviour:
   _propertyName: Color_FA85148A
   _hoverColor: {r: 0.23529412, g: 0.23529412, b: 0.23529412, a: 0}
   _selectionColor: {r: 0.3529412, g: 0.3529412, b: 0.3529412, a: 0}
+  _animations:
+    rid: -2
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
 --- !u!1 &1817383417853709863
 GameObject:
   m_ObjectHideFlags: 0
@@ -193,7 +200,7 @@ GameObject:
   - component: {fileID: 7566736330375474262}
   - component: {fileID: 5847672210398187284}
   - component: {fileID: 7338941988186966059}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: SM_Tree_Pine_02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -277,7 +284,7 @@ GameObject:
   - component: {fileID: 3154097202681531378}
   - component: {fileID: 897398404946700910}
   - component: {fileID: 4273545882290183830}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: SM_Tree_Pine_02_LOD_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}

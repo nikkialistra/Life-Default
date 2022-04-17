@@ -19,7 +19,7 @@ namespace Colonists
         [ValidateInput(nameof(EveryResourceHasDistanceInteraction))]
         [SerializeField] private ResourceInteractionDistanceDictionary _resourceInteractionDistances;
 
-        private const float WaitTime = 0.5f;
+        private const float WaitTime = 0.2f;
 
         private Action _onInteractionFinish;
 
@@ -76,6 +76,8 @@ namespace Colonists
             _gatheringCoroutine = StartCoroutine(Gathering(resource, onInteractionFinish));
         }
 
+        // Add wait time for cancelling stop gathering if user clicked same resource,
+        // and prolongate animation after gathering a little
         public void StopGathering()
         {
             _stopGatheringCoroutine = StartCoroutine(StopGatheringLater());

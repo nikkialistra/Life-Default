@@ -91,7 +91,7 @@ namespace Colonists.Services.Selecting
 
         private static bool WasClick(Rect rect)
         {
-            return (rect.width <= 8f && rect.height <= 8f);
+            return rect.width <= 8f && rect.height <= 8f;
         }
     }
 }

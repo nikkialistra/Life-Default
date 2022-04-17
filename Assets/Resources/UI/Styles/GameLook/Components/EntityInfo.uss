@@ -10,7 +10,7 @@
 
 .specs {
     width: 260px;
-    background-color: rgba(191, 194, 199, 0.1);
+    background-color: rgba(191, 194, 199, 0.04);
     border-radius: 3px;
 }
 

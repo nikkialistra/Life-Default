@@ -29,17 +29,9 @@ namespace Colonists
         private ColonistStats _colonistStats;
 
         private ICountable _acquired;
-        
-        private ResourceCounts _resourceCounts;
-        
+
         private Coroutine _gatheringCoroutine;
         private Coroutine _stopGatheringCoroutine;
-
-        [Inject]
-        public void Construct(ResourceCounts resourceCounts)
-        {
-            _resourceCounts = resourceCounts;
-        }
 
         private void Awake()
         {

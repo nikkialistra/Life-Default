@@ -14,7 +14,7 @@ namespace General
     [RequireComponent(typeof(Camera))]
     public class CameraMovement : MonoBehaviour
     {
-        [SerializeField] private bool _activatedAtStartup = true;
+        [SerializeField] private bool _deactivateAtStartup = true;
 
         [Title("Movement")]
         [SerializeField] private float _moveSpeed;
@@ -250,11 +250,8 @@ namespace General
         {
             _map.Load -= OnMapLoad;
 
-            if (_activatedAtStartup)
-            {
-                _activated = true;
-            }
-            
+            _activated = Application.isEditor && _deactivateAtStartup ? false : true;
+
             StartCoroutine(AllowMouseScrollALittleLater());
         }
 

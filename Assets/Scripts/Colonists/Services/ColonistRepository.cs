@@ -1,24 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Colonists.Colonist;
 using UnityEngine;
 
 namespace Colonists.Services
 {
     public class ColonistRepository : MonoBehaviour
     {
-        private List<ColonistFacade> _colonists = new();
+        private readonly List<Colonist> _colonists = new();
 
-        public event Action<ColonistFacade> Add;
-        public event Action<ColonistFacade> Remove;
+        public event Action<Colonist> Add;
+        public event Action<Colonist> Remove;
 
-        private void Start()
-        {
-            _colonists = FindObjectsOfType<ColonistFacade>().ToList();
-        }
-
-        public IEnumerable<ColonistFacade> GetColonists()
+        public IEnumerable<Colonist> GetColonists()
         {
             foreach (var colonist in _colonists)
             {
@@ -29,13 +23,13 @@ namespace Colonists.Services
             }
         }
 
-        public void AddColonist(ColonistFacade colonist)
+        public void AddColonist(Colonist colonist)
         {
             _colonists.Add(colonist);
             Add?.Invoke(colonist);
         }
 
-        public void RemoveColonist(ColonistFacade colonist)
+        public void RemoveColonist(Colonist colonist)
         {
             _colonists.Remove(colonist);
             Remove?.Invoke(colonist);

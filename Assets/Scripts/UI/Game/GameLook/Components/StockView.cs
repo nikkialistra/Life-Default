@@ -6,7 +6,7 @@ namespace UI.Game.GameLook.Components
     [RequireComponent(typeof(ResourcesView))]
     public class StockView : MonoBehaviour
     {
-        private const string VisualTreePath = "UI/Markup/GameLook/Components/Stock";
+        [SerializeField] private VisualTreeAsset _asset;
         
         private Button _resources;
         
@@ -16,7 +16,7 @@ namespace UI.Game.GameLook.Components
         {
             _resourcesView = GetComponent<ResourcesView>();
             
-            Tree = Resources.Load<VisualTreeAsset>(VisualTreePath).CloneTree();
+            Tree = _asset.CloneTree();
 
             Content = Tree.Q<VisualElement>("content");
 

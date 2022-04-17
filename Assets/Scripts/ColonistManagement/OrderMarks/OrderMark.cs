@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Colonists.Colonist;
+using Colonists;
 using Entities;
 using UnityEngine;
 
@@ -8,7 +8,7 @@ namespace ColonistManagement.OrderMarks
 {
     public class OrderMark : MonoBehaviour
     {
-        private readonly List<ColonistFacade> _colonists = new();
+        private readonly List<Colonist> _colonists = new();
 
         private Coroutine _collapseTargetIndicatorCoroutine;
 
@@ -17,7 +17,7 @@ namespace ColonistManagement.OrderMarks
         public Entity Entity { get; set; }
         public bool Empty => _colonists.Count == 0;
 
-        public void Add(ColonistFacade colonist)
+        public void Add(Colonist colonist)
         {
             _colonists.Add(colonist);
 
@@ -26,7 +26,7 @@ namespace ColonistManagement.OrderMarks
             UpdateState();
         }
 
-        public void Remove(ColonistFacade colonist)
+        public void Remove(Colonist colonist)
         {
             if (!_colonists.Contains(colonist))
             {
@@ -79,7 +79,7 @@ namespace ColonistManagement.OrderMarks
             }
         }
 
-        private void OnDestinationReach(ColonistFacade colonist)
+        private void OnDestinationReach(Colonist colonist)
         {
             if (!_colonists.Contains(colonist))
             {

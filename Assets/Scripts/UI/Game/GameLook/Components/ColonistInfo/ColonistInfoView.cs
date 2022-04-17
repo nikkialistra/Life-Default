@@ -1,5 +1,5 @@
 ﻿using ColonistManagement.Statuses;
-using Colonists.Colonist;
+using Colonists;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -13,11 +13,11 @@ namespace UI.Game.GameLook.Components.ColonistInfo
     [RequireComponent(typeof(CommandsView))]
     public class ColonistInfoView : MonoBehaviour
     {
-        private const string VisualTreePath = "UI/Markup/GameLook/Components/ColonistInfo";
+        [SerializeField] private VisualTreeAsset _asset;
 
         private bool _shown;
 
-        private ColonistFacade _colonist;
+        private Colonist _colonist;
         
         private InfoPanelView _parent;
         private TemplateContainer _tree;
@@ -43,7 +43,7 @@ namespace UI.Game.GameLook.Components.ColonistInfo
             _colonistActions = GetComponent<ColonistActions>();
             _commandsView = GetComponent<CommandsView>();
 
-            _tree = Resources.Load<VisualTreeAsset>(VisualTreePath).CloneTree();
+            _tree = _asset.CloneTree();
             _tree.pickingMode = PickingMode.Ignore;
 
             BindElements();
@@ -109,7 +109,7 @@ namespace UI.Game.GameLook.Components.ColonistInfo
             _shown = false;
         }
 
-        public void FillIn(ColonistFacade colonist)
+        public void FillIn(Colonist colonist)
         {
             FillInPreview(colonist);
             FillInProperties(colonist);
@@ -120,12 +120,12 @@ namespace UI.Game.GameLook.Components.ColonistInfo
             _parent.UnsetColonistInfo(_colonist);
         }
 
-        private void FillInPreview(ColonistFacade colonist)
+        private void FillInPreview(Colonist colonist)
         {
             _colonistHeader.FillInName(colonist.Name);
         }
 
-        private void FillInProperties(ColonistFacade colonist)
+        private void FillInProperties(Colonist colonist)
         {
             UnsubscribeFromUnit();
             _colonist = colonist;

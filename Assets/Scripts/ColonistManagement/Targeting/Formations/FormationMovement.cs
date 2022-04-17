@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using ColonistManagement.OrderMarks;
-using Colonists.Colonist;
+using Colonists;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Zenject;
@@ -15,7 +15,7 @@ namespace ColonistManagement.Targeting.Formations
     {
         [SerializeField] private FormationType _formationType;
 
-        private List<ColonistFacade> _colonists = new();
+        private List<Colonist> _colonists = new();
         private readonly List<Vector3> _colonistPositions = new();
         private OrderMark _orderMark;
 
@@ -66,7 +66,7 @@ namespace ColonistManagement.Targeting.Formations
             _nextFormationAction.started -= ChangeToNextFormation;
         }
 
-        public void ShowFormation(List<ColonistFacade> colonists, OrderMark orderMark, FormationColor formationColor)
+        public void ShowFormation(List<Colonist> colonists, OrderMark orderMark, FormationColor formationColor)
         {
             _shown = true;
             _lastAngle = 0f;
@@ -148,7 +148,7 @@ namespace ColonistManagement.Targeting.Formations
             }
         }
 
-        private void RemoveFromFormation(ColonistFacade colonist)
+        private void RemoveFromFormation(Colonist colonist)
         {
             _colonists.Remove(colonist);
 
@@ -222,7 +222,7 @@ namespace ColonistManagement.Targeting.Formations
 
         private void MoveColonistsToPositions(Vector3[] formationPositions, float? lastAngle, bool additional)
         {
-            var orderedColonists = new ColonistFacade[formationPositions.Length];
+            var orderedColonists = new Colonist[formationPositions.Length];
             var orderedFormationPositions = new Vector3[formationPositions.Length];
 
             FindMappingBetweenColonistsAndPositions(formationPositions, orderedFormationPositions, orderedColonists);
@@ -233,7 +233,7 @@ namespace ColonistManagement.Targeting.Formations
             }
         }
 
-        private void OrderUnit(ColonistFacade colonist, Vector3 position, float? lastAngle, bool additional)
+        private void OrderUnit(Colonist colonist, Vector3 position, float? lastAngle, bool additional)
         {
             if (!additional)
             {
@@ -253,7 +253,7 @@ namespace ColonistManagement.Targeting.Formations
 
         private void FindMappingBetweenColonistsAndPositions(Vector3[] formationPositions,
             Vector3[] orderedFormationPositions,
-            ColonistFacade[] orderedColonists)
+            Colonist[] orderedColonists)
         {
             var assignedPositionsBitmask = new bool[formationPositions.Length];
             var assignedColonistsBitmask = new bool[formationPositions.Length];

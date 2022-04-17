@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 using ColonistManagement.Selection;
-using Colonists.Colonist;
+using Colonists;
 using DG.Tweening;
 using Saving;
 using Sirenix.OdinInspector;
@@ -78,7 +78,7 @@ namespace General
         private bool _activated;
         private bool _canMouseScroll;
 
-        private ColonistFacade _colonist;
+        private Colonist _colonist;
         private Transform _followTransform;
         private Vector3 _offset;
         private bool _following;
@@ -204,7 +204,7 @@ namespace General
             StartCoroutine(AllowMouseScrollALittleLater());
         }
 
-        public void FocusOn(ColonistFacade colonist)
+        public void FocusOn(Colonist colonist)
         {
             ResetFollow();
             
@@ -225,7 +225,7 @@ namespace General
             _focusingCoroutine = StartCoroutine(Focusing(position, eulerAngles, colonist));
         }
 
-        private IEnumerator Focusing(Vector3 position, Vector3 eulerAngles, ColonistFacade colonist)
+        private IEnumerator Focusing(Vector3 position, Vector3 eulerAngles, Colonist colonist)
         {
             _focusing = true;
 
@@ -340,7 +340,7 @@ namespace General
 
             if (Physics.Raycast(ray, out var hit))
             {
-                if (hit.transform.gameObject.TryGetComponent<ColonistFacade>(out var colonist))
+                if (hit.transform.gameObject.TryGetComponent<Colonist>(out var colonist))
                 {
                     SetFollow(colonist);
                 }
@@ -351,7 +351,7 @@ namespace General
             }
         }
 
-        private void SetFollow(ColonistFacade colonist)
+        private void SetFollow(Colonist colonist)
         {
             UnsubscribeFromLastUnit();
 

@@ -1,5 +1,5 @@
 ﻿using System;
-using Colonists.Colonist;
+using Colonists;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -7,9 +7,6 @@ namespace UI.Game.GameLook.Components
 {
     public class ColonistIconView
     {
-        private const string VisualTreePath = "UI/Markup/GameLook/Components/ColonistIcon";
-        private const string VisualTreePathSmall = "UI/Markup/GameLook/Components/ColonistIconSmall";
-        
         private readonly ColonistIconsView _parent;
         private readonly TemplateContainer _tree;
         
@@ -23,14 +20,13 @@ namespace UI.Game.GameLook.Components
         private readonly ProgressBar _healthProgress;
         private readonly ProgressBar _recoverySpeedProgress;
         
-        private ColonistFacade _colonist;
+        private Colonist _colonist;
 
-        public ColonistIconView(ColonistIconsView parent, IconSize iconSize)
+        public ColonistIconView(ColonistIconsView parent, VisualTreeAsset asset)
         {
             _parent = parent;
-
-            var assetPath = iconSize == IconSize.Normal ? VisualTreePath : VisualTreePathSmall;
-            _tree = Resources.Load<VisualTreeAsset>(assetPath).CloneTree();
+            
+            _tree = asset.CloneTree();
             
             _root = _tree.Q<VisualElement>("colonist-icon");
 
@@ -43,17 +39,11 @@ namespace UI.Game.GameLook.Components
             _recoverySpeedProgress = _tree.Q<ProgressBar>("recovery-speed-progress");
         }
         
-        public event Action<ColonistFacade> Click;
+        public event Action<Colonist> Click;
 
         public Vector2 Center => _root.LocalToWorld(_root.layout.center);
-        
-        public enum IconSize
-        {
-            Normal,
-            Small
-        }
 
-        public void Bind(ColonistFacade colonist)
+        public void Bind(Colonist colonist)
         {
             _colonist = colonist;
 
@@ -93,7 +83,7 @@ namespace UI.Game.GameLook.Components
             _outline.RemoveFromClassList("show-outline");
         }
 
-        private void FillIn(ColonistFacade colonist)
+        private void FillIn(Colonist colonist)
         {
             _healthProgress.highValue = _colonist.Vitality.MaxHealth;
 

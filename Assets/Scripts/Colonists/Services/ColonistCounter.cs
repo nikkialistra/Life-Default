@@ -1,13 +1,12 @@
-﻿using Colonists.Colonist;
-using UnityEngine;
+﻿using UnityEngine;
 using Zenject;
 
 namespace Colonists.Services
 {
-    [RequireComponent(typeof(ColonistFacade))]
+    [RequireComponent(typeof(Colonist))]
     public class ColonistCounter : MonoBehaviour
     {
-        private ColonistFacade _colonist;
+        private Colonist _colonist;
 
         private ColonistRepository _colonistRepository;
 
@@ -19,7 +18,7 @@ namespace Colonists.Services
 
         private void Awake()
         {
-            _colonist = GetComponent<ColonistFacade>();
+            _colonist = GetComponent<Colonist>();
         }
 
         private void OnEnable()

@@ -6,7 +6,7 @@ namespace UI.Game.GameLook.Components
 {
     public class TileInfoView : MonoBehaviour
     {
-        private const string VisualTreePath = "UI/Markup/GameLook/Components/TileInfo";
+        [SerializeField] private VisualTreeAsset _asset;
 
         private VisualElement _tileInfo;
         
@@ -17,7 +17,7 @@ namespace UI.Game.GameLook.Components
 
         private void Awake()
         {
-            Tree = Resources.Load<VisualTreeAsset>(VisualTreePath).CloneTree();
+            Tree = _asset.CloneTree();
 
             _tileInfo = Tree.Q<VisualElement>("tile-info");
 

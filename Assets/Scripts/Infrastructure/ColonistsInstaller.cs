@@ -2,7 +2,7 @@
 using ColonistManagement.OrderMarks;
 using ColonistManagement.Selection;
 using ColonistManagement.Tasking;
-using Colonists.Colonist;
+using Colonists;
 using Colonists.Services;
 using Colonists.Services.Selecting;
 using Sirenix.OdinInspector;
@@ -82,7 +82,7 @@ namespace Infrastructure
 
         private void BindSpawning()
         {
-            Container.BindFactory<ColonistFacade, ColonistFacade.Factory>()
+            Container.BindFactory<Colonist, Colonist.Factory>()
                 .FromComponentInNewPrefab(_colonistPrefab)
                 .UnderTransform(_colonistsParent);
         }

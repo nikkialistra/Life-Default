@@ -28,7 +28,7 @@
     margin: 10px;
     color: rgb(255, 255, 255);
     background-color: rgba(0, 0, 0, 0);
-    -unity-font: resource('Fonts/Ubuntu/Ubuntu-Bold');
+    -unity-font: resource('UI/Fonts/Ubuntu/Ubuntu-Bold');
     -unity-font-definition: none;
 }
 
@@ -147,7 +147,7 @@
 
 .element > .unity-label {
     -unity-font-definition: none;
-    -unity-font: resource('Fonts/Ubuntu/Ubuntu-Regular');
+    -unity-font: resource('UI/Fonts/Ubuntu/Ubuntu-Regular');
     font-size: 18px;
     color: rgb(255, 255, 255);
 }

@@ -1,4 +1,4 @@
-﻿using Enemies.Enemy;
+﻿using Enemies;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Zenject;
@@ -8,7 +8,7 @@ namespace Testing
     public class EnemyGenerator : MonoBehaviour
     {
         private LayerMask _terrainMask;
-        private EnemyFacade.Factory _enemyFactory;
+        private Enemy.Factory _enemyFactory;
 
         private Camera _camera;
 
@@ -19,7 +19,7 @@ namespace Testing
         private InputAction _mousePositionAction;
 
         [Inject]
-        public void Construct(EnemyFacade.Factory enemyFactory, Camera camera, PlayerInput playerInput)
+        public void Construct(Enemy.Factory enemyFactory, Camera camera, PlayerInput playerInput)
         {
             _enemyFactory = enemyFactory;
             _camera = camera;

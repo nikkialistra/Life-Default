@@ -5,13 +5,13 @@ namespace UI.Game.GameLook.Components
 {
     public class BuildVersionView : MonoBehaviour
     {
-        private const string VisualTreePath = "UI/Markup/GameLook/Components/BuildVersion";
-        
+        [SerializeField] private VisualTreeAsset _asset;
+
         private Label _label;
 
         private void Awake()
         {
-            Tree = Resources.Load<VisualTreeAsset>(VisualTreePath).CloneTree();
+            Tree = _asset.CloneTree();
 
             _label = Tree.Q<Label>("label");
         }

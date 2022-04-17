@@ -10,7 +10,7 @@
     align-items: center;
     justify-content: center;
     -unity-font-definition: none;
-    -unity-font: resource('Fonts/Ubuntu/Ubuntu-Bold');
+    -unity-font: resource('UI/Fonts/Ubuntu/Ubuntu-Bold');
     font-size: 120px;
     color: rgb(255, 255, 255);
 }

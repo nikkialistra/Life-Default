@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Colonists.Colonist;
+using Colonists;
 using UnityEngine;
 
 namespace ColonistManagement.Targeting.Formations
@@ -75,7 +75,7 @@ namespace ColonistManagement.Targeting.Formations
             return farthestPointIndex;
         }
 
-        public static int ClosestUnitIndexTo(List<ColonistFacade> colonists, Vector3 targetPoint, bool[] assignedColonistsBitmask)
+        public static int ClosestUnitIndexTo(List<Colonist> colonists, Vector3 targetPoint, bool[] assignedColonistsBitmask)
         {
             var closestUnitDistance = 1000f;
             var closestUnitIndex = 0;

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Colonists.Colonist;
 using UI.Game.GameLook.Components;
 
 namespace Colonists.Services.Selecting
@@ -17,8 +16,8 @@ namespace Colonists.Services.Selecting
 
         public event Action SelectionChange; 
 
-        public List<ColonistFacade> Colonists { get; private set; } = new();
-        private List<ColonistFacade> _lastSelectedColonists = new();
+        public List<Colonist> Colonists { get; private set; } = new();
+        private List<Colonist> _lastSelectedColonists = new();
 
         public void Clear()
         {
@@ -32,7 +31,7 @@ namespace Colonists.Services.Selecting
             Colonists.Clear();
         }
 
-        public void Set(List<ColonistFacade> colonists)
+        public void Set(List<Colonist> colonists)
         {
             UnsubscribeFromColonists();
 
@@ -44,18 +43,18 @@ namespace Colonists.Services.Selecting
             SubscribeToColonists();
         }
 
-        public void Set(ColonistFacade colonist)
+        public void Set(Colonist colonist)
         {
             UnsubscribeFromColonists();
 
-            Colonists = new List<ColonistFacade> { colonist };
+            Colonists = new List<Colonist> { colonist };
             UpdateSelectionStatuses();
             _infoPanelView.SetColonist(colonist);
 
             SubscribeToColonists();
         }
 
-        public void Add(ColonistFacade colonist)
+        public void Add(Colonist colonist)
         {
             Colonists.Add(colonist);
             UpdateSelectionStatuses();
@@ -64,7 +63,7 @@ namespace Colonists.Services.Selecting
             colonist.ColonistDie += RemoveFromSelected;
         }
 
-        public bool Contains(ColonistFacade colonist)
+        public bool Contains(Colonist colonist)
         {
             return Colonists.Contains(colonist);
         }
@@ -85,7 +84,7 @@ namespace Colonists.Services.Selecting
             }
         }
 
-        private void RemoveFromSelected(ColonistFacade colonist)
+        private void RemoveFromSelected(Colonist colonist)
         {
             Colonists.Remove(colonist);
         }
@@ -106,7 +105,7 @@ namespace Colonists.Services.Selecting
                 forDeselection.Deselect();
             }
 
-            _lastSelectedColonists = new List<ColonistFacade>(Colonists);
+            _lastSelectedColonists = new List<Colonist>(Colonists);
             
             SelectionChange?.Invoke();
         }

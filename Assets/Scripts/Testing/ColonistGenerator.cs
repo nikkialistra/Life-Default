@@ -1,4 +1,4 @@
-﻿using Colonists.Colonist;
+﻿using Colonists;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Zenject;
@@ -8,7 +8,7 @@ namespace Testing
     public class ColonistGenerator : MonoBehaviour
     {
         private LayerMask _terrainMask;
-        private ColonistFacade.Factory _colonistFactory;
+        private Colonist.Factory _colonistFactory;
 
         private Camera _camera;
 
@@ -18,7 +18,7 @@ namespace Testing
         private InputAction _mousePositionAction;
 
         [Inject]
-        public void Construct(ColonistFacade.Factory colonistFactory, Camera camera, PlayerInput playerInput)
+        public void Construct(Colonist.Factory colonistFactory, Camera camera, PlayerInput playerInput)
         {
             _colonistFactory = colonistFactory;
             _camera = camera;

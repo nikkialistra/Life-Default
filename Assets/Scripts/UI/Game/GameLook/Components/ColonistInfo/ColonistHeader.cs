@@ -1,5 +1,5 @@
 ﻿using System.Collections;
-using Colonists.Colonist;
+using Colonists;
 using Colonists.Services.Selecting;
 using General;
 using UnityEngine;
@@ -19,7 +19,7 @@ namespace UI.Game.GameLook.Components.ColonistInfo
         private Button _focus;
         private Button _next;
 
-        private ColonistFacade _colonist;
+        private Colonist _colonist;
         
         private bool _inputFinished;
 
@@ -58,7 +58,7 @@ namespace UI.Game.GameLook.Components.ColonistInfo
             _name.value = name;
         }
 
-        public void FillInColonist(ColonistFacade colonist)
+        public void FillInColonist(Colonist colonist)
         {
             _colonist = colonist;
         }

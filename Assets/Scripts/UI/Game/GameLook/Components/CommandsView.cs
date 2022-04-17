@@ -7,7 +7,7 @@ namespace UI.Game.GameLook.Components
 {
     public class CommandsView : MonoBehaviour
     {
-        private const string VisualTreePath = "UI/Markup/GameLook/Components/Commands";
+        [SerializeField] private VisualTreeAsset _asset;
 
         private Button _move;
         private Button _stop;
@@ -31,7 +31,7 @@ namespace UI.Game.GameLook.Components
 
         private void Awake()
         {
-            _tree = Resources.Load<VisualTreeAsset>(VisualTreePath).CloneTree();
+            _tree = _asset.CloneTree();
 
             _move = _tree.Q<Button>("move");
             _stop = _tree.Q<Button>("stop");

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Colonists.Colonist;
+using Colonists;
 using Colonists.Services;
 using Entities;
 using UnityEngine;
@@ -45,7 +45,7 @@ namespace ColonistManagement.OrderMarks
             return orderMark;
         }
 
-        public void Link(OrderMark orderMark, ColonistFacade colonist)
+        public void Link(OrderMark orderMark, Colonist colonist)
         {
             if (!_orderMarks.Contains(orderMark))
             {
@@ -66,7 +66,7 @@ namespace ColonistManagement.OrderMarks
             }
         }
 
-        private void OnRemove(ColonistFacade colonist)
+        private void OnRemove(Colonist colonist)
         {
             RemoveFromOldOrderMark(colonist);
         }
@@ -84,7 +84,7 @@ namespace ColonistManagement.OrderMarks
             return CreateNew();
         }
 
-        private void RemoveFromOldOrderMark(ColonistFacade colonist)
+        private void RemoveFromOldOrderMark(Colonist colonist)
         {
             foreach (var orderMark in _orderMarks)
             {
@@ -92,7 +92,7 @@ namespace ColonistManagement.OrderMarks
             }
         }
 
-        private void AddOrderMark(OrderMark orderMark, ColonistFacade colonist)
+        private void AddOrderMark(OrderMark orderMark, Colonist colonist)
         {
             _orderMarks.Add(orderMark);
             orderMark.Add(colonist);

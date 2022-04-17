@@ -1,4 +1,4 @@
-﻿using Enemies.Enemy;
+﻿using Enemies;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using Zenject;
@@ -19,7 +19,7 @@ namespace Infrastructure
 
         private void BindEnemySpawning()
         {
-            Container.BindFactory<EnemyType, Vector3, EnemyFacade, EnemyFacade.Factory>()
+            Container.BindFactory<EnemyType, Vector3, Enemy, Enemy.Factory>()
                 .FromComponentInNewPrefab(_enemyPrefab)
                 .UnderTransform(_enemiesParent);
         }

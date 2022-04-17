@@ -1,5 +1,4 @@
 ﻿using System.Linq;
-using Colonists.Colonist;
 using UI.Game.GameLook.Components;
 using UnityEngine;
 using Zenject;
@@ -20,7 +19,7 @@ namespace Colonists.Services.Selecting
             _selectedColonists = selectedColonists;
         }
 
-        public void NextColonistTo(ColonistFacade colonist)
+        public void NextColonistTo(Colonist colonist)
         {
             var colonists = _colonistRepository.GetColonists().ToArray();
 
@@ -28,7 +27,7 @@ namespace Colonists.Services.Selecting
             ChangeToNextUnit(colonists, index);
         }
 
-        private int GetUnitIndex(ColonistFacade[] colonists, ColonistFacade colonist)
+        private int GetUnitIndex(Colonist[] colonists, Colonist colonist)
         {
             for (var i = 0; i < colonists.Length; i++)
             {
@@ -41,7 +40,7 @@ namespace Colonists.Services.Selecting
             return -1;
         }
 
-        private void ChangeToNextUnit(ColonistFacade[] colonists, int index)
+        private void ChangeToNextUnit(Colonist[] colonists, int index)
         {
             index++;
             if (index < colonists.Length)

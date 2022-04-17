@@ -1,13 +1,13 @@
 ﻿using System;
 using BehaviorDesigner.Runtime;
-using Enemies.Enemy;
+using Enemies;
 
 namespace Entities.BehaviorVariables
 {
     [Serializable]
-    public class SharedEnemy : SharedVariable<EnemyFacade>
+    public class SharedEnemy : SharedVariable<Enemy>
     {
-        public static implicit operator SharedEnemy(EnemyFacade value)
+        public static implicit operator SharedEnemy(Enemy value)
         {
             return new SharedEnemy { Value = value };
         }

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Colonists.Colonist;
 using Colonists.Services.Selecting;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -14,9 +13,9 @@ namespace Colonists.Services
 
         private SelectedColonists _selectedColonists;
 
-        private readonly Dictionary<int, List<ColonistFacade>> _controlGroups = new(ControlGroupNumber);
+        private readonly Dictionary<int, List<Colonist>> _controlGroups = new(ControlGroupNumber);
 
-        private readonly List<Action<ColonistFacade>> _removeFromControlGroup = new(ControlGroupNumber);
+        private readonly List<Action<Colonist>> _removeFromControlGroup = new(ControlGroupNumber);
 
         private PlayerInput _playerInput;
 
@@ -42,7 +41,7 @@ namespace Colonists.Services
             {
                 var number = i;
 
-                _controlGroups.Add(number, new List<ColonistFacade>());
+                _controlGroups.Add(number, new List<Colonist>());
 
                 _removeFromControlGroup.Add((colonist) => { _controlGroups[number].Remove(colonist); });
             }

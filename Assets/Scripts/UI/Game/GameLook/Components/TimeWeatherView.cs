@@ -8,7 +8,7 @@ namespace UI.Game.GameLook.Components
 {
     public class TimeWeatherView : MonoBehaviour
     {
-        private const string VisualTreePath = "UI/Markup/GameLook/Components/TimeWeather";
+        [SerializeField] private VisualTreeAsset _asset;
         
         [Title("Time Status")]
         [SerializeField] private Sprite _iconDay;
@@ -31,7 +31,7 @@ namespace UI.Game.GameLook.Components
 
         private void Awake()
         {
-            Tree = Resources.Load<VisualTreeAsset>(VisualTreePath).CloneTree();
+            Tree = _asset.CloneTree();
 
             _day = Tree.Q<Label>("day");
             _seasonYear = Tree.Q<Label>("season-year");

@@ -1,6 +1,6 @@
 ﻿using Buildings;
-using Colonists.Colonist;
-using Enemies.Enemy;
+using Colonists;
+using Enemies;
 using Entities.Types;
 using ResourceManagement;
 using Sirenix.OdinInspector;
@@ -16,11 +16,11 @@ namespace Entities
 
         [ShowIf(nameof(_entityType), EntityType.Colonist)]
         [ValidateInput(nameof(UnitEntityShouldHaveUnit), "Colonist entity should have colonist")]
-        [SerializeField] private ColonistFacade _colonist;
+        [SerializeField] private Colonist _colonist;
 
         [ShowIf(nameof(_entityType), EntityType.Enemy)]
         [ValidateInput(nameof(EnemyEntityShouldHaveEnemy), "Enemy entity should have enemy")]
-        [SerializeField] private EnemyFacade _enemy;
+        [SerializeField] private Enemy _enemy;
 
         [ShowIf(nameof(_entityType), EntityType.Building)]
         [ValidateInput(nameof(BuildingEntityShouldHaveBuilding), "Building entity should have resource")]
@@ -31,8 +31,8 @@ namespace Entities
         [SerializeField] private Resource _resource;
 
         public EntityType EntityType => _entityType;
-        public ColonistFacade Colonist => _colonist;
-        public EnemyFacade Enemy => _enemy;
+        public Colonist Colonist => _colonist;
+        public Enemy Enemy => _enemy;
         public Building Building => _building;
         public Resource Resource => _resource;
 

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using ColonistManagement.Selection;
-using Colonists.Colonist;
+using Colonists;
 using Colonists.Services;
 using Colonists.Services.Selecting;
 using UnityEngine;
@@ -15,14 +15,17 @@ namespace UI.Game.GameLook.Components
     [RequireComponent(typeof(UIDocument))]
     public class ColonistIconsView : MonoBehaviour
     {
-        private const string VisualTreePath = "UI/Markup/GameLook/Components/ColonistIcons";
+        [SerializeField] private VisualTreeAsset _asset;
+        [Space]
+        [SerializeField] private VisualTreeAsset _assetIcon;
+        [SerializeField] private VisualTreeAsset _assetIconSmall;
 
         [SerializeField] private int _maxShownColonists = 20;
         [SerializeField] private int _iconSizeChangeNumber = 12;
 
         private UIDocument _uiDocument;
 
-        private readonly Dictionary<ColonistFacade, ColonistIconView> _colonistIconViews = new();
+        private readonly Dictionary<Colonist, ColonistIconView> _colonistIconViews = new();
 
         private IconSize _currentIconSize = IconSize.Normal;
 
@@ -45,13 +48,19 @@ namespace UI.Game.GameLook.Components
         {
             _uiDocument = GetComponent<UIDocument>();
 
-            Tree = Resources.Load<VisualTreeAsset>(VisualTreePath).CloneTree();
+            Tree = _asset.CloneTree();
 
             ColonistIcons = Tree.Q<VisualElement>("colonist-icons");
         }
         
         public VisualElement Tree { get; private set; }
         public VisualElement ColonistIcons { get; private set; }
+        
+        public enum IconSize
+        {
+            Normal,
+            Small
+        }
 
         private void OnEnable()
         {
@@ -73,7 +82,7 @@ namespace UI.Game.GameLook.Components
             _colonistSelectionInput.SelectingEnd -= SelectColonists;
         }
 
-        private void Add(ColonistFacade colonist)
+        private void Add(Colonist colonist)
         {
             if (_colonistIconViews.Count >= _maxShownColonists)
             {
@@ -99,9 +108,11 @@ namespace UI.Game.GameLook.Components
             }
         }
 
-        private void CreateColonistIconView(ColonistFacade colonist)
+        private void CreateColonistIconView(Colonist colonist)
         {
-            var colonistIconView = new ColonistIconView(this, _currentIconSize);
+            var iconAsset = _currentIconSize == IconSize.Normal ? _assetIcon : _assetIconSmall;
+            
+            var colonistIconView = new ColonistIconView(this, iconAsset);
             colonistIconView.Bind(colonist);
             colonistIconView.Click += OnColonistClick;
 
@@ -123,7 +134,7 @@ namespace UI.Game.GameLook.Components
             }
         }
 
-        private void Remove(ColonistFacade colonist)
+        private void Remove(Colonist colonist)
         {
             if (!_colonistIconViews.ContainsKey(colonist))
             {
@@ -142,7 +153,7 @@ namespace UI.Game.GameLook.Components
         private void SelectColonists(Rect rect)
         {
             var transformedRect = TransformRect(rect);
-            var colonists = new List<ColonistFacade>();
+            var colonists = new List<Colonist>();
             
             foreach (var (colonist, colonistIconView) in _colonistIconViews)
             {
@@ -182,7 +193,7 @@ namespace UI.Game.GameLook.Components
             return transformedRect;
         }
 
-        private void OnColonistClick(ColonistFacade colonist)
+        private void OnColonistClick(Colonist colonist)
         {
             if (Keyboard.current.shiftKey.isPressed)
             {

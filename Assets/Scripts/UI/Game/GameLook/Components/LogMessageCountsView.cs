@@ -6,7 +6,7 @@ namespace UI.Game.GameLook.Components
 {
     public class LogMessageCountsView : MonoBehaviour
     {
-        private const string VisualTreePath = "UI/Markup/GameLook/Components/LogMessageCounts";
+        [SerializeField] private VisualTreeAsset _asset;
 
         private Label _infoCount;
         private Label _warningsCount;
@@ -18,7 +18,7 @@ namespace UI.Game.GameLook.Components
         
         private void Awake()
         {
-            Tree = Resources.Load<VisualTreeAsset>(VisualTreePath).CloneTree();
+            Tree = _asset.CloneTree();
 
             _infoCount = Tree.Q<Label>("info__count");
             _warningsCount = Tree.Q<Label>("warnings__count");

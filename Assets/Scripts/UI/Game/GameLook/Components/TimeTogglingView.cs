@@ -9,7 +9,7 @@ namespace UI.Game.GameLook.Components
 {
     public class TimeTogglingView : MonoBehaviour
     {
-        private const string VisualTreePath = "UI/Markup/GameLook/Components/TimeToggling";
+        [SerializeField] private VisualTreeAsset _asset;
 
         private Toggle _pause;
         private Toggle _x1;
@@ -32,7 +32,7 @@ namespace UI.Game.GameLook.Components
 
         private void Awake()
         {
-            Tree = Resources.Load<VisualTreeAsset>(VisualTreePath).CloneTree();
+            Tree = _asset.CloneTree();
 
             _pause = Tree.Q<Toggle>("pause");
             _x1 = Tree.Q<Toggle>("x1");

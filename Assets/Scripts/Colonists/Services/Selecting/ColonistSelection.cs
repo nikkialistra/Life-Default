@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using ColonistManagement.Selection;
-using Colonists.Colonist;
 using UnityEngine;
 using Zenject;
 
@@ -73,7 +72,7 @@ namespace Colonists.Services.Selecting
             _selectedColonists.Set(newSelected);
         }
 
-        private IEnumerable<ColonistFacade> GetSelected(Rect rect)
+        private IEnumerable<Colonist> GetSelected(Rect rect)
         {
             if (WasClick(rect))
             {
@@ -85,7 +84,7 @@ namespace Colonists.Services.Selecting
             }
         }
 
-        private IEnumerable<ColonistFacade> GetSelectedFromClick(Rect rect)
+        private IEnumerable<Colonist> GetSelectedFromClick(Rect rect)
         {
             return _selecting.SelectFromPoint(rect.center);
         }

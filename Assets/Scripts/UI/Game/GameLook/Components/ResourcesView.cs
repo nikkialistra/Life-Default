@@ -9,7 +9,7 @@ namespace UI.Game.GameLook.Components
     [RequireComponent(typeof(StockView))]
     public class ResourcesView : MonoBehaviour
     {
-        private const string VisualTreePath = "UI/Markup/GameLook/Components/Resources";
+        [SerializeField] private VisualTreeAsset _asset;
         
         private readonly Dictionary<ResourceType, Label> _resourceLabels = new();
 
@@ -19,7 +19,7 @@ namespace UI.Game.GameLook.Components
         {
             _parent = GetComponent<StockView>();
             
-            Tree = Resources.Load<VisualTreeAsset>(VisualTreePath).CloneTree();
+            Tree = _asset.CloneTree();
         }
         
         public bool Shown { get; private set; }

@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Colonists.Colonist;
+using System.Linq;
 using UnityEngine;
 
 namespace Colonists.Services.Selecting
@@ -9,7 +9,7 @@ namespace Colonists.Services.Selecting
         private readonly ColonistRepository _colonistRepository;
         private readonly Camera _camera;
 
-        private IEnumerable<ColonistFacade> _colonists;
+        private IEnumerable<Colonist> _colonists;
 
         public ColonistSelecting(ColonistRepository colonistRepository, Camera camera)
         {
@@ -17,7 +17,7 @@ namespace Colonists.Services.Selecting
             _camera = camera;
         }
 
-        public IEnumerable<ColonistFacade> SelectFromRect(Rect rect)
+        public IEnumerable<Colonist> SelectFromRect(Rect rect)
         {
             _colonists = _colonistRepository.GetColonists();
 
@@ -32,7 +32,7 @@ namespace Colonists.Services.Selecting
             }
         }
 
-        public IEnumerable<ColonistFacade> SelectFromPoint(Vector2 point)
+        public IEnumerable<Colonist> SelectFromPoint(Vector2 point)
         {
             var ray = _camera.ScreenPointToRay(point);
 
@@ -45,9 +45,9 @@ namespace Colonists.Services.Selecting
             }
         }
 
-        private static IEnumerable<ColonistFacade> GetColonistsFromHit(RaycastHit hit)
+        private static IEnumerable<Colonist> GetColonistsFromHit(RaycastHit hit)
         {
-            if (hit.transform.TryGetComponent(out ColonistFacade clickedColonist) && clickedColonist.Alive)
+            if (hit.transform.TryGetComponent(out Colonist clickedColonist) && clickedColonist.Alive)
             {
                 yield return clickedColonist;
             }

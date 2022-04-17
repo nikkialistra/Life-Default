@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections;
 using DG.Tweening;
-using Enemies.Enemy;
+using Enemies;
 using Pathfinding;
 using ResourceManagement;
 using UnityEngine;
@@ -48,11 +48,10 @@ namespace Entities.Creature
             _aiPath.isStopped = false;
             _aiPath.destination = (Vector3)AstarPath.active.GetNearest(position, NNConstraint.Default).node.position;
 
-            _movingToEnemy = false;
             Move();
         }
 
-        public void SetDestinationToEnemy(EnemyFacade enemy, float atDistance)
+        public void SetDestinationToEnemy(Enemy enemy, float atDistance)
         {
             ResetDestination();
 

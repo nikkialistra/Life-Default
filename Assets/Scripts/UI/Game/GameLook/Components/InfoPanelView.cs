@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Colonists.Colonist;
+using Colonists;
 using ResourceManagement;
 using UI.Game.GameLook.Components.ColonistInfo;
 using UnityEngine;
@@ -13,13 +13,13 @@ namespace UI.Game.GameLook.Components
     [RequireComponent(typeof(CommandsView))]
     public class InfoPanelView : MonoBehaviour
     {
-        private const string VisualTreePath = "UI/Markup/GameLook/Components/InfoPanel";
+        [SerializeField] private VisualTreeAsset _asset;
 
         private ColonistInfoView _colonistInfoView;
         private ColonistsInfoView _colonistsInfoView;
         private EntityInfoView _entityInfoView;
 
-        private ColonistFacade _shownColonist;
+        private Colonist _shownColonist;
         private Resource _shownResource;
 
         private void Awake()
@@ -28,7 +28,7 @@ namespace UI.Game.GameLook.Components
             _colonistsInfoView = GetComponent<ColonistsInfoView>();
             _entityInfoView = GetComponent<EntityInfoView>();
 
-            Tree = Resources.Load<VisualTreeAsset>(VisualTreePath).CloneTree();
+            Tree = _asset.CloneTree();
 
             InfoPanel = Tree.Q<VisualElement>("info-panel");
         }
@@ -41,7 +41,7 @@ namespace UI.Game.GameLook.Components
             HideSelf();
         }
 
-        public void SetColonists(List<ColonistFacade> colonists)
+        public void SetColonists(List<Colonist> colonists)
         {
             switch (colonists.Count)
             {
@@ -63,7 +63,7 @@ namespace UI.Game.GameLook.Components
             }
         }
 
-        public void SetColonist(ColonistFacade colonist)
+        public void SetColonist(Colonist colonist)
         {
             PrepareEmptyPanel();
             ShowColonistInfo(colonist);
@@ -88,7 +88,7 @@ namespace UI.Game.GameLook.Components
             }
         }
 
-        public void UnsetColonistInfo(ColonistFacade colonist)
+        public void UnsetColonistInfo(Colonist colonist)
         {
             if (_shownColonist == colonist)
             {
@@ -128,7 +128,7 @@ namespace UI.Game.GameLook.Components
             _shownResource = null;
         }
 
-        private void ShowColonistInfo(ColonistFacade colonist)
+        private void ShowColonistInfo(Colonist colonist)
         {
             _shownColonist = colonist;
             

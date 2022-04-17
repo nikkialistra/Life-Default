@@ -7,7 +7,7 @@ namespace UI.Game.GameLook.Components
     [RequireComponent(typeof(CommandsView))]
     public class ColonistsInfoView : MonoBehaviour
     {
-        private const string VisualTreePath = "UI/Markup/GameLook/Components/ColonistsInfo";
+        [SerializeField] private VisualTreeAsset _asset;
 
         private InfoPanelView _parent;
         private TemplateContainer _tree;
@@ -24,7 +24,7 @@ namespace UI.Game.GameLook.Components
         {
             _parent = GetComponent<InfoPanelView>();
 
-            _tree = Resources.Load<VisualTreeAsset>(VisualTreePath).CloneTree();
+            _tree = _asset.CloneTree();
             _tree.pickingMode = PickingMode.Ignore;
             
             _commandsView = GetComponent<CommandsView>();

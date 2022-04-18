@@ -4,10 +4,32 @@ namespace Colonists
 {
     public class ResourceGatheringBehaviour : StateMachineBehaviour
     {
+        [SerializeField] private float _firstHitTime = 0.7f;
+        
+        private ColonistGatherer _colonistGatherer;
+        private ColonistHandEquipment _colonistHandEquipment;
+        
+        private float _nextHitTime;
+        
+        public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+        {
+            _colonistGatherer = animator.transform.parent.GetComponent<ColonistGatherer>();
+            _colonistHandEquipment = animator.GetComponent<ColonistHandEquipment>();
+            _nextHitTime = _firstHitTime;
+        }
+
+        public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+        {
+            if (stateInfo.normalizedTime > _nextHitTime)
+            {
+                _colonistGatherer.Hit();
+                _nextHitTime++;
+            }
+        }
+
         public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
-            var colonistHandEquipment = animator.GetComponent<ColonistHandEquipment>();
-            colonistHandEquipment.Unequip();
+            _colonistHandEquipment.Unequip();
         }
     }
 }

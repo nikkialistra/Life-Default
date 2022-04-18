@@ -28,7 +28,7 @@ namespace Colonists
         private ColonistAnimator _animator;
         private ColonistStats _colonistStats;
 
-        private ICountable _acquired;
+        private Resource _acquired;
 
         private Coroutine _gatheringCoroutine;
         private Coroutine _stopGatheringCoroutine;
@@ -73,6 +73,14 @@ namespace Colonists
         public void StopGathering()
         {
             _stopGatheringCoroutine = StartCoroutine(StopGatheringLater());
+        }
+        
+        public void Hit()
+        {
+            if (_acquired != null)
+            {
+                _acquired.Hit(transform.position);
+            }
         }
 
         private IEnumerator StopGatheringLater()
@@ -124,7 +132,7 @@ namespace Colonists
             onInteractionFinish();
         }
 
-        private void AddToAcquired(ICountable toAcquaire)
+        private void AddToAcquired(Resource toAcquaire)
         {
             toAcquaire.Acquire();
             _acquired = toAcquaire;

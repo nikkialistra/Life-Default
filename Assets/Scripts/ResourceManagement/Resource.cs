@@ -195,6 +195,33 @@ namespace ResourceManagement
             _infoPanelView.UnsetResource(this);
         }
 
+        public void Hit(Vector3 position)
+        {
+            _animations.OnHit(position);
+        }
+        
+        public void Acquire()
+        {
+            _acquiredCount++;
+        }
+
+        public void Release()
+        {
+            if (_acquiredCount == 0)
+            {
+                throw new InvalidOperationException("Cannot release resource which not acquired");
+            }
+
+            Deselect();
+
+            _acquiredCount--;
+
+            if (Exhausted && _acquiredCount == 0)
+            {
+                Destroy();
+            }
+        }
+
         private IEnumerator HideSelectionAfter()
         {
             yield return new WaitForSecondsRealtime(_timeToHideSelection);
@@ -242,28 +269,6 @@ namespace ResourceManagement
         private int CalculateNextRequiredQuantityToDrop()
         {
             return Random.Range(_minExtractedQuantityForDrop, _maxExtractedQuantityForDrop + 1);
-        }
-
-        public void Acquire()
-        {
-            _acquiredCount++;
-        }
-
-        public void Release()
-        {
-            if (_acquiredCount == 0)
-            {
-                throw new InvalidOperationException("Cannot release resource which not acquired");
-            }
-
-            Deselect();
-
-            _acquiredCount--;
-
-            if (Exhausted && _acquiredCount == 0)
-            {
-                Destroy();
-            }
         }
 
         [Button]

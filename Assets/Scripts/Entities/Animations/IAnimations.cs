@@ -4,7 +4,7 @@ namespace Entities.Animations
 {
     public interface IAnimations
     {
-        void OnExtraction(Vector3 agentPosition);
-        void OnExhaustion(Vector3 agentPosition);
+        void OnHit(Vector3 agentPosition);
+        void OnDestroy(Vector3 agentPosition);
     }
 }

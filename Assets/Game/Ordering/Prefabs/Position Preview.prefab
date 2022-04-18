@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8725535555889025126}
   - component: {fileID: 4798373599406781753}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Projector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -65,7 +65,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2625714277779515755}
   - component: {fileID: 2455781365447844047}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Position Preview
   m_TagString: Untagged
   m_Icon: {fileID: 0}

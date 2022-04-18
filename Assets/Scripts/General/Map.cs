@@ -7,16 +7,12 @@ namespace General
 {
     public class Map : MonoBehaviour
     {
-        [SerializeField] private bool _loadSavedGraphData;
-        
         private AstarPath _astarPath;
-        private TextAsset _graphData;
 
         [Inject]
-        public void Construct(AstarPath astarPath, TextAsset graphData)
+        public void Construct(AstarPath astarPath)
         {
             _astarPath = astarPath;
-            _graphData = graphData;
         }
 
         public event Action Load;
@@ -28,15 +24,16 @@ namespace General
 
         private IEnumerator GetAstarGraph()
         {
-            if (_loadSavedGraphData)
+            if (_astarPath.data.cacheStartup)
             {
-                _astarPath.data.DeserializeGraphs(_graphData.bytes);
+                // Skip one frame for monobehaviour start methods to be invoked
+                yield return null;
             }
             else
             {
                 yield return _astarPath.ScanAsync();
             }
-            
+
             Load?.Invoke();
         }
     }

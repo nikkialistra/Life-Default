@@ -9,8 +9,6 @@ namespace Infrastructure
     {
         [Required]
         [SerializeField] private Map _map;
-        [Space]
-        [SerializeField] private TextAsset _graphData;
 
         [Space]
         [Required]
@@ -21,7 +19,6 @@ namespace Infrastructure
             Container.BindInstance(_map);
             
             Container.BindInstance(_astarPath);
-            Container.BindInstance(_graphData);
         }
     }
 }

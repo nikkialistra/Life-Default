@@ -151,6 +151,7 @@ MonoBehaviour:
   _focusDistance: 8
   _focusRotation: 45
   _focusDuration: 0.18
+  _minDistanceForTeleporation: 30
   _positionSmoothing: 9
   _rotationSmoothing: 15
   _zoomSmoothing: 20

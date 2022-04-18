@@ -16,17 +16,17 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - Capture Raycast Only
+  - 
   - Water
   - UI
   - Terrain
   - Decals
-  - PW_VFX
-  - PW_Object_Small
-  - UI Elements
-  - Outlines
-  - PW_Object_Medium
-  - PW_Object_Large
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
   - Colonists
   - Enemies
   - Buildings

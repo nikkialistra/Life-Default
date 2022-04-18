@@ -6138,7 +6138,7 @@ GameObject:
   - component: {fileID: 2918406278363867674}
   - component: {fileID: 4177720652290489099}
   - component: {fileID: 5810997528212183618}
-  m_Layer: 0
+  m_Layer: 18
   m_Name: HandSlot
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -273,8 +273,8 @@ MonoBehaviour:
         _tree: {fileID: 1620543646530164832}
         _rotationPoint: {fileID: 8399379301847264761}
         _endTransform: {fileID: 210984099513642067}
-        _maxRotationAngle: 10
-        _minRotationAngle: 8
+        _maxRotationAngle: 7.5
+        _minRotationAngle: 5
         _angleToOppositeDirectionMultiplier: 1.7
         _rotationTime: 0.6
         _fallAngle: 80

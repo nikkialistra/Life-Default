@@ -152,7 +152,7 @@ namespace Entities.Services
 
         private void Hover()
         {
-            if (_gameViews.MouseOverUi)
+            if (!_canSelect || _gameViews.MouseOverUi)
             {
                 return;
             }

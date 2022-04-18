@@ -150,8 +150,8 @@ MonoBehaviour:
   _renderer: {fileID: 7338941988186966059}
   _materialIndex: 1
   _propertyName: Color_FA85148A
-  _hoverColor: {r: 0.23529412, g: 0.23529412, b: 0.23529412, a: 0}
-  _selectionColor: {r: 0.3529412, g: 0.3529412, b: 0.3529412, a: 0}
+  _hoverColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 0}
+  _selectionColor: {r: 0.3137255, g: 0.3137255, b: 0.3137255, a: 0}
   _animations:
     rid: 6879816199078674433
   references:
@@ -163,8 +163,8 @@ MonoBehaviour:
         _tree: {fileID: 2965568335686965089}
         _rotationPoint: {fileID: 1678802614296497544}
         _endTransform: {fileID: 7450726798657487461}
-        _maxRotationAngle: 10
-        _minRotationAngle: 8
+        _maxRotationAngle: 7.5
+        _minRotationAngle: 5
         _angleToOppositeDirectionMultiplier: 1.7
         _rotationTime: 0.6
         _fallAngle: 80

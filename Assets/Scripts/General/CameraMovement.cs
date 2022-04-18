@@ -53,6 +53,8 @@ namespace General
         [SerializeField] private float _focusDistance = 30f;
         [SerializeField] private float _focusRotation = 45f;
         [SerializeField] private float _focusDuration = .3f;
+        [Space]
+        [SerializeField] private float _minDistanceForTeleporation;
 
         [Title("Smoothing")]
         [SerializeField] private float _positionSmoothing;
@@ -222,13 +224,27 @@ namespace General
 
             var eulerAngles = new Vector3(_focusRotation, _newRotation.eulerAngles.y, _newRotation.eulerAngles.z);
 
+            StartFocusing(colonist, position, eulerAngles);
+        }
+
+        private void StartFocusing(Colonist colonist, Vector3 position, Vector3 eulerAngles)
+        {
             if (_focusingCoroutine != null)
             {
                 StopCoroutine(_focusingCoroutine);
                 _focusingCoroutine = null;
             }
-            
-            _focusingCoroutine = StartCoroutine(Focusing(position, eulerAngles, colonist));
+
+            if (Vector3.Distance(transform.position, colonist.Center) > _minDistanceForTeleporation)
+            {
+                transform.position = position;
+                _newPosition = position;
+                SetFocusRotation(eulerAngles);
+            }
+            else
+            {
+                _focusingCoroutine = StartCoroutine(Focusing(position, eulerAngles, colonist));
+            }
         }
 
         private float GetDistanceAboveTerrain()
@@ -253,9 +269,8 @@ namespace General
             yield return new WaitForSecondsRealtime(_focusDuration / 2f);
             
             // Start to change fov and rotation in the middle of movement
-            _newFieldOfView = _focusFov;
-            _newRotation.eulerAngles = eulerAngles;
-            
+            SetFocusRotation(eulerAngles);
+
             yield return new WaitForSecondsRealtime(_focusDuration / 2f);
             
             _newPosition = transform.position;
@@ -263,6 +278,12 @@ namespace General
             SetFollow(colonist);
 
             _focusing = false;
+        }
+
+        private void SetFocusRotation(Vector3 eulerAngles)
+        {
+            _newFieldOfView = _focusFov;
+            _newRotation.eulerAngles = eulerAngles;
         }
 
         private void OnMapLoad()
@@ -345,7 +366,7 @@ namespace General
 
         private void UpdateFollow()
         {
-            transform.position = _followTransform.position + _offset;
+            transform.position = RaiseAboveTerrain(_followTransform.position + _offset);
             _newPosition = transform.position;
         }
 
@@ -513,12 +534,12 @@ namespace General
 
         private Vector3 RaiseAboveTerrain(Vector3 position)
         {
-            if (Physics.Raycast(new Ray(transform.position, Vector3.down), out var hitUnder,
+            if (Physics.Raycast(new Ray(position, Vector3.down), out var hitUnder,
                 float.PositiveInfinity, _terrainMask))
             {
                 position.y = hitUnder.point.y + _heightAboveTerrain;
             }
-            else if (Physics.Raycast(new Ray(transform.position, Vector3.up), out var hitAbove,
+            else if (Physics.Raycast(new Ray(position, Vector3.up), out var hitAbove,
                 float.PositiveInfinity, _terrainMask))
             {
                 position.y = hitAbove.point.y + _heightAboveTerrain;

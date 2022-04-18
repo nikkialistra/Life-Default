@@ -64,8 +64,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a08b2fc89e2c42528c06efe858052b72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _colonistGatherer: {fileID: 0}
-  _colonistHandEquipment: {fileID: 0}
   _firstHitTime: 0.8
 --- !u!1101 &-4156285571124848359
 AnimatorStateTransition:
@@ -426,9 +424,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a08b2fc89e2c42528c06efe858052b72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _colonistGatherer: {fileID: 0}
-  _colonistHandEquipment: {fileID: 0}
-  _firstHitTime: 0.8
+  _firstHitTime: 0.6
 --- !u!1102 &7336931925327896762
 AnimatorState:
   serializedVersion: 6

@@ -810,8 +810,8 @@ MonoBehaviour:
   _resourceInteractionDistances:
     _keys: 0000000001000000
     _values:
-    - 0.3
-    - 0.2
+    - 0.15
+    - 0.15
 --- !u!114 &2721959709741817781
 MonoBehaviour:
   m_ObjectHideFlags: 0

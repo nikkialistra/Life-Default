@@ -197,7 +197,17 @@ namespace ResourceManagement
 
         public void Hit(Vector3 position)
         {
-            _animations.OnHit(position);
+            if (!Exhausted)
+            {
+                _animations.OnHit(position);
+            }
+            else
+            {
+                _infoPanelView.UnsetResource(this);
+                StopDisplayChangingCoroutines();
+                
+                _animations.OnDestroy(position, Destroy);
+            }
         }
         
         public void Acquire()
@@ -215,11 +225,6 @@ namespace ResourceManagement
             Deselect();
 
             _acquiredCount--;
-
-            if (Exhausted && _acquiredCount == 0)
-            {
-                Destroy();
-            }
         }
 
         private IEnumerator HideSelectionAfter()
@@ -271,13 +276,8 @@ namespace ResourceManagement
             return Random.Range(_minExtractedQuantityForDrop, _maxExtractedQuantityForDrop + 1);
         }
 
-        [Button]
         private void Destroy()
         {
-            _infoPanelView.UnsetResource(this);
-            
-            StopDisplayChangingCoroutines();
-            
             AstarPath.active.UpdateGraphs(_collider.bounds);
 
             Destroy(_holder.gameObject);

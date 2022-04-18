@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections;
 using Common;
-using Entities.Interfaces;
 using ResourceManagement;
 using Sirenix.OdinInspector;
 using UnityEngine;
-using Zenject;
 
 namespace Colonists
 {
@@ -28,11 +26,6 @@ namespace Colonists
         private ColonistAnimator _animator;
         private ColonistStats _colonistStats;
 
-        private Resource _acquired;
-
-        private Coroutine _gatheringCoroutine;
-        private Coroutine _stopGatheringCoroutine;
-
         private void Awake()
         {
             _animator = GetComponent<ColonistAnimator>();
@@ -53,33 +46,38 @@ namespace Colonists
         {
             if (_gatheringResource == resource)
             {
-                StopCoroutine(_stopGatheringCoroutine);
-                _stopGatheringCoroutine = null;
-                return;
-            }
-            
-            if (_gatheringCoroutine != null)
-            {
                 return;
             }
 
             _gatheringResource = resource;
+            _onInteractionFinish = onInteractionFinish;
             
-            _gatheringCoroutine = StartCoroutine(Gathering(resource, onInteractionFinish));
+            _handEquipment.EquipInstrumentFor(resource.ResourceType);
+            _animator.Gather(resource);
         }
 
         // Add wait time for cancelling stop gathering if user clicked same resource,
         // and prolongate animation after gathering a little
         public void StopGathering()
         {
-            _stopGatheringCoroutine = StartCoroutine(StopGatheringLater());
+            _gatheringResource = null;
+            StartCoroutine(StopGatheringLater());
         }
         
         public void Hit()
         {
-            if (_acquired != null)
+            if (_gatheringResource == null || _gatheringResource.Exhausted)
             {
-                _acquired.Hit(transform.position);
+                return;
+            }
+
+            _gatheringResource.Extract(_colonistStats.ResourceDestructionSpeed, _colonistStats.ResourceExtractionEfficiency);
+            _gatheringResource.Hit(transform.position);
+
+            if (_gatheringResource.Exhausted)
+            {
+                _gatheringResource = null;
+                FinishGathering();
             }
         }
 
@@ -92,61 +90,20 @@ namespace Colonists
 
         private void FinishGathering()
         {
-            if (_gatheringCoroutine != null)
+            if (_gatheringResource != null)
             {
-                StopCoroutine(_gatheringCoroutine);
-                _gatheringCoroutine = null;
-                
-                _animator.StopGathering();
+                return;
             }
-
-            ReleaseAcquired();
-
-            _gatheringResource = null;
-        }
-
-        private IEnumerator Gathering(Resource resource, Action onInteractionFinish)
-        {
-            _handEquipment.EquipInstrumentFor(resource.ResourceType);
-            _animator.Gather(resource);
-        
-            AddToAcquired(resource);
-        
-            while (!resource.Exhausted)
-            {
-                yield return new WaitForSeconds(1f);
-        
-                if (resource.Exhausted)
-                {
-                    break;
-                }
-        
-                resource.Extract(_colonistStats.ResourceDestructionSpeed, _colonistStats.ResourceExtractionEfficiency);
-            }
-        
-            _animator.StopGathering();
             
-            ReleaseAcquired();
-            _gatheringCoroutine = null;
+            _animator.StopGathering();
 
-            onInteractionFinish();
-        }
-
-        private void AddToAcquired(Resource toAcquaire)
-        {
-            toAcquaire.Acquire();
-            _acquired = toAcquaire;
-        }
-
-        private void ReleaseAcquired()
-        {
-            if (_acquired != null)
+            if (_onInteractionFinish != null)
             {
-                _acquired.Release();
-                _acquired = null;
+                _onInteractionFinish();
+                _onInteractionFinish = null;
             }
         }
-        
+
         private bool EveryResourceHasDistanceInteraction(ResourceInteractionDistanceDictionary distances, ref string errorMessage)
         {
             foreach (var resourceType in (ResourceType[])Enum.GetValues(typeof(ResourceType)))

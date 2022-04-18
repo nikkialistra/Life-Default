@@ -68,6 +68,7 @@ namespace Colonists
         {
             if (_gatheringResource == null || _gatheringResource.Exhausted)
             {
+                FinishGathering();
                 return;
             }
 

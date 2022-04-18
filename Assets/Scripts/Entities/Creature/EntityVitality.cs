@@ -95,7 +95,6 @@ namespace Entities.Creature
             if (_takingDamageCoroutine != null)
             {
                 StopCoroutine(_takingDamageCoroutine);
-                _takingDamageCoroutine = null;
             }
 
             _takingDamageCoroutine = StartCoroutine(TakingDamage(value, interval, time));

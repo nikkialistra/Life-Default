@@ -271,10 +271,11 @@ MonoBehaviour:
       type: {class: TreeAnimations, ns: Entities.Animations, asm: Scripts}
       data:
         _tree: {fileID: 1620543646530164832}
+        _resource: {fileID: 8716837362799385936}
         _rotationPoint: {fileID: 8399379301847264761}
-        _endTransform: {fileID: 210984099513642067}
-        _maxRotationAngle: 7.5
-        _minRotationAngle: 5
+        _rotationTransform: {fileID: 210984099513642067}
+        _maxRotationAngle: 5
+        _minRotationAngle: 3
         _angleToOppositeDirectionMultiplier: 1.7
         _rotationTime: 0.6
         _fallAngle: 80
@@ -320,7 +321,7 @@ GameObject:
   m_Component:
   - component: {fileID: 210984099513642067}
   m_Layer: 17
-  m_Name: End Transform
+  m_Name: Rotation Transform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

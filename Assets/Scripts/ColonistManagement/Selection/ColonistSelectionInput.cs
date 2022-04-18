@@ -84,9 +84,8 @@ namespace ColonistManagement.Selection
             if (_areaUpdateCoroutine != null)
             {
                 StopCoroutine(_areaUpdateCoroutine);
-                _areaUpdateCoroutine = null;
             }
-
+            
             _areaUpdateCoroutine = StartCoroutine(UpdateArea());
         }
 

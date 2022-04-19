@@ -64,9 +64,10 @@ namespace Colonists
         {
             while (!_gatheringResource.Exhausted)
             {
-                yield return null;
+                yield return new WaitForSeconds(_waitTime);
             }
 
+            _gatheringResource = null;
             FinishGathering();
         }
 
@@ -74,7 +75,12 @@ namespace Colonists
         // and prolongate animation after gathering a little
         public void StopGathering()
         {
+            if (_watchForExhaustionCoroutine != null)
+            {
+                StopCoroutine(_watchForExhaustionCoroutine);
+            }
             _gatheringResource = null;
+            
             StartCoroutine(StopGatheringLater());
         }
         
@@ -114,8 +120,7 @@ namespace Colonists
             {
                 StopCoroutine(_watchForExhaustionCoroutine);
             }
-
-            Debug.Log(1);
+            
             _animator.StopGathering();
 
             if (_onInteractionFinish != null)

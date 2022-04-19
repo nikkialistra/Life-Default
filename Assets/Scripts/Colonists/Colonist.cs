@@ -210,7 +210,10 @@ namespace Colonists
         private void InitializeSelf()
         {
             _gender = EnumUtils.RandomValue<Gender>();
-            _name = _humanNames.GetRandomNameFor(_gender);
+            if (name == "")
+            {
+                _name = _humanNames.GetRandomNameFor(_gender);
+            }
             _colonistRandomizer.RandomizeAppearanceWith(_gender, _humanAppearance);
 
             Vitality.Initialize();

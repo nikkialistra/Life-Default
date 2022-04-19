@@ -17,7 +17,7 @@ namespace Colonists
         [ValidateInput(nameof(EveryResourceHasDistanceInteraction))]
         [SerializeField] private ResourceInteractionDistanceDictionary _resourceInteractionDistances;
 
-        private const float WaitTime = 0.2f;
+        [SerializeField] private float _waitTime = 0.2f;
 
         private Action _onInteractionFinish;
 
@@ -25,6 +25,8 @@ namespace Colonists
         
         private ColonistAnimator _animator;
         private ColonistStats _colonistStats;
+        
+        private Coroutine _watchForExhaustionCoroutine;
 
         private void Awake()
         {
@@ -54,6 +56,18 @@ namespace Colonists
             
             _handEquipment.EquipInstrumentFor(resource.ResourceType);
             _animator.Gather(resource);
+
+            _watchForExhaustionCoroutine = StartCoroutine(WatchForExhaustion());
+        }
+
+        private IEnumerator WatchForExhaustion()
+        {
+            while (!_gatheringResource.Exhausted)
+            {
+                yield return null;
+            }
+
+            FinishGathering();
         }
 
         // Add wait time for cancelling stop gathering if user clicked same resource,
@@ -84,7 +98,7 @@ namespace Colonists
 
         private IEnumerator StopGatheringLater()
         {
-            yield return new WaitForSeconds(WaitTime);
+            yield return new WaitForSeconds(_waitTime);
 
             FinishGathering();
         }
@@ -95,7 +109,13 @@ namespace Colonists
             {
                 return;
             }
-            
+
+            if (_watchForExhaustionCoroutine != null)
+            {
+                StopCoroutine(_watchForExhaustionCoroutine);
+            }
+
+            Debug.Log(1);
             _animator.StopGathering();
 
             if (_onInteractionFinish != null)

@@ -105,11 +105,6 @@ namespace ResourceManagement
         {
             _emissiveColor = Shader.PropertyToID(_propertyName);
             _requiredQuantityToDrop = CalculateNextRequiredQuantityToDrop();
-
-            if (_animations != null)
-            {
-                _animations.Initialize();
-            }
         }
 
         public void Hover()

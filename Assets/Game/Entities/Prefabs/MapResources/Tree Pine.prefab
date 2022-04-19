@@ -161,13 +161,13 @@ MonoBehaviour:
       type: {class: TreeAnimations, ns: Entities.Animations, asm: Scripts}
       data:
         _tree: {fileID: 2965568335686965089}
-        _resource: {fileID: 8716837362799385936}
+        _minTimeBetweenRotateAnimations: 0.2
         _rotationPoint: {fileID: 1678802614296497544}
         _rotationTransform: {fileID: 7450726798657487461}
         _maxRotationAngle: 5
         _minRotationAngle: 3
         _angleToOppositeDirectionMultiplier: 1.7
-        _rotationTime: 0.6
+        _oneDirectionRotationTime: 0.2
         _fallAngle: 80
         _fallTime: 1
 --- !u!1 &1817383417853709863

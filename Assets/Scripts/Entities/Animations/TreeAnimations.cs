@@ -13,10 +13,10 @@ namespace Entities.Animations
     {
         [Required]
         [SerializeField] private Transform _tree;
-        [Required]
-        [SerializeField] private Resource _resource;
 
         [Title("Rotation")]
+        [SerializeField] private float _minTimeBetweenRotateAnimations = 0.2f;
+        [Space]
         [Required]
         [SerializeField] private Transform _rotationPoint;
         [Required]
@@ -29,8 +29,8 @@ namespace Entities.Animations
         
         [SerializeField] private float _angleToOppositeDirectionMultiplier = 1.3f;
         
-        [Range(0.1f, 0.9f)]
-        [SerializeField] private float _rotationTime = 0.6f;
+        [Range(0.03f, 0.3f)]
+        [SerializeField] private float _oneDirectionRotationTime = 0.2f;
         
         [Title("On Destroy")]
         [SerializeField] private float _fallAngle = 90f;
@@ -38,53 +38,70 @@ namespace Entities.Animations
 
         private Vector3 _axis;
         private float _currentAngle;
-
-        private Vector3 _initialRotation;
-
-        private Coroutine _rotateCoroutine;
-
-        public void Initialize()
-        {
-            _initialRotation = _rotationTransform.position;
-        }
+        
+        private float _lastHitTime;
 
         public void OnHit(Vector3 agentPosition)
         {
+            if (Time.time - _lastHitTime < _minTimeBetweenRotateAnimations)
+            {
+                return;
+            }
+            
+            _lastHitTime = Time.time;
+            
+            DOTween.Kill(_tree.transform);
+            
             _axis = CalculateHitAxis(agentPosition);
             _currentAngle = Random.Range(_minRotationAngle, _maxRotationAngle);
 
-            if (_rotateCoroutine != null)
-            {
-                DOTween.Kill(_tree.transform);
-                _resource.StopCoroutine(_rotateCoroutine);
-            }
-            
-            _rotateCoroutine = _resource.StartCoroutine(Rotate(_rotationTransform));
+            Rotate();
         }
 
-        private IEnumerator Rotate(Transform rotationTransform)
+        private void Rotate()
         {
-            rotationTransform.position = _initialRotation;
+            _rotationTransform.localPosition = Vector3.zero;
+            _rotationTransform.rotation = Quaternion.Euler(Vector3.zero);
             
-            rotationTransform.RotateAround(_rotationPoint.position, _axis, _currentAngle);
+            var sequence = DOTween.Sequence();
 
-            yield return _tree.transform.DORotate(rotationTransform.rotation.eulerAngles, _rotationTime / 3)
-                .WaitForCompletion();
+            CalculateRotationToLeft(sequence);
+            CalculateRotationToRight(sequence);
+            CalculateRotationToInitialPosition(sequence);
+
+            sequence.Play();
+        }
+
+        private void CalculateRotationToLeft(Sequence sequence)
+        {
+            _rotationTransform.RotateAround(_rotationPoint.position, _axis, _currentAngle);
             
-            rotationTransform.RotateAround(_rotationPoint.position, _axis, -_currentAngle * _angleToOppositeDirectionMultiplier);
+            sequence.Insert(0, _tree.transform.DOMove(_rotationTransform.position, _oneDirectionRotationTime));
+            sequence.Insert(0, _tree.transform.DORotate(_rotationTransform.rotation.eulerAngles, _oneDirectionRotationTime));
+        }
+
+        private void CalculateRotationToRight(Sequence sequence)
+        {
+            _rotationTransform.RotateAround(_rotationPoint.position, _axis, -_currentAngle * _angleToOppositeDirectionMultiplier);
             
-            yield return _tree.transform.DORotate(rotationTransform.rotation.eulerAngles, _rotationTime / 3)
-                .WaitForCompletion();
-            
+            sequence.Insert(_oneDirectionRotationTime, _tree.transform.DOMove(_rotationTransform.position, _oneDirectionRotationTime));
+            sequence.Insert(_oneDirectionRotationTime, _tree.transform.DORotate(_rotationTransform.rotation.eulerAngles, _oneDirectionRotationTime));
+        }
+
+        private void CalculateRotationToInitialPosition(Sequence sequence)
+        {
             _rotationTransform.RotateAround(_rotationPoint.position, _axis, _currentAngle * (_angleToOppositeDirectionMultiplier - 1));
             
-            yield return _tree.transform.DORotate(rotationTransform.rotation.eulerAngles, _rotationTime / 3)
-                .WaitForCompletion();
+            sequence.Insert(2 * _oneDirectionRotationTime, _tree.transform.DOMove(_rotationTransform.position, _oneDirectionRotationTime));
+            sequence.Insert(2 * _oneDirectionRotationTime, _tree.transform.DORotate(_rotationTransform.rotation.eulerAngles, _oneDirectionRotationTime));
         }
 
         public void OnDestroy(Vector3 agentPosition, Action onFinish)
         {
+            DOTween.Kill(_tree.transform);
+            
             _axis = CalculateHitAxis(agentPosition);
+
             Fall(onFinish);
         }
 
@@ -96,12 +113,6 @@ namespace Entities.Animations
 
         private void Fall(Action onFinish)
         {
-            if (_rotateCoroutine != null)
-            {
-                DOTween.Kill(_tree.transform);
-                _resource.StopCoroutine(_rotateCoroutine);
-            }
-            
             _rotationTransform.RotateAround(_rotationPoint.position, _axis, _fallAngle);
             
             _tree.transform.DOMove(_rotationTransform.position, _fallTime);

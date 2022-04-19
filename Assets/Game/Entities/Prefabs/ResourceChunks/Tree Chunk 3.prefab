@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 2666577653898097442}
   - component: {fileID: 2660061136178119727}
   - component: {fileID: 3100290707218011283}
-  m_Layer: 17
-  m_Name: Tree Chunk
+  m_Layer: 18
+  m_Name: Tree Chunk 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5147966332902633005}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.3699255, y: -17.292788, z: 18.331425}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -46,8 +46,8 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.26
-  m_Height: 2.49
+  m_Radius: 0.18
+  m_Height: 1.72
   m_Direction: 2
   m_Center: {x: 0, y: 0, z: 0.23}
 --- !u!54 &2666577653898097442
@@ -78,7 +78,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c02db246e2f43cf939d6c7afa3baadd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _name: Wood
+  _name: Wood Chunk
+  _minScale: 0.9
+  _maxScale: 1.1
 --- !u!114 &3100290707218011283
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -111,11 +113,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1609270425926636, guid: 9020d2933ec6c0544965ea4b12952c42, type: 3}
       propertyPath: m_Layer
-      value: 17
+      value: 18
       objectReference: {fileID: 0}
     - target: {fileID: 4659579814028464, guid: 9020d2933ec6c0544965ea4b12952c42, type: 3}
       propertyPath: m_RootOrder
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4659579814028464, guid: 9020d2933ec6c0544965ea4b12952c42, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4659579814028464, guid: 9020d2933ec6c0544965ea4b12952c42, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4659579814028464, guid: 9020d2933ec6c0544965ea4b12952c42, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 4659579814028464, guid: 9020d2933ec6c0544965ea4b12952c42, type: 3}
       propertyPath: m_LocalPosition.x

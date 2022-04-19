@@ -142,7 +142,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _resourceType: 0
-  _name: Tree (Pine)
+  _name: Pine Tree
   _storedQuantity: 18
   _durability: 80
   _minExtractedQuantityForDrop: 3
@@ -160,8 +160,8 @@ MonoBehaviour:
         _minTimeBetweenRotateAnimations: 0.2
         _rotationPoint: {fileID: 1678802614296497544}
         _rotationTransform: {fileID: 7450726798657487461}
-        _maxRotationAngle: 10
-        _minRotationAngle: 8
+        _maxRotationAngle: 8
+        _minRotationAngle: 6
         _angleToOppositeDirectionMultiplier: 1.7
         _oneDirectionRotationTime: 0.2
         _fallAngle: 90
@@ -200,10 +200,13 @@ MonoBehaviour:
   _spawnPoint: {fileID: 8047897043418372951}
   _resourceChunkPrefabs:
   - {fileID: 2660061136178119727, guid: 7737ddf479dae6248b7d81d2a0b5b006, type: 3}
-  _maxSideForce: 3
+  - {fileID: 2660061136178119727, guid: d2a6cce7fb564de4c84fb8bdba059be7, type: 3}
   _minSideForce: 1
-  _maxUpForce: 0.5
+  _maxSideForce: 2
   _minUpForce: 0
+  _maxUpForce: 3
+  _minTimeToFreeze: 0.8
+  _maxTimeToFreeze: 1.2
 --- !u!1 &1817383417853709863
 GameObject:
   m_ObjectHideFlags: 0
@@ -491,7 +494,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7343411168770331081}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.8, z: 0}
+  m_LocalPosition: {x: 0, y: 1.1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

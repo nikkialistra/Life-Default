@@ -610,7 +610,7 @@ MonoBehaviour:
   gravity: {x: NaN, y: NaN, z: NaN}
   groundMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 64
   centerOffsetCompatibility: NaN
   orientation: 0
   enableRotation: 1
@@ -812,6 +812,7 @@ MonoBehaviour:
     _values:
     - 0.15
     - 0.15
+  _waitTime: 0.2
 --- !u!114 &2721959709741817781
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,8 +1,8 @@
-﻿using Entities;
+﻿using System.Collections;
+using Entities;
 using Entities.Interfaces;
 using UI.Game.GameLook.Components;
 using UnityEngine;
-using Zenject;
 
 namespace ResourceManagement
 {
@@ -11,34 +11,40 @@ namespace ResourceManagement
     public class ResourceChunk : MonoBehaviour, ISelectable
     {
         [SerializeField] private string _name;
-        
-        private Rigidbody _ridigbody;
+
+        [Space]
+        [SerializeField] private float _minScale = 0.9f;
+        [SerializeField] private float _maxScale = 1.1f;
+
+        private Rigidbody _rigidbody;
         private EntitySelection _entitySelection;
         
         private InfoPanelView _infoPanelView;
-
-        [Inject]
-        public void Construct(InfoPanelView infoPanelView)
-        {
-            _infoPanelView = infoPanelView;
-        }
-
+        
         private void Awake()
         {
             _entitySelection = GetComponent<EntitySelection>();
-            _ridigbody = GetComponent<Rigidbody>();
+            _rigidbody = GetComponent<Rigidbody>();
         }
 
         public string Name => _name;
         public ResourceType ResourceType { get; private set; }
         public int Quantity { get; private set; }
         
-        public void Initialize(ResourceType resourceType, int quantity)
+        public void Initialize(ResourceType resourceType, int quantity, InfoPanelView infoPanelView)
         {
             ResourceType = resourceType;
             Quantity = quantity;
+
+            _infoPanelView = infoPanelView;
+
+            var scale = Random.Range(_minScale, _maxScale);
+
+            transform.localScale = new Vector3(Random.Range(_minScale, _maxScale),
+                Random.Range(_minScale, _maxScale),
+                Random.Range(_minScale, _maxScale));
         }
-        
+
         public void Hover()
         {
             _entitySelection.Hover();
@@ -66,9 +72,18 @@ namespace ResourceManagement
             _entitySelection.StopDisplay();
         }
 
-        public void BurstOutTo(Vector3 randomForce)
+        public void BurstOutTo(Vector3 randomForce, float timeToFreeze)
         {
-            _ridigbody.velocity = randomForce;
+            _rigidbody.velocity = randomForce;
+            
+            StartCoroutine(FreezeAfter(timeToFreeze));
+        }
+
+        private IEnumerator FreezeAfter(float timeToFreeze)
+        {
+            yield return new WaitForSeconds(timeToFreeze);
+
+            _rigidbody.isKinematic = true;
         }
     }
 }

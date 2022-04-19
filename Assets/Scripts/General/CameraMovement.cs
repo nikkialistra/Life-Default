@@ -544,10 +544,6 @@ namespace General
             {
                 position.y = hitAbove.point.y + _heightAboveTerrain;
             }
-            else
-            {
-                throw new InvalidOperationException("Camera could not find terrain");
-            }
 
             return position;
         }

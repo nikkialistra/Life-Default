@@ -21,6 +21,7 @@ namespace UI.Game.GameLook.Components
 
         private Colonist _shownColonist;
         private Resource _shownResource;
+        private ResourceChunk _shownResourceChunk;
 
         private void Awake()
         {
@@ -46,15 +47,14 @@ namespace UI.Game.GameLook.Components
             switch (colonists.Count)
             {
                 case 0:
-                    if (_shownResource == null)
+                    if (NotShowingEntityInfo())
                     {
                         HidePanels();
                         HideSelf();
                     }
                     break;
                 case 1:
-                    PrepareEmptyPanel();
-                    ShowColonistInfo(colonists[0]);
+                    SetColonist(colonists[0]);
                     break;
                 default:
                     PrepareEmptyPanel();
@@ -63,19 +63,33 @@ namespace UI.Game.GameLook.Components
             }
         }
 
+        private bool NotShowingEntityInfo()
+        {
+            return _shownResource == null && _shownResourceChunk == null;
+        }
+
         public void SetColonist(Colonist colonist)
         {
             PrepareEmptyPanel();
-            ShowColonistInfo(colonist);
+            _shownColonist = colonist;
+            ShowColonistInfo();
+        }
+        
+        public void UnsetColonist(Colonist colonist)
+        {
+            if (_shownColonist == colonist)
+            {
+                _shownColonist = null;
+                _colonistInfoView.HideSelf();
+                HideSelf();
+            }
         }
 
         public void SetResource(Resource resource)
         {
             PrepareEmptyPanel();
-
             _shownResource = resource;
-
-            ShowResourceInfo(resource);
+            ShowResourceInfo();
         }
 
         public void UnsetResource(Resource resource)
@@ -87,22 +101,46 @@ namespace UI.Game.GameLook.Components
                 HideSelf();
             }
         }
-
-        public void UnsetColonistInfo(Colonist colonist)
+        
+        public void SetResourceChunk(ResourceChunk resourceChunk)
         {
-            if (_shownColonist == colonist)
+            PrepareEmptyPanel();
+            _shownResourceChunk = resourceChunk;
+            ShowResourceChunkInfo();
+        }
+
+        public void UnsetResourceChunk(ResourceChunk resourceChunk)
+        {
+            if (_shownResourceChunk == resourceChunk)
             {
-                _shownColonist = null;
-                _colonistInfoView.HideSelf();
+                _shownResourceChunk = null;
+                _entityInfoView.HideSelf();
                 HideSelf();
             }
         }
+        
+        private void ShowColonistInfo()
+        {
+            _colonistInfoView.ShowSelf();
+            _colonistInfoView.FillIn(_shownColonist);
+        }
 
-        private void ShowResourceInfo(Resource resource)
+        private void ShowColonistsInfo(int count)
+        {
+            _colonistsInfoView.ShowSelf();
+            _colonistsInfoView.SetCount(count);
+        }
+        
+        private void ShowResourceInfo()
         {
             _entityInfoView.ShowSelf();
-            
-            _entityInfoView.FillIn(resource);
+            _entityInfoView.FillIn(_shownResource);
+        }
+        
+        private void ShowResourceChunkInfo()
+        {
+            _entityInfoView.ShowSelf();
+            _entityInfoView.FillIn(_shownResourceChunk);
         }
 
         private void HideSelf()
@@ -126,20 +164,6 @@ namespace UI.Game.GameLook.Components
         {
             _shownColonist = null;
             _shownResource = null;
-        }
-
-        private void ShowColonistInfo(Colonist colonist)
-        {
-            _shownColonist = colonist;
-            
-            _colonistInfoView.ShowSelf();
-            _colonistInfoView.FillIn(colonist);
-        }
-
-        private void ShowColonistsInfo(int count)
-        {
-            _colonistsInfoView.ShowSelf();
-            _colonistsInfoView.SetCount(count);
         }
 
         private void HidePanels()

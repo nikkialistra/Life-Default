@@ -15,8 +15,9 @@ namespace UI.Game.GameLook.Components
         
         private Label _name;
 
-        private readonly List<Label> _rowNames = new(3);
-        private readonly List<Label> _rowValues = new(3);
+        private readonly List<VisualElement> _rows = new(2);
+        private readonly List<Label> _rowNames = new(2);
+        private readonly List<Label> _rowValues = new(2);
         
         private Resource _resource;
 
@@ -31,15 +32,21 @@ namespace UI.Game.GameLook.Components
 
             _name = _tree.Q<Label>("name");
             
+            BindRows();
+        }
+
+        private void BindRows()
+        {
+            _rows.Add(_tree.Q<VisualElement>("row-one"));
+            _rows.Add(_tree.Q<VisualElement>("row-two"));
+
             _rowNames.Add(_tree.Q<Label>("row-one__name"));
             _rowNames.Add(_tree.Q<Label>("row-two__name"));
-            _rowNames.Add(_tree.Q<Label>("row-three__name"));
-            
+
             _rowValues.Add(_tree.Q<Label>("row-one__value"));
             _rowValues.Add(_tree.Q<Label>("row-two__value"));
-            _rowValues.Add(_tree.Q<Label>("row-three__value"));
         }
-        
+
         private void OnDestroy()
         {
             UnsubscribeFromResource();
@@ -77,10 +84,21 @@ namespace UI.Game.GameLook.Components
             
             _name.text = $"{resource.Name}";
 
-            FillRow(0, $"{resource.ResourceType}:", $"~{resource.Quantity}");
-            FillRow(1, $"Durability:", $"{resource.Durability}");
+            ShowTwoRows();
+
+            FillRow(0, $"{_resource.ResourceType}:", $"~{_resource.Quantity}");
+            FillRow(1, $"Durability:", $"{_resource.Durability}");
 
             SubscribeToResource();
+        }
+
+        public void FillIn(ResourceChunk resourceChunk)
+        {
+            _name.text = $"{resourceChunk.Name}";
+
+            ShowOneRow();
+            
+            FillRow(0, $"{resourceChunk.ResourceType}:", $"~{resourceChunk.Quantity}");
         }
 
         private void SubscribeToResource()
@@ -88,7 +106,7 @@ namespace UI.Game.GameLook.Components
             _resource.QuantityChange += UpdateFirstRow;
             _resource.DurabilityChange += UpdateSecondRow;
         }
-        
+
         private void UnsubscribeFromResource()
         {
             if (_resource != null)
@@ -96,6 +114,18 @@ namespace UI.Game.GameLook.Components
                 _resource.QuantityChange -= UpdateFirstRow;
                 _resource.DurabilityChange -= UpdateSecondRow;
             }
+        }
+        
+        private void ShowOneRow()
+        {
+            _rows[0].style.display = DisplayStyle.Flex;
+            _rows[1].style.display = DisplayStyle.None;
+        }
+
+        private void ShowTwoRows()
+        {
+            _rows[0].style.display = DisplayStyle.Flex;
+            _rows[1].style.display = DisplayStyle.Flex;
         }
 
         private void UpdateFirstRow()

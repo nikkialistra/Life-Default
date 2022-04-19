@@ -12,7 +12,8 @@ GameObject:
   - component: {fileID: 2531233434533289815}
   - component: {fileID: 2666577653898097442}
   - component: {fileID: 2660061136178119727}
-  m_Layer: 0
+  - component: {fileID: 3100290707218011283}
+  m_Layer: 17
   m_Name: Tree Chunk
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -77,6 +78,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c02db246e2f43cf939d6c7afa3baadd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _name: Wood
+--- !u!114 &3100290707218011283
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5147966332902633005}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a51fa4a272f548d9aba6024886c1cb42, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _renderer: {fileID: 5126129476298371576}
+  _materialIndex: 0
+  _propertyName: Color_FA85148A
+  _timeToHideHover: 0.05
+  _timeToHideSelection: 0.12
+  _hoverColor: {r: 0.23529412, g: 0.23529412, b: 0.23529412, a: 0}
+  _selectionColor: {r: 0.3529412, g: 0.3529412, b: 0.3529412, a: 0}
 --- !u!1001 &5147966332531873328
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -87,6 +108,10 @@ PrefabInstance:
     - target: {fileID: 1609270425926636, guid: 9020d2933ec6c0544965ea4b12952c42, type: 3}
       propertyPath: m_Name
       value: SM_Tree_Log_02
+      objectReference: {fileID: 0}
+    - target: {fileID: 1609270425926636, guid: 9020d2933ec6c0544965ea4b12952c42, type: 3}
+      propertyPath: m_Layer
+      value: 17
       objectReference: {fileID: 0}
     - target: {fileID: 4659579814028464, guid: 9020d2933ec6c0544965ea4b12952c42, type: 3}
       propertyPath: m_RootOrder
@@ -134,6 +159,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9020d2933ec6c0544965ea4b12952c42, type: 3}
+--- !u!23 &5126129476298371576 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 23339899677042632, guid: 9020d2933ec6c0544965ea4b12952c42,
+    type: 3}
+  m_PrefabInstance: {fileID: 5147966332531873328}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &5143618500822413952 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4659579814028464, guid: 9020d2933ec6c0544965ea4b12952c42,

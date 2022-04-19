@@ -2,7 +2,7 @@
     <Style src="project://database/Assets/Resources/UI/Styles/Common/Text.uss?fileID=7433441132597879392&amp;guid=158167a2c7cf4f5292d78d1ed2683cfc&amp;type=3#Text" />
     <Style src="project://database/Assets/Resources/UI/Styles/GameLook/Components/EntityInfo.uss?fileID=7433441132597879392&amp;guid=c1d1258fe13b9344782777ae2e2f9559&amp;type=3#EntityInfo" />
     <ui:VisualElement name="entity-info" picking-mode="Ignore" class="entity-info">
-        <ui:Label text="Tree (Pine)" display-tooltip-when-elided="true" name="name" class="label label-big" />
+        <ui:Label text="Tree (Pine)" display-tooltip-when-elided="true" name="name" class="label label-big margin-bottom" />
         <ui:VisualElement name="specs" class="specs">
             <ui:VisualElement name="row-one" class="row">
                 <ui:Label text="Name:" name="row-one__name" class="label" />
@@ -11,10 +11,6 @@
             <ui:VisualElement name="row-two" class="row">
                 <ui:Label text="Name:" name="row-two__name" class="label" />
                 <ui:Label text="Value" name="row-two__value" class="label" />
-            </ui:VisualElement>
-            <ui:VisualElement name="row-three" class="row" style="display: none;">
-                <ui:Label text="Name:" name="row-three__name" class="label" />
-                <ui:Label text="Value" name="row-three__value" class="label" />
             </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>

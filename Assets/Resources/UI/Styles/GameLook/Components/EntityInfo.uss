@@ -1,11 +1,14 @@
 .entity-info {
     width: 280px;
-    height: 160px;
     padding: 10px 5px 10px 5px;
     background-color: rgba(34, 36, 38, 0.95);
     border-radius: 5px;
     justify-content: space-between;
     align-items: center;
+}
+
+.margin-bottom {
+    margin-bottom: 30px;
 }
 
 .specs {

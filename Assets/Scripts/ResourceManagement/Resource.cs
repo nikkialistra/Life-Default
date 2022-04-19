@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections;
 using Entities;
-using Entities.Animations;
 using Entities.Interfaces;
+using ResourceManagement.Animations;
 using Sirenix.OdinInspector;
 using UI.Game.GameLook.Components;
 using UnityEngine;
@@ -13,7 +13,8 @@ namespace ResourceManagement
 {
     [RequireComponent(typeof(Entity))]
     [RequireComponent(typeof(Collider))]
-    public class Resource : MonoBehaviour, ICountable, ISelectable
+    [RequireComponent(typeof(ResourceChunkScattering))]
+    public class Resource : MonoBehaviour, ISelectable
     {
         [SerializeField] private ResourceType _resourceType;
         [Space]
@@ -49,8 +50,10 @@ namespace ResourceManagement
         [Title("Animations")]
         [SerializeReference] private IAnimations _animations;
 
-        private int _requiredQuantityToDrop;
+        private int _quantityToDrop;
         private float _preservedExtractedQuantity;
+
+        private ResourceChunkScattering _resourceChunkScattering;
 
         private int _emissiveColor;
 
@@ -79,6 +82,7 @@ namespace ResourceManagement
         {
             _collider = GetComponent<Collider>();
             Entity = GetComponent<Entity>();
+            _resourceChunkScattering = GetComponent<ResourceChunkScattering>();
         }
 
         public event Action QuantityChange;
@@ -104,7 +108,7 @@ namespace ResourceManagement
         private void Start()
         {
             _emissiveColor = Shader.PropertyToID(_propertyName);
-            _requiredQuantityToDrop = CalculateNextRequiredQuantityToDrop();
+            _quantityToDrop = CalculateNextQuantityToDrop();
         }
 
         public void Hover()
@@ -210,21 +214,18 @@ namespace ResourceManagement
             }
         }
         
-        public void Acquire()
+        public void Extract(float destructionValue, float extractionEfficiency)
         {
-            _acquiredCount++;
-        }
+            _preservedExtractedQuantity += ApplyDestruction(destructionValue) * extractionEfficiency;
 
-        public void Release()
-        {
-            if (_acquiredCount == 0)
+            if (_preservedExtractedQuantity > _quantityToDrop)
             {
-                throw new InvalidOperationException("Cannot release resource which not acquired");
+                DropPreservedQuantity();
             }
-
-            Deselect();
-
-            _acquiredCount--;
+            else if (Exhausted && _preservedExtractedQuantity >= 1f)
+            {
+                DropRemainingQuantity();
+            }
         }
 
         private IEnumerator HideSelectionAfter()
@@ -240,38 +241,28 @@ namespace ResourceManagement
             _renderer.materials[_materialIndex].SetColor(_emissiveColor, color);
         }
 
-        public void Extract(float destructionValue, float extractionEfficiency)
-        {
-            _preservedExtractedQuantity += ApplyDestruction(destructionValue) * extractionEfficiency;
-
-            if (_preservedExtractedQuantity > _requiredQuantityToDrop)
-            {
-                DropPreservedQuantity();
-            }
-            else if (Exhausted && _preservedExtractedQuantity >= 1f)
-            {
-                DropRemainingQuantity();
-            }
-        }
-
         private void DropPreservedQuantity()
         {
-            _preservedExtractedQuantity -= _requiredQuantityToDrop;
-            _resourceCounts.ChangeResourceTypeCount(_resourceType, _requiredQuantityToDrop);
+            _resourceChunkScattering.Spawn(_resourceType, _quantityToDrop);
+            
+            _preservedExtractedQuantity -= _quantityToDrop;
+            _resourceCounts.ChangeResourceTypeCount(_resourceType, _quantityToDrop);
 
-            _requiredQuantityToDrop = CalculateNextRequiredQuantityToDrop();
+            _quantityToDrop = CalculateNextQuantityToDrop();
             
             QuantityChange?.Invoke();
         }
 
         private void DropRemainingQuantity()
         {
+            _resourceChunkScattering.Spawn(_resourceType, (int)_preservedExtractedQuantity);
+            
             _resourceCounts.ChangeResourceTypeCount(_resourceType, (int)_preservedExtractedQuantity);
             
             QuantityChange?.Invoke();
         }
 
-        private int CalculateNextRequiredQuantityToDrop()
+        private int CalculateNextQuantityToDrop()
         {
             return Random.Range(_minExtractedQuantityForDrop, _maxExtractedQuantityForDrop + 1);
         }

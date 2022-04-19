@@ -4,7 +4,7 @@ using Sirenix.OdinInspector;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace Entities.Animations
+namespace ResourceManagement.Animations
 {
     [Serializable]
     public class RockAnimations : IAnimations

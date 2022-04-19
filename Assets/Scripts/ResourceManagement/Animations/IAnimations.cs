@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Entities.Animations
+namespace ResourceManagement.Animations
 {
     public interface IAnimations
     {

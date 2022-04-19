@@ -64,6 +64,15 @@ namespace Infrastructure
         [Required]
         [SerializeField] private HumanAppearance _humanAppearance;
         
+        [Title("Map")]
+        [Required]
+        [SerializeField] private Map _map;
+        [Space]
+        [Required]
+        [SerializeField] private AstarPath _astarPath;
+        [Space]
+        [Required]
+        [SerializeField] private Transform _resourceChunksParent;
 
         public override void InstallBindings()
         {
@@ -73,6 +82,7 @@ namespace Infrastructure
             BindResourceSystems();
             BindControls();
             BindEntities();
+            BindMap();
         }
 
         private void BindTimeSystems()
@@ -117,6 +127,13 @@ namespace Infrastructure
         {
             Container.BindInstance(_humanNames);
             Container.BindInstance(_humanAppearance);
+        }
+        
+        private void BindMap()
+        {
+            Container.BindInstance(_map);
+            Container.BindInstance(_astarPath);
+            Container.BindInstance(_resourceChunksParent).WithId("ResourceChunksParent");
         }
     }
 }

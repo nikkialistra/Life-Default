@@ -69,6 +69,7 @@ GameObject:
   - component: {fileID: 5199866085836727873}
   - component: {fileID: 1221772295278586055}
   - component: {fileID: 8716837362799385936}
+  - component: {fileID: 312266991892323227}
   m_Layer: 17
   m_Name: Tree Pine
   m_TagString: Untagged
@@ -89,6 +90,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2965568335686965089}
+  - {fileID: 8047897043418372951}
   - {fileID: 7565753558687889147}
   - {fileID: 1627582773097126092}
   m_Father: {fileID: 0}
@@ -153,23 +155,42 @@ MonoBehaviour:
   _hoverColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 0}
   _selectionColor: {r: 0.3137255, g: 0.3137255, b: 0.3137255, a: 0}
   _animations:
-    rid: 6879816199078674433
+    rid: 6879816199078674436
   references:
     version: 2
     RefIds:
-    - rid: 6879816199078674433
-      type: {class: TreeAnimations, ns: Entities.Animations, asm: Scripts}
+    - rid: 6879816199078674436
+      type: {class: TreeAnimations, ns: ResourceManagement.Animations, asm: Scripts}
       data:
         _tree: {fileID: 2965568335686965089}
         _minTimeBetweenRotateAnimations: 0.2
         _rotationPoint: {fileID: 1678802614296497544}
         _rotationTransform: {fileID: 7450726798657487461}
-        _maxRotationAngle: 5
-        _minRotationAngle: 3
+        _maxRotationAngle: 10
+        _minRotationAngle: 8
         _angleToOppositeDirectionMultiplier: 1.7
         _oneDirectionRotationTime: 0.2
-        _fallAngle: 80
-        _fallTime: 1
+        _fallAngle: 90
+        _fallTime: 1.5
+--- !u!114 &312266991892323227
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1620543646530389056}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5f075abd3b3477b928702f42ec6690c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _spawnPoint: {fileID: 8047897043418372951}
+  _resourceChunkPrefabs:
+  - {fileID: 2660061136178119727, guid: 7737ddf479dae6248b7d81d2a0b5b006, type: 3}
+  _maxSideForce: 3
+  _minSideForce: 1
+  _maxUpForce: 0.5
+  _minUpForce: 0
 --- !u!1 &1817383417853709863
 GameObject:
   m_ObjectHideFlags: 0
@@ -199,7 +220,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1620543646530164832}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2934674524320623367
 GameObject:
@@ -431,7 +452,38 @@ Transform:
   - {fileID: 1678802614296497544}
   - {fileID: 7450726798657487461}
   m_Father: {fileID: 1620543646530164832}
-  m_RootOrder: 2
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &7343411168770331081
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8047897043418372951}
+  m_Layer: 0
+  m_Name: Chunks Spawn Point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8047897043418372951
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7343411168770331081}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.8, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1620543646530164832}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7823024489457869954
 GameObject:

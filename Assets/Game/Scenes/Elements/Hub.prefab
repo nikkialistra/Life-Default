@@ -864,7 +864,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04dd8966af8b47a4bb4386b7472aeaf5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _loadSavedGraphData: 1
 --- !u!1 &3020716833959386629
 GameObject:
   m_ObjectHideFlags: 0
@@ -1191,7 +1190,6 @@ GameObject:
   - component: {fileID: 3020716834333397150}
   - component: {fileID: 3020716834333397140}
   - component: {fileID: 3020716834333397147}
-  - component: {fileID: 3020716834333397146}
   - component: {fileID: 3020716834333397145}
   - component: {fileID: 3020716834333397144}
   - component: {fileID: 3020716834333397151}
@@ -1232,7 +1230,7 @@ MonoBehaviour:
   _scriptableObjectInstallers: []
   _monoInstallers:
   - {fileID: 3020716834333397147}
-  - {fileID: 3020716834333397146}
+  - {fileID: 0}
   - {fileID: 3020716834333397145}
   - {fileID: 3020716834333397144}
   - {fileID: 3020716834333397151}
@@ -1281,21 +1279,9 @@ MonoBehaviour:
   _flyCamera: {fileID: 0}
   _humanNames: {fileID: 3020716835014364428}
   _humanAppearance: {fileID: 3020716834359568265}
---- !u!114 &3020716834333397146
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3020716834333397149}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f7206478742a4571b9e1d0c79c073d8d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
   _map: {fileID: 3020716833928731938}
-  _graphData: {fileID: 4900000, guid: d9cc97be224e276418b20d6eff3136bb, type: 3}
   _astarPath: {fileID: 3020716834256895297}
+  _resourceChunksParent: {fileID: 0}
 --- !u!114 &3020716834333397145
 MonoBehaviour:
   m_ObjectHideFlags: 0

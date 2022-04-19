@@ -29,10 +29,9 @@ namespace Entities.Creature
             _activated = true;
         }
 
-        public void Deactivate()
+        public void Flash()
         {
-            _activated = false;
-            HideHoverIndicator();
+            
         }
 
         public void Select()
@@ -44,6 +43,12 @@ namespace Entities.Creature
         public void Deselect()
         {
             _selected = false;
+            HideHoverIndicator();
+        }
+
+        public void StopDisplay()
+        {
+            _activated = false;
             HideHoverIndicator();
         }
 

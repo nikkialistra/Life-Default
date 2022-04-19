@@ -4,7 +4,11 @@
     {
         void Hover();
 
+        void Flash();
+
         void Select();
         void Deselect();
+
+        void StopDisplay();
     }
 }

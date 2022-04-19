@@ -69,6 +69,7 @@ GameObject:
   - component: {fileID: 5199866085836727873}
   - component: {fileID: 1221772295278586055}
   - component: {fileID: 8716837362799385936}
+  - component: {fileID: 3846962460789251418}
   - component: {fileID: 312266991892323227}
   m_Layer: 17
   m_Name: Tree Pine
@@ -147,13 +148,6 @@ MonoBehaviour:
   _minExtractedQuantityForDrop: 3
   _maxExtractedQuantityForDrop: 5
   _holder: {fileID: 1620543646530164832}
-  _timeToHideHover: 0.05
-  _timeToHideSelection: 0.2
-  _renderer: {fileID: 7338941988186966059}
-  _materialIndex: 1
-  _propertyName: Color_FA85148A
-  _hoverColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 0}
-  _selectionColor: {r: 0.3137255, g: 0.3137255, b: 0.3137255, a: 0}
   _animations:
     rid: 6879816199078674436
   references:
@@ -172,6 +166,25 @@ MonoBehaviour:
         _oneDirectionRotationTime: 0.2
         _fallAngle: 90
         _fallTime: 1.5
+--- !u!114 &3846962460789251418
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1620543646530389056}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a51fa4a272f548d9aba6024886c1cb42, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _renderer: {fileID: 7338941988186966059}
+  _materialIndex: 1
+  _propertyName: Color_FA85148A
+  _timeToHideHover: 0.05
+  _timeToHideSelection: 0.12
+  _hoverColor: {r: 0.15686275, g: 0.15686275, b: 0.15686275, a: 0}
+  _selectionColor: {r: 0.23529412, g: 0.23529412, b: 0.23529412, a: 0}
 --- !u!114 &312266991892323227
 MonoBehaviour:
   m_ObjectHideFlags: 0

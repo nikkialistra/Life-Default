@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using Entities;
 using Entities.Interfaces;
 using ResourceManagement.Animations;
@@ -13,6 +12,7 @@ namespace ResourceManagement
 {
     [RequireComponent(typeof(Entity))]
     [RequireComponent(typeof(Collider))]
+    [RequireComponent(typeof(EntitySelection))]
     [RequireComponent(typeof(ResourceChunkScattering))]
     public class Resource : MonoBehaviour, ISelectable
     {
@@ -33,35 +33,16 @@ namespace ResourceManagement
         [Title("Configuration")]
         [Required]
         [SerializeField] private Transform _holder;
-        [MinValue(0)]
-        [SerializeField] private float _timeToHideHover = 0.05f;
-        [SerializeField] private float _timeToHideSelection = 0.12f;
 
-        [Title("Selection Settings")]
-        [Required]
-        [SerializeField] private MeshRenderer _renderer;
-        [SerializeField] private int _materialIndex;
-        [SerializeField] private string _propertyName;
-        
-        [Space]
-        [SerializeField] private Color _hoverColor;
-        [SerializeField] private Color _selectionColor;
-        
         [Title("Animations")]
         [SerializeReference] private IAnimations _animations;
 
         private int _quantityToDrop;
         private float _preservedExtractedQuantity;
 
+        private EntitySelection _entitySelection;
+
         private ResourceChunkScattering _resourceChunkScattering;
-
-        private int _emissiveColor;
-
-        private Coroutine _hoveringCoroutine;
-        private Coroutine _hideSelectionCoroutine;
-
-        private bool _hovered;
-        private bool _selected;
 
         private Collider _collider;
 
@@ -80,8 +61,9 @@ namespace ResourceManagement
 
         private void Awake()
         {
-            _collider = GetComponent<Collider>();
             Entity = GetComponent<Entity>();
+            _collider = GetComponent<Collider>();
+            _entitySelection = GetComponent<EntitySelection>();
             _resourceChunkScattering = GetComponent<ResourceChunkScattering>();
         }
 
@@ -107,40 +89,17 @@ namespace ResourceManagement
         
         private void Start()
         {
-            _emissiveColor = Shader.PropertyToID(_propertyName);
             _quantityToDrop = CalculateNextQuantityToDrop();
         }
-
+        
         public void Hover()
         {
-            if (_hovered || _selected)
-            {
-                return;
-            }
-
-            _hovered = true;
-            
-            _hoveringCoroutine ??= StartCoroutine(Hovering());
+            _entitySelection.Hover();
         }
 
-        private IEnumerator Hovering()
+        public void Flash()
         {
-            SetColor(_hoverColor);
-
-            while (true)
-            {
-                _hovered = false;
-
-                yield return new WaitForSecondsRealtime(_timeToHideHover);
-
-                if (!_hovered)
-                {
-                    SetColor(Color.black);
-                    break;
-                }
-            }
-            
-            _hoveringCoroutine = null;
+            _entitySelection.Flash();
         }
 
         public void Select()
@@ -150,40 +109,9 @@ namespace ResourceManagement
                 return;
             }
             
-            StopDisplayChangingCoroutines();
-
-            _hovered = false;
-            _selected = true;
-            _infoPanelView.SetResource(this);
-
-            SetColor(_selectionColor);
-        }
-
-        public void Flash()
-        {
-            StopDisplayChangingCoroutines();
+            _entitySelection.Select();
             
-            SetColor(_selectionColor);
-
-            _hovered = false;
-            _selected = true;
-
-            _hideSelectionCoroutine = StartCoroutine(HideSelectionAfter());
-        }
-
-        private void StopDisplayChangingCoroutines()
-        {
-            if (_hoveringCoroutine != null)
-            {
-                StopCoroutine(_hoveringCoroutine);
-                _hoveringCoroutine = null;
-            }
-
-            if (_hideSelectionCoroutine != null)
-            {
-                StopCoroutine(_hideSelectionCoroutine);
-                _hideSelectionCoroutine = null;
-            }
+            _infoPanelView.SetResource(this);
         }
 
         public void Deselect()
@@ -193,10 +121,14 @@ namespace ResourceManagement
                 return;
             }
             
-            _selected = false;
-            SetColor(Color.black);
+            _entitySelection.Deselect();
             
             _infoPanelView.UnsetResource(this);
+        }
+
+        public void StopDisplay()
+        {
+            _entitySelection.StopDisplay();
         }
 
         public void Hit(Vector3 position)
@@ -208,7 +140,7 @@ namespace ResourceManagement
             else
             {
                 _infoPanelView.UnsetResource(this);
-                StopDisplayChangingCoroutines();
+                StopDisplay();
                 
                 _animations.OnDestroy(position, Destroy);
             }
@@ -226,19 +158,6 @@ namespace ResourceManagement
             {
                 DropRemainingQuantity();
             }
-        }
-
-        private IEnumerator HideSelectionAfter()
-        {
-            yield return new WaitForSecondsRealtime(_timeToHideSelection);
-            
-            SetColor(Color.black);
-            _selected = false;
-        }
-
-        private void SetColor(Color color)
-        {
-            _renderer.materials[_materialIndex].SetColor(_emissiveColor, color);
         }
 
         private void DropPreservedQuantity()

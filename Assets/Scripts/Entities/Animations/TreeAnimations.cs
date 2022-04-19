@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections;
 using DG.Tweening;
-using ResourceManagement;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -39,7 +37,7 @@ namespace Entities.Animations
         private Vector3 _axis;
         private float _currentAngle;
         
-        private float _lastHitTime;
+        private float _lastHitTime = 0f;
 
         public void OnHit(Vector3 agentPosition)
         {
@@ -58,11 +56,19 @@ namespace Entities.Animations
             Rotate();
         }
 
+        public void OnDestroy(Vector3 agentPosition, Action onFinish)
+        {
+            DOTween.Kill(_tree.transform);
+            
+            _axis = CalculateHitAxis(agentPosition);
+
+            Fall(onFinish);
+        }
+
         private void Rotate()
         {
-            _rotationTransform.localPosition = Vector3.zero;
-            _rotationTransform.rotation = Quaternion.Euler(Vector3.zero);
-            
+            ResetRotationTransform();
+
             var sequence = DOTween.Sequence();
 
             CalculateRotationToLeft(sequence);
@@ -96,19 +102,16 @@ namespace Entities.Animations
             sequence.Insert(2 * _oneDirectionRotationTime, _tree.transform.DORotate(_rotationTransform.rotation.eulerAngles, _oneDirectionRotationTime));
         }
 
-        public void OnDestroy(Vector3 agentPosition, Action onFinish)
+        private void ResetRotationTransform()
         {
-            DOTween.Kill(_tree.transform);
-            
-            _axis = CalculateHitAxis(agentPosition);
-
-            Fall(onFinish);
+            _rotationTransform.localPosition = Vector3.zero;
+            _rotationTransform.localRotation = Quaternion.Euler(Vector3.zero);
         }
 
-        private Vector3 CalculateHitAxis(Vector3 lumberjackPosition)
+        private Vector3 CalculateHitAxis(Vector3 agentPosition)
         {
-            return new Vector3(_tree.position.x - lumberjackPosition.x, 0,
-                _tree.position.z - lumberjackPosition.z);
+            return new Vector3(_tree.position.x - agentPosition.x, 0,
+                _tree.position.z - agentPosition.z);
         }
 
         private void Fall(Action onFinish)

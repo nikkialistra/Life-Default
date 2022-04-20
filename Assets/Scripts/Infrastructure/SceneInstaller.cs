@@ -63,7 +63,6 @@ namespace Infrastructure
         [Title("Entities")]
         [Required]
         [SerializeField] private HumanNames _humanNames;
-        [FormerlySerializedAs("_humanAppearance")]
         [Required]
         [SerializeField] private HumanAppearanceRegistry _humanAppearanceRegistry;
         

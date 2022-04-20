@@ -1,0 +1,208 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 794e8bebdd484c7bab7838ed52320cb4, type: 3}
+  m_Name: Human Garment Variant
+  m_EditorClassIdentifier: 
+  _headCoveringHairVariants:
+    _variants:
+    - _value: {fileID: 0}
+      _chance: 18
+      _relativeChance: 0.7826087
+    - _value: {fileID: 4301116, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+      _chance: 1
+      _relativeChance: 0.04347826
+    - _value: {fileID: 4301124, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+      _chance: 1
+      _relativeChance: 0.04347826
+    - _value: {fileID: 4301128, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+      _chance: 1
+      _relativeChance: 0.04347826
+    - _value: {fileID: 4301130, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+      _chance: 1
+      _relativeChance: 0.04347826
+    - _value: {fileID: 4301132, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+      _chance: 1
+      _relativeChance: 0.04347826
+  _torsoVariants:
+    _variants:
+    - _value: {fileID: 4301432, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+      _chance: 1
+      _relativeChance: 0.2
+    - _value: {fileID: 4301434, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+      _chance: 1
+      _relativeChance: 0.2
+    - _value: {fileID: 4301438, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+      _chance: 1
+      _relativeChance: 0.2
+    - _value: {fileID: 4301440, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+      _chance: 1
+      _relativeChance: 0.2
+    - _value: {fileID: 4301446, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+      _chance: 1
+      _relativeChance: 0.2
+  _backAttachmentVariants:
+    _variants:
+    - _value: {fileID: 0}
+      _chance: 20
+      _relativeChance: 0.8333333
+    - _value: {fileID: 4301176, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+      _chance: 1
+      _relativeChance: 0.041666668
+    - _value: {fileID: 4301180, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+      _chance: 1
+      _relativeChance: 0.041666668
+    - _value: {fileID: 4301188, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+      _chance: 1
+      _relativeChance: 0.041666668
+    - _value: {fileID: 4301198, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+      _chance: 1
+      _relativeChance: 0.041666668
+  _armUpperRightVariants:
+    _variants:
+    - _value: {fileID: 4301844, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+      _chance: 1
+      _relativeChance: 0.33333334
+    - _value: {fileID: 4301850, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+      _chance: 1
+      _relativeChance: 0.33333334
+    - _value: {fileID: 4301880, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+      _chance: 1
+      _relativeChance: 0.33333334
+  _armUpperLeftVariants:
+    _variants:
+    - _value: {fileID: 4301882, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+      _chance: 1
+      _relativeChance: 0.33333334
+    - _value: {fileID: 4301888, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+      _chance: 1
+      _relativeChance: 0.33333334
+    - _value: {fileID: 4301918, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+      _chance: 1
+      _relativeChance: 0.33333334
+  _armLowerRightVariants:
+    _variants:
+    - _value: {fileID: 4301920, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+      _chance: 1
+      _relativeChance: 0.25
+    - _value: {fileID: 4301946, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+      _chance: 1
+      _relativeChance: 0.25
+    - _value: {fileID: 4301954, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+      _chance: 1
+      _relativeChance: 0.25
+    - _value: {fileID: 4301956, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+      _chance: 1
+      _relativeChance: 0.25
+  _armLowerLeftVariants:
+    _variants:
+    - _value: {fileID: 4301406, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+      _chance: 1
+      _relativeChance: 0.25
+    - _value: {fileID: 4301980, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+      _chance: 1
+      _relativeChance: 0.25
+    - _value: {fileID: 4301988, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+      _chance: 1
+      _relativeChance: 0.25
+    - _value: {fileID: 4301990, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+      _chance: 1
+      _relativeChance: 0.25
+  _handRightVariants:
+    _variants:
+    - _value: {fileID: 4301408, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+      _chance: 1
+      _relativeChance: 0.2
+    - _value: {fileID: 4301992, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+      _chance: 1
+      _relativeChance: 0.2
+    - _value: {fileID: 4302002, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+      _chance: 1
+      _relativeChance: 0.2
+    - _value: {fileID: 4302004, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+      _chance: 1
+      _relativeChance: 0.2
+    - _value: {fileID: 4302018, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+      _chance: 1
+      _relativeChance: 0.2
+  _handLeftVariants:
+    _variants:
+    - _value: {fileID: 4301410, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+      _chance: 1
+      _relativeChance: 0.2
+    - _value: {fileID: 4302024, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+      _chance: 1
+      _relativeChance: 0.2
+    - _value: {fileID: 4302034, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+      _chance: 1
+      _relativeChance: 0.2
+    - _value: {fileID: 4302036, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+      _chance: 1
+      _relativeChance: 0.2
+    - _value: {fileID: 4302050, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+      _chance: 1
+      _relativeChance: 0.2
+  _hipsVariants:
+    _variants:
+    - _value: {fileID: 4301726, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+      _chance: 1
+      _relativeChance: 0.33333334
+    - _value: {fileID: 4301754, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+      _chance: 1
+      _relativeChance: 0.33333334
+    - _value: {fileID: 4301766, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+      _chance: 1
+      _relativeChance: 0.33333334
+  _hipsAttachmentVariants:
+    _variants:
+    - _value: {fileID: 0}
+      _chance: 10
+      _relativeChance: 0.71428573
+    - _value: {fileID: 4301306, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+      _chance: 1
+      _relativeChance: 0.071428575
+    - _value: {fileID: 4301308, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+      _chance: 1
+      _relativeChance: 0.071428575
+    - _value: {fileID: 4301312, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+      _chance: 1
+      _relativeChance: 0.071428575
+    - _value: {fileID: 4301314, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+      _chance: 1
+      _relativeChance: 0.071428575
+  _legRightVariants:
+    _variants:
+    - _value: {fileID: 4301416, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+      _chance: 1
+      _relativeChance: 0.1
+    - _value: {fileID: 4301808, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+      _chance: 1
+      _relativeChance: 0.1
+    - _value: {fileID: 4301810, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+      _chance: 6
+      _relativeChance: 0.6
+    - _value: {fileID: 4301836, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+      _chance: 2
+      _relativeChance: 0.2
+  _legLeftVariants:
+    _variants:
+    - _value: {fileID: 4301414, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+      _chance: 1
+      _relativeChance: 0.1
+    - _value: {fileID: 4301772, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+      _chance: 1
+      _relativeChance: 0.1
+    - _value: {fileID: 4301774, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+      _chance: 6
+      _relativeChance: 0.6
+    - _value: {fileID: 4301800, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+      _chance: 2
+      _relativeChance: 0.2

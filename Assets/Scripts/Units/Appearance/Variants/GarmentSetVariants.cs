@@ -3,20 +3,21 @@ using System.Linq;
 using Sirenix.OdinInspector;
 using Units.Appearance.ItemVariants;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Units.Appearance.Variants
 {
     [CreateAssetMenu(fileName = "Human Garment Set Variants", menuName = "Human Appearance/Garment Set Variants", order = 2)]
     public class GarmentSetVariants : ScriptableObject
     {
-        [SerializeField] private List<GarmentVariants> _garmentVariants;
+        [SerializeField] private List<GarmentSet> _garmentSetVariants;
         [SerializeField] private List<float> _chances;
         [SerializeField] private List<float> _relativeChances;
 
         [Button]
         public void CalculateRelativeChancesForVariants()
         {
-            if (!_garmentVariants.Any())
+            if (!_garmentSetVariants.Any())
             {
                 return;
             }
@@ -31,9 +32,9 @@ namespace Units.Appearance.Variants
             }
         }
 
-        public GarmentVariants GetRandom()
+        public GarmentSet GetRandom()
         {
-            if (!_garmentVariants.Any())
+            if (!_garmentSetVariants.Any())
             {
                 return default;
             }
@@ -44,7 +45,7 @@ namespace Units.Appearance.Variants
             {
                 if (randomValue <= _relativeChances[i])
                 {
-                    return _garmentVariants[i];
+                    return _garmentSetVariants[i];
                 }
             }
 
@@ -53,17 +54,17 @@ namespace Units.Appearance.Variants
 
         private void AlignListSizes()
         {
-            if (_chances.Count > _garmentVariants.Count)
+            if (_chances.Count > _garmentSetVariants.Count)
             {
-                _chances.RemoveRange(_garmentVariants.Count, _chances.Count - _garmentVariants.Count);
+                _chances.RemoveRange(_garmentSetVariants.Count, _chances.Count - _garmentSetVariants.Count);
             }
             
-            if (_relativeChances.Count > _garmentVariants.Count)
+            if (_relativeChances.Count > _garmentSetVariants.Count)
             {
-                _relativeChances.RemoveRange(_garmentVariants.Count, _relativeChances.Count - _garmentVariants.Count);
+                _relativeChances.RemoveRange(_garmentSetVariants.Count, _relativeChances.Count - _garmentSetVariants.Count);
             }
             
-            for (int i = 1; i <= _garmentVariants.Count; i++)
+            for (int i = 1; i <= _garmentSetVariants.Count; i++)
             {
                 if (_chances.Count < i)
                 {

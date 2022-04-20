@@ -1,15 +1,18 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Sirenix.OdinInspector;
 using Units.Appearance.ItemVariants.Item;
-using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Units.Appearance.ItemVariants
 {
     public interface IItemVariants<T>
     {
         public IEnumerable<IItem<T>> Variants { get; }
-        
+
+        public bool IsEmpty => !Variants.Any();
+
         [Button]
         public void CalculateRelativeChancesForVariants()
         {
@@ -46,6 +49,21 @@ namespace Units.Appearance.ItemVariants
             }
 
             return default;
+        }
+
+        public int GetRandomIndex()
+        {
+            return Random.Range(0, Variants.Count());
+        }
+
+        public T GetAtIndex(int index)
+        {
+            if (index >= Variants.Count())
+            {
+                throw new InvalidOperationException("Taking item element at not existing index");
+            }
+
+            return Variants.ElementAt(index).Value;
         }
     }
 }

@@ -661,7 +661,7 @@ MonoBehaviour:
   _name: 
   _gender: 0
   _healthBars: {fileID: 1935489896466272434}
-  _colonistRandomizer: {fileID: 3667617560854097249}
+  _humanAppearance: {fileID: 3667617560854097249}
   _enemyFieldOfView: {fileID: 6786474178297105745}
   _resourceFieldOfView: {fileID: 3861131080668585495}
   _selectionIndicator: {fileID: 3207950516897515159}

@@ -2,14 +2,12 @@
 using System.Collections.Generic;
 using Common;
 using Sirenix.OdinInspector;
-using Units;
-using Units.Appearance;
 using Units.Appearance.ItemVariants;
 using Units.Appearance.Variants;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace Colonists
+namespace Units.Appearance
 {
     public class HumanAppearance : MonoBehaviour
     {
@@ -45,19 +43,37 @@ namespace Colonists
                 _male.SetActive(false);
                 _female.SetActive(true);
             }
+
+            ResetComplementaryItems();
             
             RandomizeHeadItems(gender, genderItems,  humanAppearanceRegistry.HeadVariantsFor(gender));
             RandomizeGarmentSet(genderItems, humanAppearanceRegistry.GarmentSetFor(gender));
             RandomizeColors(gender, genderItems, humanAppearanceRegistry.ColorVariants);
         }
 
+        private void ResetComplementaryItems()
+        {
+            _agenderItems.Hair.sharedMesh = null;
+            _agenderItems.Ears.sharedMesh = null;
+            _agenderItems.HeadCoveringHair.sharedMesh = null;
+            _agenderItems.HeadCoveringNoHair.sharedMesh = null;
+            _agenderItems.HeadCoveringNoFacialHair.sharedMesh = null;
+            _agenderItems.Helmet.sharedMesh = null;
+            _agenderItems.BackAttachment.sharedMesh = null;
+            _agenderItems.ShoulderAttachmentRight.sharedMesh = null;
+            _agenderItems.ShoulderAttachmentLeft.sharedMesh = null;
+            _agenderItems.ElbowAttachmentRight.sharedMesh = null;
+            _agenderItems.ElbowAttachmentLeft.sharedMesh = null;
+            _agenderItems.HipsAttachment.sharedMesh = null;
+            _agenderItems.KneeAttachmentRight.sharedMesh = null;
+            _agenderItems.KneeAttachmentLeft.sharedMesh = null;
+        }
+
         private void RandomizeHeadItems(Gender gender, GenderItems genderItems, HeadVariants headVariants)
         {
             RandomizeItem(genderItems.Head, headVariants.Head);
-            
-            
+
             RandomizeItem(_agenderItems.Hair, headVariants.Hair);
-            
 
             RandomizeItem(_agenderItems.Ears, headVariants.Ears);
             RandomizeItem(genderItems.Eyebrows, headVariants.Eyebrows);
@@ -72,32 +88,24 @@ namespace Colonists
         {
             var garment = garmentSetVariants.GetRandom();
             
-            SetItem(_agenderItems.HeadCoveringHair, garment.HeadCoveringHair);
+            RandomizeItem(_agenderItems.HeadCoveringHair, garment.HeadCoveringHair);
 
-            SetItem(genderItems.Torso, garment.Torso);
-            SetItem(_agenderItems.BackAttachment, garment.BackAttachment);
+            RandomizeItem(genderItems.Torso, garment.Torso);
+            RandomizeItem(_agenderItems.BackAttachment, garment.BackAttachment);
             
-            SetItem(genderItems.ArmUpperRight, garment.ArmUpperRight);
-            SetItem(genderItems.ArmUpperLeft, garment.ArmUpperLeft);
-            SetItem(genderItems.ArmLowerRight, garment.ArmLowerRight);
-            SetItem(genderItems.ArmLowerLeft, garment.ArmLowerLeft);
+            RandomizeItemAtSameIndex(genderItems.ArmUpperRight, genderItems.ArmUpperLeft,
+                garment.ArmUpperRight, garment.ArmUpperLeft);
+            RandomizeItemAtSameIndex(genderItems.ArmLowerRight, genderItems.ArmLowerLeft,
+                garment.ArmLowerRight, garment.ArmLowerRight);
             
-            SetItem(genderItems.HandRight, garment.HandRight);
-            SetItem(genderItems.HandLeft, garment.HandLeft);
-            
-            SetItem(genderItems.Hips, garment.Hips);
-            SetItem(_agenderItems.HipsAttachment, garment.HipsAttachment);
-            
-            SetItem(genderItems.LegRight, garment.LegRight);
-            SetItem(genderItems.LegLeft, garment.LegLeft);
-        }
+            RandomizeItemAtSameIndex(genderItems.HandRight, genderItems.HandLeft,
+                garment.HandRight, garment.HandLeft);
 
-        private void SetItem(SkinnedMeshRenderer renderer, Mesh mesh)
-        {
-            if (mesh != null)
-            {
-                renderer.sharedMesh = mesh;
-            }
+            RandomizeItem(genderItems.Hips, garment.Hips);
+            RandomizeItem(_agenderItems.HipsAttachment, garment.HipsAttachment);
+            
+            RandomizeItemAtSameIndex(genderItems.LegRight, genderItems.LegLeft,
+                garment.LegRight, garment.LegRight);
         }
 
         private void RandomizeColors(Gender gender, GenderItems genderItems, ColorVariants colorVariants)
@@ -136,9 +144,29 @@ namespace Colonists
 
         private void RandomizeItem(SkinnedMeshRenderer renderer, IItemVariants<Mesh> meshVariants)
         {
-            var randomMesh = meshVariants.GetRandom();
-            
-            renderer.sharedMesh = randomMesh;
+            var mesh = meshVariants.GetRandom();
+
+            if (mesh != null)
+            {
+                renderer.sharedMesh = mesh;
+            }
+        }
+        
+        private void RandomizeItemAtSameIndex(SkinnedMeshRenderer firstRenderer, SkinnedMeshRenderer secondRenderer,
+            IItemVariants<Mesh> firstVariants, IItemVariants<Mesh> secondVariants)
+        {
+            if (firstVariants.IsEmpty)
+            {
+                return;
+            }
+
+            var index = firstVariants.GetRandomIndex();
+
+            var firstMesh = firstVariants.GetAtIndex(index);
+            var secondMesh = secondVariants.GetAtIndex(index);
+
+            firstRenderer.sharedMesh = firstMesh;
+            secondRenderer.sharedMesh = secondMesh;
         }
 
         private void SetColor(SkinnedMeshRenderer renderer, Color color)

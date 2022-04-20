@@ -1,14 +1,11 @@
 ﻿using System;
 using Common;
 using Entities;
-using Entities.Services;
-using Entities.Types;
 using Sirenix.OdinInspector;
 using Units;
 using Units.Ancillaries;
 using Units.Appearance;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Zenject;
 
 namespace Colonists
@@ -26,7 +23,6 @@ namespace Colonists
         
         [Required]
         [SerializeField] private HealthBars _healthBars;
-        [FormerlySerializedAs("_colonistRandomizer")]
         [Required]
         [SerializeField] private HumanAppearance _humanAppearance;
         

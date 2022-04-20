@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4222db367f484e538d2c7f57af91b19e, type: 3}
   m_Name: Human Garment Set Variants Male
   m_EditorClassIdentifier: 
-  _garmentVariants:
+  _garmentSetVariants:
   - {fileID: 11400000, guid: 2ce32982414ab334ba44d3c30976b986, type: 2}
   _chances:
   - 1

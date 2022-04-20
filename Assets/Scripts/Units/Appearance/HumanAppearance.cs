@@ -96,7 +96,7 @@ namespace Units.Appearance
             RandomizeItemAtSameIndex(genderItems.ArmUpperRight, genderItems.ArmUpperLeft,
                 garment.ArmUpperRight, garment.ArmUpperLeft);
             RandomizeItemAtSameIndex(genderItems.ArmLowerRight, genderItems.ArmLowerLeft,
-                garment.ArmLowerRight, garment.ArmLowerRight);
+                garment.ArmLowerRight, garment.ArmLowerLeft);
             
             RandomizeItemAtSameIndex(genderItems.HandRight, genderItems.HandLeft,
                 garment.HandRight, garment.HandLeft);
@@ -105,7 +105,7 @@ namespace Units.Appearance
             RandomizeItem(_agenderItems.HipsAttachment, garment.HipsAttachment);
             
             RandomizeItemAtSameIndex(genderItems.LegRight, genderItems.LegLeft,
-                garment.LegRight, garment.LegRight);
+                garment.LegRight, garment.LegLeft);
         }
 
         private void RandomizeColors(Gender gender, GenderItems genderItems, ColorVariants colorVariants)

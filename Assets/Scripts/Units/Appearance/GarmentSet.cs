@@ -1,6 +1,6 @@
-﻿using Units.Appearance.ItemVariants;
+﻿using Sirenix.OdinInspector;
+using Units.Appearance.ItemVariants;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Units.Appearance
 {
@@ -27,6 +27,28 @@ namespace Units.Appearance
         [Space]
         [SerializeField] private ItemObjectVariants<Mesh> _legRightVariants;
         [SerializeField] private ItemObjectVariants<Mesh> _legLeftVariants;
+        
+        [Button]
+        private void CalculateAllRelativeChances()
+        {
+            HeadCoveringHair.CalculateRelativeChancesForVariants();
+            
+            Torso.CalculateRelativeChancesForVariants();
+            BackAttachment.CalculateRelativeChancesForVariants();
+            
+            ArmUpperRight.CalculateRelativeChancesForVariants();
+            ArmUpperLeft.CalculateRelativeChancesForVariants();
+            ArmLowerRight.CalculateRelativeChancesForVariants();
+            ArmLowerLeft.CalculateRelativeChancesForVariants();
+            
+            HandRight.CalculateRelativeChancesForVariants();
+            HandLeft.CalculateRelativeChancesForVariants();
+            
+            Hips.CalculateRelativeChancesForVariants();
+            
+            LegRight.CalculateRelativeChancesForVariants();
+            LegLeft.CalculateRelativeChancesForVariants();
+        }
 
         public IItemVariants<Mesh> HeadCoveringHair => _headCoveringHairVariants;
 

@@ -1,4 +1,5 @@
-﻿using Units.Appearance.ItemVariants;
+﻿using Sirenix.OdinInspector;
+using Units.Appearance.ItemVariants;
 using UnityEngine;
 
 namespace Units.Appearance.Variants
@@ -11,6 +12,16 @@ namespace Units.Appearance.Variants
         [SerializeField] private ItemObjectVariants<Mesh> _ears;
         [SerializeField] private ItemObjectVariants<Mesh> _eyebrows;
         [SerializeField] private ItemObjectVariants<Mesh> _facialHair;
+        
+        [Button]
+        private void CalculateAllRelativeChances()
+        {
+            Head.CalculateRelativeChancesForVariants();
+            Hair.CalculateRelativeChancesForVariants();
+            Ears.CalculateRelativeChancesForVariants();
+            Eyebrows.CalculateRelativeChancesForVariants();
+            FacialHair.CalculateRelativeChancesForVariants();
+        }
 
         public IItemVariants<Mesh> Head => _head;
         public IItemVariants<Mesh> Hair => _hair;

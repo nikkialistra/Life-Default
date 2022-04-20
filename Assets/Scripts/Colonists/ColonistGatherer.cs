@@ -84,7 +84,7 @@ namespace Colonists
             StartCoroutine(StopGatheringLater());
         }
         
-        public void Hit()
+        public void Hit(float passedTime)
         {
             if (_gatheringResource == null || _gatheringResource.Exhausted)
             {
@@ -92,7 +92,9 @@ namespace Colonists
                 return;
             }
 
-            _gatheringResource.Extract(_colonistStats.ResourceDestructionSpeed, _colonistStats.ResourceExtractionEfficiency);
+            var extractedQuantity = _colonistStats.ResourceDestructionSpeed * passedTime;
+
+            _gatheringResource.Extract(extractedQuantity, _colonistStats.ResourceExtractionEfficiency);
             _gatheringResource.Hit(transform.position);
 
             if (_gatheringResource.Exhausted)

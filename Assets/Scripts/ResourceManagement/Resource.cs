@@ -75,15 +75,15 @@ namespace ResourceManagement
         public ResourceType ResourceType => _resourceType;
         
         public string Name => _name;
-        public float Quantity
+        public int Quantity
         {
             get
             {
                 var quantity = _storedQuantity + _preservedExtractedQuantity;
-                return quantity >= 1f ? Mathf.Floor(_storedQuantity + _preservedExtractedQuantity) : 0;
+                return quantity >= 1f ? (int)Mathf.Floor(_storedQuantity + _preservedExtractedQuantity) : 0;
             }
         }
-        public float Durability => _durability;
+        public int Durability => (int)Mathf.Round(_durability);
 
         public bool Exhausted => _durability == 0;
         

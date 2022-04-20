@@ -22,7 +22,7 @@ namespace Colonists
         {
             if (stateInfo.normalizedTime > _nextHitTime)
             {
-                _colonistGatherer.Hit();
+                _colonistGatherer.Hit(stateInfo.length);
                 _nextHitTime++;
             }
         }

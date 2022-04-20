@@ -5,27 +5,27 @@ using UnityEngine;
 
 namespace Enemies
 {
-    [RequireComponent(typeof(EntityAnimator))]
+    [RequireComponent(typeof(UnitAnimator))]
     public class EnemyAnimator : MonoBehaviour
     {
         [Required]
         [SerializeField] private EnemyMeshAgent _enemyMeshAgent;
 
-        private EntityAnimator _entityAnimator;
+        private UnitAnimator _unitAnimator;
 
         private void Awake()
         {
-            _entityAnimator = GetComponent<EntityAnimator>();
+            _unitAnimator = GetComponent<UnitAnimator>();
         }
 
         private void Update()
         {
-            _entityAnimator.Move(_enemyMeshAgent.IsMoving);
+            _unitAnimator.Move(_enemyMeshAgent.IsMoving);
         }
 
         public void Die(Action died)
         {
-            _entityAnimator.Die(died);
+            _unitAnimator.Die(died);
         }
     }
 }

@@ -1279,7 +1279,7 @@ MonoBehaviour:
   _cameraMovement: {fileID: 0}
   _flyCamera: {fileID: 0}
   _humanNames: {fileID: 3020716835014364428}
-  _humanAppearance: {fileID: 3020716834359568265}
+  _humanAppearanceRegistry: {fileID: 3020716834359568265}
   _map: {fileID: 3020716833928731938}
   _astarPath: {fileID: 3020716834256895297}
   _resourceChunksParent: {fileID: 0}
@@ -1358,7 +1358,7 @@ GameObject:
   - component: {fileID: 3020716834359568264}
   - component: {fileID: 3020716834359568265}
   m_Layer: 0
-  m_Name: Human Appearance
+  m_Name: Human Appearance Registry
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

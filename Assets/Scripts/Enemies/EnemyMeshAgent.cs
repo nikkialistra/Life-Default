@@ -3,43 +3,43 @@ using UnityEngine;
 
 namespace Enemies
 {
-    [RequireComponent(typeof(EntityMeshAgent))]
+    [RequireComponent(typeof(UnitMeshAgent))]
     public class EnemyMeshAgent : MonoBehaviour
     {
-        private EntityMeshAgent _entityMeshAgent;
+        private UnitMeshAgent _unitMeshAgent;
 
         private void Awake()
         {
-            _entityMeshAgent = GetComponent<EntityMeshAgent>();
+            _unitMeshAgent = GetComponent<UnitMeshAgent>();
         }
 
-        public bool IsMoving => _entityMeshAgent.IsMoving;
+        public bool IsMoving => _unitMeshAgent.IsMoving;
         public bool Idle { get; private set; } = true;
 
         private void OnEnable()
         {
-            _entityMeshAgent.DestinationReach += OnDestinationReach;
+            _unitMeshAgent.DestinationReach += OnDestinationReach;
         }
 
         private void OnDisable()
         {
-            _entityMeshAgent.DestinationReach -= OnDestinationReach;
+            _unitMeshAgent.DestinationReach -= OnDestinationReach;
         }
 
         public void Deactivate()
         {
-            _entityMeshAgent.StopCurrentCommand();
+            _unitMeshAgent.StopCurrentCommand();
         }
 
         public void GoToPosition(Vector3 position)
         {
             Idle = false;
-            _entityMeshAgent.SetDestinationToPosition(position);
+            _unitMeshAgent.SetDestinationToPosition(position);
         }
 
         public void StopMoving()
         {
-            _entityMeshAgent.StopMoving();
+            _unitMeshAgent.StopMoving();
         }
 
         private void OnDestinationReach()

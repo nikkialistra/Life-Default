@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Units
 {
-    public class EntityAnimator : MonoBehaviour
+    public class UnitAnimator : MonoBehaviour
     {
         [Required]
         [SerializeField] private Animator _animator;

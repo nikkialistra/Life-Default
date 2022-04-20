@@ -14,6 +14,7 @@ using UI;
 using Units;
 using Units.Appearance;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Zenject;
 
 namespace Infrastructure
@@ -62,8 +63,9 @@ namespace Infrastructure
         [Title("Entities")]
         [Required]
         [SerializeField] private HumanNames _humanNames;
+        [FormerlySerializedAs("_humanAppearance")]
         [Required]
-        [SerializeField] private HumanAppearance _humanAppearance;
+        [SerializeField] private HumanAppearanceRegistry _humanAppearanceRegistry;
         
         [Title("Map")]
         [Required]
@@ -127,7 +129,7 @@ namespace Infrastructure
         private void BindEntities()
         {
             Container.BindInstance(_humanNames);
-            Container.BindInstance(_humanAppearance);
+            Container.BindInstance(_humanAppearanceRegistry);
         }
         
         private void BindMap()

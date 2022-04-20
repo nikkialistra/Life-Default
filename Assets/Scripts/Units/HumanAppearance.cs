@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Common;
-using Entities.Types;
 using Sirenix.OdinInspector;
 using Units;
 using Units.Appearance;
@@ -12,12 +11,12 @@ using Random = UnityEngine.Random;
 
 namespace Colonists
 {
-    public class ColonistRandomizer : MonoBehaviour
+    public class HumanAppearance : MonoBehaviour
     {
         [Title("Bindings")]
         [SerializeField] private GameObject _male;
         [SerializeField] private GameObject _female;
-
+        [Space]
         [SerializeField] private GenderItems _maleItems;
         [SerializeField] private GenderItems _femaleItems;
         [SerializeField] private AgenderItems _agenderItems;
@@ -29,7 +28,7 @@ namespace Colonists
         
         private readonly int _color = Shader.PropertyToID("_BaseColor");
         
-        public void RandomizeAppearanceWith(Gender gender, HumanAppearance humanAppearance)
+        public void RandomizeAppearanceWith(Gender gender, HumanAppearanceRegistry humanAppearanceRegistry)
         {
             GenderItems genderItems;
             if (gender == Gender.Male)
@@ -47,9 +46,9 @@ namespace Colonists
                 _female.SetActive(true);
             }
             
-            RandomizeHeadItems(gender, genderItems,  humanAppearance.HeadVariantsFor(gender));
-            RandomizeGarmentSet(genderItems, humanAppearance.GarmentSetFor(gender));
-            RandomizeColors(gender, genderItems, humanAppearance.ColorVariants);
+            RandomizeHeadItems(gender, genderItems,  humanAppearanceRegistry.HeadVariantsFor(gender));
+            RandomizeGarmentSet(genderItems, humanAppearanceRegistry.GarmentSetFor(gender));
+            RandomizeColors(gender, genderItems, humanAppearanceRegistry.ColorVariants);
         }
 
         private void RandomizeHeadItems(Gender gender, GenderItems genderItems, HeadVariants headVariants)

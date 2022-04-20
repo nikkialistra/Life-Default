@@ -6,13 +6,13 @@ using UnityEngine;
 
 namespace Colonists
 {
-    [RequireComponent(typeof(EntityAnimator))]
+    [RequireComponent(typeof(UnitAnimator))]
     public class ColonistAnimator : MonoBehaviour
     {
         [Required]
         [SerializeField] private Animator _animator;
 
-        private EntityAnimator _entityAnimator;
+        private UnitAnimator _unitAnimator;
 
         private readonly int _cuttingTrees = Animator.StringToHash("cuttingTrees");
         private readonly int _miningRocks = Animator.StringToHash("miningRocks");
@@ -20,12 +20,12 @@ namespace Colonists
 
         private void Awake()
         {
-            _entityAnimator = GetComponent<EntityAnimator>();
+            _unitAnimator = GetComponent<UnitAnimator>();
         }
 
         public void Move(bool value)
         {
-            _entityAnimator.Move(value);
+            _unitAnimator.Move(value);
         }
 
         public void Gather(Resource resource)
@@ -53,7 +53,7 @@ namespace Colonists
 
         public void Die(Action died)
         {
-            _entityAnimator.Die(died);
+            _unitAnimator.Die(died);
         }
     }
 }

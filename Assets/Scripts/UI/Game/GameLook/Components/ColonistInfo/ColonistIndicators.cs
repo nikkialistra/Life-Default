@@ -73,7 +73,7 @@ namespace UI.Game.GameLook.Components.ColonistInfo
             _entertainmentArrow = tree.Q<VisualElement>("entertainment-arrow");
         }
         
-        public void UpdateVitalityMaxValues(EntityVitality vitality)
+        public void UpdateVitalityMaxValues(UnitVitality vitality)
         {
             _healthProgress.highValue = vitality.MaxHealth;
             
@@ -81,14 +81,14 @@ namespace UI.Game.GameLook.Components.ColonistInfo
             _recoverySpeedProgress.highValue = vitality.MaxRecoverySpeed;
         }
         
-        public void UpdateHealth(EntityVitality vitality)
+        public void UpdateHealth(UnitVitality vitality)
         {
             _healthProgress.value = vitality.Health;
             _healthProgress.title = $"{(int)vitality.Health}/{vitality.MaxHealth}";
             _healthValue.text = $"{vitality.HealthPercent}%";
         }
 
-        public void UpdateRecoverySpeed(EntityVitality vitality)
+        public void UpdateRecoverySpeed(UnitVitality vitality)
         {
             _recoverySpeedProgress.value = vitality.RecoverySpeed;
             _recoverySpeedProgress.title = $"{Math.Round(vitality.RecoverySpeed, 1)}/{Math.Round(vitality.MaxRecoverySpeed, 1)}";

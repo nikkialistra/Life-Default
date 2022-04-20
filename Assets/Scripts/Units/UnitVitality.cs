@@ -8,7 +8,7 @@ using Random = UnityEngine.Random;
 
 namespace Units
 {
-    public class EntityVitality : MonoBehaviour, IDamageable
+    public class UnitVitality : MonoBehaviour, IDamageable
     {
         [MinValue(1)]
         [SerializeField] private float _maxHealth = 100;

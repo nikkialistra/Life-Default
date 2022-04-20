@@ -8,11 +8,12 @@ using Units;
 using Units.Ancillaries;
 using Units.Appearance;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Zenject;
 
 namespace Colonists
 {
-    [RequireComponent(typeof(EntityVitality))]
+    [RequireComponent(typeof(UnitVitality))]
     [RequireComponent(typeof(ColonistAnimator))]
     [RequireComponent(typeof(ColonistMeshAgent))]
     [RequireComponent(typeof(UnitSelection))]
@@ -25,8 +26,9 @@ namespace Colonists
         
         [Required]
         [SerializeField] private HealthBars _healthBars;
+        [FormerlySerializedAs("_colonistRandomizer")]
         [Required]
-        [SerializeField] private ColonistRandomizer _colonistRandomizer;
+        [SerializeField] private HumanAppearance _humanAppearance;
         
         [Space]
         [Required]
@@ -42,7 +44,7 @@ namespace Colonists
 
         private bool _died;
         
-        private HumanAppearance _humanAppearance;
+        private HumanAppearanceRegistry _humanAppearanceRegistry;
         private HumanNames _humanNames;
         
         private UnitSelection _unitSelection;
@@ -51,9 +53,9 @@ namespace Colonists
         private ColonistBehavior _behavior;
 
         [Inject]
-        public void Construct(HumanAppearance humanAppearance , HumanNames humanNames)
+        public void Construct(HumanAppearanceRegistry humanAppearanceRegistry , HumanNames humanNames)
         {
-            _humanAppearance = humanAppearance;
+            _humanAppearanceRegistry = humanAppearanceRegistry;
             _humanNames = humanNames;
             
             _gender = EnumUtils.RandomValue<Gender>();
@@ -61,7 +63,7 @@ namespace Colonists
 
         private void Awake()
         {
-            Vitality = GetComponent<EntityVitality>();
+            Vitality = GetComponent<UnitVitality>();
             
             _unitSelection = GetComponent<UnitSelection>();
             _animator = GetComponent<ColonistAnimator>();
@@ -88,7 +90,7 @@ namespace Colonists
             }
         }
 
-        public EntityVitality Vitality { get; private set; }
+        public UnitVitality Vitality { get; private set; }
 
         public bool Alive => !_died;
 
@@ -137,7 +139,7 @@ namespace Colonists
         [Button(ButtonSizes.Medium)]
         public void RandomizeAppearance()
         {
-            _colonistRandomizer.RandomizeAppearanceWith(_gender, _humanAppearance);
+            _humanAppearance.RandomizeAppearanceWith(_gender, _humanAppearanceRegistry);
         }
         
         public void Select()
@@ -217,12 +219,12 @@ namespace Colonists
         {
             _gender = EnumUtils.RandomValue<Gender>();
 
-            if (name == "")
+            if (_name == "")
             { 
                 _name = _humanNames.GetRandomNameFor(_gender);
             }
                 
-            _colonistRandomizer.RandomizeAppearanceWith(_gender, _humanAppearance);
+            _humanAppearance.RandomizeAppearanceWith(_gender, _humanAppearanceRegistry);
 
             Vitality.Initialize();
             

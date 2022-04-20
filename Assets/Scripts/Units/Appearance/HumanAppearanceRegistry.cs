@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Units.Appearance
 {
-    public class HumanAppearance : MonoBehaviour
+    public class HumanAppearanceRegistry : MonoBehaviour
     {
         [SerializeField] private HeadVariants _maleHeadVariants;
         [SerializeField] private HeadVariants _femaleHeadVariants;

@@ -8,19 +8,19 @@ using UnityEngine;
 namespace Colonists
 {
     [RequireComponent(typeof(ColonistAnimator))]
-    [RequireComponent(typeof(EntityMeshAgent))]
+    [RequireComponent(typeof(UnitMeshAgent))]
     public class ColonistMeshAgent : MonoBehaviour
     {
         private bool _activated;
         private bool _hasPendingOrder;
 
         private ColonistAnimator _animator;
-        private EntityMeshAgent _entityMeshAgent;
+        private UnitMeshAgent _unitMeshAgent;
 
         private void Awake()
         {
             _animator = GetComponent<ColonistAnimator>();
-            _entityMeshAgent = GetComponent<EntityMeshAgent>();
+            _unitMeshAgent = GetComponent<UnitMeshAgent>();
         }
 
         public event Action DestinationReach;
@@ -28,40 +28,40 @@ namespace Colonists
 
         private void OnEnable()
         {
-            _entityMeshAgent.DestinationReach += OnDestinationReach;
-            _entityMeshAgent.RotationEnd += OnRotationEnd;
+            _unitMeshAgent.DestinationReach += OnDestinationReach;
+            _unitMeshAgent.RotationEnd += OnRotationEnd;
         }
 
         private void OnDisable()
         {
-            _entityMeshAgent.DestinationReach -= OnDestinationReach;
-            _entityMeshAgent.RotationEnd -= OnRotationEnd;
+            _unitMeshAgent.DestinationReach -= OnDestinationReach;
+            _unitMeshAgent.RotationEnd -= OnRotationEnd;
         }
 
         private void Update()
         {
-            _animator.Move(_entityMeshAgent.IsMoving);
+            _animator.Move(_unitMeshAgent.IsMoving);
         }
 
         public void SetDestinationToPosition(Vector3 position)
         {
             _hasPendingOrder = false;
 
-            _entityMeshAgent.SetDestinationToPosition(position);
+            _unitMeshAgent.SetDestinationToPosition(position);
         }
 
         public void SetDestinationToEnemy(Enemy enemy, float atDistance)
         {
             _hasPendingOrder = false;
 
-            _entityMeshAgent.SetDestinationToEnemy(enemy, atDistance);
+            _unitMeshAgent.SetDestinationToEnemy(enemy, atDistance);
         }
 
         public void SetDestinationToResource(Resource resource, float atDistance)
         {
             _hasPendingOrder = false;
 
-            _entityMeshAgent.SetDestinationToResource(resource, atDistance);
+            _unitMeshAgent.SetDestinationToResource(resource, atDistance);
         }
 
         public bool AcceptOrder()
@@ -79,12 +79,12 @@ namespace Colonists
 
         public void RotateTo(Entity entity)
         {
-            _entityMeshAgent.RotateTo(entity.transform.position);
+            _unitMeshAgent.RotateTo(entity.transform.position);
         }
 
         public void RotateToAngle(float angle)
         {
-            _entityMeshAgent.RotateToAngle(angle);
+            _unitMeshAgent.RotateToAngle(angle);
         }
 
         public void StopMoving()
@@ -94,12 +94,12 @@ namespace Colonists
                 return;
             }
 
-            _entityMeshAgent.StopMoving();
+            _unitMeshAgent.StopMoving();
         }
 
         public void StopRotating()
         {
-            _entityMeshAgent.StopRotating();
+            _unitMeshAgent.StopRotating();
         }
 
         public void Activate()
@@ -111,7 +111,7 @@ namespace Colonists
         {
             _activated = false;
 
-            _entityMeshAgent.StopCurrentCommand();
+            _unitMeshAgent.StopCurrentCommand();
         }
 
         private void OnDestinationReach()

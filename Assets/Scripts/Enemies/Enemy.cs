@@ -7,7 +7,7 @@ using Zenject;
 
 namespace Enemies
 {
-    [RequireComponent(typeof(EntityVitality))]
+    [RequireComponent(typeof(UnitVitality))]
     [RequireComponent(typeof(EnemyMeshAgent))]
     [RequireComponent(typeof(EnemyBehavior))]
     [RequireComponent(typeof(Entity))]
@@ -24,7 +24,7 @@ namespace Enemies
 
         private bool _died;
 
-        private EntityVitality _vitality;
+        private UnitVitality _vitality;
         private EnemyMeshAgent _enemyMeshAgent;
         private EnemyBehavior _enemyBehavior;
 
@@ -37,7 +37,7 @@ namespace Enemies
 
         private void Awake()
         {
-            _vitality = GetComponent<EntityVitality>();
+            _vitality = GetComponent<UnitVitality>();
             _enemyMeshAgent = GetComponent<EnemyMeshAgent>();
             _enemyBehavior = GetComponent<EnemyBehavior>();
 

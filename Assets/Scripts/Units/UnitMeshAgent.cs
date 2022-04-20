@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace Units
 {
-    public class EntityMeshAgent : MonoBehaviour
+    public class UnitMeshAgent : MonoBehaviour
     {
         [SerializeField] private float _rotationSpeed = 120f;
         [SerializeField] private float _entityOffsetForPathRecalculation = 0.6f;

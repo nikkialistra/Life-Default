@@ -1,6 +1,6 @@
 ﻿using System;
-using Entities.Creature;
 using Sirenix.OdinInspector;
+using Units;
 using UnityEngine;
 
 namespace Enemies

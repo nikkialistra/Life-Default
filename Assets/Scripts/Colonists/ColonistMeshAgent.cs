@@ -1,8 +1,8 @@
 ﻿using System;
 using Enemies;
 using Entities;
-using Entities.Creature;
 using ResourceManagement;
+using Units;
 using UnityEngine;
 
 namespace Colonists

@@ -1,4 +1,4 @@
-﻿using Entities.Creature;
+﻿using Units;
 using UnityEngine;
 
 namespace Enemies

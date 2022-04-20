@@ -1,7 +1,7 @@
 ﻿using System;
-using Entities.Creature;
 using ResourceManagement;
 using Sirenix.OdinInspector;
+using Units;
 using UnityEngine;
 
 namespace Colonists

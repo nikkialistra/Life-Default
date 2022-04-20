@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using Common;
-using Entities.Services.Appearance;
-using Entities.Services.Appearance.ItemVariants;
-using Entities.Services.Appearance.Variants;
 using Entities.Types;
 using Sirenix.OdinInspector;
+using Units;
+using Units.Appearance;
+using Units.Appearance.ItemVariants;
+using Units.Appearance.Variants;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -27,7 +28,7 @@ namespace Colonists
         [SerializeField] private AgenderItemVariants _agenderItemVariants;
         
         private readonly int _color = Shader.PropertyToID("_BaseColor");
-
+        
         public void RandomizeAppearanceWith(Gender gender, HumanAppearance humanAppearance)
         {
             GenderItems genderItems;

@@ -1,12 +1,12 @@
 ﻿using System;
 using Common;
 using Entities;
-using Entities.Ancillaries;
-using Entities.Creature;
 using Entities.Services;
-using Entities.Services.Appearance;
 using Entities.Types;
 using Sirenix.OdinInspector;
+using Units;
+using Units.Ancillaries;
+using Units.Appearance;
 using UnityEngine;
 using Zenject;
 
@@ -123,7 +123,7 @@ namespace Colonists
             transform.position = position;
         }
 
-        [Button(ButtonSizes.Large)]
+        [Button(ButtonSizes.Medium)]
         public void TakeDamage(float value)
         {
             if (_died)
@@ -134,6 +134,12 @@ namespace Colonists
             Vitality.TakeDamage(value);
         }
 
+        [Button(ButtonSizes.Medium)]
+        public void RandomizeAppearance()
+        {
+            _colonistRandomizer.RandomizeAppearanceWith(_gender, _humanAppearance);
+        }
+        
         public void Select()
         {
             if (_died)

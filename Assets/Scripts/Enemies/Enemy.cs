@@ -1,7 +1,7 @@
 ﻿using Entities;
-using Entities.Ancillaries;
-using Entities.Creature;
 using Sirenix.OdinInspector;
+using Units;
+using Units.Ancillaries;
 using UnityEngine;
 using Zenject;
 

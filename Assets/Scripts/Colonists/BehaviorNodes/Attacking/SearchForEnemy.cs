@@ -1,8 +1,8 @@
 ﻿using BehaviorDesigner.Runtime;
 using BehaviorDesigner.Runtime.Tasks;
 using Enemies;
-using Entities.Ancillaries;
-using Entities.BehaviorVariables;
+using Units.Ancillaries;
+using Units.BehaviorVariables;
 using UnityEngine;
 
 namespace Colonists.BehaviorNodes.Attacking

@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using BehaviorDesigner.Runtime;
 using Entities;
-using Entities.BehaviorVariables;
 using Entities.Types;
+using Units.BehaviorVariables;
 using UnityEngine;
 
 namespace Colonists

@@ -1,5 +1,5 @@
 ﻿using BehaviorDesigner.Runtime.Tasks;
-using Entities.BehaviorVariables;
+using Units.BehaviorVariables;
 using UnityEngine;
 
 namespace Colonists.BehaviorNodes.ResourceGathering

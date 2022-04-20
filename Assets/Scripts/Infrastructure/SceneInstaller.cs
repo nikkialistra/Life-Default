@@ -1,5 +1,4 @@
 ﻿using Entities.Services;
-using Entities.Services.Appearance;
 using General;
 using General.TemperatureRegulation;
 using General.TileManagement.Tiles;
@@ -12,6 +11,8 @@ using ResourceManagement;
 using Sirenix.OdinInspector;
 using Testing;
 using UI;
+using Units;
+using Units.Appearance;
 using UnityEngine;
 using Zenject;
 

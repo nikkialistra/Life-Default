@@ -1,7 +1,7 @@
 ﻿using BehaviorDesigner.Runtime.Tasks;
-using Entities.Ancillaries;
-using Entities.BehaviorVariables;
 using ResourceManagement;
+using Units.Ancillaries;
+using Units.BehaviorVariables;
 using UnityEngine;
 
 namespace Colonists.BehaviorNodes.ResourceGathering

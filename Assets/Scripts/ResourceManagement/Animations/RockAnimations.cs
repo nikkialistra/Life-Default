@@ -29,8 +29,7 @@ namespace ResourceManagement.Animations
         [SerializeField] private float _oneDirectionRotationTime = 0.2f;
         
         [Title("On Destroy")]
-        [SerializeField] private float _fallDistance = 1f;
-        [SerializeField] private float _fallTime = 0.5f;
+        [SerializeField] private float _collapseTime = 0.5f;
 
         private Vector3 _axis;
         private float _currentAngle;
@@ -108,8 +107,7 @@ namespace ResourceManagement.Animations
 
         private void Fall(Action onFinish)
         {
-            var fallPosition = _rock.transform.position - new Vector3(0, _fallDistance, 0);
-            _rock.transform.DOMove(fallPosition, _fallTime).OnComplete(() => onFinish());
+            _rock.transform.DOScale(Vector3.zero, _collapseTime).OnComplete(() => onFinish());
         }
     }
 }

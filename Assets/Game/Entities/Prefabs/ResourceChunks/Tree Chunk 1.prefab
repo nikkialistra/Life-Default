@@ -78,7 +78,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c02db246e2f43cf939d6c7afa3baadd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _name: Wood Chunk
+  _name: Log
   _minScale: 0.9
   _maxScale: 1.1
 --- !u!114 &3100290707218011283
@@ -110,10 +110,6 @@ PrefabInstance:
     - target: {fileID: 1609270425926636, guid: 9020d2933ec6c0544965ea4b12952c42, type: 3}
       propertyPath: m_Name
       value: SM_Tree_Log_02
-      objectReference: {fileID: 0}
-    - target: {fileID: 1609270425926636, guid: 9020d2933ec6c0544965ea4b12952c42, type: 3}
-      propertyPath: m_Layer
-      value: 18
       objectReference: {fileID: 0}
     - target: {fileID: 4659579814028464, guid: 9020d2933ec6c0544965ea4b12952c42, type: 3}
       propertyPath: m_RootOrder

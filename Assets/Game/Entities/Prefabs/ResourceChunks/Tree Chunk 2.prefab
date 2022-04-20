@@ -78,7 +78,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c02db246e2f43cf939d6c7afa3baadd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _name: Wood Chunk
+  _name: Log
   _minScale: 0.9
   _maxScale: 1.1
 --- !u!114 &3100290707218011283
@@ -93,7 +93,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a51fa4a272f548d9aba6024886c1cb42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _renderer: {fileID: 0}
+  _renderer: {fileID: 3373481142097090181}
   _materialIndex: 0
   _propertyName: Color_FA85148A
   _timeToHideHover: 0.05
@@ -176,6 +176,12 @@ PrefabInstance:
 --- !u!4 &3356387868557810159 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4925305911184638, guid: e4d35fc487ff62e45b34ae45f80c88fc,
+    type: 3}
+  m_PrefabInstance: {fileID: 3352146460093093137}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &3373481142097090181 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 23701383089980308, guid: e4d35fc487ff62e45b34ae45f80c88fc,
     type: 3}
   m_PrefabInstance: {fileID: 3352146460093093137}
   m_PrefabAsset: {fileID: 0}

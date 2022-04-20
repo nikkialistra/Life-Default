@@ -294,7 +294,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6339681153581544485}
-  m_Layer: 8
+  m_Layer: 18
   m_Name: Resource Chunks
   m_TagString: Untagged
   m_Icon: {fileID: 0}

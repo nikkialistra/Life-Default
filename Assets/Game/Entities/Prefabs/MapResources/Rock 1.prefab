@@ -220,8 +220,7 @@ MonoBehaviour:
         _maxRotationAngle: 3
         _minRotationAngle: 1
         _oneDirectionRotationTime: 0.2
-        _fallDistance: 1
-        _fallTime: 0.5
+        _collapseTime: 0.5
 --- !u!114 &5233371057614656679
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -254,11 +253,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _spawnPoint: {fileID: 353498006944670528}
-  _resourceChunkPrefabs: []
-  _minSideForce: 0
-  _maxSideForce: 0
-  _minUpForce: 0
-  _maxUpForce: 0
+  _resourceChunkPrefabs:
+  - {fileID: 7174990515432653596, guid: dd0e37f608a516e41879db4017465218, type: 3}
+  - {fileID: 1308853072467062651, guid: 3c790e7e605dbac4ba9fc214946dcc97, type: 3}
+  - {fileID: 4468761797073306804, guid: ffc9caa27ede61047aa5eda479c5d7c9, type: 3}
+  _minSideForce: 0.7
+  _maxSideForce: 1.5
+  _minUpForce: 0.5
+  _maxUpForce: 2
+  _minTimeToFreeze: 1
+  _maxTimeToFreeze: 2
 --- !u!1 &1817383417853709863
 GameObject:
   m_ObjectHideFlags: 0

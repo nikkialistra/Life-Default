@@ -309,8 +309,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _spawnPoint: {fileID: 2075133448517932925}
   _resourceChunkPrefabs:
-  - {fileID: 2660061136178119727, guid: 7737ddf479dae6248b7d81d2a0b5b006, type: 3}
-  - {fileID: 2660061136178119727, guid: d2a6cce7fb564de4c84fb8bdba059be7, type: 3}
+  - {fileID: 6799610429036595343, guid: 38ae8d2708cce5d438d913436da46ad5, type: 3}
+  - {fileID: 7268147783305164394, guid: 9de0bfd1ea3e63445bb9ed9ea497dc20, type: 3}
   _minSideForce: 1
   _maxSideForce: 2
   _minUpForce: 0

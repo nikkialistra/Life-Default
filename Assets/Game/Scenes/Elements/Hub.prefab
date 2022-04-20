@@ -1396,7 +1396,7 @@ MonoBehaviour:
     type: 2}
   _maleGarmentSetVariants: {fileID: 11400000, guid: 4042fd242cac3c24991e109b001ce397,
     type: 2}
-  _femaleGarmentSetVariants: {fileID: 11400000, guid: 4042fd242cac3c24991e109b001ce397,
+  _femaleGarmentSetVariants: {fileID: 11400000, guid: 17d927e87bc1a98499aecd04f5d012d4,
     type: 2}
   _colorVariants: {fileID: 11400000, guid: a294fbd177acfa647ad99e8d3b31d181, type: 2}
 --- !u!1 &3020716834399772927

@@ -71,22 +71,34 @@ namespace Colonists
 
         private void RandomizeGarmentSet(GenderItems genderItems, GarmentSetVariants garmentSetVariants)
         {
-            var garmentSet = garmentSetVariants.GetRandom();
+            var garment = garmentSetVariants.GetRandom();
+            
+            SetItem(_agenderItems.HeadCoveringHair, garment.HeadCoveringHair);
 
-            genderItems.Torso.sharedMesh = garmentSet.Torso;
+            SetItem(genderItems.Torso, garment.Torso);
+            SetItem(_agenderItems.BackAttachment, garment.BackAttachment);
             
-            genderItems.ArmUpperRight.sharedMesh = garmentSet.ArmUpperRight;
-            genderItems.ArmUpperLeft.sharedMesh = garmentSet.ArmUpperLeft;
-            genderItems.ArmLowerRight.sharedMesh = garmentSet.ArmLowerRight;
-            genderItems.ArmLowerLeft.sharedMesh = garmentSet.ArmLowerLeft;
+            SetItem(genderItems.ArmUpperRight, garment.ArmUpperRight);
+            SetItem(genderItems.ArmUpperLeft, garment.ArmUpperLeft);
+            SetItem(genderItems.ArmLowerRight, garment.ArmLowerRight);
+            SetItem(genderItems.ArmLowerLeft, garment.ArmLowerLeft);
             
-            genderItems.HandRight.sharedMesh = garmentSet.HandRight;
-            genderItems.HandLeft.sharedMesh = garmentSet.HandLeft;
+            SetItem(genderItems.HandRight, garment.HandRight);
+            SetItem(genderItems.HandLeft, garment.HandLeft);
             
-            genderItems.Hips.sharedMesh = garmentSet.Hips;
+            SetItem(genderItems.Hips, garment.Hips);
+            SetItem(_agenderItems.HipsAttachment, garment.HipsAttachment);
             
-            genderItems.LegRight.sharedMesh = garmentSet.LegRight;
-            genderItems.LegLeft.sharedMesh = garmentSet.LegLeft;
+            SetItem(genderItems.LegRight, garment.LegRight);
+            SetItem(genderItems.LegLeft, garment.LegLeft);
+        }
+
+        private void SetItem(SkinnedMeshRenderer renderer, Mesh mesh)
+        {
+            if (mesh != null)
+            {
+                renderer.sharedMesh = mesh;
+            }
         }
 
         private void RandomizeColors(Gender gender, GenderItems genderItems, ColorVariants colorVariants)

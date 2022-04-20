@@ -1,0 +1,56 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 794e8bebdd484c7bab7838ed52320cb4, type: 3}
+  m_Name: Human Garment Variant
+  m_EditorClassIdentifier: 
+  _headCoveringHairVariants:
+  - {fileID: 4301116, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+  - {fileID: 4301124, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+  - {fileID: 4301128, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+  - {fileID: 4301130, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+  - {fileID: 4301132, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  _torsoVariants:
+  - {fileID: 4301440, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+  _backAttachmentVariants:
+  - {fileID: 4301176, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+  - {fileID: 4301180, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+  - {fileID: 4301188, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+  - {fileID: 4301198, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+  _armUpperRightVariants:
+  - {fileID: 4301850, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+  _armUpperLeftVariants:
+  - {fileID: 4301888, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+  _armLowerRightVariants:
+  - {fileID: 4301954, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+  _armLowerLeftVariants:
+  - {fileID: 4301988, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+  _handRightVariants:
+  - {fileID: 4302004, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+  _handLeftVariants:
+  - {fileID: 4302036, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+  _hipsVariants:
+  - {fileID: 4301754, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+  _hipsAttachmentVariants:
+  - {fileID: 4301306, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+  - {fileID: 4301308, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+  - {fileID: 4301312, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+  - {fileID: 4301314, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  _legRightVariants:
+  - {fileID: 4301810, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+  _legLeftVariants:
+  - {fileID: 4301774, guid: 038320a534bd8b444b43734860d1a211, type: 3}

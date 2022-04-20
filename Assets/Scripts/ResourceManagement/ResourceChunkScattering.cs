@@ -36,14 +36,14 @@ namespace ResourceManagement
             _infoPanelView = infoPanelView;
         }
 
-        public void Spawn(ResourceType resourceType, int quantity)
+        public void Spawn(ResourceType resourceType, int quantity, float sizeMultiplier)
         {
             var resourceChunkPrefab = _resourceChunkPrefabs[Random.Range(0, _resourceChunkPrefabs.Count)];
 
             var rotation = new Vector3(0, Random.Range(0, 359), 0);
             var resourceChunk = Instantiate(resourceChunkPrefab, _spawnPoint.position, Quaternion.Euler(rotation), _parent);
 
-            resourceChunk.Initialize(resourceType, quantity, _infoPanelView);
+            resourceChunk.Initialize(resourceType, quantity, sizeMultiplier, _infoPanelView);
             
             BurstOutResource(resourceChunk);
         }

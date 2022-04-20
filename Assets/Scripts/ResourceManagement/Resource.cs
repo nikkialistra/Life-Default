@@ -162,7 +162,9 @@ namespace ResourceManagement
 
         private void DropPreservedQuantity()
         {
-            _resourceChunkScattering.Spawn(_resourceType, _quantityToDrop);
+            var sizeMultiplier = CalculateSizeMultiplier(_quantityToDrop, _maxExtractedQuantityForDrop);
+            
+            _resourceChunkScattering.Spawn(_resourceType, _quantityToDrop, sizeMultiplier);
             
             _preservedExtractedQuantity -= _quantityToDrop;
             _resourceCounts.ChangeResourceTypeCount(_resourceType, _quantityToDrop);
@@ -174,11 +176,18 @@ namespace ResourceManagement
 
         private void DropRemainingQuantity()
         {
-            _resourceChunkScattering.Spawn(_resourceType, (int)_preservedExtractedQuantity);
+            var sizeMultiplier = CalculateSizeMultiplier(_preservedExtractedQuantity, _maxExtractedQuantityForDrop);
+     
+            _resourceChunkScattering.Spawn(_resourceType, (int)_preservedExtractedQuantity, sizeMultiplier);
             
             _resourceCounts.ChangeResourceTypeCount(_resourceType, (int)_preservedExtractedQuantity);
             
             QuantityChange?.Invoke();
+        }
+
+        private float CalculateSizeMultiplier(float quantity, int maxQuantity)
+        {
+            return Mathf.Sqrt(quantity / maxQuantity);
         }
 
         private int CalculateNextQuantityToDrop()

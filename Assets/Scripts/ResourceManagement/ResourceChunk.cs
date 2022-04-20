@@ -12,10 +12,6 @@ namespace ResourceManagement
     {
         [SerializeField] private string _name;
 
-        [Space]
-        [SerializeField] private float _minScale = 0.9f;
-        [SerializeField] private float _maxScale = 1.1f;
-
         private Rigidbody _rigidbody;
         private EntitySelection _entitySelection;
         
@@ -31,18 +27,14 @@ namespace ResourceManagement
         public ResourceType ResourceType { get; private set; }
         public int Quantity { get; private set; }
         
-        public void Initialize(ResourceType resourceType, int quantity, InfoPanelView infoPanelView)
+        public void Initialize(ResourceType resourceType, int quantity, float sizeMultiplier, InfoPanelView infoPanelView)
         {
             ResourceType = resourceType;
             Quantity = quantity;
 
             _infoPanelView = infoPanelView;
 
-            var scale = Random.Range(_minScale, _maxScale);
-
-            transform.localScale = new Vector3(Random.Range(_minScale, _maxScale),
-                Random.Range(_minScale, _maxScale),
-                Random.Range(_minScale, _maxScale));
+            transform.localScale *= sizeMultiplier;
         }
 
         public void Hover()

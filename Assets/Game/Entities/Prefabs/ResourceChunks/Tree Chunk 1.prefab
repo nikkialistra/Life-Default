@@ -47,9 +47,9 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.18
-  m_Height: 1.72
+  m_Height: 1.4
   m_Direction: 2
-  m_Center: {x: 0, y: 0, z: 0.23}
+  m_Center: {x: 0, y: 0, z: 0.15}
 --- !u!54 &2666577653898097442
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -79,8 +79,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _name: Log
-  _minScale: 0.9
-  _maxScale: 1.1
 --- !u!114 &3100290707218011283
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -125,7 +123,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4659579814028464, guid: 9020d2933ec6c0544965ea4b12952c42, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.7
+      value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: 4659579814028464, guid: 9020d2933ec6c0544965ea4b12952c42, type: 3}
       propertyPath: m_LocalPosition.x

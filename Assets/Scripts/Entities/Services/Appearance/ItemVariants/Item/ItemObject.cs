@@ -7,10 +7,10 @@ namespace Entities.Services.Appearance.ItemVariants.Item
     [Serializable]
     public class ItemObject<T> : IItem<T> where T : UnityEngine.Object
     {
-        [HideLabel]
-        [PreviewField(70, ObjectFieldAlignment.Left)]
         [HorizontalGroup("Split", 100)]
         [VerticalGroup("Split/Left")]
+        [HideLabel]
+        [PreviewField(70, ObjectFieldAlignment.Left)]
         [SerializeField] private T _value;
 
         [VerticalGroup("Split/Right")]

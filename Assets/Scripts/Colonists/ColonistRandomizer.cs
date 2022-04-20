@@ -27,7 +27,6 @@ namespace Colonists
         [SerializeField] private AgenderItemVariants _agenderItemVariants;
         
         private readonly int _color = Shader.PropertyToID("_BaseColor");
-        private readonly int _texture = Shader.PropertyToID("_BaseMap");
 
         public void RandomizeAppearanceWith(Gender gender, HumanAppearance humanAppearance)
         {
@@ -48,6 +47,7 @@ namespace Colonists
             }
             
             RandomizeHeadItems(gender, genderItems,  humanAppearance.HeadVariantsFor(gender));
+            RandomizeGarmentSet(genderItems, humanAppearance.GarmentSetFor(gender));
             RandomizeColors(gender, genderItems, humanAppearance.ColorVariants);
         }
 
@@ -68,38 +68,58 @@ namespace Colonists
             }
         }
 
+        private void RandomizeGarmentSet(GenderItems genderItems, GarmentSetVariants garmentSetVariants)
+        {
+            var garmentSet = garmentSetVariants.GetRandom();
+
+            genderItems.Torso.sharedMesh = garmentSet.Torso;
+            
+            genderItems.ArmUpperRight.sharedMesh = garmentSet.ArmUpperRight;
+            genderItems.ArmUpperLeft.sharedMesh = garmentSet.ArmUpperLeft;
+            genderItems.ArmLowerRight.sharedMesh = garmentSet.ArmLowerRight;
+            genderItems.ArmLowerLeft.sharedMesh = garmentSet.ArmLowerLeft;
+            
+            genderItems.HandRight.sharedMesh = garmentSet.HandRight;
+            genderItems.HandLeft.sharedMesh = garmentSet.HandLeft;
+            
+            genderItems.Hips.sharedMesh = garmentSet.Hips;
+            
+            genderItems.LegRight.sharedMesh = garmentSet.LegRight;
+            genderItems.LegLeft.sharedMesh = garmentSet.LegLeft;
+        }
+
         private void RandomizeColors(Gender gender, GenderItems genderItems, ColorVariants colorVariants)
         {
-            var randomSkinMaterial = colorVariants.SkinColorMaterials.GetRandom();
-            var randomColor = colorVariants.HairColors.GetRandom();
+            var skinMaterial = colorVariants.SkinColorMaterials.GetRandom();
+            var color = colorVariants.HairColors.GetRandom();
 
-            SetSkinMaterial(genderItems, randomSkinMaterial);
-            SetColor(_agenderItems.Hair, randomColor);
+            SetSkinMaterial(genderItems, skinMaterial);
+            SetColor(_agenderItems.Hair, color);
             
             if (gender == Gender.Male)
             {
-                SetColor(genderItems.FacialHair, randomColor);
+                SetColor(genderItems.FacialHair, color);
             }
         }
 
-        private void SetSkinMaterial(GenderItems genderItems, Material randomSkinMaterial)
+        private void SetSkinMaterial(GenderItems genderItems, Material skinMaterial)
         {
-            SetMaterial(genderItems.Head, randomSkinMaterial);
-            SetMaterial(_agenderItems.Ears, randomSkinMaterial);
+            SetMaterial(genderItems.Head, skinMaterial);
+            SetMaterial(_agenderItems.Ears, skinMaterial);
             
-            SetMaterial(genderItems.Torso, randomSkinMaterial);
-            SetMaterial(genderItems.ArmUpperRight, randomSkinMaterial);
-            SetMaterial(genderItems.ArmUpperLeft, randomSkinMaterial);
-            SetMaterial(genderItems.ArmLowerRight, randomSkinMaterial);
-            SetMaterial(genderItems.ArmLowerLeft, randomSkinMaterial);
+            SetMaterial(genderItems.Torso, skinMaterial);
+            SetMaterial(genderItems.ArmUpperRight, skinMaterial);
+            SetMaterial(genderItems.ArmUpperLeft, skinMaterial);
+            SetMaterial(genderItems.ArmLowerRight, skinMaterial);
+            SetMaterial(genderItems.ArmLowerLeft, skinMaterial);
 
-            SetMaterial(genderItems.HandRight, randomSkinMaterial);
-            SetMaterial(genderItems.HandLeft, randomSkinMaterial);
+            SetMaterial(genderItems.HandRight, skinMaterial);
+            SetMaterial(genderItems.HandLeft, skinMaterial);
             
-            SetMaterial(genderItems.Hips, randomSkinMaterial);
+            SetMaterial(genderItems.Hips, skinMaterial);
             
-            SetMaterial(genderItems.LegRight, randomSkinMaterial);
-            SetMaterial(genderItems.LegLeft, randomSkinMaterial);
+            SetMaterial(genderItems.LegRight, skinMaterial);
+            SetMaterial(genderItems.LegLeft, skinMaterial);
         }
 
         private void RandomizeItem(SkinnedMeshRenderer renderer, IItemVariants<Mesh> meshVariants)

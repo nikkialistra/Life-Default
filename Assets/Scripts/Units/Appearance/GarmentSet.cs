@@ -1,9 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Linq;
 using Sirenix.OdinInspector;
 using Units.Appearance.ItemVariants;
 using Units.Appearance.Pairs;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Units.Appearance
 {
@@ -98,6 +99,20 @@ namespace Units.Appearance
             }
 
             return meshPair;
+        }
+
+        public bool ShouldHeadCoveringReplaceHair()
+        {
+            var totalCount = _headCoveringHairVariants.Variants.Count() + _headCoveringNoHairVariants.Variants.Count();
+
+            if (Random.Range(0, totalCount) <= _headCoveringHairVariants.Variants.Count())
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
         }
 
         private bool TryTakeMesh(Mesh mesh)

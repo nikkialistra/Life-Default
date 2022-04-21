@@ -34,32 +34,38 @@ MonoBehaviour:
       _relativeChance: 0.04347826
   _headCoveringNoHairVariants:
     _variants:
+    - _value: {fileID: 0}
+      _chance: 25
+      _relativeChance: 0.8064516
     - _value: {fileID: 4301086, guid: 038320a534bd8b444b43734860d1a211, type: 3}
       _chance: 1
-      _relativeChance: 0.16666667
+      _relativeChance: 0.032258064
     - _value: {fileID: 4301090, guid: 038320a534bd8b444b43734860d1a211, type: 3}
       _chance: 1
-      _relativeChance: 0.16666667
+      _relativeChance: 0.032258064
     - _value: {fileID: 4301094, guid: 038320a534bd8b444b43734860d1a211, type: 3}
       _chance: 1
-      _relativeChance: 0.16666667
+      _relativeChance: 0.032258064
     - _value: {fileID: 4301100, guid: 038320a534bd8b444b43734860d1a211, type: 3}
       _chance: 1
-      _relativeChance: 0.16666667
+      _relativeChance: 0.032258064
     - _value: {fileID: 4301108, guid: 038320a534bd8b444b43734860d1a211, type: 3}
       _chance: 1
-      _relativeChance: 0.16666667
+      _relativeChance: 0.032258064
     - _value: {fileID: 4301110, guid: 038320a534bd8b444b43734860d1a211, type: 3}
       _chance: 1
-      _relativeChance: 0.16666667
+      _relativeChance: 0.032258064
   _headCoveringNoFacialHairVariants:
     _variants:
+    - _value: {fileID: 0}
+      _chance: 10
+      _relativeChance: 0.8333333
     - _value: {fileID: 4301140, guid: 038320a534bd8b444b43734860d1a211, type: 3}
       _chance: 1
-      _relativeChance: 0.5
+      _relativeChance: 0.083333336
     - _value: {fileID: 4301142, guid: 038320a534bd8b444b43734860d1a211, type: 3}
       _chance: 1
-      _relativeChance: 0.5
+      _relativeChance: 0.083333336
   _torsoVariants:
     _variants:
     - _value: {fileID: 4301432, guid: 038320a534bd8b444b43734860d1a211, type: 3}

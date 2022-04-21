@@ -92,10 +92,17 @@ namespace Units.Appearance
         {
             var garment = garmentSets.GetRandom();
             garment.ResetTakeHistory();
-            
-            SetItem(_agenderItems.HeadCoveringHair, garment.GetElement(GarmentElements.HeadCoveringHair));
-            // SetItem(_agenderItems.HeadCoveringNoHair, garment.GetElement(GarmentElements.HeadCoveringNoHair));
-            // SetItem(_agenderItems.HeadCoveringNoFacialHair, garment.GetElement(GarmentElements.HeadCoveringNoFacialHair));
+
+            if (garment.ShouldHeadCoveringReplaceHair())
+            {
+                SetItem(_agenderItems.HeadCoveringHair, garment.GetElement(GarmentElements.HeadCoveringHair));
+            }
+            else
+            {
+                SetItemWithReplacement(_agenderItems.HeadCoveringNoHair, _agenderItems.Hair, garment.GetElement(GarmentElements.HeadCoveringNoHair));
+            }
+
+            SetItemWithReplacement(_agenderItems.HeadCoveringNoFacialHair, genderItems.FacialHair, garment.GetElement(GarmentElements.HeadCoveringNoFacialHair));
 
             SetItem(genderItems.Torso, garment.GetElement(GarmentElements.Torso));
             SetItem(_agenderItems.BackAttachment, garment.GetElement(GarmentElements.BackAttachment));
@@ -166,6 +173,15 @@ namespace Units.Appearance
         {
             if (mesh != null)
             {
+                renderer.sharedMesh = mesh;
+            }
+        }
+
+        private void SetItemWithReplacement(SkinnedMeshRenderer renderer, SkinnedMeshRenderer rendererToReplace, Mesh mesh)
+        {
+            if (mesh != null)
+            {
+                rendererToReplace.sharedMesh = null;
                 renderer.sharedMesh = mesh;
             }
         }

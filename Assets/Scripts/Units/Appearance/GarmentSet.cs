@@ -87,7 +87,7 @@ namespace Units.Appearance
             {
                 meshPair = GetMeshPairFor(garmentElementPairs);
 
-                if (TryTakeMesh(meshPair.FirstMesh) || TryTakeMesh(meshPair.SecondMesh))
+                if (TryTakeMesh(meshPair.FirstMesh) && TryTakeMesh(meshPair.SecondMesh))
                 {
                     break;
                 }

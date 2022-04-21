@@ -211,7 +211,7 @@ namespace Colonists
 
         private void InitializeSelf()
         {
-            _gender = Gender.Female;
+            _gender = EnumUtils.RandomValue<Gender>();
 
             if (_name == "")
             { 

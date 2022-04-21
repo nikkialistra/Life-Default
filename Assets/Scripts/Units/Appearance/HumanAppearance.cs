@@ -55,6 +55,8 @@ namespace Units.Appearance
 
         private void ResetComplementaryItems()
         {
+            _maleItems.FacialHair.sharedMesh = null;
+            
             _agenderItems.Hair.sharedMesh = null;
             _agenderItems.Ears.sharedMesh = null;
             _agenderItems.HeadCoveringHair.sharedMesh = null;

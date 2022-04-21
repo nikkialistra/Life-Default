@@ -68,26 +68,32 @@ MonoBehaviour:
       _relativeChance: 0.041666668
   _armUpperRightVariants:
     _variants:
+    - _value: {fileID: 4301400, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+      _chance: 1
+      _relativeChance: 0.25
     - _value: {fileID: 4301844, guid: 038320a534bd8b444b43734860d1a211, type: 3}
       _chance: 1
-      _relativeChance: 0.33333334
+      _relativeChance: 0.25
     - _value: {fileID: 4301850, guid: 038320a534bd8b444b43734860d1a211, type: 3}
       _chance: 1
-      _relativeChance: 0.33333334
+      _relativeChance: 0.25
     - _value: {fileID: 4301880, guid: 038320a534bd8b444b43734860d1a211, type: 3}
       _chance: 1
-      _relativeChance: 0.33333334
+      _relativeChance: 0.25
   _armUpperLeftVariants:
     _variants:
+    - _value: {fileID: 4301402, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+      _chance: 1
+      _relativeChance: 0.25
     - _value: {fileID: 4301882, guid: 038320a534bd8b444b43734860d1a211, type: 3}
       _chance: 1
-      _relativeChance: 0.33333334
+      _relativeChance: 0.25
     - _value: {fileID: 4301888, guid: 038320a534bd8b444b43734860d1a211, type: 3}
       _chance: 1
-      _relativeChance: 0.33333334
+      _relativeChance: 0.25
     - _value: {fileID: 4301918, guid: 038320a534bd8b444b43734860d1a211, type: 3}
       _chance: 1
-      _relativeChance: 0.33333334
+      _relativeChance: 0.25
   _armLowerRightVariants:
     _variants:
     - _value: {fileID: 4301920, guid: 038320a534bd8b444b43734860d1a211, type: 3}
@@ -206,3 +212,8 @@ MonoBehaviour:
     - _value: {fileID: 4301800, guid: 038320a534bd8b444b43734860d1a211, type: 3}
       _chance: 2
       _relativeChance: 0.2
+  _notCombinedPairs:
+  - _firshMesh: {fileID: 4301400, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+    _secondMesh: {fileID: 4301956, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+  - _firshMesh: {fileID: 4301402, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+    _secondMesh: {fileID: 4301990, guid: 038320a534bd8b444b43734860d1a211, type: 3}

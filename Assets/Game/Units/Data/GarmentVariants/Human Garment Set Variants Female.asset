@@ -12,9 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4222db367f484e538d2c7f57af91b19e, type: 3}
   m_Name: Human Garment Set Variants Female
   m_EditorClassIdentifier: 
-  _garmentSetVariants:
-  - {fileID: 11400000, guid: f015688f9c0614141a947b1f98eceecb, type: 2}
-  _chances:
-  - 1
-  _relativeChances:
-  - 1
+  _garmentSets:
+    _variants:
+    - _value: {fileID: 11400000, guid: f015688f9c0614141a947b1f98eceecb, type: 2}
+      _chance: 1
+      _relativeChance: 1

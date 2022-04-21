@@ -1,4 +1,5 @@
-﻿using Units.Appearance.Variants;
+﻿using Units.Appearance.ItemVariants;
+using Units.Appearance.Variants;
 using UnityEngine;
 
 namespace Units.Appearance
@@ -20,9 +21,9 @@ namespace Units.Appearance
             return gender == Gender.Male ? _maleHeadVariants : _femaleHeadVariants;
         }
 
-        public GarmentSetVariants GarmentSetFor(Gender gender)
+        public IItemVariants<GarmentSet> GarmentSetFor(Gender gender)
         {
-            return gender == Gender.Male ? _maleGarmentSetVariants : _femaleGarmentSetVariants;
+            return gender == Gender.Male ? _maleGarmentSetVariants.GarmentSets : _femaleGarmentSetVariants.GarmentSets;
         }
     }
 }

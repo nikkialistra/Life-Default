@@ -36,10 +36,37 @@ MonoBehaviour:
     _variants:
     - _value: {fileID: 2100000, guid: 014fbaa82701c3f4bbd9c27c7a0650e5, type: 2}
       _chance: 1
-      _relativeChance: 0.33333334
+      _relativeChance: 0.083333336
     - _value: {fileID: 2100000, guid: f47dd200dc8c9014e88593d5e2b788a7, type: 2}
       _chance: 1
-      _relativeChance: 0.33333334
+      _relativeChance: 0.083333336
     - _value: {fileID: 2100000, guid: 9d84e63b1d4ee9343b45c90d2f0658d1, type: 2}
       _chance: 1
-      _relativeChance: 0.33333334
+      _relativeChance: 0.083333336
+    - _value: {fileID: 2100000, guid: c19fc8bc0b028bf4b8e1a14d2bee1aba, type: 2}
+      _chance: 1
+      _relativeChance: 0.083333336
+    - _value: {fileID: 2100000, guid: 3bcf3b7f226350641bd7cdb11d0f7a68, type: 2}
+      _chance: 1
+      _relativeChance: 0.083333336
+    - _value: {fileID: 2100000, guid: 528009ceac1a3f84391a194bdb989786, type: 2}
+      _chance: 1
+      _relativeChance: 0.083333336
+    - _value: {fileID: 2100000, guid: 3abe4d7623489f34bb00dc7c83fa9bbc, type: 2}
+      _chance: 1
+      _relativeChance: 0.083333336
+    - _value: {fileID: 2100000, guid: 6e0f2294758c84f42bf33a00700a4c4a, type: 2}
+      _chance: 1
+      _relativeChance: 0.083333336
+    - _value: {fileID: 2100000, guid: 716020163e9b029408f12fde75c0dae0, type: 2}
+      _chance: 1
+      _relativeChance: 0.083333336
+    - _value: {fileID: 2100000, guid: 1266fdea207e3a24b94766f9ef184d0f, type: 2}
+      _chance: 1
+      _relativeChance: 0.083333336
+    - _value: {fileID: 2100000, guid: f0f407d6942f86d4a87b5f529fbfdd8f, type: 2}
+      _chance: 1
+      _relativeChance: 0.083333336
+    - _value: {fileID: 2100000, guid: 0d6492626a0d388439f85a813cbd83f0, type: 2}
+      _chance: 1
+      _relativeChance: 0.083333336

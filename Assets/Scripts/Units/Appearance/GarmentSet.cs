@@ -1,5 +1,10 @@
-﻿using Sirenix.OdinInspector;
+﻿using System;
+using System.Collections.Generic;
+using ColonistManagement.Tasking;
+using Common;
+using Sirenix.OdinInspector;
 using Units.Appearance.ItemVariants;
+using Units.Appearance.Pairs;
 using UnityEngine;
 
 namespace Units.Appearance
@@ -28,6 +33,11 @@ namespace Units.Appearance
         [SerializeField] private ItemObjectVariants<Mesh> _legRightVariants;
         [SerializeField] private ItemObjectVariants<Mesh> _legLeftVariants;
         
+        [Title("Not Combined")]
+        [SerializeField] private List<MeshPair> _notCombinedPairs;
+
+        private readonly MeshPairs _takenElements = new();
+
         [Button]
         private void CalculateAllRelativeChances()
         {
@@ -50,6 +60,59 @@ namespace Units.Appearance
             LegLeft.CalculateRelativeChancesForVariants();
         }
 
+        public void ResetTakeHistory()
+        {
+            _takenElements.Clear();
+        }
+
+        public Mesh GetElement(GarmentElements garmentElements)
+        {
+            Mesh mesh;
+            
+            while (true)
+            {
+                mesh = GetMeshFor(garmentElements);
+
+                if (IsMeshEmptyOrCompatible(mesh))
+                {
+                    break;
+                }
+            }
+
+            return mesh;
+        }
+
+        private bool IsMeshEmptyOrCompatible(Mesh mesh)
+        {
+            if (mesh == null || !_takenElements.IsCompatibleWith(mesh))
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        private Mesh GetMeshFor(GarmentElements garmentElements)
+        {
+            return garmentElements switch
+            {
+                GarmentElements.HeadCoveringHair => HeadCoveringHair.GetRandom(),
+                GarmentElements.Torso => Torso.GetRandom(),
+                GarmentElements.BackAttachment => BackAttachment.GetRandom(),
+                GarmentElements.ArmUpperRight => ArmUpperRight.GetRandom(),
+                GarmentElements.ArmUpperLeft => ArmUpperLeft.GetRandom(),
+                GarmentElements.ArmLowerRight => ArmLowerRight.GetRandom(),
+                GarmentElements.ArmLowerLeft => ArmLowerLeft.GetRandom(),
+                GarmentElements.HandRight => HandRight.GetRandom(),
+                GarmentElements.HandLeft => HandLeft.GetRandom(),
+                GarmentElements.Hips => Hips.GetRandom(),
+                GarmentElements.HipsAttachment => HipsAttachment.GetRandom(),
+                GarmentElements.LegRight => LegRight.GetRandom(),
+                GarmentElements.LegLeft => LegLeft.GetRandom(),
+                _ => throw new ArgumentOutOfRangeException(nameof(garmentElements), garmentElements, null)
+            };
+        }
+
         public IItemVariants<Mesh> HeadCoveringHair => _headCoveringHairVariants;
 
         public IItemVariants<Mesh> Torso => _torsoVariants;
@@ -68,5 +131,22 @@ namespace Units.Appearance
 
         public IItemVariants<Mesh> LegRight => _legRightVariants;
         public IItemVariants<Mesh> LegLeft => _legLeftVariants;
+
+        public enum GarmentElements
+        {
+            HeadCoveringHair,
+            Torso,
+            BackAttachment,
+            ArmUpperRight,
+            ArmUpperLeft,
+            ArmLowerRight,
+            ArmLowerLeft,
+            HandRight,
+            HandLeft,
+            Hips,
+            HipsAttachment,
+            LegRight,
+            LegLeft
+        }
     }
 }

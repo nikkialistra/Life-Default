@@ -84,9 +84,10 @@ namespace Units.Appearance
             }
         }
 
-        private void RandomizeGarmentSet(GenderItems genderItems, GarmentSetVariants garmentSetVariants)
+        private void RandomizeGarmentSet(GenderItems genderItems, IItemVariants<GarmentSet> garmentSets)
         {
-            var garment = garmentSetVariants.GetRandom();
+            var garment = garmentSets.GetRandom();
+            garment.ResetTakeHistory();
             
             RandomizeItem(_agenderItems.HeadCoveringHair, garment.HeadCoveringHair);
 

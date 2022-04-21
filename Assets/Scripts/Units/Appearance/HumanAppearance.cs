@@ -94,10 +94,15 @@ namespace Units.Appearance
             garment.ResetTakeHistory();
             
             SetItem(_agenderItems.HeadCoveringHair, garment.GetElement(GarmentElements.HeadCoveringHair));
+            // SetItem(_agenderItems.HeadCoveringNoHair, garment.GetElement(GarmentElements.HeadCoveringNoHair));
+            // SetItem(_agenderItems.HeadCoveringNoFacialHair, garment.GetElement(GarmentElements.HeadCoveringNoFacialHair));
 
             SetItem(genderItems.Torso, garment.GetElement(GarmentElements.Torso));
             SetItem(_agenderItems.BackAttachment, garment.GetElement(GarmentElements.BackAttachment));
 
+            SetItemPair(_agenderItems.ShoulderAttachmentRight, _agenderItems.ShoulderAttachmentLeft,
+                garment.GetElementsAtSameIndex(GarmentElementPairs.ShoulderAttachments));
+            
             SetItemPair(genderItems.ArmUpperRight, genderItems.ArmUpperLeft,
                 garment.GetElementsAtSameIndex(GarmentElementPairs.ArmsUpper));
             SetItemPair(genderItems.ArmLowerRight, genderItems.ArmLowerLeft,

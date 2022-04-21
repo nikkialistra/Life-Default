@@ -4,7 +4,6 @@ using Sirenix.OdinInspector;
 using Units.Appearance.ItemVariants;
 using Units.Appearance.Pairs;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Units.Appearance
 {
@@ -12,10 +11,15 @@ namespace Units.Appearance
     public class GarmentSet : ScriptableObject
     {
         [SerializeField] private ItemObjectVariants<Mesh> _headCoveringHairVariants;
+        [SerializeField] private ItemObjectVariants<Mesh> _headCoveringNoHairVariants;
+        [SerializeField] private ItemObjectVariants<Mesh> _headCoveringNoFacialHairVariants;
         [Space]
         [SerializeField] private ItemObjectVariants<Mesh> _torsoVariants;
         [Space]
         [SerializeField] private ItemObjectVariants<Mesh> _backAttachmentVariants;
+        [Space]
+        [SerializeField] private ItemObjectVariants<Mesh> _shoulderAttachmentRightVariants;
+        [SerializeField] private ItemObjectVariants<Mesh> _shoulderAttachmentLeftVariants;
         [Space]
         [SerializeField] private ItemObjectVariants<Mesh> _armUpperRightVariants;
         [SerializeField] private ItemObjectVariants<Mesh> _armUpperLeftVariants;
@@ -117,6 +121,8 @@ namespace Units.Appearance
             return garmentElements switch
             {
                 GarmentElements.HeadCoveringHair => HeadCoveringHair.GetRandom(),
+                GarmentElements.HeadCoveringNoHair => HeadCoveringNoHair.GetRandom(),
+                GarmentElements.HeadCoveringNoFacialHair => HeadCoveringNoFacialHair.GetRandom(),
                 GarmentElements.Torso => Torso.GetRandom(),
                 GarmentElements.BackAttachment => BackAttachment.GetRandom(),
                 GarmentElements.Hips => Hips.GetRandom(),
@@ -129,6 +135,7 @@ namespace Units.Appearance
         {
             var index = garmentElementPairs switch
             {
+                GarmentElementPairs.ShoulderAttachments => ShoulderAttachmentRight.GetRandomIndex(),
                 GarmentElementPairs.ArmsUpper => ArmUpperRight.GetRandomIndex(),
                 GarmentElementPairs.ArmsLower => ArmLowerRight.GetRandomIndex(),
                 GarmentElementPairs.Hands => HandRight.GetRandomIndex(),
@@ -138,6 +145,7 @@ namespace Units.Appearance
 
             return garmentElementPairs switch
             {
+                GarmentElementPairs.ShoulderAttachments => MeshPair.Create(ShoulderAttachmentRight.GetAtIndex(index), ShoulderAttachmentLeft.GetAtIndex(index)),
                 GarmentElementPairs.ArmsUpper => MeshPair.Create(ArmUpperRight.GetAtIndex(index), ArmUpperLeft.GetAtIndex(index)),
                 GarmentElementPairs.ArmsLower => MeshPair.Create(ArmLowerRight.GetAtIndex(index), ArmLowerLeft.GetAtIndex(index)),
                 GarmentElementPairs.Hands => MeshPair.Create(HandRight.GetAtIndex(index), HandLeft.GetAtIndex(index)),
@@ -147,9 +155,14 @@ namespace Units.Appearance
         }
 
         private IItemVariants<Mesh> HeadCoveringHair => _headCoveringHairVariants;
+        private IItemVariants<Mesh> HeadCoveringNoHair => _headCoveringNoHairVariants;
+        private IItemVariants<Mesh> HeadCoveringNoFacialHair => _headCoveringNoFacialHairVariants;
 
         private IItemVariants<Mesh> Torso => _torsoVariants;
         private IItemVariants<Mesh> BackAttachment => _backAttachmentVariants;
+        
+        private IItemVariants<Mesh> ShoulderAttachmentRight =>_shoulderAttachmentRightVariants;
+        private IItemVariants<Mesh> ShoulderAttachmentLeft =>_shoulderAttachmentLeftVariants;
 
         private IItemVariants<Mesh> ArmUpperRight => _armUpperRightVariants;
         private IItemVariants<Mesh> ArmUpperLeft => _armUpperLeftVariants;
@@ -168,6 +181,8 @@ namespace Units.Appearance
         public enum GarmentElements
         {
             HeadCoveringHair,
+            HeadCoveringNoHair,
+            HeadCoveringNoFacialHair,
             Torso,
             BackAttachment,
             Hips,
@@ -176,6 +191,7 @@ namespace Units.Appearance
         
         public enum GarmentElementPairs
         {
+            ShoulderAttachments,
             ArmsUpper,
             ArmsLower,
             Hands,

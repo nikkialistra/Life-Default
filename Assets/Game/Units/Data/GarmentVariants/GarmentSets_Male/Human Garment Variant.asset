@@ -32,6 +32,34 @@ MonoBehaviour:
     - _value: {fileID: 4301132, guid: 038320a534bd8b444b43734860d1a211, type: 3}
       _chance: 1
       _relativeChance: 0.04347826
+  _headCoveringNoHairVariants:
+    _variants:
+    - _value: {fileID: 4301086, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+      _chance: 1
+      _relativeChance: 0.16666667
+    - _value: {fileID: 4301090, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+      _chance: 1
+      _relativeChance: 0.16666667
+    - _value: {fileID: 4301094, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+      _chance: 1
+      _relativeChance: 0.16666667
+    - _value: {fileID: 4301100, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+      _chance: 1
+      _relativeChance: 0.16666667
+    - _value: {fileID: 4301108, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+      _chance: 1
+      _relativeChance: 0.16666667
+    - _value: {fileID: 4301110, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+      _chance: 1
+      _relativeChance: 0.16666667
+  _headCoveringNoFacialHairVariants:
+    _variants:
+    - _value: {fileID: 4301140, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+      _chance: 1
+      _relativeChance: 0.5
+    - _value: {fileID: 4301142, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+      _chance: 1
+      _relativeChance: 0.5
   _torsoVariants:
     _variants:
     - _value: {fileID: 4300482, guid: 038320a534bd8b444b43734860d1a211, type: 3}
@@ -66,6 +94,28 @@ MonoBehaviour:
     - _value: {fileID: 4301198, guid: 038320a534bd8b444b43734860d1a211, type: 3}
       _chance: 1
       _relativeChance: 0.041666668
+  _shoulderAttachmentRightVariants:
+    _variants:
+    - _value: {fileID: 0}
+      _chance: 30
+      _relativeChance: 0.9375
+    - _value: {fileID: 0}
+      _chance: 1
+      _relativeChance: 0.03125
+    - _value: {fileID: 4301216, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+      _chance: 1
+      _relativeChance: 0.03125
+  _shoulderAttachmentLeftVariants:
+    _variants:
+    - _value: {fileID: 0}
+      _chance: 30
+      _relativeChance: 0.9375
+    - _value: {fileID: 4301258, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+      _chance: 1
+      _relativeChance: 0.03125
+    - _value: {fileID: 0}
+      _chance: 1
+      _relativeChance: 0.03125
   _armUpperRightVariants:
     _variants:
     - _value: {fileID: 4300528, guid: 038320a534bd8b444b43734860d1a211, type: 3}

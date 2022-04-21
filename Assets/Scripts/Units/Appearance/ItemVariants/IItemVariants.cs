@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Sirenix.OdinInspector;
 using Units.Appearance.ItemVariants.Item;
+using UnityEngine;
 using Random = UnityEngine.Random;
 
 namespace Units.Appearance.ItemVariants
@@ -35,7 +36,7 @@ namespace Units.Appearance.ItemVariants
             {
                 return default;
             }
-            
+
             var randomValue = Random.Range(0f, 1f);
 
             foreach (var variant in Variants)
@@ -53,7 +54,21 @@ namespace Units.Appearance.ItemVariants
 
         public int GetRandomIndex()
         {
-            return Random.Range(0, Variants.Count());
+            var index = 0;
+            var randomValue = Random.Range(0f, 1f);
+
+            foreach (var variant in Variants)
+            {
+                if (randomValue <= variant.RelativeChance)
+                {
+                    break;
+                }
+                
+                randomValue -= variant.RelativeChance;
+                index++;
+            }
+
+            return index;
         }
 
         public T GetAtIndex(int index)

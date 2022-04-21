@@ -212,8 +212,9 @@ MonoBehaviour:
     - _value: {fileID: 4301800, guid: 038320a534bd8b444b43734860d1a211, type: 3}
       _chance: 2
       _relativeChance: 0.2
-  _notCombinedPairs:
-  - _firshMesh: {fileID: 4301400, guid: 038320a534bd8b444b43734860d1a211, type: 3}
-    _secondMesh: {fileID: 4301956, guid: 038320a534bd8b444b43734860d1a211, type: 3}
-  - _firshMesh: {fileID: 4301402, guid: 038320a534bd8b444b43734860d1a211, type: 3}
-    _secondMesh: {fileID: 4301990, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+  _notCombinablePairs:
+    _meshPairs:
+    - _firstMesh: {fileID: 4301400, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+      _secondMesh: {fileID: 4301956, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+    - _firstMesh: {fileID: 4301402, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+      _secondMesh: {fileID: 4301990, guid: 038320a534bd8b444b43734860d1a211, type: 3}

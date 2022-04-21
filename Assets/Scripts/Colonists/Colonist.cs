@@ -53,8 +53,6 @@ namespace Colonists
         {
             _humanAppearanceRegistry = humanAppearanceRegistry;
             _humanNames = humanNames;
-            
-            _gender = EnumUtils.RandomValue<Gender>();
         }
 
         private void Awake()
@@ -213,7 +211,7 @@ namespace Colonists
 
         private void InitializeSelf()
         {
-            _gender = EnumUtils.RandomValue<Gender>();
+            _gender = Gender.Female;
 
             if (_name == "")
             { 

@@ -9,22 +9,30 @@ namespace Units.Appearance.Pairs
     {
         [SerializeField] private List<MeshPair> _meshPairs;
 
-        public void Clear()
+        private List<Mesh> _takenMeshes = new();
+        
+
+        public void ClearTaken()
         {
-            _meshPairs.Clear();
+            _takenMeshes.Clear();
         }
 
         public bool IsCompatibleWith(Mesh mesh)
         {
             foreach (var meshPair in _meshPairs)
             {
-                if (meshPair.HasMesh(mesh))
+                if (meshPair.HasPairFrom(mesh, _takenMeshes))
                 {
                     return false;
                 }
             }
-
+            
             return true;
+        }
+
+        public void AddToTaken(Mesh mesh)
+        {
+            _takenMeshes.Add(mesh);
         }
     }
 }

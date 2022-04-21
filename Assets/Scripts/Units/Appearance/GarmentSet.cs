@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using ColonistManagement.Tasking;
-using Common;
 using Sirenix.OdinInspector;
 using Units.Appearance.ItemVariants;
 using Units.Appearance.Pairs;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Units.Appearance
 {
@@ -32,11 +31,9 @@ namespace Units.Appearance
         [Space]
         [SerializeField] private ItemObjectVariants<Mesh> _legRightVariants;
         [SerializeField] private ItemObjectVariants<Mesh> _legLeftVariants;
-        
-        [Title("Not Combined")]
-        [SerializeField] private List<MeshPair> _notCombinedPairs;
 
-        private readonly MeshPairs _takenElements = new();
+        [Title("Not Combinable")]
+        [SerializeField] private MeshPairs _notCombinablePairs;
 
         [Button]
         private void CalculateAllRelativeChances()
@@ -62,7 +59,7 @@ namespace Units.Appearance
 
         public void ResetTakeHistory()
         {
-            _takenElements.Clear();
+            _notCombinablePairs.ClearTaken();
         }
 
         public Mesh GetElement(GarmentElements garmentElements)
@@ -73,7 +70,7 @@ namespace Units.Appearance
             {
                 mesh = GetMeshFor(garmentElements);
 
-                if (IsMeshEmptyOrCompatible(mesh))
+                if (TryTakeMesh(mesh))
                 {
                     break;
                 }
@@ -82,10 +79,33 @@ namespace Units.Appearance
             return mesh;
         }
 
-        private bool IsMeshEmptyOrCompatible(Mesh mesh)
+        public MeshPair GetElementsAtSameIndex(GarmentElementPairs garmentElementPairs)
         {
-            if (mesh == null || !_takenElements.IsCompatibleWith(mesh))
+            MeshPair meshPair;
+            
+            while (true)
             {
+                meshPair = GetMeshPairFor(garmentElementPairs);
+
+                if (TryTakeMesh(meshPair.FirstMesh) || TryTakeMesh(meshPair.SecondMesh))
+                {
+                    break;
+                }
+            }
+
+            return meshPair;
+        }
+
+        private bool TryTakeMesh(Mesh mesh)
+        {
+            if (mesh == null)
+            {
+                return true;
+            }
+
+            if (_notCombinablePairs.IsCompatibleWith(mesh))
+            {
+                _notCombinablePairs.AddToTaken(mesh);
                 return true;
             }
 
@@ -99,54 +119,67 @@ namespace Units.Appearance
                 GarmentElements.HeadCoveringHair => HeadCoveringHair.GetRandom(),
                 GarmentElements.Torso => Torso.GetRandom(),
                 GarmentElements.BackAttachment => BackAttachment.GetRandom(),
-                GarmentElements.ArmUpperRight => ArmUpperRight.GetRandom(),
-                GarmentElements.ArmUpperLeft => ArmUpperLeft.GetRandom(),
-                GarmentElements.ArmLowerRight => ArmLowerRight.GetRandom(),
-                GarmentElements.ArmLowerLeft => ArmLowerLeft.GetRandom(),
-                GarmentElements.HandRight => HandRight.GetRandom(),
-                GarmentElements.HandLeft => HandLeft.GetRandom(),
                 GarmentElements.Hips => Hips.GetRandom(),
                 GarmentElements.HipsAttachment => HipsAttachment.GetRandom(),
-                GarmentElements.LegRight => LegRight.GetRandom(),
-                GarmentElements.LegLeft => LegLeft.GetRandom(),
                 _ => throw new ArgumentOutOfRangeException(nameof(garmentElements), garmentElements, null)
             };
         }
 
-        public IItemVariants<Mesh> HeadCoveringHair => _headCoveringHairVariants;
+        private MeshPair GetMeshPairFor(GarmentElementPairs garmentElementPairs)
+        {
+            var index = garmentElementPairs switch
+            {
+                GarmentElementPairs.ArmsUpper => ArmUpperRight.GetRandomIndex(),
+                GarmentElementPairs.ArmsLower => ArmLowerRight.GetRandomIndex(),
+                GarmentElementPairs.Hands => HandRight.GetRandomIndex(),
+                GarmentElementPairs.Legs => LegRight.GetRandomIndex(),
+                _ => throw new ArgumentOutOfRangeException(nameof(garmentElementPairs), garmentElementPairs, null)
+            };
 
-        public IItemVariants<Mesh> Torso => _torsoVariants;
-        public IItemVariants<Mesh> BackAttachment => _backAttachmentVariants;
+            return garmentElementPairs switch
+            {
+                GarmentElementPairs.ArmsUpper => MeshPair.Create(ArmUpperRight.GetAtIndex(index), ArmUpperLeft.GetAtIndex(index)),
+                GarmentElementPairs.ArmsLower => MeshPair.Create(ArmLowerRight.GetAtIndex(index), ArmLowerLeft.GetAtIndex(index)),
+                GarmentElementPairs.Hands => MeshPair.Create(HandRight.GetAtIndex(index), HandLeft.GetAtIndex(index)),
+                GarmentElementPairs.Legs => MeshPair.Create(LegRight.GetAtIndex(index), LegLeft.GetAtIndex(index)),
+                _ => throw new ArgumentOutOfRangeException(nameof(garmentElementPairs), garmentElementPairs, null)
+            };
+        }
 
-        public IItemVariants<Mesh> ArmUpperRight => _armUpperRightVariants;
-        public IItemVariants<Mesh> ArmUpperLeft => _armUpperLeftVariants;
-        public IItemVariants<Mesh> ArmLowerRight => _armLowerRightVariants;
-        public IItemVariants<Mesh> ArmLowerLeft => _armLowerLeftVariants;
+        private IItemVariants<Mesh> HeadCoveringHair => _headCoveringHairVariants;
 
-        public IItemVariants<Mesh> HandRight => _handRightVariants;
-        public IItemVariants<Mesh> HandLeft => _handLeftVariants;
+        private IItemVariants<Mesh> Torso => _torsoVariants;
+        private IItemVariants<Mesh> BackAttachment => _backAttachmentVariants;
 
-        public IItemVariants<Mesh> Hips => _hipsVariants;
-        public IItemVariants<Mesh> HipsAttachment => _hipsAttachmentVariants;
+        private IItemVariants<Mesh> ArmUpperRight => _armUpperRightVariants;
+        private IItemVariants<Mesh> ArmUpperLeft => _armUpperLeftVariants;
+        private IItemVariants<Mesh> ArmLowerRight => _armLowerRightVariants;
+        private IItemVariants<Mesh> ArmLowerLeft => _armLowerLeftVariants;
 
-        public IItemVariants<Mesh> LegRight => _legRightVariants;
-        public IItemVariants<Mesh> LegLeft => _legLeftVariants;
+        private IItemVariants<Mesh> HandRight => _handRightVariants;
+        private IItemVariants<Mesh> HandLeft => _handLeftVariants;
+
+        private IItemVariants<Mesh> Hips => _hipsVariants;
+        private IItemVariants<Mesh> HipsAttachment => _hipsAttachmentVariants;
+
+        private IItemVariants<Mesh> LegRight => _legRightVariants;
+        private IItemVariants<Mesh> LegLeft => _legLeftVariants;
 
         public enum GarmentElements
         {
             HeadCoveringHair,
             Torso,
             BackAttachment,
-            ArmUpperRight,
-            ArmUpperLeft,
-            ArmLowerRight,
-            ArmLowerLeft,
-            HandRight,
-            HandLeft,
             Hips,
             HipsAttachment,
-            LegRight,
-            LegLeft
+        }
+        
+        public enum GarmentElementPairs
+        {
+            ArmsUpper,
+            ArmsLower,
+            Hands,
+            Legs
         }
     }
 }

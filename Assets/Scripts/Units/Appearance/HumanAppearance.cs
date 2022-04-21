@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using Common;
 using Sirenix.OdinInspector;
 using Units.Appearance.ItemVariants;
+using Units.Appearance.Pairs;
 using Units.Appearance.Variants;
 using UnityEngine;
+using static Units.Appearance.GarmentSet;
 using Random = UnityEngine.Random;
 
 namespace Units.Appearance
@@ -89,24 +91,24 @@ namespace Units.Appearance
             var garment = garmentSets.GetRandom();
             garment.ResetTakeHistory();
             
-            RandomizeItem(_agenderItems.HeadCoveringHair, garment.HeadCoveringHair);
+            SetItem(_agenderItems.HeadCoveringHair, garment.GetElement(GarmentElements.HeadCoveringHair));
 
-            RandomizeItem(genderItems.Torso, garment.Torso);
-            RandomizeItem(_agenderItems.BackAttachment, garment.BackAttachment);
-            
-            RandomizeItemAtSameIndex(genderItems.ArmUpperRight, genderItems.ArmUpperLeft,
-                garment.ArmUpperRight, garment.ArmUpperLeft);
-            RandomizeItemAtSameIndex(genderItems.ArmLowerRight, genderItems.ArmLowerLeft,
-                garment.ArmLowerRight, garment.ArmLowerLeft);
-            
-            RandomizeItemAtSameIndex(genderItems.HandRight, genderItems.HandLeft,
-                garment.HandRight, garment.HandLeft);
+            SetItem(genderItems.Torso, garment.GetElement(GarmentElements.Torso));
+            SetItem(_agenderItems.BackAttachment, garment.GetElement(GarmentElements.BackAttachment));
 
-            RandomizeItem(genderItems.Hips, garment.Hips);
-            RandomizeItem(_agenderItems.HipsAttachment, garment.HipsAttachment);
+            SetItemPair(genderItems.ArmUpperRight, genderItems.ArmUpperLeft,
+                garment.GetElementsAtSameIndex(GarmentElementPairs.ArmsUpper));
+            SetItemPair(genderItems.ArmLowerRight, genderItems.ArmLowerLeft,
+                garment.GetElementsAtSameIndex(GarmentElementPairs.ArmsLower));
             
-            RandomizeItemAtSameIndex(genderItems.LegRight, genderItems.LegLeft,
-                garment.LegRight, garment.LegLeft);
+            SetItemPair(genderItems.HandRight, genderItems.HandLeft,
+                garment.GetElementsAtSameIndex(GarmentElementPairs.Hands));
+
+            SetItem(genderItems.Hips, garment.GetElement(GarmentElements.Hips));
+            SetItem(_agenderItems.HipsAttachment, garment.GetElement(GarmentElements.HipsAttachment));
+            
+            SetItemPair(genderItems.LegRight, genderItems.LegLeft,
+                garment.GetElementsAtSameIndex(GarmentElementPairs.Legs));
         }
 
         private void RandomizeColors(Gender gender, GenderItems genderItems, ColorVariants colorVariants)
@@ -152,22 +154,26 @@ namespace Units.Appearance
                 renderer.sharedMesh = mesh;
             }
         }
-        
-        private void RandomizeItemAtSameIndex(SkinnedMeshRenderer firstRenderer, SkinnedMeshRenderer secondRenderer,
-            IItemVariants<Mesh> firstVariants, IItemVariants<Mesh> secondVariants)
+
+        private void SetItem(SkinnedMeshRenderer renderer, Mesh mesh)
         {
-            if (firstVariants.IsEmpty)
+            if (mesh != null)
             {
-                return;
+                renderer.sharedMesh = mesh;
             }
+        }
 
-            var index = firstVariants.GetRandomIndex();
-
-            var firstMesh = firstVariants.GetAtIndex(index);
-            var secondMesh = secondVariants.GetAtIndex(index);
-
-            firstRenderer.sharedMesh = firstMesh;
-            secondRenderer.sharedMesh = secondMesh;
+        private void SetItemPair(SkinnedMeshRenderer firstRenderer, SkinnedMeshRenderer secondRenderer, MeshPair meshPair)
+        {
+            if (meshPair.FirstMesh != null)
+            {
+                firstRenderer.sharedMesh = meshPair.FirstMesh;
+            }
+            
+            if (meshPair.SecondMesh != null)
+            {
+                secondRenderer.sharedMesh = meshPair.SecondMesh;
+            }
         }
 
         private void SetColor(SkinnedMeshRenderer renderer, Color color)

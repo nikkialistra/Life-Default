@@ -1231,7 +1231,6 @@ MonoBehaviour:
   _scriptableObjectInstallers: []
   _monoInstallers:
   - {fileID: 3020716834333397147}
-  - {fileID: 0}
   - {fileID: 3020716834333397145}
   - {fileID: 3020716834333397144}
   - {fileID: 3020716834333397151}

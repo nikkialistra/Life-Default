@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
 
-namespace Colonists
+namespace Colonists.StateMachineBehaviours
 {
     public class ResourceGatheringBehaviour : StateMachineBehaviour
     {
-        [SerializeField] private float _firstHitTime = 0.7f;
+        [SerializeField] private float _hitTime = 0.7f;
         
         private ColonistGatherer _colonistGatherer;
         private UnitEquipment _unitEquipment;
@@ -15,7 +15,7 @@ namespace Colonists
         {
             _colonistGatherer = animator.transform.parent.GetComponent<ColonistGatherer>();
             _unitEquipment = animator.GetComponent<UnitEquipment>();
-            _nextHitTime = _firstHitTime;
+            _nextHitTime = _hitTime;
         }
 
         public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)

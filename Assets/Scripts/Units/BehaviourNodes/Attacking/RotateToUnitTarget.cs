@@ -12,9 +12,21 @@ namespace Units.BehaviourNodes.Attacking
 
         public override TaskStatus OnUpdate()
         {
-            if (!UnitMeshAgent.IsRotating && UnitAttacker.OnAttackRange(UnitTarget.Value.transform.position))
+            if (!UnitTarget.Value.Alive)
+            {
+                UnitTarget.Value = null;
+                return TaskStatus.Failure;
+            }
+
+            if (!UnitAttacker.OnAttackRange(UnitTarget.Value.transform.position))
+            {
+                return TaskStatus.Failure;
+            }
+            
+            if (!UnitMeshAgent.IsRotating)
             {
                 UnitMeshAgent.RotateTo(UnitTarget.Value.transform.position);
+                return TaskStatus.Success;
             }
 
             return TaskStatus.Running;

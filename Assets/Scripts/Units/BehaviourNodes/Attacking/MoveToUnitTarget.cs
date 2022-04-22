@@ -5,19 +5,30 @@ namespace Units.BehaviourNodes.Attacking
 {
     public class MoveToUnitTarget : Action
     {
-        public SharedUnit Unit;
+        public SharedUnit UnitTarget;
 
         public UnitMeshAgent UnitMeshAgent;
         public UnitAttacker UnitAttacker;
 
         public override TaskStatus OnUpdate()
         {
-            if (!UnitMeshAgent.IsMoving && !UnitAttacker.OnAttackRange(Unit.Value.transform.position))
+            if (!UnitTarget.Value.Alive)
             {
-                UnitMeshAgent.SetDestinationToUnitTarget(Unit.Value, UnitAttacker.AttackRange);
+                UnitTarget.Value = null;
+                return TaskStatus.Failure;
+            }
+            
+            if (UnitAttacker.OnAttackRange(UnitTarget.Value.transform.position))
+            {
+                return TaskStatus.Success;
             }
 
-            return Unit.Value.Alive ? TaskStatus.Running : TaskStatus.Success;
+            if (!UnitMeshAgent.IsMoving && !UnitAttacker.OnAttackRange(UnitTarget.Value.transform.position))
+            {
+                UnitMeshAgent.SetDestinationToUnitTarget(UnitTarget.Value, UnitAttacker.AttackRange);
+            }
+
+            return TaskStatus.Running;
         }
     }
 }

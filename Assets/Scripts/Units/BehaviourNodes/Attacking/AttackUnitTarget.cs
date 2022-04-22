@@ -22,10 +22,15 @@ namespace Units.BehaviourNodes.Attacking
             if (!UnitTarget.Value.Alive)
             {
                 UnitTarget.Value = null;
+                return TaskStatus.Success;
+            }
+            
+            if (!UnitAttacker.OnAttackRange(UnitTarget.Value.transform.position))
+            {
                 return TaskStatus.Failure;
             }
 
-            if (!_interacting && UnitAttacker.OnAttackRange(UnitTarget.Value.transform.position))
+            if (!_interacting)
             {
                 _interacting = true;
                 UnitAttacker.Attack(UnitTarget.Value, OnInteractionFinish);

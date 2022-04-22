@@ -137,7 +137,7 @@ namespace Colonists
 
             _selectionIndicator.SetActive(false);
         }
-
+    
         public void Stop()
         {
             _behavior.Stop();

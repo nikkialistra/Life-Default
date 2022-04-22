@@ -497,7 +497,7 @@ namespace Controls
                 {
                     ""name"": ""modifier"",
                     ""id"": ""f9a0bfc5-9aa5-41ae-b10d-1f0c07ffc91f"",
-                    ""path"": ""<Keyboard>/alt"",
+                    ""path"": ""<Keyboard>/shift"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",

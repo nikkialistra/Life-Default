@@ -40,6 +40,8 @@ namespace Units.Appearance
         [Title("Not Combinable")]
         [SerializeField] private MeshPairs _notCombinablePairs;
 
+        private const int MaxNumberOfTries = 20;
+
         [Button]
         private void CalculateAllRelativeChances()
         {
@@ -69,9 +71,11 @@ namespace Units.Appearance
 
         public Mesh GetElement(GarmentElements garmentElements)
         {
-            Mesh mesh;
+            Mesh mesh = null;
             
-            while (true)
+            var numberOfTries = 0;
+            
+            while (numberOfTries < MaxNumberOfTries)
             {
                 mesh = GetMeshFor(garmentElements);
 
@@ -79,6 +83,13 @@ namespace Units.Appearance
                 {
                     break;
                 }
+                
+                numberOfTries++;
+            }
+            
+            if (numberOfTries == MaxNumberOfTries)
+            {
+                Debug.Log($"Cannot find compatible mesh for {MaxNumberOfTries} tries, last mesh is returned");
             }
 
             return mesh;
@@ -86,9 +97,11 @@ namespace Units.Appearance
 
         public MeshPair GetElementsAtSameIndex(GarmentElementPairs garmentElementPairs)
         {
-            MeshPair meshPair;
+            MeshPair meshPair = null;
+
+            var numberOfTries = 0;
             
-            while (true)
+            while (numberOfTries < MaxNumberOfTries)
             {
                 meshPair = GetMeshPairFor(garmentElementPairs);
 
@@ -96,6 +109,13 @@ namespace Units.Appearance
                 {
                     break;
                 }
+
+                numberOfTries++;
+            }
+
+            if (numberOfTries == MaxNumberOfTries)
+            {
+                Debug.Log($"Cannot find compatible mesh pair for {MaxNumberOfTries} tries, last mesh pair is returned");
             }
 
             return meshPair;

@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using Common;
 using Sirenix.OdinInspector;
 using Units.Appearance.ItemVariants;
 using Units.Appearance.Pairs;
 using Units.Appearance.Variants;
 using UnityEngine;
 using static Units.Appearance.GarmentSet;
-using Random = UnityEngine.Random;
 
 namespace Units.Appearance
 {
@@ -21,11 +18,6 @@ namespace Units.Appearance
         [SerializeField] private GenderItems _femaleItems;
         [SerializeField] private AgenderItems _agenderItems;
 
-        [Title("Variants")]
-        [SerializeField] private GenderItemVariants _maleItemVariants;
-        [SerializeField] private GenderItemVariants _femaleItemVariants;
-        [SerializeField] private AgenderItemVariants _agenderItemVariants;
-        
         private readonly int _color = Shader.PropertyToID("_BaseColor");
         
         public void RandomizeAppearanceWith(Gender gender, HumanAppearanceRegistry humanAppearanceRegistry)
@@ -209,77 +201,6 @@ namespace Units.Appearance
             renderer.material = material;
         }
 
-        [Button(ButtonSizes.Medium)]
-        private void RandomizeAppearance()
-        {
-            var randomGender = EnumUtils.RandomValue<Gender>();
-
-            RandomizeAppearanceForGender(randomGender);
-        }
-
-        [Button(ButtonSizes.Medium)]
-        private void RandomizeAppearanceForGender(Gender gender)
-        {
-            if (gender == Gender.Male)
-            {
-                _male.SetActive(true);
-                _female.SetActive(false);
-            }
-            else
-            {
-                _male.SetActive(false);
-                _female.SetActive(true);
-            }
-            
-            var (items, itemVariants) = gender switch
-            {
-                Gender.Male => (_maleItems, _maleItemVariants),
-                Gender.Female => (_femaleItems, _femaleItemVariants),
-                _ => throw new ArgumentOutOfRangeException(nameof(gender), gender, null)
-            };
-
-            RandomizeGenderItems(items, itemVariants);
-            RandomizeAgenderItems();
-        }
-
-        private void RandomizeGenderItems(GenderItems items, GenderItemVariants itemVariants)
-        {
-            RandomizeItem(items.Head, itemVariants.Head);
-            RandomizeItem(items.Eyebrows, itemVariants.Eyebrows);
-            RandomizeItem(items.FacialHair, itemVariants.FacialHair);
-            RandomizeItem(items.Torso, itemVariants.Torso);
-            RandomizeItem(items.ArmUpperRight, itemVariants.ArmUpperRight);
-            RandomizeItem(items.ArmUpperLeft, itemVariants.ArmUpperLeft);
-            RandomizeItem(items.ArmLowerRight, itemVariants.ArmLowerRight);
-            RandomizeItem(items.ArmLowerLeft, itemVariants.ArmLowerLeft);
-            RandomizeItem(items.HandRight, itemVariants.HandRight);
-            RandomizeItem(items.HandLeft, itemVariants.HandLeft);
-            RandomizeItem(items.Hips, itemVariants.Hips);
-            RandomizeItem(items.LegRight, itemVariants.LegRight);
-            RandomizeItem(items.LegLeft, itemVariants.LegLeft);
-        }
-
-        private void RandomizeAgenderItems()
-        {
-            RandomizeItem(_agenderItems.Hair, _agenderItemVariants.Hair);
-            RandomizeItem(_agenderItems.Ears, _agenderItemVariants.Ears);
-            RandomizeItem(_agenderItems.HeadCoveringHair, _agenderItemVariants.HeadCoveringHair);
-            RandomizeItem(_agenderItems.BackAttachment, _agenderItemVariants.BackAttachment);
-            RandomizeItem(_agenderItems.HipsAttachment, _agenderItemVariants.HipsAttachment);
-        }
-
-        private void RandomizeItem(SkinnedMeshRenderer renderer, List<Mesh> variants)
-        {
-            if (variants.Count == 0)
-            {
-                return;
-            }
-
-            var itemMesh = variants[Random.Range(0, variants.Count)];
-
-            renderer.sharedMesh = itemMesh;
-        }
-
         [Serializable]
         private class GenderItems
         {
@@ -316,44 +237,6 @@ namespace Units.Appearance
             public SkinnedMeshRenderer HipsAttachment;
             public SkinnedMeshRenderer KneeAttachmentRight;
             public SkinnedMeshRenderer KneeAttachmentLeft;
-        }
-
-        [Serializable]
-        private class GenderItemVariants
-        {
-            public List<Mesh> Head;
-            public List<Mesh> HeadAccessory;
-            public List<Mesh> Eyebrows;
-            public List<Mesh> FacialHair;
-            public List<Mesh> Torso;
-            public List<Mesh> ArmUpperRight;
-            public List<Mesh> ArmUpperLeft;
-            public List<Mesh> ArmLowerRight;
-            public List<Mesh> ArmLowerLeft;
-            public List<Mesh> HandRight;
-            public List<Mesh> HandLeft;
-            public List<Mesh> Hips;
-            public List<Mesh> LegRight;
-            public List<Mesh> LegLeft;
-        }
-        
-        [Serializable]
-        private class AgenderItemVariants
-        {
-            public List<Mesh> Hair;
-            public List<Mesh> Ears;
-            public List<Mesh> HeadCoveringHair;
-            public List<Mesh> HeadCoveringNoHair;
-            public List<Mesh> HeadCoveringNoFacialHair;
-            public List<Mesh> Helmet;
-            public List<Mesh> BackAttachment;
-            public List<Mesh> ShoulderAttachmentRight;
-            public List<Mesh> ShoulderAttachmentLeft;
-            public List<Mesh> ElbowAttachmentRight;
-            public List<Mesh> ElbowAttachmentLeft;
-            public List<Mesh> HipsAttachment;
-            public List<Mesh> KneeAttachmentRight;
-            public List<Mesh> KneeAttachmentLeft;
         }
     }
 }

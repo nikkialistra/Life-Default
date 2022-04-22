@@ -974,7 +974,7 @@ SkinnedMeshRenderer:
   m_Quality: 0
   m_UpdateWhenOffscreen: 0
   m_SkinnedMotionVectors: 1
-  m_Mesh: {fileID: 4300778, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+  m_Mesh: {fileID: 4301394, guid: 038320a534bd8b444b43734860d1a211, type: 3}
   m_Bones:
   - {fileID: 4484678588856206}
   - {fileID: 4644583944091842}
@@ -3321,63 +3321,6 @@ MonoBehaviour:
     HipsAttachment: {fileID: 137516890769599056}
     KneeAttachmentRight: {fileID: 137029007355741102}
     KneeAttachmentLeft: {fileID: 137946608038931216}
-  _maleItemVariants:
-    Head: []
-    HeadAccessory: []
-    Eyebrows: []
-    FacialHair: []
-    Torso:
-    - {fileID: 4300478, guid: 038320a534bd8b444b43734860d1a211, type: 3}
-    - {fileID: 4300480, guid: 038320a534bd8b444b43734860d1a211, type: 3}
-    ArmUpperRight: []
-    ArmUpperLeft: []
-    ArmLowerRight: []
-    ArmLowerLeft: []
-    HandRight: []
-    HandLeft: []
-    Hips:
-    - {fileID: 4300754, guid: 038320a534bd8b444b43734860d1a211, type: 3}
-    - {fileID: 4300796, guid: 038320a534bd8b444b43734860d1a211, type: 3}
-    LegRight: []
-    LegLeft: []
-  _femaleItemVariants:
-    Head: []
-    HeadAccessory: []
-    Eyebrows: []
-    FacialHair: []
-    Torso:
-    - {fileID: 4301428, guid: 038320a534bd8b444b43734860d1a211, type: 3}
-    - {fileID: 4301430, guid: 038320a534bd8b444b43734860d1a211, type: 3}
-    - {fileID: 4301432, guid: 038320a534bd8b444b43734860d1a211, type: 3}
-    - {fileID: 4301434, guid: 038320a534bd8b444b43734860d1a211, type: 3}
-    - {fileID: 4301436, guid: 038320a534bd8b444b43734860d1a211, type: 3}
-    - {fileID: 4301438, guid: 038320a534bd8b444b43734860d1a211, type: 3}
-    - {fileID: 4301440, guid: 038320a534bd8b444b43734860d1a211, type: 3}
-    - {fileID: 4301446, guid: 038320a534bd8b444b43734860d1a211, type: 3}
-    ArmUpperRight: []
-    ArmUpperLeft: []
-    ArmLowerRight: []
-    ArmLowerLeft: []
-    HandRight: []
-    HandLeft: []
-    Hips: []
-    LegRight: []
-    LegLeft: []
-  _agenderItemVariants:
-    Hair: []
-    Ears: []
-    HeadCoveringHair: []
-    HeadCoveringNoHair: []
-    HeadCoveringNoFacialHair: []
-    Helmet: []
-    BackAttachment: []
-    ShoulderAttachmentRight: []
-    ShoulderAttachmentLeft: []
-    ElbowAttachmentRight: []
-    ElbowAttachmentLeft: []
-    HipsAttachment: []
-    KneeAttachmentRight: []
-    KneeAttachmentLeft: []
 --- !u!114 &832335509996619287
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4209,7 +4152,7 @@ SkinnedMeshRenderer:
   m_Quality: 0
   m_UpdateWhenOffscreen: 0
   m_SkinnedMotionVectors: 1
-  m_Mesh: {fileID: 4300480, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+  m_Mesh: {fileID: 4300482, guid: 038320a534bd8b444b43734860d1a211, type: 3}
   m_Bones:
   - {fileID: 4844984119303382}
   - {fileID: 4289747274570090}

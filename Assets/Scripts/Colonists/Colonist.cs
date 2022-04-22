@@ -7,6 +7,7 @@ using Units.Ancillaries;
 using Units.Appearance;
 using UnityEngine;
 using Zenject;
+using static Units.Appearance.HumanAppearanceRegistry;
 
 namespace Colonists
 {
@@ -17,10 +18,10 @@ namespace Colonists
     [RequireComponent(typeof(ColonistBehavior))]
     public class Colonist : MonoBehaviour
     {
-        [Title("Properties")]
         [SerializeField] private string _name;
         [SerializeField] private Gender _gender;
         
+        [Space]
         [Required]
         [SerializeField] private HealthBars _healthBars;
         [Required]
@@ -39,14 +40,14 @@ namespace Colonists
         [SerializeField] private Transform _center;
 
         private bool _died;
-        
-        private HumanAppearanceRegistry _humanAppearanceRegistry;
-        private HumanNames _humanNames;
-        
+
         private UnitSelection _unitSelection;
         private ColonistAnimator _animator;
         private ColonistMeshAgent _meshAgent;
         private ColonistBehavior _behavior;
+        
+        private HumanAppearanceRegistry _humanAppearanceRegistry;
+        private HumanNames _humanNames;
 
         [Inject]
         public void Construct(HumanAppearanceRegistry humanAppearanceRegistry , HumanNames humanNames)
@@ -133,7 +134,7 @@ namespace Colonists
         [Button(ButtonSizes.Medium)]
         public void RandomizeAppearance()
         {
-            _humanAppearance.RandomizeAppearanceWith(_gender, _humanAppearanceRegistry);
+            _humanAppearance.RandomizeAppearanceWith(_gender, HumanType.Colonist, _humanAppearanceRegistry);
         }
         
         public void Select()
@@ -218,7 +219,7 @@ namespace Colonists
                 _name = _humanNames.GetRandomNameFor(_gender);
             }
                 
-            _humanAppearance.RandomizeAppearanceWith(_gender, _humanAppearanceRegistry);
+            _humanAppearance.RandomizeAppearanceWith(_gender, HumanType.Colonist, _humanAppearanceRegistry);
 
             Vitality.Initialize();
             

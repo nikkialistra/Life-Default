@@ -1321,7 +1321,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50b815224adf4c3b985ca8fe71414ef1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyPrefab: {fileID: 4193433063631040808, guid: 314fad9f205428c4f9ebe94c77233a7e,
+  _enemyPrefab: {fileID: 4193433063631040808, guid: 3278b4621ff97c64284ff950ff522679,
     type: 3}
   _enemiesParent: {fileID: 0}
 --- !u!114 &3020716834333397151
@@ -1394,11 +1394,15 @@ MonoBehaviour:
   _maleHeadVariants: {fileID: 11400000, guid: 51c5570a742c66e4da3db1510dc3c59a, type: 2}
   _femaleHeadVariants: {fileID: 11400000, guid: c7def15f49acd8b4aa80c5276f49616e,
     type: 2}
-  _maleGarmentSetVariants: {fileID: 11400000, guid: 4042fd242cac3c24991e109b001ce397,
-    type: 2}
-  _femaleGarmentSetVariants: {fileID: 11400000, guid: 17d927e87bc1a98499aecd04f5d012d4,
-    type: 2}
   _colorVariants: {fileID: 11400000, guid: a294fbd177acfa647ad99e8d3b31d181, type: 2}
+  _maleColonistGarmentSetVariants: {fileID: 11400000, guid: 4042fd242cac3c24991e109b001ce397,
+    type: 2}
+  _femaleColonistGarmentSetVariants: {fileID: 11400000, guid: 17d927e87bc1a98499aecd04f5d012d4,
+    type: 2}
+  _maleEnemyGarmentSetVariants: {fileID: 11400000, guid: 7e3dc19a6b89d80459ddaca559404621,
+    type: 2}
+  _femaleEnemyGarmentSetVariants: {fileID: 11400000, guid: c77e9dff52146864caf3801e3a1ac309,
+    type: 2}
 --- !u!1 &3020716834399772927
 GameObject:
   m_ObjectHideFlags: 0

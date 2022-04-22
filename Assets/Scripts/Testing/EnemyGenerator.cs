@@ -62,8 +62,9 @@ namespace Testing
                 {
                     return;
                 }
-
-                _enemyFactory.Create(EnemyType.Melee, hit.point);
+                
+                var enemy = _enemyFactory.Create();
+                enemy.SetAt(hit.point);
             }
         }
     }

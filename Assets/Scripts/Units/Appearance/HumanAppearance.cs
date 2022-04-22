@@ -5,6 +5,7 @@ using Units.Appearance.Pairs;
 using Units.Appearance.Variants;
 using UnityEngine;
 using static Units.Appearance.GarmentSet;
+using static Units.Appearance.HumanAppearanceRegistry;
 
 namespace Units.Appearance
 {
@@ -20,7 +21,7 @@ namespace Units.Appearance
 
         private readonly int _color = Shader.PropertyToID("_BaseColor");
         
-        public void RandomizeAppearanceWith(Gender gender, HumanAppearanceRegistry humanAppearanceRegistry)
+        public void RandomizeAppearanceWith(Gender gender, HumanType humanType, HumanAppearanceRegistry humanAppearanceRegistry)
         {
             GenderItems genderItems;
             if (gender == Gender.Male)
@@ -41,7 +42,7 @@ namespace Units.Appearance
             ResetComplementaryItems();
             
             RandomizeHeadItems(gender, genderItems,  humanAppearanceRegistry.HeadVariantsFor(gender));
-            RandomizeGarmentSet(genderItems, humanAppearanceRegistry.GarmentSetFor(gender));
+            RandomizeGarmentSet(genderItems, humanAppearanceRegistry.GarmentSetFor(gender, humanType));
             RandomizeColors(gender, genderItems, humanAppearanceRegistry.ColorVariants);
         }
 

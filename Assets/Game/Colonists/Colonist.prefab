@@ -427,16 +427,16 @@ GameObject:
   - component: {fileID: 648114809178795117}
   - component: {fileID: 6633013369567803270}
   - component: {fileID: 6716084818144742275}
+  - component: {fileID: 1036043928785350050}
   - component: {fileID: 2081193202370333819}
   - component: {fileID: 6677395056416142622}
   - component: {fileID: 5364183396584065060}
-  - component: {fileID: 1036043928785350050}
   - component: {fileID: 8477657715684973058}
+  - component: {fileID: 7183938458047524081}
   - component: {fileID: 2308330324105463307}
   - component: {fileID: 5149874996177493612}
   - component: {fileID: 5715635598172236793}
   - component: {fileID: 7905390231065561626}
-  - component: {fileID: 7183938458047524081}
   - component: {fileID: 1146573543387713412}
   - component: {fileID: 2721959709741817781}
   m_Layer: 14
@@ -646,6 +646,24 @@ MonoBehaviour:
   bezierTangentLength: 0.4
   offset: 0.2
   factor: 0.1
+--- !u!114 &1036043928785350050
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4193433063631040808}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05801dcd7dd44c819b53a6357ea5aeb6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _destinationPoint: {fileID: 2346717340988269411}
+  _entityType: 0
+  _colonist: {fileID: 2081193202370333819}
+  _enemy: {fileID: 0}
+  _building: {fileID: 0}
+  _resource: {fileID: 0}
 --- !u!114 &2081193202370333819
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -692,24 +710,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _animator: {fileID: 2067455092801037215}
---- !u!114 &1036043928785350050
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4193433063631040808}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 05801dcd7dd44c819b53a6357ea5aeb6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _destinationPoint: {fileID: 2346717340988269411}
-  _entityType: 0
-  _colonist: {fileID: 2081193202370333819}
-  _enemy: {fileID: 0}
-  _building: {fileID: 0}
-  _resource: {fileID: 0}
 --- !u!114 &8477657715684973058
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -729,6 +729,18 @@ MonoBehaviour:
   - 3
   - 2
   - 3.5
+--- !u!114 &7183938458047524081
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4193433063631040808}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e38182fea63347408f39c7a8d58ec91e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &2308330324105463307
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -782,18 +794,6 @@ MonoBehaviour:
   _hoverIndicator: {fileID: 152656352870599827}
   _healthBars: {fileID: 1935489896466272434}
   _timeToHideHover: 0.05
---- !u!114 &7183938458047524081
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4193433063631040808}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e38182fea63347408f39c7a8d58ec91e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1146573543387713412
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -932,7 +932,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1588895830433058, guid: bebe0fbb55beb9245925236a40cfe495, type: 3}
       propertyPath: m_Name
-      value: Colonist Model
+      value: Human Model
       objectReference: {fileID: 0}
     - target: {fileID: 4005077195242232, guid: bebe0fbb55beb9245925236a40cfe495, type: 3}
       propertyPath: m_RootOrder

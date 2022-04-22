@@ -1,6 +1,8 @@
-﻿using Units.Appearance.ItemVariants;
+﻿using Sirenix.OdinInspector;
+using Units.Appearance.ItemVariants;
 using Units.Appearance.Variants;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Units.Appearance
 {
@@ -9,10 +11,15 @@ namespace Units.Appearance
         [SerializeField] private HeadVariants _maleHeadVariants;
         [SerializeField] private HeadVariants _femaleHeadVariants;
         [Space]
-        [SerializeField] private GarmentSetVariants _maleGarmentSetVariants;
-        [SerializeField] private GarmentSetVariants _femaleGarmentSetVariants;
-        [Space]
         [SerializeField] private ColorVariants _colorVariants;
+        
+        [Title("Colonist Garment Sets")]
+        [SerializeField] private GarmentSetVariants _maleColonistGarmentSetVariants;
+        [SerializeField] private GarmentSetVariants _femaleColonistGarmentSetVariants;
+        
+        [Title("Enemy Garment Sets")]
+        [SerializeField] private GarmentSetVariants _maleEnemyGarmentSetVariants;
+        [SerializeField] private GarmentSetVariants _femaleEnemyGarmentSetVariants;
 
         public ColorVariants ColorVariants => _colorVariants;
 
@@ -21,9 +28,22 @@ namespace Units.Appearance
             return gender == Gender.Male ? _maleHeadVariants : _femaleHeadVariants;
         }
 
-        public IItemVariants<GarmentSet> GarmentSetFor(Gender gender)
+        public IItemVariants<GarmentSet> GarmentSetFor(Gender gender, HumanType humanType)
         {
-            return gender == Gender.Male ? _maleGarmentSetVariants.GarmentSets : _femaleGarmentSetVariants.GarmentSets;
+            if (humanType == HumanType.Colonist)
+            {
+                return gender == Gender.Male ? _maleColonistGarmentSetVariants.GarmentSets : _femaleColonistGarmentSetVariants.GarmentSets;
+            }
+            else
+            {
+                return gender == Gender.Male ? _maleEnemyGarmentSetVariants.GarmentSets : _femaleEnemyGarmentSetVariants.GarmentSets;
+            }
+        }
+        
+        public enum HumanType
+        {
+            Colonist,
+            Enemy
         }
     }
 }

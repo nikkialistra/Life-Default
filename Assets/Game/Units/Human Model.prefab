@@ -974,7 +974,7 @@ SkinnedMeshRenderer:
   m_Quality: 0
   m_UpdateWhenOffscreen: 0
   m_SkinnedMotionVectors: 1
-  m_Mesh: {fileID: 4301392, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+  m_Mesh: {fileID: 4300778, guid: 038320a534bd8b444b43734860d1a211, type: 3}
   m_Bones:
   - {fileID: 4484678588856206}
   - {fileID: 4644583944091842}
@@ -1096,7 +1096,7 @@ SkinnedMeshRenderer:
   m_Quality: 0
   m_UpdateWhenOffscreen: 0
   m_SkinnedMotionVectors: 1
-  m_Mesh: {fileID: 4300644, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+  m_Mesh: {fileID: 4300664, guid: 038320a534bd8b444b43734860d1a211, type: 3}
   m_Bones:
   - {fileID: 4154968482976678}
   - {fileID: 4072714179923276}
@@ -2302,7 +2302,7 @@ SkinnedMeshRenderer:
   m_Quality: 0
   m_UpdateWhenOffscreen: 0
   m_SkinnedMotionVectors: 1
-  m_Mesh: {fileID: 4301388, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+  m_Mesh: {fileID: 4300628, guid: 038320a534bd8b444b43734860d1a211, type: 3}
   m_Bones:
   - {fileID: 4148624719027776}
   - {fileID: 4469216849760602}
@@ -2691,7 +2691,7 @@ SkinnedMeshRenderer:
   m_Quality: 0
   m_UpdateWhenOffscreen: 0
   m_SkinnedMotionVectors: 1
-  m_Mesh: {fileID: 4300568, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+  m_Mesh: {fileID: 4300588, guid: 038320a534bd8b444b43734860d1a211, type: 3}
   m_Bones:
   - {fileID: 4053011303078384}
   - {fileID: 4154968482976678}
@@ -3219,7 +3219,7 @@ GameObject:
   - component: {fileID: 3388593450940659954}
   - component: {fileID: 832335509996619287}
   m_Layer: 0
-  m_Name: Colonist Model
+  m_Name: Human Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3716,7 +3716,7 @@ SkinnedMeshRenderer:
   m_Quality: 0
   m_UpdateWhenOffscreen: 0
   m_SkinnedMotionVectors: 1
-  m_Mesh: {fileID: 4301332, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+  m_Mesh: {fileID: 0}
   m_Bones:
   - {fileID: 4427809240144086}
   m_BlendShapeWeights: []
@@ -4152,7 +4152,7 @@ SkinnedMeshRenderer:
   m_Quality: 0
   m_UpdateWhenOffscreen: 0
   m_SkinnedMotionVectors: 1
-  m_Mesh: {fileID: 4301380, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+  m_Mesh: {fileID: 4300504, guid: 038320a534bd8b444b43734860d1a211, type: 3}
   m_Bones:
   - {fileID: 4844984119303382}
   - {fileID: 4289747274570090}
@@ -4924,7 +4924,7 @@ SkinnedMeshRenderer:
   m_Quality: 0
   m_UpdateWhenOffscreen: 0
   m_SkinnedMotionVectors: 1
-  m_Mesh: {fileID: 4301228, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+  m_Mesh: {fileID: 0}
   m_Bones:
   - {fileID: 4815781665781916}
   m_BlendShapeWeights: []
@@ -5807,7 +5807,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7458787756808962972}
   - component: {fileID: 7198459438215232955}
-  - component: {fileID: 2372822143308611528}
   m_Layer: 0
   m_Name: Head Covering No Hair
   m_TagString: Untagged
@@ -5898,19 +5897,6 @@ SkinnedMeshRenderer:
     m_Center: {x: -30.331528, y: -3.4752655, z: 0}
     m_Extent: {x: 27.349598, y: 28.899853, z: 26.914185}
   m_DirtyAABB: 0
---- !u!114 &2372822143308611528
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4504406280535018539}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 47a38555e7d24eb08573ba47ca51e1f4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _rootBone: {fileID: 4872096232762672}
 --- !u!1 &4728901668059589690
 GameObject:
   m_ObjectHideFlags: 0
@@ -5988,7 +5974,7 @@ SkinnedMeshRenderer:
   m_Quality: 0
   m_UpdateWhenOffscreen: 0
   m_SkinnedMotionVectors: 1
-  m_Mesh: {fileID: 4301176, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+  m_Mesh: {fileID: 0}
   m_Bones:
   - {fileID: 4218819230960592}
   - {fileID: 4633531174069896}

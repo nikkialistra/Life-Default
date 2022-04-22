@@ -195,13 +195,13 @@ MonoBehaviour:
     _variants:
     - _value: {fileID: 4300778, guid: 038320a534bd8b444b43734860d1a211, type: 3}
       _chance: 1
-      _relativeChance: 0.14285715
+      _relativeChance: 0.33333334
     - _value: {fileID: 4300780, guid: 038320a534bd8b444b43734860d1a211, type: 3}
-      _chance: 3
-      _relativeChance: 0.42857143
+      _chance: 1
+      _relativeChance: 0.33333334
     - _value: {fileID: 4300794, guid: 038320a534bd8b444b43734860d1a211, type: 3}
-      _chance: 3
-      _relativeChance: 0.42857143
+      _chance: 1
+      _relativeChance: 0.33333334
   _hipsAttachmentVariants:
     _variants:
     - _value: {fileID: 0}

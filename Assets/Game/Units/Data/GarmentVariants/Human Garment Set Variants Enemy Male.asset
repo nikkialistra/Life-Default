@@ -10,16 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4222db367f484e538d2c7f57af91b19e, type: 3}
-  m_Name: Human Garment Set Variants Male
+  m_Name: Human Garment Set Variants Enemy Male
   m_EditorClassIdentifier: 
   _garmentSets:
     _variants:
-    - _value: {fileID: 11400000, guid: 2ce32982414ab334ba44d3c30976b986, type: 2}
-      _chance: 1
-      _relativeChance: 0.009803922
     - _value: {fileID: 11400000, guid: d4400bb12fcbc8545b7a8542b02d4350, type: 2}
-      _chance: 1
-      _relativeChance: 0.009803922
+      _chance: 3
+      _relativeChance: 0.75
     - _value: {fileID: 11400000, guid: d2a8193c35db7b146aad338c1615368f, type: 2}
-      _chance: 100
-      _relativeChance: 0.98039216
+      _chance: 1
+      _relativeChance: 0.25

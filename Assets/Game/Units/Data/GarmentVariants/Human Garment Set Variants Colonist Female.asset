@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4222db367f484e538d2c7f57af91b19e, type: 3}
+  m_Name: Human Garment Set Variants Colonist Female
+  m_EditorClassIdentifier: 
+  _garmentSets:
+    _variants:
+    - _value: {fileID: 11400000, guid: f015688f9c0614141a947b1f98eceecb, type: 2}
+      _chance: 2
+      _relativeChance: 0.6666667
+    - _value: {fileID: 11400000, guid: 519c46c4d9a114c45a24417ed6eaa435, type: 2}
+      _chance: 1
+      _relativeChance: 0.33333334

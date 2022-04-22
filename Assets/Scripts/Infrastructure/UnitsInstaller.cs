@@ -5,7 +5,7 @@ using Zenject;
 
 namespace Infrastructure
 {
-    public class EnemiesInstaller : MonoInstaller
+    public class UnitsInstaller : MonoInstaller
     {
         [Required]
         [SerializeField] private GameObject _enemyPrefab;
@@ -14,12 +14,12 @@ namespace Infrastructure
 
         public override void InstallBindings()
         {
-            BindEnemySpawning();
+            BindSpawning();
         }
 
-        private void BindEnemySpawning()
+        private void BindSpawning()
         {
-            Container.BindFactory<EnemyType, Vector3, Enemy, Enemy.Factory>()
+            Container.BindFactory<Enemy, Enemy.Factory>()
                 .FromComponentInNewPrefab(_enemyPrefab)
                 .UnderTransform(_enemiesParent);
         }

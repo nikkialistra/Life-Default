@@ -1,45 +1,56 @@
-﻿using Entities;
+﻿using Common;
+using Entities;
 using Sirenix.OdinInspector;
 using Units;
 using Units.Ancillaries;
+using Units.Appearance;
 using UnityEngine;
 using Zenject;
+using static Units.Appearance.HumanAppearanceRegistry;
 
 namespace Enemies
 {
     [RequireComponent(typeof(UnitVitality))]
+    [RequireComponent(typeof(EnemyAnimator))]
     [RequireComponent(typeof(EnemyMeshAgent))]
     [RequireComponent(typeof(EnemyBehavior))]
     [RequireComponent(typeof(Entity))]
     public class Enemy : MonoBehaviour
     {
+        [SerializeField] private string _name;
+        [SerializeField] private Gender _gender;
+        
+        [Space]
+        [SerializeField] private EnemyType _enemyType;
+        
         [Required]
         [SerializeField] private HealthBars _healthBars;
-        [Space]
         [Required]
-        [SerializeField] private EnemyAnimator _enemyAnimator;
-
-        [Title("Properties")]
-        [SerializeField] private EnemyType _enemyType;
+        [SerializeField] private HumanAppearance _humanAppearance;
 
         private bool _died;
 
         private UnitVitality _vitality;
-        private EnemyMeshAgent _enemyMeshAgent;
-        private EnemyBehavior _enemyBehavior;
+        private EnemyAnimator _animator;
+        private EnemyMeshAgent _meshAgent;
+        private EnemyBehavior _behavior;
+        
+        private HumanAppearanceRegistry _humanAppearanceRegistry;
+        private HumanNames _humanNames;
 
         [Inject]
-        public void Construct(EnemyType enemyType, Vector3 position)
+        public void Construct(HumanAppearanceRegistry humanAppearanceRegistry , HumanNames humanNames)
         {
-            _enemyType = enemyType;
-            transform.position = position;
+            _humanAppearanceRegistry = humanAppearanceRegistry;
+            _humanNames = humanNames;
         }
 
         private void Awake()
         {
             _vitality = GetComponent<UnitVitality>();
-            _enemyMeshAgent = GetComponent<EnemyMeshAgent>();
-            _enemyBehavior = GetComponent<EnemyBehavior>();
+            _animator = GetComponent<EnemyAnimator>();
+            _meshAgent = GetComponent<EnemyMeshAgent>();
+            _behavior = GetComponent<EnemyBehavior>();
 
             Entity = GetComponent<Entity>();
         }
@@ -64,6 +75,11 @@ namespace Enemies
             _vitality.HealthChange -= OnVitalityChange;
             _vitality.Die -= Dying;
         }
+        
+        public void SetAt(Vector3 position)
+        {
+            transform.position = position;
+        }
 
         [Button(ButtonSizes.Large)]
         public void TakeDamage(int value)
@@ -75,20 +91,33 @@ namespace Enemies
 
             _vitality.TakeDamage(value);
         }
+        
+        [Button(ButtonSizes.Medium)]
+        public void RandomizeAppearance()
+        {
+            _humanAppearance.RandomizeAppearanceWith(_gender, HumanType.Enemy, _humanAppearanceRegistry);
+        }
 
         private void Dying()
         {
             _died = true;
 
-            _enemyMeshAgent.Deactivate();
-            _enemyBehavior.Disable();
+            _meshAgent.Deactivate();
+            _behavior.Disable();
 
-            _enemyAnimator.Die(DestroySelf);
+            _animator.Die(DestroySelf);
         }
 
         private void InitializeSelf()
         {
-            _died = false;
+            _gender = EnumUtils.RandomValue<Gender>();
+
+            if (_name == "")
+            { 
+                _name = _humanNames.GetRandomNameFor(_gender);
+            }
+                
+            _humanAppearance.RandomizeAppearanceWith(_gender, HumanType.Enemy, _humanAppearanceRegistry);
 
             _vitality.Initialize();
             
@@ -97,7 +126,7 @@ namespace Enemies
 
         private void InitializeComponents()
         {
-            _enemyBehavior.Enable();
+            _behavior.Enable();
         }
 
         private void DestroySelf()
@@ -111,6 +140,6 @@ namespace Enemies
             _healthBars.SetRecoverySpeed(blood);
         }
 
-        public class Factory : PlaceholderFactory<EnemyType, Vector3, Enemy> { }
+        public class Factory : PlaceholderFactory<Enemy> { }
     }
 }

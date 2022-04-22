@@ -96,8 +96,8 @@ MonoBehaviour:
   _propertyName: Color_FA85148A
   _timeToHideHover: 0.05
   _timeToHideSelection: 0.12
-  _hoverColor: {r: 0.23529412, g: 0.23529412, b: 0.23529412, a: 0}
-  _selectionColor: {r: 0.3529412, g: 0.3529412, b: 0.3529412, a: 0}
+  _hoverColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 0}
+  _selectionColor: {r: 0.27450982, g: 0.27450982, b: 0.27450982, a: 0}
 --- !u!1001 &5147966332531873328
 PrefabInstance:
   m_ObjectHideFlags: 0

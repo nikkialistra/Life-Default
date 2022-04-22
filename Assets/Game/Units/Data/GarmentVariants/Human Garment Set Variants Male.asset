@@ -16,7 +16,10 @@ MonoBehaviour:
     _variants:
     - _value: {fileID: 11400000, guid: 2ce32982414ab334ba44d3c30976b986, type: 2}
       _chance: 1
-      _relativeChance: 0.5
+      _relativeChance: 0.33333334
     - _value: {fileID: 11400000, guid: d4400bb12fcbc8545b7a8542b02d4350, type: 2}
       _chance: 1
-      _relativeChance: 0.5
+      _relativeChance: 0.33333334
+    - _value: {fileID: 11400000, guid: d2a8193c35db7b146aad338c1615368f, type: 2}
+      _chance: 1
+      _relativeChance: 0.33333334

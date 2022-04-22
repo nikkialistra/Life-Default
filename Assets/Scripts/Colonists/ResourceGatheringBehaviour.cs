@@ -7,14 +7,14 @@ namespace Colonists
         [SerializeField] private float _firstHitTime = 0.7f;
         
         private ColonistGatherer _colonistGatherer;
-        private ColonistHandEquipment _colonistHandEquipment;
+        private UnitEquipment _unitEquipment;
         
         private float _nextHitTime;
         
         public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
             _colonistGatherer = animator.transform.parent.GetComponent<ColonistGatherer>();
-            _colonistHandEquipment = animator.GetComponent<ColonistHandEquipment>();
+            _unitEquipment = animator.GetComponent<UnitEquipment>();
             _nextHitTime = _firstHitTime;
         }
 
@@ -29,7 +29,7 @@ namespace Colonists
 
         public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
-            _colonistHandEquipment.Unequip();
+            _unitEquipment.Unequip();
         }
     }
 }

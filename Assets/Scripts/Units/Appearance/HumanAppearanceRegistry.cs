@@ -1,6 +1,7 @@
 ﻿using Sirenix.OdinInspector;
 using Units.Appearance.ItemVariants;
 using Units.Appearance.Variants;
+using Units.Enums;
 using UnityEngine;
 using UnityEngine.Serialization;
 

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Units.Enums;
 using UnityEngine;
 
 namespace Units

@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections;
 using DG.Tweening;
-using Enemies;
-using Entities;
 using Pathfinding;
 using ResourceManagement;
 using UnityEngine;
@@ -19,7 +17,7 @@ namespace Units
         private float _interactionDistance;
 
         private bool _movingToEnemy;
-        private Entity _entity;
+        private Unit _unitTarget;
         private Vector3 _lastEntityPosition;
 
         private bool _movingToResource;
@@ -42,7 +40,7 @@ namespace Units
         public event Action RotationEnd;
 
         public bool IsMoving => !_aiPath.isStopped;
-        private bool IsRotating { get; set; }
+        public bool IsRotating { get; private set; }
 
         public void SetDestinationToPosition(Vector3 position)
         {
@@ -52,17 +50,17 @@ namespace Units
             Move();
         }
 
-        public void SetDestinationToEnemy(Enemy enemy, float atDistance)
+        public void SetDestinationToUnitTarget(Unit unitTarget, float atDistance)
         {
             ResetDestination();
 
-            if (_entity == enemy.Entity)
+            if (_unitTarget == unitTarget)
             {
                 return;
             }
 
-            _entity = enemy.Entity;
-            _lastEntityPosition = _entity.transform.position;
+            _unitTarget = unitTarget;
+            _lastEntityPosition = _unitTarget.transform.position;
 
             _interactionDistance = atDistance;
             _aiPath.isStopped = false;
@@ -204,7 +202,7 @@ namespace Units
         {
             if (_movingToEnemy)
             {
-                return UpdateMovingToEnemy();
+                return UpdateMovingToUnitTarget();
             }
 
             if (_movingToResource)
@@ -215,17 +213,17 @@ namespace Units
             return UpdateMovingToPosition();
         }
 
-        private bool UpdateMovingToEnemy()
+        private bool UpdateMovingToUnitTarget()
         {
             if (Vector3.Distance(transform.position, _aiPath.destination) <= _interactionDistance)
             {
-                _entity = null;
+                _unitTarget = null;
                 return false;
             }
 
-            if (Vector3.Distance(_entity.transform.position, _lastEntityPosition) > _entityOffsetForPathRecalculation)
+            if (Vector3.Distance(_unitTarget.transform.position, _lastEntityPosition) > _entityOffsetForPathRecalculation)
             {
-                _lastEntityPosition = _entity.transform.position;
+                _lastEntityPosition = _unitTarget.transform.position;
                 _aiPath.destination = _lastEntityPosition;
             }
 

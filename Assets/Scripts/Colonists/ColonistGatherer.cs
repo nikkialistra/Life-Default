@@ -7,25 +7,26 @@ using UnityEngine;
 
 namespace Colonists
 {
-    [RequireComponent(typeof(ColonistAnimator))]
     [RequireComponent(typeof(ColonistStats))]
+    [RequireComponent(typeof(ColonistAnimator))]
     public class ColonistGatherer : MonoBehaviour
     {
         [Required]
-        [SerializeField] private ColonistHandEquipment _handEquipment;
+        [SerializeField] private UnitEquipment _unitEquipment;
 
         [ValidateInput(nameof(EveryResourceHasDistanceInteraction))]
         [SerializeField] private ResourceInteractionDistanceDictionary _resourceInteractionDistances;
 
         [SerializeField] private float _waitTime = 0.2f;
-
+        
+        private Resource _resource;
+        
         private Action _onInteractionFinish;
 
-        private Resource _gatheringResource;
-        
-        private ColonistAnimator _animator;
         private ColonistStats _colonistStats;
         
+        private ColonistAnimator _animator;
+
         private Coroutine _watchForExhaustionCoroutine;
 
         private void Awake()
@@ -46,28 +47,48 @@ namespace Colonists
 
         public void Gather(Resource resource, Action onInteractionFinish)
         {
-            if (_gatheringResource == resource)
+            if (_resource == resource)
             {
                 return;
             }
 
-            _gatheringResource = resource;
+            _resource = resource;
             _onInteractionFinish = onInteractionFinish;
             
-            _handEquipment.EquipInstrumentFor(resource.ResourceType);
+            _unitEquipment.EquipInstrumentFor(resource.ResourceType);
             _animator.Gather(resource);
 
             _watchForExhaustionCoroutine = StartCoroutine(WatchForExhaustion());
         }
+        
+        public void Hit(float passedTime)
+        {
+            if (_resource == null || _resource.Exhausted)
+            {
+                FinishGathering();
+                return;
+            }
+
+            var extractedQuantity = _colonistStats.ResourceDestructionSpeed * passedTime;
+
+            _resource.Extract(extractedQuantity, _colonistStats.ResourceExtractionEfficiency);
+            _resource.Hit(transform.position);
+
+            if (_resource.Exhausted)
+            {
+                _resource = null;
+                FinishGathering();
+            }
+        }
 
         private IEnumerator WatchForExhaustion()
         {
-            while (!_gatheringResource.Exhausted)
+            while (!_resource.Exhausted)
             {
                 yield return new WaitForSeconds(_waitTime);
             }
 
-            _gatheringResource = null;
+            _resource = null;
             FinishGathering();
         }
 
@@ -78,30 +99,12 @@ namespace Colonists
             if (_watchForExhaustionCoroutine != null)
             {
                 StopCoroutine(_watchForExhaustionCoroutine);
+                _watchForExhaustionCoroutine = null;
             }
-            _gatheringResource = null;
+            
+            _resource = null;
             
             StartCoroutine(StopGatheringLater());
-        }
-        
-        public void Hit(float passedTime)
-        {
-            if (_gatheringResource == null || _gatheringResource.Exhausted)
-            {
-                FinishGathering();
-                return;
-            }
-
-            var extractedQuantity = _colonistStats.ResourceDestructionSpeed * passedTime;
-
-            _gatheringResource.Extract(extractedQuantity, _colonistStats.ResourceExtractionEfficiency);
-            _gatheringResource.Hit(transform.position);
-
-            if (_gatheringResource.Exhausted)
-            {
-                _gatheringResource = null;
-                FinishGathering();
-            }
         }
 
         private IEnumerator StopGatheringLater()
@@ -113,7 +116,7 @@ namespace Colonists
 
         private void FinishGathering()
         {
-            if (_gatheringResource != null)
+            if (_resource != null)
             {
                 return;
             }
@@ -121,6 +124,7 @@ namespace Colonists
             if (_watchForExhaustionCoroutine != null)
             {
                 StopCoroutine(_watchForExhaustionCoroutine);
+                _watchForExhaustionCoroutine = null;
             }
             
             _animator.StopGathering();

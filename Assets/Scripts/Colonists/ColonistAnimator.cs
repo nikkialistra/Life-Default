@@ -45,11 +45,6 @@ namespace Colonists
             _animator.SetBool(_cuttingTrees, false);
             _animator.SetBool(_miningRocks, false);
         }
-        
-        public void Attack(bool value)
-        {
-            _animator.SetBool(_attacking, value);
-        }
 
         public void Die(Action died)
         {

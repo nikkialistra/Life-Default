@@ -5,14 +5,21 @@ using UnityEngine;
 
 namespace Colonists
 {
-    public class ColonistHandEquipment : MonoBehaviour
+    public class UnitEquipment : MonoBehaviour
     {
         [SerializeField] private MeshFilter _handSlot;
+        [Space]
+        [SerializeField] private Mesh _sword;
         [Space]
         [SerializeField] private Mesh _axe;
         [SerializeField] private Mesh _pickaxe;
         [Space]
         [SerializeField] private float _timeToUnequip;
+
+        public void EquipWeapon()
+        {
+            _handSlot.sharedMesh = _sword;
+        }
 
         public void Unequip()
         {

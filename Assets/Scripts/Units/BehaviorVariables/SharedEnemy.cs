@@ -5,11 +5,11 @@ using Enemies;
 namespace Units.BehaviorVariables
 {
     [Serializable]
-    public class SharedEnemy : SharedVariable<Enemy>
+    public class SharedUnit : SharedVariable<Unit>
     {
-        public static implicit operator SharedEnemy(Enemy value)
+        public static implicit operator SharedUnit(Unit value)
         {
-            return new SharedEnemy { Value = value };
+            return new SharedUnit { Value = value };
         }
     }
 }

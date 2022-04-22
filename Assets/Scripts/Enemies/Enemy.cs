@@ -4,12 +4,14 @@ using Sirenix.OdinInspector;
 using Units;
 using Units.Ancillaries;
 using Units.Appearance;
+using Units.Enums;
 using UnityEngine;
 using Zenject;
 using static Units.Appearance.HumanAppearanceRegistry;
 
 namespace Enemies
 {
+    [RequireComponent(typeof(Unit))]
     [RequireComponent(typeof(UnitVitality))]
     [RequireComponent(typeof(EnemyAnimator))]
     [RequireComponent(typeof(EnemyMeshAgent))]
@@ -30,11 +32,13 @@ namespace Enemies
 
         private bool _died;
 
+        private Unit _unit;
+        
         private UnitVitality _vitality;
         private EnemyAnimator _animator;
         private EnemyMeshAgent _meshAgent;
         private EnemyBehavior _behavior;
-        
+
         private HumanAppearanceRegistry _humanAppearanceRegistry;
         private HumanNames _humanNames;
 
@@ -47,6 +51,8 @@ namespace Enemies
 
         private void Awake()
         {
+            _unit = GetComponent<Unit>();
+            
             _vitality = GetComponent<UnitVitality>();
             _animator = GetComponent<EnemyAnimator>();
             _meshAgent = GetComponent<EnemyMeshAgent>();
@@ -56,6 +62,9 @@ namespace Enemies
         }
 
         public Entity Entity { get; private set; }
+
+        public Unit Unit => _unit;
+        
         public bool Alive => !_died;
 
         private void Start()

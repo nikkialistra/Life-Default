@@ -5,12 +5,14 @@ using Sirenix.OdinInspector;
 using Units;
 using Units.Ancillaries;
 using Units.Appearance;
+using Units.Enums;
 using UnityEngine;
 using Zenject;
 using static Units.Appearance.HumanAppearanceRegistry;
 
 namespace Colonists
 {
+    [RequireComponent(typeof(Unit))]
     [RequireComponent(typeof(UnitVitality))]
     [RequireComponent(typeof(ColonistAnimator))]
     [RequireComponent(typeof(ColonistMeshAgent))]
@@ -41,11 +43,13 @@ namespace Colonists
 
         private bool _died;
 
+        private Unit _unit;
+        
         private UnitSelection _unitSelection;
         private ColonistAnimator _animator;
         private ColonistMeshAgent _meshAgent;
         private ColonistBehavior _behavior;
-        
+
         private HumanAppearanceRegistry _humanAppearanceRegistry;
         private HumanNames _humanNames;
 
@@ -58,6 +62,8 @@ namespace Colonists
 
         private void Awake()
         {
+            _unit = GetComponent<Unit>();
+            
             Vitality = GetComponent<UnitVitality>();
             
             _unitSelection = GetComponent<UnitSelection>();
@@ -74,6 +80,8 @@ namespace Colonists
         public event Action<string> NameChange;
         
         public event Action<Colonist> DestinationReach;
+
+        public Unit Unit => _unit;
         
         public string Name
         {

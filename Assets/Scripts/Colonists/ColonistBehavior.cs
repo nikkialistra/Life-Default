@@ -19,7 +19,7 @@ namespace Colonists
         private SharedPositions _positions;
         private SharedFloat _rotation;
         private SharedResource _resource;
-        private SharedEnemy _enemy;
+        private SharedUnit _unitTarget;
 
         private SharedBool _newCommand;
 
@@ -74,7 +74,7 @@ namespace Colonists
                 case EntityType.Colonist:
                     break;
                 case EntityType.Enemy:
-                    _enemy.Value = entity.Enemy;
+                    _unitTarget.Value = entity.Enemy.Unit;
                     break;
                 case EntityType.Building:
                     break;
@@ -91,7 +91,7 @@ namespace Colonists
             _positions.Value.Clear();
             _rotation.Value = float.NegativeInfinity;
             _resource.Value = null;
-            _enemy.Value = null;
+            _unitTarget.Value = null;
         }
 
         public bool TryOrderToPosition(Vector3 position, float? angle)
@@ -141,7 +141,7 @@ namespace Colonists
             _positions = (SharedPositions)_behaviorTree.GetVariable("Positions");
             _rotation = (SharedFloat)_behaviorTree.GetVariable("Rotation");
             _resource = (SharedResource)_behaviorTree.GetVariable("Resource");
-            _enemy = (SharedEnemy)_behaviorTree.GetVariable("Enemy");
+            _unitTarget = (SharedUnit)_behaviorTree.GetVariable("UnitTarget");
 
             _positions.Value = new Queue<Vector3>();
 

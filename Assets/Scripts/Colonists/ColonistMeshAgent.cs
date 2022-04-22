@@ -50,11 +50,11 @@ namespace Colonists
             _unitMeshAgent.SetDestinationToPosition(position);
         }
 
-        public void SetDestinationToEnemy(Enemy enemy, float atDistance)
+        public void SetDestinationToUnitTarget(Unit unitTarget, float atDistance)
         {
             _hasPendingOrder = false;
 
-            _unitMeshAgent.SetDestinationToEnemy(enemy, atDistance);
+            _unitMeshAgent.SetDestinationToUnitTarget(unitTarget, atDistance);
         }
 
         public void SetDestinationToResource(Resource resource, float atDistance)

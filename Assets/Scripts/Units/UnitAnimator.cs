@@ -12,6 +12,7 @@ namespace Units
 
         private readonly int _moving = Animator.StringToHash("moving");
         private readonly int _death = Animator.StringToHash("death");
+        private readonly int _attacking = Animator.StringToHash("attacking");
         
         public void Die(Action died)
         {
@@ -37,6 +38,11 @@ namespace Units
         public void Move(bool value)
         {
             _animator.SetBool(_moving, value);
+        }
+
+        public void Attack(bool value)
+        {
+            _animator.SetBool(_attacking, value);
         }
     }
 }

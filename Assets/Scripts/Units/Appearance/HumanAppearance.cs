@@ -3,6 +3,7 @@ using Sirenix.OdinInspector;
 using Units.Appearance.ItemVariants;
 using Units.Appearance.Pairs;
 using Units.Appearance.Variants;
+using Units.Enums;
 using UnityEngine;
 using static Units.Appearance.GarmentSet;
 using static Units.Appearance.HumanAppearanceRegistry;

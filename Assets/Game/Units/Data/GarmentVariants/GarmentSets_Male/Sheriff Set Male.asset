@@ -77,24 +77,18 @@ MonoBehaviour:
     _variants:
     - _value: {fileID: 0}
       _chance: 1
-      _relativeChance: 0.33333334
-    - _value: {fileID: 4301228, guid: 038320a534bd8b444b43734860d1a211, type: 3}
-      _chance: 1
-      _relativeChance: 0.33333334
+      _relativeChance: 0.5
     - _value: {fileID: 4301230, guid: 038320a534bd8b444b43734860d1a211, type: 3}
       _chance: 1
-      _relativeChance: 0.33333334
+      _relativeChance: 0.5
   _shoulderAttachmentLeftVariants:
     _variants:
     - _value: {fileID: 0}
       _chance: 1
-      _relativeChance: 0.33333334
-    - _value: {fileID: 4301270, guid: 038320a534bd8b444b43734860d1a211, type: 3}
-      _chance: 1
-      _relativeChance: 0.33333334
+      _relativeChance: 0.5
     - _value: {fileID: 4301272, guid: 038320a534bd8b444b43734860d1a211, type: 3}
       _chance: 1
-      _relativeChance: 0.33333334
+      _relativeChance: 0.5
   _armUpperRightVariants:
     _variants:
     - _value: {fileID: 4300530, guid: 038320a534bd8b444b43734860d1a211, type: 3}

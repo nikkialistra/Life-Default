@@ -3334,6 +3334,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _handSlot: {fileID: 4177720652290489099}
+  _sword: {fileID: 0}
   _axe: {fileID: 4300000, guid: 39f02ad978519fc45b717fabe7e64836, type: 3}
   _pickaxe: {fileID: 4300000, guid: db0b9acf5f036934c915aa7055f95485, type: 3}
   _timeToUnequip: 0.15

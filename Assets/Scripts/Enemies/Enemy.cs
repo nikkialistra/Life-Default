@@ -2,7 +2,6 @@
 using Entities;
 using Sirenix.OdinInspector;
 using Units;
-using Units.Ancillaries;
 using Units.Appearance;
 using Units.Enums;
 using UnityEngine;
@@ -12,7 +11,7 @@ using static Units.Appearance.HumanAppearanceRegistry;
 namespace Enemies
 {
     [RequireComponent(typeof(Unit))]
-    [RequireComponent(typeof(UnitVitality))]
+    [RequireComponent(typeof(UnitSelection))]
     [RequireComponent(typeof(EnemyAnimator))]
     [RequireComponent(typeof(EnemyMeshAgent))]
     [RequireComponent(typeof(EnemyBehavior))]
@@ -21,20 +20,18 @@ namespace Enemies
     {
         [SerializeField] private string _name;
         [SerializeField] private Gender _gender;
-        
         [Space]
         [SerializeField] private EnemyType _enemyType;
-        
-        [Required]
-        [SerializeField] private HealthBars _healthBars;
+        [Space]
         [Required]
         [SerializeField] private HumanAppearance _humanAppearance;
-
-        private bool _died;
+        [Space]
+        [Required]
+        [SerializeField] private GameObject _selectionIndicator;
 
         private Unit _unit;
-        
-        private UnitVitality _vitality;
+        private UnitSelection _unitSelection;
+
         private EnemyAnimator _animator;
         private EnemyMeshAgent _meshAgent;
         private EnemyBehavior _behavior;
@@ -52,8 +49,8 @@ namespace Enemies
         private void Awake()
         {
             _unit = GetComponent<Unit>();
-            
-            _vitality = GetComponent<UnitVitality>();
+            _unitSelection = GetComponent<UnitSelection>();
+
             _animator = GetComponent<EnemyAnimator>();
             _meshAgent = GetComponent<EnemyMeshAgent>();
             _behavior = GetComponent<EnemyBehavior>();
@@ -65,24 +62,28 @@ namespace Enemies
 
         public Unit Unit => _unit;
         
-        public bool Alive => !_died;
+        public bool Alive => _unit.Alive;
 
         private void Start()
         {
-            InitializeSelf();
+            Initialize();
             InitializeComponents();
         }
 
         private void OnEnable()
         {
-            _vitality.HealthChange += OnVitalityChange;
-            _vitality.Die += Dying;
+            _unit.Die += Dying;
+
+            _unitSelection.Selected += Select;
+            _unitSelection.Deselected += Deselect;
         }
 
         private void OnDisable()
         {
-            _vitality.HealthChange -= OnVitalityChange;
-            _vitality.Die -= Dying;
+            _unit.Die += Dying;
+            
+            _unitSelection.Selected -= Select;
+            _unitSelection.Deselected -= Deselect;
         }
         
         public void SetAt(Vector3 position)
@@ -90,34 +91,18 @@ namespace Enemies
             transform.position = position;
         }
 
-        [Button(ButtonSizes.Large)]
-        public void TakeDamage(int value)
-        {
-            if (_died)
-            {
-                return;
-            }
-
-            _vitality.TakeDamage(value);
-        }
-        
         [Button(ButtonSizes.Medium)]
         public void RandomizeAppearance()
         {
             _humanAppearance.RandomizeAppearanceWith(_gender, HumanType.Enemy, _humanAppearanceRegistry);
         }
 
-        private void Dying()
+        public void ToggleUnitFieldOfView()
         {
-            _died = true;
-
-            _meshAgent.Deactivate();
-            _behavior.Disable();
-
-            _animator.Die(DestroySelf);
+            _unit.ToggleUnitFieldOfView();
         }
 
-        private void InitializeSelf()
+        private void Initialize()
         {
             _gender = EnumUtils.RandomValue<Gender>();
 
@@ -128,25 +113,45 @@ namespace Enemies
                 
             _humanAppearance.RandomizeAppearanceWith(_gender, HumanType.Enemy, _humanAppearanceRegistry);
 
-            _vitality.Initialize();
+            _unit.Initialize();
+        }
+
+        private void Select()
+        {
+            if (!_unit.Alive)
+            {
+                return;
+            }
             
-            _healthBars.SetHealth(_vitality.Health);
+            _unit.Select();
+
+            _selectionIndicator.SetActive(true);
+        }
+
+        private void Deselect()
+        {
+            _unit.Deselect();
+            
+            _selectionIndicator.SetActive(false);
+        }
+
+        private void Dying()
+        {
+            _meshAgent.Deactivate();
+            _behavior.Disable();
+
+            _animator.Die(DestroySelf);
         }
 
         private void InitializeComponents()
         {
+            _unitSelection.Activate();
             _behavior.Enable();
         }
 
         private void DestroySelf()
         {
             Destroy(gameObject);
-        }
-
-        private void OnVitalityChange(float vitality, float blood)
-        {
-            _healthBars.SetHealth(vitality);
-            _healthBars.SetRecoverySpeed(blood);
         }
 
         public class Factory : PlaceholderFactory<Enemy> { }

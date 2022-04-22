@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using ColonistManagement.Selection;
 using Entities.Interfaces;
 using Sirenix.OdinInspector;
@@ -24,6 +25,9 @@ namespace Units
         
         private ColonistSelectionInput _colonistSelectionInput;
 
+        public event Action Selected;
+        public event Action Deselected;
+
         public void Activate()
         {
             _activated = true;
@@ -37,19 +41,23 @@ namespace Units
         public void Select()
         {
             _selected = true;
-            HideHoverIndicator();
+            HideHovering();
+            
+            Selected?.Invoke();
         }
 
         public void Deselect()
         {
             _selected = false;
-            HideHoverIndicator();
+            HideHovering();
+            
+            Deselected?.Invoke();
         }
 
         public void StopDisplay()
         {
             _activated = false;
-            HideHoverIndicator();
+            HideHovering();
         }
 
         public void Hover()
@@ -61,12 +69,15 @@ namespace Units
 
             _hovered = true;
 
-            _hoveringCoroutine ??= StartCoroutine(Hovering());
+            if (_hoveringCoroutine == null)
+            {
+                _hoveringCoroutine = StartCoroutine(Hovering());
+            }
         }
 
         private IEnumerator Hovering()
         {
-            ShowHoverIndicator();
+            ShowHovering();
             
             while (true)
             {
@@ -76,7 +87,7 @@ namespace Units
 
                 if (!_hovered)
                 {
-                    HideHoverIndicator();
+                    HideHovering();
                     break;
                 }
             }
@@ -84,16 +95,16 @@ namespace Units
             _hoveringCoroutine = null;
         }
 
-        private void ShowHoverIndicator()
+        private void ShowHovering()
         {
             _hoverIndicator.Activate();
-            _healthBars.Selected = true;
+            _healthBars.Hovered = true;
         }
 
-        private void HideHoverIndicator()
+        private void HideHovering()
         {
             _hoverIndicator.Deactivate();
-            _healthBars.Selected = false;
+            _healthBars.Hovered = false;
         }
     }
 }

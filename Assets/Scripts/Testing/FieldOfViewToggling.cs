@@ -41,17 +41,17 @@ namespace Testing
 
         private void ToggleEnemyFieldOfView(InputAction.CallbackContext context)
         {
-            foreach (var unit in _selectedColonists.Colonists)
+            foreach (var colonist in _selectedColonists.Colonists)
             {
-                unit.ToggleEnemyFieldOfView();
+                colonist.ToggleUnitFieldOfView();
             }
         }
 
         private void ToggleResourceFieldOfView(InputAction.CallbackContext context)
         {
-            foreach (var unit in _selectedColonists.Colonists)
+            foreach (var colonist in _selectedColonists.Colonists)
             {
-                unit.ToggleResourceFieldOfView();
+                colonist.ToggleResourceFieldOfView();
             }
         }
     }

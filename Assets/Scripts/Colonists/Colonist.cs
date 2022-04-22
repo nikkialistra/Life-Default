@@ -3,7 +3,6 @@ using Common;
 using Entities;
 using Sirenix.OdinInspector;
 using Units;
-using Units.Ancillaries;
 using Units.Appearance;
 using Units.Enums;
 using UnityEngine;
@@ -13,41 +12,30 @@ using static Units.Appearance.HumanAppearanceRegistry;
 namespace Colonists
 {
     [RequireComponent(typeof(Unit))]
-    [RequireComponent(typeof(UnitVitality))]
+    [RequireComponent(typeof(UnitSelection))]
     [RequireComponent(typeof(ColonistAnimator))]
     [RequireComponent(typeof(ColonistMeshAgent))]
-    [RequireComponent(typeof(UnitSelection))]
+    [RequireComponent(typeof(ColonistGatherer))]
     [RequireComponent(typeof(ColonistBehavior))]
     public class Colonist : MonoBehaviour
     {
         [SerializeField] private string _name;
         [SerializeField] private Gender _gender;
-        
         [Space]
-        [Required]
-        [SerializeField] private HealthBars _healthBars;
         [Required]
         [SerializeField] private HumanAppearance _humanAppearance;
-        
-        [Space]
-        [Required]
-        [SerializeField] private FieldOfView _enemyFieldOfView;
-        [Required]
-        [SerializeField] private FieldOfView _resourceFieldOfView;
-
         [Space]
         [Required]
         [SerializeField] private GameObject _selectionIndicator;
         [Required]
         [SerializeField] private Transform _center;
 
-        private bool _died;
-
         private Unit _unit;
-        
         private UnitSelection _unitSelection;
+        
         private ColonistAnimator _animator;
         private ColonistMeshAgent _meshAgent;
+        private ColonistGatherer _gatherer; 
         private ColonistBehavior _behavior;
 
         private HumanAppearanceRegistry _humanAppearanceRegistry;
@@ -63,12 +51,11 @@ namespace Colonists
         private void Awake()
         {
             _unit = GetComponent<Unit>();
-            
-            Vitality = GetComponent<UnitVitality>();
-            
             _unitSelection = GetComponent<UnitSelection>();
+            
             _animator = GetComponent<ColonistAnimator>();
             _meshAgent = GetComponent<ColonistMeshAgent>();
+            _gatherer = GetComponent<ColonistGatherer>();
             _behavior = GetComponent<ColonistBehavior>();
         }
 
@@ -82,6 +69,8 @@ namespace Colonists
         public event Action<Colonist> DestinationReach;
 
         public Unit Unit => _unit;
+
+        public bool Alive => _unit.Alive;
         
         public string Name
         {
@@ -93,15 +82,11 @@ namespace Colonists
             }
         }
 
-        public UnitVitality Vitality { get; private set; }
-
-        public bool Alive => !_died;
-
         public Vector3 Center => _center.position;
 
         private void Start()
         {
-            InitializeSelf();
+            Initialize();
             ActivateComponents();
 
             Spawn?.Invoke();
@@ -109,34 +94,23 @@ namespace Colonists
 
         private void OnEnable()
         {
-            Vitality.HealthChange += OnHealthChange;
-            Vitality.Die += Dying;
-
+            _unit.HealthChange += OnHealthChange;
+            _unit.Die += Dying;
+            
             _meshAgent.DestinationReach += OnDestinationReach;
         }
 
         private void OnDisable()
         {
-            Vitality.HealthChange -= OnHealthChange;
-            Vitality.Die -= Dying;
-
+            _unit.HealthChange -= OnHealthChange;
+            _unit.Die -= Dying;
+            
             _meshAgent.DestinationReach -= OnDestinationReach;
         }
 
         public void SetAt(Vector3 position)
         {
             transform.position = position;
-        }
-
-        [Button(ButtonSizes.Medium)]
-        public void TakeDamage(float value)
-        {
-            if (_died)
-            {
-                return;
-            }
-
-            Vitality.TakeDamage(value);
         }
 
         [Button(ButtonSizes.Medium)]
@@ -147,23 +121,21 @@ namespace Colonists
         
         public void Select()
         {
-            if (_died)
+            if (!_unit.Alive)
             {
                 return;
             }
-
-            _unitSelection.Select();
+            
+            _unit.Select();
 
             _selectionIndicator.SetActive(true);
-            _healthBars.Selected = true;
         }
 
         public void Deselect()
         {
-            _unitSelection.Deselect();
+            _unit.Deselect();
 
             _selectionIndicator.SetActive(false);
-            _healthBars.Selected = false;
         }
 
         public void Stop()
@@ -186,20 +158,18 @@ namespace Colonists
             return _behavior.TryAddPositionToOrder(position, angle);
         }
 
-        public void ToggleEnemyFieldOfView()
+        public void ToggleUnitFieldOfView()
         {
-            _enemyFieldOfView.ToggleDebugShow();
+            _unit.ToggleUnitFieldOfView();
         }
 
         public void ToggleResourceFieldOfView()
         {
-            _resourceFieldOfView.ToggleDebugShow();
+            _gatherer.ToggleResourceFieldOfView();
         }
 
         private void Dying()
         {
-            _died = true;
-
             Stop();
 
             DeactivateComponents();
@@ -218,7 +188,7 @@ namespace Colonists
             _behavior.Deactivate();
         }
 
-        private void InitializeSelf()
+        private void Initialize()
         {
             _gender = EnumUtils.RandomValue<Gender>();
 
@@ -229,10 +199,7 @@ namespace Colonists
                 
             _humanAppearance.RandomizeAppearanceWith(_gender, HumanType.Colonist, _humanAppearanceRegistry);
 
-            Vitality.Initialize();
-            
-            _healthBars.SetHealth(Vitality.Health);
-            _healthBars.SetRecoverySpeed(Vitality.RecoverySpeed);
+            _unit.Initialize();
         }
 
         private void ActivateComponents()
@@ -252,13 +219,11 @@ namespace Colonists
             DestinationReach?.Invoke(this);
         }
 
-        private void OnHealthChange(float health, float blood)
+        private void OnHealthChange()
         {
-            _healthBars.SetHealth(health);
-            _healthBars.SetRecoverySpeed(blood);
             HealthChange?.Invoke();
         }
-        
+
         public class Factory : PlaceholderFactory<Colonist> { }
     }
 }

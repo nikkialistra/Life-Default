@@ -85,10 +85,10 @@ namespace UI.Game.GameLook.Components
 
         private void FillIn(Colonist colonist)
         {
-            _healthProgress.highValue = _colonist.Vitality.MaxHealth;
+            _healthProgress.highValue = _colonist.Unit.Vitality.MaxHealth;
 
-            _recoverySpeedProgress.lowValue = -_colonist.Vitality.MaxRecoverySpeed;
-            _recoverySpeedProgress.highValue = _colonist.Vitality.MaxRecoverySpeed;
+            _recoverySpeedProgress.lowValue = -_colonist.Unit.Vitality.MaxRecoverySpeed;
+            _recoverySpeedProgress.highValue = _colonist.Unit.Vitality.MaxRecoverySpeed;
 
             _name.text = colonist.Name;
             UpdateHealth();
@@ -101,8 +101,8 @@ namespace UI.Game.GameLook.Components
 
         private void UpdateHealth()
         {
-            _healthProgress.value = _colonist.Vitality.Health;
-            _recoverySpeedProgress.value = _colonist.Vitality.RecoverySpeed;
+            _healthProgress.value = _colonist.Unit.Vitality.Health;
+            _recoverySpeedProgress.value = _colonist.Unit.Vitality.RecoverySpeed;
         }
 
         private void UpdateName(string name)

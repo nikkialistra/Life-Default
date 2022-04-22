@@ -21,7 +21,7 @@ namespace Entities.Services
 
         private Coroutine _hoveringCoroutine;
 
-        private WaitForSeconds _waitPeriod;
+        private WaitForSecondsRealtime _waitPeriod;
         
         private bool _canSelect = true;
 
@@ -79,7 +79,7 @@ namespace Entities.Services
 
         private void Start()
         {
-            _waitPeriod = new WaitForSeconds(_hoverRecastingTime);
+            _waitPeriod = new WaitForSecondsRealtime(_hoverRecastingTime);
             StartHovering();
         }
 

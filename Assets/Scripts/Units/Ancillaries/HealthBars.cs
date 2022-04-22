@@ -21,12 +21,24 @@ namespace Units.Ancillaries
         private GameObject _recoverySpeedGameObject;
         
         private Transform _cameraTransform;
+
+        private bool _hovered;
         private bool _selected;
 
         [Inject]
         public void Construct(Camera camera)
         {
             _cameraTransform = camera.transform;
+        }
+        
+        public bool Hovered
+        {
+            get => _hovered;
+            set
+            {
+                _hovered = value;
+                UpdateShowStatus();
+            }
         }
 
         public bool Selected
@@ -66,7 +78,7 @@ namespace Units.Ancillaries
             }
             else
             {
-                ShowIfSelectedOrHit();
+                ShowIfPointedOrHit();
             }
         }
 
@@ -75,9 +87,9 @@ namespace Units.Ancillaries
             return _healthSlider.value == 0 || _recoverySpeedSlider.value == 0;
         }
 
-        private void ShowIfSelectedOrHit()
+        private void ShowIfPointedOrHit()
         {
-            if (Selected || NotFull())
+            if (Hovered || Selected || NotFull())
             {
                 Show();
             }

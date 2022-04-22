@@ -3,6 +3,7 @@ using System.Collections;
 using Common;
 using ResourceManagement;
 using Sirenix.OdinInspector;
+using Units.Ancillaries;
 using UnityEngine;
 
 namespace Colonists
@@ -13,10 +14,13 @@ namespace Colonists
     {
         [Required]
         [SerializeField] private UnitEquipment _unitEquipment;
-
+        
         [ValidateInput(nameof(EveryResourceHasDistanceInteraction))]
         [SerializeField] private ResourceInteractionDistanceDictionary _resourceInteractionDistances;
-
+        
+        [Space]
+        [Required]
+        [SerializeField] private FieldOfView _resourceFieldOfView;
         [SerializeField] private float _waitTime = 0.2f;
         
         private Resource _resource;
@@ -105,6 +109,11 @@ namespace Colonists
             _resource = null;
             
             StartCoroutine(StopGatheringLater());
+        }
+        
+        public void ToggleResourceFieldOfView()
+        {
+            _resourceFieldOfView.ToggleDebugShow();
         }
 
         private IEnumerator StopGatheringLater()

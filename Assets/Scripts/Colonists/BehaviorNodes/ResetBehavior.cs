@@ -15,7 +15,7 @@ namespace Colonists.BehaviorNodes
             NewCommand.Value = false;
 
             ColonistMeshAgent.StopMoving();
-            ColonistGatherer.StopGathering();
+            ColonistGatherer.FinishGathering();
 
             return TaskStatus.Success;
         }

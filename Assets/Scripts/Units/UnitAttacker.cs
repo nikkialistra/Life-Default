@@ -48,7 +48,7 @@ namespace Units
         {
             if (_unit == null || !_unit.Alive)
             {
-                FinishAttacking();
+                StopAttacking();
                 return;
             }
 
@@ -59,7 +59,7 @@ namespace Units
             if (!_unit.Alive)
             {
                 _unit = null;
-                FinishAttacking();
+                StopAttacking();
             }
         }
 
@@ -77,10 +77,10 @@ namespace Units
 
             _unit = null;
 
-            FinishAttacking();
+            StopAttacking();
         }
 
-        public void StopAttacking()
+        public void FinishAttacking()
         {
             if (_attackingCoroutine != null)
             {
@@ -97,10 +97,10 @@ namespace Units
         {
             yield return new WaitForSeconds(_waitTime);
 
-            FinishAttacking();
+            StopAttacking();
         }
         
-        private void FinishAttacking()
+        private void StopAttacking()
         {
             if (_unit != null)
             {

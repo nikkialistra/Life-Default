@@ -69,7 +69,7 @@ namespace Colonists
         {
             if (_resource == null || _resource.Exhausted)
             {
-                FinishGathering();
+                StopGathering();
                 return;
             }
 
@@ -81,7 +81,7 @@ namespace Colonists
             if (_resource.Exhausted)
             {
                 _resource = null;
-                FinishGathering();
+                StopGathering();
             }
         }
 
@@ -93,12 +93,12 @@ namespace Colonists
             }
 
             _resource = null;
-            FinishGathering();
+            StopGathering();
         }
 
         // Add wait time for cancelling stop gathering if user clicked same resource,
         // and prolongate animation after gathering a little
-        public void StopGathering()
+        public void FinishGathering()
         {
             if (_watchForExhaustionCoroutine != null)
             {
@@ -120,10 +120,10 @@ namespace Colonists
         {
             yield return new WaitForSeconds(_waitTime);
 
-            FinishGathering();
+            StopGathering();
         }
 
-        private void FinishGathering()
+        private void StopGathering()
         {
             if (_resource != null)
             {

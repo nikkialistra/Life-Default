@@ -27,6 +27,7 @@ namespace Units.BehaviourNodes.Attacking
             
             if (!UnitAttacker.OnAttackRange(UnitTarget.Value.transform.position))
             {
+                UnitAttacker.FinishAttacking();
                 return TaskStatus.Failure;
             }
 

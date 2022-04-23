@@ -16,7 +16,7 @@ namespace Units
 
         private float _interactionDistance;
 
-        private bool _movingToEnemy;
+        private bool _movingToUnitTarget;
         private Unit _unitTarget;
         private Vector3 _lastEntityPosition;
 
@@ -67,7 +67,7 @@ namespace Units
 
             _aiPath.destination = _lastEntityPosition;
 
-            _movingToEnemy = true;
+            _movingToUnitTarget = true;
             Move();
         }
 
@@ -86,10 +86,10 @@ namespace Units
             Move();
         }
 
-        private void ResetDestination()
+        public void ResetDestination()
         {
             _movingToResource = false;
-            _movingToEnemy = false;
+            _movingToUnitTarget = false;
         }
 
         private Vector3 GetNearestWalkablePosition(Vector3 originalPosition)
@@ -200,7 +200,7 @@ namespace Units
 
         private bool UpdateMoving()
         {
-            if (_movingToEnemy)
+            if (_movingToUnitTarget)
             {
                 return UpdateMovingToUnitTarget();
             }

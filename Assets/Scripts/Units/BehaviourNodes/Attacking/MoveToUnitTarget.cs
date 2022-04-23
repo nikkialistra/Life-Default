@@ -20,6 +20,7 @@ namespace Units.BehaviourNodes.Attacking
             if (!UnitTarget.Value.Alive)
             {
                 UnitTarget.Value = null;
+                UnitMeshAgent.ResetDestination();
                 return TaskStatus.Failure;
             }
             

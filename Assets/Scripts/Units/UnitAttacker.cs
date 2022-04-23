@@ -58,6 +58,19 @@ namespace Units
             }
         }
 
+        public void FinishAttacking()
+        {
+            if (_attackingCoroutine != null)
+            {
+                StopCoroutine(_attackingCoroutine);
+                _attackingCoroutine = null;
+            }
+
+            _unit = null;
+
+            StartCoroutine(StopAttackingLater());
+        }
+
         public bool OnAttackRange(Vector3 position)
         {
             return Vector3.Distance(transform.position, position) < _unitStats.MeleeAttackRange;
@@ -73,19 +86,6 @@ namespace Units
             _unit = null;
 
             StopAttacking();
-        }
-
-        public void FinishAttacking()
-        {
-            if (_attackingCoroutine != null)
-            {
-                StopCoroutine(_attackingCoroutine);
-                _attackingCoroutine = null;
-            }
-
-            _unit = null;
-
-            StartCoroutine(StopAttackingLater());
         }
 
         private IEnumerator StopAttackingLater()

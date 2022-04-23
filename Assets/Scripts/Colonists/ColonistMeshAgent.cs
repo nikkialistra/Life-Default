@@ -114,6 +114,11 @@ namespace Colonists
             _unitMeshAgent.StopCurrentCommand();
         }
 
+        public void ResetDestination()
+        {
+           _unitMeshAgent.ResetDestination();
+        }
+
         private void OnDestinationReach()
         {
             DestinationReach?.Invoke();

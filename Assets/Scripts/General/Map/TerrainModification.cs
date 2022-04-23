@@ -9,18 +9,14 @@ namespace General.Map
 {
     public class TerrainModification : MonoBehaviour
     {
-        [SerializeField] private int _brushWidth = 8;
-        [SerializeField] private int _brushHeight = 8;
+        [SerializeField] private int _detailLayer = 0;
 
-        [Range(0.001f, 0.1f)]
-        [SerializeField] private float _strength = 0.01f;
-        [SerializeField] private int _layer;
-        
+        private int _brushWidth;
+        private int _brushHeight;
 
-        private Camera _camera;
-        
+        private float _strength = 0.01f;
+
         private Terrain _terrain;
-        private TerrainCollider _terrainCollider;
 
         private LayerMask _terrainMask;
 
@@ -38,10 +34,7 @@ namespace General.Map
         [Inject]
         public void Construct(Camera camera, Terrain terrain)
         {
-            _camera = camera;
-            
             _terrain = terrain;
-            _terrainCollider = terrain.GetComponent<TerrainCollider>();
         }
 
         private void Awake()
@@ -57,36 +50,50 @@ namespace General.Map
             {
                 return;
             }
-            
-            _brushWidth = radius;
-            _brushHeight = radius;
-            
-            var divider = _terrain.terrainData.heightmapResolution / _terrain.terrainData.detailResolution;
-            
-            var brushPosition = GetBrushPosition(closestTerrainPoint, _brushWidth, _brushHeight);
-            var brushSize = GetSafeBrushSize(brushPosition.x, brushPosition.y, _brushWidth, _brushHeight);
 
-            var detailBrushPosition = brushPosition / divider;
-            var detailBrushSize = brushSize / divider;
+            CalculateBrushArea(radius, closestTerrainPoint, out var detailBrushPosition, out var detailBrushSize);
 
             var terrainData = GetTerrainData();
 
-            var details = terrainData.GetDetailLayer(detailBrushPosition.x, detailBrushPosition.y, detailBrushSize.x, detailBrushSize.y, _layer);
+            var details = terrainData.GetDetailLayer(detailBrushPosition.x, detailBrushPosition.y, detailBrushSize.x,
+                detailBrushSize.y, _detailLayer);
 
+            var circleRadius = detailBrushSize.y / 2;
+
+            DeleteInCircle(details, detailBrushSize, circleRadius);
+
+            terrainData.SetDetailLayer(detailBrushPosition.x, detailBrushPosition.y, _detailLayer, details);
+        }
+
+        private void CalculateBrushArea(int radius, Vector3 closestTerrainPoint, out Vector2Int detailBrushPosition,
+            out Vector2Int detailBrushSize)
+        {
+            var detailDivider = _terrain.terrainData.heightmapResolution / _terrain.terrainData.detailResolution;
+
+            var brushPosition = GetBrushPosition(closestTerrainPoint, radius, radius);
+            var brushSize = GetSafeBrushSize(brushPosition.x, brushPosition.y, radius, radius);
+
+            detailBrushPosition = brushPosition / detailDivider;
+            detailBrushSize = brushSize / detailDivider;
+        }
+
+        private static void DeleteInCircle(int[,] details, Vector2Int detailBrushSize, int circleRadius)
+        {
             for (var y = 0; y < detailBrushSize.y; y++)
             {
                 for (var x = 0; x < detailBrushSize.x; x++)
                 {
-                    if (details[y, x] != 0)
+                    if (InCircle(y, x, circleRadius))
                     {
-                        Debug.Log($"{x}:{y} - {details[y, x]}");
+                        details[y, x] = 0;
                     }
-
-                    details[y, x] = 0;
                 }
             }
+        }
 
-            terrainData.SetDetailLayer(detailBrushPosition.x, detailBrushPosition.y, _layer, details);
+        private static bool InCircle(int y, int x, int circleRadius)
+        {
+            return Mathf.Pow(y - circleRadius, 2f) + Mathf.Pow(x - circleRadius, 2f) < Mathf.Pow(circleRadius, 2f);
         }
 
         public void ModifyAt(Vector3 position, int radius, ModificationType modificationType)
@@ -224,7 +231,7 @@ namespace General.Map
 
             return heights.Average();
         }
-        
+
         private Vector2Int GetBrushPosition(Vector3 worldPosition, int brushWidth, int brushHeight)
         {
             var terrainPosition = WorldToTerrainPosition(worldPosition);
@@ -253,13 +260,19 @@ namespace General.Map
         {
             var heightmapResolution = GetHeightmapResolution();
 
-            while (heightmapResolution - (brushX + brushWidth) < 0) brushWidth--;
+            while (heightmapResolution - (brushX + brushWidth) < 0)
+            {
+                brushWidth--;
+            }
 
-            while (heightmapResolution - (brushY + brushHeight) < 0) brushHeight--;
+            while (heightmapResolution - (brushY + brushHeight) < 0)
+            {
+                brushHeight--;
+            }
 
             return new Vector2Int(brushWidth, brushHeight);
         }
-        
+
         private TerrainData GetTerrainData()
         {
             return _terrain.terrainData;

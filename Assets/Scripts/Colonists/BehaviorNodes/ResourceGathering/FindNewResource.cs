@@ -1,6 +1,7 @@
 ﻿using BehaviorDesigner.Runtime.Tasks;
 using ResourceManagement;
 using Units.Ancillaries;
+using Units.Ancillaries.Fields;
 using Units.BehaviorVariables;
 using UnityEngine;
 

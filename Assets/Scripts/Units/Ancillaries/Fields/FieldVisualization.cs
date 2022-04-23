@@ -1,42 +1,29 @@
 ﻿using System.Collections.Generic;
-using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace Units.Ancillaries
+namespace Units.Ancillaries.Fields
 {
     [RequireComponent(typeof(MeshFilter))]
     [RequireComponent(typeof(MeshRenderer))]
     [RequireComponent(typeof(LineRenderer))]
-    public class FieldOfView : MonoBehaviour
+    public class FieldVisualization : MonoBehaviour
     {
-        [SerializeField] private float _recalculationTime = 0.2f;
-
-        [Space]
-        [SerializeField] private float _viewRadius;
-        [Range(0, 360)]
-        [SerializeField] private float _viewAngle;
-
-        [Title("Masks")]
-        [SerializeField] private LayerMask _targetMask;
-        [SerializeField] private LayerMask _obstacleMask;
-
-        [Title("Debug")]
         [SerializeField] private float _oneDegreeMeshResolution;
         [SerializeField] private int _edgeResolveIterations;
         [SerializeField] private float _edgeDistanceThreshold;
-
+        
         private static readonly Vector3 TargetPositionCorrection = Vector3.up * 1.5f;
-
+        
         private MeshFilter _meshFilter;
         private MeshRenderer _meshRenderer;
         private LineRenderer _linesToTargets;
-
-        private readonly List<Transform> _visibleTargets = new();
-
+        
         private Mesh _viewMesh;
 
-        private bool _showFieldOfView;
-        private float _updateTime;
+        private float _viewAngle;
+        private float _viewRadius;
+        private LayerMask _obstacleMask;
+        private List<Transform> _targets;
 
         private void Awake()
         {
@@ -52,57 +39,25 @@ namespace Units.Ancillaries
             _meshFilter.mesh = _viewMesh;
         }
 
-        private void Update()
+        public void Show()
         {
-            if (_showFieldOfView && Time.time > _updateTime)
-            {
-                _updateTime += _recalculationTime;
-                FindVisibleTargets();
-                DrawFieldOfView();
-            }
+            _meshRenderer.enabled = true;
         }
 
-        [Button(ButtonSizes.Large)]
-        public void ToggleDebugShow()
+        public void Hide()
         {
-            _showFieldOfView = !_showFieldOfView;
-
-            if (_showFieldOfView)
-            {
-                _meshRenderer.enabled = true;
-            }
-            else
-            {
-                _meshRenderer.enabled = false;
-                _linesToTargets.positionCount = 0;
-            }
+            _meshRenderer.enabled = false;
+            _linesToTargets.positionCount = 0;
         }
 
-        public IEnumerable<Transform> FindVisibleTargets()
+        public void DrawCircleSegment(float viewAngle, float viewRadius, LayerMask obstacleMask,
+            List<Transform> targets)
         {
-            _visibleTargets.Clear();
-            var targetsInViewRadius = Physics.OverlapSphere(transform.position, _viewRadius, _targetMask);
-
-            foreach (var target in targetsInViewRadius)
-            {
-                var targetPosition = target.transform.position + TargetPositionCorrection;
-                var directionToTarget = (targetPosition - transform.position).normalized;
-                if (Vector3.Angle(transform.forward, directionToTarget) < _viewAngle / 2)
-                {
-                    var distanceToTarget = Vector3.Distance(transform.position, targetPosition);
-
-                    if (!Physics.Raycast(transform.position, directionToTarget, distanceToTarget, _obstacleMask))
-                    {
-                        _visibleTargets.Add(target.transform);
-                    }
-                }
-            }
-
-            return _visibleTargets;
-        }
-
-        private void DrawFieldOfView()
-        {
+            _viewAngle = viewAngle;
+            _viewRadius = viewRadius;
+            _obstacleMask = obstacleMask;
+            _targets = targets;
+            
             var stepCount = Mathf.RoundToInt(_viewAngle * _oneDegreeMeshResolution);
             var stepAngleSize = _viewAngle / stepCount;
 
@@ -110,6 +65,11 @@ namespace Units.Ancillaries
 
             RecalculateViewMesh(viewPoints);
             DrawLinesToTargets();
+        }
+
+        public void DrawCircle(float viewRadius, LayerMask obstacleMask, List<Transform> visibleTargets)
+        {
+            DrawCircleSegment(360f, viewRadius, obstacleMask, visibleTargets);
         }
 
         private List<Vector3> FindViewPoints(int stepCount, float stepAngleSize)
@@ -177,18 +137,18 @@ namespace Units.Ancillaries
 
         private void DrawLinesToTargets()
         {
-            if (_visibleTargets.Count == 0)
+            if (_targets.Count == 0)
             {
                 _linesToTargets.positionCount = 0;
             }
             else
             {
-                _linesToTargets.positionCount = _visibleTargets.Count * 2;
-                for (var i = 0; i < _visibleTargets.Count; i++)
+                _linesToTargets.positionCount = _targets.Count * 2;
+                for (var i = 0; i < _targets.Count; i++)
                 {
                     _linesToTargets.SetPosition(i * 2, _linesToTargets.transform.position);
                     _linesToTargets.SetPosition(i * 2 + 1,
-                        _visibleTargets[i].transform.position + TargetPositionCorrection);
+                        _targets[i].transform.position + TargetPositionCorrection);
                 }
             }
         }

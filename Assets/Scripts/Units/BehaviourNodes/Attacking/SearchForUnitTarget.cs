@@ -1,7 +1,8 @@
-﻿using BehaviorDesigner.Runtime;
+﻿using System.Collections.Generic;
+using System.Linq;
+using BehaviorDesigner.Runtime;
 using BehaviorDesigner.Runtime.Tasks;
-using Colonists;
-using Units.Ancillaries;
+using Units.Ancillaries.Fields;
 using Units.BehaviorVariables;
 using UnityEngine;
 
@@ -16,6 +17,7 @@ namespace Units.BehaviourNodes.Attacking
         public SharedBool NewCommand;
         
         public FieldOfView FieldOfView;
+        public FieldOfHearing FieldOfHearing;
 
         private float _shortestDistanceToUnit;
 
@@ -50,7 +52,7 @@ namespace Units.BehaviourNodes.Attacking
 
         private void TryToFind()
         {
-            foreach (var target in FieldOfView.FindVisibleTargets())
+            foreach (var target in GetVisibleTargets())
             {
                 var unit = target.GetComponent<Unit>();
                 if (IsUnitTarget(unit))
@@ -60,9 +62,14 @@ namespace Units.BehaviourNodes.Attacking
             }
         }
 
+        private IEnumerable<Transform> GetVisibleTargets()
+        {
+            return FieldOfView.FindVisibleTargets().Concat(FieldOfHearing.FindVisibleTargets());
+        }
+
         private bool IsUnitTarget(Unit unit)
         {
-            return unit != null || Self.Value.Fraction != unit.Fraction;
+            return unit != null && unit.Alive && Self.Value.Fraction != unit.Fraction;
         }
 
         private void SetIfClosest(Unit unit)

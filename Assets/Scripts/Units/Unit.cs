@@ -2,6 +2,7 @@
 using Colonists;
 using Sirenix.OdinInspector;
 using Units.Ancillaries;
+using Units.Ancillaries.Fields;
 using Units.Enums;
 using UnityEngine;
 
@@ -13,11 +14,12 @@ namespace Units
         [SerializeField] private Fraction _fraction;
         [Required]
         [SerializeField] private HealthBars _healthBars;
+        [Required]
+        [SerializeField] private UnitEquipment _unitEquipment;
         [Space]
         [Required]
         [SerializeField] private FieldOfView _unitFieldOfView;
-        [Required]
-        [SerializeField] private UnitEquipment _unitEquipment;
+        [SerializeField] private FieldOfHearing _unitFieldOfHearing;
 
         private bool _died;
 
@@ -78,9 +80,10 @@ namespace Units
             _healthBars.Selected = false;
         }
 
-        public void ToggleUnitFieldOfView()
+        public void ToggleUnitFields()
         {
             _unitFieldOfView.ToggleDebugShow();
+            _unitFieldOfHearing.ToggleDebugShow();
         }
 
         private void OnDie()

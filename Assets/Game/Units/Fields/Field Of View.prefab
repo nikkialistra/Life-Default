@@ -13,8 +13,9 @@ GameObject:
   - component: {fileID: 1011536556416304256}
   - component: {fileID: 2456011942234768057}
   - component: {fileID: 8580646282557188264}
+  - component: {fileID: 4119953501863108193}
   m_Layer: 1
-  m_Name: Unit Field Of View
+  m_Name: Field Of View
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -203,6 +204,18 @@ MonoBehaviour:
   _obstacleMask:
     serializedVersion: 2
     m_Bits: 64
+--- !u!114 &4119953501863108193
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4348010548654701701}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2686227d5f84410e996b497afa2879cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   _oneDegreeMeshResolution: 1
   _edgeResolveIterations: 4
   _edgeDistanceThreshold: 0.5

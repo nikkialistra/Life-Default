@@ -4,6 +4,7 @@ using Common;
 using ResourceManagement;
 using Sirenix.OdinInspector;
 using Units.Ancillaries;
+using Units.Ancillaries.Fields;
 using UnityEngine;
 
 namespace Colonists

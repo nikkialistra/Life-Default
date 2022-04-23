@@ -160,7 +160,7 @@ namespace Colonists
 
         public void ToggleUnitFieldOfView()
         {
-            _unit.ToggleUnitFields();
+            _unit.ToggleUnitVisibilityFields();
         }
 
         public void ToggleResourceFieldOfView()

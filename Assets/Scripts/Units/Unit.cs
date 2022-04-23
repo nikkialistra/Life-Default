@@ -80,7 +80,7 @@ namespace Units
             _healthBars.Selected = false;
         }
 
-        public void ToggleUnitFields()
+        public void ToggleUnitVisibilityFields()
         {
             _unitFieldOfView.ToggleDebugShow();
             _unitFieldOfHearing.ToggleDebugShow();

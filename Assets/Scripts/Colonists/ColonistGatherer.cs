@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using Common;
+using General;
 using ResourceManagement;
 using Sirenix.OdinInspector;
 using Units.Ancillaries;
@@ -22,7 +23,8 @@ namespace Colonists
         [Space]
         [Required]
         [SerializeField] private FieldOfView _resourceFieldOfView;
-        [SerializeField] private float _waitTime = 0.2f;
+        
+        private float _waitTime;
         
         private Resource _resource;
         
@@ -38,6 +40,11 @@ namespace Colonists
         {
             _animator = GetComponent<ColonistAnimator>();
             _colonistStats = GetComponent<ColonistStats>();
+        }
+
+        private void Start()
+        {
+            _waitTime = GlobalParameters.Instance.TimeToStopInteraction;
         }
 
         public float InteractionDistanceFor(ResourceType resourceType)

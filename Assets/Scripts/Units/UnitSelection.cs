@@ -2,6 +2,7 @@
 using System.Collections;
 using ColonistManagement.Selection;
 using Entities.Interfaces;
+using General;
 using Sirenix.OdinInspector;
 using Units.Ancillaries;
 using UnityEngine;
@@ -14,8 +15,8 @@ namespace Units
         [SerializeField] private HoverIndicator _hoverIndicator;
         [Required]
         [SerializeField] private HealthBars _healthBars;
-        [MinValue(0)]
-        [SerializeField] private float _timeToHideHover = 0.05f;
+
+        private float _timeToHideHover;
 
         private bool _hovered;
         private bool _selected;
@@ -27,6 +28,11 @@ namespace Units
 
         public event Action Selected;
         public event Action Deselected;
+
+        private void Start()
+        {
+            _timeToHideHover = GlobalParameters.Instance.TimeToHideHover;
+        }
 
         public void Activate()
         {

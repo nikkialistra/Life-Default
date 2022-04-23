@@ -99,7 +99,7 @@ namespace Enemies
 
         public void ToggleUnitFieldOfView()
         {
-            _unit.ToggleUnitFields();
+            _unit.ToggleUnitVisibilityFields();
         }
 
         private void Initialize()

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using General;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -7,18 +8,16 @@ namespace Units.Ancillaries.Fields
     [RequireComponent(typeof(FieldVisualization))]
     public class FieldOfView : MonoBehaviour
     {
-        [SerializeField] private float _recalculationTime = 0.2f;
-
         [Space]
         [SerializeField] private float _viewRadius;
         [Range(0, 360)]
         [SerializeField] private float _viewAngle;
-
-        [Title("Masks")]
+        [Space]
         [SerializeField] private LayerMask _targetMask;
-        [SerializeField] private LayerMask _obstacleMask;
 
-        private static readonly Vector3 TargetPositionCorrection = Vector3.up * 1.5f;
+        private Vector3 _targetPositionCorrection;
+        private float _recalculationTime;
+        private LayerMask _obstacleMask;
 
         private readonly List<Transform> _visibleTargets = new();
 
@@ -30,6 +29,13 @@ namespace Units.Ancillaries.Fields
         private void Awake()
         {
             _fieldVisualization = GetComponent<FieldVisualization>();
+        }
+
+        private void Start()
+        {
+            _targetPositionCorrection = GlobalParameters.Instance.TargetPositionCorrection;
+            _recalculationTime = GlobalParameters.Instance.VisibilityFieldRecalculationTime;
+            _obstacleMask = GlobalParameters.Instance.ObstacleMask;
         }
 
         private void Update()
@@ -65,7 +71,7 @@ namespace Units.Ancillaries.Fields
 
             foreach (var target in targetsInViewRadius)
             {
-                var targetPosition = target.transform.position + TargetPositionCorrection;
+                var targetPosition = target.transform.position + _targetPositionCorrection;
                 var directionToTarget = (targetPosition - transform.position).normalized;
                 if (Vector3.Angle(transform.forward, directionToTarget) < _viewAngle / 2)
                 {

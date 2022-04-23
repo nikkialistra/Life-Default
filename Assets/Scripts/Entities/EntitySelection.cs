@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using Entities.Interfaces;
+using General;
 using UnityEngine;
 
 namespace Entities
@@ -10,11 +11,11 @@ namespace Entities
         [SerializeField] private int _materialIndex;
         [SerializeField] private string _propertyName;
         [Space]
-        [SerializeField] private float _timeToHideHover = 0.05f;
-        [SerializeField] private float _timeToHideSelection = 0.12f;
-        [Space]
         [SerializeField] private Color _hoverColor;
         [SerializeField] private Color _selectionColor;
+        
+        private float _timeToHideHover;
+        private float _timeToHideSelection;
 
         private bool _hovered;
         private bool _selected;
@@ -26,6 +27,9 @@ namespace Entities
 
         private void Start()
         {
+            _timeToHideHover = GlobalParameters.Instance.TimeToHideHover;
+            _timeToHideSelection = GlobalParameters.Instance.TimeToHideSelection;
+            
             _emissiveColor = Shader.PropertyToID(_propertyName);
         }
 

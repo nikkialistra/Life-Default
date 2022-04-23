@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using General;
 using UnityEngine;
 
 namespace Units
@@ -8,16 +9,14 @@ namespace Units
     [RequireComponent(typeof(UnitAnimator))]
     public class UnitAttacker : MonoBehaviour
     {
-        [Space]
-        [SerializeField] private float _waitTime = 0.2f;
-
         private Unit _unit;
         
         private Action _onInteractionFinish;
 
         private UnitStats _unitStats;
-        
         private UnitAnimator _unitAnimator;
+        
+        private float _waitTime;
 
         private Coroutine _attackingCoroutine;
 
@@ -25,6 +24,11 @@ namespace Units
         {
             _unitStats = GetComponent<UnitStats>();
             _unitAnimator = GetComponent<UnitAnimator>();
+        }
+
+        private void Start()
+        {
+            _waitTime = GlobalParameters.Instance.TimeToStopInteraction;
         }
 
         public float AttackRange => _unitStats.MeleeAttackRange;
@@ -81,6 +85,11 @@ namespace Units
             while (_unit.Alive)
             {
                 yield return new WaitForSeconds(_waitTime);
+
+                if (_unit == null)
+                {
+                    break;
+                }
             }
 
             _unit = null;

@@ -29,7 +29,7 @@ namespace Colonists.StateMachineBehaviours
 
         public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
-            _unitEquipment.Unequip();
+            _unitEquipment.UnequipInstrument();
         }
     }
 }

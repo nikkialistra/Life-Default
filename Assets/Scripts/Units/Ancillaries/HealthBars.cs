@@ -111,6 +111,11 @@ namespace Units.Ancillaries
 
         private void Hide()
         {
+            if (_sliders.gameObject == null)
+            {
+                return;
+            }
+            
             _sliders.SetActive(false);
         }
     }

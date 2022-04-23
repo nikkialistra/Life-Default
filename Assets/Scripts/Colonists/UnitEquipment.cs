@@ -16,23 +16,14 @@ namespace Colonists
         [Space]
         [SerializeField] private float _timeToUnequip;
 
+        private EquipType _equipType = EquipType.None;
+
         public void EquipWeapon()
         {
             _handSlot.sharedMesh = _sword;
+            _equipType = EquipType.Weapon;
         }
-
-        public void Unequip()
-        {
-            StartCoroutine(UnequipAfter());
-        }
-
-        private IEnumerator UnequipAfter()
-        {
-            yield return new WaitForSeconds(_timeToUnequip);
-                
-            _handSlot.sharedMesh = null;
-        }
-
+        
         public void EquipInstrumentFor(ResourceType resourceType)
         {
             var instrument = resourceType switch
@@ -43,6 +34,37 @@ namespace Colonists
             };
             
             _handSlot.sharedMesh = instrument;
+            _equipType = EquipType.Instrument;
+        }
+
+        public void UnequipWeapon()
+        {
+            if (_equipType == EquipType.Weapon)
+            {
+                StartCoroutine(UnequipAfter());
+            }
+        }
+
+        public void UnequipInstrument()
+        {
+            if (_equipType == EquipType.Instrument)
+            {
+                StartCoroutine(UnequipAfter());
+            }
+        }
+
+        private IEnumerator UnequipAfter()
+        {
+            yield return new WaitForSeconds(_timeToUnequip);
+                
+            _handSlot.sharedMesh = null;
+        }
+
+        private enum EquipType
+        {
+            None,
+            Instrument,
+            Weapon
         }
     }
 }

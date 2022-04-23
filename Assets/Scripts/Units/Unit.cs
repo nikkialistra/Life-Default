@@ -1,4 +1,5 @@
 ﻿using System;
+using Colonists;
 using Sirenix.OdinInspector;
 using Units.Ancillaries;
 using Units.Enums;
@@ -15,7 +16,9 @@ namespace Units
         [Space]
         [Required]
         [SerializeField] private FieldOfView _unitFieldOfView;
-        
+        [Required]
+        [SerializeField] private UnitEquipment _unitEquipment;
+
         private bool _died;
 
         public event Action HealthChange;
@@ -24,6 +27,8 @@ namespace Units
         public bool Alive => !_died;
         
         public Fraction Fraction => _fraction;
+
+        public UnitEquipment UnitEquipment => _unitEquipment;
         
         private void Awake()
         {
@@ -55,7 +60,7 @@ namespace Units
         [Button(ButtonSizes.Medium)]
         public void TakeDamage(float value)
         {
-            if (!_died)
+            if (_died)
             {
                 return;
             }

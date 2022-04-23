@@ -12,6 +12,11 @@ namespace Units.BehaviourNodes.Attacking
 
         public override TaskStatus OnUpdate()
         {
+            if (UnitTarget.Value == null)
+            {
+                return TaskStatus.Failure;
+            }
+            
             if (!UnitTarget.Value.Alive)
             {
                 UnitTarget.Value = null;

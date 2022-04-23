@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections;
-using Colonists;
-using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Units
@@ -10,8 +8,6 @@ namespace Units
     [RequireComponent(typeof(UnitAnimator))]
     public class UnitAttacker : MonoBehaviour
     {
-        [Required]
-        [SerializeField] private UnitEquipment _unitEquipment;
         [Space]
         [SerializeField] private float _waitTime = 0.2f;
 
@@ -37,8 +33,7 @@ namespace Units
         {
             _unit = unit;
             _onInteractionFinish = onInteractionFinish;
-
-            _unitEquipment.EquipWeapon();
+            
             _unitAnimator.Attack(true);
 
             _attackingCoroutine = StartCoroutine(WatchForDestroy());

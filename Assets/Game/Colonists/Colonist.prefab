@@ -339,7 +339,7 @@ MonoBehaviour:
         To Unit Target","Instant":true,"SharedUnitUnitTarget":{"Type":"Units.BehaviorVariables.SharedUnit","Name":"UnitTarget","IsShared":true},"UnitMeshAgentUnitMeshAgent":11,"UnitAttackerUnitAttacker":12},{"Type":"Units.BehaviourNodes.Attacking.AttackUnitTarget","NodeData":{"Offset":"(113.334656,160.6077)"},"ID":27,"Name":"Attack
         Unit Target","Instant":true,"SharedUnitUnitTarget":{"Type":"Units.BehaviorVariables.SharedUnit","Name":"UnitTarget","IsShared":true},"UnitMeshAgentUnitMeshAgent":13,"UnitAttackerUnitAttacker":14},{"Type":"Units.BehaviourNodes.Attacking.SearchForUnitTarget","NodeData":{"Offset":"(289.585144,158.04483)"},"ID":28,"Name":"Search
         For Unit Target","Instant":true,"SharedUnitSelf":{"Type":"Units.BehaviorVariables.SharedUnit","Name":null,"UnitmValue":15},"SharedUnitUnitTarget":{"Type":"Units.BehaviorVariables.SharedUnit","Name":"UnitTarget","IsShared":true},"SharedBoolNewCommand":{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":null,"BooleanmValue":false},"FieldOfViewFieldOfView":16}]}]}]}]},{"Type":"BehaviorDesigner.Runtime.Tasks.Repeater","NodeData":{"Offset":"(1156.45874,243.85408)"},"ID":29,"Name":"Repeater","Instant":true,"SharedIntcount":{"Type":"BehaviorDesigner.Runtime.SharedInt","Name":null,"Int32mValue":0},"SharedBoolrepeatForever":{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":null,"BooleanmValue":true},"SharedBoolendOnFailure":{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":null,"BooleanmValue":false},"Children":[{"Type":"BehaviorDesigner.Runtime.Tasks.Sequence","NodeData":{"Offset":"(-2.85717773,102.380959)"},"ID":30,"Name":"Sequence","Instant":true,"AbortTypeabortType":"None","Children":[{"Type":"BehaviorDesigner.Runtime.Tasks.Wait","NodeData":{"Offset":"(-85.71429,169.523834)"},"ID":31,"Name":"Wait","Instant":true,"SharedFloatwaitTime":{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":null,"SinglemValue":0.4},"SharedBoolrandomWait":{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":null,"BooleanmValue":false},"SharedFloatrandomWaitMin":{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":null,"SinglemValue":1},"SharedFloatrandomWaitMax":{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":null,"SinglemValue":1}},{"Type":"Units.BehaviourNodes.Attacking.SearchForUnitTarget","NodeData":{"Offset":"(101.067963,167.0054)"},"ID":32,"Name":"Search
-        For Unit Target","Instant":true,"SharedUnitSelf":{"Type":"Units.BehaviorVariables.SharedUnit","Name":null,"UnitmValue":17},"SharedUnitUnitTarget":{"Type":"Units.BehaviorVariables.SharedUnit","Name":"UnitTarget","IsShared":true},"SharedBoolNewCommand":{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":"NewCommand","IsShared":true,"BooleanmValue":false},"FieldOfViewFieldOfView":18}]}]}]}]},"Variables":[{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":"NewCommand","IsShared":true,"BooleanmValue":false},null,null,null,null,{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":"Rotation","IsShared":true,"SinglemValue":0},null,null,{"Type":"Units.BehaviorVariables.SharedPositions","Name":"Positions","IsShared":true,"Queue`1mValue":{}},{"Type":"Units.BehaviorVariables.SharedResource","Name":"Resource","IsShared":true},null,{"Type":"Units.BehaviorVariables.SharedUnit","Name":"UnitTarget","IsShared":true}]}'
+        For Unit Target","Instant":true,"SharedUnitSelf":{"Type":"Units.BehaviorVariables.SharedUnit","Name":null,"UnitmValue":17},"SharedUnitUnitTarget":{"Type":"Units.BehaviorVariables.SharedUnit","Name":"UnitTarget","IsShared":true},"UnitEquipmentUnitEquipment":18,"SharedBoolNewCommand":{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":"NewCommand","IsShared":true,"BooleanmValue":false},"FieldOfViewFieldOfView":19}]}]}]}]},"Variables":[{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":"NewCommand","IsShared":true,"BooleanmValue":false},null,null,null,null,{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":"Rotation","IsShared":true,"SinglemValue":0},null,null,{"Type":"Units.BehaviorVariables.SharedPositions","Name":"Positions","IsShared":true,"Queue`1mValue":{}},{"Type":"Units.BehaviorVariables.SharedResource","Name":"Resource","IsShared":true},null,{"Type":"Units.BehaviorVariables.SharedUnit","Name":"UnitTarget","IsShared":true}]}'
       fieldSerializationData:
         typeName: []
         fieldNameHash: 
@@ -364,6 +364,7 @@ MonoBehaviour:
         - {fileID: 889070029107378900}
         - {fileID: 6786474178297105745}
         - {fileID: 889070029107378900}
+        - {fileID: 0}
         - {fileID: 6786474178297105745}
         byteData: 
         byteDataArray: 
@@ -489,6 +490,7 @@ MonoBehaviour:
   _fraction: 0
   _healthBars: {fileID: 1935489896466272434}
   _unitFieldOfView: {fileID: 6786474178297105745}
+  _unitEquipment: {fileID: 1616301658998035332}
 --- !u!114 &2106437558306899865
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -501,7 +503,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14905340401e4e44b8cf90db9eb48d0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _unitEquipment: {fileID: 1616301658998035332}
   _waitTime: 0.2
 --- !u!114 &541429532207667477
 MonoBehaviour:
@@ -515,9 +516,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cabfe8004b864fb68f7983619a63a1b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _meleeDamage: 20
-  _meleeAttackSpeed: 20
-  _meleeAttackRange: 2
+  _meleeDamage: 90
+  _meleeAttackSpeed: 1
+  _meleeAttackRange: 1.3
 --- !u!114 &2081193202370333819
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -830,6 +831,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 832335509996619287, guid: bebe0fbb55beb9245925236a40cfe495,
+        type: 3}
+      propertyPath: _sword
+      value: 
+      objectReference: {fileID: 4300000, guid: 66a670426360a4f48aab0d3a4d3d8a6b, type: 3}
     m_RemovedComponents:
     - {fileID: 2666782124828171162, guid: bebe0fbb55beb9245925236a40cfe495, type: 3}
     - {fileID: 7319244257553421757, guid: bebe0fbb55beb9245925236a40cfe495, type: 3}

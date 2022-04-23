@@ -1,5 +1,6 @@
 ﻿using BehaviorDesigner.Runtime;
 using BehaviorDesigner.Runtime.Tasks;
+using Colonists;
 using Units.Ancillaries;
 using Units.BehaviorVariables;
 using UnityEngine;
@@ -11,6 +12,7 @@ namespace Units.BehaviourNodes.Attacking
         public SharedUnit Self;
         
         public SharedUnit UnitTarget;
+
         public SharedBool NewCommand;
         
         public FieldOfView FieldOfView;
@@ -19,17 +21,28 @@ namespace Units.BehaviourNodes.Attacking
 
         public override void OnStart()
         {
-            UnitTarget.Value = null;
             _shortestDistanceToUnit = float.PositiveInfinity;
         }
 
         public override TaskStatus OnUpdate()
         {
+            if (UnitTarget.Value != null)
+            {
+                NewCommand.Value = true;
+                Self.Value.UnitEquipment.EquipWeapon();
+                return TaskStatus.Success;
+            }
+            
             TryToFind();
 
             if (UnitTarget.Value != null)
             {
                 NewCommand.Value = true;
+                Self.Value.UnitEquipment.EquipWeapon();
+            }
+            else
+            {
+                Self.Value.UnitEquipment.UnequipWeapon();
             }
 
             return TaskStatus.Success;

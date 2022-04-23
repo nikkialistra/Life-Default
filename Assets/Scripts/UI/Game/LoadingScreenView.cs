@@ -1,4 +1,5 @@
 ﻿using General;
+using General.Map;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
@@ -14,12 +15,12 @@ namespace UI.Game
 
         private VisualElement _loadingScreen;
 
-        private Map _map;
+        private MapInitialization _mapInitialization;
 
         [Inject]
-        public void Construct(Map map)
+        public void Construct(MapInitialization mapInitialization)
         {
-            _map = map;
+            _mapInitialization = mapInitialization;
         }
 
         private void Awake()
@@ -36,12 +37,12 @@ namespace UI.Game
 
         private void OnEnable()
         {
-            _map.Load += Hide;
+            _mapInitialization.Load += Hide;
         }
 
         private void OnDisable()
         {
-            _map.Load -= Hide;
+            _mapInitialization.Load -= Hide;
         }
 
         private void Hide()

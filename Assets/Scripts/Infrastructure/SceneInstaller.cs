@@ -1,5 +1,5 @@
-﻿using Entities.Services;
-using General;
+﻿using General;
+using General.Map;
 using General.TemperatureRegulation;
 using General.TileManagement.Tiles;
 using General.TimeCycle.Days;
@@ -14,7 +14,6 @@ using UI;
 using Units;
 using Units.Appearance;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Zenject;
 
 namespace Infrastructure
@@ -68,7 +67,11 @@ namespace Infrastructure
         
         [Title("Map")]
         [Required]
-        [SerializeField] private Map _map;
+        [SerializeField] private Terrain _terrain;
+        [Required]
+        [SerializeField] private MapInitialization _mapInitialization;
+        [Required]
+        [SerializeField] private TerrainModification _terrainModification;
         [Space]
         [Required]
         [SerializeField] private AstarPath _astarPath;
@@ -133,7 +136,9 @@ namespace Infrastructure
         
         private void BindMap()
         {
-            Container.BindInstance(_map);
+            Container.BindInstance(_terrain);
+            Container.BindInstance(_mapInitialization);
+            Container.BindInstance(_terrainModification);
             Container.BindInstance(_astarPath);
             Container.BindInstance(_resourceChunksParent).WithId("ResourceChunksParent");
         }

@@ -17,7 +17,7 @@ namespace General
         [SerializeField] private float _visibilityFieldRecalculationTime = 0.2f;
         [SerializeField] private LayerMask _obstacleMask;
 
-        public static GlobalParameters Instance;
+        public static GlobalParameters Instance { get; private set; }
 
         public float TimeToHideHover => _timeToHideHover;
         public float TimeToHideSelection => _timeToHideSelection;
@@ -28,7 +28,7 @@ namespace General
         public float VisibilityFieldRecalculationTime => _visibilityFieldRecalculationTime;
         public LayerMask ObstacleMask => _obstacleMask;
 
-        private void Start()
+        private void Awake()
         {
             if (Instance == null)
             {

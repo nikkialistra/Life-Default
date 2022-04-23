@@ -1,4 +1,5 @@
-﻿using Pathfinding;
+﻿using General.Map;
+using Pathfinding;
 using UI.Game.GameLook.Components;
 using UnityEngine;
 using Zenject;
@@ -17,26 +18,26 @@ namespace General.TileManagement.Tiles
         private Vector2Int _lastPosition;
         
         private AstarPath _astarPath;
-        private Map _map;
+        private MapInitialization _mapInitialization;
 
         private TileInfoView _tileInfoView;
 
         [Inject]
-        public void Construct(AstarPath astarPath, Map map, TileInfoView tileInfoView)
+        public void Construct(AstarPath astarPath, MapInitialization mapInitialization, TileInfoView tileInfoView)
         {
             _astarPath = astarPath;
-            _map = map;
+            _mapInitialization = mapInitialization;
             _tileInfoView = tileInfoView;
         }
 
         private void OnEnable()
         {
-            _map.Load += Initialize;
+            _mapInitialization.Load += Initialize;
         }
 
         private void OnDisable()
         {
-            _map.Load -= Initialize;
+            _mapInitialization.Load -= Initialize;
         }
 
         public void ShowAtPosition(Vector2Int position)

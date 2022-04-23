@@ -21,6 +21,12 @@ namespace Units.Appearance
         [Title("Enemy Garment Sets")]
         [SerializeField] private GarmentSetVariants _maleEnemyGarmentSetVariants;
         [SerializeField] private GarmentSetVariants _femaleEnemyGarmentSetVariants;
+        
+        public enum HumanType
+        {
+            Colonist,
+            Enemy
+        }
 
         public ColorVariants ColorVariants => _colorVariants;
 
@@ -39,12 +45,6 @@ namespace Units.Appearance
             {
                 return gender == Gender.Male ? _maleEnemyGarmentSetVariants.GarmentSets : _femaleEnemyGarmentSetVariants.GarmentSets;
             }
-        }
-        
-        public enum HumanType
-        {
-            Colonist,
-            Enemy
         }
     }
 }

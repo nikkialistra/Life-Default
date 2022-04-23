@@ -3,6 +3,7 @@ using ColonistManagement.Targeting.Formations;
 using Colonists.Services.Selecting;
 using Entities;
 using General;
+using General.Map;
 using UnityEngine;
 using Zenject;
 
@@ -20,7 +21,7 @@ namespace ColonistManagement.Movement
         private MovementInput _movementInput;
 
         [Inject]
-        public void Construct(SelectedColonists selectedColonists, OrderMarkPool orderMarkPool, Map map)
+        public void Construct(SelectedColonists selectedColonists, OrderMarkPool orderMarkPool, MapInitialization mapInitialization)
         {
             _selectedColonists = selectedColonists;
             _orderMarkPool = orderMarkPool;

@@ -3,6 +3,7 @@ using System.Collections;
 using ColonistManagement.Selection;
 using Colonists;
 using DG.Tweening;
+using General.Map;
 using Saving;
 using Sirenix.OdinInspector;
 using UniRx;
@@ -77,7 +78,7 @@ namespace General
         private Quaternion _newRotation;
         private float _newFieldOfView;
 
-        private Map _map;
+        private MapInitialization _mapInitialization;
         private bool _activated;
         private bool _canMouseScroll;
 
@@ -114,9 +115,9 @@ namespace General
         private InputAction _toggleCameraMovementAction;
 
         [Inject]
-        public void Construct(bool isSetUpSession, Map map, GameSettings gameSettings, ColonistSelectionInput colonistSelectionInput, PlayerInput playerInput)
+        public void Construct(bool isSetUpSession, MapInitialization mapInitialization, GameSettings gameSettings, ColonistSelectionInput colonistSelectionInput, PlayerInput playerInput)
         {
-            _map = map;
+            _mapInitialization = mapInitialization;
 
             _gameSettings = gameSettings;
             _colonistSelectionInput = colonistSelectionInput;
@@ -158,7 +159,7 @@ namespace General
 
         private void Start()
         {
-            _map.Load += OnMapLoad;
+            _mapInitialization.Load += OnMapInitializationLoad;
 
             _heightAboveTerrain = GetDistanceAboveTerrain();
 
@@ -286,9 +287,9 @@ namespace General
             _newRotation.eulerAngles = eulerAngles;
         }
 
-        private void OnMapLoad()
+        private void OnMapInitializationLoad()
         {
-            _map.Load -= OnMapLoad;
+            _mapInitialization.Load -= OnMapInitializationLoad;
 
             _activated = Application.isEditor && _deactivateAtStartup ? false : true;
 

@@ -41,6 +41,26 @@ namespace Units.Appearance
         [SerializeField] private MeshPairs _notCombinablePairs;
 
         private const int MaxNumberOfTries = 20;
+        
+        public enum GarmentElements
+        {
+            HeadCoveringHair,
+            HeadCoveringNoHair,
+            HeadCoveringNoFacialHair,
+            Torso,
+            BackAttachment,
+            Hips,
+            HipsAttachment,
+        }
+        
+        public enum GarmentElementPairs
+        {
+            ShoulderAttachments,
+            ArmsUpper,
+            ArmsLower,
+            Hands,
+            Legs
+        }
 
         [Button]
         private void CalculateAllRelativeChances()
@@ -212,25 +232,5 @@ namespace Units.Appearance
 
         private IItemVariants<Mesh> LegRight => _legRightVariants;
         private IItemVariants<Mesh> LegLeft => _legLeftVariants;
-
-        public enum GarmentElements
-        {
-            HeadCoveringHair,
-            HeadCoveringNoHair,
-            HeadCoveringNoFacialHair,
-            Torso,
-            BackAttachment,
-            Hips,
-            HipsAttachment,
-        }
-        
-        public enum GarmentElementPairs
-        {
-            ShoulderAttachments,
-            ArmsUpper,
-            ArmsLower,
-            Hands,
-            Legs
-        }
     }
 }

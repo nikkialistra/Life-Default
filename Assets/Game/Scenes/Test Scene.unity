@@ -1323,6 +1323,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2306889760291160586, guid: 0802b572ad05186499c16eab7a723ffb,
+        type: 3}
+      propertyPath: _brushWidth
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 3020716833698687496, guid: 0802b572ad05186499c16eab7a723ffb,
         type: 3}
       propertyPath: m_RootOrder
@@ -1425,6 +1430,11 @@ PrefabInstance:
       objectReference: {fileID: 1857559134}
     - target: {fileID: 3020716834333397147, guid: 0802b572ad05186499c16eab7a723ffb,
         type: 3}
+      propertyPath: _terrain
+      value: 
+      objectReference: {fileID: 1624087660}
+    - target: {fileID: 3020716834333397147, guid: 0802b572ad05186499c16eab7a723ffb,
+        type: 3}
       propertyPath: _flyCamera
       value: 
       objectReference: {fileID: 1000032597}
@@ -1457,6 +1467,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3020716834784390492, guid: 0802b572ad05186499c16eab7a723ffb,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 3583494989392989419, guid: 0802b572ad05186499c16eab7a723ffb,
         type: 3}
@@ -1906,7 +1921,7 @@ PrefabInstance:
     - target: {fileID: 1620543646530164832, guid: c49e5d40445719144a51b8e157808ebf,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 11.27
+      value: 11.5
       objectReference: {fileID: 0}
     - target: {fileID: 1620543646530164832, guid: c49e5d40445719144a51b8e157808ebf,
         type: 3}

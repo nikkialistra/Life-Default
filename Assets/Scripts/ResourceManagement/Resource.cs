@@ -1,6 +1,7 @@
 ﻿using System;
 using Entities;
 using Entities.Interfaces;
+using General.Map;
 using ResourceManagement.Animations;
 using Sirenix.OdinInspector;
 using UI.Game.GameLook.Components;
@@ -51,12 +52,16 @@ namespace ResourceManagement
         private ResourceCounts _resourceCounts;
 
         private InfoPanelView _infoPanelView;
+        
+        private TerrainModification _terrainModification;
 
         [Inject]
-        public void Construct(ResourceCounts resourceCounts, InfoPanelView infoPanelView)
+        public void Construct(ResourceCounts resourceCounts, InfoPanelView infoPanelView, TerrainModification terrainModification)
         {
             _resourceCounts = resourceCounts;
             _infoPanelView = infoPanelView;
+            
+            _terrainModification = terrainModification;
         }
 
         private void Awake()
@@ -86,6 +91,12 @@ namespace ResourceManagement
         public int Durability => (int)Mathf.Round(_durability);
 
         public bool Exhausted => _durability == 0;
+
+        [Button(ButtonSizes.Medium)]
+        private void ClearDetailsAround(int radius)
+        {
+            _terrainModification.DeleteDetailsAt(transform.position, radius);
+        }
         
         private void Start()
         {

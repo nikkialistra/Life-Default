@@ -1,10 +1,9 @@
 ﻿using ColonistManagement.Targeting.Formations;
 using Colonists;
 using Colonists.Services.Selecting;
-using Enemies;
-using Entities;
 using General.Map;
 using ResourceManagement;
+using Units;
 using UnityEngine;
 using Zenject;
 
@@ -38,9 +37,9 @@ namespace ColonistManagement.Movement
             _movementInput.RotationUpdate += RotateFormation;
             _movementInput.DestinationSet += FinishFormation;
 
-            _movementInput.ColonistSet += MoveToColonist;
-            _movementInput.EnemySet += MoveToEnemy;
-            _movementInput.ResourceSet += MoveToResource;
+            _movementInput.ColonistSet += OrderToColonist;
+            _movementInput.UnitTarget += OrderToUnitTarget;
+            _movementInput.ResourceSet += OrderToResource;
 
             _movementInput.Stop += Stop;
         }
@@ -51,14 +50,14 @@ namespace ColonistManagement.Movement
             _movementInput.RotationUpdate -= RotateFormation;
             _movementInput.DestinationSet -= FinishFormation;
 
-            _movementInput.ColonistSet -= MoveToColonist;
-            _movementInput.EnemySet -= MoveToEnemy;
-            _movementInput.ResourceSet -= MoveToResource;
+            _movementInput.ColonistSet -= OrderToColonist;
+            _movementInput.UnitTarget -= OrderToUnitTarget;
+            _movementInput.ResourceSet -= OrderToResource;
 
             _movementInput.Stop -= Stop;
         }
 
-        private void MoveToColonist(Colonist targetColonist)
+        private void OrderToColonist(Colonist targetColonist)
         {
             foreach (var colonist in _selectedColonists.Colonists)
             {
@@ -66,15 +65,15 @@ namespace ColonistManagement.Movement
             }
         }
 
-        private void MoveToEnemy(Enemy enemy)
+        private void OrderToUnitTarget(Unit unit)
         {
             foreach (var colonist in _selectedColonists.Colonists)
             {
-                colonist.OrderTo(enemy);
+                colonist.OrderTo(unit);
             }
         }
 
-        private void MoveToResource(Resource resource)
+        private void OrderToResource(Resource resource)
         {
             foreach (var colonist in _selectedColonists.Colonists)
             {

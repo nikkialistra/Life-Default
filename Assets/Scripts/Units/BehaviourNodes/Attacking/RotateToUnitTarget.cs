@@ -8,7 +8,6 @@ namespace Units.BehaviourNodes.Attacking
         public SharedUnit UnitTarget;
 
         public UnitMeshAgent UnitMeshAgent;
-        public UnitAttacker UnitAttacker;
 
         public override TaskStatus OnUpdate()
         {
@@ -19,11 +18,6 @@ namespace Units.BehaviourNodes.Attacking
                 return TaskStatus.Failure;
             }
 
-            if (!UnitAttacker.OnAttackRange(UnitTarget.Value.transform.position))
-            {
-                return TaskStatus.Failure;
-            }
-            
             if (!UnitMeshAgent.IsRotating)
             {
                 UnitMeshAgent.RotateTo(UnitTarget.Value.transform.position);
@@ -31,11 +25,6 @@ namespace Units.BehaviourNodes.Attacking
             }
 
             return TaskStatus.Running;
-        }
-
-        public override void OnEnd()
-        {
-            UnitMeshAgent.StopRotating();
         }
     }
 }

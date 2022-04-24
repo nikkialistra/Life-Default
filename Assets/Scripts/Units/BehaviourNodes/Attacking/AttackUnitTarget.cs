@@ -23,13 +23,13 @@ namespace Units.BehaviourNodes.Attacking
             {
                 UnitTarget.Value = null;
                 UnitMeshAgent.ResetDestination();
-                return TaskStatus.Success;
+                return TaskStatus.Failure;
             }
             
             if (!UnitAttacker.OnAttackRange(UnitTarget.Value.transform.position))
             {
                 UnitAttacker.FinishAttacking();
-                return TaskStatus.Failure;
+                return TaskStatus.Success;
             }
 
             if (!_interacting)
@@ -44,11 +44,6 @@ namespace Units.BehaviourNodes.Attacking
         private void OnInteractionFinish()
         {
             _interacting = false;
-        }
-
-        public override void OnEnd()
-        {
-            UnitMeshAgent.StopRotating();
         }
     }
 }

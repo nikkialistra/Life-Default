@@ -111,7 +111,7 @@ MonoBehaviour:
       parentIndex: 
       startIndex: 
       variableStartIndex: 
-      JSONSerialization: '{"EntryTask":{"Type":"BehaviorDesigner.Runtime.Tasks.EntryTask","NodeData":{"Offset":"(333.300018,30)"},"ID":0,"Name":"Entry","Instant":true},"RootTask":{"Type":"Enemies.BehaviorNodes.Wander","NodeData":{"Offset":"(-0.7999573,167.799988)"},"ID":1,"Name":"Wander","Instant":true,"SingleMinWanderDistance":5,"SingleMaxWanderDistance":10,"SingleWanderRate":3,"SingleMinPauseDuration":1,"SingleMaxPauseDuration":2,"EnemyMeshAgentEnemyMeshAgent":0}}'
+      JSONSerialization: '{"EntryTask":{"Type":"BehaviorDesigner.Runtime.Tasks.EntryTask","NodeData":{"Offset":"(333.300018,30)"},"ID":0,"Name":"Entry","Instant":true},"RootTask":{"Type":"Enemies.BehaviorNodes.Wander","NodeData":{"Offset":"(-0.7999573,167.799988)"},"ID":1,"Name":"Wander","Instant":true,"SingleMinWanderDistance":5,"SingleMaxWanderDistance":10,"SingleWanderRate":3,"SingleMinPauseDuration":100,"SingleMaxPauseDuration":100,"EnemyMeshAgentEnemyMeshAgent":0}}'
       fieldSerializationData:
         typeName: []
         fieldNameHash: 
@@ -242,7 +242,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _fraction: 1
   _healthBars: {fileID: 1935489896466272434}
+  _unitEquipment: {fileID: 0}
   _unitFieldOfView: {fileID: 8363611920963241814}
+  _unitFieldOfHearing: {fileID: 0}
 --- !u!114 &3020886004222341295
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -357,7 +359,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _hoverIndicator: {fileID: 152656352870599827}
   _healthBars: {fileID: 1935489896466272434}
-  _timeToHideHover: 0.05
 --- !u!1 &5716974408050622466
 GameObject:
   m_ObjectHideFlags: 0
@@ -402,6 +403,7 @@ GameObject:
   - component: {fileID: 3578118485140238574}
   - component: {fileID: 1583114970335702454}
   - component: {fileID: 8363611920963241814}
+  - component: {fileID: 3869404412725487548}
   m_Layer: 14
   m_Name: Unit Field Of View
   m_TagString: Untagged
@@ -583,18 +585,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce742965ce9b4d4c8edcd3166a869e12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _recalculationTime: 0.2
   _viewRadius: 15
   _viewAngle: 120
   _targetMask:
     serializedVersion: 2
     m_Bits: 32768
-  _obstacleMask:
-    serializedVersion: 2
-    m_Bits: 64
-  _oneDegreeMeshResolution: 1
-  _edgeResolveIterations: 4
-  _edgeDistanceThreshold: 0.5
+--- !u!114 &3869404412725487548
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7716352404580207938}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2686227d5f84410e996b497afa2879cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _oneDegreeMeshResolution: 0
+  _edgeResolveIterations: 0
+  _edgeDistanceThreshold: 0
 --- !u!1 &8477749473430026359
 GameObject:
   m_ObjectHideFlags: 0

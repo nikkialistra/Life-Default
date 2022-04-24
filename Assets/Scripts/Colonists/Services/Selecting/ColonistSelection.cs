@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using ColonistManagement.Selection;
+using Entities.Services;
 using UnityEngine;
 using Zenject;
 
@@ -18,13 +19,17 @@ namespace Colonists.Services.Selecting
         private float _lastClickTime;
 
         private bool _cancelSelection;
+        
+        private EntitiesSelecting _entitiesSelecting;
 
         [Inject]
-        public void Construct(ColonistSelecting selecting, ColonistSelectionInput colonistSelectionInput, SelectedColonists selectedColonists)
+        public void Construct(ColonistSelecting selecting, ColonistSelectionInput colonistSelectionInput,
+            SelectedColonists selectedColonists, EntitiesSelecting entitiesSelecting)
         {
             _selectedColonists = selectedColonists;
             _selecting = selecting;
             _colonistSelectionInput = colonistSelectionInput;
+            _entitiesSelecting = entitiesSelecting;
         }
 
         public void CancelSelection()
@@ -69,6 +74,11 @@ namespace Colonists.Services.Selecting
             
             var newSelected = GetSelected(rect).ToList();
 
+            if (newSelected.Count > 0)
+            {
+                _entitiesSelecting.DeselectEntity();
+            }
+            
             _selectedColonists.Set(newSelected);
         }
 

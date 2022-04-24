@@ -1,7 +1,6 @@
 ﻿using System;
 using Common;
 using Enemies;
-using Entities;
 using ResourceManagement;
 using Sirenix.OdinInspector;
 using Units;
@@ -155,11 +154,11 @@ namespace Colonists
             _behavior.OrderTo(targetColonist);
         }
 
-        public void OrderTo(Enemy enemy)
+        public void OrderTo(Unit unitTarget)
         {
-            _behavior.OrderTo(enemy);
+            _behavior.OrderTo(unitTarget);
         }
-
+        
         public void OrderTo(Resource resource)
         {
             _behavior.OrderTo(resource);

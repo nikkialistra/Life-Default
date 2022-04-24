@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using BehaviorDesigner.Runtime;
-using Enemies;
-using Entities;
-using Entities.Types;
 using ResourceManagement;
+using Units;
 using Units.BehaviorVariables;
 using UnityEngine;
 
@@ -69,7 +66,7 @@ namespace Colonists
             _newCommand.Value = true;
         }
 
-        public void OrderTo(Enemy enemy)
+        public void OrderTo(Unit unitTarget)
         {
             if (!_colonistMeshAgent.CanAcceptOrder())
             {
@@ -77,11 +74,11 @@ namespace Colonists
             }
             
             ResetParameters();
-            _enemy.Value = enemy;
+            _unitTarget.Value = unitTarget;
 
             _newCommand.Value = true;
         }
-
+        
         public void OrderTo(Resource resource)
         {
             if (!_colonistMeshAgent.CanAcceptOrder())
@@ -101,10 +98,8 @@ namespace Colonists
             _rotation.Value = float.NegativeInfinity;
             
             _colonist.Value = null;
-            _enemy.Value = null;
-            _resource.Value = null;
-            
             _unitTarget.Value = null;
+            _resource.Value = null;
         }
 
         public void OrderToPosition(Vector3 position, float? angle)
@@ -151,9 +146,8 @@ namespace Colonists
             _rotation = (SharedFloat)_behaviorTree.GetVariable("Rotation");
 
             _colonist = (SharedColonist)_behaviorTree.GetVariable("Colonist");
-            _enemy = (SharedEnemy)_behaviorTree.GetVariable("Enemy");
-            _resource = (SharedResource)_behaviorTree.GetVariable("Resource");
             _unitTarget = (SharedUnit)_behaviorTree.GetVariable("UnitTarget");
+            _resource = (SharedResource)_behaviorTree.GetVariable("Resource");
 
             _positions.Value = new Queue<Vector3>();
 

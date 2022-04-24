@@ -1,4 +1,5 @@
-﻿using General;
+﻿using Entities.Services;
+using General;
 using General.Map;
 using General.TemperatureRegulation;
 using General.TileManagement.Tiles;
@@ -60,6 +61,8 @@ namespace Infrastructure
         [SerializeField] private FlyCamera _flyCamera;
         
         [Title("Entities")]
+        [Required]
+        [SerializeField] private EntitiesSelecting _entitiesSelecting;
         [Required]
         [SerializeField] private HumanNames _humanNames;
         [Required]
@@ -130,6 +133,7 @@ namespace Infrastructure
 
         private void BindEntities()
         {
+            Container.BindInstance(_entitiesSelecting);
             Container.BindInstance(_humanNames);
             Container.BindInstance(_humanAppearanceRegistry);
         }

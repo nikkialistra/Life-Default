@@ -83,6 +83,12 @@ namespace Entities.Services
             StartHovering();
         }
 
+        public void DeselectEntity()
+        {
+            _lastSelectable?.Deselect();
+            _lastSelectable = null;
+        }
+
         private void StartHovering()
         {
             _hoveringCoroutine = StartCoroutine(Hovering());
@@ -122,13 +128,12 @@ namespace Entities.Services
 
         private void OnSelect(InputAction.CallbackContext context)
         {
-            if (_gameViews.MouseOverUi || !_canSelect)
+            if (SpawnKeyIsPressed() || _gameViews.MouseOverUi || !_canSelect)
             {
                 return;
             }
-            
-            _lastSelectable?.Deselect();
-            _lastSelectable = null;
+
+            DeselectEntity();
             
             if (Raycast(out var hit))
             {
@@ -139,6 +144,11 @@ namespace Entities.Services
                     _lastSelectable = selectable;
                 }
             }
+        }
+
+        private static bool SpawnKeyIsPressed()
+        {
+            return Keyboard.current.altKey.isPressed || Keyboard.current.ctrlKey.isPressed;
         }
 
         private IEnumerator Hovering()

@@ -912,50 +912,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04dd8966af8b47a4bb4386b7472aeaf5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &3020716833959386629
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 3020716833959386630}
-  - component: {fileID: 3020716833959386631}
-  m_Layer: 0
-  m_Name: Order Mark Pool
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &3020716833959386630
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3020716833959386629}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 3020716834784390492}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3020716833959386631
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3020716833959386629}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3faede6c985a474f9babcb75273cc3fa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &3020716834014208582
 GameObject:
   m_ObjectHideFlags: 0
@@ -1324,6 +1280,7 @@ MonoBehaviour:
   _camera: {fileID: 0}
   _cameraMovement: {fileID: 0}
   _flyCamera: {fileID: 0}
+  _entitiesSelecting: {fileID: 3020716834204942249}
   _humanNames: {fileID: 3020716835014364428}
   _humanAppearanceRegistry: {fileID: 3020716834359568265}
   _terrain: {fileID: 0}
@@ -1347,10 +1304,6 @@ MonoBehaviour:
   _colonistSelectionInput: {fileID: 3020716833322729911}
   _colonistChoosing: {fileID: 3020716834731429881}
   _actionIconsRegistry: {fileID: 3020716833421053038}
-  _orderMarkPool: {fileID: 3020716833959386631}
-  _orderMarkPrefab: {fileID: 4825986323994969602, guid: 2be09864b16f2074d9c7d85518d8cf0f,
-    type: 3}
-  _orderMarksParent: {fileID: 0}
   _colonistPrefab: {fileID: 4193433063631040808, guid: a84f4c16705cba24790ac82fb366010b,
     type: 3}
   _colonistsParent: {fileID: 0}
@@ -1425,7 +1378,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3020716834784390492}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3020716834359568265
 MonoBehaviour:
@@ -2318,7 +2271,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3020716834434831715}
-  - {fileID: 3020716833959386630}
   - {fileID: 3020716835014364435}
   - {fileID: 3020716834359568264}
   m_Father: {fileID: 3020716833698687496}
@@ -2597,7 +2549,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3020716834784390492}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3020716835014364428
 MonoBehaviour:

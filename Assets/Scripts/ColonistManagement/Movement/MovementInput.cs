@@ -10,6 +10,7 @@ using Entities;
 using Entities.Types;
 using ResourceManagement;
 using UI.Game;
+using Units;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Zenject;
@@ -78,7 +79,7 @@ namespace ColonistManagement.Movement
         public event Action MultiCommandReset;
 
         public event Action<Colonist> ColonistSet;
-        public event Action<Enemy> EnemySet; 
+        public event Action<Unit> UnitTarget; 
         public event Action<Resource> ResourceSet;
 
         public event Action Stop;
@@ -200,7 +201,7 @@ namespace ColonistManagement.Movement
                     ColonistSet?.Invoke(entity.Colonist);
                     break;
                 case EntityType.Enemy:
-                    EnemySet?.Invoke(entity.Enemy);
+                    UnitTarget?.Invoke(entity.Enemy.Unit);
                     break;
                 case EntityType.Building:
                     break;

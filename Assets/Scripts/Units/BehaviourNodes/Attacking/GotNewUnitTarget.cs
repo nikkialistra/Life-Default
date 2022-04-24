@@ -5,11 +5,11 @@ namespace Units.BehaviourNodes.Attacking
 {
     public class GotNewUnitTarget : Conditional
     {
-        public SharedUnit Unit;
+        public SharedUnit UnitTarget;
 
         public override TaskStatus OnUpdate()
         {
-            return Unit.Value != null ? TaskStatus.Success : TaskStatus.Failure;
+            return UnitTarget.Value != null ? TaskStatus.Success : TaskStatus.Failure;
         }
     }
 }

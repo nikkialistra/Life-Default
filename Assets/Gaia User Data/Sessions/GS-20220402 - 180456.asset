@@ -1184,18 +1184,73 @@ MonoBehaviour:
     sessionPlaybackState: 1
     m_terrainsFoldedOut: 0
     m_serializedExternalAction: 
+  - m_description: 'Spawning - '
+    m_operationType: 7
+    m_isActive: 1
+    m_affectedTerrainNames:
+    - Terrain_0_0-20220402 - 180457
+    m_operationDateTime: 4/24/2022 7:35:50 PM
+    scriptableObjectAssetGUID: a1959cc146533264998ea4e8b6582198
+    m_isFoldedOut: 0
+    sessionPlaybackState: 1
+    m_terrainsFoldedOut: 0
+    m_serializedExternalAction: 
+  - m_description: 'Spawning - '
+    m_operationType: 7
+    m_isActive: 1
+    m_affectedTerrainNames:
+    - Terrain_0_0-20220402 - 180457
+    m_operationDateTime: 4/24/2022 7:37:53 PM
+    scriptableObjectAssetGUID: 2e6bc30d63d34744795eb7a5806715a0
+    m_isFoldedOut: 0
+    sessionPlaybackState: 1
+    m_terrainsFoldedOut: 0
+    m_serializedExternalAction: 
+  - m_description: 'Spawning - '
+    m_operationType: 7
+    m_isActive: 1
+    m_affectedTerrainNames:
+    - Terrain_0_0-20220402 - 180457
+    m_operationDateTime: 4/24/2022 7:39:44 PM
+    scriptableObjectAssetGUID: a709ecc107d70bb4fa82d66c8b9982a6
+    m_isFoldedOut: 0
+    sessionPlaybackState: 1
+    m_terrainsFoldedOut: 0
+    m_serializedExternalAction: 
+  - m_description: Spawning - Synty Detail Spawner(Clone)
+    m_operationType: 7
+    m_isActive: 1
+    m_affectedTerrainNames:
+    - Terrain_0_0-20220402 - 180457
+    m_operationDateTime: 4/24/2022 7:48:28 PM
+    scriptableObjectAssetGUID: 3a382dfaacf48bf4d8d4ce2627557876
+    m_isFoldedOut: 0
+    sessionPlaybackState: 1
+    m_terrainsFoldedOut: 0
+    m_serializedExternalAction: 
+  - m_description: Spawning - Synty Detail Spawner(Clone)
+    m_operationType: 7
+    m_isActive: 1
+    m_affectedTerrainNames:
+    - Terrain_0_0-20220402 - 180457
+    m_operationDateTime: 4/24/2022 7:48:39 PM
+    scriptableObjectAssetGUID: ed37cf9f5c8ecad4c9da3b35b46ab37b
+    m_isFoldedOut: 0
+    sessionPlaybackState: 1
+    m_terrainsFoldedOut: 0
+    m_serializedExternalAction: 
   m_terrainMinMaxCache:
   - guid: 7ca0dffbd4dfcde4cad8dc0a7080fd3c
     isWorldmap: 0
     recalculate: 1
-    min: 0
-    max: 39.359974
+    min: 0.2812543
+    max: 42.797527
   m_bakedMaskCacheEntries:
-  - fileName: Terrain_0_0-20220402 - 180457_LayerGameObject_12800_5
+  - fileName: Terrain_0_0-20220402 - 180457_LayerGameObject_12800_0.5
     assetPath: Assets/Procedural Worlds/Procedural Worlds/Gaia/TerrainCollisionData/Terrain_0_0-20220402
-      - 180457/Terrain_0_0-20220402 - 180457_LayerGameObject_12800_5
+      - 180457/Terrain_0_0-20220402 - 180457_LayerGameObject_12800_0.5
     fullPath: C:/Users/Alistra/Documents/UnityProjects/Life-Default/Assets/Procedural
       Worlds/Procedural Worlds/Gaia/TerrainCollisionData/Terrain_0_0-20220402 - 180457/Terrain_0_0-20220402
-      - 180457_LayerGameObject_12800_5
+      - 180457_LayerGameObject_12800_0.5
     texture: {fileID: 0}
   m_worldBiomeMaskSettings: {fileID: 0}

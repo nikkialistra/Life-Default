@@ -44,9 +44,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 341da51fdf4344e3abeeec500cc07d04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _brushWidth: 8
-  _brushHeight: 8
-  _strength: 0.01
+  _minDetailLayerNumber: 0
+  _maxDetailLayerNumber: 1
 --- !u!1 &3020716833134872896
 GameObject:
   m_ObjectHideFlags: 0
@@ -2715,6 +2714,7 @@ MonoBehaviour:
   _obstacleMask:
     serializedVersion: 2
     m_Bits: 64
+  _originPositionCorrection: {x: 0, y: 10, z: 0}
 --- !u!1 &6538900367316159474
 GameObject:
   m_ObjectHideFlags: 0

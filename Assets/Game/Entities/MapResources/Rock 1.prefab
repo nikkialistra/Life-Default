@@ -205,7 +205,7 @@ MonoBehaviour:
   _minExtractedQuantityForDrop: 2
   _maxExtractedQuantityForDrop: 3
   _holder: {fileID: 1620543646530164832}
-  _clearDetailsRadius: 35
+  _clearDetailsRadius: 2
   _animations:
     rid: 6879816227273048064
   references:

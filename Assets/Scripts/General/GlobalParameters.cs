@@ -16,6 +16,9 @@ namespace General
         [SerializeField] private Vector3 _targetPositionCorrection = Vector3.up * 1.5f;
         [SerializeField] private float _visibilityFieldRecalculationTime = 0.2f;
         [SerializeField] private LayerMask _obstacleMask;
+        
+        [Title("Terrain Raycasting")]
+        [SerializeField] private Vector3 _originPositionCorrection = Vector3.up * 10f;
 
         public static GlobalParameters Instance { get; private set; }
 
@@ -27,6 +30,8 @@ namespace General
         public Vector3 TargetPositionCorrection => _targetPositionCorrection;
         public float VisibilityFieldRecalculationTime => _visibilityFieldRecalculationTime;
         public LayerMask ObstacleMask => _obstacleMask;
+
+        public Vector3 OriginPositionCorrection => _originPositionCorrection;
 
         private void Awake()
         {

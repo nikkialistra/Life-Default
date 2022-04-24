@@ -102,6 +102,8 @@ namespace General
 
         private ColonistSelectionInput _colonistSelectionInput;
 
+        private Vector3 _originPositionCorrection;
+        
         private PlayerInput _playerInput;
 
         private InputAction _movementAction;
@@ -166,6 +168,8 @@ namespace General
             _newPosition = transform.position;
             _newRotation = transform.rotation;
             _newFieldOfView = _camera.fieldOfView;
+            
+            _originPositionCorrection = GlobalParameters.Instance.OriginPositionCorrection;
 
             LoadSettings();
             Activate();
@@ -250,8 +254,8 @@ namespace General
 
         private float GetDistanceAboveTerrain()
         {
-            if (Physics.Raycast(new Ray(transform.position, Vector3.down), out var hit,
-                float.PositiveInfinity, _terrainMask))
+            if (Physics.Raycast(new Ray(transform.position + _originPositionCorrection, Vector3.down), out var hit,
+                100f, _terrainMask))
             {
                 return hit.distance;
             }
@@ -535,15 +539,10 @@ namespace General
 
         private Vector3 RaiseAboveTerrain(Vector3 position)
         {
-            if (Physics.Raycast(new Ray(position, Vector3.down), out var hitUnder,
-                float.PositiveInfinity, _terrainMask))
+            if (Physics.Raycast(new Ray(position + _originPositionCorrection, Vector3.down), out var hit,
+                100f, _terrainMask))
             {
-                position.y = hitUnder.point.y + _heightAboveTerrain;
-            }
-            else if (Physics.Raycast(new Ray(position, Vector3.up), out var hitAbove,
-                float.PositiveInfinity, _terrainMask))
-            {
-                position.y = hitAbove.point.y + _heightAboveTerrain;
+                position.y = hit.point.y + _heightAboveTerrain;
             }
 
             return position;

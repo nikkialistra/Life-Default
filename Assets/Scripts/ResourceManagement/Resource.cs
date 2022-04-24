@@ -34,6 +34,8 @@ namespace ResourceManagement
         [Title("Configuration")]
         [Required]
         [SerializeField] private Transform _holder;
+        [SerializeField] private int _clearDetailsRadius = 15;
+        
 
         [Title("Animations")]
         [SerializeReference] private IAnimations _animations;
@@ -93,9 +95,9 @@ namespace ResourceManagement
         public bool Exhausted => _durability == 0;
 
         [Button(ButtonSizes.Medium)]
-        private void ClearDetailsAround(int radius)
+        public void ClearDetailsAround()
         {
-            _terrainModification.DeleteDetailsAt(transform.position, radius);
+            _terrainModification.ClearDetailsAt(transform.position, _clearDetailsRadius);
         }
         
         private void Start()

@@ -148,6 +148,7 @@ MonoBehaviour:
   _minExtractedQuantityForDrop: 3
   _maxExtractedQuantityForDrop: 5
   _holder: {fileID: 1620543646530164832}
+  _clearDetailsRadius: 30
   _animations:
     rid: 6879816199078674436
   references:
@@ -181,8 +182,6 @@ MonoBehaviour:
   _renderer: {fileID: 7338941988186966059}
   _materialIndex: 1
   _propertyName: Color_FA85148A
-  _timeToHideHover: 0.05
-  _timeToHideSelection: 0.12
   _hoverColor: {r: 0.15686275, g: 0.15686275, b: 0.15686275, a: 0}
   _selectionColor: {r: 0.23529412, g: 0.23529412, b: 0.23529412, a: 0}
 --- !u!114 &312266991892323227

@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using BehaviorDesigner.Runtime;
+using Enemies;
 using Entities;
 using Entities.Types;
+using ResourceManagement;
 using Units.BehaviorVariables;
 using UnityEngine;
 
@@ -18,6 +20,8 @@ namespace Colonists
 
         private SharedPositions _positions;
         private SharedFloat _rotation;
+        private SharedColonist _colonist;
+        private SharedEnemy _enemy;
         private SharedResource _resource;
         private SharedUnit _unitTarget;
 
@@ -52,53 +56,62 @@ namespace Colonists
             _newCommand.Value = true;
         }
 
-        public bool TryOrderToEntity(Entity entity)
+        public void OrderTo(Colonist targetColonist)
         {
-            if (!_colonistMeshAgent.AcceptOrder())
+            if (!_colonistMeshAgent.CanAcceptOrder())
             {
-                return false;
+                return;
+            }
+            
+            ResetParameters();
+            _colonist.Value = targetColonist;
+
+            _newCommand.Value = true;
+        }
+
+        public void OrderTo(Enemy enemy)
+        {
+            if (!_colonistMeshAgent.CanAcceptOrder())
+            {
+                return;
+            }
+            
+            ResetParameters();
+            _enemy.Value = enemy;
+
+            _newCommand.Value = true;
+        }
+
+        public void OrderTo(Resource resource)
+        {
+            if (!_colonistMeshAgent.CanAcceptOrder())
+            {
+                return;
             }
 
             ResetParameters();
-            SetParameterByType(entity);
+            _resource.Value = resource;
 
             _newCommand.Value = true;
-
-            return true;
-        }
-
-        private void SetParameterByType(Entity entity)
-        {
-            switch (entity.EntityType)
-            {
-                case EntityType.Colonist:
-                    break;
-                case EntityType.Enemy:
-                    _unitTarget.Value = entity.Enemy.Unit;
-                    break;
-                case EntityType.Building:
-                    break;
-                case EntityType.Resource:
-                    _resource.Value = entity.Resource;
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
         }
 
         private void ResetParameters()
         {
             _positions.Value.Clear();
             _rotation.Value = float.NegativeInfinity;
+            
+            _colonist.Value = null;
+            _enemy.Value = null;
             _resource.Value = null;
+            
             _unitTarget.Value = null;
         }
 
-        public bool TryOrderToPosition(Vector3 position, float? angle)
+        public void OrderToPosition(Vector3 position, float? angle)
         {
-            if (!_colonistMeshAgent.AcceptOrder())
+            if (!_colonistMeshAgent.CanAcceptOrder())
             {
-                return false;
+                return;
             }
 
             ResetParameters();
@@ -109,20 +122,18 @@ namespace Colonists
             }
 
             _newCommand.Value = true;
-
-            return true;
         }
 
-        public bool TryAddPositionToOrder(Vector3 position, float? angle)
+        public void AddPositionToOrder(Vector3 position, float? angle)
         {
+            if (!_colonistMeshAgent.CanAcceptOrder())
+            {
+                return;
+            }
+            
             if (_positions.Value.Count == 0)
             {
-                return TryOrderToPosition(position, angle);
-            }
-
-            if (!_colonistMeshAgent.AcceptOrder())
-            {
-                return false;
+                OrderToPosition(position, angle);
             }
 
             _positions.Value.Enqueue(position);
@@ -130,8 +141,6 @@ namespace Colonists
             {
                 _rotation.Value = angle.Value;
             }
-
-            return true;
         }
 
         private void Initialize()
@@ -140,6 +149,9 @@ namespace Colonists
 
             _positions = (SharedPositions)_behaviorTree.GetVariable("Positions");
             _rotation = (SharedFloat)_behaviorTree.GetVariable("Rotation");
+
+            _colonist = (SharedColonist)_behaviorTree.GetVariable("Colonist");
+            _enemy = (SharedEnemy)_behaviorTree.GetVariable("Enemy");
             _resource = (SharedResource)_behaviorTree.GetVariable("Resource");
             _unitTarget = (SharedUnit)_behaviorTree.GetVariable("UnitTarget");
 

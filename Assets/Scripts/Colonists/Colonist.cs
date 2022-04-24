@@ -1,6 +1,8 @@
 ﻿using System;
 using Common;
+using Enemies;
 using Entities;
+using ResourceManagement;
 using Sirenix.OdinInspector;
 using Units;
 using Units.Appearance;
@@ -143,19 +145,34 @@ namespace Colonists
             _behavior.Stop();
         }
 
-        public bool TryOrderToEntity(Entity entity)
+        public void OrderTo(Colonist targetColonist)
         {
-            return _behavior.TryOrderToEntity(entity);
+            if (this == targetColonist)
+            {
+                return;
+            }
+
+            _behavior.OrderTo(targetColonist);
         }
 
-        public bool TryOrderToPosition(Vector3 position, float? angle)
+        public void OrderTo(Enemy enemy)
         {
-            return _behavior.TryOrderToPosition(position, angle);
+            _behavior.OrderTo(enemy);
         }
 
-        public bool TryAddPositionToOrder(Vector3 position, float? angle)
+        public void OrderTo(Resource resource)
         {
-            return _behavior.TryAddPositionToOrder(position, angle);
+            _behavior.OrderTo(resource);
+        }
+
+        public void OrderToPosition(Vector3 position, float? angle)
+        {
+            _behavior.OrderToPosition(position, angle);
+        }
+
+        public void TryAddPositionToOrder(Vector3 position, float? angle)
+        {
+            _behavior.AddPositionToOrder(position, angle);
         }
 
         public void ToggleUnitFieldOfView()

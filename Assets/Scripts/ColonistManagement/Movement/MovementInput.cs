@@ -3,8 +3,12 @@ using System.Collections;
 using System.Linq;
 using ColonistManagement.Targeting;
 using ColonistManagement.Targeting.Formations;
+using Colonists;
 using Colonists.Services.Selecting;
+using Enemies;
 using Entities;
+using Entities.Types;
+using ResourceManagement;
 using UI.Game;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -66,14 +70,16 @@ namespace ColonistManagement.Movement
             _stopAction = _playerInput.actions.FindAction("Stop");
         }
 
-        public event Action<Entity> EntitySet;
-
         public event Action<Vector3, FormationColor> PositionSet;
 
         public event Action<float> RotationUpdate;
         public event Action<bool, FormationColor> DestinationSet;
 
         public event Action MultiCommandReset;
+
+        public event Action<Colonist> ColonistSet;
+        public event Action<Enemy> EnemySet; 
+        public event Action<Resource> ResourceSet;
 
         public event Action Stop;
 
@@ -177,12 +183,33 @@ namespace ColonistManagement.Movement
                 var entity = hit.transform.GetComponentInParent<Entity>();
                 if (entity != null)
                 {
-                    EntitySet?.Invoke(entity);
+                    ChooseActionBasedOnEntityType(entity);
+                    
                     return true;
                 }
             }
 
             return false;
+        }
+
+        private void ChooseActionBasedOnEntityType(Entity entity)
+        {
+            switch (entity.EntityType)
+            {
+                case EntityType.Colonist:
+                    ColonistSet?.Invoke(entity.Colonist);
+                    break;
+                case EntityType.Enemy:
+                    EnemySet?.Invoke(entity.Enemy);
+                    break;
+                case EntityType.Building:
+                    break;
+                case EntityType.Resource:
+                    ResourceSet?.Invoke(entity.Resource);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
         }
 
         private void StartMultiCommand(InputAction.CallbackContext context)

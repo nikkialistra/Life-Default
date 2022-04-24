@@ -1,5 +1,4 @@
 ﻿using ColonistManagement.Movement;
-using ColonistManagement.OrderMarks;
 using ColonistManagement.Selection;
 using ColonistManagement.Tasking;
 using Colonists;
@@ -25,14 +24,6 @@ namespace Infrastructure
         [Required]
         [SerializeField] private ActionIconsRegistry _actionIconsRegistry;
 
-        [Title("Ordering")]
-        [Required]
-        [SerializeField] private OrderMarkPool _orderMarkPool;
-        [Required]
-        [SerializeField] private OrderMark _orderMarkPrefab;
-        [Required]
-        [SerializeField] private Transform _orderMarksParent;
-
         [Title("Spawning")]
         [Required]
         [SerializeField] private GameObject _colonistPrefab;
@@ -53,7 +44,6 @@ namespace Infrastructure
         {
             BindSelection();
             BindActions();
-            BindOrdering();
             BindSpawning();
             BindCommands();
             BindServices();
@@ -72,14 +62,7 @@ namespace Infrastructure
         {
             Container.BindInstance(_actionIconsRegistry);
         }
-
-        private void BindOrdering()
-        {
-            Container.BindInstance(_orderMarkPool);
-            Container.BindInstance(_orderMarkPrefab).WhenInjectedInto<OrderMarkPool>();
-            Container.BindInstance(_orderMarksParent).WhenInjectedInto<OrderMarkPool>();
-        }
-
+        
         private void BindSpawning()
         {
             Container.BindFactory<Colonist, Colonist.Factory>()

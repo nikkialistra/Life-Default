@@ -1,9 +1,10 @@
-﻿using ColonistManagement.OrderMarks;
-using ColonistManagement.Targeting.Formations;
+﻿using ColonistManagement.Targeting.Formations;
+using Colonists;
 using Colonists.Services.Selecting;
+using Enemies;
 using Entities;
-using General;
 using General.Map;
+using ResourceManagement;
 using UnityEngine;
 using Zenject;
 
@@ -14,17 +15,15 @@ namespace ColonistManagement.Movement
     public class MovementCommand : MonoBehaviour
     {
         private SelectedColonists _selectedColonists;
-        private OrderMarkPool _orderMarkPool;
-        
+
         private FormationMovement _formationMovement;
 
         private MovementInput _movementInput;
 
         [Inject]
-        public void Construct(SelectedColonists selectedColonists, OrderMarkPool orderMarkPool, MapInitialization mapInitialization)
+        public void Construct(SelectedColonists selectedColonists, MapInitialization mapInitialization)
         {
             _selectedColonists = selectedColonists;
-            _orderMarkPool = orderMarkPool;
         }
 
         private void Awake()
@@ -35,42 +34,57 @@ namespace ColonistManagement.Movement
 
         private void OnEnable()
         {
-            _movementInput.EntitySet += MoveToEntity;
-
             _movementInput.PositionSet += ShowFormation;
             _movementInput.RotationUpdate += RotateFormation;
             _movementInput.DestinationSet += FinishFormation;
+
+            _movementInput.ColonistSet += MoveToColonist;
+            _movementInput.EnemySet += MoveToEnemy;
+            _movementInput.ResourceSet += MoveToResource;
 
             _movementInput.Stop += Stop;
         }
 
         private void OnDisable()
         {
-            _movementInput.EntitySet -= MoveToEntity;
-
             _movementInput.PositionSet -= ShowFormation;
             _movementInput.RotationUpdate -= RotateFormation;
             _movementInput.DestinationSet -= FinishFormation;
 
+            _movementInput.ColonistSet -= MoveToColonist;
+            _movementInput.EnemySet -= MoveToEnemy;
+            _movementInput.ResourceSet -= MoveToResource;
+
             _movementInput.Stop -= Stop;
         }
 
-        private void MoveToEntity(Entity entity)
+        private void MoveToColonist(Colonist targetColonist)
         {
-            if (EntityOrderedToSelf(entity))
+            foreach (var colonist in _selectedColonists.Colonists)
             {
-                return;
+                colonist.OrderTo(targetColonist);
             }
+        }
 
-            var destinationPoint = entity.GetDestinationPoint();
-            var orderMark = _orderMarkPool.PlaceTo(destinationPoint, entity);
-            MoveTo(orderMark);
+        private void MoveToEnemy(Enemy enemy)
+        {
+            foreach (var colonist in _selectedColonists.Colonists)
+            {
+                colonist.OrderTo(enemy);
+            }
+        }
+
+        private void MoveToResource(Resource resource)
+        {
+            foreach (var colonist in _selectedColonists.Colonists)
+            {
+                colonist.OrderTo(resource);
+            }
         }
 
         private void ShowFormation(Vector3 position, FormationColor formationColor)
         {
-            var orderMark = _orderMarkPool.PlaceTo(position);
-            _formationMovement.ShowFormation(_selectedColonists.Colonists, orderMark, formationColor);
+            _formationMovement.ShowFormation(position, _selectedColonists.Colonists, formationColor);
         }
 
         private void RotateFormation(float angle)
@@ -89,22 +103,6 @@ namespace ColonistManagement.Movement
             {
                 colonist.Stop();
             }
-        }
-
-        private void MoveTo(OrderMark orderMark)
-        {
-            foreach (var colonist in _selectedColonists.Colonists)
-            {
-                if (colonist.TryOrderToEntity(orderMark.Entity))
-                {
-                    _orderMarkPool.Link(orderMark, colonist);
-                }
-            }
-        }
-
-        private bool EntityOrderedToSelf(Entity entity)
-        {
-            return _selectedColonists.Colonists.Count == 1 && _selectedColonists.Colonists[0].gameObject == entity.gameObject;
         }
     }
 }

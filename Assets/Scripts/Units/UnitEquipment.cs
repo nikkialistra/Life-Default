@@ -3,7 +3,7 @@ using System.Collections;
 using ResourceManagement;
 using UnityEngine;
 
-namespace Colonists
+namespace Units
 {
     public class UnitEquipment : MonoBehaviour
     {

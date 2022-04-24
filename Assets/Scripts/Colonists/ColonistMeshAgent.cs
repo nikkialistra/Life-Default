@@ -64,7 +64,7 @@ namespace Colonists
             _unitMeshAgent.SetDestinationToResource(resource, atDistance);
         }
 
-        public bool AcceptOrder()
+        public bool CanAcceptOrder()
         {
             if (!_activated)
             {

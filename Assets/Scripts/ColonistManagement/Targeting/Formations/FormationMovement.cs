@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using ColonistManagement.OrderMarks;
 using Colonists;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -17,9 +16,6 @@ namespace ColonistManagement.Targeting.Formations
 
         private List<Colonist> _colonists = new();
         private readonly List<Vector3> _colonistPositions = new();
-        private OrderMark _orderMark;
-
-        private OrderMarkPool _orderMarkPool;
 
         private RegionFormation _regionFormation;
 
@@ -39,9 +35,8 @@ namespace ColonistManagement.Targeting.Formations
         private InputAction _previousFormationAction;
 
         [Inject]
-        public void Construct(OrderMarkPool orderMarkPool, PlayerInput playerInput)
+        public void Construct(PlayerInput playerInput)
         {
-            _orderMarkPool = orderMarkPool;
             _playerInput = playerInput;
         }
 
@@ -66,8 +61,10 @@ namespace ColonistManagement.Targeting.Formations
             _nextFormationAction.started -= ChangeToNextFormation;
         }
 
-        public void ShowFormation(List<Colonist> colonists, OrderMark orderMark, FormationColor formationColor)
+        public void ShowFormation(Vector3 position, List<Colonist> colonists, FormationColor formationColor)
         {
+            _targetPoint = position;
+            
             _shown = true;
             _lastAngle = 0f;
 
@@ -80,8 +77,6 @@ namespace ColonistManagement.Targeting.Formations
             {
                 _colonistPositions.Add(colonist.transform.position);
             }
-
-            _orderMark = orderMark;
 
             Show(formationColor);
         }
@@ -175,7 +170,7 @@ namespace ColonistManagement.Targeting.Formations
                 return;
             }
 
-            _formationPositions = GenerateFormation(_orderMark.transform.position);
+            _formationPositions = GenerateFormation(_targetPoint);
 
             if (_formationType == FormationType.None)
             {
@@ -237,17 +232,11 @@ namespace ColonistManagement.Targeting.Formations
         {
             if (!additional)
             {
-                if (colonist.TryOrderToPosition(position, lastAngle))
-                {
-                    _orderMarkPool.Link(_orderMark, colonist);
-                }
+                colonist.OrderToPosition(position, lastAngle);
             }
             else
             {
-                if (colonist.TryAddPositionToOrder(position, lastAngle))
-                {
-                    _orderMarkPool.Link(_orderMark, colonist);
-                }
+                colonist.TryAddPositionToOrder(position, lastAngle);
             }
         }
 
@@ -324,7 +313,7 @@ namespace ColonistManagement.Targeting.Formations
             var relativeRotation = Quaternion.Euler(0f, _relativeYRotation, 0f);
 
             return _regionFormation.CalculatePositions(count, relativeRotation, targetPoint,
-                _orderMark.transform.position.y, regionFormationType);
+                _targetPoint.y, regionFormationType);
         }
 
         private Vector3[] RotateRegionFormation(float rotation)

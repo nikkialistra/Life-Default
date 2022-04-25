@@ -1,8 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Colonists;
-using Colonists.Services.Selecting;
-using Entities.Services;
+﻿using Entities.Services;
 using General.Selection.Selected;
 using UnityEngine;
 using Zenject;
@@ -14,24 +10,18 @@ namespace General.Selection
     {
         private SelectionDisplaying _selectionDisplaying;
 
-        private ObjectSelecting _selecting;
+        private InteractableSelecting _selecting;
         private SelectionInput _selectionInput;
-        private SelectedColonists _selectedColonists;
 
         private float _lastClickTime;
 
         private bool _cancelSelection;
-        
-        private EntitiesSelecting _entitiesSelecting;
 
         [Inject]
-        public void Construct(ObjectSelecting selecting, SelectionInput selectionInput,
-            SelectedColonists selectedColonists, EntitiesSelecting entitiesSelecting)
+        public void Construct(InteractableSelecting selecting, SelectionInput selectionInput)
         {
-            _selectedColonists = selectedColonists;
             _selecting = selecting;
             _selectionInput = selectionInput;
-            _entitiesSelecting = entitiesSelecting;
         }
 
         public void CancelSelection()
@@ -73,32 +63,25 @@ namespace General.Selection
                 _cancelSelection = false;
                 return;
             }
-            
-            var newSelected = GetSelected(rect).ToList();
 
-            if (newSelected.Count > 0)
-            {
-                _entitiesSelecting.DeselectEntity();
-            }
-            
-            _selectedColonists.Set(newSelected);
+            MakeSelection(rect);
         }
 
-        private IEnumerable<Colonist> GetSelected(Rect rect)
+        private void MakeSelection(Rect rect)
         {
             if (WasClick(rect))
             {
-                return GetSelectedFromClick(rect);
+                SelectFromClick(rect);
             }
             else
             {
-                return _selecting.SelectFromRect(rect);
+                _selecting.SelectFromRect(rect);
             }
         }
 
-        private IEnumerable<Colonist> GetSelectedFromClick(Rect rect)
+        private void SelectFromClick(Rect rect)
         {
-            return _selecting.SelectFromPoint(rect.center);
+            _selecting.SelectFromPoint(rect.center);
         }
 
         private static bool WasClick(Rect rect)

@@ -52,8 +52,11 @@ namespace Infrastructure
 
         private void BindSelection()
         {
-            Container.Bind<ObjectSelecting>().AsSingle();
+            Container.Bind<InteractableSelecting>().AsSingle();
             Container.Bind<SelectedColonists>().AsSingle();
+            Container.Bind<SelectedEnemies>().AsSingle();
+            Container.Bind<SelectedEntities>().AsSingle();
+            
             Container.BindInstance(_selectionOperation);
             Container.BindInstance(_selectionInput);
             Container.BindInstance(_colonistChoosing);

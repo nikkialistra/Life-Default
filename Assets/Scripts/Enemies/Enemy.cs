@@ -1,5 +1,4 @@
 ﻿using Common;
-using Entities;
 using Sirenix.OdinInspector;
 using Units;
 using Units.Appearance;
@@ -15,13 +14,10 @@ namespace Enemies
     [RequireComponent(typeof(EnemyAnimator))]
     [RequireComponent(typeof(EnemyMeshAgent))]
     [RequireComponent(typeof(EnemyBehavior))]
-    [RequireComponent(typeof(Entity))]
     public class Enemy : MonoBehaviour
     {
         [SerializeField] private string _name;
         [SerializeField] private Gender _gender;
-        [Space]
-        [SerializeField] private EnemyType _enemyType;
         [Space]
         [Required]
         [SerializeField] private HumanAppearance _humanAppearance;
@@ -54,12 +50,7 @@ namespace Enemies
             _animator = GetComponent<EnemyAnimator>();
             _meshAgent = GetComponent<EnemyMeshAgent>();
             _behavior = GetComponent<EnemyBehavior>();
-
-            Entity = GetComponent<Entity>();
         }
-
-        public Entity Entity { get; private set; }
-
         public Unit Unit => _unit;
         
         public bool Alive => _unit.Alive;

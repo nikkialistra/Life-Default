@@ -1,4 +1,5 @@
 ﻿using Colonists.Services.Selecting;
+using Entities.Services;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Zenject;
@@ -8,17 +9,20 @@ namespace Testing
     public class FieldOfViewToggling : MonoBehaviour
     {
         private SelectedColonists _selectedColonists;
+        private EntitiesSelecting _entitiesSelecting;
 
+        private PlayerInput _playerInput;
+        
         private InputAction _toggleEnemyFieldOfViewAction;
         private InputAction _toggleResourceFieldOfViewAction;
 
-        private PlayerInput _playerInput;
-
         [Inject]
-        public void Construct(SelectedColonists selectedColonists, PlayerInput playerInput)
+        public void Construct(SelectedColonists selectedColonists, EntitiesSelecting entitiesSelecting, PlayerInput playerInput)
         {
-            _playerInput = playerInput;
             _selectedColonists = selectedColonists;
+            _entitiesSelecting = entitiesSelecting;
+            
+            _playerInput = playerInput;
         }
 
         private void Awake()

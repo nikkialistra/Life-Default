@@ -123,12 +123,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05801dcd7dd44c819b53a6357ea5aeb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _destinationPoint: {fileID: 7565753558687889147}
-  _entityType: 3
-  _colonist: {fileID: 0}
-  _enemy: {fileID: 0}
-  _building: {fileID: 0}
+  _entityType: 0
   _resource: {fileID: 8716837362799385936}
+  _building: {fileID: 0}
 --- !u!114 &8716837362799385936
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,5 +1,6 @@
 ﻿using System;
 using Colonists;
+using Enemies;
 using Sirenix.OdinInspector;
 using Units.Ancillaries;
 using Units.Ancillaries.Fields;
@@ -12,6 +13,15 @@ namespace Units
     public class Unit : MonoBehaviour
     {
         [SerializeField] private Fraction _fraction;
+        
+        [ShowIf(nameof(_fraction), Fraction.Colonists)]
+        [ValidateInput(nameof(ColonistUnitShouldHaveColonist), "Unit with fraction 'Colonists' should have colonist")]
+        [SerializeField] private Colonist _colonist;
+
+        [ShowIf(nameof(_fraction), Fraction.Enemies)]
+        [ValidateInput(nameof(EnemyUnitShouldHaveEnemy), "Unit with fraction 'Enemies' should have enemy")]
+        [SerializeField] private Enemy _enemy;
+        
         [Required]
         [SerializeField] private HealthBars _healthBars;
         [Required]
@@ -36,9 +46,12 @@ namespace Units
         {
             Vitality = GetComponent<UnitVitality>();
         }
+        
+        public Colonist Colonist => _colonist;
+        public Enemy Enemy => _enemy;
 
         public UnitVitality Vitality { get; set; }
-        
+
         private void OnEnable()
         {
             Vitality.HealthChange += OnHealthChange;
@@ -98,6 +111,26 @@ namespace Units
             _healthBars.SetHealth(health);
             _healthBars.SetRecoverySpeed(blood);
             HealthChange?.Invoke();
+        }
+        
+        private bool ColonistUnitShouldHaveColonist()
+        {
+            if (_fraction == Fraction.Colonists && _colonist == null)
+            {
+                return false;
+            }
+            
+            return true;
+        }
+        
+        private bool EnemyUnitShouldHaveEnemy()
+        {
+            if (_fraction == Fraction.Enemies && _enemy == null)
+            {
+                return false;
+            }
+            
+            return true;
         }
     }
 }

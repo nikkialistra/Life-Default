@@ -10,58 +10,26 @@ namespace Entities
 {
     public class Entity : MonoBehaviour
     {
-        [SerializeField] private Transform _destinationPoint;
-
         [SerializeField] private EntityType _entityType;
-
-        [ShowIf(nameof(_entityType), EntityType.Colonist)]
-        [ValidateInput(nameof(UnitEntityShouldHaveUnit), "Colonist entity should have colonist")]
-        [SerializeField] private Colonist _colonist;
-
-        [ShowIf(nameof(_entityType), EntityType.Enemy)]
-        [ValidateInput(nameof(EnemyEntityShouldHaveEnemy), "Enemy entity should have enemy")]
-        [SerializeField] private Enemy _enemy;
-
-        [ShowIf(nameof(_entityType), EntityType.Building)]
-        [ValidateInput(nameof(BuildingEntityShouldHaveBuilding), "Building entity should have resource")]
-        [SerializeField] private Building _building;
 
         [ShowIf(nameof(_entityType), EntityType.Resource)]
         [ValidateInput(nameof(ResourceEntityShouldHaveResource), "Resource entity should have resource")]
         [SerializeField] private Resource _resource;
+        
+        [ShowIf(nameof(_entityType), EntityType.Building)]
+        [ValidateInput(nameof(BuildingEntityShouldHaveBuilding), "Building entity should have resource")]
+        [SerializeField] private Building _building;
+
+        
 
         public EntityType EntityType => _entityType;
-        public Colonist Colonist => _colonist;
-        public Enemy Enemy => _enemy;
-        public Building Building => _building;
+        
         public Resource Resource => _resource;
+        public Building Building => _building;
 
-        public Vector3 GetDestinationPoint()
+        private bool ResourceEntityShouldHaveResource()
         {
-            return _destinationPoint.position;
-        }
-
-        public void Flash()
-        {
-            if (_entityType == EntityType.Resource)
-            {
-                _resource.Flash();
-            }
-        }
-
-        private bool UnitEntityShouldHaveUnit()
-        {
-            if (_entityType == EntityType.Colonist && _colonist == null)
-            {
-                return false;
-            }
-
-            return true;
-        }
-
-        private bool EnemyEntityShouldHaveEnemy()
-        {
-            if (_entityType == EntityType.Enemy && _enemy == null)
+            if (_entityType == EntityType.Resource && _resource == null)
             {
                 return false;
             }
@@ -72,16 +40,6 @@ namespace Entities
         private bool BuildingEntityShouldHaveBuilding()
         {
             if (_entityType == EntityType.Building && _building == null)
-            {
-                return false;
-            }
-
-            return true;
-        }
-
-        private bool ResourceEntityShouldHaveResource()
-        {
-            if (_entityType == EntityType.Resource && _resource == null)
             {
                 return false;
             }

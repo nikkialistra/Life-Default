@@ -18,7 +18,7 @@ namespace Units
 
         private bool _movingToUnitTarget;
         private Unit _unitTarget;
-        private Vector3 _lastEntityPosition;
+        private Vector3 _lastUnitTargetPosition;
 
         private bool _movingToResource;
         private Resource _resource;
@@ -54,18 +54,13 @@ namespace Units
         {
             ResetDestination();
 
-            if (_unitTarget == unitTarget)
-            {
-                return;
-            }
-
             _unitTarget = unitTarget;
-            _lastEntityPosition = _unitTarget.transform.position;
+            _lastUnitTargetPosition = _unitTarget.transform.position;
 
             _interactionDistance = atDistance;
             _aiPath.isStopped = false;
 
-            _aiPath.destination = _lastEntityPosition;
+            _aiPath.destination = _lastUnitTargetPosition;
 
             _movingToUnitTarget = true;
             Move();
@@ -223,10 +218,10 @@ namespace Units
                 return false;
             }
 
-            if (Vector3.Distance(_unitTarget.transform.position, _lastEntityPosition) > _entityOffsetForPathRecalculation)
+            if (Vector3.Distance(_unitTarget.transform.position, _lastUnitTargetPosition) > _entityOffsetForPathRecalculation)
             {
-                _lastEntityPosition = _unitTarget.transform.position;
-                _aiPath.destination = _lastEntityPosition;
+                _lastUnitTargetPosition = _unitTarget.transform.position;
+                _aiPath.destination = _lastUnitTargetPosition;
             }
 
             return true;

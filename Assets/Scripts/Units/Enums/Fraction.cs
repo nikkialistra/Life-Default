@@ -3,6 +3,6 @@
     public enum Fraction
     {
         Colonists,
-        Inhabitants
+        Enemies
     }
 }

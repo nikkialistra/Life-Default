@@ -5,12 +5,12 @@ using ColonistManagement.Targeting;
 using ColonistManagement.Targeting.Formations;
 using Colonists;
 using Colonists.Services.Selecting;
-using Enemies;
 using Entities;
 using Entities.Types;
 using ResourceManagement;
 using UI.Game;
 using Units;
+using Units.Enums;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Zenject;
@@ -169,22 +169,22 @@ namespace ColonistManagement.Movement
                 return;
             }
 
-            if (TargetEntity())
+            if (TryTargetUnit() || TryTargetEntity())
             {
                 return;
             }
-
+            
             TargetGround(FormationColor.White);
         }
-
-        private bool TargetEntity()
+        
+        private bool TryTargetUnit()
         {
             if (Physics.Raycast(GetRayFromMouse(), out var hit, Mathf.Infinity, _rayMask))
             {
-                var entity = hit.transform.GetComponentInParent<Entity>();
-                if (entity != null)
+                var unit = hit.transform.GetComponentInParent<Unit>();
+                if (unit != null)
                 {
-                    ChooseActionBasedOnEntityType(entity);
+                    ChooseActionBasedOnUnitFraction(unit);
                     
                     return true;
                 }
@@ -193,20 +193,45 @@ namespace ColonistManagement.Movement
             return false;
         }
 
-        private void ChooseActionBasedOnEntityType(Entity entity)
+        private bool TryTargetEntity()
+        {
+            if (Physics.Raycast(GetRayFromMouse(), out var hit, Mathf.Infinity, _rayMask))
+            {
+                var entity = hit.transform.GetComponentInParent<Entity>();
+                if (entity != null)
+                {
+                    ChooseActionBasedOnUnitType(entity);
+                    
+                    return true;
+                }
+            }
+
+            return false;
+        }
+        
+        private void ChooseActionBasedOnUnitFraction(Unit unit)
+        {
+            switch (unit.Fraction)
+            {
+                case Fraction.Colonists:
+                    ColonistSet?.Invoke(unit.Colonist);
+                    break;
+                case Fraction.Enemies:
+                    UnitTarget?.Invoke(unit);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
+
+        private void ChooseActionBasedOnUnitType(Entity entity)
         {
             switch (entity.EntityType)
             {
-                case EntityType.Colonist:
-                    ColonistSet?.Invoke(entity.Colonist);
-                    break;
-                case EntityType.Enemy:
-                    UnitTarget?.Invoke(entity.Enemy.Unit);
-                    break;
-                case EntityType.Building:
-                    break;
                 case EntityType.Resource:
                     ResourceSet?.Invoke(entity.Resource);
+                    break;
+                case EntityType.Building:
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();

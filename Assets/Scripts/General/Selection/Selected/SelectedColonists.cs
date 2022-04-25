@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Colonists;
 using UI.Game.GameLook.Components;
 
-namespace Colonists.Services.Selecting
+namespace General.Selection.Selected
 {
     public class SelectedColonists
     {

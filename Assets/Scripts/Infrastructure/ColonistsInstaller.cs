@@ -1,9 +1,10 @@
 ﻿using ColonistManagement.Movement;
-using ColonistManagement.Selection;
 using ColonistManagement.Tasking;
 using Colonists;
 using Colonists.Services;
 using Colonists.Services.Selecting;
+using General.Selection;
+using General.Selection.Selected;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using Zenject;
@@ -14,9 +15,9 @@ namespace Infrastructure
     {
         [Title("Selection")]
         [Required]
-        [SerializeField] private ColonistSelection _colonistSelection;
+        [SerializeField] private SelectionOperation _selectionOperation;
         [Required]
-        [SerializeField] private ColonistSelectionInput _colonistSelectionInput;
+        [SerializeField] private SelectionInput _selectionInput;
         [Required]
         [SerializeField] private ColonistChoosing _colonistChoosing;
         
@@ -51,10 +52,10 @@ namespace Infrastructure
 
         private void BindSelection()
         {
-            Container.Bind<ColonistSelecting>().AsSingle();
+            Container.Bind<ObjectSelecting>().AsSingle();
             Container.Bind<SelectedColonists>().AsSingle();
-            Container.BindInstance(_colonistSelection);
-            Container.BindInstance(_colonistSelectionInput);
+            Container.BindInstance(_selectionOperation);
+            Container.BindInstance(_selectionInput);
             Container.BindInstance(_colonistChoosing);
         }
 

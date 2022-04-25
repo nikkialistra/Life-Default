@@ -1,4 +1,5 @@
-﻿using Common;
+﻿using System;
+using Common;
 using Sirenix.OdinInspector;
 using Units;
 using Units.Appearance;
@@ -51,6 +52,9 @@ namespace Enemies
             _meshAgent = GetComponent<EnemyMeshAgent>();
             _behavior = GetComponent<EnemyBehavior>();
         }
+        
+        public event Action<Enemy> EnemyDie;
+        
         public Unit Unit => _unit;
         
         public bool Alive => _unit.Alive;
@@ -107,7 +111,7 @@ namespace Enemies
             _unit.Initialize();
         }
 
-        private void Select()
+        public void Select()
         {
             if (!_unit.Alive)
             {
@@ -119,7 +123,7 @@ namespace Enemies
             _selectionIndicator.SetActive(true);
         }
 
-        private void Deselect()
+        public void Deselect()
         {
             _unit.Deselect();
             
@@ -131,6 +135,8 @@ namespace Enemies
             _meshAgent.Deactivate();
             _behavior.Disable();
 
+            EnemyDie?.Invoke(this);
+            
             _animator.Die(DestroySelf);
         }
 

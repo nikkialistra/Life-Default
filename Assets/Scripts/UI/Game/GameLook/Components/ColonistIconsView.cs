@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using ColonistManagement.Selection;
 using Colonists;
 using Colonists.Services;
 using Colonists.Services.Selecting;
+using General.Selection;
+using General.Selection.Selected;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
@@ -31,17 +32,17 @@ namespace UI.Game.GameLook.Components
 
         private ColonistRepository _colonistRepository;
         private SelectedColonists _selectedColonists;
-        private ColonistSelectionInput _colonistSelectionInput;
-        private ColonistSelection _colonistSelection;
+        private SelectionInput _selectionInput;
+        private SelectionOperation _selectionOperation;
 
         [Inject]
         public void Construct(ColonistRepository colonistRepository, SelectedColonists selectedColonists,
-            ColonistSelectionInput colonistSelectionInput, ColonistSelection colonistSelection)
+            SelectionInput selectionInput, SelectionOperation selectionOperation)
         {
             _colonistRepository = colonistRepository;
             _selectedColonists = selectedColonists;
-            _colonistSelectionInput = colonistSelectionInput;
-            _colonistSelection = colonistSelection;
+            _selectionInput = selectionInput;
+            _selectionOperation = selectionOperation;
         }
 
         private void Awake()
@@ -69,7 +70,7 @@ namespace UI.Game.GameLook.Components
 
             _selectedColonists.SelectionChange += UpdateOutlines;
             
-            _colonistSelectionInput.SelectingEnd += SelectColonists;
+            _selectionInput.SelectingEnd += Select;
         }
 
         private void OnDisable()
@@ -79,7 +80,7 @@ namespace UI.Game.GameLook.Components
 
             _selectedColonists.SelectionChange -= UpdateOutlines;
             
-            _colonistSelectionInput.SelectingEnd -= SelectColonists;
+            _selectionInput.SelectingEnd -= Select;
         }
 
         private void Add(Colonist colonist)
@@ -150,7 +151,7 @@ namespace UI.Game.GameLook.Components
             RecreateIconsOnIconChangeCondition();
         }
 
-        private void SelectColonists(Rect rect)
+        private void Select(Rect rect)
         {
             var transformedRect = TransformRect(rect);
             var colonists = new List<Colonist>();
@@ -166,7 +167,7 @@ namespace UI.Game.GameLook.Components
             if (colonists.Count != 0)
             {
                 _selectedColonists.Set(colonists);
-                _colonistSelection.CancelSelection();
+                _selectionOperation.CancelSelection();
             }
         }
 

@@ -73,6 +73,8 @@ namespace ResourceManagement
             _entitySelection = GetComponent<EntitySelection>();
             _resourceChunkScattering = GetComponent<ResourceChunkScattering>();
         }
+        
+        public event Action Die;
 
         public event Action QuantityChange;
         public event Action DurabilityChange;
@@ -210,6 +212,8 @@ namespace ResourceManagement
 
         private void Destroy()
         {
+            Die?.Invoke();
+            
             AstarPath.active.UpdateGraphs(_collider.bounds);
 
             Destroy(_holder.gameObject);

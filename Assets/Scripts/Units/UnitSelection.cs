@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections;
-using ColonistManagement.Selection;
 using General;
+using General.Selection;
 using Sirenix.OdinInspector;
 using Units.Ancillaries;
 using Units.Interfaces;
@@ -24,7 +24,7 @@ namespace Units
         
         private Coroutine _hoveringCoroutine;
         
-        private ColonistSelectionInput _colonistSelectionInput;
+        private SelectionInput _selectionInput;
 
         public event Action Selected;
         public event Action Deselected;

@@ -1,17 +1,18 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
+using Colonists;
+using Colonists.Services;
 using UnityEngine;
 
-namespace Colonists.Services.Selecting
+namespace General.Selection
 {
-    public class ColonistSelecting
+    public class ObjectSelecting
     {
         private readonly ColonistRepository _colonistRepository;
         private readonly Camera _camera;
 
         private IEnumerable<Colonist> _colonists;
 
-        public ColonistSelecting(ColonistRepository colonistRepository, Camera camera)
+        public ObjectSelecting(ColonistRepository colonistRepository, Camera camera)
         {
             _colonistRepository = colonistRepository;
             _camera = camera;

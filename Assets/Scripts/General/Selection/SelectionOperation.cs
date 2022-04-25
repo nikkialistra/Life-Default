@@ -1,19 +1,21 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using ColonistManagement.Selection;
+using Colonists;
+using Colonists.Services.Selecting;
 using Entities.Services;
+using General.Selection.Selected;
 using UnityEngine;
 using Zenject;
 
-namespace Colonists.Services.Selecting
+namespace General.Selection
 {
-    [RequireComponent(typeof(SelectionArea))]
-    public class ColonistSelection : MonoBehaviour
+    [RequireComponent(typeof(SelectionDisplaying))]
+    public class SelectionOperation : MonoBehaviour
     {
-        private SelectionArea _selectionArea;
+        private SelectionDisplaying _selectionDisplaying;
 
-        private ColonistSelecting _selecting;
-        private ColonistSelectionInput _colonistSelectionInput;
+        private ObjectSelecting _selecting;
+        private SelectionInput _selectionInput;
         private SelectedColonists _selectedColonists;
 
         private float _lastClickTime;
@@ -23,12 +25,12 @@ namespace Colonists.Services.Selecting
         private EntitiesSelecting _entitiesSelecting;
 
         [Inject]
-        public void Construct(ColonistSelecting selecting, ColonistSelectionInput colonistSelectionInput,
+        public void Construct(ObjectSelecting selecting, SelectionInput selectionInput,
             SelectedColonists selectedColonists, EntitiesSelecting entitiesSelecting)
         {
             _selectedColonists = selectedColonists;
             _selecting = selecting;
-            _colonistSelectionInput = colonistSelectionInput;
+            _selectionInput = selectionInput;
             _entitiesSelecting = entitiesSelecting;
         }
 
@@ -39,32 +41,32 @@ namespace Colonists.Services.Selecting
 
         private void Awake()
         {
-            _selectionArea = GetComponent<SelectionArea>();
+            _selectionDisplaying = GetComponent<SelectionDisplaying>();
         }
 
         public void OnEnable()
         {
-            _colonistSelectionInput.Selecting += Draw;
-            _colonistSelectionInput.SelectingEnd += Select;
+            _selectionInput.Selecting += Draw;
+            _selectionInput.SelectingEnd += Select;
         }
 
         public void OnDisable()
         {
-            _colonistSelectionInput.Selecting -= Draw;
-            _colonistSelectionInput.SelectingEnd -= Select;
+            _selectionInput.Selecting -= Draw;
+            _selectionInput.SelectingEnd -= Select;
         }
 
         private void Draw(Rect rect)
         {
             if (!WasClick(rect))
             {
-                _selectionArea.Draw(rect);
+                _selectionDisplaying.Draw(rect);
             }
         }
 
         private void Select(Rect rect)
         {
-            _selectionArea.StopDrawing();
+            _selectionDisplaying.StopDrawing();
             
             if (_cancelSelection)
             {

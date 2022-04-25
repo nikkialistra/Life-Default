@@ -1,6 +1,6 @@
 ﻿using System.Collections;
-using ColonistManagement.Selection;
 using Entities.Interfaces;
+using General.Selection;
 using UI.Game;
 using UI.Menus.Primary;
 using UnityEngine;
@@ -25,7 +25,7 @@ namespace Entities.Services
         
         private bool _canSelect = true;
 
-        private ColonistSelectionInput _colonistSelectionInput;
+        private SelectionInput _selectionInput;
         private GameViews _gameViews;
         private GameMenuToggle _gameMenuToggle;
 
@@ -35,13 +35,13 @@ namespace Entities.Services
         private InputAction _selectAction;
 
         [Inject]
-        public void Construct(Camera camera, GameViews gameViews, ColonistSelectionInput colonistSelectionInput,
+        public void Construct(Camera camera, GameViews gameViews, SelectionInput selectionInput,
             GameMenuToggle gameMenuToggle, PlayerInput playerInput)
         {
             _camera = camera;
 
             _gameViews = gameViews;
-            _colonistSelectionInput = colonistSelectionInput;
+            _selectionInput = selectionInput;
             _gameMenuToggle = gameMenuToggle;
             
             _playerInput = playerInput;
@@ -60,8 +60,8 @@ namespace Entities.Services
             _gameMenuToggle.GamePause += StopHovering;
             _gameMenuToggle.GameResume += StartHovering;
             
-            _colonistSelectionInput.SelectingArea += OnColonistSelectingArea;
-            _colonistSelectionInput.SelectingEnd += OnColonistSelectingEnd;
+            _selectionInput.SelectingArea += OnSelectingArea;
+            _selectionInput.SelectingEnd += OnSelectingEnd;
 
             _selectAction.canceled += OnSelect;
         }
@@ -71,8 +71,8 @@ namespace Entities.Services
             _gameMenuToggle.GamePause -= StopHovering;
             _gameMenuToggle.GameResume -= StartHovering;
             
-            _colonistSelectionInput.SelectingArea -= OnColonistSelectingArea;
-            _colonistSelectionInput.SelectingEnd -= OnColonistSelectingEnd;
+            _selectionInput.SelectingArea -= OnSelectingArea;
+            _selectionInput.SelectingEnd -= OnSelectingEnd;
 
             _selectAction.canceled -= OnSelect;
         }
@@ -103,13 +103,13 @@ namespace Entities.Services
             }
         }
 
-        private void OnColonistSelectingArea()
+        private void OnSelectingArea()
         {
             StopHovering();
             BlockSelection();
         }
 
-        private void OnColonistSelectingEnd(Rect _)
+        private void OnSelectingEnd(Rect _)
         {
             StartHovering();
             StartCoroutine(UnblockSelectionAfter());

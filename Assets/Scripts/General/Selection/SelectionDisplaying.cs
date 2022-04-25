@@ -5,10 +5,10 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using Zenject;
 
-namespace ColonistManagement.Selection
+namespace General.Selection
 {
     [RequireComponent(typeof(UIDocument))]
-    public class SelectionArea : MonoBehaviour
+    public class SelectionDisplaying : MonoBehaviour
     {
         private UIDocument _uiDocument;
 

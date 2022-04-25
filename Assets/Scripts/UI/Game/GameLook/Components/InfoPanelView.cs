@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using Colonists;
+using Enemies;
+using Entities;
 using ResourceManagement;
 using UI.Game.GameLook.Components.ColonistInfo;
 using UnityEngine;
@@ -63,6 +65,16 @@ namespace UI.Game.GameLook.Components
             }
         }
 
+        public void SetEnemies(List<Enemy> enemies)
+        {
+            
+        }
+
+        public void SetEntities(List<Entity> entities)
+        {
+            
+        }
+
         private bool NotShowingEntityInfo()
         {
             return _shownResource == null && _shownResourceChunk == null;
@@ -74,7 +86,17 @@ namespace UI.Game.GameLook.Components
             _shownColonist = colonist;
             ShowColonistInfo();
         }
-        
+
+        public void SetEnemy(Enemy enemy)
+        {
+            
+        }
+
+        public void SetEntity(Entity entity)
+        {
+            
+        }
+
         public void UnsetColonist(Colonist colonist)
         {
             if (_shownColonist == colonist)
@@ -101,7 +123,7 @@ namespace UI.Game.GameLook.Components
                 HideSelf();
             }
         }
-        
+
         public void SetResourceChunk(ResourceChunk resourceChunk)
         {
             PrepareEmptyPanel();
@@ -118,7 +140,7 @@ namespace UI.Game.GameLook.Components
                 HideSelf();
             }
         }
-        
+
         private void ShowColonistInfo()
         {
             _colonistInfoView.ShowSelf();
@@ -130,13 +152,13 @@ namespace UI.Game.GameLook.Components
             _colonistsInfoView.ShowSelf();
             _colonistsInfoView.SetCount(count);
         }
-        
+
         private void ShowResourceInfo()
         {
             _entityInfoView.ShowSelf();
             _entityInfoView.FillIn(_shownResource);
         }
-        
+
         private void ShowResourceChunkInfo()
         {
             _entityInfoView.ShowSelf();

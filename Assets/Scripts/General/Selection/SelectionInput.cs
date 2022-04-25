@@ -7,9 +7,9 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Zenject;
 
-namespace ColonistManagement.Selection
+namespace General.Selection
 {
-    public class ColonistSelectionInput : MonoBehaviour
+    public class SelectionInput : MonoBehaviour
     {
         private Vector2? _startPoint;
         private bool _updatingArea;

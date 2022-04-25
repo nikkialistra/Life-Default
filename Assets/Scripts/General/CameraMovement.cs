@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections;
-using ColonistManagement.Selection;
 using Colonists;
 using DG.Tweening;
 using General.Map;
+using General.Selection;
 using Saving;
 using Sirenix.OdinInspector;
 using UniRx;
@@ -100,7 +100,7 @@ namespace General
 
         private Coroutine _focusingCoroutine;
 
-        private ColonistSelectionInput _colonistSelectionInput;
+        private SelectionInput _selectionInput;
 
         private Vector3 _originPositionCorrection;
         
@@ -117,12 +117,12 @@ namespace General
         private InputAction _toggleCameraMovementAction;
 
         [Inject]
-        public void Construct(bool isSetUpSession, MapInitialization mapInitialization, GameSettings gameSettings, ColonistSelectionInput colonistSelectionInput, PlayerInput playerInput)
+        public void Construct(bool isSetUpSession, MapInitialization mapInitialization, GameSettings gameSettings, SelectionInput selectionInput, PlayerInput playerInput)
         {
             _mapInitialization = mapInitialization;
 
             _gameSettings = gameSettings;
-            _colonistSelectionInput = colonistSelectionInput;
+            _selectionInput = selectionInput;
             _playerInput = playerInput;
         }
 
@@ -147,16 +147,16 @@ namespace General
         {
             _toggleCameraMovementAction.started += ToggleCameraMovement;
 
-            _colonistSelectionInput.Selecting += OnColonistSelecting;
-            _colonistSelectionInput.SelectingEnd += OnColonistSelectingEnd;
+            _selectionInput.Selecting += OnSelecting;
+            _selectionInput.SelectingEnd += OnSelectingEnd;
         }
 
         private void OnDisable()
         {
             _toggleCameraMovementAction.started -= ToggleCameraMovement;
             
-            _colonistSelectionInput.Selecting -= OnColonistSelecting;
-            _colonistSelectionInput.SelectingEnd -= OnColonistSelectingEnd;
+            _selectionInput.Selecting -= OnSelecting;
+            _selectionInput.SelectingEnd -= OnSelectingEnd;
         }
 
         private void Start()
@@ -320,12 +320,12 @@ namespace General
             }
         }
         
-        private void OnColonistSelecting(Rect _)
+        private void OnSelecting(Rect _)
         {
             _isSelectingInput = true;
         }
 
-        private void OnColonistSelectingEnd(Rect _)
+        private void OnSelectingEnd(Rect _)
         {
             _isSelectingInput = false;
         }

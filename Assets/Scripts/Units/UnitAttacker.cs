@@ -15,6 +15,8 @@ namespace Units
 
         private UnitStats _unitStats;
         private UnitAnimator _unitAnimator;
+
+        private float _attackAngle;
         
         private float _waitTime;
 
@@ -30,6 +32,7 @@ namespace Units
 
         private void Start()
         {
+            _attackAngle = GlobalParameters.Instance.AttackAngle;
             _waitTime = GlobalParameters.Instance.TimeToStopInteraction;
         }
 
@@ -81,6 +84,22 @@ namespace Units
         public bool OnAttackRange(Vector3 position)
         {
             return Vector3.Distance(transform.position, position) < _unitStats.MeleeAttackRange;
+        }
+        
+        public bool OnAttackAngle(Vector3 position)
+        {
+            position.y = transform.position.y;
+            var targetDirection = (position - transform.position).normalized;
+
+            if (targetDirection == Vector3.zero)
+            {
+                return true;
+            }
+
+            var angleDifference = Quaternion.LookRotation(targetDirection).eulerAngles.y -
+                                  transform.rotation.eulerAngles.y;
+
+            return Mathf.Abs(angleDifference) < _attackAngle;
         }
 
         private IEnumerator WatchForDestroy()

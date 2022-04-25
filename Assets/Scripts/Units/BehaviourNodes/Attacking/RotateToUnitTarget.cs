@@ -19,18 +19,8 @@ namespace Units.BehaviourNodes.Attacking
                 return TaskStatus.Failure;
             }
 
-            if (!UnitAttacker.OnAttackRange(UnitTarget.Value.transform.position))
-            {
-                return TaskStatus.Success;
-            }
-
-            if (!UnitMeshAgent.IsRotating)
-            {
-                UnitMeshAgent.RotateTo(UnitTarget.Value.transform.position);
-                return TaskStatus.Success;
-            }
-
-            return TaskStatus.Running;
+            UnitMeshAgent.RotateTo(UnitTarget.Value.transform.position);
+            return TaskStatus.Success;
         }
     }
 }

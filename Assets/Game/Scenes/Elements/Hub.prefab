@@ -2667,6 +2667,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   _originPositionCorrection: {x: 0, y: 10, z: 0}
+  _attackAngle: 60
 --- !u!1 &6538900367316159474
 GameObject:
   m_ObjectHideFlags: 0

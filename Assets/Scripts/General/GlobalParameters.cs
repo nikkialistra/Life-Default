@@ -20,6 +20,9 @@ namespace General
         [Title("Terrain Raycasting")]
         [SerializeField] private Vector3 _originPositionCorrection = Vector3.up * 10f;
 
+        [Title("Attacking")]
+        [SerializeField] private float _attackAngle = 60f;
+        
         public static GlobalParameters Instance { get; private set; }
 
         public float TimeToHideHover => _timeToHideHover;
@@ -32,6 +35,8 @@ namespace General
         public LayerMask ObstacleMask => _obstacleMask;
 
         public Vector3 OriginPositionCorrection => _originPositionCorrection;
+        
+        public float AttackAngle => _attackAngle;
 
         private void Awake()
         {

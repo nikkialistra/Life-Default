@@ -1,5 +1,6 @@
 ﻿using BehaviorDesigner.Runtime.Tasks;
 using Units.BehaviorVariables;
+using UnityEngine;
 
 namespace Units.BehaviourNodes.Attacking
 {
@@ -19,7 +20,7 @@ namespace Units.BehaviourNodes.Attacking
                 return TaskStatus.Failure;
             }
             
-            if (!UnitAttacker.OnAttackRange(UnitTarget.Value.transform.position))
+            if (OutOfReach(UnitTarget.Value.transform.position))
             {
                 UnitAttacker.FinishAttacking();
                 return TaskStatus.Success;
@@ -31,6 +32,11 @@ namespace Units.BehaviourNodes.Attacking
             }
 
             return TaskStatus.Running;
+        }
+
+        private bool OutOfReach(Vector3 position)
+        {
+            return !UnitAttacker.OnAttackRange(position) || !UnitAttacker.OnAttackAngle(position);
         }
     }
 }

@@ -18,14 +18,24 @@ namespace Units
 
         private EquipType _equipType = EquipType.None;
 
+        private bool _weaponEquiped;
+        
+        private Coroutine _unequipAfterCoroutine;
+
         public void EquipWeapon()
         {
+            _weaponEquiped = true;
+            
+            CancelUnequip();
+            
             _handSlot.sharedMesh = _sword;
             _equipType = EquipType.Weapon;
         }
         
         public void EquipInstrumentFor(ResourceType resourceType)
         {
+            CancelUnequip();
+            
             var instrument = resourceType switch
             {
                 ResourceType.Wood => _axe,
@@ -39,9 +49,15 @@ namespace Units
 
         public void UnequipWeapon()
         {
+            if (!_weaponEquiped)
+            {
+                return;
+            }
+            
             if (_equipType == EquipType.Weapon)
             {
-                StartCoroutine(UnequipAfter());
+                _weaponEquiped = false;
+                _unequipAfterCoroutine = StartCoroutine(UnequipAfter());
             }
         }
 
@@ -50,6 +66,15 @@ namespace Units
             if (_equipType == EquipType.Instrument)
             {
                 StartCoroutine(UnequipAfter());
+            }
+        }
+
+        private void CancelUnequip()
+        {
+            if (_unequipAfterCoroutine != null)
+            {
+                StopCoroutine(_unequipAfterCoroutine);
+                _unequipAfterCoroutine = null;
             }
         }
 

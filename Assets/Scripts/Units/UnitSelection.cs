@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Collections;
 using ColonistManagement.Selection;
-using Entities.Interfaces;
 using General;
 using Sirenix.OdinInspector;
 using Units.Ancillaries;
+using Units.Interfaces;
 using UnityEngine;
 
 namespace Units
 {
-    public class UnitSelection : MonoBehaviour, ISelectable
+    public class UnitSelection : MonoBehaviour, ISelectableUnit
     {
         [Required]
         [SerializeField] private HoverIndicator _hoverIndicator;

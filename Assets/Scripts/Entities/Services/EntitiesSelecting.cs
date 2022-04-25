@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using ColonistManagement.Selection;
-using Enemies;
 using Entities.Interfaces;
 using UI.Game;
 using UI.Menus.Primary;
@@ -18,7 +17,7 @@ namespace Entities.Services
 
         private LayerMask _entitiesMask;
 
-        private ISelectable _lastSelectable;
+        private ISelectableEntity _lastEntity;
 
         private Coroutine _hoveringCoroutine;
 
@@ -86,8 +85,8 @@ namespace Entities.Services
 
         public void DeselectEntity()
         {
-            _lastSelectable?.Deselect();
-            _lastSelectable = null;
+            _lastEntity?.Deselect();
+            _lastEntity = null;
         }
 
         private void StartHovering()
@@ -138,11 +137,11 @@ namespace Entities.Services
             
             if (Raycast(out var hit))
             {
-                if (hit.transform.TryGetComponent(out ISelectable selectable))
+                if (hit.transform.TryGetComponent(out ISelectableEntity entity))
                 {
-                    selectable.Select();
+                    entity.Select();
 
-                    _lastSelectable = selectable;
+                    _lastEntity = entity;
                 }
             }
         }
@@ -170,7 +169,7 @@ namespace Entities.Services
 
             if (Raycast(out var hit))
             {
-                if (hit.transform.TryGetComponent(out ISelectable selectable))
+                if (hit.transform.TryGetComponent(out ISelectableEntity selectable))
                 {
                     selectable.Hover();
                 }

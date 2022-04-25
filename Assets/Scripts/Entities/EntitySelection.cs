@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Entities
 {
-    public class EntitySelection : MonoBehaviour, ISelectable
+    public class EntitySelection : MonoBehaviour, ISelectableEntity
     {
         [SerializeField] private MeshRenderer _renderer;
         [SerializeField] private int _materialIndex;

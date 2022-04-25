@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using Entities.Interfaces;
+using General.Interfaces;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using Random = UnityEngine.Random;

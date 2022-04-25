@@ -15,7 +15,7 @@ namespace ResourceManagement
     [RequireComponent(typeof(Collider))]
     [RequireComponent(typeof(EntitySelection))]
     [RequireComponent(typeof(ResourceChunkScattering))]
-    public class Resource : MonoBehaviour, ISelectable
+    public class Resource : MonoBehaviour, ISelectableEntity
     {
         [SerializeField] private ResourceType _resourceType;
         [Space]

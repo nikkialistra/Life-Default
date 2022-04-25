@@ -1,4 +1,4 @@
-﻿namespace Entities.Interfaces
+﻿namespace General.Interfaces
 {
     public interface IDamageable
     {

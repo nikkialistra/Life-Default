@@ -8,7 +8,7 @@ namespace ResourceManagement
 {
     [RequireComponent(typeof(EntitySelection))]
     [RequireComponent(typeof(Rigidbody))]
-    public class ResourceChunk : MonoBehaviour, ISelectable
+    public class ResourceChunk : MonoBehaviour, ISelectableEntity
     {
         [SerializeField] private string _name;
 

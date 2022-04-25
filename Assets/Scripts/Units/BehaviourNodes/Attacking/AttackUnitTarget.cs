@@ -10,13 +10,6 @@ namespace Units.BehaviourNodes.Attacking
         public UnitMeshAgent UnitMeshAgent;
         public UnitAttacker UnitAttacker;
 
-        private bool _interacting;
-
-        public override void OnStart()
-        {
-            _interacting = false;
-        }
-
         public override TaskStatus OnUpdate()
         {
             if (!UnitTarget.Value.Alive)
@@ -32,18 +25,12 @@ namespace Units.BehaviourNodes.Attacking
                 return TaskStatus.Success;
             }
 
-            if (!_interacting)
+            if (!UnitAttacker.IsAttacking)
             {
-                _interacting = true;
-                UnitAttacker.Attack(UnitTarget.Value, OnInteractionFinish);
+                UnitAttacker.Attack(UnitTarget.Value);
             }
 
             return TaskStatus.Running;
-        }
-
-        private void OnInteractionFinish()
-        {
-            _interacting = false;
         }
     }
 }

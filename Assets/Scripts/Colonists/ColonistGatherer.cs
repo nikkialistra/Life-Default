@@ -28,8 +28,6 @@ namespace Colonists
         private float _waitTime;
         
         private Resource _resource;
-        
-        private Action _onInteractionFinish;
 
         private ColonistStats _colonistStats;
         
@@ -42,6 +40,8 @@ namespace Colonists
             _animator = GetComponent<ColonistAnimator>();
             _colonistStats = GetComponent<ColonistStats>();
         }
+        
+        public bool IsGathering { get; private set; }
 
         private void Start()
         {
@@ -58,7 +58,7 @@ namespace Colonists
             return true;
         }
 
-        public void Gather(Resource resource, Action onInteractionFinish)
+        public void Gather(Resource resource)
         {
             if (_resource == resource)
             {
@@ -66,12 +66,13 @@ namespace Colonists
             }
 
             _resource = resource;
-            _onInteractionFinish = onInteractionFinish;
             
             _unitEquipment.EquipInstrumentFor(resource.ResourceType);
             _animator.Gather(resource);
 
             _watchForExhaustionCoroutine = StartCoroutine(WatchForExhaustion());
+
+            IsGathering = true;
         }
         
         public void Hit(float passedTime)
@@ -147,11 +148,7 @@ namespace Colonists
             
             _animator.StopGathering();
 
-            if (_onInteractionFinish != null)
-            {
-                _onInteractionFinish();
-                _onInteractionFinish = null;
-            }
+            IsGathering = false;
         }
 
         private bool EveryResourceHasDistanceInteraction(ResourceInteractionDistanceDictionary distances, ref string errorMessage)

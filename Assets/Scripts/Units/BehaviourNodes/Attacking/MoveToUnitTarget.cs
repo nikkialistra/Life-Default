@@ -19,6 +19,11 @@ namespace Units.BehaviourNodes.Attacking
                 return TaskStatus.Failure;
             }
             
+            if (UnitMeshAgent.IsRotating)
+            {
+                UnitMeshAgent.StopRotating();
+            }
+            
             if (UnitAttacker.OnAttackRange(UnitTarget.Value.transform.position))
             {
                 return TaskStatus.Success;

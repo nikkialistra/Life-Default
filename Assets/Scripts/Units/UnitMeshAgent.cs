@@ -90,6 +90,8 @@ namespace Units
         {
             _movingToResource = false;
             _movingToUnitTarget = false;
+            
+            StopRotating();
         }
 
         private Vector3 GetNearestWalkablePosition(Vector3 originalPosition)

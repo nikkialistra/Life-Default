@@ -26,6 +26,8 @@ namespace Units
             _unitAnimator = GetComponent<UnitAnimator>();
         }
 
+        public bool IsAttacking { get; private set; }
+
         private void Start()
         {
             _waitTime = GlobalParameters.Instance.TimeToStopInteraction;
@@ -33,14 +35,15 @@ namespace Units
 
         public float AttackRange => _unitStats.MeleeAttackRange;
 
-        public void Attack(Unit unit, Action onInteractionFinish)
+
+        public void Attack(Unit unit)
         {
             _unit = unit;
-            _onInteractionFinish = onInteractionFinish;
-            
             _unitAnimator.Attack(true);
-
+            
             _attackingCoroutine = StartCoroutine(WatchForDestroy());
+
+            IsAttacking = true;
         }
 
         public void Hit(float passedTime)
@@ -103,7 +106,7 @@ namespace Units
 
             StopAttacking();
         }
-        
+
         private void StopAttacking()
         {
             if (_unit != null)
@@ -119,11 +122,7 @@ namespace Units
             
             _unitAnimator.Attack(false);
 
-            if (_onInteractionFinish != null)
-            {
-                _onInteractionFinish();
-                _onInteractionFinish = null;
-            }
+            IsAttacking = false;
         }
     }
 }

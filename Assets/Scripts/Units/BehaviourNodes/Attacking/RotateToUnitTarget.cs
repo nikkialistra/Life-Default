@@ -8,6 +8,7 @@ namespace Units.BehaviourNodes.Attacking
         public SharedUnit UnitTarget;
 
         public UnitMeshAgent UnitMeshAgent;
+        public UnitAttacker UnitAttacker;
 
         public override TaskStatus OnUpdate()
         {
@@ -16,6 +17,11 @@ namespace Units.BehaviourNodes.Attacking
                 UnitTarget.Value = null;
                 UnitMeshAgent.ResetDestination();
                 return TaskStatus.Failure;
+            }
+
+            if (!UnitAttacker.OnAttackRange(UnitTarget.Value.transform.position))
+            {
+                return TaskStatus.Success;
             }
 
             if (!UnitMeshAgent.IsRotating)

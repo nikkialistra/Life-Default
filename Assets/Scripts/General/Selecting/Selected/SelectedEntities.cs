@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Entities;
+using ResourceManagement;
 using UI.Game.GameLook.Components;
 
 namespace General.Selecting.Selected
@@ -15,16 +16,26 @@ namespace General.Selecting.Selected
 
         public List<Entity> Entities { get; private set; } = new();
 
-        public void Set(List<Entity> enemies)
+        public void Set(List<Entity> entities)
         {
             UnsubscribeFromEntities();
 
-            Entities = enemies;
+            Entities = entities;
             UpdateSelectionStatuses();
             
             _infoPanelView.SetEntities(Entities);
 
-            SubscribeToColonists();
+            SubscribeToEntities();
+        }
+
+        public void Set(List<Resource> resources)
+        {
+            
+        }
+        
+        public void Set(List<ResourceChunk> resourceChunks)
+        {
+            
         }
 
         public void Set(Entity entity)
@@ -35,7 +46,7 @@ namespace General.Selecting.Selected
             UpdateSelectionStatuses();
             _infoPanelView.SetEntity(entity);
 
-            SubscribeToColonists();
+            SubscribeToEntities();
         }
 
         public void Add(Entity entity)
@@ -71,7 +82,7 @@ namespace General.Selecting.Selected
             Entities.Clear();
         }
 
-        private void SubscribeToColonists()
+        private void SubscribeToEntities()
         {
             foreach (var entity in Entities)
             {

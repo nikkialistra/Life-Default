@@ -1,11 +1,8 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using Colonists;
 using Enemies;
 using Entities;
-using Entities.Types;
 using General.Selecting.Selected;
-using ResourceManagement;
 using Units;
 using Units.Enums;
 using UnityEngine;
@@ -21,16 +18,12 @@ namespace General.Selecting
         private readonly List<Enemy> _enemies = new();
         private readonly List<Entity> _entities = new();
 
-        private readonly List<Resource> _resources = new();
-        private readonly List<ResourceChunk> _resourceChunks = new();
-
-        private Dictionary<ResourceType, int> _resourceCounts = new();
-        private Dictionary<ResourceType, int> _resourceChunkCounts = new();
-
         private SelectedColonists _selectedColonists;
         private SelectedEnemies _selectedEnemies;
         private SelectedEntities _selectedEntities;
         private FrustumSelector _frustumSelector;
+        
+        private EntitySelection _entitySelection;
 
         [Inject]
         public void Construct(Camera camera, FrustumSelector frustumSelector,
@@ -42,6 +35,11 @@ namespace General.Selecting
             _selectedColonists = selectedColonists;
             _selectedEnemies = selectedEnemies;
             _selectedEntities = selectedEntities;
+        }
+
+        private void Awake()
+        {
+            _entitySelection = new EntitySelection(_selectedEntities);
         }
 
         private void OnEnable()
@@ -96,7 +94,7 @@ namespace General.Selecting
 
             if (_entities.Count > 0)
             {
-                ChooseEntitiesByType();
+                _entitySelection.ChooseToSelect(_entities);
             }
         }
 
@@ -126,92 +124,6 @@ namespace General.Selecting
                     AddIfAlive(entity);
                 }
             }
-        }
-
-        private void ChooseEntitiesByType()
-        {
-            SplitEntitiesByType();
-            CountEntitiesByInnerType();
-            SelectEntityByMostFrequentInnerType();
-        }
-
-        private void SplitEntitiesByType()
-        {
-            _resources.Clear();
-            _resourceChunks.Clear();
-            
-            foreach (var entity in _entities)
-            {
-                if (entity.EntityType == EntityType.Resource)
-                {
-                    _resources.Add(entity.Resource);
-                }
-
-                if (entity.EntityType == EntityType.ResourceChunk)
-                {
-                    _resourceChunks.Add(entity.ResourceChunk);
-                }
-            }
-        }
-
-        private void CountEntitiesByInnerType()
-        {
-            foreach (var resource in _resources)
-            {
-                _resourceCounts.TryGetValue(resource.ResourceType, out var count);
-                _resourceCounts[resource.ResourceType] = count + 1;
-            }
-            
-            foreach (var resourceChunk in _resourceChunks)
-            {
-                _resourceChunkCounts.TryGetValue(resourceChunk.ResourceType, out var count);
-                _resourceChunkCounts[resourceChunk.ResourceType] = count + 1;
-            }
-        }
-
-        private void SelectEntityByMostFrequentInnerType()
-        {
-            var mostFrequentResource = _resourceCounts.Aggregate((l, r) => l.Value > r.Value ? l : r);
-            var mostFrequentResourceChunk = _resourceChunkCounts.Aggregate((l, r) => l.Value > r.Value ? l : r);
-
-            if (mostFrequentResource.Value > mostFrequentResourceChunk.Value)
-            {
-                SelectMostFrequentResource(mostFrequentResource.Key);
-            }
-            else
-            {
-                SelectMostFrequentResourceChunk(mostFrequentResourceChunk.Key);
-            }
-        }
-
-        private void SelectMostFrequentResource(ResourceType resourceType)
-        {
-            var entities = new List<Entity>();
-            
-            foreach (var entity in _entities)
-            {
-                if (entity.EntityType == EntityType.Resource && entity.Resource.ResourceType == resourceType)
-                {
-                    entities.Add(entity);
-                }
-            }
-            
-            _selectedEntities.Set(entities);
-        }
-        
-        private void SelectMostFrequentResourceChunk(ResourceType resourceType)
-        {
-            var entities = new List<Entity>();
-            
-            foreach (var entity in _entities)
-            {
-                if (entity.EntityType == EntityType.ResourceChunk && entity.Resource.ResourceType == resourceType)
-                {
-                    entities.Add(entity);
-                }
-            }
-            
-            _selectedEntities.Set(entities);
         }
 
         private void AddIfAlive(Colonist entity)

@@ -401,7 +401,7 @@ namespace General
             _followTransform = colonist.transform;
             _offset = _newPosition - _followTransform.position;
 
-            colonist.Die += ResetFollow;
+            colonist.Dying += ResetFollow;
 
             _following = true;
         }
@@ -416,7 +416,7 @@ namespace General
         {
             if (_colonist != null)
             {
-                _colonist.Die -= ResetFollow;
+                _colonist.Dying -= ResetFollow;
             }
         }
 

@@ -24,13 +24,13 @@ namespace Colonists.Services
         private void OnEnable()
         {
             _colonist.Spawn += OnSpawn;
-            _colonist.Die += OnDie;
+            _colonist.Dying += OnDying;
         }
 
         private void OnDisable()
         {
             _colonist.Spawn -= OnSpawn;
-            _colonist.Die -= OnDie;
+            _colonist.Dying -= OnDying;
         }
 
         private void OnSpawn()
@@ -38,7 +38,7 @@ namespace Colonists.Services
             _colonistRepository.AddColonist(_colonist);
         }
 
-        private void OnDie()
+        private void OnDying()
         {
             _colonistRepository.RemoveColonist(_colonist);
         }

@@ -120,6 +120,15 @@ namespace Controls
                     ""initialStateCheck"": false
                 },
                 {
+                    ""name"": ""Destroy Interactable"",
+                    ""type"": ""Button"",
+                    ""id"": ""30f0807e-130b-486b-81ef-eb8e43dde25f"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""Set Follow"",
                     ""type"": ""Button"",
                     ""id"": ""3a2302e8-af2d-4adc-bae2-e850d2eaa14b"",
@@ -812,6 +821,17 @@ namespace Controls
                     ""action"": ""Select Tile"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ee3bf8e5-6099-4d55-ba26-6bc1c63e16a8"",
+                    ""path"": ""<Keyboard>/delete"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Destroy Interactable"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -878,6 +898,7 @@ namespace Controls
             m_Management_ZoomScroll = m_Management.FindAction("Zoom Scroll", throwIfNotFound: true);
             m_Management_ZoomButton = m_Management.FindAction("Zoom Button", throwIfNotFound: true);
             m_Management_ToggleCameraMovement = m_Management.FindAction("Toggle Camera Movement", throwIfNotFound: true);
+            m_Management_DestroyInteractable = m_Management.FindAction("Destroy Interactable", throwIfNotFound: true);
             m_Management_SetFollow = m_Management.FindAction("Set Follow", throwIfNotFound: true);
             m_Management_Select = m_Management.FindAction("Select", throwIfNotFound: true);
             m_Management_Digit = m_Management.FindAction("Digit", throwIfNotFound: true);
@@ -968,6 +989,7 @@ namespace Controls
         private readonly InputAction m_Management_ZoomScroll;
         private readonly InputAction m_Management_ZoomButton;
         private readonly InputAction m_Management_ToggleCameraMovement;
+        private readonly InputAction m_Management_DestroyInteractable;
         private readonly InputAction m_Management_SetFollow;
         private readonly InputAction m_Management_Select;
         private readonly InputAction m_Management_Digit;
@@ -999,6 +1021,7 @@ namespace Controls
             public InputAction @ZoomScroll => m_Wrapper.m_Management_ZoomScroll;
             public InputAction @ZoomButton => m_Wrapper.m_Management_ZoomButton;
             public InputAction @ToggleCameraMovement => m_Wrapper.m_Management_ToggleCameraMovement;
+            public InputAction @DestroyInteractable => m_Wrapper.m_Management_DestroyInteractable;
             public InputAction @SetFollow => m_Wrapper.m_Management_SetFollow;
             public InputAction @Select => m_Wrapper.m_Management_Select;
             public InputAction @Digit => m_Wrapper.m_Management_Digit;
@@ -1055,6 +1078,9 @@ namespace Controls
                     @ToggleCameraMovement.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnToggleCameraMovement;
                     @ToggleCameraMovement.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnToggleCameraMovement;
                     @ToggleCameraMovement.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnToggleCameraMovement;
+                    @DestroyInteractable.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnDestroyInteractable;
+                    @DestroyInteractable.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnDestroyInteractable;
+                    @DestroyInteractable.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnDestroyInteractable;
                     @SetFollow.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnSetFollow;
                     @SetFollow.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnSetFollow;
                     @SetFollow.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnSetFollow;
@@ -1140,6 +1166,9 @@ namespace Controls
                     @ToggleCameraMovement.started += instance.OnToggleCameraMovement;
                     @ToggleCameraMovement.performed += instance.OnToggleCameraMovement;
                     @ToggleCameraMovement.canceled += instance.OnToggleCameraMovement;
+                    @DestroyInteractable.started += instance.OnDestroyInteractable;
+                    @DestroyInteractable.performed += instance.OnDestroyInteractable;
+                    @DestroyInteractable.canceled += instance.OnDestroyInteractable;
                     @SetFollow.started += instance.OnSetFollow;
                     @SetFollow.performed += instance.OnSetFollow;
                     @SetFollow.canceled += instance.OnSetFollow;
@@ -1248,6 +1277,7 @@ namespace Controls
             void OnZoomScroll(InputAction.CallbackContext context);
             void OnZoomButton(InputAction.CallbackContext context);
             void OnToggleCameraMovement(InputAction.CallbackContext context);
+            void OnDestroyInteractable(InputAction.CallbackContext context);
             void OnSetFollow(InputAction.CallbackContext context);
             void OnSelect(InputAction.CallbackContext context);
             void OnDigit(InputAction.CallbackContext context);

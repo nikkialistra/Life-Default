@@ -93,7 +93,7 @@ namespace Colonists.Services
         {
             foreach (var colonist in _controlGroups[number])
             {
-                colonist.ColonistDie += _removeFromControlGroup[number];
+                colonist.ColonistDying += _removeFromControlGroup[number];
             }
         }
 
@@ -101,7 +101,7 @@ namespace Colonists.Services
         {
             foreach (var oldColonist in _controlGroups[number])
             {
-                oldColonist.ColonistDie -= _removeFromControlGroup[number];
+                oldColonist.ColonistDying -= _removeFromControlGroup[number];
             }
         }
     }

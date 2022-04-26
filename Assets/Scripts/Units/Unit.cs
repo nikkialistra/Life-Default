@@ -34,7 +34,7 @@ namespace Units
         private bool _died;
 
         public event Action HealthChange;
-        public event Action Die;
+        public event Action Dying;
 
         public bool Alive => !_died;
         
@@ -55,13 +55,13 @@ namespace Units
         private void OnEnable()
         {
             Vitality.HealthChange += OnHealthChange;
-            Vitality.Die += OnDie;
+            Vitality.Wasted += Die;
         }
 
         private void OnDisable()
         {
             Vitality.HealthChange -= OnHealthChange;
-            Vitality.Die -= OnDie;
+            Vitality.Wasted -= Die;
         }
 
         public void Initialize()
@@ -99,11 +99,16 @@ namespace Units
             _unitFieldOfHearing.ToggleDebugShow();
         }
 
-        private void OnDie()
+        public void Die()
         {
+            if (_died)
+            {
+                return;
+            }
+            
             _died = true;
 
-            Die?.Invoke();
+            Dying?.Invoke();
         }
 
         private void OnHealthChange(float health, float blood)

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using Colonists;
 using UI.Game.GameLook.Components;
 
@@ -18,19 +17,6 @@ namespace General.Selection.Selected
         public event Action SelectionChange; 
 
         public List<Colonist> Colonists { get; private set; } = new();
-        private List<Colonist> _lastSelectedColonists = new();
-
-        public void Clear()
-        {
-            UnsubscribeFromColonists();
-
-            foreach (var colonist in Colonists)
-            {
-                colonist.Deselect();
-            }
-
-            Colonists.Clear();
-        }
 
         public void Set(List<Colonist> colonists)
         {
@@ -61,7 +47,31 @@ namespace General.Selection.Selected
             UpdateSelectionStatuses();
             _infoPanelView.SetColonists(Colonists);
             
-            colonist.ColonistDie += RemoveFromSelected;
+            colonist.ColonistDying += RemoveFromSelected;
+        }
+
+        public void Deselect()
+        {
+            UnsubscribeFromColonists();
+
+            foreach (var colonist in Colonists)
+            {
+                colonist.Deselect();
+            }
+
+            Colonists.Clear();
+        }
+
+        public void Destroy()
+        {
+            UnsubscribeFromColonists();
+
+            foreach (var colonist in Colonists)
+            {
+                colonist.Die();
+            }
+
+            Colonists.Clear();
         }
 
         public bool Contains(Colonist colonist)
@@ -73,7 +83,7 @@ namespace General.Selection.Selected
         {
             foreach (var colonist in Colonists)
             {
-                colonist.ColonistDie += RemoveFromSelected;
+                colonist.ColonistDying += RemoveFromSelected;
             }
         }
 
@@ -81,7 +91,7 @@ namespace General.Selection.Selected
         {
             foreach (var colonist in Colonists)
             {
-                colonist.ColonistDie -= RemoveFromSelected;
+                colonist.ColonistDying -= RemoveFromSelected;
             }
         }
 
@@ -92,22 +102,11 @@ namespace General.Selection.Selected
 
         private void UpdateSelectionStatuses()
         {
-            foreach (var forSelection in Colonists)
+            foreach (var colonist in Colonists)
             {
-                forSelection.Select();
-            }
-            foreach (var forDeselection in _lastSelectedColonists.Except(Colonists))
-            {
-                if (!forDeselection.Alive)
-                {
-                    continue;
-                }
-                
-                forDeselection.Deselect();
+                colonist.Select();
             }
 
-            _lastSelectedColonists = new List<Colonist>(Colonists);
-            
             SelectionChange?.Invoke();
         }
     }

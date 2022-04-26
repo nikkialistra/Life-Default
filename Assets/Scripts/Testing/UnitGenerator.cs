@@ -1,26 +1,29 @@
 ﻿using Colonists;
+using Enemies;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Zenject;
 
 namespace Testing
 {
-    public class ColonistGenerator : MonoBehaviour
+    public class UnitGenerator : MonoBehaviour
     {
         private LayerMask _terrainMask;
         private Colonist.Factory _colonistFactory;
+        private Enemy.Factory _enemyFactory;
 
         private Camera _camera;
 
         private PlayerInput _playerInput;
-        
+
         private InputAction _selectAction;
         private InputAction _mousePositionAction;
 
         [Inject]
-        public void Construct(Colonist.Factory colonistFactory, Camera camera, PlayerInput playerInput)
+        public void Construct(Colonist.Factory colonistFactory, Enemy.Factory enemyFactory, Camera camera, PlayerInput playerInput)
         {
             _colonistFactory = colonistFactory;
+            _enemyFactory = enemyFactory;
             _camera = camera;
             _playerInput = playerInput;
         }
@@ -35,17 +38,17 @@ namespace Testing
 
         private void OnEnable()
         {
-            _selectAction.started += GenerateUnit;
+            _selectAction.started += Generate;
         }
 
         private void OnDisable()
         {
-            _selectAction.started -= GenerateUnit;
+            _selectAction.started -= Generate;
         }
 
-        private void GenerateUnit(InputAction.CallbackContext context)
+        private void Generate(InputAction.CallbackContext context)
         {
-            if (!Keyboard.current.altKey.isPressed)
+            if (!Keyboard.current.altKey.isPressed && !Keyboard.current.ctrlKey.isPressed)
             {
                 return;
             }
@@ -61,9 +64,22 @@ namespace Testing
                 {
                     return;
                 }
-                
+
+                GenerateUnit(hit);
+            }
+        }
+
+        private void GenerateUnit(RaycastHit hit)
+        {
+            if (Keyboard.current.altKey.isPressed)
+            {
                 var colonist = _colonistFactory.Create();
                 colonist.SetAt(hit.point);
+            }
+            else if (Keyboard.current.ctrlKey.isPressed)
+            {
+                var enemy = _enemyFactory.Create();
+                enemy.SetAt(hit.point);
             }
         }
     }

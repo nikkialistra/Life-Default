@@ -47,14 +47,12 @@ namespace General.Selection
 
         public void SelectFromRect(Rect rect)
         {
-            ClearAll();
-
             _frustumSelector.Select(rect);
         }
 
         public void SelectFromPoint(Vector2 point)
         {
-            ClearAll();
+            DeselectAll();
 
             if (TrySelectColonistsFromPoint(point))
             {
@@ -71,6 +69,8 @@ namespace General.Selection
 
         private void OnSelected(List<Collider> colliders)
         {
+            DeselectAll();
+            
             GetSelectedByType(colliders);
 
             if (_colonists.Count > 0)
@@ -109,6 +109,7 @@ namespace General.Selection
                     {
                         _enemies.Add(unit.Enemy);
                     }
+                    continue;
                 }
 
                 if (collider.TryGetComponent(out Entity entity))
@@ -163,11 +164,11 @@ namespace General.Selection
             }
         }
 
-        private void ClearAll()
+        private void DeselectAll()
         {
-            _selectedColonists.Clear();
-            _selectedEnemies.Clear();
-            _selectedEntities.Clear();
+            _selectedColonists.Deselect();
+            _selectedEnemies.Deselect();
+            _selectedEntities.Deselect();
         }
     }
 }

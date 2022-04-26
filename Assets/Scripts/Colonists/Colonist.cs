@@ -1,6 +1,5 @@
 ﻿using System;
 using Common;
-using Enemies;
 using ResourceManagement;
 using Sirenix.OdinInspector;
 using Units;
@@ -62,8 +61,8 @@ namespace Colonists
 
         public event Action Spawn;
         public event Action HealthChange;
-        public event Action Die;
-        public event Action<Colonist> ColonistDie;
+        public event Action Dying;
+        public event Action<Colonist> ColonistDying;
         
         public event Action<string> NameChange;
         
@@ -96,7 +95,7 @@ namespace Colonists
         private void OnEnable()
         {
             _unit.HealthChange += OnHealthChange;
-            _unit.Die += Dying;
+            _unit.Dying += OnDying;
             
             _meshAgent.DestinationReach += OnDestinationReach;
         }
@@ -104,7 +103,7 @@ namespace Colonists
         private void OnDisable()
         {
             _unit.HealthChange -= OnHealthChange;
-            _unit.Die -= Dying;
+            _unit.Dying -= OnDying;
             
             _meshAgent.DestinationReach -= OnDestinationReach;
         }
@@ -174,6 +173,11 @@ namespace Colonists
             _behavior.AddPositionToOrder(position, angle);
         }
 
+        public void Die()
+        {
+            _unit.Die();
+        }
+
         public void ToggleUnitFieldOfView()
         {
             _unit.ToggleUnitVisibilityFields();
@@ -184,7 +188,7 @@ namespace Colonists
             _gatherer.ToggleResourceFieldOfView();
         }
 
-        private void Dying()
+        private void OnDying()
         {
             Stop();
 
@@ -192,8 +196,8 @@ namespace Colonists
 
             Deselect();
 
-            Die?.Invoke();
-            ColonistDie?.Invoke(this);
+            Dying?.Invoke();
+            ColonistDying?.Invoke(this);
 
             _animator.Die(DestroySelf);
         }

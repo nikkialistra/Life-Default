@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using Entities;
 using UI.Game.GameLook.Components;
 
@@ -15,22 +13,7 @@ namespace General.Selection.Selected
             _infoPanelView = infoPanelView;
         }
 
-        public event Action SelectionChange; 
-
         public List<Entity> Entities { get; private set; } = new();
-        private List<Entity> _lastSelectedEntities = new();
-
-        public void Clear()
-        {
-            UnsubscribeFromEntities();
-
-            foreach (var entity in Entities)
-            {
-                entity.Deselect();
-            }
-
-            Entities.Clear();
-        }
 
         public void Set(List<Entity> enemies)
         {
@@ -64,9 +47,28 @@ namespace General.Selection.Selected
             entity.EntityDie += RemoveFromSelected;
         }
 
-        public bool Contains(Entity entity)
+        public void Deselect()
         {
-            return Entities.Contains(entity);
+            UnsubscribeFromEntities();
+
+            foreach (var entity in Entities)
+            {
+                entity.Deselect();
+            }
+
+            Entities.Clear();
+        }
+        
+        public void Destroy()
+        {
+            UnsubscribeFromEntities();
+
+            foreach (var entity in Entities)
+            {
+                entity.Die();
+            }
+
+            Entities.Clear();
         }
 
         private void SubscribeToColonists()
@@ -92,23 +94,10 @@ namespace General.Selection.Selected
 
         private void UpdateSelectionStatuses()
         {
-            foreach (var forSelection in Entities)
+            foreach (var entity in Entities)
             {
-                forSelection.Select();
+                entity.Select();
             }
-            foreach (var forDeselection in _lastSelectedEntities.Except(Entities))
-            {
-                if (!forDeselection.Alive)
-                {
-                    continue;
-                }
-                
-                forDeselection.Deselect();
-            }
-
-            _lastSelectedEntities = new List<Entity>(Entities);
-            
-            SelectionChange?.Invoke();
         }
     }
 }

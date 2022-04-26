@@ -76,7 +76,7 @@ namespace Entities
             switch (_entityType)
             {
                 case EntityType.Resource:
-                    _resource.Select();
+                    _resource.Deselect();
                     break;
                 case EntityType.Building:
                     break;
@@ -84,7 +84,12 @@ namespace Entities
                     throw new ArgumentOutOfRangeException();
             }
         }
-        
+
+        public void Die()
+        {
+            
+        }
+
         private void Dying()
         {
             _died = true;

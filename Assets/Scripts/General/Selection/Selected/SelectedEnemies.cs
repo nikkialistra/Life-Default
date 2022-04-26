@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using Enemies;
 using UI.Game.GameLook.Components;
 
@@ -15,22 +13,7 @@ namespace General.Selection.Selected
             _infoPanelView = infoPanelView;
         }
 
-        public event Action SelectionChange; 
-
         public List<Enemy> Enemies { get; private set; } = new();
-        private List<Enemy> _lastSelectedEnemies = new();
-
-        public void Clear()
-        {
-            UnsubscribeFromEnemies();
-
-            foreach (var enemy in Enemies)
-            {
-                enemy.Deselect();
-            }
-
-            Enemies.Clear();
-        }
 
         public void Set(List<Enemy> enemies)
         {
@@ -64,9 +47,28 @@ namespace General.Selection.Selected
             enemy.EnemyDie += RemoveFromSelected;
         }
 
-        public bool Contains(Enemy enemy)
+        public void Deselect()
         {
-            return Enemies.Contains(enemy);
+            UnsubscribeFromEnemies();
+
+            foreach (var enemy in Enemies)
+            {
+                enemy.Deselect();
+            }
+
+            Enemies.Clear();
+        }
+        
+        public void Destroy()
+        {
+            UnsubscribeFromEnemies();
+
+            foreach (var enemy in Enemies)
+            {
+                enemy.Die();
+            }
+
+            Enemies.Clear();
         }
 
         private void SubscribeToColonists()
@@ -92,23 +94,10 @@ namespace General.Selection.Selected
 
         private void UpdateSelectionStatuses()
         {
-            foreach (var forSelection in Enemies)
+            foreach (var enemy in Enemies)
             {
-                forSelection.Select();
+                enemy.Select();
             }
-            foreach (var forDeselection in _lastSelectedEnemies.Except(Enemies))
-            {
-                if (!forDeselection.Alive)
-                {
-                    continue;
-                }
-                
-                forDeselection.Deselect();
-            }
-
-            _lastSelectedEnemies = new List<Enemy>(Enemies);
-            
-            SelectionChange?.Invoke();
         }
     }
 }

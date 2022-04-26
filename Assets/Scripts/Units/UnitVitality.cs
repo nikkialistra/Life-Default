@@ -26,7 +26,7 @@ namespace Units
 
         private Coroutine _takingDamageCoroutine;
 
-        public event Action Die;
+        public event Action Wasted;
         public event Action<float, float> HealthChange;
 
         public float Health => _health;
@@ -84,7 +84,7 @@ namespace Units
             if (!IsAlive)
             {
                 StopTakingDamage();
-                Die?.Invoke();
+                Wasted?.Invoke();
             }
 
             HealthChange?.Invoke(_health / _maxHealth, _recoverySpeed / _maxRecoverySpeed);

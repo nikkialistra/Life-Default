@@ -67,7 +67,7 @@ namespace Enemies
 
         private void OnEnable()
         {
-            _unit.Die += Dying;
+            _unit.Dying += Dying;
 
             _unitSelection.Selected += Select;
             _unitSelection.Deselected += Deselect;
@@ -75,7 +75,7 @@ namespace Enemies
 
         private void OnDisable()
         {
-            _unit.Die += Dying;
+            _unit.Dying += Dying;
             
             _unitSelection.Selected -= Select;
             _unitSelection.Deselected -= Deselect;
@@ -128,6 +128,11 @@ namespace Enemies
             _unit.Deselect();
             
             _selectionIndicator.SetActive(false);
+        }
+
+        public void Die()
+        {
+            
         }
 
         private void Dying()

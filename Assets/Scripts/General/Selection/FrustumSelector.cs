@@ -39,14 +39,17 @@ namespace General.Selection
             frustumConfig.ExtentsMin = leftBottomAngle;
             frustumConfig.ExtentsMax = rightUpAngle;
 
-            StartCoroutine(ActivateFrustumForOneFrame());
+            StartCoroutine(FlashFrustum());
         }
 
-        private IEnumerator ActivateFrustumForOneFrame()
+        private IEnumerator FlashFrustum()
         {
             _frustumMeshCollider.DoGenerate = true;
             m_config.Active = true;
 
+            // OnTriggerEnter catches all colliders only within 3 frames
+            yield return null;
+            yield return null;
             yield return null;
 
             m_config.Active = false;

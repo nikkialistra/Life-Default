@@ -131,7 +131,7 @@ namespace ColonistManagement.Targeting.Formations
         {
             foreach (var colonist in _colonists)
             {
-                colonist.ColonistDie += RemoveFromFormation;
+                colonist.ColonistDying += RemoveFromFormation;
             }
         }
 
@@ -139,7 +139,7 @@ namespace ColonistManagement.Targeting.Formations
         {
             foreach (var colonist in _colonists)
             {
-                colonist.ColonistDie -= RemoveFromFormation;
+                colonist.ColonistDying -= RemoveFromFormation;
             }
         }
 

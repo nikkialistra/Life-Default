@@ -143,14 +143,14 @@ namespace UI.Game.GameLook.Components.ColonistInfo
             if (_colonist != null)
             {
                 _colonist.HealthChange -= UpdateVitality;
-                _colonist.Die -= HidePanel;
+                _colonist.Dying -= HidePanel;
             }
         }
 
         private void SubscribeToUnit()
         {
             _colonist.HealthChange += UpdateVitality;
-            _colonist.Die += HidePanel;
+            _colonist.Dying += HidePanel;
         }
 
         private void UpdateVitality()

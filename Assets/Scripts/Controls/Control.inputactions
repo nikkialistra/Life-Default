@@ -96,6 +96,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "Destroy Interactable",
+                    "type": "Button",
+                    "id": "30f0807e-130b-486b-81ef-eb8e43dde25f",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Set Follow",
                     "type": "Button",
                     "id": "3a2302e8-af2d-4adc-bae2-e850d2eaa14b",
@@ -786,6 +795,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Select Tile",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ee3bf8e5-6099-4d55-ba26-6bc1c63e16a8",
+                    "path": "<Keyboard>/delete",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Destroy Interactable",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

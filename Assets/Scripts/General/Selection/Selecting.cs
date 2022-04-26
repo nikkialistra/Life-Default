@@ -1,35 +1,51 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Colonists;
 using Colonists.Services;
 using Enemies;
 using Entities;
 using General.Selection.Selected;
+using pointcache.Frustum;
 using UnityEngine;
+using Zenject;
 
 namespace General.Selection
 {
-    public class InteractableSelecting
+    public class Selecting : MonoBehaviour
     {
-        private readonly ColonistRepository _colonistRepository;
-        private readonly Camera _camera;
+        private ColonistRepository _colonistRepository;
+        private Camera _camera;
 
         private readonly List<Colonist> _colonists = new();
         private readonly List<Enemy> _enemies = new();
         private readonly List<Entity> _entities = new();
 
-        private readonly SelectedColonists _selectedColonists;
-        private readonly SelectedEnemies _selectedEnemies;
-        private readonly SelectedEntities _selectedEntities;
+        private SelectedColonists _selectedColonists;
+        private SelectedEnemies _selectedEnemies;
+        private SelectedEntities _selectedEntities;
+        private FrustumCameraSelector _frustumCameraSelector;
 
-        public InteractableSelecting(ColonistRepository colonistRepository, Camera camera,
+        [Inject]
+        public void Construct(ColonistRepository colonistRepository, Camera camera, FrustumCameraSelector frustumCameraSelector,
             SelectedColonists selectedColonists, SelectedEnemies selectedEnemies, SelectedEntities selectedEntities)
         {
             _colonistRepository = colonistRepository;
             _camera = camera;
+            _frustumCameraSelector = frustumCameraSelector;
 
             _selectedColonists = selectedColonists;
             _selectedEnemies = selectedEnemies;
             _selectedEntities = selectedEntities;
+        }
+
+        private void OnEnable()
+        {
+            _frustumCameraSelector.OnSelected += Select;
+        }
+
+        private void OnDisable()
+        {
+            _frustumCameraSelector.OnDeselected += Deselect;
         }
 
         public void SelectFromRect(Rect rect)
@@ -40,6 +56,8 @@ namespace General.Selection
             {
                 _selectedColonists.Set(_colonists);
             }
+
+            TrySelectEntitiesFromRect(rect);
         }
 
         public void SelectFromPoint(Vector2 point)
@@ -50,6 +68,16 @@ namespace General.Selection
             {
                 _selectedColonists.Set(_colonists);
             }
+        }
+
+        private void Select(Collider collider)
+        {
+            Debug.Log(collider);
+        }
+
+        private void Deselect(Collider collider)
+        {
+            Debug.Log("-" + collider);
         }
 
         private bool TrySelectColonistsFromRect(Rect rect)
@@ -67,6 +95,13 @@ namespace General.Selection
             }
 
             return _colonists.Count > 0;
+        }
+        
+        private bool TrySelectEntitiesFromRect(Rect rect)
+        {
+            _frustumCameraSelector.Select();
+            
+            return true;
         }
 
         private bool TrySelectColonistsFromPoint(Vector2 point)

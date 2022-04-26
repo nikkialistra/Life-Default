@@ -180,8 +180,9 @@ GameObject:
   m_Component:
   - component: {fileID: 3020716833322729910}
   - component: {fileID: 3020716833322729911}
+  - component: {fileID: 6708393955948023877}
   m_Layer: 0
-  m_Name: Selection Input
+  m_Name: Selecting
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -212,6 +213,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 67cf5bdd6a6f4116b1c0ee9b0fb8625f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6708393955948023877
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3020716833322729909}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d84401f1cf444b8bb67dcf0763af1ba5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &3020716833350407016
@@ -1267,6 +1280,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _isSetUpSession: 0
+  _frustumCameraSelector: {fileID: 0}
+  _selecting: {fileID: 6708393955948023877}
+  _selectionOperation: {fileID: 3020716833915882545}
+  _selectionInput: {fileID: 3020716833322729911}
+  _colonistChoosing: {fileID: 3020716834731429881}
   _tickingRegulator: {fileID: 3020716833599595703}
   _timeToggling: {fileID: 3020716834492469547}
   _dayCycle: {fileID: 3020716834494046233}
@@ -1300,9 +1318,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98899b77257c4ef9b62b357b90157267, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _selectionOperation: {fileID: 3020716833915882545}
-  _selectionInput: {fileID: 3020716833322729911}
-  _colonistChoosing: {fileID: 3020716834731429881}
   _actionIconsRegistry: {fileID: 3020716833421053038}
   _colonistPrefab: {fileID: 4193433063631040808, guid: a84f4c16705cba24790ac82fb366010b,
     type: 3}

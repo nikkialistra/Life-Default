@@ -2,9 +2,6 @@
 using ColonistManagement.Tasking;
 using Colonists;
 using Colonists.Services;
-using Colonists.Services.Selecting;
-using General.Selection;
-using General.Selection.Selected;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using Zenject;
@@ -13,14 +10,6 @@ namespace Infrastructure
 {
     public class ColonistsInstaller : MonoInstaller
     {
-        [Title("Selection")]
-        [Required]
-        [SerializeField] private SelectionOperation _selectionOperation;
-        [Required]
-        [SerializeField] private SelectionInput _selectionInput;
-        [Required]
-        [SerializeField] private ColonistChoosing _colonistChoosing;
-        
         [Title("Actions")]
         [Required]
         [SerializeField] private ActionIconsRegistry _actionIconsRegistry;
@@ -43,23 +32,10 @@ namespace Infrastructure
 
         public override void InstallBindings()
         {
-            BindSelection();
             BindActions();
             BindSpawning();
             BindCommands();
             BindServices();
-        }
-
-        private void BindSelection()
-        {
-            Container.Bind<InteractableSelecting>().AsSingle();
-            Container.Bind<SelectedColonists>().AsSingle();
-            Container.Bind<SelectedEnemies>().AsSingle();
-            Container.Bind<SelectedEntities>().AsSingle();
-            
-            Container.BindInstance(_selectionOperation);
-            Container.BindInstance(_selectionInput);
-            Container.BindInstance(_colonistChoosing);
         }
 
         private void BindActions()

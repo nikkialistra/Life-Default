@@ -1,6 +1,9 @@
-﻿using Entities.Services;
+﻿using Colonists.Services.Selecting;
+using Entities.Services;
 using General;
 using General.Map;
+using General.Selection;
+using General.Selection.Selected;
 using General.TemperatureRegulation;
 using General.TileManagement.Tiles;
 using General.TimeCycle.Days;
@@ -8,6 +11,7 @@ using General.TimeCycle.Seasons;
 using General.TimeCycle.Ticking;
 using General.TimeCycle.TimeRegulation;
 using General.WeatherRegulation;
+using pointcache.Frustum;
 using ResourceManagement;
 using Sirenix.OdinInspector;
 using Testing;
@@ -23,6 +27,18 @@ namespace Infrastructure
     {
         [Title("Set Up")]
         [SerializeField] private bool _isSetUpSession;
+        
+        [Title("Selection")]
+        [Required]
+        [SerializeField] private FrustumCameraSelector _frustumCameraSelector;
+        [Required]
+        [SerializeField] private Selecting _selecting;
+        [Required]
+        [SerializeField] private SelectionOperation _selectionOperation;
+        [Required]
+        [SerializeField] private SelectionInput _selectionInput;
+        [Required]
+        [SerializeField] private ColonistChoosing _colonistChoosing;
 
         [Title("Time")]
         [Required]
@@ -85,6 +101,7 @@ namespace Infrastructure
         public override void InstallBindings()
         {
             BindTimeSystems();
+            BindSelection();
             BindTileSystems();
             BindEnvironmentConditionSystems();
             BindResourceSystems();
@@ -99,6 +116,20 @@ namespace Infrastructure
             Container.BindInstance(_timeToggling);
             Container.BindInstance(_seasonCycle);
             Container.BindInstance(_dayCycle);
+        }
+
+        private void BindSelection()
+        {
+            Container.BindInstance(_frustumCameraSelector).AsSingle();
+            Container.BindInstance(_selecting).AsSingle();
+            
+            Container.Bind<SelectedColonists>().AsSingle();
+            Container.Bind<SelectedEnemies>().AsSingle();
+            Container.Bind<SelectedEntities>().AsSingle();
+            
+            Container.BindInstance(_selectionOperation);
+            Container.BindInstance(_selectionInput);
+            Container.BindInstance(_colonistChoosing);
         }
 
         private void BindTileSystems()

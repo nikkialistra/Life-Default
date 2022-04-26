@@ -1,6 +1,4 @@
-﻿using Entities.Services;
-using General.Selection.Selected;
-using UnityEngine;
+﻿using UnityEngine;
 using Zenject;
 
 namespace General.Selection
@@ -10,7 +8,7 @@ namespace General.Selection
     {
         private SelectionDisplaying _selectionDisplaying;
 
-        private InteractableSelecting _selecting;
+        private Selecting _selecting;
         private SelectionInput _selectionInput;
 
         private float _lastClickTime;
@@ -18,7 +16,7 @@ namespace General.Selection
         private bool _cancelSelection;
 
         [Inject]
-        public void Construct(InteractableSelecting selecting, SelectionInput selectionInput)
+        public void Construct(Selecting selecting, SelectionInput selectionInput)
         {
             _selecting = selecting;
             _selectionInput = selectionInput;

@@ -30,7 +30,7 @@ namespace Infrastructure
         
         [Title("Selection")]
         [Required]
-        [SerializeField] private FrustumCameraSelector _frustumCameraSelector;
+        [SerializeField] private FrustumSelector _frustumSelector;
         [Required]
         [SerializeField] private Selecting _selecting;
         [Required]
@@ -120,7 +120,7 @@ namespace Infrastructure
 
         private void BindSelection()
         {
-            Container.BindInstance(_frustumCameraSelector).AsSingle();
+            Container.BindInstance(_frustumSelector).AsSingle();
             Container.BindInstance(_selecting).AsSingle();
             
             Container.Bind<SelectedColonists>().AsSingle();

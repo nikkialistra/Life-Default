@@ -1280,7 +1280,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _isSetUpSession: 0
-  _frustumCameraSelector: {fileID: 0}
+  _frustumSelector: {fileID: 0}
   _selecting: {fileID: 6708393955948023877}
   _selectionOperation: {fileID: 3020716833915882545}
   _selectionInput: {fileID: 3020716833322729911}

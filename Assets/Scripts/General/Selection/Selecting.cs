@@ -23,15 +23,15 @@ namespace General.Selection
         private SelectedColonists _selectedColonists;
         private SelectedEnemies _selectedEnemies;
         private SelectedEntities _selectedEntities;
-        private FrustumCameraSelector _frustumCameraSelector;
+        private FrustumSelector _frustumSelector;
 
         [Inject]
-        public void Construct(ColonistRepository colonistRepository, Camera camera, FrustumCameraSelector frustumCameraSelector,
+        public void Construct(ColonistRepository colonistRepository, Camera camera, FrustumSelector frustumSelector,
             SelectedColonists selectedColonists, SelectedEnemies selectedEnemies, SelectedEntities selectedEntities)
         {
             _colonistRepository = colonistRepository;
             _camera = camera;
-            _frustumCameraSelector = frustumCameraSelector;
+            _frustumSelector = frustumSelector;
 
             _selectedColonists = selectedColonists;
             _selectedEnemies = selectedEnemies;
@@ -40,12 +40,12 @@ namespace General.Selection
 
         private void OnEnable()
         {
-            _frustumCameraSelector.OnSelected += Select;
+            
         }
 
         private void OnDisable()
         {
-            _frustumCameraSelector.OnDeselected += Deselect;
+            
         }
 
         public void SelectFromRect(Rect rect)
@@ -99,7 +99,7 @@ namespace General.Selection
         
         private bool TrySelectEntitiesFromRect(Rect rect)
         {
-            _frustumCameraSelector.Select();
+            _frustumSelector.Select(rect);
             
             return true;
         }

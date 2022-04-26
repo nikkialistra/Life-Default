@@ -190,8 +190,8 @@ namespace Colonists
 
             Deselect();
 
-            Dying?.Invoke();
             ColonistDying?.Invoke(this);
+            Dying?.Invoke();
 
             _animator.Die(DestroySelf);
         }

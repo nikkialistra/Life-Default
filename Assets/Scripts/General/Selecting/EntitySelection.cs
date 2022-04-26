@@ -34,7 +34,7 @@ namespace General.Selecting
             _entities = entities;
             
             SplitEntitiesByType();
-            FindEntityFrequencesByInnerType();
+            FindEntityFrequenciesByInnerType();
             FindMostFrequentEntitiesByInnerType();
             SelectMostFrequentEntityByInnerType();
         }
@@ -58,7 +58,7 @@ namespace General.Selecting
             }
         }
 
-        private void FindEntityFrequencesByInnerType()
+        private void FindEntityFrequenciesByInnerType()
         {
             foreach (var resource in _resources)
             {

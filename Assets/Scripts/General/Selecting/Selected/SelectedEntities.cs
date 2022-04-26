@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Entities;
 using ResourceManagement;
 using UI.Game.GameLook.Components;
 
@@ -14,101 +13,172 @@ namespace General.Selecting.Selected
             _infoPanelView = infoPanelView;
         }
 
-        public List<Entity> Entities { get; private set; } = new();
-
-        public void Set(List<Entity> entities)
-        {
-            UnsubscribeFromEntities();
-
-            Entities = entities;
-            UpdateSelectionStatuses();
-            
-            _infoPanelView.SetEntities(Entities);
-
-            SubscribeToEntities();
-        }
+        private List<Resource> _resources = new();
+        private List<ResourceChunk> _resourceChunks = new();
 
         public void Set(List<Resource> resources)
         {
-            
+            UnsubscribeFromResources();
+
+            _resources = resources;
+            UpdateResourceSelectionStatuses();
+
+            _infoPanelView.SetResources(resources);
+
+            SubscribeToResources();
         }
         
         public void Set(List<ResourceChunk> resourceChunks)
         {
-            
+            UnsubscribeFromResourceChunks();
+
+            _resourceChunks = resourceChunks;
+            UpdateResourceChunkSelectionStatuses();
+
+            _infoPanelView.SetResourceChunks(resourceChunks);
+
+            SubscribeToResourceChunks();
         }
 
-        public void Set(Entity entity)
+        public void Set(Resource resource)
         {
-            UnsubscribeFromEntities();
+            UnsubscribeFromResources();
 
-            Entities = new List<Entity> { entity };
-            UpdateSelectionStatuses();
-            _infoPanelView.SetEntity(entity);
+            _resources = new List<Resource> { resource };
+            UpdateResourceSelectionStatuses();
 
-            SubscribeToEntities();
+            _infoPanelView.SetResource(resource);
+
+            SubscribeToResources();
+        }
+        
+        public void Set(ResourceChunk resourceChunk)
+        {
+            UnsubscribeFromResourceChunks();
+
+            _resourceChunks = new List<ResourceChunk> { resourceChunk };
+            UpdateResourceChunkSelectionStatuses();
+
+            _infoPanelView.SetResourceChunk(resourceChunk);
+
+            SubscribeToResourceChunks();
         }
 
-        public void Add(Entity entity)
+        public void Add(Resource resource)
         {
-            Entities.Add(entity);
-            UpdateSelectionStatuses();
-            _infoPanelView.SetEntities(Entities);
+            _resources.Add(resource);
+            UpdateResourceSelectionStatuses();
             
-            entity.EntityDestroying += RemoveFromSelected;
+            _infoPanelView.SetResources(_resources);
+
+            resource.ResourceDestroying += RemoveFromSelected;
+        }
+        
+        public void Add(ResourceChunk resourceChunk)
+        {
+            _resourceChunks.Add(resourceChunk);
+            UpdateResourceChunkSelectionStatuses();
+            
+            _infoPanelView.SetResourceChunks(_resourceChunks);
+
+            resourceChunk.ResourceChunkDestroying += RemoveFromSelected;
         }
 
         public void Deselect()
         {
-            UnsubscribeFromEntities();
+            UnsubscribeFromResources();
+            UnsubscribeFromResourceChunks();
 
-            foreach (var entity in Entities)
+            foreach (var resource in _resources)
             {
-                entity.Deselect();
+                resource.Deselect();
             }
 
-            Entities.Clear();
+            foreach (var resourceChunk in _resourceChunks)
+            {
+                resourceChunk.Deselect();
+            }
+
+            _resources.Clear();
+            _resourceChunks.Clear();
         }
         
         public void Destroy()
         {
-            UnsubscribeFromEntities();
+            UnsubscribeFromResources();
+            UnsubscribeFromResourceChunks();
 
-            foreach (var entity in Entities)
+            foreach (var resource in _resources)
             {
-                entity.Destroy();
+                resource.Destroy();
             }
 
-            Entities.Clear();
+            foreach (var resourceChunk in _resourceChunks)
+            {
+                resourceChunk.Destroy();
+            }
+
+            _resources.Clear();
+            _resourceChunks.Clear();
         }
 
-        private void SubscribeToEntities()
+        private void SubscribeToResources()
         {
-            foreach (var entity in Entities)
+            foreach (var resource in _resources)
             {
-                entity.EntityDestroying += RemoveFromSelected;
+                resource.ResourceDestroying += RemoveFromSelected;
+            }
+        }
+        
+        private void SubscribeToResourceChunks()
+        {
+            foreach (var resourceChunk in _resourceChunks)
+            {
+                resourceChunk.ResourceChunkDestroying += RemoveFromSelected;
             }
         }
 
-        private void UnsubscribeFromEntities()
+        private void UnsubscribeFromResources()
         {
-            foreach (var entity in Entities)
+            foreach (var resource in _resources)
             {
-                entity.EntityDestroying -= RemoveFromSelected;
+                resource.ResourceDestroying -= RemoveFromSelected;
+            }
+        }
+        
+        private void UnsubscribeFromResourceChunks()
+        {
+            foreach (var resourceChunk in _resourceChunks)
+            {
+                resourceChunk.ResourceChunkDestroying -= RemoveFromSelected;
             }
         }
 
-        private void RemoveFromSelected(Entity entity)
+        private void UpdateResourceSelectionStatuses()
         {
-            Entities.Remove(entity);
-        }
-
-        private void UpdateSelectionStatuses()
-        {
-            foreach (var entity in Entities)
+            foreach (var resource in _resources)
             {
-                entity.Select();
+                resource.Select();
             }
         }
+        
+        private void UpdateResourceChunkSelectionStatuses()
+        {
+            foreach (var resourceChunk in _resourceChunks)
+            {
+                resourceChunk.Select();
+            }
+        }
+
+        private void RemoveFromSelected(Resource resource)
+        {
+            _resources.Remove(resource);
+        }
+        
+        private void RemoveFromSelected(ResourceChunk resourceChunk)
+        {
+            _resourceChunks.Remove(resourceChunk);
+        }
+
     }
 }

@@ -38,6 +38,7 @@ namespace ResourceManagement
         public ResourceType ResourceType { get; private set; }
         public int Quantity { get; private set; }
         
+        public event Action<ResourceChunk> ResourceChunkDestroying;
         public event Action Destroying;
 
         public void Hover()
@@ -76,6 +77,7 @@ namespace ResourceManagement
         
         public void Destroy()
         {
+            ResourceChunkDestroying?.Invoke(this);
             Destroying?.Invoke();
 
             Destroy(gameObject);

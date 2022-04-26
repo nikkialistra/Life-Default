@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Colonists;
 using Enemies;
 using Entities;
+using Entities.Types;
 using General.Selecting.Selected;
 using Units;
 using Units.Enums;
@@ -190,8 +192,25 @@ namespace General.Selecting
             {
                 if (hit.transform.TryGetComponent(out Entity entity) && entity.Alive)
                 {
-                    _selectedEntities.Set(entity);
+                    SelectByType(entity);
                 }
+            }
+        }
+
+        private void SelectByType(Entity entity)
+        {
+            switch (entity.EntityType)
+            {
+                case EntityType.Resource:
+                    _selectedEntities.Set(entity.Resource);
+                    break;
+                case EntityType.ResourceChunk:
+                    _selectedEntities.Set(entity.ResourceChunk);
+                    break;
+                case EntityType.Building:
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
         }
 

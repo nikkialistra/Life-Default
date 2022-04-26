@@ -70,14 +70,14 @@ namespace UI.Game.GameLook.Components
             
         }
 
-        public void SetEntities(List<Entity> entities)
+        public void SetResources(List<Resource> resources)
         {
             
         }
 
-        private bool NotShowingEntityInfo()
+        public void SetResourceChunks(List<ResourceChunk> resourceChunks)
         {
-            return _shownResource == null && _shownResourceChunk == null;
+            
         }
 
         public void SetColonist(Colonist colonist)
@@ -92,9 +92,18 @@ namespace UI.Game.GameLook.Components
             
         }
 
-        public void SetEntity(Entity entity)
+        public void SetResource(Resource resource)
         {
-            
+            PrepareEmptyPanel();
+            _shownResource = resource;
+            ShowResourceInfo();
+        }
+        
+        public void SetResourceChunk(ResourceChunk resourceChunk)
+        {
+            PrepareEmptyPanel();
+            _shownResourceChunk = resourceChunk;
+            ShowResourceChunkInfo();
         }
 
         public void UnsetColonist(Colonist colonist)
@@ -107,11 +116,9 @@ namespace UI.Game.GameLook.Components
             }
         }
 
-        public void SetResource(Resource resource)
+        public void UnsetEnemy(Enemy enemy)
         {
-            PrepareEmptyPanel();
-            _shownResource = resource;
-            ShowResourceInfo();
+            
         }
 
         public void UnsetResource(Resource resource)
@@ -124,13 +131,6 @@ namespace UI.Game.GameLook.Components
             }
         }
 
-        public void SetResourceChunk(ResourceChunk resourceChunk)
-        {
-            PrepareEmptyPanel();
-            _shownResourceChunk = resourceChunk;
-            ShowResourceChunkInfo();
-        }
-
         public void UnsetResourceChunk(ResourceChunk resourceChunk)
         {
             if (_shownResourceChunk == resourceChunk)
@@ -139,6 +139,11 @@ namespace UI.Game.GameLook.Components
                 _entityInfoView.HideSelf();
                 HideSelf();
             }
+        }
+
+        private bool NotShowingEntityInfo()
+        {
+            return _shownResource == null && _shownResourceChunk == null;
         }
 
         private void ShowColonistInfo()

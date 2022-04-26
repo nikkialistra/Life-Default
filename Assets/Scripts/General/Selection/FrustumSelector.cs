@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using pointcache.Frustum;
 using UnityEngine;
 
@@ -8,12 +10,9 @@ namespace General.Selection
     [RequireComponent(typeof(FrustumMeshCollider))]
     public class FrustumSelector : FrustumCamera
     {
+        private readonly HashSet<Collider> _selectionHashSet = new();
+
         private FrustumMeshCollider _frustumMeshCollider;
-        
-        private void Reset() {
-            m_config.UseExtents = true;
-            m_config.SplitMeshVerts = false;
-        }
 
         protected override void Awake() {
             base.Awake();
@@ -23,8 +22,17 @@ namespace General.Selection
             m_config.Active = false;
         }
 
+        public event Action<List<Collider>> Selected; 
+
+        private void Reset() {
+            m_config.UseExtents = true;
+            m_config.SplitMeshVerts = false;
+        }
+
         public void Select(Rect rect)
         {
+            _selectionHashSet.Clear();
+            
             var leftBottomAngle = new Vector2(rect.xMin / Screen.width, rect.yMin / Screen.height);
             var rightUpAngle = new Vector2(rect.xMax / Screen.width, rect.yMax / Screen.height);
 
@@ -42,11 +50,13 @@ namespace General.Selection
             yield return null;
 
             m_config.Active = false;
+            
+            Selected?.Invoke(_selectionHashSet.ToList());
         }
 
         private void OnTriggerEnter(Collider other)
         {
-            
+            _selectionHashSet.Add(other);
         }
     }
 }

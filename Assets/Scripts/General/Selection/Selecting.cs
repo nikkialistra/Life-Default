@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Colonists;
-using Colonists.Services;
 using Enemies;
 using Entities;
 using General.Selection.Selected;
-using pointcache.Frustum;
+using Units;
+using Units.Enums;
 using UnityEngine;
 using Zenject;
 
@@ -13,7 +12,6 @@ namespace General.Selection
 {
     public class Selecting : MonoBehaviour
     {
-        private ColonistRepository _colonistRepository;
         private Camera _camera;
 
         private readonly List<Colonist> _colonists = new();
@@ -26,10 +24,9 @@ namespace General.Selection
         private FrustumSelector _frustumSelector;
 
         [Inject]
-        public void Construct(ColonistRepository colonistRepository, Camera camera, FrustumSelector frustumSelector,
+        public void Construct(Camera camera, FrustumSelector frustumSelector,
             SelectedColonists selectedColonists, SelectedEnemies selectedEnemies, SelectedEntities selectedEntities)
         {
-            _colonistRepository = colonistRepository;
             _camera = camera;
             _frustumSelector = frustumSelector;
 
@@ -40,24 +37,19 @@ namespace General.Selection
 
         private void OnEnable()
         {
-            
+            _frustumSelector.Selected += OnSelected;
         }
 
         private void OnDisable()
         {
-            
+            _frustumSelector.Selected -= OnSelected;
         }
 
         public void SelectFromRect(Rect rect)
         {
             ClearAll();
 
-            if (TrySelectColonistsFromRect(rect))
-            {
-                _selectedColonists.Set(_colonists);
-            }
-
-            TrySelectEntitiesFromRect(rect);
+            _frustumSelector.Select(rect);
         }
 
         public void SelectFromPoint(Vector2 point)
@@ -66,42 +58,64 @@ namespace General.Selection
 
             if (TrySelectColonistsFromPoint(point))
             {
+                return;
+            }
+
+            if (TrySelectEnemiesFromPoint(point))
+            {
+                return;
+            }
+
+            SelectEntitiesFromPoint(point);
+        }
+
+        private void OnSelected(List<Collider> colliders)
+        {
+            GetSelectedByType(colliders);
+
+            if (_colonists.Count > 0)
+            {
                 _selectedColonists.Set(_colonists);
+                return;
+            }
+
+            if (_enemies.Count > 0)
+            {
+                _selectedEnemies.Set(_enemies);
+                return;
+            }
+
+            if (_entities.Count > 0)
+            {
+                _selectedEntities.Set(_entities);
             }
         }
 
-        private void Select(Collider collider)
+        private void GetSelectedByType(List<Collider> colliders)
         {
-            Debug.Log(collider);
-        }
+            _colonists.Clear();
+            _enemies.Clear();
+            _entities.Clear();
 
-        private void Deselect(Collider collider)
-        {
-            Debug.Log("-" + collider);
-        }
-
-        private bool TrySelectColonistsFromRect(Rect rect)
-        {
-            var allColonists = _colonistRepository.GetColonists();
-
-            foreach (var colonist in allColonists)
+            foreach (var collider in colliders)
             {
-                var screenPoint = _camera.WorldToScreenPoint(colonist.Center);
-
-                if (rect.Contains(screenPoint))
+                if (collider.TryGetComponent(out Unit unit))
                 {
-                    _colonists.Add(colonist);
+                    if (unit.Fraction == Fraction.Colonists)
+                    {
+                        _colonists.Add(unit.Colonist);
+                    }
+                    else
+                    {
+                        _enemies.Add(unit.Enemy);
+                    }
+                }
+
+                if (collider.TryGetComponent(out Entity entity))
+                {
+                    _entities.Add(entity);
                 }
             }
-
-            return _colonists.Count > 0;
-        }
-        
-        private bool TrySelectEntitiesFromRect(Rect rect)
-        {
-            _frustumSelector.Select(rect);
-            
-            return true;
         }
 
         private bool TrySelectColonistsFromPoint(Vector2 point)
@@ -112,7 +126,7 @@ namespace General.Selection
             {
                 if (hit.transform.TryGetComponent(out Colonist colonist) && colonist.Alive)
                 {
-                    _colonists.Add(colonist);
+                    _selectedColonists.Set(colonist);
                     return true;
                 }
             }
@@ -120,15 +134,40 @@ namespace General.Selection
             return false;
         }
 
+        private bool TrySelectEnemiesFromPoint(Vector2 point)
+        {
+            var ray = _camera.ScreenPointToRay(point);
+
+            if (Physics.Raycast(ray, out var hit))
+            {
+                if (hit.transform.TryGetComponent(out Enemy enemy) && enemy.Alive)
+                {
+                    _selectedEnemies.Set(enemy);
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        private void SelectEntitiesFromPoint(Vector2 point)
+        {
+            var ray = _camera.ScreenPointToRay(point);
+
+            if (Physics.Raycast(ray, out var hit))
+            {
+                if (hit.transform.TryGetComponent(out Entity entity) && entity.Alive)
+                {
+                    _selectedEntities.Set(entity);
+                }
+            }
+        }
+
         private void ClearAll()
         {
             _selectedColonists.Clear();
             _selectedEnemies.Clear();
             _selectedEntities.Clear();
-
-            _colonists.Clear();
-            _enemies.Clear();
-            _entities.Clear();
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections;
 using General;
-using General.Selection;
+using General.Selecting;
 using Sirenix.OdinInspector;
 using Units.Ancillaries;
 using Units.Interfaces;
@@ -24,7 +24,7 @@ namespace Units
         
         private Coroutine _hoveringCoroutine;
         
-        private SelectionInput _selectionInput;
+        private SelectingInput _selectingInput;
 
         public event Action Selected;
         public event Action Deselected;

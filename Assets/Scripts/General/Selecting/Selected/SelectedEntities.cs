@@ -2,7 +2,7 @@
 using Entities;
 using UI.Game.GameLook.Components;
 
-namespace General.Selection.Selected
+namespace General.Selecting.Selected
 {
     public class SelectedEntities
     {
@@ -44,7 +44,7 @@ namespace General.Selection.Selected
             UpdateSelectionStatuses();
             _infoPanelView.SetEntities(Entities);
             
-            entity.EntityDie += RemoveFromSelected;
+            entity.EntityDestroying += RemoveFromSelected;
         }
 
         public void Deselect()
@@ -65,7 +65,7 @@ namespace General.Selection.Selected
 
             foreach (var entity in Entities)
             {
-                entity.Die();
+                entity.Destroy();
             }
 
             Entities.Clear();
@@ -75,7 +75,7 @@ namespace General.Selection.Selected
         {
             foreach (var entity in Entities)
             {
-                entity.EntityDie += RemoveFromSelected;
+                entity.EntityDestroying += RemoveFromSelected;
             }
         }
 
@@ -83,7 +83,7 @@ namespace General.Selection.Selected
         {
             foreach (var entity in Entities)
             {
-                entity.EntityDie -= RemoveFromSelected;
+                entity.EntityDestroying -= RemoveFromSelected;
             }
         }
 

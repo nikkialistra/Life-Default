@@ -1,8 +1,8 @@
 ﻿using System;
 using ColonistManagement.Targeting.Formations;
 using Colonists.Services.Selecting;
-using General.Selection;
-using General.Selection.Selected;
+using General.Selecting;
+using General.Selecting.Selected;
 using UI;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -18,7 +18,7 @@ namespace ColonistManagement.Movement
         private MovementInput _movementInput;
 
         private SelectedColonists _selectedColonists;
-        private SelectionInput _selectionInput;
+        private SelectingInput _selectingInput;
 
         private GameCursors _gameCursors;
 
@@ -33,12 +33,12 @@ namespace ColonistManagement.Movement
         private InputAction _cancelAction;
 
         [Inject]
-        public void Construct(PlayerInput playerInput, SelectedColonists selectedColonists, SelectionInput selectionInput,
+        public void Construct(PlayerInput playerInput, SelectedColonists selectedColonists, SelectingInput selectingInput,
             GameCursors gameCursors)
         {
             _playerInput = playerInput;
             _selectedColonists = selectedColonists;
-            _selectionInput = selectionInput;
+            _selectingInput = selectingInput;
             _gameCursors = gameCursors;
         }
 
@@ -163,7 +163,7 @@ namespace ColonistManagement.Movement
 
         private void PauseAnotherInput()
         {
-            _selectionInput.Deactivated = true;
+            _selectingInput.Deactivated = true;
             _movementInput.UnsubscribeFromActions();
         }
 
@@ -224,7 +224,7 @@ namespace ColonistManagement.Movement
 
         private void ResumeAnotherInput()
         {
-            _selectionInput.Deactivated = false;
+            _selectingInput.Deactivated = false;
             _movementInput.SubscribeToActions();
             _gameCursors.SetDefaultCursor();
         }

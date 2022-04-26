@@ -3,7 +3,7 @@ using System.Collections;
 using Colonists;
 using DG.Tweening;
 using General.Map;
-using General.Selection;
+using General.Selecting;
 using Saving;
 using Sirenix.OdinInspector;
 using UniRx;
@@ -100,7 +100,7 @@ namespace General
 
         private Coroutine _focusingCoroutine;
 
-        private SelectionInput _selectionInput;
+        private SelectingInput _selectingInput;
 
         private Vector3 _originPositionCorrection;
         
@@ -117,12 +117,12 @@ namespace General
         private InputAction _toggleCameraMovementAction;
 
         [Inject]
-        public void Construct(bool isSetUpSession, MapInitialization mapInitialization, GameSettings gameSettings, SelectionInput selectionInput, PlayerInput playerInput)
+        public void Construct(bool isSetUpSession, MapInitialization mapInitialization, GameSettings gameSettings, SelectingInput selectingInput, PlayerInput playerInput)
         {
             _mapInitialization = mapInitialization;
 
             _gameSettings = gameSettings;
-            _selectionInput = selectionInput;
+            _selectingInput = selectingInput;
             _playerInput = playerInput;
         }
 
@@ -147,16 +147,16 @@ namespace General
         {
             _toggleCameraMovementAction.started += ToggleCameraMovement;
 
-            _selectionInput.Selecting += OnSelecting;
-            _selectionInput.SelectingEnd += OnSelectingEnd;
+            _selectingInput.Selecting += OnSelecting;
+            _selectingInput.SelectingEnd += OnSelectingEnd;
         }
 
         private void OnDisable()
         {
             _toggleCameraMovementAction.started -= ToggleCameraMovement;
             
-            _selectionInput.Selecting -= OnSelecting;
-            _selectionInput.SelectingEnd -= OnSelectingEnd;
+            _selectingInput.Selecting -= OnSelecting;
+            _selectingInput.SelectingEnd -= OnSelectingEnd;
         }
 
         private void Start()

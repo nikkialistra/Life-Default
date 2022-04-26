@@ -2,8 +2,8 @@
 using Entities.Services;
 using General;
 using General.Map;
-using General.Selection;
-using General.Selection.Selected;
+using General.Selecting;
+using General.Selecting.Selected;
 using General.TemperatureRegulation;
 using General.TileManagement.Tiles;
 using General.TimeCycle.Days;
@@ -32,11 +32,11 @@ namespace Infrastructure
         [Required]
         [SerializeField] private FrustumSelector _frustumSelector;
         [Required]
-        [SerializeField] private Selecting _selecting;
+        [SerializeField] private Selection _selection;
         [Required]
-        [SerializeField] private SelectionOperation _selectionOperation;
+        [SerializeField] private SelectingOperation _selectingOperation;
         [Required]
-        [SerializeField] private SelectionInput _selectionInput;
+        [SerializeField] private SelectingInput _selectingInput;
         [Required]
         [SerializeField] private ColonistChoosing _colonistChoosing;
 
@@ -121,14 +121,14 @@ namespace Infrastructure
         private void BindSelection()
         {
             Container.BindInstance(_frustumSelector).AsSingle();
-            Container.BindInstance(_selecting).AsSingle();
+            Container.BindInstance(_selection).AsSingle();
             
             Container.Bind<SelectedColonists>().AsSingle();
             Container.Bind<SelectedEnemies>().AsSingle();
             Container.Bind<SelectedEntities>().AsSingle();
             
-            Container.BindInstance(_selectionOperation);
-            Container.BindInstance(_selectionInput);
+            Container.BindInstance(_selectingOperation);
+            Container.BindInstance(_selectingInput);
             Container.BindInstance(_colonistChoosing);
         }
 

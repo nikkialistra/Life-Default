@@ -65,8 +65,6 @@ namespace Colonists
         public event Action<Colonist> ColonistDying;
         
         public event Action<string> NameChange;
-        
-        public event Action<Colonist> DestinationReach;
 
         public Unit Unit => _unit;
 
@@ -96,16 +94,12 @@ namespace Colonists
         {
             _unit.HealthChange += OnHealthChange;
             _unit.Dying += OnDying;
-            
-            _meshAgent.DestinationReach += OnDestinationReach;
         }
 
         private void OnDisable()
         {
             _unit.HealthChange -= OnHealthChange;
             _unit.Dying -= OnDying;
-            
-            _meshAgent.DestinationReach -= OnDestinationReach;
         }
 
         public void SetAt(Vector3 position)
@@ -232,11 +226,6 @@ namespace Colonists
         private void DestroySelf()
         {
             Destroy(gameObject);
-        }
-
-        private void OnDestinationReach()
-        {
-            DestinationReach?.Invoke(this);
         }
 
         private void OnHealthChange()

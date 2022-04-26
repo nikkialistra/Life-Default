@@ -5,10 +5,10 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using Zenject;
 
-namespace General.Selection
+namespace General.Selecting
 {
     [RequireComponent(typeof(UIDocument))]
-    public class SelectionDisplaying : MonoBehaviour
+    public class SelectingAreaDisplaying : MonoBehaviour
     {
         private UIDocument _uiDocument;
 

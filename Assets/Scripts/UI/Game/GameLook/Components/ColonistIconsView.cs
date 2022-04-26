@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using Colonists;
 using Colonists.Services;
 using Colonists.Services.Selecting;
-using General.Selection;
-using General.Selection.Selected;
+using General.Selecting;
+using General.Selecting.Selected;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
@@ -32,17 +32,17 @@ namespace UI.Game.GameLook.Components
 
         private ColonistRepository _colonistRepository;
         private SelectedColonists _selectedColonists;
-        private SelectionInput _selectionInput;
-        private SelectionOperation _selectionOperation;
+        private SelectingInput _selectingInput;
+        private SelectingOperation _selectingOperation;
 
         [Inject]
         public void Construct(ColonistRepository colonistRepository, SelectedColonists selectedColonists,
-            SelectionInput selectionInput, SelectionOperation selectionOperation)
+            SelectingInput selectingInput, SelectingOperation selectingOperation)
         {
             _colonistRepository = colonistRepository;
             _selectedColonists = selectedColonists;
-            _selectionInput = selectionInput;
-            _selectionOperation = selectionOperation;
+            _selectingInput = selectingInput;
+            _selectingOperation = selectingOperation;
         }
 
         private void Awake()
@@ -70,7 +70,7 @@ namespace UI.Game.GameLook.Components
 
             _selectedColonists.SelectionChange += UpdateOutlines;
             
-            _selectionInput.SelectingEnd += Select;
+            _selectingInput.SelectingEnd += Select;
         }
 
         private void OnDisable()
@@ -80,7 +80,7 @@ namespace UI.Game.GameLook.Components
 
             _selectedColonists.SelectionChange -= UpdateOutlines;
             
-            _selectionInput.SelectingEnd -= Select;
+            _selectingInput.SelectingEnd -= Select;
         }
 
         private void Add(Colonist colonist)
@@ -167,7 +167,7 @@ namespace UI.Game.GameLook.Components
             if (colonists.Count != 0)
             {
                 _selectedColonists.Set(colonists);
-                _selectionOperation.CancelSelection();
+                _selectingOperation.CancelSelecting();
             }
         }
 

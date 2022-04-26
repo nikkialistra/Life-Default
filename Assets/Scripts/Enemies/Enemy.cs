@@ -67,7 +67,7 @@ namespace Enemies
 
         private void OnEnable()
         {
-            _unit.Dying += Dying;
+            _unit.Dying += OnDying;
 
             _unitSelection.Selected += Select;
             _unitSelection.Deselected += Deselect;
@@ -75,7 +75,7 @@ namespace Enemies
 
         private void OnDisable()
         {
-            _unit.Dying += Dying;
+            _unit.Dying += OnDying;
             
             _unitSelection.Selected -= Select;
             _unitSelection.Deselected -= Deselect;
@@ -132,13 +132,15 @@ namespace Enemies
 
         public void Die()
         {
-            
+            _unit.Die();
         }
 
-        private void Dying()
+        private void OnDying()
         {
             _meshAgent.Deactivate();
             _behavior.Disable();
+            
+            Deselect();
 
             EnemyDie?.Invoke(this);
             

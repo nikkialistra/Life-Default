@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6824242135840702462}
   - component: {fileID: 2433378420032465073}
   - component: {fileID: 7573644642917869891}
+  - component: {fileID: 5403411496833907997}
   - component: {fileID: 1308853072467062651}
   - component: {fileID: 4375246314743777900}
   m_Layer: 18
@@ -66,6 +67,22 @@ CapsuleCollider:
   m_Height: 0.5
   m_Direction: 2
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &5403411496833907997
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6824242135840702457}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05801dcd7dd44c819b53a6357ea5aeb6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _entityType: 1
+  _resource: {fileID: 0}
+  _resourceChunk: {fileID: 1308853072467062651}
+  _building: {fileID: 0}
 --- !u!114 &1308853072467062651
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -94,8 +111,6 @@ MonoBehaviour:
   _renderer: {fileID: 6838248524190276788}
   _materialIndex: 0
   _propertyName: _EmissionColor
-  _timeToHideHover: 0.05
-  _timeToHideSelection: 0.12
   _hoverColor: {r: 0.05882353, g: 0.05882353, b: 0.05882353, a: 0}
   _selectionColor: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 0}
 --- !u!1001 &6824242134832799648

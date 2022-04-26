@@ -5,7 +5,7 @@ using System.Linq;
 using pointcache.Frustum;
 using UnityEngine;
 
-namespace General.Selection
+namespace General.Selecting
 {
     [RequireComponent(typeof(FrustumMeshCollider))]
     public class FrustumSelector : FrustumCamera

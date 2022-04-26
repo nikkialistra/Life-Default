@@ -7,9 +7,9 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Zenject;
 
-namespace General.Selection
+namespace General.Selecting
 {
-    public class SelectionInput : MonoBehaviour
+    public class SelectingInput : MonoBehaviour
     {
         private Vector2? _startPoint;
         private bool _updatingArea;

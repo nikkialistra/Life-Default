@@ -3,6 +3,7 @@
     public enum EntityType
     {
         Resource,
+        ResourceChunk,
         Building
     }
 }

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2329794156502015674}
   - component: {fileID: 8262331335233413926}
   - component: {fileID: 6564041706696799587}
+  - component: {fileID: 6798829254415496647}
   - component: {fileID: 7174990515432653596}
   - component: {fileID: 6868580433677827065}
   m_Layer: 18
@@ -65,6 +66,22 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.25
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &6798829254415496647
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2329794156502015675}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05801dcd7dd44c819b53a6357ea5aeb6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _entityType: 1
+  _resource: {fileID: 0}
+  _resourceChunk: {fileID: 7174990515432653596}
+  _building: {fileID: 0}
 --- !u!114 &7174990515432653596
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -78,8 +95,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _name: Stone
-  _minScale: 0.9
-  _maxScale: 1.1
 --- !u!114 &6868580433677827065
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -95,8 +110,6 @@ MonoBehaviour:
   _renderer: {fileID: 2307800143394177987}
   _materialIndex: 0
   _propertyName: _EmissionColor
-  _timeToHideHover: 0.05
-  _timeToHideSelection: 0.12
   _hoverColor: {r: 0.05882353, g: 0.05882353, b: 0.05882353, a: 0}
   _selectionColor: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 0}
 --- !u!1001 &2329794157149756095

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using Entities;
 using Entities.Interfaces;
 using UI.Game.GameLook.Components;
@@ -22,10 +23,6 @@ namespace ResourceManagement
             _entitySelection = GetComponent<EntitySelection>();
             _rigidbody = GetComponent<Rigidbody>();
         }
-
-        public string Name => _name;
-        public ResourceType ResourceType { get; private set; }
-        public int Quantity { get; private set; }
         
         public void Initialize(ResourceType resourceType, int quantity, float sizeMultiplier, InfoPanelView infoPanelView)
         {
@@ -36,6 +33,12 @@ namespace ResourceManagement
 
             transform.localScale *= sizeMultiplier;
         }
+
+        public string Name => _name;
+        public ResourceType ResourceType { get; private set; }
+        public int Quantity { get; private set; }
+        
+        public event Action Destroying;
 
         public void Hover()
         {
@@ -69,6 +72,13 @@ namespace ResourceManagement
             _rigidbody.velocity = randomForce;
             
             StartCoroutine(FreezeAfter(timeToFreeze));
+        }
+        
+        public void Destroy()
+        {
+            Destroying?.Invoke();
+
+            Destroy(gameObject);
         }
 
         private IEnumerator FreezeAfter(float timeToFreeze)

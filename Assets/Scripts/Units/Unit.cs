@@ -55,13 +55,13 @@ namespace Units
         private void OnEnable()
         {
             Vitality.HealthChange += OnHealthChange;
-            Vitality.Wasted += Die;
+            Vitality.Wasted += OnWasted;
         }
 
         private void OnDisable()
         {
             Vitality.HealthChange -= OnHealthChange;
-            Vitality.Wasted -= Die;
+            Vitality.Wasted -= OnWasted;
         }
 
         public void Initialize()
@@ -106,6 +106,11 @@ namespace Units
                 return;
             }
             
+            Vitality.TakeDamage(10000f);
+        }
+
+        private void OnWasted()
+        {
             _died = true;
 
             Dying?.Invoke();

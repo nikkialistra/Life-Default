@@ -74,7 +74,7 @@ namespace ResourceManagement
             _resourceChunkScattering = GetComponent<ResourceChunkScattering>();
         }
         
-        public event Action Die;
+        public event Action Destroying;
 
         public event Action QuantityChange;
         public event Action DurabilityChange;
@@ -210,9 +210,9 @@ namespace ResourceManagement
             return Random.Range(_minExtractedQuantityForDrop, _maxExtractedQuantityForDrop + 1);
         }
 
-        private void Destroy()
+        public void Destroy()
         {
-            Die?.Invoke();
+            Destroying?.Invoke();
             
             AstarPath.active.UpdateGraphs(_collider.bounds);
 

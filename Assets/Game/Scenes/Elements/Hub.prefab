@@ -819,7 +819,7 @@ GameObject:
   - component: {fileID: 3020716833915882545}
   - component: {fileID: 3020716833915882544}
   m_Layer: 0
-  m_Name: Selection
+  m_Name: Selecting
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1281,9 +1281,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isSetUpSession: 0
   _frustumSelector: {fileID: 0}
-  _selecting: {fileID: 6708393955948023877}
-  _selectionOperation: {fileID: 3020716833915882545}
-  _selectionInput: {fileID: 3020716833322729911}
+  _selection: {fileID: 6708393955948023877}
+  _selectingOperation: {fileID: 3020716833915882545}
+  _selectingInput: {fileID: 3020716833322729911}
   _colonistChoosing: {fileID: 3020716834731429881}
   _tickingRegulator: {fileID: 3020716833599595703}
   _timeToggling: {fileID: 3020716834492469547}

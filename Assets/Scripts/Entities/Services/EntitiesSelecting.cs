@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 using Entities.Interfaces;
-using General.Selection;
+using General.Selecting;
 using UI.Game;
 using UI.Menus.Primary;
 using UnityEngine;
@@ -25,7 +25,7 @@ namespace Entities.Services
         
         private bool _canSelect = true;
 
-        private SelectionInput _selectionInput;
+        private SelectingInput _selectingInput;
         private GameViews _gameViews;
         private GameMenuToggle _gameMenuToggle;
 
@@ -35,13 +35,13 @@ namespace Entities.Services
         private InputAction _selectAction;
 
         [Inject]
-        public void Construct(Camera camera, GameViews gameViews, SelectionInput selectionInput,
+        public void Construct(Camera camera, GameViews gameViews, SelectingInput selectingInput,
             GameMenuToggle gameMenuToggle, PlayerInput playerInput)
         {
             _camera = camera;
 
             _gameViews = gameViews;
-            _selectionInput = selectionInput;
+            _selectingInput = selectingInput;
             _gameMenuToggle = gameMenuToggle;
             
             _playerInput = playerInput;
@@ -60,8 +60,8 @@ namespace Entities.Services
             _gameMenuToggle.GamePause += StopHovering;
             _gameMenuToggle.GameResume += StartHovering;
             
-            _selectionInput.SelectingArea += OnSelectingArea;
-            _selectionInput.SelectingEnd += OnSelectingEnd;
+            _selectingInput.SelectingArea += OnSelectingArea;
+            _selectingInput.SelectingEnd += OnSelectingEnd;
 
             _selectAction.canceled += OnSelect;
         }
@@ -71,8 +71,8 @@ namespace Entities.Services
             _gameMenuToggle.GamePause -= StopHovering;
             _gameMenuToggle.GameResume -= StartHovering;
             
-            _selectionInput.SelectingArea -= OnSelectingArea;
-            _selectionInput.SelectingEnd -= OnSelectingEnd;
+            _selectingInput.SelectingArea -= OnSelectingArea;
+            _selectingInput.SelectingEnd -= OnSelectingEnd;
 
             _selectAction.canceled -= OnSelect;
         }

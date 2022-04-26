@@ -2,7 +2,7 @@
 using Enemies;
 using UI.Game.GameLook.Components;
 
-namespace General.Selection.Selected
+namespace General.Selecting.Selected
 {
     public class SelectedEnemies
     {

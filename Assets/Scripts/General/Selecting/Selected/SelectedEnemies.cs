@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Enemies;
 using UI.Game.GameLook.Components;
+using UI.Game.GameLook.Components.Info;
 
 namespace General.Selecting.Selected
 {

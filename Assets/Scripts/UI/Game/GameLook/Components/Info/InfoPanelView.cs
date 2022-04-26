@@ -1,17 +1,18 @@
 ﻿using System.Collections.Generic;
 using Colonists;
 using Enemies;
-using Entities;
 using ResourceManagement;
-using UI.Game.GameLook.Components.ColonistInfo;
+using UI.Game.GameLook.Components.Info.ColonistInfo;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace UI.Game.GameLook.Components
+namespace UI.Game.GameLook.Components.Info
 {
     [RequireComponent(typeof(ColonistInfoView))]
     [RequireComponent(typeof(ColonistsInfoView))]
-    [RequireComponent(typeof(EntityInfoView))]
+    [RequireComponent(typeof(EnemyInfoView))]
+    [RequireComponent(typeof(ResourceInfoView))]
+    [RequireComponent(typeof(ResourceChunkInfoView))]
     [RequireComponent(typeof(CommandsView))]
     public class InfoPanelView : MonoBehaviour
     {
@@ -19,9 +20,12 @@ namespace UI.Game.GameLook.Components
 
         private ColonistInfoView _colonistInfoView;
         private ColonistsInfoView _colonistsInfoView;
-        private EntityInfoView _entityInfoView;
+        private EnemyInfoView _enemyInfoView;
+        private ResourceInfoView _resourceInfoView;
+        private ResourceChunkInfoView _resourceChunkInfoView;
 
         private Colonist _shownColonist;
+        private Enemy _shownEnemy;
         private Resource _shownResource;
         private ResourceChunk _shownResourceChunk;
 
@@ -29,7 +33,9 @@ namespace UI.Game.GameLook.Components
         {
             _colonistInfoView = GetComponent<ColonistInfoView>();
             _colonistsInfoView = GetComponent<ColonistsInfoView>();
-            _entityInfoView = GetComponent<EntityInfoView>();
+            _enemyInfoView = GetComponent<EnemyInfoView>();
+            _resourceInfoView = GetComponent<ResourceInfoView>();
+            _resourceChunkInfoView = GetComponent<ResourceChunkInfoView>();
 
             Tree = _asset.CloneTree();
 
@@ -67,7 +73,23 @@ namespace UI.Game.GameLook.Components
 
         public void SetEnemies(List<Enemy> enemies)
         {
-            
+            switch (enemies.Count)
+            {
+                case 0:
+                    if (NotShowingEntityInfo())
+                    {
+                        HidePanels();
+                        HideSelf();
+                    }
+                    break;
+                case 1:
+                    SetEnemy(enemies[0]);
+                    break;
+                default:
+                    PrepareEmptyPanel();
+                    ShowEnemiesInfo(enemies.Count);
+                    break;
+            }
         }
 
         public void SetResources(List<Resource> resources)
@@ -89,7 +111,9 @@ namespace UI.Game.GameLook.Components
 
         public void SetEnemy(Enemy enemy)
         {
-            
+            PrepareEmptyPanel();
+            _shownEnemy = enemy;
+            ShowEnemyInfo();
         }
 
         public void SetResource(Resource resource)
@@ -98,7 +122,7 @@ namespace UI.Game.GameLook.Components
             _shownResource = resource;
             ShowResourceInfo();
         }
-        
+
         public void SetResourceChunk(ResourceChunk resourceChunk)
         {
             PrepareEmptyPanel();
@@ -126,7 +150,7 @@ namespace UI.Game.GameLook.Components
             if (_shownResource == resource)
             {
                 _shownResource = null;
-                _entityInfoView.HideSelf();
+                _resourceInfoView.HideSelf();
                 HideSelf();
             }
         }
@@ -136,7 +160,7 @@ namespace UI.Game.GameLook.Components
             if (_shownResourceChunk == resourceChunk)
             {
                 _shownResourceChunk = null;
-                _entityInfoView.HideSelf();
+                _resourceInfoView.HideSelf();
                 HideSelf();
             }
         }
@@ -152,22 +176,33 @@ namespace UI.Game.GameLook.Components
             _colonistInfoView.FillIn(_shownColonist);
         }
 
+        private void ShowEnemyInfo()
+        {
+            _enemyInfoView.ShowSelf();
+            _enemyInfoView.FillIn(_shownEnemy);
+        }
+
         private void ShowColonistsInfo(int count)
         {
             _colonistsInfoView.ShowSelf();
             _colonistsInfoView.SetCount(count);
         }
+        
+        private void ShowEnemiesInfo(int count)
+        {
+            
+        }
 
         private void ShowResourceInfo()
         {
-            _entityInfoView.ShowSelf();
-            _entityInfoView.FillIn(_shownResource);
+            _resourceInfoView.ShowSelf();
+            _resourceInfoView.FillIn(_shownResource);
         }
 
         private void ShowResourceChunkInfo()
         {
-            _entityInfoView.ShowSelf();
-            _entityInfoView.FillIn(_shownResourceChunk);
+            _resourceChunkInfoView.ShowSelf();
+            _resourceChunkInfoView.FillIn(_shownResourceChunk);
         }
 
         private void HideSelf()
@@ -190,14 +225,18 @@ namespace UI.Game.GameLook.Components
         private void UnsetAll()
         {
             _shownColonist = null;
+            _shownEnemy = null;
             _shownResource = null;
+            _shownResourceChunk = null;
         }
 
         private void HidePanels()
         {
             _colonistInfoView.HideSelf();
             _colonistsInfoView.HideSelf();
-            _entityInfoView.HideSelf();
+            _enemyInfoView.HideSelf();
+            _resourceInfoView.HideSelf();
+            _resourceChunkInfoView.HideSelf();
         }
     }
 }

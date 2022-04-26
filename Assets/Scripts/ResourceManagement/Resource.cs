@@ -5,6 +5,7 @@ using General.Map;
 using ResourceManagement.Animations;
 using Sirenix.OdinInspector;
 using UI.Game.GameLook.Components;
+using UI.Game.GameLook.Components.Info;
 using UnityEngine;
 using Zenject;
 using Random = UnityEngine.Random;

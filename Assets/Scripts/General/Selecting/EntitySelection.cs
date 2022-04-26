@@ -60,6 +60,9 @@ namespace General.Selecting
 
         private void FindEntityFrequenciesByInnerType()
         {
+            _resourceCounts.Clear();
+            _resourceChunkCounts.Clear();
+            
             foreach (var resource in _resources)
             {
                 _resourceCounts.TryGetValue(resource.ResourceType, out var count);

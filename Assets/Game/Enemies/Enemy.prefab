@@ -15,7 +15,6 @@ GameObject:
   - component: {fileID: 648114809178795117}
   - component: {fileID: 6633013369567803270}
   - component: {fileID: 6716084818144742275}
-  - component: {fileID: 1036043928785350050}
   - component: {fileID: 889070029107378900}
   - component: {fileID: 9005558398283325450}
   - component: {fileID: 3020886004222341295}
@@ -228,21 +227,6 @@ MonoBehaviour:
   bezierTangentLength: 0.4
   offset: 0.2
   factor: 0.1
---- !u!114 &1036043928785350050
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4193433063631040808}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 05801dcd7dd44c819b53a6357ea5aeb6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _entityType: 1
-  _resource: {fileID: 0}
-  _building: {fileID: 0}
 --- !u!114 &889070029107378900
 MonoBehaviour:
   m_ObjectHideFlags: 0

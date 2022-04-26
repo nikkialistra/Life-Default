@@ -3,6 +3,7 @@ using System.Collections;
 using Entities;
 using Entities.Interfaces;
 using UI.Game.GameLook.Components;
+using UI.Game.GameLook.Components.Info;
 using UnityEngine;
 
 namespace ResourceManagement

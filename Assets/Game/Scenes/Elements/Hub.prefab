@@ -1543,6 +1543,8 @@ GameObject:
   - component: {fileID: 3020716834402626414}
   - component: {fileID: 3020716834402626413}
   - component: {fileID: 3020716834402626412}
+  - component: {fileID: 2267570043495769242}
+  - component: {fileID: 5652565873012716473}
   m_Layer: 0
   m_Name: Info Panel
   m_TagString: Untagged
@@ -1674,6 +1676,32 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _asset: {fileID: 9197481963319205126, guid: 0cbcbad8c77f85f40a8e6a522673d6d4, type: 3}
+--- !u!114 &2267570043495769242
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3020716834402626418}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e057055c01445f281272aaff99452ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _asset: {fileID: 9197481963319205126, guid: 825e59c2e44c39b498e7669c65e77211, type: 3}
+--- !u!114 &5652565873012716473
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3020716834402626418}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2c08fcee88e4a8584523c506da17153, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _asset: {fileID: 9197481963319205126, guid: 825e59c2e44c39b498e7669c65e77211, type: 3}
 --- !u!1 &3020716834434831714
 GameObject:
   m_ObjectHideFlags: 0

@@ -3,7 +3,7 @@ using System.Linq;
 using ColonistManagement.Statuses;
 using UnityEngine.UIElements;
 
-namespace UI.Game.GameLook.Components.ColonistInfo
+namespace UI.Game.GameLook.Components.Info.ColonistInfo
 {
     public class ColonistStatuses
     {

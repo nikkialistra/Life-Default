@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using Colonists;
 using Colonists.Services.Selecting;
 using General;
 using UnityEngine;
@@ -7,7 +6,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
 using Zenject;
 
-namespace UI.Game.GameLook.Components.ColonistInfo
+namespace UI.Game.GameLook.Components.Info.ColonistInfo
 {
     public class ColonistHeader : MonoBehaviour
     {
@@ -19,7 +18,7 @@ namespace UI.Game.GameLook.Components.ColonistInfo
         private Button _focus;
         private Button _next;
 
-        private Colonist _colonist;
+        private Colonists.Colonist _colonist;
         
         private bool _inputFinished;
 
@@ -58,7 +57,7 @@ namespace UI.Game.GameLook.Components.ColonistInfo
             _name.value = name;
         }
 
-        public void FillInColonist(Colonist colonist)
+        public void FillInColonist(Colonists.Colonist colonist)
         {
             _colonist = colonist;
         }

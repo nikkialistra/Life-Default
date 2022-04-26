@@ -53,10 +53,12 @@ namespace Enemies
             _behavior = GetComponent<EnemyBehavior>();
         }
         
+        public event Action HealthChange;
         public event Action<Enemy> EnemyDie;
         
         public Unit Unit => _unit;
-        
+
+        public string Name => _name;
         public bool Alive => _unit.Alive;
 
         private void Start()
@@ -67,6 +69,7 @@ namespace Enemies
 
         private void OnEnable()
         {
+            _unit.HealthChange += OnHealthChange;
             _unit.Dying += OnDying;
 
             _unitSelection.Selected += Select;
@@ -75,12 +78,13 @@ namespace Enemies
 
         private void OnDisable()
         {
+            _unit.HealthChange -= OnHealthChange;
             _unit.Dying += OnDying;
             
             _unitSelection.Selected -= Select;
             _unitSelection.Deselected -= Deselect;
         }
-        
+
         public void SetAt(Vector3 position)
         {
             transform.position = position;
@@ -156,6 +160,11 @@ namespace Enemies
         private void DestroySelf()
         {
             Destroy(gameObject);
+        }
+
+        private void OnHealthChange()
+        {
+            HealthChange?.Invoke();
         }
 
         public class Factory : PlaceholderFactory<Enemy> { }

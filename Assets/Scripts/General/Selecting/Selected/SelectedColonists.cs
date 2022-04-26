@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Colonists;
 using UI.Game.GameLook.Components;
+using UI.Game.GameLook.Components.Info;
 
 namespace General.Selecting.Selected
 {

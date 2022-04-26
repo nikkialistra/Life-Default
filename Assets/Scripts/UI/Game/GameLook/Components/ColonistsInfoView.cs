@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using UI.Game.GameLook.Components.Info;
+using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace UI.Game.GameLook.Components

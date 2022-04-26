@@ -3,7 +3,7 @@ using Units;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace UI.Game.GameLook.Components.ColonistInfo
+namespace UI.Game.GameLook.Components.Info.ColonistInfo
 {
     public class ColonistIndicators : MonoBehaviour
     {

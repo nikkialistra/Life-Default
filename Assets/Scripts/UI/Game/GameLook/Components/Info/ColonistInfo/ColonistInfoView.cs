@@ -1,10 +1,9 @@
 ﻿using ColonistManagement.Statuses;
-using Colonists;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace UI.Game.GameLook.Components.ColonistInfo
+namespace UI.Game.GameLook.Components.Info.ColonistInfo
 {
     [RequireComponent(typeof(InfoPanelView))]
     [RequireComponent(typeof(ColonistIndicators))]
@@ -17,7 +16,7 @@ namespace UI.Game.GameLook.Components.ColonistInfo
 
         private bool _shown;
 
-        private Colonist _colonist;
+        private Colonists.Colonist _colonist;
         
         private InfoPanelView _parent;
         private TemplateContainer _tree;
@@ -109,7 +108,7 @@ namespace UI.Game.GameLook.Components.ColonistInfo
             _shown = false;
         }
 
-        public void FillIn(Colonist colonist)
+        public void FillIn(Colonists.Colonist colonist)
         {
             FillInPreview(colonist);
             FillInProperties(colonist);
@@ -120,12 +119,12 @@ namespace UI.Game.GameLook.Components.ColonistInfo
             _parent.UnsetColonist(_colonist);
         }
 
-        private void FillInPreview(Colonist colonist)
+        private void FillInPreview(Colonists.Colonist colonist)
         {
             _colonistHeader.FillInName(colonist.Name);
         }
 
-        private void FillInProperties(Colonist colonist)
+        private void FillInProperties(Colonists.Colonist colonist)
         {
             UnsubscribeFromUnit();
             _colonist = colonist;

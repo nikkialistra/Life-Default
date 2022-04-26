@@ -2,7 +2,8 @@
 using UI.Game;
 using UI.Game.GameLook;
 using UI.Game.GameLook.Components;
-using UI.Game.GameLook.Components.ColonistInfo;
+using UI.Game.GameLook.Components.Info;
+using UI.Game.GameLook.Components.Info.ColonistInfo;
 using UI.Menus.Primary;
 using UnityEngine;
 using Zenject;

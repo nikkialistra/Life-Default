@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
-using ResourceManagement;
+using Enemies;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace UI.Game.GameLook.Components
+namespace UI.Game.GameLook.Components.Info
 {
     [RequireComponent(typeof(InfoPanelView))]
-    public class EntityInfoView : MonoBehaviour
+    public class EnemyInfoView : MonoBehaviour
     {
         [SerializeField] private VisualTreeAsset _asset;
 
@@ -19,7 +19,7 @@ namespace UI.Game.GameLook.Components
         private readonly List<Label> _rowNames = new(2);
         private readonly List<Label> _rowValues = new(2);
         
-        private Resource _resource;
+        private Enemy _enemy;
 
         private bool _shown;
 
@@ -49,7 +49,7 @@ namespace UI.Game.GameLook.Components
 
         private void OnDestroy()
         {
-            UnsubscribeFromResource();
+            UnsubscribeFromEnemy();
         }
         
         public void ShowSelf()
@@ -70,72 +70,51 @@ namespace UI.Game.GameLook.Components
                 return;
             }
             
-            UnsubscribeFromResource();
+            UnsubscribeFromEnemy();
             
             _parent.InfoPanel.Remove(_tree);
             _shown = false;
         }
         
-        public void FillIn(Resource resource)
+        public void FillIn(Enemy enemy)
         {
-            UnsubscribeFromResource();
+            UnsubscribeFromEnemy();
             
-            _resource = resource;
+            _enemy = enemy;
             
-            _name.text = $"{resource.Name}";
+            _name.text = $"{enemy.Name}";
 
-            ShowTwoRows();
+            ShowRows();
 
-            FillRow(0, $"{_resource.ResourceType}:", $"~{_resource.Quantity}");
-            FillRow(1, $"Durability:", $"{_resource.Durability}");
+            FillRow(0, "Health:", $"{_enemy.Unit.Vitality.Health}");
+            FillRow(1, "Recovery Speed:", $"{_enemy.Unit.Vitality.RecoverySpeed}");
 
-            SubscribeToResource();
+            SubscribeToEnemy();
         }
 
-        public void FillIn(ResourceChunk resourceChunk)
+        private void SubscribeToEnemy()
         {
-            _name.text = $"{resourceChunk.Name}";
-
-            ShowOneRow();
-            
-            FillRow(0, $"{resourceChunk.ResourceType}:", $"~{resourceChunk.Quantity}");
+            _enemy.HealthChange += UpdateRows;
         }
 
-        private void SubscribeToResource()
+        private void UnsubscribeFromEnemy()
         {
-            _resource.QuantityChange += UpdateFirstRow;
-            _resource.DurabilityChange += UpdateSecondRow;
-        }
-
-        private void UnsubscribeFromResource()
-        {
-            if (_resource != null)
+            if (_enemy != null)
             {
-                _resource.QuantityChange -= UpdateFirstRow;
-                _resource.DurabilityChange -= UpdateSecondRow;
+                _enemy.HealthChange -= UpdateRows;
             }
         }
-        
-        private void ShowOneRow()
-        {
-            _rows[0].style.display = DisplayStyle.Flex;
-            _rows[1].style.display = DisplayStyle.None;
-        }
 
-        private void ShowTwoRows()
+        private void ShowRows()
         {
             _rows[0].style.display = DisplayStyle.Flex;
             _rows[1].style.display = DisplayStyle.Flex;
         }
 
-        private void UpdateFirstRow()
+        private void UpdateRows()
         {
-            _rowValues[0].text = $"~{_resource.Quantity}";
-        }
-
-        private void UpdateSecondRow()
-        {
-            _rowValues[1].text = $"{_resource.Durability}";
+            _rowValues[0].text = $"{_enemy.Unit.Vitality.Health}";
+            _rowValues[0].text = $"{_enemy.Unit.Vitality.RecoverySpeed}";
         }
 
         private void FillRow(int index, string name, string value)

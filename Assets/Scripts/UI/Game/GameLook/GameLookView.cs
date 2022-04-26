@@ -1,6 +1,7 @@
 ﻿using General.TimeCycle.TimeRegulation;
 using Sirenix.OdinInspector;
 using UI.Game.GameLook.Components;
+using UI.Game.GameLook.Components.Info;
 using UnityEngine;
 using UnityEngine.UIElements;
 using Zenject;

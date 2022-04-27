@@ -688,6 +688,7 @@ MonoBehaviour:
     _values:
     - 0.15
     - 0.15
+  _distanceCorrectionFromCenter: 1.85
   _resourceFieldOfView: {fileID: 3861131080668585495}
 --- !u!114 &2721959709741817781
 MonoBehaviour:

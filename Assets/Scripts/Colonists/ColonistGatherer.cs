@@ -20,7 +20,9 @@ namespace Colonists
         
         [ValidateInput(nameof(EveryResourceHasDistanceInteraction))]
         [SerializeField] private ResourceInteractionDistanceDictionary _resourceInteractionDistances;
-        
+
+        [SerializeField] private float _distanceCorrectionFromCenter = 1.85f;
+
         [Space]
         [Required]
         [SerializeField] private FieldOfView _resourceFieldOfView;
@@ -57,7 +59,7 @@ namespace Colonists
         {
             var distance = Vector3.Distance(transform.position, resource.transform.position);
 
-            return distance <= _resourceInteractionDistances[resource.ResourceType];
+            return distance <= _resourceInteractionDistances[resource.ResourceType] + _distanceCorrectionFromCenter;
         }
 
         public void Gather(Resource resource)

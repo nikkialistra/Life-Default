@@ -58,7 +58,7 @@ namespace General.Selecting.Selected
             UpdateSelectionStatuses();
             _infoPanelView.SetEnemies(Enemies);
             
-            enemy.EnemyDie += RemoveFromSelected;
+            enemy.EnemyDying += RemoveFromSelected;
         }
 
         public void Deselect()
@@ -89,7 +89,7 @@ namespace General.Selecting.Selected
         {
             foreach (var enemy in Enemies)
             {
-                enemy.EnemyDie += RemoveFromSelected;
+                enemy.EnemyDying += RemoveFromSelected;
             }
         }
 
@@ -97,7 +97,7 @@ namespace General.Selecting.Selected
         {
             foreach (var enemy in Enemies)
             {
-                enemy.EnemyDie -= RemoveFromSelected;
+                enemy.EnemyDying -= RemoveFromSelected;
             }
         }
 

@@ -54,7 +54,8 @@ namespace Enemies
         }
         
         public event Action HealthChange;
-        public event Action<Enemy> EnemyDie;
+        public event Action<Enemy> EnemyDying;
+        public event Action Dying;
         
         public Unit Unit => _unit;
 
@@ -146,7 +147,8 @@ namespace Enemies
             
             Deselect();
 
-            EnemyDie?.Invoke(this);
+            EnemyDying?.Invoke(this);
+            Dying?.Invoke();
             
             _animator.Die(DestroySelf);
         }

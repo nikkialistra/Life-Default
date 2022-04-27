@@ -9,7 +9,7 @@ using Zenject;
 
 namespace Entities.Services
 {
-    public class EntitiesSelecting : MonoBehaviour
+    public class InteractableHovering : MonoBehaviour
     {
         [SerializeField] private float _hoverRecastingTime = 0.03f;
 
@@ -32,7 +32,6 @@ namespace Entities.Services
         private PlayerInput _playerInput;
 
         private InputAction _mousePositionAction;
-        private InputAction _selectAction;
 
         [Inject]
         public void Construct(Camera camera, GameViews gameViews, SelectingInput selectingInput,
@@ -52,7 +51,6 @@ namespace Entities.Services
             _entitiesMask = LayerMask.GetMask("Colonists", "Enemies", "Buildings", "Resources", "Items");
             
             _mousePositionAction = _playerInput.actions.FindAction("Mouse Position");
-            _selectAction = _playerInput.actions.FindAction("Select");
         }
 
         private void OnEnable()
@@ -62,8 +60,6 @@ namespace Entities.Services
             
             _selectingInput.SelectingArea += OnSelectingArea;
             _selectingInput.SelectingEnd += OnSelectingEnd;
-
-            _selectAction.canceled += OnSelect;
         }
 
         private void OnDisable()
@@ -73,8 +69,6 @@ namespace Entities.Services
             
             _selectingInput.SelectingArea -= OnSelectingArea;
             _selectingInput.SelectingEnd -= OnSelectingEnd;
-
-            _selectAction.canceled -= OnSelect;
         }
 
         private void Start()
@@ -82,13 +76,7 @@ namespace Entities.Services
             _waitPeriod = new WaitForSecondsRealtime(_hoverRecastingTime);
             StartHovering();
         }
-
-        public void DeselectEntity()
-        {
-            _lastEntity?.Deselect();
-            _lastEntity = null;
-        }
-
+        
         private void StartHovering()
         {
             _hoveringCoroutine = StartCoroutine(Hovering());
@@ -105,50 +93,18 @@ namespace Entities.Services
 
         private void OnSelectingArea()
         {
-            StopHovering();
-            BlockSelection();
+            _canSelect = false;
         }
 
         private void OnSelectingEnd(Rect _)
         {
-            StartHovering();
             StartCoroutine(UnblockSelectionAfter());
-        }
-
-        private void BlockSelection()
-        {
-            _canSelect = false;
         }
 
         private IEnumerator UnblockSelectionAfter()
         {
             yield return null;
             _canSelect = true;
-        }
-
-        private void OnSelect(InputAction.CallbackContext context)
-        {
-            if (SpawnKeyIsPressed() || _gameViews.MouseOverUi || !_canSelect)
-            {
-                return;
-            }
-
-            DeselectEntity();
-            
-            if (Raycast(out var hit))
-            {
-                if (hit.transform.TryGetComponent(out ISelectableEntity entity))
-                {
-                    entity.Select();
-
-                    _lastEntity = entity;
-                }
-            }
-        }
-
-        private static bool SpawnKeyIsPressed()
-        {
-            return Keyboard.current.altKey.isPressed || Keyboard.current.ctrlKey.isPressed;
         }
 
         private IEnumerator Hovering()

@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using Colonists;
 using Enemies;
 using Entities;
 using Entities.Types;
 using General.Selecting.Selected;
+using UI.Game.GameLook.Components.Info;
 using Units;
 using Units.Enums;
 using UnityEngine;
@@ -15,25 +15,28 @@ namespace General.Selecting
 {
     public class Selection : MonoBehaviour
     {
-        private Camera _camera;
-
         private readonly List<Colonist> _colonists = new();
         private readonly List<Enemy> _enemies = new();
         private readonly List<Entity> _entities = new();
 
+        private Camera _camera;
+        
+        private FrustumSelector _frustumSelector;
+        private InfoPanelView _infoPanelView;
+        
         private SelectedColonists _selectedColonists;
         private SelectedEnemies _selectedEnemies;
         private SelectedEntities _selectedEntities;
-        private FrustumSelector _frustumSelector;
-        
+
         private EntitySelection _entitySelection;
 
         [Inject]
-        public void Construct(Camera camera, FrustumSelector frustumSelector,
+        public void Construct(Camera camera, FrustumSelector frustumSelector, InfoPanelView infoPanelView,
             SelectedColonists selectedColonists, SelectedEnemies selectedEnemies, SelectedEntities selectedEntities)
         {
             _camera = camera;
             _frustumSelector = frustumSelector;
+            _infoPanelView = infoPanelView;
 
             _selectedColonists = selectedColonists;
             _selectedEnemies = selectedEnemies;
@@ -81,7 +84,12 @@ namespace General.Selecting
                 return;
             }
 
-            SelectEntity(point);
+            if (TrySelectEntity(point))
+            {
+                return;
+            }
+
+            _infoPanelView.Hide();
         }
 
         public void SelectFromPointAdditive(Vector2 point)
@@ -89,14 +97,22 @@ namespace General.Selecting
             if (_selectedColonists.Count > 0)
             {
                 SelectColonistAdditive(point);
+                return;
             }
 
             if (_selectedEnemies.Count > 0)
             {
                 SelectEnemyAdditive(point);
+                return;
             }
 
-            SelectEntityAdditive(point);
+            if (_selectedEntities.Count > 0)
+            {
+                SelectEntityAdditive(point);
+                return;
+            }
+            
+            SelectFromPoint(point);
         }
 
         private void OnSelected(List<Collider> colliders)
@@ -120,7 +136,10 @@ namespace General.Selecting
             if (_entities.Count > 0)
             {
                 _entitySelection.ChooseToSelect(_entities);
+                return;
             }
+            
+            _infoPanelView.Hide();
         }
 
         private void OnAdditiveSelected(List<Collider> colliders)
@@ -148,7 +167,10 @@ namespace General.Selecting
             if (_entities.Count > 0)
             {
                 _entitySelection.ChooseToSelectAdditive(_entities);
+                return;
             }
+            
+            OnSelected(colliders);
         }
 
         private bool NothingSelected()
@@ -238,15 +260,18 @@ namespace General.Selecting
             return false;
         }
 
-        private void SelectEntity(Vector2 point)
+        private bool TrySelectEntity(Vector2 point)
         {
             if (TryRaycastFromCamera(point, out var hit))
             {
                 if (hit.transform.TryGetComponent(out Entity entity) && entity.Alive)
                 {
                     SelectByType(entity);
+                    return true;
                 }
             }
+
+            return false;
         }
 
         private void SelectColonistAdditive(Vector2 point)

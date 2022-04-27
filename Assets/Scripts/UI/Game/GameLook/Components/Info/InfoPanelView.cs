@@ -70,11 +70,6 @@ namespace UI.Game.GameLook.Components.Info
             switch (colonists.Count)
             {
                 case 0:
-                    if (NotShowingEntityInfo())
-                    {
-                        HidePanels();
-                        HideSelf();
-                    }
                     break;
                 case 1:
                     SetColonist(colonists[0]);
@@ -91,11 +86,6 @@ namespace UI.Game.GameLook.Components.Info
             switch (enemies.Count)
             {
                 case 0:
-                    if (NotShowingEntityInfo())
-                    {
-                        HidePanels();
-                        HideSelf();
-                    }
                     break;
                 case 1:
                     SetEnemy(enemies[0]);
@@ -214,6 +204,12 @@ namespace UI.Game.GameLook.Components.Info
             _colonistsInfoView.SetCount(count);
         }
 
+        public void Hide()
+        {
+            HidePanels();
+            HideSelf();
+        }
+
         private void ShowEnemiesInfo(int count)
         {
             _enemiesInfoView.ShowSelf();
@@ -254,11 +250,6 @@ namespace UI.Game.GameLook.Components.Info
         {
             _resourceChunkInfoView.ShowSelf();
             _resourceChunkInfoView.FillIn(_shownResourceChunk);
-        }
-
-        private bool NotShowingEntityInfo()
-        {
-            return _shownResource == null && _shownResourceChunk == null;
         }
 
         private void HideSelf()

@@ -10,7 +10,7 @@ namespace Testing
     public class FieldOfViewToggling : MonoBehaviour
     {
         private SelectedColonists _selectedColonists;
-        private EntitiesSelecting _entitiesSelecting;
+        private InteractableHovering _interactableHovering;
 
         private PlayerInput _playerInput;
         
@@ -18,10 +18,10 @@ namespace Testing
         private InputAction _toggleResourceFieldOfViewAction;
 
         [Inject]
-        public void Construct(SelectedColonists selectedColonists, EntitiesSelecting entitiesSelecting, PlayerInput playerInput)
+        public void Construct(SelectedColonists selectedColonists, InteractableHovering interactableHovering, PlayerInput playerInput)
         {
             _selectedColonists = selectedColonists;
-            _entitiesSelecting = entitiesSelecting;
+            _interactableHovering = interactableHovering;
             
             _playerInput = playerInput;
         }

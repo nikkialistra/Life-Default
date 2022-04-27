@@ -78,7 +78,7 @@ namespace Infrastructure
         
         [Title("Entities")]
         [Required]
-        [SerializeField] private EntitiesSelecting _entitiesSelecting;
+        [SerializeField] private InteractableHovering _interactableHovering;
         [Required]
         [SerializeField] private HumanNames _humanNames;
         [Required]
@@ -164,7 +164,7 @@ namespace Infrastructure
 
         private void BindEntities()
         {
-            Container.BindInstance(_entitiesSelecting);
+            Container.BindInstance(_interactableHovering);
             Container.BindInstance(_humanNames);
             Container.BindInstance(_humanAppearanceRegistry);
         }

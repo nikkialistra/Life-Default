@@ -91,10 +91,16 @@ namespace UI.Game.GameLook.Components.Info
 
             SubscribeToEnemy();
         }
+        
+        private void HidePanel()
+        {
+            _parent.UnsetEnemy(_enemy);
+        }
 
         private void SubscribeToEnemy()
         {
             _enemy.HealthChange += UpdateRows;
+            _enemy.Dying += HidePanel;
         }
 
         private void UnsubscribeFromEnemy()
@@ -102,6 +108,7 @@ namespace UI.Game.GameLook.Components.Info
             if (_enemy != null)
             {
                 _enemy.HealthChange -= UpdateRows;
+                _enemy.Dying -= HidePanel;
             }
         }
 

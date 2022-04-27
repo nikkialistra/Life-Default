@@ -35,7 +35,6 @@ namespace ResourceManagement
         [Required]
         [SerializeField] private Transform _holder;
         [SerializeField] private int _clearDetailsRadius = 15;
-        
 
         [Title("Animations")]
         [SerializeReference] private IAnimations _animations;
@@ -213,6 +212,8 @@ namespace ResourceManagement
 
         public void Destroy()
         {
+            _durability = 0;
+            
             ResourceDestroying?.Invoke(this);
             Destroying?.Invoke();
 

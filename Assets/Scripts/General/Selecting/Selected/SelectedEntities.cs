@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using Entities;
+using Entities.Types;
 using ResourceManagement;
-using UI.Game.GameLook.Components;
 using UI.Game.GameLook.Components.Info;
 
 namespace General.Selecting.Selected
@@ -14,6 +16,8 @@ namespace General.Selecting.Selected
             _infoPanelView = infoPanelView;
         }
 
+        public int Count => _resources.Count + _resourceChunks.Count;
+        
         private List<Resource> _resources = new();
         private List<ResourceChunk> _resourceChunks = new();
 
@@ -34,6 +38,30 @@ namespace General.Selecting.Selected
             UnsubscribeFromResourceChunks();
 
             _resourceChunks = resourceChunks;
+            UpdateResourceChunkSelectionStatuses();
+
+            _infoPanelView.SetResourceChunks(resourceChunks);
+
+            SubscribeToResourceChunks();
+        }
+        
+        public void Add(List<Resource> resources)
+        {
+            UnsubscribeFromResources();
+
+            _resources = _resources.Concat(resources).ToList();
+            UpdateResourceSelectionStatuses();
+
+            _infoPanelView.SetResources(resources);
+
+            SubscribeToResources();
+        }
+        
+        public void Add(List<ResourceChunk> resourceChunks)
+        {
+            UnsubscribeFromResourceChunks();
+
+            _resourceChunks = _resourceChunks.Concat(resourceChunks).ToList();
             UpdateResourceChunkSelectionStatuses();
 
             _infoPanelView.SetResourceChunks(resourceChunks);
@@ -65,7 +93,28 @@ namespace General.Selecting.Selected
             SubscribeToResourceChunks();
         }
 
-        public void Add(Resource resource)
+        public void AddIfSameTypes(Entity entity)
+        {
+            if (_resources.Count > 0)
+            {
+                if (entity.EntityType == EntityType.Resource &&
+                    entity.Resource.ResourceType == _resources[0].ResourceType)
+                {
+                    Add(entity.Resource);
+                }
+            }
+            
+            if (_resourceChunks.Count > 0)
+            {
+                if (entity.EntityType == EntityType.ResourceChunk &&
+                    entity.ResourceChunk.ResourceType == _resourceChunks[0].ResourceType)
+                {
+                    Add(entity.ResourceChunk);
+                }
+            }
+        }
+
+        private void Add(Resource resource)
         {
             _resources.Add(resource);
             UpdateResourceSelectionStatuses();
@@ -74,8 +123,8 @@ namespace General.Selecting.Selected
 
             resource.ResourceDestroying += RemoveFromSelected;
         }
-        
-        public void Add(ResourceChunk resourceChunk)
+
+        private void Add(ResourceChunk resourceChunk)
         {
             _resourceChunks.Add(resourceChunk);
             UpdateResourceChunkSelectionStatuses();
@@ -103,7 +152,7 @@ namespace General.Selecting.Selected
             _resources.Clear();
             _resourceChunks.Clear();
         }
-        
+
         public void Destroy()
         {
             UnsubscribeFromResources();
@@ -130,7 +179,7 @@ namespace General.Selecting.Selected
                 resource.ResourceDestroying += RemoveFromSelected;
             }
         }
-        
+
         private void SubscribeToResourceChunks()
         {
             foreach (var resourceChunk in _resourceChunks)
@@ -146,7 +195,7 @@ namespace General.Selecting.Selected
                 resource.ResourceDestroying -= RemoveFromSelected;
             }
         }
-        
+
         private void UnsubscribeFromResourceChunks()
         {
             foreach (var resourceChunk in _resourceChunks)
@@ -162,7 +211,7 @@ namespace General.Selecting.Selected
                 resource.Select();
             }
         }
-        
+
         private void UpdateResourceChunkSelectionStatuses()
         {
             foreach (var resourceChunk in _resourceChunks)
@@ -175,11 +224,10 @@ namespace General.Selecting.Selected
         {
             _resources.Remove(resource);
         }
-        
+
         private void RemoveFromSelected(ResourceChunk resourceChunk)
         {
             _resourceChunks.Remove(resourceChunk);
         }
-
     }
 }

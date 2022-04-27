@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Enemies;
-using UI.Game.GameLook.Components;
 using UI.Game.GameLook.Components.Info;
 
 namespace General.Selecting.Selected
@@ -15,6 +15,7 @@ namespace General.Selecting.Selected
         }
 
         public List<Enemy> Enemies { get; private set; } = new();
+        public int Count => Enemies.Count;
 
         public void Set(List<Enemy> enemies)
         {
@@ -25,7 +26,19 @@ namespace General.Selecting.Selected
             
             _infoPanelView.SetEnemies(Enemies);
 
-            SubscribeToColonists();
+            SubscribeToEnemies();
+        }
+
+        public void Add(List<Enemy> enemies)
+        {
+            UnsubscribeFromEnemies();
+
+            Enemies = Enemies.Concat(enemies).ToList();
+            UpdateSelectionStatuses();
+            
+            _infoPanelView.SetEnemies(Enemies);
+
+            SubscribeToEnemies();
         }
 
         public void Set(Enemy enemy)
@@ -36,7 +49,7 @@ namespace General.Selecting.Selected
             UpdateSelectionStatuses();
             _infoPanelView.SetEnemy(enemy);
 
-            SubscribeToColonists();
+            SubscribeToEnemies();
         }
 
         public void Add(Enemy enemy)
@@ -59,7 +72,7 @@ namespace General.Selecting.Selected
 
             Enemies.Clear();
         }
-        
+
         public void Destroy()
         {
             UnsubscribeFromEnemies();
@@ -72,7 +85,7 @@ namespace General.Selecting.Selected
             Enemies.Clear();
         }
 
-        private void SubscribeToColonists()
+        private void SubscribeToEnemies()
         {
             foreach (var enemy in Enemies)
             {

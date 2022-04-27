@@ -36,12 +36,14 @@ namespace General.Selecting
         {
             _selectingInput.Selecting += Draw;
             _selectingInput.SelectingEnd += Select;
+            _selectingInput.SelectingEndAdditive += SelectAdditive;
         }
 
         public void OnDisable()
         {
             _selectingInput.Selecting -= Draw;
             _selectingInput.SelectingEnd -= Select;
+            _selectingInput.SelectingEndAdditive -= SelectAdditive;
         }
 
         private void Draw(Rect rect)
@@ -55,21 +57,30 @@ namespace General.Selecting
         private void Select(Rect rect)
         {
             _selectingAreaDisplaying.StopDrawing();
-            
-            if (_cancelSelecting)
+            if (ShouldCancel())
             {
-                _cancelSelecting = false;
                 return;
             }
 
             MakeSelection(rect);
         }
 
+        private void SelectAdditive(Rect rect)
+        {
+            _selectingAreaDisplaying.StopDrawing();
+            if (ShouldCancel())
+            {
+                return;
+            }
+
+            MakeSelectionAdditive(rect);
+        }
+
         private void MakeSelection(Rect rect)
         {
             if (WasClick(rect))
             {
-                SelectFromClick(rect);
+                _selection.SelectFromPoint(rect.center);
             }
             else
             {
@@ -77,9 +88,27 @@ namespace General.Selecting
             }
         }
 
-        private void SelectFromClick(Rect rect)
+        private void MakeSelectionAdditive(Rect rect)
         {
-            _selection.SelectFromPoint(rect.center);
+            if (WasClick(rect))
+            {
+                _selection.SelectFromPointAdditive(rect.center);
+            }
+            else
+            {
+                _selection.SelectFromRectAdditive(rect);
+            }
+        }
+
+        private bool ShouldCancel()
+        {
+            if (_cancelSelecting)
+            {
+                _cancelSelecting = false;
+                return true;
+            }
+
+            return false;
         }
 
         private static bool WasClick(Rect rect)

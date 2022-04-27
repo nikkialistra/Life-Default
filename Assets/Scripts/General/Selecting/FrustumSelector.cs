@@ -13,6 +13,8 @@ namespace General.Selecting
         private readonly HashSet<Collider> _selectionHashSet = new();
 
         private FrustumMeshCollider _frustumMeshCollider;
+        
+        private bool _additive;
 
         protected override void Awake() {
             base.Awake();
@@ -23,6 +25,7 @@ namespace General.Selecting
         }
 
         public event Action<List<Collider>> Selected; 
+        public event Action<List<Collider>> AdditiveSelected; 
 
         private void Reset() {
             m_config.UseExtents = true;
@@ -31,8 +34,20 @@ namespace General.Selecting
 
         public void Select(Rect rect)
         {
+            _additive = false;
+            ActivateFrustum(rect);
+        }
+
+        public void SelectAdditive(Rect rect)
+        {
+            _additive = true;
+            ActivateFrustum(rect);
+        }
+
+        private void ActivateFrustum(Rect rect)
+        {
             _selectionHashSet.Clear();
-            
+
             var leftBottomAngle = new Vector2(rect.xMin / Screen.width, rect.yMin / Screen.height);
             var rightUpAngle = new Vector2(rect.xMax / Screen.width, rect.yMax / Screen.height);
 
@@ -53,8 +68,20 @@ namespace General.Selecting
             yield return null;
 
             m_config.Active = false;
-            
-            Selected?.Invoke(_selectionHashSet.ToList());
+
+            if (_selectionHashSet.Count == 0)
+            {
+                yield break;
+            }
+
+            if (_additive)
+            {
+                Selected?.Invoke(_selectionHashSet.ToList());
+            }
+            else
+            {
+                AdditiveSelected?.Invoke(_selectionHashSet.ToList());
+            }
         }
 
         private void OnTriggerEnter(Collider other)

@@ -153,7 +153,7 @@ namespace ColonistManagement.Movement
 
         private bool IfNoColonistsSelected()
         {
-            if (_selectedColonists.Colonists.Count == 0)
+            if (_selectedColonists.Count == 0)
             {
                 return true;
             }

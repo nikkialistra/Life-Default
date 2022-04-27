@@ -43,6 +43,7 @@ namespace General.Selecting
         public event Action<Rect> Selecting;
         public event Action SelectingArea;
         public event Action<Rect> SelectingEnd;
+        public event Action<Rect> SelectingEndAdditive;
 
         private void OnEnable()
         {
@@ -74,7 +75,7 @@ namespace General.Selecting
 
         private void StartArea(InputAction.CallbackContext context)
         {
-            if (Keyboard.current.IsModifierKeyPressed() || _gameViews.MouseOverUi || Deactivated)
+            if (Keyboard.current.altKey.isPressed || Keyboard.current.ctrlKey.isPressed || _gameViews.MouseOverUi || Deactivated)
             {
                 return;
             }
@@ -130,7 +131,14 @@ namespace General.Selecting
                 throw new InvalidOperationException();
             }
 
-            SelectingEnd?.Invoke(GetRect(_startPoint.Value, _mousePositionAction.ReadValue<Vector2>()));
+            if (Keyboard.current.shiftKey.isPressed)
+            {
+                SelectingEndAdditive?.Invoke(GetRect(_startPoint.Value, _mousePositionAction.ReadValue<Vector2>()));
+            }
+            else
+            {
+                SelectingEnd?.Invoke(GetRect(_startPoint.Value, _mousePositionAction.ReadValue<Vector2>()));
+            }
 
             _startPoint = null;
             _updatingArea = false;

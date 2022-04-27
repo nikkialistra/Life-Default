@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Entities;
 using Entities.Types;
 using General.Selecting.Selected;
@@ -37,6 +38,37 @@ namespace General.Selecting
             FindEntityFrequenciesByInnerType();
             FindMostFrequentEntitiesByInnerType();
             SelectMostFrequentEntityByInnerType();
+        }
+
+        public void ChooseToSelectAdditive(List<Entity> entities)
+        {
+            if (entities.Count == 0)
+            {
+                return;
+            }
+            
+            SplitEntitiesByType();
+
+            if (entities[0].EntityType == EntityType.Resource)
+            {
+                AddResourcesWithType(entities[0].Resource.ResourceType);
+            }
+            else
+            {
+                AddResourceChunksWithType(entities[0].ResourceChunk.ResourceType);
+            }
+        }
+
+        private void AddResourcesWithType(ResourceType resourceType)
+        {
+            SelectResourcesWithType(resourceType);
+            _selectedEntities.Add(_resourcesToSelect);
+        }
+        
+        private void AddResourceChunksWithType(ResourceType resourceType)
+        {
+            SelectResourceChunksWithType(resourceType);
+            _selectedEntities.Add(_resourceChunksToSelect);
         }
 
         private void SplitEntitiesByType()
@@ -108,15 +140,17 @@ namespace General.Selecting
 
             if (_maxResourceCount.Value > _maxResourceChunkCount.Value)
             {
-                SelectResourceWithType(_maxResourceCount.Key);
+                SelectResourcesWithType(_maxResourceCount.Key);
+                _selectedEntities.Set(_resourcesToSelect);
             }
             else
             {
-                SelectResourceChunkWithType(_maxResourceChunkCount.Key);
+                SelectResourceChunksWithType(_maxResourceChunkCount.Key);
+                _selectedEntities.Set(_resourceChunksToSelect); 
             }
         }
 
-        private void SelectResourceWithType(ResourceType resourceType)
+        private void SelectResourcesWithType(ResourceType resourceType)
         {
             _resourcesToSelect.Clear();
             
@@ -127,11 +161,9 @@ namespace General.Selecting
                     _resourcesToSelect.Add(resource);
                 }
             }
-
-            _selectedEntities.Set(_resourcesToSelect);
         }
 
-        private void SelectResourceChunkWithType(ResourceType resourceType)
+        private void SelectResourceChunksWithType(ResourceType resourceType)
         {
             _resourceChunksToSelect.Clear();
             
@@ -142,8 +174,6 @@ namespace General.Selecting
                     _resourceChunksToSelect.Add(resource);
                 }
             }
-
-            _selectedEntities.Set(_resourceChunksToSelect); 
         }
     }
 }

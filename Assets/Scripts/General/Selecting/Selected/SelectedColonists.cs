@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Colonists;
-using UI.Game.GameLook.Components;
 using UI.Game.GameLook.Components.Info;
 
 namespace General.Selecting.Selected
@@ -18,6 +18,7 @@ namespace General.Selecting.Selected
         public event Action SelectionChange; 
 
         public List<Colonist> Colonists { get; private set; } = new();
+        public int Count => Colonists.Count;
 
         public void Set(List<Colonist> colonists)
         {
@@ -38,6 +39,18 @@ namespace General.Selecting.Selected
             Colonists = new List<Colonist> { colonist };
             UpdateSelectionStatuses();
             _infoPanelView.SetColonist(colonist);
+
+            SubscribeToColonists();
+        }
+
+        public void Add(List<Colonist> colonists)
+        {
+            UnsubscribeFromColonists();
+
+            Colonists = Colonists.Concat(colonists).ToList();
+            UpdateSelectionStatuses();
+            
+            _infoPanelView.SetColonists(Colonists);
 
             SubscribeToColonists();
         }

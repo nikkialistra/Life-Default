@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Colonists;
 using Enemies;
 using Entities;
@@ -47,16 +48,23 @@ namespace General.Selecting
         private void OnEnable()
         {
             _frustumSelector.Selected += OnSelected;
+            _frustumSelector.AdditiveSelected += OnAdditiveSelected;
         }
 
         private void OnDisable()
         {
             _frustumSelector.Selected -= OnSelected;
+            _frustumSelector.AdditiveSelected -= OnAdditiveSelected;
         }
 
         public void SelectFromRect(Rect rect)
         {
             _frustumSelector.Select(rect);
+        }
+
+        public void SelectFromRectAdditive(Rect rect)
+        {
+            _frustumSelector.SelectAdditive(rect);
         }
 
         public void SelectFromPoint(Vector2 point)
@@ -74,6 +82,21 @@ namespace General.Selecting
             }
 
             SelectEntity(point);
+        }
+
+        public void SelectFromPointAdditive(Vector2 point)
+        {
+            if (_selectedColonists.Count > 0)
+            {
+                SelectColonistAdditive(point);
+            }
+
+            if (_selectedEnemies.Count > 0)
+            {
+                SelectEnemyAdditive(point);
+            }
+
+            SelectEntityAdditive(point);
         }
 
         private void OnSelected(List<Collider> colliders)
@@ -98,6 +121,41 @@ namespace General.Selecting
             {
                 _entitySelection.ChooseToSelect(_entities);
             }
+        }
+
+        private void OnAdditiveSelected(List<Collider> colliders)
+        {
+            if (NothingSelected())
+            {
+                OnSelected(colliders);
+                return;
+            }
+            
+            SplitByType(colliders);
+
+            if (_selectedColonists.Count > 0 && _colonists.Count > 0)
+            {
+                _selectedColonists.Add(_colonists);
+                return;
+            }
+
+            if (_selectedEnemies.Count > 0 && _enemies.Count > 0)
+            {
+                _selectedEnemies.Add(_enemies);
+                return;
+            }
+            
+            if (_entities.Count > 0)
+            {
+                _entitySelection.ChooseToSelectAdditive(_entities);
+            }
+        }
+
+        private bool NothingSelected()
+        {
+            return _selectedColonists.Count == 0 &&
+                   _selectedEnemies.Count == 0 &&
+                   _selectedEntities.Count == 0;
         }
 
         private void SplitByType(List<Collider> colliders)
@@ -135,7 +193,7 @@ namespace General.Selecting
                 _colonists.Add(entity);
             }
         }
-        
+
         private void AddIfAlive(Enemy enemy)
         {
             if (enemy.Alive)
@@ -143,7 +201,7 @@ namespace General.Selecting
                 _enemies.Add(enemy);
             }
         }
-        
+
         private void AddIfAlive(Entity entity)
         {
             if (entity.Alive)
@@ -154,9 +212,7 @@ namespace General.Selecting
 
         private bool TrySelectColonist(Vector2 point)
         {
-            var ray = _camera.ScreenPointToRay(point);
-
-            if (Physics.Raycast(ray, out var hit))
+            if (TryRaycastFromCamera(point, out var hit))
             {
                 if (hit.transform.TryGetComponent(out Colonist colonist) && colonist.Alive)
                 {
@@ -164,15 +220,13 @@ namespace General.Selecting
                     return true;
                 }
             }
-
+            
             return false;
         }
 
         private bool TrySelectEnemy(Vector2 point)
         {
-            var ray = _camera.ScreenPointToRay(point);
-
-            if (Physics.Raycast(ray, out var hit))
+            if (TryRaycastFromCamera(point, out var hit))
             {
                 if (hit.transform.TryGetComponent(out Enemy enemy) && enemy.Alive)
                 {
@@ -186,15 +240,60 @@ namespace General.Selecting
 
         private void SelectEntity(Vector2 point)
         {
-            var ray = _camera.ScreenPointToRay(point);
-
-            if (Physics.Raycast(ray, out var hit))
+            if (TryRaycastFromCamera(point, out var hit))
             {
                 if (hit.transform.TryGetComponent(out Entity entity) && entity.Alive)
                 {
                     SelectByType(entity);
                 }
             }
+        }
+
+        private void SelectColonistAdditive(Vector2 point)
+        {
+            if (TryRaycastFromCamera(point, out var hit))
+            {
+                if (hit.transform.TryGetComponent(out Colonist colonist) && colonist.Alive)
+                {
+                    _selectedColonists.Add(colonist);
+                }
+            }
+        }
+        
+        private void SelectEnemyAdditive(Vector2 point)
+        {
+            if (TryRaycastFromCamera(point, out var hit))
+            {
+                if (hit.transform.TryGetComponent(out Enemy enemy) && enemy.Alive)
+                {
+                    _selectedEnemies.Add(enemy);
+                }
+            }
+        }
+        
+        private void SelectEntityAdditive(Vector2 point)
+        {
+            if (TryRaycastFromCamera(point, out var hit))
+            {
+                if (hit.transform.TryGetComponent(out Entity entity) && entity.Alive)
+                {
+                    _selectedEntities.AddIfSameTypes(entity);
+                }
+            }
+        }
+
+        private bool TryRaycastFromCamera(Vector2 point, out RaycastHit hitInfo)
+        {
+            var ray = _camera.ScreenPointToRay(point);
+
+            if (Physics.Raycast(ray, out var hit))
+            {
+                hitInfo = hit;
+                return true;
+            }
+
+            hitInfo = new RaycastHit();
+            return false;
         }
 
         private void SelectByType(Entity entity)

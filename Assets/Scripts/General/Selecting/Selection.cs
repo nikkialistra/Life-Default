@@ -115,6 +115,11 @@ namespace General.Selecting
             SelectFromPoint(point);
         }
 
+        public void SelectFromAreaAround()
+        {
+            _frustumSelector.SelectFromAreaAround();
+        }
+
         private void OnSelected(List<Collider> colliders)
         {
             DeselectAll();
@@ -284,7 +289,7 @@ namespace General.Selecting
                 }
             }
         }
-        
+
         private void SelectEnemyAdditive(Vector2 point)
         {
             if (TryRaycastFromCamera(point, out var hit))
@@ -295,7 +300,7 @@ namespace General.Selecting
                 }
             }
         }
-        
+
         private void SelectEntityAdditive(Vector2 point)
         {
             if (TryRaycastFromCamera(point, out var hit))

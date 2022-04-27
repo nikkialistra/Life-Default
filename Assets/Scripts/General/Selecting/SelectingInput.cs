@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections;
-using ColonistManagement.Extensions;
 using UI.Game;
 using UI.Menus.Primary;
 using UnityEngine;

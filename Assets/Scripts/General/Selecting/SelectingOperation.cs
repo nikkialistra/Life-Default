@@ -1,12 +1,15 @@
-﻿using UnityEngine;
+﻿using Sirenix.OdinInspector;
+using UnityEngine;
 using Zenject;
 
 namespace General.Selecting
 {
-    [RequireComponent(typeof(SelectingAreaDisplaying))]
     public class SelectingOperation : MonoBehaviour
     {
-        private SelectingAreaDisplaying _selectingAreaDisplaying;
+        [Required]
+        [SerializeField] private SelectingAreaDisplaying _selectingAreaDisplaying;
+        [Space]
+        [SerializeField] private float _doubleClickDeltaTime = 0.15f;
 
         private Selection _selection;
         private SelectingInput _selectingInput;
@@ -25,11 +28,6 @@ namespace General.Selecting
         public void CancelSelecting()
         {
             _cancelSelecting = true;
-        }
-
-        private void Awake()
-        {
-            _selectingAreaDisplaying = GetComponent<SelectingAreaDisplaying>();
         }
 
         public void OnEnable()
@@ -80,7 +78,7 @@ namespace General.Selecting
         {
             if (WasClick(rect))
             {
-                _selection.SelectFromPoint(rect.center);
+                SelectFromClick(rect);
             }
             else
             {
@@ -92,11 +90,37 @@ namespace General.Selecting
         {
             if (WasClick(rect))
             {
-                _selection.SelectFromPointAdditive(rect.center);
+                SelectFromClickAdditive(rect);
             }
             else
             {
                 _selection.SelectFromRectAdditive(rect);
+            }
+        }
+
+        private void SelectFromClick(Rect rect)
+        {
+            if (WasDoubleClick())
+            {
+                _selection.SelectFromAreaAround();
+            }
+            else
+            {
+                _lastClickTime = Time.time;
+                _selection.SelectFromPoint(rect.center);
+            }
+        }
+
+        private void SelectFromClickAdditive(Rect rect)
+        {
+            if (WasDoubleClick())
+            {
+                _selection.SelectFromAreaAround();
+            }
+            else
+            {
+                _lastClickTime = Time.time;
+                _selection.SelectFromPointAdditive(rect.center);
             }
         }
 
@@ -114,6 +138,11 @@ namespace General.Selecting
         private static bool WasClick(Rect rect)
         {
             return rect.width <= 8f && rect.height <= 8f;
+        }
+        
+        private bool WasDoubleClick()
+        {
+            return Time.time - _lastClickTime < _doubleClickDeltaTime;
         }
     }
 }

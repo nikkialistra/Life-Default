@@ -133,7 +133,7 @@ PrefabInstance:
     - target: {fileID: 8108227751601384566, guid: 0aab87523433ac24d926938acc6c9005,
         type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8108227751601384566, guid: 0aab87523433ac24d926938acc6c9005,
         type: 3}
@@ -1568,12 +1568,12 @@ PrefabInstance:
     - target: {fileID: 3020716834784390492, guid: 0802b572ad05186499c16eab7a723ffb,
         type: 3}
       propertyPath: m_RootOrder
-      value: 8
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 3411747107883189601, guid: 0802b572ad05186499c16eab7a723ffb,
         type: 3}
       propertyPath: m_RootOrder
-      value: 9
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 3583494989392989419, guid: 0802b572ad05186499c16eab7a723ffb,
         type: 3}
@@ -1590,9 +1590,7 @@ PrefabInstance:
       propertyPath: targetCamera
       value: 
       objectReference: {fileID: 1857559134}
-    m_RemovedComponents:
-    - {fileID: 3020716834333397146, guid: 0802b572ad05186499c16eab7a723ffb, type: 3}
-    - {fileID: 3020716833959386631, guid: 0802b572ad05186499c16eab7a723ffb, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0802b572ad05186499c16eab7a723ffb, type: 3}
 --- !u!114 &886565861 stripped
 MonoBehaviour:

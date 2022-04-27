@@ -815,7 +815,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3020716833915882551}
   - component: {fileID: 3020716833915882546}
-  - component: {fileID: 3020716833915882545}
   - component: {fileID: 3020716833915882544}
   m_Layer: 0
   m_Name: Selecting
@@ -856,18 +855,6 @@ MonoBehaviour:
   sourceAsset: {fileID: 9197481963319205126, guid: f4a0d87d26932ea49ad93a1e1e83ce23,
     type: 3}
   m_SortingOrder: 1
---- !u!114 &3020716833915882545
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3020716833915882550}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9c5d5f75b7024374be613cdf52536541, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &3020716833915882544
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1046,7 +1033,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3411747107883189601}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3020716834204942249
 MonoBehaviour:
@@ -1060,7 +1047,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa821b04ea234c8498c37bea9a5683bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _hoverRecastingTime: 0.02
+  _hoverRecastTime: 0.02
 --- !u!1 &3020716834256895303
 GameObject:
   m_ObjectHideFlags: 0
@@ -1281,7 +1268,7 @@ MonoBehaviour:
   _isSetUpSession: 0
   _frustumSelector: {fileID: 0}
   _selection: {fileID: 6708393955948023877}
-  _selectingOperation: {fileID: 3020716833915882545}
+  _selectingOperation: {fileID: 0}
   _selectingInput: {fileID: 3020716833322729911}
   _colonistChoosing: {fileID: 3020716834731429881}
   _tickingRegulator: {fileID: 3020716833599595703}
@@ -2666,6 +2653,52 @@ MonoBehaviour:
   - Dylan
   - Roy
   - Elijah
+--- !u!1 &3307083927848315776
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3815137472075692479}
+  - component: {fileID: 4989998955551259615}
+  m_Layer: 0
+  m_Name: Selecting Operation
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3815137472075692479
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3307083927848315776}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3411747107883189601}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4989998955551259615
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3307083927848315776}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c5d5f75b7024374be613cdf52536541, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _selectingAreaDisplaying: {fileID: 3020716833915882544}
+  _doubleClickDeltaTime: 0.15
 --- !u!1 &4020849329514823072
 GameObject:
   m_ObjectHideFlags: 0
@@ -2695,6 +2728,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3020716833322729910}
+  - {fileID: 3815137472075692479}
   - {fileID: 3020716834204942248}
   m_Father: {fileID: 3020716833698687496}
   m_RootOrder: 7

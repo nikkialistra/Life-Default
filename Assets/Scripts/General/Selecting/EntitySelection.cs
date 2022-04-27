@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using Entities;
 using Entities.Types;
 using General.Selecting.Selected;
@@ -42,20 +41,22 @@ namespace General.Selecting
 
         public void ChooseToSelectAdditive(List<Entity> entities)
         {
-            if (entities.Count == 0)
+            if (_selectedEntities.Count == 0 || entities.Count == 0)
             {
                 return;
             }
+
+            _entities = entities;
             
             SplitEntitiesByType();
 
-            if (entities[0].EntityType == EntityType.Resource)
+            if (_selectedEntities.First().EntityType == EntityType.Resource)
             {
-                AddResourcesWithType(entities[0].Resource.ResourceType);
+                AddResourcesWithType(_selectedEntities.First().Resource.ResourceType);
             }
             else
             {
-                AddResourceChunksWithType(entities[0].ResourceChunk.ResourceType);
+                AddResourceChunksWithType(_selectedEntities.First().ResourceChunk.ResourceType);
             }
         }
 

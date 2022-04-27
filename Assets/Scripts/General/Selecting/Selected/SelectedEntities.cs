@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Entities;
 using Entities.Types;
@@ -17,9 +18,25 @@ namespace General.Selecting.Selected
         }
 
         public int Count => _resources.Count + _resourceChunks.Count;
-        
+
         private List<Resource> _resources = new();
+
         private List<ResourceChunk> _resourceChunks = new();
+
+        public Entity First()
+        {
+            if (_resources.Count > 0)
+            {
+                return _resources[0].Entity;
+            }
+
+            if (_resourceChunks.Count > 0)
+            {
+                return _resourceChunks[0].Entity;
+            }
+
+            throw new InvalidOperationException("Cannot take first selected entity when 0 entities are selected");
+        }
 
         public void Set(List<Resource> resources)
         {
@@ -32,7 +49,7 @@ namespace General.Selecting.Selected
 
             SubscribeToResources();
         }
-        
+
         public void Set(List<ResourceChunk> resourceChunks)
         {
             UnsubscribeFromResourceChunks();
@@ -44,7 +61,7 @@ namespace General.Selecting.Selected
 
             SubscribeToResourceChunks();
         }
-        
+
         public void Add(List<Resource> resources)
         {
             UnsubscribeFromResources();
@@ -56,7 +73,7 @@ namespace General.Selecting.Selected
 
             SubscribeToResources();
         }
-        
+
         public void Add(List<ResourceChunk> resourceChunks)
         {
             UnsubscribeFromResourceChunks();
@@ -80,7 +97,7 @@ namespace General.Selecting.Selected
 
             SubscribeToResources();
         }
-        
+
         public void Set(ResourceChunk resourceChunk)
         {
             UnsubscribeFromResourceChunks();

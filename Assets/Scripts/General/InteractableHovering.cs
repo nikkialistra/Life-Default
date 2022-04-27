@@ -7,11 +7,11 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Zenject;
 
-namespace Entities.Services
+namespace General
 {
     public class InteractableHovering : MonoBehaviour
     {
-        [SerializeField] private float _hoverRecastingTime = 0.03f;
+        [SerializeField] private float _hoverRecastTime = 0.02f;
 
         private Camera _camera;
 
@@ -73,7 +73,7 @@ namespace Entities.Services
 
         private void Start()
         {
-            _waitPeriod = new WaitForSecondsRealtime(_hoverRecastingTime);
+            _waitPeriod = new WaitForSecondsRealtime(_hoverRecastTime);
             StartHovering();
         }
         

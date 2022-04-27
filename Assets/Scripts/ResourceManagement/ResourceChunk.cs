@@ -2,12 +2,12 @@
 using System.Collections;
 using Entities;
 using Entities.Interfaces;
-using UI.Game.GameLook.Components;
 using UI.Game.GameLook.Components.Info;
 using UnityEngine;
 
 namespace ResourceManagement
 {
+    [RequireComponent(typeof(Entity))]
     [RequireComponent(typeof(EntitySelection))]
     [RequireComponent(typeof(Rigidbody))]
     public class ResourceChunk : MonoBehaviour, ISelectableEntity
@@ -21,6 +21,7 @@ namespace ResourceManagement
         
         private void Awake()
         {
+            Entity = GetComponent<Entity>();
             _entitySelection = GetComponent<EntitySelection>();
             _rigidbody = GetComponent<Rigidbody>();
         }
@@ -35,6 +36,8 @@ namespace ResourceManagement
             transform.localScale *= sizeMultiplier;
         }
 
+        public Entity Entity { get; private set; }
+        
         public string Name => _name;
         public ResourceType ResourceType { get; private set; }
         public int Quantity { get; private set; }

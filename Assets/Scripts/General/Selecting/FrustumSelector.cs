@@ -10,6 +10,9 @@ namespace General.Selecting
     [RequireComponent(typeof(FrustumMeshCollider))]
     public class FrustumSelector : FrustumCamera
     {
+        [SerializeField] private Vector2 _extentsMinForAreaSelection = new(0.2f, 0.2f);
+        [SerializeField] private Vector2 _extentsMaxForAreaSelection = new(0.8f, 0.8f);
+
         private readonly HashSet<Collider> _selectionHashSet = new();
 
         private FrustumMeshCollider _frustumMeshCollider;
@@ -44,17 +47,39 @@ namespace General.Selecting
             ActivateFrustum(rect);
         }
 
+        public void SelectFromAreaAround()
+        {
+            _additive = true;
+            ActivateFrustumForAreaSelection();
+        }
+
         private void ActivateFrustum(Rect rect)
         {
             _selectionHashSet.Clear();
+            GenerateFrustumFromRect(rect);
+            StartCoroutine(FlashFrustum());
+        }
 
+        private void ActivateFrustumForAreaSelection()
+        {
+            _selectionHashSet.Clear();
+            GenerateFrustumForAreaSelection();
+            StartCoroutine(FlashFrustum());
+        }
+
+        private void GenerateFrustumFromRect(Rect rect)
+        {
             var leftBottomAngle = new Vector2(rect.xMin / Screen.width, rect.yMin / Screen.height);
             var rightUpAngle = new Vector2(rect.xMax / Screen.width, rect.yMax / Screen.height);
 
             frustumConfig.ExtentsMin = leftBottomAngle;
             frustumConfig.ExtentsMax = rightUpAngle;
+        }
 
-            StartCoroutine(FlashFrustum());
+        private void GenerateFrustumForAreaSelection()
+        {
+            frustumConfig.ExtentsMin = _extentsMinForAreaSelection;
+            frustumConfig.ExtentsMax = _extentsMaxForAreaSelection;
         }
 
         private IEnumerator FlashFrustum()
@@ -76,11 +101,11 @@ namespace General.Selecting
 
             if (_additive)
             {
-                Selected?.Invoke(_selectionHashSet.ToList());
+                AdditiveSelected?.Invoke(_selectionHashSet.ToList());
             }
             else
             {
-                AdditiveSelected?.Invoke(_selectionHashSet.ToList());
+                Selected?.Invoke(_selectionHashSet.ToList());
             }
         }
 

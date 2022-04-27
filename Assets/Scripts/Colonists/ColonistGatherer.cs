@@ -55,7 +55,9 @@ namespace Colonists
 
         public bool CanGather(Resource resource)
         {
-            return true;
+            var distance = Vector3.Distance(transform.position, resource.transform.position);
+
+            return distance <= _resourceInteractionDistances[resource.ResourceType];
         }
 
         public void Gather(Resource resource)
@@ -117,6 +119,7 @@ namespace Colonists
             }
             
             _resource = null;
+            IsGathering = false;
             
             StartCoroutine(StopGatheringLater());
         }
@@ -147,8 +150,6 @@ namespace Colonists
             }
             
             _animator.StopGathering();
-
-            IsGathering = false;
         }
 
         private bool EveryResourceHasDistanceInteraction(ResourceInteractionDistanceDictionary distances, ref string errorMessage)

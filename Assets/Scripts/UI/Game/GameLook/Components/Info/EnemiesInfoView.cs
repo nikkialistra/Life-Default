@@ -12,7 +12,7 @@ namespace UI.Game.GameLook.Components.Info
         private InfoPanelView _parent;
         private TemplateContainer _tree;
         
-        private Label _count;
+        private Label _name;
 
         private VisualElement _commands;
 
@@ -25,7 +25,7 @@ namespace UI.Game.GameLook.Components.Info
             _tree = _asset.CloneTree();
             _tree.pickingMode = PickingMode.Ignore;
 
-            _count = _tree.Q<Label>("count");
+            _name = _tree.Q<Label>("name");
         }
         
         public void ShowSelf()
@@ -52,7 +52,7 @@ namespace UI.Game.GameLook.Components.Info
 
         public void SetCount(int count)
         {
-            _count.text = $"Enemies ({count})";
+            _name.text = $"Enemies ({count})";
         }
     }
 }

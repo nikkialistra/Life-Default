@@ -14,11 +14,18 @@ namespace Colonists.BehaviorNodes.ResourceGathering
 
         public override void OnStart()
         {
-            _failed = true;
+            _failed = false;
         
-            if (ColonistGatherer.CanGather(Resource.Value) && !ColonistGatherer.IsGathering)
+            if (ColonistGatherer.CanGather(Resource.Value))
             {
-                ColonistGatherer.Gather(Resource.Value);
+                if (!ColonistGatherer.IsGathering)
+                {
+                    ColonistGatherer.Gather(Resource.Value);
+                }
+            }
+            else
+            {
+                _failed = true;
             }
         }
 
@@ -29,7 +36,21 @@ namespace Colonists.BehaviorNodes.ResourceGathering
                 return TaskStatus.Failure;
             }
 
-            return ColonistGatherer.IsGathering ? TaskStatus.Running : TaskStatus.Success;
+            if (ColonistGatherer.IsGathering)
+            {
+                return TaskStatus.Running;
+            }
+            else
+            {
+                if (Resource.Value.Exhausted)
+                {
+                    return TaskStatus.Success;
+                }
+                else
+                {
+                    return TaskStatus.Failure;
+                }
+            }
         }
     }
 }

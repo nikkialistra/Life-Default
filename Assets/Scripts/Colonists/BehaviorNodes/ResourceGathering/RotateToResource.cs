@@ -8,20 +8,13 @@ namespace Colonists.BehaviorNodes.ResourceGathering
         public SharedResource Resource;
 
         public ColonistMeshAgent ColonistMeshAgent;
+        public ColonistGatherer ColonistGatherer;
 
-        private bool _finished;
-        private bool _failed;
+        private bool _rotationEnd;
 
         public override void OnStart()
         {
-            _finished = false;
-            _failed = false;
-
-            if (Resource.Value.Entity == null)
-            {
-                _failed = true;
-                return;
-            }
+            _rotationEnd = false;
 
             ColonistMeshAgent.RotationEnd += OnRotationEnd;
             ColonistMeshAgent.RotateTo(Resource.Value.Entity);
@@ -29,12 +22,33 @@ namespace Colonists.BehaviorNodes.ResourceGathering
 
         public override TaskStatus OnUpdate()
         {
-            if (_failed)
+            if (Resource.Value.Exhausted)
+            {
+                Resource.Value = null;
+                ColonistMeshAgent.StopRotating();
+                return TaskStatus.Failure;
+            }
+            
+            if (!_rotationEnd)
+            {
+                return TaskStatus.Running;
+            }
+            else
+            {
+                return CanGather();
+            }
+        }
+        
+        private TaskStatus CanGather()
+        {
+            if (ColonistGatherer.CanGather(Resource.Value))
+            {
+                return TaskStatus.Success;
+            }
+            else
             {
                 return TaskStatus.Failure;
             }
-
-            return _finished ? TaskStatus.Success : TaskStatus.Running;
         }
 
         public override void OnEnd()
@@ -45,7 +59,7 @@ namespace Colonists.BehaviorNodes.ResourceGathering
         private void OnRotationEnd()
         {
             ColonistMeshAgent.RotationEnd -= OnRotationEnd;
-            _finished = true;
+            _rotationEnd = true;
         }
     }
 }

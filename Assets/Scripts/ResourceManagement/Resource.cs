@@ -4,7 +4,6 @@ using Entities.Interfaces;
 using General.Map;
 using ResourceManagement.Animations;
 using Sirenix.OdinInspector;
-using UI.Game.GameLook.Components;
 using UI.Game.GameLook.Components.Info;
 using UnityEngine;
 using Zenject;
@@ -78,8 +77,8 @@ namespace ResourceManagement
         public event Action<Resource> ResourceDestroying;
         public event Action Destroying;
 
-        public event Action QuantityChange;
-        public event Action DurabilityChange;
+        public event Action<int> QuantityChange;
+        public event Action<int> DurabilityChange;
 
         public Entity Entity { get; private set; }
         
@@ -188,7 +187,7 @@ namespace ResourceManagement
 
             _quantityToDrop = CalculateNextQuantityToDrop();
             
-            QuantityChange?.Invoke();
+            QuantityChange?.Invoke(Quantity);
         }
 
         private void DropRemainingQuantity()
@@ -199,7 +198,7 @@ namespace ResourceManagement
             
             _resourceCounts.ChangeResourceTypeCount(_resourceType, (int)_preservedExtractedQuantity);
             
-            QuantityChange?.Invoke();
+            QuantityChange?.Invoke(Quantity);
         }
 
         private float CalculateSizeMultiplier(float quantity, int maxQuantity)
@@ -246,7 +245,7 @@ namespace ResourceManagement
             
             _storedQuantity -= extractedQuantity;
             
-            DurabilityChange?.Invoke();
+            DurabilityChange?.Invoke(Durability);
 
             return extractedQuantity;
         }

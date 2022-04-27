@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using ResourceManagement;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -6,7 +7,7 @@ using UnityEngine.UIElements;
 namespace UI.Game.GameLook.Components.Info
 {
     [RequireComponent(typeof(InfoPanelView))]
-    public class ResourceInfoView : MonoBehaviour
+    public class ResourcesInfoView : MonoBehaviour
     {
         [SerializeField] private VisualTreeAsset _asset;
 
@@ -18,8 +19,8 @@ namespace UI.Game.GameLook.Components.Info
         private readonly List<VisualElement> _rows = new(2);
         private readonly List<Label> _rowNames = new(2);
         private readonly List<Label> _rowValues = new(2);
-        
-        private Resource _resource;
+
+        private List<Resource> _resources = new();
 
         private bool _shown;
 
@@ -49,7 +50,7 @@ namespace UI.Game.GameLook.Components.Info
 
         private void OnDestroy()
         {
-            UnsubscribeFromResource();
+            UnsubscribeFromResources();
         }
         
         public void ShowSelf()
@@ -70,41 +71,56 @@ namespace UI.Game.GameLook.Components.Info
                 return;
             }
             
-            UnsubscribeFromResource();
+            UnsubscribeFromResources();
             
             _parent.InfoPanel.Remove(_tree);
             _shown = false;
         }
         
-        public void FillIn(Resource resource)
+        public void FillIn(List<Resource> resources)
         {
-            UnsubscribeFromResource();
+            if (resources.Count == 0)
+            {
+                return;
+            }
+
+            UnsubscribeFromResources();
+
+            _resources = resources;
             
-            _resource = resource;
-            
-            _name.text = $"{resource.Name}";
+            _name.text = $"{resources[0].ResourceType.GetStringForResources()}";
 
             ShowRows();
 
-            FillRow(0, $"{_resource.ResourceType}:", $"~{_resource.Quantity}");
-            FillRow(1, $"Durability:", $"{_resource.Durability}");
+            FillRow(0, $"{_resources[0].ResourceType}:", $"~{_resources.Sum(resource => resource.Quantity)}");
+            FillRow(1, $"Durability:", $"{_resources.Sum(resource => resource.Durability)}");
 
-            SubscribeToResource();
+            SubscribeToResources();
         }
 
-        private void SubscribeToResource()
+        private void SubscribeToResources()
         {
-            _resource.QuantityChange += UpdateQuantity;
-            _resource.DurabilityChange += UpdateDurability;
-        }
-
-        private void UnsubscribeFromResource()
-        {
-            if (_resource != null)
+            foreach (var resource in _resources)
             {
-                _resource.QuantityChange -= UpdateQuantity;
-                _resource.DurabilityChange -= UpdateDurability;
+                resource.QuantityChange += UpdateQuantity;
+                resource.DurabilityChange += UpdateDurability;
+                
+                resource.ResourceDestroying += UnsubscribeFromResource;
             }
+        }
+        
+        private void UnsubscribeFromResources()
+        {
+            foreach (var resource in _resources)
+            {
+                UnsubscribeFromResource(resource);
+            }
+        }
+
+        private void UnsubscribeFromResource(Resource resource)
+        {
+            resource.QuantityChange -= UpdateQuantity;
+            resource.DurabilityChange -= UpdateDurability;
         }
 
         private void ShowRows()
@@ -113,14 +129,14 @@ namespace UI.Game.GameLook.Components.Info
             _rows[1].style.display = DisplayStyle.Flex;
         }
 
-        private void UpdateQuantity(int quantity)
+        private void UpdateQuantity(int _)
         {
-            _rowValues[0].text = $"~{quantity}";
+            _rowValues[0].text = $"~{_resources.Sum(resource => resource.Quantity)}";
         }
 
-        private void UpdateDurability(int durability)
+        private void UpdateDurability(int _)
         {
-            _rowValues[1].text = $"{durability}";
+            _rowValues[1].text = $"{_resources.Sum(resource => resource.Durability)}";
         }
 
         private void FillRow(int index, string name, string value)

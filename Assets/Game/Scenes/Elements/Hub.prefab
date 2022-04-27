@@ -1545,6 +1545,9 @@ GameObject:
   - component: {fileID: 3020716834402626412}
   - component: {fileID: 2267570043495769242}
   - component: {fileID: 5652565873012716473}
+  - component: {fileID: 8076267295661115958}
+  - component: {fileID: 2069230575249991391}
+  - component: {fileID: 320260525268826010}
   m_Layer: 0
   m_Name: Info Panel
   m_TagString: Untagged
@@ -1699,6 +1702,45 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c2c08fcee88e4a8584523c506da17153, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _asset: {fileID: 9197481963319205126, guid: 825e59c2e44c39b498e7669c65e77211, type: 3}
+--- !u!114 &8076267295661115958
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3020716834402626418}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8b0d902af7849d8897c507e92f703b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _asset: {fileID: 9197481963319205126, guid: 825e59c2e44c39b498e7669c65e77211, type: 3}
+--- !u!114 &2069230575249991391
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3020716834402626418}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3dd820584d6846899d2c13100c5c5ffa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _asset: {fileID: 9197481963319205126, guid: 825e59c2e44c39b498e7669c65e77211, type: 3}
+--- !u!114 &320260525268826010
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3020716834402626418}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a4379b8cce34e3aa45483dafe97fa63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _asset: {fileID: 9197481963319205126, guid: 825e59c2e44c39b498e7669c65e77211, type: 3}

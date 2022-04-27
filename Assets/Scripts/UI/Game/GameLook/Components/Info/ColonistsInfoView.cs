@@ -1,8 +1,7 @@
-﻿using UI.Game.GameLook.Components.Info;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace UI.Game.GameLook.Components
+namespace UI.Game.GameLook.Components.Info
 {
     [RequireComponent(typeof(InfoPanelView))]
     [RequireComponent(typeof(CommandsView))]

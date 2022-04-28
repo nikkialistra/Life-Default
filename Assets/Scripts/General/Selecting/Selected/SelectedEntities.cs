@@ -42,7 +42,7 @@ namespace General.Selecting.Selected
         {
             UnsubscribeFromResources();
 
-            _resources = resources;
+            _resources = resources.ToList();
             UpdateResourceSelectionStatuses();
 
             _infoPanelView.SetResources(resources);
@@ -54,7 +54,7 @@ namespace General.Selecting.Selected
         {
             UnsubscribeFromResourceChunks();
 
-            _resourceChunks = resourceChunks;
+            _resourceChunks = resourceChunks.ToList();
             UpdateResourceChunkSelectionStatuses();
 
             _infoPanelView.SetResourceChunks(resourceChunks);
@@ -66,7 +66,7 @@ namespace General.Selecting.Selected
         {
             UnsubscribeFromResources();
 
-            _resources = _resources.Concat(resources).ToList();
+            _resources = _resources.Union(resources).ToList();
             UpdateResourceSelectionStatuses();
 
             _infoPanelView.SetResources(resources);
@@ -78,7 +78,7 @@ namespace General.Selecting.Selected
         {
             UnsubscribeFromResourceChunks();
 
-            _resourceChunks = _resourceChunks.Concat(resourceChunks).ToList();
+            _resourceChunks = _resourceChunks.Union(resourceChunks).ToList();
             UpdateResourceChunkSelectionStatuses();
 
             _infoPanelView.SetResourceChunks(resourceChunks);
@@ -133,22 +133,38 @@ namespace General.Selecting.Selected
 
         private void Add(Resource resource)
         {
-            _resources.Add(resource);
-            UpdateResourceSelectionStatuses();
+            if (!_resources.Contains(resource))
+            {
+                _resources.Add(resource);
+                resource.ResourceDestroying += RemoveFromSelected;
+            }
+            else
+            {
+                resource.Deselect();
+                _resources.Remove(resource);
+                resource.ResourceDestroying -= RemoveFromSelected;
+            }
             
+            UpdateResourceSelectionStatuses();
             _infoPanelView.SetResources(_resources);
-
-            resource.ResourceDestroying += RemoveFromSelected;
         }
 
         private void Add(ResourceChunk resourceChunk)
         {
-            _resourceChunks.Add(resourceChunk);
-            UpdateResourceChunkSelectionStatuses();
+            if (_resourceChunks.Contains(resourceChunk))
+            {
+                _resourceChunks.Add(resourceChunk);
+                resourceChunk.ResourceChunkDestroying += RemoveFromSelected;
+            }
+            else
+            {
+                resourceChunk.Deselect();
+                _resourceChunks.Remove(resourceChunk);
+                resourceChunk.ResourceChunkDestroying -= RemoveFromSelected;
+            }
             
+            UpdateResourceChunkSelectionStatuses();
             _infoPanelView.SetResourceChunks(_resourceChunks);
-
-            resourceChunk.ResourceChunkDestroying += RemoveFromSelected;
         }
 
         public void Deselect()

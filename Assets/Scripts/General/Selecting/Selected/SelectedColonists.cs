@@ -24,7 +24,7 @@ namespace General.Selecting.Selected
         {
             UnsubscribeFromColonists();
 
-            Colonists = colonists;
+            Colonists = colonists.ToList();
             UpdateSelectionStatuses();
             
             _infoPanelView.SetColonists(Colonists);
@@ -47,7 +47,7 @@ namespace General.Selecting.Selected
         {
             UnsubscribeFromColonists();
 
-            Colonists = Colonists.Concat(colonists).ToList();
+            Colonists = Colonists.Union(colonists).ToList();
             UpdateSelectionStatuses();
             
             _infoPanelView.SetColonists(Colonists);
@@ -57,11 +57,20 @@ namespace General.Selecting.Selected
 
         public void Add(Colonist colonist)
         {
-            Colonists.Add(colonist);
+            if (!Colonists.Contains(colonist))
+            {
+                Colonists.Add(colonist);
+                colonist.ColonistDying += RemoveFromSelected;
+            }
+            else
+            {
+                colonist.Deselect();
+                Colonists.Remove(colonist);
+                colonist.ColonistDying -= RemoveFromSelected;
+            }
+
             UpdateSelectionStatuses();
             _infoPanelView.SetColonists(Colonists);
-            
-            colonist.ColonistDying += RemoveFromSelected;
         }
 
         public void Deselect()
@@ -74,6 +83,8 @@ namespace General.Selecting.Selected
             }
 
             Colonists.Clear();
+            
+            SelectionChange?.Invoke();
         }
 
         public void Destroy()

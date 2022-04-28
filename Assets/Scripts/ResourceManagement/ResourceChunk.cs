@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections;
 using Entities;
-using Entities.Interfaces;
+using General.Interfaces;
 using UI.Game.GameLook.Components.Info;
 using UnityEngine;
 
@@ -10,7 +10,7 @@ namespace ResourceManagement
     [RequireComponent(typeof(Entity))]
     [RequireComponent(typeof(EntitySelection))]
     [RequireComponent(typeof(Rigidbody))]
-    public class ResourceChunk : MonoBehaviour, ISelectableEntity
+    public class ResourceChunk : MonoBehaviour, ISelectable
     {
         [SerializeField] private string _name;
 

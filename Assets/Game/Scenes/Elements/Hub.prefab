@@ -1268,7 +1268,7 @@ MonoBehaviour:
   _isSetUpSession: 0
   _frustumSelector: {fileID: 0}
   _selection: {fileID: 6708393955948023877}
-  _selectingOperation: {fileID: 0}
+  _selectingOperation: {fileID: 4989998955551259615}
   _selectingInput: {fileID: 3020716833322729911}
   _colonistChoosing: {fileID: 3020716834731429881}
   _tickingRegulator: {fileID: 3020716833599595703}

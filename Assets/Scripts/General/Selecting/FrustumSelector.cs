@@ -94,11 +94,6 @@ namespace General.Selecting
 
             m_config.Active = false;
 
-            if (_selectionHashSet.Count == 0)
-            {
-                yield break;
-            }
-
             if (_additive)
             {
                 AdditiveSelected?.Invoke(_selectionHashSet.ToList());

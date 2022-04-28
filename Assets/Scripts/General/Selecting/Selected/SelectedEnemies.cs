@@ -21,7 +21,7 @@ namespace General.Selecting.Selected
         {
             UnsubscribeFromEnemies();
 
-            Enemies = enemies;
+            Enemies = enemies.ToList();
             UpdateSelectionStatuses();
             
             _infoPanelView.SetEnemies(Enemies);
@@ -33,7 +33,7 @@ namespace General.Selecting.Selected
         {
             UnsubscribeFromEnemies();
 
-            Enemies = Enemies.Concat(enemies).ToList();
+            Enemies = Enemies.Union(enemies).ToList();
             UpdateSelectionStatuses();
             
             _infoPanelView.SetEnemies(Enemies);
@@ -54,11 +54,20 @@ namespace General.Selecting.Selected
 
         public void Add(Enemy enemy)
         {
-            Enemies.Add(enemy);
+            if (!Enemies.Contains(enemy))
+            {
+                Enemies.Add(enemy);
+                enemy.EnemyDying += RemoveFromSelected;
+            }
+            else
+            {
+                enemy.Deselect();
+                Enemies.Remove(enemy);
+                enemy.EnemyDying -= RemoveFromSelected;
+            }
+
             UpdateSelectionStatuses();
             _infoPanelView.SetEnemies(Enemies);
-            
-            enemy.EnemyDying += RemoveFromSelected;
         }
 
         public void Deselect()

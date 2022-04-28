@@ -1,5 +1,5 @@
 ﻿using System.Collections;
-using Entities.Interfaces;
+using General.Interfaces;
 using General.Selecting;
 using UI.Game;
 using UI.Menus.Primary;
@@ -17,7 +17,7 @@ namespace General
 
         private LayerMask _entitiesMask;
 
-        private ISelectableEntity _lastEntity;
+        private ISelectable _lastInteractable;
 
         private Coroutine _hoveringCoroutine;
 
@@ -125,7 +125,7 @@ namespace General
 
             if (Raycast(out var hit))
             {
-                if (hit.transform.TryGetComponent(out ISelectableEntity selectable))
+                if (hit.transform.TryGetComponent(out ISelectable selectable))
                 {
                     selectable.Hover();
                 }

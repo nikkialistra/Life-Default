@@ -1,11 +1,11 @@
 ﻿using System.Collections;
-using Entities.Interfaces;
 using General;
+using General.Interfaces;
 using UnityEngine;
 
 namespace Entities
 {
-    public class EntitySelection : MonoBehaviour, ISelectableEntity
+    public class EntitySelection : MonoBehaviour, ISelectable
     {
         [SerializeField] private MeshRenderer _renderer;
         [SerializeField] private int _materialIndex;

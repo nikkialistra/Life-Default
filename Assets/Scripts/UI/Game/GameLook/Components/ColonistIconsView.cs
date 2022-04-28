@@ -2,14 +2,12 @@
 using System.Collections.Generic;
 using Colonists;
 using Colonists.Services;
-using Colonists.Services.Selecting;
 using General.Selecting;
 using General.Selecting.Selected;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
 using Zenject;
-using static UI.Game.GameLook.Components.ColonistIconView;
 
 namespace UI.Game.GameLook.Components
 {
@@ -56,8 +54,8 @@ namespace UI.Game.GameLook.Components
         
         public VisualElement Tree { get; private set; }
         public VisualElement ColonistIcons { get; private set; }
-        
-        public enum IconSize
+
+        private enum IconSize
         {
             Normal,
             Small
@@ -139,7 +137,7 @@ namespace UI.Game.GameLook.Components
         {
             if (!_colonistIconViews.ContainsKey(colonist))
             {
-                throw new ArgumentException("Colonist icons view don't have this colonist");
+                throw new ArgumentException("Colonist icons view doesn't have this colonist");
             }
             
             var colonistIconView = _colonistIconViews[colonist];

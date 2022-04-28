@@ -1,6 +1,6 @@
 ﻿using System;
 using Entities;
-using Entities.Interfaces;
+using General.Interfaces;
 using General.Map;
 using ResourceManagement.Animations;
 using Sirenix.OdinInspector;
@@ -15,7 +15,7 @@ namespace ResourceManagement
     [RequireComponent(typeof(Collider))]
     [RequireComponent(typeof(EntitySelection))]
     [RequireComponent(typeof(ResourceChunkScattering))]
-    public class Resource : MonoBehaviour, ISelectableEntity
+    public class Resource : MonoBehaviour, ISelectable
     {
         [SerializeField] private ResourceType _resourceType;
         [Space]

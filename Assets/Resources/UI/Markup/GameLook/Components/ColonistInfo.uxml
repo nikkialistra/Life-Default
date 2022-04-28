@@ -122,16 +122,16 @@
         <ui:VisualElement name="statuses" class="statuses panel-part">
             <ui:Label text="Statuses" name="statuses-label" class="label label-general head-label statuses__label" />
             <ui:VisualElement name="statuses__row" class="statuses__row">
-                <ui:Label text="Hungry" name="status-one" class="status label label-small label-no-outline" style="display: none;" />
-                <ui:Label text="Don’t have enough sleep" name="status-two" class="status label label-small label-no-outline" style="display: none;" />
+                <ui:Label text="Hungry" name="status-one" class="status label label-small" style="display: none;" />
+                <ui:Label text="Don’t have enough sleep" name="status-two" class="status label label-small" style="display: none;" />
             </ui:VisualElement>
             <ui:VisualElement name="statuses__row" class="statuses__row">
-                <ui:Label text="Dizzy" name="status-three" class="status label label-small label-no-outline" style="display: none;" />
-                <ui:Label text="Don’t have enough sleep" name="status-four" class="status label label-small label-no-outline" style="display: none;" />
+                <ui:Label text="Dizzy" name="status-three" class="status label label-small" style="display: none;" />
+                <ui:Label text="Don’t have enough sleep" name="status-four" class="status label label-small" style="display: none;" />
             </ui:VisualElement>
             <ui:VisualElement name="statuses__row" class="statuses__row">
-                <ui:Label text="Hungry" name="status-five" class="status label label-small label-no-outline" style="display: none;" />
-                <ui:Label text="Don’t have enough sleep" name="status-six" class="status label label-small label-no-outline" style="display: none;" />
+                <ui:Label text="Hungry" name="status-five" class="status label label-small" style="display: none;" />
+                <ui:Label text="Don’t have enough sleep" name="status-six" class="status label label-small" style="display: none;" />
             </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement name="commands" class="commands" />

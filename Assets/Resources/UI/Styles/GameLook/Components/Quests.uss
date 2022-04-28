@@ -1,4 +1,43 @@
-﻿.quests {
+.content {
+    height: auto;
+}
+
+.quest-list {
+    width: 276px;
+    min-height: 30px;
+    padding: 5px;
+    background-color: rgba(34, 36, 38, 0.1);
+}
+
+.quests {
     flex-direction: row;
-    height: 80px;
+}
+
+.quest {
+    width: 260px;
+    padding: 5px 0 5px 5px;
+    margin-right: 5px;
+    background-color: rgba(34, 36, 38, 0.3);
+}
+
+.description {
+    width: 260px;
+    white-space: normal;
+}
+
+.objectives {
+    width: 260px;
+    align-items: flex-start;
+}
+
+.objective {
+    height: 20px;
+    padding: 3px;
+    border-radius: 3px;
+    -unity-text-align: middle-center;
+    background-color: rgba(9, 10, 10, 0.3);
+}
+
+.margin-bottom {
+    margin-bottom: 5px;
 }

@@ -29,6 +29,8 @@ namespace General.Selecting
         private SelectedEntities _selectedEntities;
 
         private EntitySelection _entitySelection;
+        
+        private bool _cancelSelecting;
 
         [Inject]
         public void Construct(Camera camera, FrustumSelector frustumSelector, InfoPanelView infoPanelView,
@@ -120,10 +122,32 @@ namespace General.Selecting
             _frustumSelector.SelectFromAreaAround();
         }
 
+        public void CancelSelecting()
+        {
+            _cancelSelecting = true;
+        }
+        
+        private bool ShouldCancel()
+        {
+            if (_cancelSelecting)
+            {
+                _cancelSelecting = false;
+                return true;
+            }
+
+            return false;
+        }
+
         private void OnSelected(List<Collider> colliders)
         {
-            DeselectAll();
+            if (ShouldCancel())
+            {
+                DeselectAllWithoutColonists();
+                return;
+            }
             
+            DeselectAll();
+
             SplitByType(colliders);
 
             if (_colonists.Count > 0)
@@ -149,6 +173,12 @@ namespace General.Selecting
 
         private void OnAdditiveSelected(List<Collider> colliders)
         {
+            if (ShouldCancel())
+            {
+                DeselectAllWithoutColonists();
+                return;
+            }
+            
             if (NothingSelected())
             {
                 OnSelected(colliders);
@@ -346,6 +376,12 @@ namespace General.Selecting
         private void DeselectAll()
         {
             _selectedColonists.Deselect();
+            _selectedEnemies.Deselect();
+            _selectedEntities.Deselect();
+        }
+
+        private void DeselectAllWithoutColonists()
+        {
             _selectedEnemies.Deselect();
             _selectedEntities.Deselect();
         }

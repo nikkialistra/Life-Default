@@ -27,7 +27,7 @@ namespace General.Selecting
 
         public void CancelSelecting()
         {
-            _cancelSelecting = true;
+            _selection.CancelSelecting();
         }
 
         public void OnEnable()
@@ -55,10 +55,6 @@ namespace General.Selecting
         private void Select(Rect rect)
         {
             _selectingAreaDisplaying.StopDrawing();
-            if (ShouldCancel())
-            {
-                return;
-            }
 
             MakeSelection(rect);
         }
@@ -66,10 +62,6 @@ namespace General.Selecting
         private void SelectAdditive(Rect rect)
         {
             _selectingAreaDisplaying.StopDrawing();
-            if (ShouldCancel())
-            {
-                return;
-            }
 
             MakeSelectionAdditive(rect);
         }
@@ -122,17 +114,6 @@ namespace General.Selecting
                 _lastClickTime = Time.time;
                 _selection.SelectFromPointAdditive(rect.center);
             }
-        }
-
-        private bool ShouldCancel()
-        {
-            if (_cancelSelecting)
-            {
-                _cancelSelecting = false;
-                return true;
-            }
-
-            return false;
         }
 
         private static bool WasClick(Rect rect)

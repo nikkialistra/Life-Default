@@ -1,0 +1,11 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Resources/UI/Styles/Common/Text.uss?fileID=7433441132597879392&amp;guid=158167a2c7cf4f5292d78d1ed2683cfc&amp;type=3#Text" />
+    <Style src="project://database/Assets/Resources/UI/Styles/Common/StockPanels.uss?fileID=7433441132597879392&amp;guid=5161de5954cd1f34da15e2b85afe511f&amp;type=3#StockPanels" />
+    <Style src="project://database/Assets/Resources/UI/Styles/GameLook/Components/Quests.uss?fileID=7433441132597879392&amp;guid=86660b0a9a0041dd8338546dad11d44f&amp;type=3#Quests" />
+    <ui:VisualElement name="quests" class="quests">
+        <ui:VisualElement name="separator" class="separator" />
+        <ui:VisualElement name="content" class="content">
+            <ui:VisualElement name="quest" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

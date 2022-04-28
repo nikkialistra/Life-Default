@@ -1,0 +1,4 @@
+﻿.quests {
+    flex-direction: row;
+    height: 80px;
+}

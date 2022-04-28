@@ -4,23 +4,28 @@ using UnityEngine.UIElements;
 namespace UI.Game.GameLook.Components
 {
     [RequireComponent(typeof(ResourcesView))]
+    [RequireComponent(typeof(QuestsView))]
     public class StockView : MonoBehaviour
     {
         [SerializeField] private VisualTreeAsset _asset;
         
         private Button _resources;
-        
+        private Button _quests;
+
         private ResourcesView _resourcesView;
+        private QuestsView _questsView;
 
         private void Awake()
         {
             _resourcesView = GetComponent<ResourcesView>();
+            _questsView = GetComponent<QuestsView>();
             
             Tree = _asset.CloneTree();
 
             Content = Tree.Q<VisualElement>("content");
 
             _resources = Tree.Q<Button>("resources");
+            _quests = Tree.Q<Button>("quests");
         }
 
         public VisualElement Tree { get; private set; }
@@ -33,15 +38,17 @@ namespace UI.Game.GameLook.Components
 
         private void OnEnable()
         {
-            _resources.clicked += OnResourcesClick;
+            _resources.clicked += ToggleResources;
+            _quests.clicked += ToggleQuests;
         }
 
         private void OnDisable()
         {
-            _resources.clicked -= OnResourcesClick;
+            _resources.clicked -= ToggleResources;
+            _quests.clicked -= ToggleQuests;
         }
 
-        private void OnResourcesClick()
+        private void ToggleResources()
         {
             if (_resourcesView.Shown)
             {
@@ -54,9 +61,23 @@ namespace UI.Game.GameLook.Components
             }
         }
 
+        private void ToggleQuests()
+        {
+            if (_questsView.Shown)
+            {
+                _questsView.HideSelf();
+            }
+            else
+            {
+                HideAll();
+                _questsView.ShowSelf();
+            }
+        }
+
         private void HideAll()
         {
             _resourcesView.HideSelf();
+            _questsView.HideSelf();
         }
     }
 }

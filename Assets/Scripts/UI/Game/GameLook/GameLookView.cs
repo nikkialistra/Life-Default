@@ -9,7 +9,6 @@ using Zenject;
 namespace UI.Game.GameLook
 {
     [RequireComponent(typeof(UIDocument))]
-    [RequireComponent(typeof(StockView))]
     [RequireComponent(typeof(BuildVersionView))]
     [RequireComponent(typeof(LogMessageCountsView))]
     [RequireComponent(typeof(ColonistIconsView))]
@@ -19,12 +18,12 @@ namespace UI.Game.GameLook
     public class GameLookView : MonoBehaviour
     {
         [Required]
+        [SerializeField] private StockView _stockView;
         [SerializeField] private InfoPanelView _infoPanelView;
-        
+
         private VisualElement _tree;
         private VisualElement _gameLook;
-
-        private StockView _stockView;
+        
         private BuildVersionView _buildVersionView;
         private LogMessageCountsView _logMessageCountsView;
         private ColonistIconsView _colonistIconsView;
@@ -51,7 +50,6 @@ namespace UI.Game.GameLook
 
         private void Awake()
         {
-            _stockView = GetComponent<StockView>();
             _colonistIconsView = GetComponent<ColonistIconsView>();
             _buildVersionView = GetComponent<BuildVersionView>();
             _logMessageCountsView = GetComponent<LogMessageCountsView>();

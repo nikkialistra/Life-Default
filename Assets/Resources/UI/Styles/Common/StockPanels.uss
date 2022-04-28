@@ -1,0 +1,23 @@
+.separator {
+    width: 3.5px;
+    height: 100%;
+    border-width: 1.5px;
+    border-color: rgb(34, 36, 38);
+    border-radius: 1.5px;
+    background-color: rgba(34, 36, 38, 0.97);
+    border-left-width: 0;
+    border-right-width: 0;
+    border-top-width: 0;
+    border-bottom-width: 0;
+}
+
+.content {
+    margin-top: 1px;
+    background-color: rgba(34, 36, 38, 0.5);
+    border-width: 5px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    margin-bottom: 1px;
+    height: 98%;
+    border-right-width: 0;
+}

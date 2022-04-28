@@ -5,6 +5,9 @@
             <ui:Button display-tooltip-when-elided="true" name="resources" class="button">
                 <ui:VisualElement name="resources__icon" class="resources__icon" />
             </ui:Button>
+            <ui:Button display-tooltip-when-elided="true" name="quests" class="button">
+                <ui:VisualElement name="quests__icon" class="resources__icon" />
+            </ui:Button>
         </ui:VisualElement>
         <ui:VisualElement name="content" />
     </ui:VisualElement>

@@ -16,8 +16,6 @@ namespace General.Selecting
 
         private float _lastClickTime;
 
-        private bool _cancelSelecting;
-
         [Inject]
         public void Construct(Selection selection, SelectingInput selectingInput)
         {

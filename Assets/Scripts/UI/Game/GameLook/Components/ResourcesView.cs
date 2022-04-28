@@ -23,7 +23,7 @@ namespace UI.Game.GameLook.Components
         }
         
         public bool Shown { get; private set; }
-        public VisualElement Tree { get; private set; }
+        private VisualElement Tree { get; set; }
 
         private void Start()
         {

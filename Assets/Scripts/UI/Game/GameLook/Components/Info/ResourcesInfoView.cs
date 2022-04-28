@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using ResourceManagement;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -9,6 +10,7 @@ namespace UI.Game.GameLook.Components.Info
     [RequireComponent(typeof(InfoPanelView))]
     public class ResourcesInfoView : MonoBehaviour
     {
+        [Required]
         [SerializeField] private VisualTreeAsset _asset;
 
         private InfoPanelView _parent;

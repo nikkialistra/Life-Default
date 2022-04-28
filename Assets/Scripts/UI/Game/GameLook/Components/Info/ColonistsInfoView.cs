@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Sirenix.OdinInspector;
+using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace UI.Game.GameLook.Components.Info
@@ -7,6 +8,7 @@ namespace UI.Game.GameLook.Components.Info
     [RequireComponent(typeof(CommandsView))]
     public class ColonistsInfoView : MonoBehaviour
     {
+        [Required]
         [SerializeField] private VisualTreeAsset _asset;
 
         private InfoPanelView _parent;

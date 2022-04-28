@@ -1,12 +1,14 @@
-﻿using UnityEngine;
+﻿using Sirenix.OdinInspector;
+using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace UI.Game.GameLook.Components
+namespace UI.Game.GameLook.Components.Stock
 {
     [RequireComponent(typeof(ResourcesView))]
     [RequireComponent(typeof(QuestsView))]
     public class StockView : MonoBehaviour
     {
+        [Required]
         [SerializeField] private VisualTreeAsset _asset;
         
         private Button _resources;

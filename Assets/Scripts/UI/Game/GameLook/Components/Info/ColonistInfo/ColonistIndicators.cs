@@ -1,4 +1,5 @@
 ﻿using System;
+using Sirenix.OdinInspector;
 using Units;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -7,11 +8,17 @@ namespace UI.Game.GameLook.Components.Info.ColonistInfo
 {
     public class ColonistIndicators : MonoBehaviour
     {
+        [Required]
         [SerializeField] private Sprite _singleArrowUp;
+        [Required]
         [SerializeField] private Sprite _singleArrowDown;
+        [Required]
         [SerializeField] private Sprite _doubleArrowUp;
+        [Required]
         [SerializeField] private Sprite _doubleArrowDown;
+        [Required]
         [SerializeField] private Sprite _tripleArrowUp;
+        [Required]
         [SerializeField] private Sprite _tripleArrowDown;
         
         private ProgressBar _healthProgress;

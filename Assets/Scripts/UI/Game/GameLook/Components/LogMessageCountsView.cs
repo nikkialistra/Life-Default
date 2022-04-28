@@ -1,4 +1,5 @@
 ﻿using System;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -6,6 +7,7 @@ namespace UI.Game.GameLook.Components
 {
     public class LogMessageCountsView : MonoBehaviour
     {
+        [Required]
         [SerializeField] private VisualTreeAsset _asset;
 
         private Label _infoCount;

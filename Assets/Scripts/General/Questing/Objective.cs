@@ -21,5 +21,10 @@ namespace General.Questing
             Stone,
             Enemy
         }
+
+        public string ToText()
+        {
+            return $"{Type} {Value} {Target}s";
+        }
     }
 }

@@ -4,6 +4,7 @@ using Colonists;
 using Colonists.Services;
 using General.Selecting;
 using General.Selecting.Selected;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
@@ -14,9 +15,12 @@ namespace UI.Game.GameLook.Components
     [RequireComponent(typeof(UIDocument))]
     public class ColonistIconsView : MonoBehaviour
     {
+        [Required]
         [SerializeField] private VisualTreeAsset _asset;
         [Space]
+        [Required]
         [SerializeField] private VisualTreeAsset _assetIcon;
+        [Required]
         [SerializeField] private VisualTreeAsset _assetIconSmall;
 
         [SerializeField] private int _maxShownColonists = 20;

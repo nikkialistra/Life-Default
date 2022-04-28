@@ -1,4 +1,5 @@
 ﻿using ColonistManagement.Tasking;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.UIElements;
 using Zenject;
@@ -7,7 +8,9 @@ namespace UI.Game.GameLook.Components.Info.ColonistInfo
 {
     public class ColonistActions : MonoBehaviour
     {
+        [Required]
         [SerializeField] private Sprite _iconTasks;
+        [Required]
         [SerializeField] private Sprite _iconOrders;
         
         private VisualElement _currentActionIcon;

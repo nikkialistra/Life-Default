@@ -2,7 +2,7 @@
     <Style src="project://database/Assets/Resources/UI/Styles/Common/Text.uss?fileID=7433441132597879392&amp;guid=158167a2c7cf4f5292d78d1ed2683cfc&amp;type=3#Text" />
     <Style src="project://database/Assets/Resources/UI/Styles/Common/StockPanels.uss?fileID=7433441132597879392&amp;guid=5161de5954cd1f34da15e2b85afe511f&amp;type=3#StockPanels" />
     <Style src="project://database/Assets/Resources/UI/Styles/GameLook/Components/Quests.uss?fileID=7433441132597879392&amp;guid=86660b0a9a0041dd8338546dad11d44f&amp;type=3#Quests" />
-    <ui:VisualElement name="quest" class="quest" style="width: 260px; padding-left: 5px; padding-right: 5px; padding-top: 5px; padding-bottom: 5px;">
+    <ui:VisualElement name="quest" class="quest big-margin-bottom">
         <ui:Label text="Collect initial resources" display-tooltip-when-elided="true" name="title" class="label left-aligned label-outlined-medium margin-bottom" />
         <ui:Label text="Our colony should have enough resources to meet our needs." display-tooltip-when-elided="true" name="description" class="label left-aligned label-outlined-small description margin-bottom" />
         <ui:VisualElement name="objectives" class="objectives">

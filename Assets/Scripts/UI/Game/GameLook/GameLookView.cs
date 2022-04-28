@@ -2,6 +2,7 @@
 using Sirenix.OdinInspector;
 using UI.Game.GameLook.Components;
 using UI.Game.GameLook.Components.Info;
+using UI.Game.GameLook.Components.Stock;
 using UnityEngine;
 using UnityEngine.UIElements;
 using Zenject;
@@ -9,6 +10,7 @@ using Zenject;
 namespace UI.Game.GameLook
 {
     [RequireComponent(typeof(UIDocument))]
+    [RequireComponent(typeof(BriefQuestsView))]
     [RequireComponent(typeof(BuildVersionView))]
     [RequireComponent(typeof(LogMessageCountsView))]
     [RequireComponent(typeof(ColonistIconsView))]
@@ -19,12 +21,14 @@ namespace UI.Game.GameLook
     {
         [Required]
         [SerializeField] private StockView _stockView;
+        [Required]
         [SerializeField] private InfoPanelView _infoPanelView;
 
         private VisualElement _tree;
         private VisualElement _gameLook;
         
         private BuildVersionView _buildVersionView;
+        private BriefQuestsView _briefQuestsView;
         private LogMessageCountsView _logMessageCountsView;
         private ColonistIconsView _colonistIconsView;
         private TimeTogglingView _timeTogglingView;
@@ -32,6 +36,7 @@ namespace UI.Game.GameLook
         private TileInfoView _tileInfoView;
 
         private VisualElement _stockElement;
+        private VisualElement _briefQuestsElement;
         private VisualElement _colonistIconsElement;
         private VisualElement _buildVersionElement;
         private VisualElement _logMessageCountsElement;
@@ -50,6 +55,7 @@ namespace UI.Game.GameLook
 
         private void Awake()
         {
+            _briefQuestsView = GetComponent<BriefQuestsView>();
             _colonistIconsView = GetComponent<ColonistIconsView>();
             _buildVersionView = GetComponent<BuildVersionView>();
             _logMessageCountsView = GetComponent<LogMessageCountsView>();
@@ -62,6 +68,7 @@ namespace UI.Game.GameLook
             _gameLook = _tree.Q<VisualElement>("game-look");
 
             _stockElement = _tree.Q<VisualElement>("stock");
+            _briefQuestsElement = _tree.Q<VisualElement>("brief-quests");
             _colonistIconsElement = _tree.Q<VisualElement>("colonist-icons");
             _buildVersionElement = _tree.Q<VisualElement>("build-version");
             _logMessageCountsElement = _tree.Q<VisualElement>("log-message-counts");
@@ -84,6 +91,7 @@ namespace UI.Game.GameLook
         private void Start()
         {
             _stockElement.Add(_stockView.Tree);
+            _briefQuestsElement.Add(_briefQuestsView.Tree);
             _colonistIconsElement.Add(_colonistIconsView.Tree);
             _buildVersionElement.Add(_buildVersionView.Tree);
             _logMessageCountsElement.Add(_logMessageCountsView.Tree);

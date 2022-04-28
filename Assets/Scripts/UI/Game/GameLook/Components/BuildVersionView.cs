@@ -1,10 +1,12 @@
-﻿using UnityEngine;
+﻿using Sirenix.OdinInspector;
+using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace UI.Game.GameLook.Components
 {
     public class BuildVersionView : MonoBehaviour
     {
+        [Required]
         [SerializeField] private VisualTreeAsset _asset;
 
         private Label _label;

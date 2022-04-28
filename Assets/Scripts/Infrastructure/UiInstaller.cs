@@ -4,6 +4,7 @@ using UI.Game.GameLook;
 using UI.Game.GameLook.Components;
 using UI.Game.GameLook.Components.Info;
 using UI.Game.GameLook.Components.Info.ColonistInfo;
+using UI.Game.GameLook.Components.Stock;
 using UI.Menus.Primary;
 using UnityEngine;
 using Zenject;
@@ -24,6 +25,10 @@ namespace Infrastructure
         [Required]
         [SerializeField] private ResourcesView _resourcesView;
         [Required]
+        [SerializeField] private QuestsView _questsView;
+        [Required]
+        [SerializeField] private BriefQuestsView _briefQuestsView;
+        [Required]
         [SerializeField] private ColonistIconsView _colonistIconsView;
         [Required]
         [SerializeField] private TimeWeatherView _timeWeatherView;
@@ -43,7 +48,7 @@ namespace Infrastructure
         public override void InstallBindings()
         {
             BindMain();
-            BindTopPanel();
+            BindTopPanels();
             BindBottomPanels();
         }
 
@@ -54,9 +59,11 @@ namespace Infrastructure
             Container.BindInstance(_gameViews);
         }
 
-        private void BindTopPanel()
+        private void BindTopPanels()
         {
             Container.BindInstance(_resourcesView);
+            Container.BindInstance(_questsView);
+            Container.BindInstance(_briefQuestsView);
             Container.BindInstance(_colonistIconsView);
             Container.BindInstance(_timeWeatherView);
             Container.BindInstance(_timeTogglingView);

@@ -1,14 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using ResourceManagement;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace UI.Game.GameLook.Components
+namespace UI.Game.GameLook.Components.Stock
 {
     [RequireComponent(typeof(StockView))]
     public class ResourcesView : MonoBehaviour
     {
+        [Required]
         [SerializeField] private VisualTreeAsset _asset;
         
         private readonly Dictionary<ResourceType, Label> _resourceLabels = new();

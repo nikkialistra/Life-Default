@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Enemies;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -8,6 +9,7 @@ namespace UI.Game.GameLook.Components.Info
     [RequireComponent(typeof(InfoPanelView))]
     public class EnemyInfoView : MonoBehaviour
     {
+        [Required]
         [SerializeField] private VisualTreeAsset _asset;
 
         private InfoPanelView _parent;

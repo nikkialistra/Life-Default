@@ -8,13 +8,17 @@ namespace UI.Game.GameLook.Components
 {
     public class TimeWeatherView : MonoBehaviour
     {
+        [Required]
         [SerializeField] private VisualTreeAsset _asset;
         
         [Title("Time Status")]
+        [Required]
         [SerializeField] private Sprite _iconDay;
+        [Required]
         [SerializeField] private Sprite _iconNight;
         
         [Title("Weather Icons")]
+        [Required]
         [SerializeField] private Sprite _iconClear;
 
         private Label _day;

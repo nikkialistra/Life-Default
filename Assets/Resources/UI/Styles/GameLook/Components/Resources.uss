@@ -17,7 +17,7 @@
 .element__icon {
     min-width: 40px;
     min-height: 40px;
-    background-color: rgba(34, 36, 38, 0.97);
+    background-color: rgba(34, 36, 38, 0.7);
     border-width: 2px;
     border-radius: 3px;
 }
@@ -32,7 +32,4 @@
 
 .wood__icon {
     background-image: resource('UI/Sprites/Icons/Stock/Resources/ResourceWood');
-}
-
-.label-small {
 }

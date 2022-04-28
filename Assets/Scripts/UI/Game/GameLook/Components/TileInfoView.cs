@@ -1,4 +1,5 @@
 ﻿using General.TileManagement.Tiles;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -6,6 +7,7 @@ namespace UI.Game.GameLook.Components
 {
     public class TileInfoView : MonoBehaviour
     {
+        [Required]
         [SerializeField] private VisualTreeAsset _asset;
 
         private VisualElement _tileInfo;

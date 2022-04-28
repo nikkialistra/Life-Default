@@ -1,5 +1,6 @@
 ﻿using System;
 using General.TimeCycle.TimeRegulation;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
@@ -9,6 +10,7 @@ namespace UI.Game.GameLook.Components
 {
     public class TimeTogglingView : MonoBehaviour
     {
+        [Required]
         [SerializeField] private VisualTreeAsset _asset;
 
         private Toggle _pause;

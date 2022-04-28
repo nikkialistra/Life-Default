@@ -2,6 +2,7 @@
 using Colonists;
 using Enemies;
 using ResourceManagement;
+using Sirenix.OdinInspector;
 using UI.Game.GameLook.Components.Info.ColonistInfo;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -19,6 +20,7 @@ namespace UI.Game.GameLook.Components.Info
     [RequireComponent(typeof(CommandsView))]
     public class InfoPanelView : MonoBehaviour
     {
+        [Required]
         [SerializeField] private VisualTreeAsset _asset;
 
         private ColonistInfoView _colonistInfoView;

@@ -18,6 +18,10 @@
     width: 300px;
 }
 
+.stock {
+    min-width: 364px;
+}
+
 .top-panel__right {
     align-items: flex-end;
     width: 300px;

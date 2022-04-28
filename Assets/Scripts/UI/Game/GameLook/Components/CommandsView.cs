@@ -1,4 +1,5 @@
 ﻿using ColonistManagement.Movement;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.UIElements;
 using Zenject;
@@ -7,6 +8,7 @@ namespace UI.Game.GameLook.Components
 {
     public class CommandsView : MonoBehaviour
     {
+        [Required]
         [SerializeField] private VisualTreeAsset _asset;
 
         private Button _move;

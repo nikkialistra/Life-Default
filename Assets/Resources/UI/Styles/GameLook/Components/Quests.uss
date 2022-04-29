@@ -1,13 +1,12 @@
 .content {
     height: auto;
-    min-width: 280px;
+    min-width: 275px;
 }
 
 .quest-list {
     width: 270px;
     min-height: 30px;
-    padding: 5px;
-    background-color: rgba(34, 36, 38, 0.1);
+    padding: 8px 8px 0 8px;
 }
 
 .quests {
@@ -15,25 +14,11 @@
     flex-direction: row;
 }
 
-.brief-quests {
-    width: 200px;
-    flex-direction: column;
-}
-
 .quest {
     width: 260px;
-    padding: 8px;
+    padding: 8px 8px 3px 8px;
     border-radius: 3px;
     background-color: rgba(34, 36, 38, 0.3);
-}
-
-.brief-quest__title {
-    width: 180px;
-    height: 20px;
-    padding: 3px;
-    border-radius: 3px;
-    -unity-text-align: middle-center;
-    background-color: rgba(9, 10, 10, 0.3);
 }
 
 .description {
@@ -55,7 +40,7 @@
 }
 
 .big-margin-bottom {
-    margin-bottom: 5px;
+    margin-bottom: 8px;
 }
 
 .margin-bottom {

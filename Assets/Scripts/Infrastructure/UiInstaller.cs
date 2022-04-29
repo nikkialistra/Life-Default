@@ -27,7 +27,7 @@ namespace Infrastructure
         [Required]
         [SerializeField] private QuestsView _questsView;
         [Required]
-        [SerializeField] private BriefQuestsView _briefQuestsView;
+        [SerializeField] private NotificationsView _notificationsView;
         [Required]
         [SerializeField] private ColonistIconsView _colonistIconsView;
         [Required]
@@ -63,7 +63,7 @@ namespace Infrastructure
         {
             Container.BindInstance(_resourcesView);
             Container.BindInstance(_questsView);
-            Container.BindInstance(_briefQuestsView);
+            Container.BindInstance(_notificationsView);
             Container.BindInstance(_colonistIconsView);
             Container.BindInstance(_timeWeatherView);
             Container.BindInstance(_timeTogglingView);

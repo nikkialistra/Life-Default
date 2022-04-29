@@ -1,0 +1,8 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Resources/UI/Styles/Common/Text.uss?fileID=7433441132597879392&amp;guid=158167a2c7cf4f5292d78d1ed2683cfc&amp;type=3#Text" />
+    <Style src="project://database/Assets/Resources/UI/Styles/Common/StockPanels.uss?fileID=7433441132597879392&amp;guid=5161de5954cd1f34da15e2b85afe511f&amp;type=3#StockPanels" />
+    <Style src="project://database/Assets/Resources/UI/Styles/GameLook/Components/Notifications.uss?fileID=7433441132597879392&amp;guid=15b7ed5a04f04466be0b2b34090deead&amp;type=3#Notifications" />
+    <ui:VisualElement name="notification" class="margin-bottom notification">
+        <ui:Button text="Button" display-tooltip-when-elided="true" name="title" class="label label-outlined-small title" />
+    </ui:VisualElement>
+</ui:UXML>

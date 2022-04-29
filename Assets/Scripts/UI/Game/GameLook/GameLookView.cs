@@ -10,7 +10,7 @@ using Zenject;
 namespace UI.Game.GameLook
 {
     [RequireComponent(typeof(UIDocument))]
-    [RequireComponent(typeof(BriefQuestsView))]
+    [RequireComponent(typeof(NotificationsView))]
     [RequireComponent(typeof(BuildVersionView))]
     [RequireComponent(typeof(LogMessageCountsView))]
     [RequireComponent(typeof(ColonistIconsView))]
@@ -28,7 +28,7 @@ namespace UI.Game.GameLook
         private VisualElement _gameLook;
         
         private BuildVersionView _buildVersionView;
-        private BriefQuestsView _briefQuestsView;
+        private NotificationsView _notificationsView;
         private LogMessageCountsView _logMessageCountsView;
         private ColonistIconsView _colonistIconsView;
         private TimeTogglingView _timeTogglingView;
@@ -36,7 +36,7 @@ namespace UI.Game.GameLook
         private TileInfoView _tileInfoView;
 
         private VisualElement _stockElement;
-        private VisualElement _briefQuestsElement;
+        private VisualElement _notificationsElement;
         private VisualElement _colonistIconsElement;
         private VisualElement _buildVersionElement;
         private VisualElement _logMessageCountsElement;
@@ -55,7 +55,7 @@ namespace UI.Game.GameLook
 
         private void Awake()
         {
-            _briefQuestsView = GetComponent<BriefQuestsView>();
+            _notificationsView = GetComponent<NotificationsView>();
             _colonistIconsView = GetComponent<ColonistIconsView>();
             _buildVersionView = GetComponent<BuildVersionView>();
             _logMessageCountsView = GetComponent<LogMessageCountsView>();
@@ -68,7 +68,7 @@ namespace UI.Game.GameLook
             _gameLook = _tree.Q<VisualElement>("game-look");
 
             _stockElement = _tree.Q<VisualElement>("stock");
-            _briefQuestsElement = _tree.Q<VisualElement>("brief-quests");
+            _notificationsElement = _tree.Q<VisualElement>("notifications");
             _colonistIconsElement = _tree.Q<VisualElement>("colonist-icons");
             _buildVersionElement = _tree.Q<VisualElement>("build-version");
             _logMessageCountsElement = _tree.Q<VisualElement>("log-message-counts");
@@ -91,7 +91,7 @@ namespace UI.Game.GameLook
         private void Start()
         {
             _stockElement.Add(_stockView.Tree);
-            _briefQuestsElement.Add(_briefQuestsView.Tree);
+            _notificationsElement.Add(_notificationsView.Tree);
             _colonistIconsElement.Add(_colonistIconsView.Tree);
             _buildVersionElement.Add(_buildVersionView.Tree);
             _logMessageCountsElement.Add(_logMessageCountsView.Tree);

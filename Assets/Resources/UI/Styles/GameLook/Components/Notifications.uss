@@ -1,0 +1,31 @@
+﻿.notifications {
+    width: 200px;
+    flex-direction: column;
+}
+
+.notification {
+    width: 200px;
+}
+
+.title {
+    width: 180px;
+    height: 20px;
+    margin: 0;
+    border-width: 0;
+    padding: 3px;
+    border-radius: 3px;
+    -unity-text-align: middle-center;
+    background-color: rgba(9, 10, 10, 0.3);
+}
+
+.title:hover {
+    background-color: rgba(191, 194, 199, 0.1);
+}
+
+.title:active {
+    background-color: rgba(191, 194, 199, 0.15);
+}
+
+.margin-bottom {
+    margin-bottom: 5px;
+}

@@ -1418,7 +1418,7 @@ MonoBehaviour:
   _gameViews: {fileID: 3020716834645237787}
   _resourcesView: {fileID: 5658331672469303060}
   _questsView: {fileID: 8303854619932393626}
-  _briefQuestsView: {fileID: 1706890114491668084}
+  _notificationsView: {fileID: 1706890114491668084}
   _colonistIconsView: {fileID: 3020716834645237790}
   _timeWeatherView: {fileID: 3020716834645237789}
   _timeTogglingView: {fileID: 3020716834645237788}
@@ -2124,13 +2124,13 @@ GameObject:
   - component: {fileID: 3020716834645237780}
   - component: {fileID: 3167382271007049812}
   - component: {fileID: 3020716834645237787}
+  - component: {fileID: 1706890114491668084}
   - component: {fileID: 3020716834645237791}
   - component: {fileID: 3020716834645237781}
   - component: {fileID: 3020716834645237790}
   - component: {fileID: 3020716834645237789}
   - component: {fileID: 3020716834645237788}
   - component: {fileID: 3020716834645237795}
-  - component: {fileID: 1706890114491668084}
   m_Layer: 0
   m_Name: Game Look
   m_TagString: Untagged
@@ -2198,6 +2198,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1154ea8ec7d4144931d660139bc8152, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1706890114491668084
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3020716834645237793}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d5b3a98a0894210b0820419a6602f2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _asset: {fileID: 9197481963319205126, guid: e70cfcd6c30eec740a004fd611199a2e, type: 3}
+  _notificationAsset: {fileID: 9197481963319205126, guid: f5b7a2dd78a7f9841a0db133b95f9de0,
+    type: 3}
 --- !u!114 &3020716834645237791
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2285,21 +2300,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _asset: {fileID: 9197481963319205126, guid: f23c42d5bfd8edc49b291f8d95fa9645, type: 3}
---- !u!114 &1706890114491668084
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3020716834645237793}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8d5b3a98a0894210b0820419a6602f2f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _asset: {fileID: 9197481963319205126, guid: e70cfcd6c30eec740a004fd611199a2e, type: 3}
-  _briefQuestAsset: {fileID: 9197481963319205126, guid: f5b7a2dd78a7f9841a0db133b95f9de0,
-    type: 3}
 --- !u!1 &3020716834731429887
 GameObject:
   m_ObjectHideFlags: 0

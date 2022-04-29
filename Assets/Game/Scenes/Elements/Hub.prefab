@@ -1416,6 +1416,7 @@ MonoBehaviour:
   _gameLookView: {fileID: 3167382271007049812}
   _gameMenuToggle: {fileID: 3020716834804763515}
   _gameViews: {fileID: 3020716834645237787}
+  _stockView: {fileID: 6965870732287295012}
   _resourcesView: {fileID: 5658331672469303060}
   _questsView: {fileID: 8303854619932393626}
   _notificationsView: {fileID: 1706890114491668084}

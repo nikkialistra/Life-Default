@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
-using UI.Game.GameLook.Components;
 using UI.Game.GameLook.Components.Stock;
 using UnityEngine;
 using Zenject;
@@ -20,6 +19,8 @@ namespace ResourceManagement
             _resourcesView = resourcesView;
         }
 
+        public event Action<ResourceType, int> ResourceUpdate; 
+
         private void Start()
         {
             FillInCounts();
@@ -28,14 +29,16 @@ namespace ResourceManagement
         [Button(ButtonSizes.Large)]
         public void ChangeResourceTypeCount(ResourceType resourceType, int amount)
         {
-            _resourceCounts[resourceType] += amount;
-
-            if (_resourceCounts[resourceType] < 0)
+            if (_resourceCounts[resourceType] + amount < 0)
             {
                 throw new InvalidOperationException($"{resourceType} cannot be less than zero");
             }
+            
+            _resourceCounts[resourceType] += amount;
 
             _resourcesView.ChangeResourceTypeCount(resourceType, _resourceCounts[resourceType]);
+            
+            ResourceUpdate?.Invoke(resourceType, _resourceCounts[resourceType]);
         }
 
         private void FillInCounts()

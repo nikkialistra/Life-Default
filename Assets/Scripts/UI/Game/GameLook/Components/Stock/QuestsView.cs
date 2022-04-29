@@ -14,7 +14,7 @@ namespace UI.Game.GameLook.Components.Stock
         [Space]
         [SerializeField] private VisualTreeAsset _questAsset;
 
-        private List<QuestView> _questViews = new();
+        private readonly Dictionary<Quest, QuestView> _questViews = new();
 
         private VisualElement _questList;
 
@@ -61,7 +61,16 @@ namespace UI.Game.GameLook.Components.Stock
             var questView = new QuestView(this, _questAsset);
             questView.Bind(quest);
 
-            _questViews.Add(questView);
+            _questViews.Add(quest, questView);
+        }
+
+        public void RemoveQuest(Quest quest)
+        {
+            if (_questViews.ContainsKey(quest))
+            {
+                _questViews[quest].Unbind();
+                _questViews.Remove(quest);
+            }
         }
     }
 }

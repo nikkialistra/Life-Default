@@ -1,5 +1,4 @@
 ﻿using General;
-using General.Questing;
 using UnityEngine.UIElements;
 
 namespace UI.Game.GameLook.Components
@@ -7,32 +6,39 @@ namespace UI.Game.GameLook.Components
     public class NotificationView
     {
         private readonly NotificationsView _parent;
-        private readonly TemplateContainer _tree;
 
         private readonly VisualElement _root;
 
         private readonly Button _title;
+        
+        private Notification _notification;
 
         public NotificationView(NotificationsView parent, VisualTreeAsset asset)
         {
             _parent = parent;
             
-            _tree = asset.CloneTree();
+            var tree = asset.CloneTree();
 
-            _root = _tree.Q<VisualElement>("notification");
+            _root = tree.Q<VisualElement>("notification");
             
-            _title = _tree.Q<Button>("title");
+            _title = tree.Q<Button>("title");
         }
 
         public void Bind(Notification notification)
         {
-            _title.text = notification.Title;
+            _notification = notification;
+            
+            _title.text = _notification.Title;
+
+            _title.clicked += _notification.Click;
 
             _parent.NotificationList.Add(_root);
         }
 
         public void Unbind()
         {
+            _title.clicked -= _notification.Click;
+            
             _parent.NotificationList.Remove(_root);
         }
     }

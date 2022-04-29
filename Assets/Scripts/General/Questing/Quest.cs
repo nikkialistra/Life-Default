@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace General.Questing
 {
-    [CreateAssetMenu(fileName = "Quest", menuName = "Quest")]
+    [CreateAssetMenu(fileName = "Collect Objective", menuName = "Quest/Quest")]
     public class Quest : ScriptableObject
     {
         [SerializeField] private string _title;
@@ -12,11 +12,32 @@ namespace General.Questing
         [SerializeField] private string _description;
         
         [ValidateInput("@_objectives.Count <= 3")]
-        [SerializeField] private List<Objective> _objectives;
+        [SerializeReference] private List<IObjective> _objectives;
 
         public string Title => _title;
         public string Description => _description;
 
-        public List<Objective> Objectives => _objectives;
+        public List<IObjective> Objectives => _objectives;
+
+        public bool HasObjectiveAt(int index)
+        {
+            return index <= _objectives.Count;
+        }
+
+        public void Activate()
+        {
+            foreach (var objective in _objectives)
+            {
+                objective.Activate();
+            }
+        }
+
+        public void Deactivate()
+        {
+            foreach (var objective in _objectives)
+            {
+                objective.Deactivate();
+            }
+        }
     }
 }

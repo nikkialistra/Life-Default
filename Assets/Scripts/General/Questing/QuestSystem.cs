@@ -12,12 +12,14 @@ namespace General.Questing
         
         private QuestsView _questsView;
         private NotificationsView _notificationsView;
+        private StockView _stockView;
 
         [Inject]
-        public void Construct(QuestsView questsView, NotificationsView notificationsView)
+        public void Construct(QuestsView questsView, NotificationsView notificationsView, StockView stockView)
         {
             _questsView = questsView;
             _notificationsView = notificationsView;
+            _stockView = stockView;
         }
         
         private void Start()
@@ -26,7 +28,7 @@ namespace General.Questing
             {
                 _questsView.AddQuest(quest);
 
-                var notification = new Notification(quest.Title);
+                var notification = new Notification(quest.Title, _stockView.ShowQuests);
                 
                 _notificationsView.AddNotification(notification);
             }

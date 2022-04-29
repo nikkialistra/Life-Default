@@ -1,4 +1,5 @@
-﻿using Sirenix.OdinInspector;
+﻿using System;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -48,6 +49,17 @@ namespace UI.Game.GameLook.Components.Stock
         {
             _resources.clicked -= ToggleResources;
             _quests.clicked -= ToggleQuests;
+        }
+
+        public void ShowQuests()
+        {
+            if (_questsView.Shown)
+            {
+                return;
+            }
+
+            HideAll();
+            _questsView.ShowSelf();
         }
 
         private void ToggleResources()

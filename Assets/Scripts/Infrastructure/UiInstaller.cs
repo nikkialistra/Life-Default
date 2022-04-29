@@ -23,6 +23,8 @@ namespace Infrastructure
         
         [Title("Top Panels")]
         [Required]
+        [SerializeField] private StockView _stockView;
+        [Required]
         [SerializeField] private ResourcesView _resourcesView;
         [Required]
         [SerializeField] private QuestsView _questsView;
@@ -61,6 +63,7 @@ namespace Infrastructure
 
         private void BindTopPanels()
         {
+            Container.BindInstance(_stockView);
             Container.BindInstance(_resourcesView);
             Container.BindInstance(_questsView);
             Container.BindInstance(_notificationsView);

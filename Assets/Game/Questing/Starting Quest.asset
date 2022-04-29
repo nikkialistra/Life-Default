@@ -15,9 +15,9 @@ MonoBehaviour:
   _title: Collect initial resources
   _description: Our colony should have enough resources to meet our needs.
   _objectives:
-  - Type: 0
-    Target: 0
-    Value: 80
-  - Type: 0
-    Target: 1
-    Value: 20
+  - rid: -2
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }

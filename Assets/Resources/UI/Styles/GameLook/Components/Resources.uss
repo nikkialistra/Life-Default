@@ -1,6 +1,7 @@
 .resources {
-    flex-direction: row;
     width: 293px;
+    flex-direction: row;
+    margin-top: -1px;
     min-height: 120px;
 }
 

@@ -15,7 +15,7 @@
     margin-top: 1px;
     width: 290px;
     height: 98%;
-    background-color: rgba(34, 36, 38, 0.5);
+    background-color: rgba(9, 10, 10, 0.3);
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
     margin-bottom: 1px;
@@ -24,11 +24,16 @@
 
 .unity-scroll-view__content-and-vertical-scroll-container {
     width: 307px;
-    height: 400px;
+    min-height: 120px;
+    max-height: 400px;
 }
 
 .unity-scroll-view__content-viewport {
     border-bottom-right-radius: 10px;
+}
+
+.unity-base-slider__drag-container {
+    margin-bottom: 8px;
 }
 
 .unity-scroll-view__vertical-scroller {
@@ -54,16 +59,17 @@
 }
 
 .unity-scroller--vertical .unity-base-slider__tracker {
+    height: 398px;
     border-width: 0;
     border-radius: 5px;
-    background-color: rgba(9, 10, 10, 0.6);
+    background-color: rgba(9, 10, 10, 0.8);
 }
 
 .unity-scroller--vertical .unity-base-slider__dragger {
     width: 8px;
-    margin: 3px 0 0 0;
+    margin: 3px 0 0 -1px;
     padding-bottom: 3px;
     border-width: 0;
     border-radius: 5px;
-    background-color: rgba(121, 123, 128, 0.6);
+    background-color: rgba(121, 123, 128, 0.8);
 }

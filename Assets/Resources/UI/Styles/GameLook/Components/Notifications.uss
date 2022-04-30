@@ -23,7 +23,7 @@
 }
 
 .title:active {
-    background-color: rgba(191, 194, 199, 0.15);
+    background-color: rgba(191, 194, 199, 0.2);
 }
 
 .margin-bottom {

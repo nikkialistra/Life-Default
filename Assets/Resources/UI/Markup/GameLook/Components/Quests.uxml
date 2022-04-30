@@ -4,11 +4,11 @@
     <Style src="project://database/Assets/Resources/UI/Styles/GameLook/Components/Quests.uss?fileID=7433441132597879392&amp;guid=86660b0a9a0041dd8338546dad11d44f&amp;type=3#Quests" />
     <ui:VisualElement name="quests" class="quests">
         <ui:VisualElement name="separator" class="separator" />
-        <ui:ScrollView horizontal-scroller-visibility="Hidden" elasticity="50" scroll-deceleration-rate="0" vertical-page-size="10">
+        <ui:ScrollView horizontal-scroller-visibility="Hidden" name="scroll-view">
             <ui:VisualElement name="content" class="content">
-                <ui:Label text="Active" display-tooltip-when-elided="true" name="active" class="label label-outlined-medium left-aligned" />
+                <ui:Label text="Active" display-tooltip-when-elided="true" name="active" class="label label-outlined-medium content-label" />
                 <ui:VisualElement name="active-quests" class="quest-list" />
-                <ui:Label text="Finished" display-tooltip-when-elided="true" name="finished" class="label label-outlined-medium left-aligned" />
+                <ui:Label text="Finished" display-tooltip-when-elided="true" name="finished" class="label label-outlined-medium content-label" />
                 <ui:VisualElement name="finished-quests" class="quest-list" />
             </ui:VisualElement>
         </ui:ScrollView>

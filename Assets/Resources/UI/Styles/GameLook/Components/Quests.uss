@@ -1,25 +1,29 @@
 .quests {
+    margin-top: -1px;
     width: 293px;
     flex-direction: row;
 }
 
 .content {
-    height: auto;
+    min-height: 117px;
     padding: 5px 0 0 8px;
     min-width: 290px;
 }
 
+.content-label {
+    margin-left: -10px;
+}
+
 .quest-list {
-    width: 280px;
-    min-height: 30px;
+    width: 282px;
     padding: 5px 8px 0 0;
 }
 
 .quest {
-    width: 270px;
+    width: 274px;
     padding: 8px 8px 3px 8px;
     border-radius: 3px;
-    background-color: rgba(34, 36, 38, 0.3);
+    background-color: rgba(34, 36, 38, 0.6);
 }
 
 .title {
@@ -42,7 +46,7 @@
     padding: 3px;
     border-radius: 3px;
     -unity-text-align: middle-center;
-    background-color: rgba(9, 10, 10, 0.3);
+    background-color: rgba(191, 194, 199, 0.08);
 }
 
 .big-margin-bottom {

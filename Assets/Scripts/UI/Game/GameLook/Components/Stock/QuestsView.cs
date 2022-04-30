@@ -14,13 +14,24 @@ namespace UI.Game.GameLook.Components.Stock
         [SerializeField] private VisualTreeAsset _asset;
         [Space]
         [SerializeField] private VisualTreeAsset _questAsset;
+        [Space]
+        [SerializeField] private float _scrollSpeed = 100f;
+        [SerializeField] private float _scrollDamping = 10f;
 
         private readonly Dictionary<Quest, QuestView> _questViews = new();
 
+        private ScrollView _scrollView;
+        private Scroller _scroller;
+
         private VisualElement _activeQuests;
         private VisualElement _finishedQuests;
+        
+        private Label _active;
+        private Label _finished;
 
         private StockView _parent;
+
+        private float _scrollVelocity;
 
         private void Awake()
         {
@@ -28,12 +39,42 @@ namespace UI.Game.GameLook.Components.Stock
 
             Tree = _asset.CloneTree();
 
+            _scrollView = Tree.Q<ScrollView>("scroll-view");
+            _scroller = _scrollView.Q("unity-content-and-vertical-scroll-container").Q<Scroller>();
+
             _activeQuests = Tree.Q<VisualElement>("active-quests");
             _finishedQuests = Tree.Q<VisualElement>("finished-quests");
+            
+            _active = Tree.Q<Label>("active");
+            _finished = Tree.Q<Label>("finished");
         }
         
         public bool Shown { get; private set; }
         private VisualElement Tree { get; set; }
+
+        private void Start()
+        {
+            UpdateLabelShowing();
+        }
+
+        private void OnEnable()
+        {
+            _scrollView.RegisterCallback<WheelEvent>(OnScroll);
+        }
+
+        private void OnDisable()
+        {
+            _scrollView.UnregisterCallback<WheelEvent>(OnScroll);
+        }
+
+        private void Update()
+        {
+            if (Shown)
+            {
+                _scroller.value += _scrollVelocity;
+                _scrollVelocity -= _scrollVelocity * _scrollDamping;
+            }
+        }
 
         public void ShowSelf()
         {
@@ -67,6 +108,15 @@ namespace UI.Game.GameLook.Components.Stock
             quest.Complete += MoveToFinished;
 
             _questViews.Add(quest, questView);
+
+            UpdateLabelShowing();
+        }
+
+        private void OnScroll(WheelEvent @event)
+        {
+            _scrollVelocity += @event.delta.y * _scrollSpeed;
+
+            @event.StopPropagation();
         }
 
         private void MoveToFinished(Quest quest)
@@ -79,6 +129,14 @@ namespace UI.Game.GameLook.Components.Stock
             }
             
             _finishedQuests.Add(_questViews[quest].Tree);
+            
+            UpdateLabelShowing();
+        }
+
+        private void UpdateLabelShowing()
+        {
+            _active.style.display = _activeQuests.childCount > 0 ? DisplayStyle.Flex : DisplayStyle.None;
+            _finished.style.display = _finishedQuests.childCount > 0 ? DisplayStyle.Flex : DisplayStyle.None;
         }
     }
 }

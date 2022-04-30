@@ -1,7 +1,7 @@
 .colonist-info {
     width: 280px;
     height: 530px;
-    background-color: rgba(34, 36, 38, 0.95);
+    background-color: rgba(34, 36, 38, 0.9);
     border-radius: 5px;
     justify-content: flex-start;
     align-items: center;
@@ -31,11 +31,11 @@
 }
 
 .details__toggle:hover {
-    background-color: rgba(191, 194, 199, 0.02);
+    background-color: rgba(191, 194, 199, 0.04);
 }
 
 .details__toggle:checked {
-    background-color: rgba(191, 194, 199, 0.04);
+    background-color: rgba(191, 194, 199, 0.08);
 }
 
 .details__toggle Label {

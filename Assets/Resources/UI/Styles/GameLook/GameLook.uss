@@ -19,7 +19,7 @@
 }
 
 .stock {
-    min-width: 384px;
+    min-width: 382px;
 }
 
 .top-panel__right {

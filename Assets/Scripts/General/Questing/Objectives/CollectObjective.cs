@@ -11,13 +11,16 @@ namespace General.Questing.Objectives
         [SerializeField] private int _quantity;
 
         private int _collected;
-        
+
         private ResourceCounts _resourceCounts;
 
         public event Action<string> Update;
+        public event Action<string> Complete;
         
         public void Activate(QuestServices questServices)
         {
+            _collected = 0;
+
             _resourceCounts = questServices.ResourceCounts;
             
             _resourceCounts.ResourceUpdate += OnResourceUpdate;
@@ -28,6 +31,11 @@ namespace General.Questing.Objectives
             _resourceCounts.ResourceUpdate -= OnResourceUpdate;
         }
 
+        public string ToText()
+        {
+            return $"Collect {_quantity} {_type.GetStringForMultiple()}  –  {_collected}/{_quantity}";
+        }
+
         private void OnResourceUpdate(ResourceType resourceType, int count)
         {
             if (_type != resourceType)
@@ -36,13 +44,19 @@ namespace General.Questing.Objectives
             }
 
             _collected = count;
+
+            CheckForCompletion();
             
             Update?.Invoke(ToText());
         }
 
-        public string ToText()
+        private void CheckForCompletion()
         {
-            return $"Collect {_quantity} {_type.GetStringForMultiple()}  –  {_collected}/{_quantity}";
+            if (_collected >= _quantity)
+            {
+                Deactivate();
+                Complete?.Invoke($"<s>{ToText()}</s>");
+            }
         }
     }
 }

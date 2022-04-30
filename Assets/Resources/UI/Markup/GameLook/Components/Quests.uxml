@@ -5,7 +5,10 @@
     <ui:VisualElement name="quests" class="quests">
         <ui:VisualElement name="separator" class="separator" />
         <ui:VisualElement name="content" class="content">
-            <ui:VisualElement name="quest-list" class="quest-list" />
+            <ui:Label text="Active" display-tooltip-when-elided="true" name="active" class="label label-outlined-medium left-aligned" />
+            <ui:VisualElement name="active-quests" class="quest-list" />
+            <ui:Label text="Finished" display-tooltip-when-elided="true" name="finished" class="label label-outlined-medium left-aligned" />
+            <ui:VisualElement name="finished-quests" class="quest-list" />
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

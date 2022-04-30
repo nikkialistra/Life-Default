@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using General;
-using General.Questing;
 using Sirenix.OdinInspector;
 using UI.Game.GameLook.Components.Stock;
 using UnityEngine;
@@ -16,9 +15,9 @@ namespace UI.Game.GameLook.Components
         [Required]
         [SerializeField] private VisualTreeAsset _notificationAsset;
 
-        private readonly List<NotificationView> _notificationViews = new();
+        private readonly Dictionary<Notification, NotificationView> _notificationViews = new();
 
-        private VisualElement _notificationList;
+        private VisualElement _notifications;
 
         private StockView _parent;
 
@@ -26,20 +25,29 @@ namespace UI.Game.GameLook.Components
         {
             Tree = _asset.CloneTree();
 
-            _notificationList = Tree.Q<VisualElement>("notification-list");
+            _notifications = Tree.Q<VisualElement>("notifications");
         }
         
-        public bool Shown { get; private set; }
-        public VisualElement Tree { get; set; }
-
-        public VisualElement NotificationList => _notificationList;
+        public VisualElement Tree { get; private set; }
 
         public void AddNotification(Notification notification)
         {
             var notificationView = new NotificationView(this, _notificationAsset);
             notificationView.Bind(notification);
+            _notifications.Add(notificationView.Tree);
 
-            _notificationViews.Add(notificationView);
+            _notificationViews.Add(notification, notificationView);
+        }
+
+        public void RemoveNotification(Notification notification)
+        {
+            if (_notificationViews.ContainsKey(notification))
+            {
+                _notificationViews[notification].Unbind();
+                _notifications.Remove(_notificationViews[notification].Tree);
+
+                _notificationViews.Remove(notification);
+            }
         }
     }
 }

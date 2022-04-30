@@ -24,6 +24,8 @@ namespace UI.Game.GameLook.Components
             _title = tree.Q<Button>("title");
         }
 
+        public VisualElement Tree => _root;
+
         public void Bind(Notification notification)
         {
             _notification = notification;
@@ -31,15 +33,11 @@ namespace UI.Game.GameLook.Components
             _title.text = _notification.Title;
 
             _title.clicked += _notification.Click;
-
-            _parent.NotificationList.Add(_root);
         }
 
         public void Unbind()
         {
             _title.clicked -= _notification.Click;
-            
-            _parent.NotificationList.Remove(_root);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using General.Questing;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -16,7 +17,8 @@ namespace UI.Game.GameLook.Components.Stock
 
         private readonly Dictionary<Quest, QuestView> _questViews = new();
 
-        private VisualElement _questList;
+        private VisualElement _activeQuests;
+        private VisualElement _finishedQuests;
 
         private StockView _parent;
 
@@ -26,13 +28,12 @@ namespace UI.Game.GameLook.Components.Stock
 
             Tree = _asset.CloneTree();
 
-            _questList = Tree.Q<VisualElement>("quest-list");
+            _activeQuests = Tree.Q<VisualElement>("active-quests");
+            _finishedQuests = Tree.Q<VisualElement>("finished-quests");
         }
         
         public bool Shown { get; private set; }
         private VisualElement Tree { get; set; }
-
-        public VisualElement QuestList => _questList;
 
         public void ShowSelf()
         {
@@ -58,19 +59,26 @@ namespace UI.Game.GameLook.Components.Stock
 
         public void AddQuest(Quest quest)
         {
-            var questView = new QuestView(this, _questAsset);
+            var questView = new QuestView(_questAsset);
             questView.Bind(quest);
+            
+            _activeQuests.Add(questView.Tree);
+
+            quest.Complete += MoveToFinished;
 
             _questViews.Add(quest, questView);
         }
 
-        public void RemoveQuest(Quest quest)
+        private void MoveToFinished(Quest quest)
         {
-            if (_questViews.ContainsKey(quest))
+            _questViews[quest].Unbind();
+
+            if (_activeQuests.Contains(_questViews[quest].Tree))
             {
-                _questViews[quest].Unbind();
-                _questViews.Remove(quest);
+                _activeQuests.Remove(_questViews[quest].Tree);
             }
+            
+            _finishedQuests.Add(_questViews[quest].Tree);
         }
     }
 }

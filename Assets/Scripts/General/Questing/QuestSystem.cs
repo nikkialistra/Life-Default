@@ -8,8 +8,10 @@ namespace General.Questing
 {
     public class QuestSystem : MonoBehaviour
     {
-        [SerializeField] private List<Quest> _activeQuests;
-        
+        [SerializeField] private List<Quest> _startingQuests;
+
+        private readonly Dictionary<Quest, Notification> _notifications = new();
+
         private QuestsView _questsView;
         
         private NotificationsView _notificationsView;
@@ -28,15 +30,32 @@ namespace General.Questing
         
         private void Start()
         {
-            foreach (var quest in _activeQuests)
+            foreach (var quest in _startingQuests)
             {
-                quest.Activate(_questServices);
-                _questsView.AddQuest(quest);
+                AddQuest(quest);
+                ShowNotification(quest);
 
-                var notification = new Notification(quest.Title, _stockView.ToggleQuests);
-                
-                _notificationsView.AddNotification(notification);
+                quest.Complete += RemoveNotificationFor;
             }
+        }
+
+        private void AddQuest(Quest quest)
+        {
+            quest.Activate(_questServices);
+            _questsView.AddQuest(quest);
+        }
+
+        private void ShowNotification(Quest quest)
+        {
+            var notification = new Notification(quest.Title, _stockView.ToggleQuests);
+            _notificationsView.AddNotification(notification);
+
+            _notifications.Add(quest, notification);
+        }
+
+        private void RemoveNotificationFor(Quest quest)
+        {
+            _notificationsView.RemoveNotification(_notifications[quest]);
         }
     }
 }

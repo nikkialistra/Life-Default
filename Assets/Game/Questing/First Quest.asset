@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e1b7f04b8d3748ef866f6922324258d1, type: 3}
-  m_Name: Starting Quest
+  m_Name: First Quest
   m_EditorClassIdentifier: 
   _title: Collect initial resources
   _description: Our colony should have enough resources to meet our needs.

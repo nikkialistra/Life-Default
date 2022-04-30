@@ -23,4 +23,4 @@ MonoBehaviour:
       type: {class: DestroyObjective, ns: General.Questing.Objectives, asm: Scripts}
       data:
         _type: 1
-        _quantity: 15
+        _quantity: 1

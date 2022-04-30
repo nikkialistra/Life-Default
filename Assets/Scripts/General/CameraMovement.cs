@@ -6,6 +6,7 @@ using General.Map;
 using General.Selecting;
 using Saving;
 using Sirenix.OdinInspector;
+using UI.Game;
 using UniRx;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -97,13 +98,14 @@ namespace General
         private float _raiseDistance;
 
         private GameSettings _gameSettings;
+        private GameViews _gameViews;
 
         private Coroutine _focusingCoroutine;
 
         private SelectingInput _selectingInput;
 
         private Vector3 _originPositionCorrection;
-        
+
         private PlayerInput _playerInput;
 
         private InputAction _movementAction;
@@ -117,11 +119,12 @@ namespace General
         private InputAction _toggleCameraMovementAction;
 
         [Inject]
-        public void Construct(bool isSetUpSession, MapInitialization mapInitialization, GameSettings gameSettings, SelectingInput selectingInput, PlayerInput playerInput)
+        public void Construct(MapInitialization mapInitialization, GameSettings gameSettings, GameViews gameViews, SelectingInput selectingInput, PlayerInput playerInput)
         {
             _mapInitialization = mapInitialization;
 
             _gameSettings = gameSettings;
+            _gameViews = gameViews;
             _selectingInput = selectingInput;
             _playerInput = playerInput;
         }
@@ -458,6 +461,11 @@ namespace General
 
         private void UpdateZoom()
         {
+            if (_gameViews.MouseOverUi)
+            {
+                return;
+            }
+            
             var zoomScroll = _zoomScrollAction.ReadValue<Vector2>().y;
             _newFieldOfView = Mathf.Clamp(_newFieldOfView - zoomScroll * _zoomScrollSensitivity,
                 _minFov, _maxFov);

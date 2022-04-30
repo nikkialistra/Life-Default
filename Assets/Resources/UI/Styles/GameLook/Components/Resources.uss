@@ -1,11 +1,14 @@
 .resources {
     flex-direction: row;
-    height: 80px;
+    width: 293px;
+    min-height: 120px;
 }
 
 .content__row {
+    width: 290px;
     flex-direction: row;
     margin-bottom: 5px;
+    padding: 8px 8px 0 8px;
 }
 
 .element {

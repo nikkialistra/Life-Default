@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using General.Questing;
+using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace UI.Game.GameLook.Components.Stock

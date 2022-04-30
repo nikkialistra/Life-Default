@@ -1,5 +1,5 @@
 .separator {
-    width: 3.5px;
+    width: 3px;
     height: 100%;
     border-width: 1.5px;
     border-color: rgb(34, 36, 38);
@@ -13,10 +13,57 @@
 
 .content {
     margin-top: 1px;
+    width: 290px;
+    height: 98%;
     background-color: rgba(34, 36, 38, 0.5);
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
     margin-bottom: 1px;
-    height: 98%;
     border-right-width: 0;
+}
+
+.unity-scroll-view__content-and-vertical-scroll-container {
+    width: 307px;
+    height: 400px;
+}
+
+.unity-scroll-view__content-viewport {
+    border-bottom-right-radius: 10px;
+}
+
+.unity-scroll-view__vertical-scroller {
+    width: 17px;
+}
+
+.unity-base-slider--vertical {
+    min-width: 12px;
+}
+
+.unity-scroller--vertical > .unity-scroller__slider {
+    width: 12px;
+    margin: 0 0 0 5px;
+    border-radius: 3px;
+}
+
+.unity-scroller--vertical > .unity-scroller__low-button {
+    display: none;
+}
+
+.unity-scroller--vertical > .unity-scroller__high-button {
+    display: none;
+}
+
+.unity-scroller--vertical .unity-base-slider__tracker {
+    border-width: 0;
+    border-radius: 5px;
+    background-color: rgba(9, 10, 10, 0.6);
+}
+
+.unity-scroller--vertical .unity-base-slider__dragger {
+    width: 8px;
+    margin: 3px 0 0 0;
+    padding-bottom: 3px;
+    border-width: 0;
+    border-radius: 5px;
+    background-color: rgba(121, 123, 128, 0.6);
 }

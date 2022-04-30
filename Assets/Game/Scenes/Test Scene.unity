@@ -1413,7 +1413,7 @@ PrefabInstance:
     - target: {fileID: 588027007046373087, guid: 0802b572ad05186499c16eab7a723ffb,
         type: 3}
       propertyPath: _startingQuests.Array.size
-      value: 2
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 588027007046373087, guid: 0802b572ad05186499c16eab7a723ffb,
         type: 3}
@@ -1426,6 +1426,24 @@ PrefabInstance:
       propertyPath: _startingQuests.Array.data[1]
       value: 
       objectReference: {fileID: 11400000, guid: 189c255a5198ba94489c48930b84fb5f,
+        type: 2}
+    - target: {fileID: 588027007046373087, guid: 0802b572ad05186499c16eab7a723ffb,
+        type: 3}
+      propertyPath: _startingQuests.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: c9eb552aec7896047b7294d42d0a5497,
+        type: 2}
+    - target: {fileID: 588027007046373087, guid: 0802b572ad05186499c16eab7a723ffb,
+        type: 3}
+      propertyPath: _startingQuests.Array.data[3]
+      value: 
+      objectReference: {fileID: 11400000, guid: 3e34d9328f9587c4dbf06530d5804b6d,
+        type: 2}
+    - target: {fileID: 588027007046373087, guid: 0802b572ad05186499c16eab7a723ffb,
+        type: 3}
+      propertyPath: _startingQuests.Array.data[4]
+      value: 
+      objectReference: {fileID: 11400000, guid: 6f63fb034f6027e4880bb8a027ded387,
         type: 2}
     - target: {fileID: 2306889760291160586, guid: 0802b572ad05186499c16eab7a723ffb,
         type: 3}

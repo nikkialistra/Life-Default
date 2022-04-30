@@ -1,22 +1,22 @@
+.quests {
+    width: 293px;
+    flex-direction: row;
+}
+
 .content {
     height: auto;
     padding: 5px 0 0 8px;
-    min-width: 275px;
+    min-width: 290px;
 }
 
 .quest-list {
-    width: 270px;
+    width: 280px;
     min-height: 30px;
     padding: 5px 8px 0 0;
 }
 
-.quests {
-    width: 283.5px;
-    flex-direction: row;
-}
-
 .quest {
-    width: 260px;
+    width: 270px;
     padding: 8px 8px 3px 8px;
     border-radius: 3px;
     background-color: rgba(34, 36, 38, 0.3);
@@ -27,12 +27,12 @@
 }
 
 .description {
-    width: 250px;
+    width: 270px;
     white-space: normal;
 }
 
 .objectives {
-    width: 260px;
+    width: 270px;
     padding-left: 10px;
     align-items: flex-start;
 }

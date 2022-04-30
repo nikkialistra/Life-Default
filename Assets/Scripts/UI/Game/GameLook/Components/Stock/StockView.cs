@@ -51,15 +51,17 @@ namespace UI.Game.GameLook.Components.Stock
             _quests.clicked -= ToggleQuests;
         }
 
-        public void ShowQuests()
+        public void ToggleQuests()
         {
             if (_questsView.Shown)
             {
-                return;
+                _questsView.HideSelf();
             }
-
-            HideAll();
-            _questsView.ShowSelf();
+            else
+            {
+                HideAll();
+                _questsView.ShowSelf();
+            }
         }
 
         private void ToggleResources()
@@ -72,19 +74,6 @@ namespace UI.Game.GameLook.Components.Stock
             {
                 HideAll();
                 _resourcesView.ShowSelf();
-            }
-        }
-
-        private void ToggleQuests()
-        {
-            if (_questsView.Shown)
-            {
-                _questsView.HideSelf();
-            }
-            else
-            {
-                HideAll();
-                _questsView.ShowSelf();
             }
         }
 

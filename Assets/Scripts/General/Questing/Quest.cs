@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using General.Questing.Objectives;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -21,14 +22,14 @@ namespace General.Questing
 
         public bool HasObjectiveAt(int index)
         {
-            return index <= _objectives.Count;
+            return index < _objectives.Count;
         }
 
-        public void Activate()
+        public void Activate(QuestServices questServices)
         {
             foreach (var objective in _objectives)
             {
-                objective.Activate();
+                objective.Activate(questServices);
             }
         }
 

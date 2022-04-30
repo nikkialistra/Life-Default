@@ -11,12 +11,16 @@ namespace General.Questing
         [SerializeField] private List<Quest> _activeQuests;
         
         private QuestsView _questsView;
+        
         private NotificationsView _notificationsView;
         private StockView _stockView;
+        private QuestServices _questServices;
 
         [Inject]
-        public void Construct(QuestsView questsView, NotificationsView notificationsView, StockView stockView)
+        public void Construct(QuestServices questServices,QuestsView questsView, NotificationsView notificationsView, StockView stockView)
         {
+            _questServices = questServices;
+            
             _questsView = questsView;
             _notificationsView = notificationsView;
             _stockView = stockView;
@@ -26,9 +30,10 @@ namespace General.Questing
         {
             foreach (var quest in _activeQuests)
             {
+                quest.Activate(_questServices);
                 _questsView.AddQuest(quest);
 
-                var notification = new Notification(quest.Title, _stockView.ShowQuests);
+                var notification = new Notification(quest.Title, _stockView.ToggleQuests);
                 
                 _notificationsView.AddNotification(notification);
             }

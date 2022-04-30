@@ -6,9 +6,9 @@
         <ui:Label text="Collect initial resources" display-tooltip-when-elided="true" name="title" class="label left-aligned label-outlined-medium margin-bottom" />
         <ui:Label text="Our colony should have enough resources to meet our needs." display-tooltip-when-elided="true" name="description" class="label left-aligned label-outlined-small description margin-bottom" />
         <ui:VisualElement name="objectives" class="objectives">
-            <ui:Label text="Collect 80 wood  —  14/80" display-tooltip-when-elided="true" name="first-objective" class="objective label label-small margin-bottom" />
-            <ui:Label text="Collect 20 stones  —  5/20" display-tooltip-when-elided="true" name="second-objective" class="label label-small objective margin-bottom" />
-            <ui:Label text="Get rid of 15 inhabitans  —  0/15" display-tooltip-when-elided="true" name="third-objective" class="label label-small objective margin-bottom" />
+            <ui:Label text="— " display-tooltip-when-elided="true" name="first-objective" class="objective label label-small margin-bottom" style="display: none;" />
+            <ui:Label text="— " display-tooltip-when-elided="true" name="second-objective" class="label label-small objective margin-bottom" style="display: none;" />
+            <ui:Label text="— " display-tooltip-when-elided="true" name="third-objective" class="label label-small objective margin-bottom" style="display: none;" />
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

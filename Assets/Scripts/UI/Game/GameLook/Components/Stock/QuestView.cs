@@ -69,6 +69,7 @@ namespace UI.Game.GameLook.Components.Stock
             {
                 if (quest.HasObjectiveAt(i))
                 {
+                    _objectives[i].style.display = DisplayStyle.Flex;
                     _objectives[i].text = quest.Objectives[i].ToText();
 
                     quest.Objectives[i].Update += _updateObjectiveActions[i];

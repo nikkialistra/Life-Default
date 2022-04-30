@@ -15,9 +15,18 @@ MonoBehaviour:
   _title: Collect initial resources
   _description: Our colony should have enough resources to meet our needs.
   _objectives:
-  - rid: -2
+  - rid: 6879816466476826624
+  - rid: 6879816466476826626
   references:
     version: 2
     RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
+    - rid: 6879816466476826624
+      type: {class: CollectObjective, ns: General.Questing, asm: Scripts}
+      data:
+        _type: 0
+        _quantity: 80
+    - rid: 6879816466476826626
+      type: {class: CollectObjective, ns: General.Questing, asm: Scripts}
+      data:
+        _type: 1
+        _quantity: 20

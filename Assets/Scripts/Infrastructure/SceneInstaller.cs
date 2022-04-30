@@ -1,6 +1,7 @@
 ﻿using Colonists.Services.Selecting;
 using General;
 using General.Map;
+using General.Questing;
 using General.Selecting;
 using General.Selecting.Selected;
 using General.TemperatureRegulation;
@@ -82,7 +83,7 @@ namespace Infrastructure
         [SerializeField] private HumanNames _humanNames;
         [Required]
         [SerializeField] private HumanAppearanceRegistry _humanAppearanceRegistry;
-        
+
         [Title("Map")]
         [Required]
         [SerializeField] private Terrain _terrain;
@@ -106,6 +107,7 @@ namespace Infrastructure
             BindResourceSystems();
             BindControls();
             BindEntities();
+            BindQuesting();
             BindMap();
         }
 
@@ -167,7 +169,12 @@ namespace Infrastructure
             Container.BindInstance(_humanNames);
             Container.BindInstance(_humanAppearanceRegistry);
         }
-        
+
+        private void BindQuesting()
+        {
+            Container.Bind<QuestServices>().AsSingle();
+        }
+
         private void BindMap()
         {
             Container.BindInstance(_terrain);

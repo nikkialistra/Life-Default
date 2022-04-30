@@ -42,7 +42,7 @@ namespace General.Questing.Objectives
 
         public string ToText()
         {
-            return $"Collect {_quantity} {_type}s  –  {_collected}/{_quantity}";
+            return $"Collect {_quantity} {_type.GetStringForMultiple()}  –  {_collected}/{_quantity}";
         }
     }
 }

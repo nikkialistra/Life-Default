@@ -53,6 +53,7 @@ namespace Enemies
             _behavior = GetComponent<EnemyBehavior>();
         }
         
+        public event Action Spawn;
         public event Action HealthChange;
         public event Action<Enemy> EnemyDying;
         public event Action Dying;
@@ -66,6 +67,8 @@ namespace Enemies
         {
             Initialize();
             InitializeComponents();
+            
+            Spawn?.Invoke();
         }
 
         private void OnEnable()

@@ -22,6 +22,15 @@ namespace ResourceManagement
                 _ => throw new ArgumentOutOfRangeException(nameof(resourceType), resourceType, null)
             };
         }
-        
+
+        public static string GetStringForMultiple(this ResourceType resourceType)
+        {
+            return resourceType switch
+            {
+                ResourceType.Wood => "woods",
+                ResourceType.Stone => "stones",
+                _ => throw new ArgumentOutOfRangeException(nameof(resourceType), resourceType, null)
+            };
+        }
     }
 }

@@ -12,6 +12,7 @@ namespace Enemies
 {
     [RequireComponent(typeof(Unit))]
     [RequireComponent(typeof(UnitSelection))]
+    [RequireComponent(typeof(UnitAttacker))]
     [RequireComponent(typeof(EnemyAnimator))]
     [RequireComponent(typeof(EnemyMeshAgent))]
     [RequireComponent(typeof(EnemyBehavior))]
@@ -28,6 +29,7 @@ namespace Enemies
 
         private Unit _unit;
         private UnitSelection _unitSelection;
+        private UnitAttacker _unitAttacker;
 
         private EnemyAnimator _animator;
         private EnemyMeshAgent _meshAgent;
@@ -47,6 +49,7 @@ namespace Enemies
         {
             _unit = GetComponent<Unit>();
             _unitSelection = GetComponent<UnitSelection>();
+            _unitAttacker = GetComponent<UnitAttacker>();
 
             _animator = GetComponent<EnemyAnimator>();
             _meshAgent = GetComponent<EnemyMeshAgent>();
@@ -151,15 +154,23 @@ namespace Enemies
 
         private void OnDying()
         {
-            _meshAgent.Deactivate();
-            _behavior.Disable();
-            
+            DeactivateComponents();
+
             Deselect();
 
             EnemyDying?.Invoke(this);
             Dying?.Invoke();
             
             _animator.Die(DestroySelf);
+        }
+
+        private void DeactivateComponents()
+        {
+            _unitSelection.Deactivate();
+            _unitAttacker.FinalizeAttackingInstantly();
+            
+            _meshAgent.Deactivate();
+            _behavior.Disable();
         }
 
         private void InitializeComponents()

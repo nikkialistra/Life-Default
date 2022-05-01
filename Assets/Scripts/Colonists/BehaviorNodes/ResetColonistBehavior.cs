@@ -21,7 +21,7 @@ namespace Colonists.BehaviorNodes
             ColonistMeshAgent.ResetDestination();
             ColonistGatherer.FinishGathering();
             
-            UnitAttacker.FinishAttacking();
+            UnitAttacker.FinalizeAttacking();
 
             return TaskStatus.Success;
         }

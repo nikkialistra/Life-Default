@@ -2,6 +2,7 @@
 using System.Collections;
 using General;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Units
 {
@@ -9,6 +10,8 @@ namespace Units
     [RequireComponent(typeof(UnitAnimator))]
     public class UnitAttacker : MonoBehaviour
     {
+        [SerializeField] private float _timeAfterAttackToIdle = 2f;
+        
         private Unit _unit;
         
         private Action _onInteractionFinish;
@@ -20,6 +23,8 @@ namespace Units
         
         private float _waitTime;
 
+        private float _lastAttackTime;
+        
         private Coroutine _attackingCoroutine;
 
         private void Awake()
@@ -29,15 +34,17 @@ namespace Units
         }
 
         public bool IsAttacking { get; private set; }
+        public bool Idle => !IsAttacking && Time.time - _lastAttackTime > _timeAfterAttackToIdle;
 
         private void Start()
         {
             _attackAngle = GlobalParameters.Instance.AttackAngle;
             _waitTime = GlobalParameters.Instance.TimeToStopInteraction;
+            
+            _unitAnimator.SetAttackSpeed(_unitStats.MeleeAttackSpeed);
         }
 
         public float AttackRange => _unitStats.MeleeAttackRange;
-
 
         public void Attack(Unit unit)
         {
@@ -53,10 +60,25 @@ namespace Units
         {
             if (_unit == null || !_unit.Alive)
             {
-                StopAttacking();
+                FinishAttacking();
                 return;
             }
 
+            if (Miss())
+            {
+                return;
+            }
+
+            MakeDamage(passedTime);
+        }
+
+        private bool Miss()
+        {
+            return Random.Range(0f, 1f) > _unitStats.MeleeAccuracy;
+        }
+
+        private void MakeDamage(float passedTime)
+        {
             var damage = _unitStats.MeleeDamagePerSecond * passedTime;
 
             _unit.TakeDamage(damage);
@@ -64,11 +86,24 @@ namespace Units
             if (!_unit.Alive)
             {
                 _unit = null;
-                StopAttacking();
+                FinishAttacking();
             }
         }
 
-        public void FinishAttacking()
+        public void FinalizeAttacking()
+        {
+            ResetAttacking();
+            StartCoroutine(FinishAttackingLater());
+        }
+
+        public void FinalizeAttackingInstantly()
+        {
+            ResetAttacking();
+
+            StopAttacking();
+        }
+
+        private void ResetAttacking()
         {
             if (_attackingCoroutine != null)
             {
@@ -77,15 +112,13 @@ namespace Units
             }
 
             _unit = null;
-
-            StartCoroutine(StopAttackingLater());
         }
 
         public bool OnAttackRange(Vector3 position)
         {
             return Vector3.Distance(transform.position, position) < _unitStats.MeleeAttackRange;
         }
-        
+
         public bool OnAttackAngle(Vector3 position)
         {
             position.y = transform.position.y;
@@ -116,17 +149,17 @@ namespace Units
 
             _unit = null;
 
-            StopAttacking();
+            FinishAttacking();
         }
 
-        private IEnumerator StopAttackingLater()
+        private IEnumerator FinishAttackingLater()
         {
             yield return new WaitForSeconds(_waitTime);
 
-            StopAttacking();
+            FinishAttacking();
         }
 
-        private void StopAttacking()
+        private void FinishAttacking()
         {
             if (_unit != null)
             {
@@ -140,8 +173,15 @@ namespace Units
             }
             
             _unitAnimator.Attack(false);
-
             IsAttacking = false;
+        }
+
+        private void StopAttacking()
+        {
+            _unitAnimator.Attack(false);
+            IsAttacking = false;
+
+            _lastAttackTime = Time.time;
         }
     }
 }

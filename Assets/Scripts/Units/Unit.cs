@@ -6,9 +6,11 @@ using Units.Ancillaries;
 using Units.Ancillaries.Fields;
 using Units.Enums;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Units
 {
+    [RequireComponent(typeof(UnitStats))]
     [RequireComponent(typeof(UnitVitality))]
     public class Unit : MonoBehaviour
     {
@@ -31,6 +33,8 @@ namespace Units
         [SerializeField] private FieldOfView _unitFieldOfView;
         [SerializeField] private FieldOfHearing _unitFieldOfHearing;
 
+        private UnitStats _unitStats;
+        
         private bool _died;
 
         public event Action HealthChange;
@@ -44,6 +48,7 @@ namespace Units
         
         private void Awake()
         {
+            _unitStats = GetComponent<UnitStats>();
             Vitality = GetComponent<UnitVitality>();
         }
         
@@ -80,7 +85,17 @@ namespace Units
                 return;
             }
 
+            if (Dodged())
+            {
+                return;
+            }
+
             Vitality.TakeDamage(value);
+        }
+
+        private bool Dodged()
+        {
+            return Random.Range(0f, 1f) <= _unitStats.AttackDodgeChance;
         }
 
         public void Select()

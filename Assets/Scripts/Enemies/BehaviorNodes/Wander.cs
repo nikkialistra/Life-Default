@@ -1,4 +1,5 @@
 ﻿using BehaviorDesigner.Runtime.Tasks;
+using Units;
 using UnityEngine;
 
 namespace Enemies.BehaviorNodes
@@ -14,6 +15,7 @@ namespace Enemies.BehaviorNodes
         public float MaxPauseDuration = 0;
 
         public EnemyMeshAgent EnemyMeshAgent;
+        public UnitAttacker UnitAttacker;
 
         private float _setTargetTime = float.PositiveInfinity;
 
@@ -37,7 +39,7 @@ namespace Enemies.BehaviorNodes
 
         private void WanderIfIdle()
         {
-            if (EnemyMeshAgent.Idle)
+            if (EnemyMeshAgent.Idle && UnitAttacker.Idle)
             {
                 if (MaxPauseDuration > 0)
                 {

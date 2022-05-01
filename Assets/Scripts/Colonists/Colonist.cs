@@ -13,6 +13,7 @@ namespace Colonists
 {
     [RequireComponent(typeof(Unit))]
     [RequireComponent(typeof(UnitSelection))]
+    [RequireComponent(typeof(UnitAttacker))]
     [RequireComponent(typeof(ColonistAnimator))]
     [RequireComponent(typeof(ColonistMeshAgent))]
     [RequireComponent(typeof(ColonistGatherer))]
@@ -32,10 +33,11 @@ namespace Colonists
 
         private Unit _unit;
         private UnitSelection _unitSelection;
-        
+        private UnitAttacker _unitAttacker;
+
         private ColonistAnimator _animator;
         private ColonistMeshAgent _meshAgent;
-        private ColonistGatherer _gatherer; 
+        private ColonistGatherer _gatherer;
         private ColonistBehavior _behavior;
 
         private HumanAppearanceRegistry _humanAppearanceRegistry;
@@ -52,6 +54,7 @@ namespace Colonists
         {
             _unit = GetComponent<Unit>();
             _unitSelection = GetComponent<UnitSelection>();
+            _unitAttacker = GetComponent<UnitAttacker>();
             
             _animator = GetComponent<ColonistAnimator>();
             _meshAgent = GetComponent<ColonistMeshAgent>();
@@ -200,6 +203,9 @@ namespace Colonists
         {
             _unit.HideUnitVisibilityFields();
             _gatherer.HideResourceFieldOfView();
+
+            _unitSelection.Deactivate();
+            _unitAttacker.FinalizeAttackingInstantly();
             
             _meshAgent.Deactivate();
             _behavior.Deactivate();

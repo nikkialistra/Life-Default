@@ -16,10 +16,7 @@ namespace Enemies
             _unitMeshAgent = GetComponent<UnitMeshAgent>();
             _animator = GetComponent<EnemyAnimator>();
         }
-
-        public event Action DestinationReach;
-
-        public bool IsMoving => _unitMeshAgent.IsMoving;
+        
         public bool Idle { get; private set; } = true;
 
         private void OnEnable()
@@ -54,7 +51,6 @@ namespace Enemies
         {
             Idle = true;
             _animator.Move(false);
-            DestinationReach?.Invoke();
         }
     }
 }

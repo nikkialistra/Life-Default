@@ -22,7 +22,7 @@ namespace Units.BehaviourNodes.Attacking
             
             if (OutOfReach(UnitTarget.Value.transform.position))
             {
-                UnitAttacker.FinishAttacking();
+                UnitAttacker.FinalizeAttacking();
                 return TaskStatus.Success;
             }
 

@@ -13,6 +13,8 @@ namespace Units
         private readonly int _moving = Animator.StringToHash("moving");
         private readonly int _death = Animator.StringToHash("death");
         private readonly int _attacking = Animator.StringToHash("attacking");
+
+        private readonly int _attackSpeed = Animator.StringToHash("attackSpeed");
         
         public void Die(Action died)
         {
@@ -43,6 +45,11 @@ namespace Units
         public void Attack(bool value)
         {
             _animator.SetBool(_attacking, value);
+        }
+
+        public void SetAttackSpeed(float value)
+        {
+            _animator.SetFloat(_attackSpeed, value);
         }
     }
 }

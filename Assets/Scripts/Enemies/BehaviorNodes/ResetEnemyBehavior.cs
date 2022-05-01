@@ -18,7 +18,7 @@ namespace Enemies.BehaviorNodes
 
             EnemyMeshAgent.StopMoving();
 
-            UnitAttacker.FinishAttacking();
+            UnitAttacker.FinalizeAttacking();
 
             return TaskStatus.Success;
         }

@@ -34,11 +34,6 @@ namespace Units
             _timeToHideHover = GlobalParameters.Instance.TimeToHideHover;
         }
 
-        public void Activate()
-        {
-            _activated = true;
-        }
-
         public void Flash()
         {
             
@@ -79,6 +74,16 @@ namespace Units
             {
                 _hoveringCoroutine = StartCoroutine(Hovering());
             }
+        }
+        
+        public void Activate()
+        {
+            _activated = true;
+        }
+
+        public void Deactivate()
+        {
+            _activated = false;
         }
 
         private IEnumerator Hovering()

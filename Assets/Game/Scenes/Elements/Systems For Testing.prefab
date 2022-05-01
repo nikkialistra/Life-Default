@@ -55,7 +55,7 @@ GameObject:
   - component: {fileID: 8108227751361976298}
   - component: {fileID: 8108227751361976297}
   m_Layer: 0
-  m_Name: Unit Generator
+  m_Name: Unit Placer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

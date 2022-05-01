@@ -94,6 +94,12 @@ namespace Enemies
             transform.position = position;
         }
 
+        public void SetAt(Vector3 position, Quaternion rotation)
+        {
+            transform.position = position;
+            transform.rotation = rotation;
+        }
+
         [Button(ButtonSizes.Medium)]
         public void RandomizeAppearance()
         {

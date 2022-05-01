@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using Enemies;
+using Enemies.Services;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using Zenject;
@@ -11,6 +12,8 @@ namespace Units.Services
     public class UnitGenerator : MonoBehaviour
     {
         [SerializeField] private bool _spawnAtStart = true;
+        [Space]
+        [SerializeField] private int _maxEnemyCount = 20;
 
         [Title("Boundaries")]
         [MinValue(0)]
@@ -28,8 +31,6 @@ namespace Units.Services
         [SerializeField] private int _numberOfTriesToSpawn = 5;
 
         [Title("Parameters")]
-        [SerializeField] private int _probabilitySeed;
-        [Space]
         [Range(0, 1f)]
         [SerializeField] private float _probability;
         [Space]
@@ -56,6 +57,8 @@ namespace Units.Services
         [SerializeField] private float _obstacleRadius = 5f;
 
         private Enemy.Factory _enemyFactory;
+        
+        private EnemyRepository _enemyRepository;
 
         private bool _generateTestCubes;
         private readonly List<GameObject> _cubes = new();
@@ -65,9 +68,10 @@ namespace Units.Services
         private readonly Collider[] _obstacleResults = new Collider[1];
 
         [Inject]
-        public void Construct(Enemy.Factory enemyFactory)
+        public void Construct(Enemy.Factory enemyFactory, EnemyRepository enemyRepository)
         {
             _enemyFactory = enemyFactory;
+            _enemyRepository = enemyRepository;
         }
 
         private void Start()
@@ -121,8 +125,11 @@ namespace Units.Services
             while (true)
             {
                 yield return new WaitForSeconds(CalculateInterval());
-                
-                Generate();
+
+                if (_enemyRepository.Count <= _maxEnemyCount)
+                {
+                    Generate();
+                }
             }
         }
 

@@ -11,6 +11,8 @@ namespace Enemies.Services
         public event Action<Enemy> Add;
         public event Action<Enemy> Remove;
 
+        public int Count => _enemies.Count;
+
         public IEnumerable<Enemy> GetEnemies()
         {
             foreach (var enemy in _enemies)

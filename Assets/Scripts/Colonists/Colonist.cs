@@ -198,6 +198,9 @@ namespace Colonists
 
         private void DeactivateComponents()
         {
+            _unit.HideUnitVisibilityFields();
+            _gatherer.HideResourceFieldOfView();
+            
             _meshAgent.Deactivate();
             _behavior.Deactivate();
         }

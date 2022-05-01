@@ -21,7 +21,7 @@ namespace Units.Ancillaries.Fields
 
         private readonly List<Transform> _visibleTargets = new();
 
-        private bool _showFieldOfView;
+        private bool _show;
         private float _updateTime;
         
         private FieldVisualization _fieldVisualization;
@@ -40,7 +40,7 @@ namespace Units.Ancillaries.Fields
 
         private void Update()
         {
-            if (_showFieldOfView && Time.time > _updateTime)
+            if (_show && Time.time > _updateTime)
             {
                 _updateTime += _recalculationTime;
                 FindVisibleTargets();
@@ -51,9 +51,9 @@ namespace Units.Ancillaries.Fields
         [Button(ButtonSizes.Large)]
         public void ToggleDebugShow()
         {
-            _showFieldOfView = !_showFieldOfView;
+            _show = !_show;
 
-            if (_showFieldOfView)
+            if (_show)
             {
                 _fieldVisualization.Show();
                 
@@ -62,6 +62,13 @@ namespace Units.Ancillaries.Fields
             {
                 _fieldVisualization.Hide();
             }
+        }
+
+        public void HideDebugShow()
+        {
+            _show = false;
+            
+            _fieldVisualization.Hide();
         }
 
         public IEnumerable<Transform> FindVisibleTargets()

@@ -2,14 +2,13 @@
 using BehaviorDesigner.Runtime.Tasks;
 using Units;
 
-namespace Colonists.BehaviorNodes
+namespace Enemies.BehaviorNodes
 {
-    public class ResetBehavior : Action
+    public class ResetEnemyBehavior : Action
     {
         public SharedBool NewCommand;
 
-        public ColonistMeshAgent ColonistMeshAgent;
-        public ColonistGatherer ColonistGatherer;
+        public EnemyMeshAgent EnemyMeshAgent;
         
         public UnitAttacker UnitAttacker;
 
@@ -17,10 +16,8 @@ namespace Colonists.BehaviorNodes
         {
             NewCommand.Value = false;
 
-            ColonistMeshAgent.StopMoving();
-            ColonistMeshAgent.ResetDestination();
-            ColonistGatherer.FinishGathering();
-            
+            EnemyMeshAgent.StopMoving();
+
             UnitAttacker.FinishAttacking();
 
             return TaskStatus.Success;

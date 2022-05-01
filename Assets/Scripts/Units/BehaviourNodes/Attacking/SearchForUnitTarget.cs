@@ -19,35 +19,39 @@ namespace Units.BehaviourNodes.Attacking
         public FieldOfView FieldOfView;
         public FieldOfHearing FieldOfHearing;
 
+        public float TimeToRescan = 0.2f;
+
+        private float _nextTimeToScan;
+
         private float _shortestDistanceToUnit;
 
         public override void OnStart()
         {
             _shortestDistanceToUnit = float.PositiveInfinity;
+
+            _nextTimeToScan = Time.time + TimeToRescan;
         }
 
         public override TaskStatus OnUpdate()
         {
+            if (Time.time < _nextTimeToScan)
+            {
+                return TaskStatus.Running;
+            }
+
+            _nextTimeToScan += TimeToRescan;
+            
             if (UnitTarget.Value != null)
             {
                 NewCommand.Value = true;
                 Self.Value.UnitEquipment.EquipWeapon();
-                return TaskStatus.Success;
+                return TaskStatus.Running;
             }
             
             TryToFind();
+            UpdateEquipment();
 
-            if (UnitTarget.Value != null)
-            {
-                NewCommand.Value = true;
-                Self.Value.UnitEquipment.EquipWeapon();
-            }
-            else
-            {
-                Self.Value.UnitEquipment.UnequipWeapon();
-            }
-
-            return TaskStatus.Success;
+            return TaskStatus.Running;
         }
 
         private void TryToFind()
@@ -59,6 +63,19 @@ namespace Units.BehaviourNodes.Attacking
                 {
                     SetIfClosest(unit);
                 }
+            }
+        }
+
+        private void UpdateEquipment()
+        {
+            if (UnitTarget.Value != null)
+            {
+                NewCommand.Value = true;
+                Self.Value.UnitEquipment.EquipWeapon();
+            }
+            else
+            {
+                Self.Value.UnitEquipment.UnequipWeapon();
             }
         }
 

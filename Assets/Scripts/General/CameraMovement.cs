@@ -112,7 +112,6 @@ namespace General
         private InputAction _dragAction;
         private InputAction _mousePositionAction;
         private InputAction _zoomScrollAction;
-        private InputAction _zoomButtonAction;
 
         private InputAction _setFollowAction;
 
@@ -139,7 +138,6 @@ namespace General
             _dragAction = _playerInput.actions.FindAction("Drag");
             _mousePositionAction = _playerInput.actions.FindAction("Mouse Position");
             _zoomScrollAction = _playerInput.actions.FindAction("Zoom Scroll");
-            _zoomButtonAction = _playerInput.actions.FindAction("Zoom Button");
 
             _setFollowAction = _playerInput.actions.FindAction("Set Follow");
 
@@ -468,10 +466,6 @@ namespace General
             
             var zoomScroll = _zoomScrollAction.ReadValue<Vector2>().y;
             _newFieldOfView = Mathf.Clamp(_newFieldOfView - zoomScroll * _zoomScrollSensitivity,
-                _minFov, _maxFov);
-
-            var zoomButton = _zoomButtonAction.ReadValue<float>();
-            _newFieldOfView = Mathf.Clamp(_newFieldOfView - zoomButton * _zoomButtonSensitivity,
                 _minFov, _maxFov);
         }
 

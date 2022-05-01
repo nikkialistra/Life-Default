@@ -131,6 +131,11 @@ namespace Colonists
             _resourceFieldOfView.ToggleDebugShow();
         }
 
+        public void HideResourceFieldOfView()
+        {
+            _resourceFieldOfView.HideDebugShow();
+        }
+
         private IEnumerator StopGatheringLater()
         {
             yield return new WaitForSeconds(_waitTime);

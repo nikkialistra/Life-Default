@@ -99,6 +99,12 @@ namespace Units
             _unitFieldOfHearing.ToggleDebugShow();
         }
 
+        public void HideUnitVisibilityFields()
+        {
+            _unitFieldOfView.HideDebugShow();
+            _unitFieldOfHearing.HideDebugShow();
+        }
+
         public void Die()
         {
             if (_died)

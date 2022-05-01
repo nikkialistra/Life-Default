@@ -78,15 +78,6 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Zoom Button",
-                    "type": "Value",
-                    "id": "141de89e-0dc4-4a48-bf02-3f6283acbf65",
-                    "expectedControlType": "Digital",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true
-                },
-                {
                     "name": "Toggle Camera Movement",
                     "type": "Button",
                     "id": "37a3e6a3-a05c-44db-a0c0-2a943d34117e",
@@ -231,7 +222,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Toggle Enemy Field Of View",
+                    "name": "Toggle Unit Field Of View",
                     "type": "Button",
                     "id": "b34e6d70-41fd-44d7-95ac-fad15c64847a",
                     "expectedControlType": "Button",
@@ -381,39 +372,6 @@
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "1D Axis",
-                    "id": "87ca861a-8e3d-4c54-b441-cd3043588626",
-                    "path": "1DAxis",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Zoom Button",
-                    "isComposite": true,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "negative",
-                    "id": "d91ea792-9a77-4041-a96d-ee6410f5c610",
-                    "path": "<Keyboard>/g",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Zoom Button",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "positive",
-                    "id": "11304acd-7a97-4df6-be95-961f09dab8bf",
-                    "path": "<Keyboard>/t",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Zoom Button",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
                     "name": "Button With One Modifier",
                     "id": "7f23b91f-67a3-4631-bde7-07511c16f1f0",
                     "path": "ButtonWithOneModifier",
@@ -475,7 +433,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Toggle Enemy Field Of View",
+                    "action": "Toggle Unit Field Of View",
                     "isComposite": true,
                     "isPartOfComposite": false
                 },
@@ -486,7 +444,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Toggle Enemy Field Of View",
+                    "action": "Toggle Unit Field Of View",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -497,7 +455,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Toggle Enemy Field Of View",
+                    "action": "Toggle Unit Field Of View",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },

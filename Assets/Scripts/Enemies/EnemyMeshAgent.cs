@@ -1,4 +1,5 @@
-﻿using Units;
+﻿using System;
+using Units;
 using UnityEngine;
 
 namespace Enemies
@@ -15,6 +16,8 @@ namespace Enemies
             _unitMeshAgent = GetComponent<UnitMeshAgent>();
             _animator = GetComponent<EnemyAnimator>();
         }
+
+        public event Action DestinationReach;
 
         public bool IsMoving => _unitMeshAgent.IsMoving;
         public bool Idle { get; private set; } = true;
@@ -51,6 +54,7 @@ namespace Enemies
         {
             Idle = true;
             _animator.Move(false);
+            DestinationReach?.Invoke();
         }
     }
 }

@@ -102,15 +102,6 @@ namespace Controls
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""Zoom Button"",
-                    ""type"": ""Value"",
-                    ""id"": ""141de89e-0dc4-4a48-bf02-3f6283acbf65"",
-                    ""expectedControlType"": ""Digital"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": true
-                },
-                {
                     ""name"": ""Toggle Camera Movement"",
                     ""type"": ""Button"",
                     ""id"": ""37a3e6a3-a05c-44db-a0c0-2a943d34117e"",
@@ -255,7 +246,7 @@ namespace Controls
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Toggle Enemy Field Of View"",
+                    ""name"": ""Toggle Unit Field Of View"",
                     ""type"": ""Button"",
                     ""id"": ""b34e6d70-41fd-44d7-95ac-fad15c64847a"",
                     ""expectedControlType"": ""Button"",
@@ -405,39 +396,6 @@ namespace Controls
                     ""isPartOfComposite"": true
                 },
                 {
-                    ""name"": ""1D Axis"",
-                    ""id"": ""87ca861a-8e3d-4c54-b441-cd3043588626"",
-                    ""path"": ""1DAxis"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Zoom Button"",
-                    ""isComposite"": true,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""negative"",
-                    ""id"": ""d91ea792-9a77-4041-a96d-ee6410f5c610"",
-                    ""path"": ""<Keyboard>/g"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Zoom Button"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""positive"",
-                    ""id"": ""11304acd-7a97-4df6-be95-961f09dab8bf"",
-                    ""path"": ""<Keyboard>/t"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Zoom Button"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
                     ""name"": ""Button With One Modifier"",
                     ""id"": ""7f23b91f-67a3-4631-bde7-07511c16f1f0"",
                     ""path"": ""ButtonWithOneModifier"",
@@ -499,7 +457,7 @@ namespace Controls
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Toggle Enemy Field Of View"",
+                    ""action"": ""Toggle Unit Field Of View"",
                     ""isComposite"": true,
                     ""isPartOfComposite"": false
                 },
@@ -510,7 +468,7 @@ namespace Controls
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Toggle Enemy Field Of View"",
+                    ""action"": ""Toggle Unit Field Of View"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -521,7 +479,7 @@ namespace Controls
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Toggle Enemy Field Of View"",
+                    ""action"": ""Toggle Unit Field Of View"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -896,7 +854,6 @@ namespace Controls
             m_Management_Drag = m_Management.FindAction("Drag", throwIfNotFound: true);
             m_Management_Movement = m_Management.FindAction("Movement", throwIfNotFound: true);
             m_Management_ZoomScroll = m_Management.FindAction("Zoom Scroll", throwIfNotFound: true);
-            m_Management_ZoomButton = m_Management.FindAction("Zoom Button", throwIfNotFound: true);
             m_Management_ToggleCameraMovement = m_Management.FindAction("Toggle Camera Movement", throwIfNotFound: true);
             m_Management_DestroyInteractable = m_Management.FindAction("Destroy Interactable", throwIfNotFound: true);
             m_Management_SetFollow = m_Management.FindAction("Set Follow", throwIfNotFound: true);
@@ -913,7 +870,7 @@ namespace Controls
             m_Management_Cancel = m_Management.FindAction("Cancel", throwIfNotFound: true);
             m_Management_PreviousFormation = m_Management.FindAction("Previous Formation", throwIfNotFound: true);
             m_Management_NextFormation = m_Management.FindAction("Next Formation", throwIfNotFound: true);
-            m_Management_ToggleEnemyFieldOfView = m_Management.FindAction("Toggle Enemy Field Of View", throwIfNotFound: true);
+            m_Management_ToggleUnitFieldOfView = m_Management.FindAction("Toggle Unit Field Of View", throwIfNotFound: true);
             m_Management_ToggleResourceFieldOfView = m_Management.FindAction("Toggle Resource Field Of View", throwIfNotFound: true);
             m_Management_SelectTile = m_Management.FindAction("Select Tile", throwIfNotFound: true);
             // Input
@@ -987,7 +944,6 @@ namespace Controls
         private readonly InputAction m_Management_Drag;
         private readonly InputAction m_Management_Movement;
         private readonly InputAction m_Management_ZoomScroll;
-        private readonly InputAction m_Management_ZoomButton;
         private readonly InputAction m_Management_ToggleCameraMovement;
         private readonly InputAction m_Management_DestroyInteractable;
         private readonly InputAction m_Management_SetFollow;
@@ -1004,7 +960,7 @@ namespace Controls
         private readonly InputAction m_Management_Cancel;
         private readonly InputAction m_Management_PreviousFormation;
         private readonly InputAction m_Management_NextFormation;
-        private readonly InputAction m_Management_ToggleEnemyFieldOfView;
+        private readonly InputAction m_Management_ToggleUnitFieldOfView;
         private readonly InputAction m_Management_ToggleResourceFieldOfView;
         private readonly InputAction m_Management_SelectTile;
         public struct ManagementActions
@@ -1019,7 +975,6 @@ namespace Controls
             public InputAction @Drag => m_Wrapper.m_Management_Drag;
             public InputAction @Movement => m_Wrapper.m_Management_Movement;
             public InputAction @ZoomScroll => m_Wrapper.m_Management_ZoomScroll;
-            public InputAction @ZoomButton => m_Wrapper.m_Management_ZoomButton;
             public InputAction @ToggleCameraMovement => m_Wrapper.m_Management_ToggleCameraMovement;
             public InputAction @DestroyInteractable => m_Wrapper.m_Management_DestroyInteractable;
             public InputAction @SetFollow => m_Wrapper.m_Management_SetFollow;
@@ -1036,7 +991,7 @@ namespace Controls
             public InputAction @Cancel => m_Wrapper.m_Management_Cancel;
             public InputAction @PreviousFormation => m_Wrapper.m_Management_PreviousFormation;
             public InputAction @NextFormation => m_Wrapper.m_Management_NextFormation;
-            public InputAction @ToggleEnemyFieldOfView => m_Wrapper.m_Management_ToggleEnemyFieldOfView;
+            public InputAction @ToggleUnitFieldOfView => m_Wrapper.m_Management_ToggleUnitFieldOfView;
             public InputAction @ToggleResourceFieldOfView => m_Wrapper.m_Management_ToggleResourceFieldOfView;
             public InputAction @SelectTile => m_Wrapper.m_Management_SelectTile;
             public InputActionMap Get() { return m_Wrapper.m_Management; }
@@ -1072,9 +1027,6 @@ namespace Controls
                     @ZoomScroll.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnZoomScroll;
                     @ZoomScroll.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnZoomScroll;
                     @ZoomScroll.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnZoomScroll;
-                    @ZoomButton.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnZoomButton;
-                    @ZoomButton.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnZoomButton;
-                    @ZoomButton.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnZoomButton;
                     @ToggleCameraMovement.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnToggleCameraMovement;
                     @ToggleCameraMovement.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnToggleCameraMovement;
                     @ToggleCameraMovement.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnToggleCameraMovement;
@@ -1123,9 +1075,9 @@ namespace Controls
                     @NextFormation.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnNextFormation;
                     @NextFormation.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnNextFormation;
                     @NextFormation.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnNextFormation;
-                    @ToggleEnemyFieldOfView.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnToggleEnemyFieldOfView;
-                    @ToggleEnemyFieldOfView.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnToggleEnemyFieldOfView;
-                    @ToggleEnemyFieldOfView.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnToggleEnemyFieldOfView;
+                    @ToggleUnitFieldOfView.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnToggleUnitFieldOfView;
+                    @ToggleUnitFieldOfView.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnToggleUnitFieldOfView;
+                    @ToggleUnitFieldOfView.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnToggleUnitFieldOfView;
                     @ToggleResourceFieldOfView.started -= m_Wrapper.m_ManagementActionsCallbackInterface.OnToggleResourceFieldOfView;
                     @ToggleResourceFieldOfView.performed -= m_Wrapper.m_ManagementActionsCallbackInterface.OnToggleResourceFieldOfView;
                     @ToggleResourceFieldOfView.canceled -= m_Wrapper.m_ManagementActionsCallbackInterface.OnToggleResourceFieldOfView;
@@ -1160,9 +1112,6 @@ namespace Controls
                     @ZoomScroll.started += instance.OnZoomScroll;
                     @ZoomScroll.performed += instance.OnZoomScroll;
                     @ZoomScroll.canceled += instance.OnZoomScroll;
-                    @ZoomButton.started += instance.OnZoomButton;
-                    @ZoomButton.performed += instance.OnZoomButton;
-                    @ZoomButton.canceled += instance.OnZoomButton;
                     @ToggleCameraMovement.started += instance.OnToggleCameraMovement;
                     @ToggleCameraMovement.performed += instance.OnToggleCameraMovement;
                     @ToggleCameraMovement.canceled += instance.OnToggleCameraMovement;
@@ -1211,9 +1160,9 @@ namespace Controls
                     @NextFormation.started += instance.OnNextFormation;
                     @NextFormation.performed += instance.OnNextFormation;
                     @NextFormation.canceled += instance.OnNextFormation;
-                    @ToggleEnemyFieldOfView.started += instance.OnToggleEnemyFieldOfView;
-                    @ToggleEnemyFieldOfView.performed += instance.OnToggleEnemyFieldOfView;
-                    @ToggleEnemyFieldOfView.canceled += instance.OnToggleEnemyFieldOfView;
+                    @ToggleUnitFieldOfView.started += instance.OnToggleUnitFieldOfView;
+                    @ToggleUnitFieldOfView.performed += instance.OnToggleUnitFieldOfView;
+                    @ToggleUnitFieldOfView.canceled += instance.OnToggleUnitFieldOfView;
                     @ToggleResourceFieldOfView.started += instance.OnToggleResourceFieldOfView;
                     @ToggleResourceFieldOfView.performed += instance.OnToggleResourceFieldOfView;
                     @ToggleResourceFieldOfView.canceled += instance.OnToggleResourceFieldOfView;
@@ -1275,7 +1224,6 @@ namespace Controls
             void OnDrag(InputAction.CallbackContext context);
             void OnMovement(InputAction.CallbackContext context);
             void OnZoomScroll(InputAction.CallbackContext context);
-            void OnZoomButton(InputAction.CallbackContext context);
             void OnToggleCameraMovement(InputAction.CallbackContext context);
             void OnDestroyInteractable(InputAction.CallbackContext context);
             void OnSetFollow(InputAction.CallbackContext context);
@@ -1292,7 +1240,7 @@ namespace Controls
             void OnCancel(InputAction.CallbackContext context);
             void OnPreviousFormation(InputAction.CallbackContext context);
             void OnNextFormation(InputAction.CallbackContext context);
-            void OnToggleEnemyFieldOfView(InputAction.CallbackContext context);
+            void OnToggleUnitFieldOfView(InputAction.CallbackContext context);
             void OnToggleResourceFieldOfView(InputAction.CallbackContext context);
             void OnSelectTile(InputAction.CallbackContext context);
         }

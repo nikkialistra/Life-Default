@@ -17,6 +17,8 @@ namespace Enemies.BehaviorNodes
 
         private float _setTargetTime = float.PositiveInfinity;
 
+        private bool _destinationReached;
+
         public override void OnStart()
         {
             EnemyMeshAgent.StopMoving();
@@ -27,6 +29,13 @@ namespace Enemies.BehaviorNodes
         }
 
         public override TaskStatus OnUpdate()
+        {
+            WanderIfIdle();
+
+            return TaskStatus.Running;
+        }
+
+        private void WanderIfIdle()
         {
             if (EnemyMeshAgent.Idle)
             {
@@ -40,8 +49,6 @@ namespace Enemies.BehaviorNodes
                     SetTarget();
                 }
             }
-
-            return TaskStatus.Running;
         }
 
         private void InitPause()

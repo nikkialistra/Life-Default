@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using General;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -11,7 +12,10 @@ namespace Units
     public class UnitAttacker : MonoBehaviour
     {
         [SerializeField] private float _timeAfterAttackToIdle = 2f;
-        
+        [Space]
+        [Required]
+        [SerializeField] private MessageShowing _messageShowing;
+
         private Unit _unit;
         
         private Action _onInteractionFinish;
@@ -66,6 +70,7 @@ namespace Units
 
             if (Miss())
             {
+                _messageShowing.Show("Miss");
                 return;
             }
 

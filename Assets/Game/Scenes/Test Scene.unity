@@ -1437,20 +1437,17 @@ PrefabInstance:
         type: 3}
       propertyPath: _startingQuests.Array.data[2]
       value: 
-      objectReference: {fileID: 11400000, guid: 6f63fb034f6027e4880bb8a027ded387,
-        type: 2}
+      objectReference: {fileID: 0}
     - target: {fileID: 588027007046373087, guid: 0802b572ad05186499c16eab7a723ffb,
         type: 3}
       propertyPath: _startingQuests.Array.data[3]
       value: 
-      objectReference: {fileID: 11400000, guid: 3e34d9328f9587c4dbf06530d5804b6d,
-        type: 2}
+      objectReference: {fileID: 0}
     - target: {fileID: 588027007046373087, guid: 0802b572ad05186499c16eab7a723ffb,
         type: 3}
       propertyPath: _startingQuests.Array.data[4]
       value: 
-      objectReference: {fileID: 11400000, guid: 6f63fb034f6027e4880bb8a027ded387,
-        type: 2}
+      objectReference: {fileID: 0}
     - target: {fileID: 2306889760291160586, guid: 0802b572ad05186499c16eab7a723ffb,
         type: 3}
       propertyPath: _brushWidth
@@ -1621,26 +1618,51 @@ PrefabInstance:
       propertyPath: m_RootOrder
       value: 8
       objectReference: {fileID: 0}
-    - target: {fileID: 3583494989392989419, guid: 0802b572ad05186499c16eab7a723ffb,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 3756045919938564042, guid: 0802b572ad05186499c16eab7a723ffb,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: c0c404e21324ec54c8bbc504cc6e5a80, type: 2}
     - target: {fileID: 3926168565277531808, guid: 0802b572ad05186499c16eab7a723ffb,
         type: 3}
       propertyPath: _cubesParent
       value: 
       objectReference: {fileID: 848870047}
-    - target: {fileID: 4630618143396408262, guid: 0802b572ad05186499c16eab7a723ffb,
+    - target: {fileID: 3926168565277531808, guid: 0802b572ad05186499c16eab7a723ffb,
         type: 3}
-      propertyPath: targetCamera
-      value: 
-      objectReference: {fileID: 1857559134}
+      propertyPath: _probability
+      value: 0.838
+      objectReference: {fileID: 0}
+    - target: {fileID: 3926168565277531808, guid: 0802b572ad05186499c16eab7a723ffb,
+        type: 3}
+      propertyPath: _spawnAtStart
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3926168565277531808, guid: 0802b572ad05186499c16eab7a723ffb,
+        type: 3}
+      propertyPath: _obstacleRadius
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3926168565277531808, guid: 0802b572ad05186499c16eab7a723ffb,
+        type: 3}
+      propertyPath: _probabilitySeed
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3926168565277531808, guid: 0802b572ad05186499c16eab7a723ffb,
+        type: 3}
+      propertyPath: _timeBetweenSpawns
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3926168565277531808, guid: 0802b572ad05186499c16eab7a723ffb,
+        type: 3}
+      propertyPath: _terrainMask.m_Bits
+      value: 64
+      objectReference: {fileID: 0}
+    - target: {fileID: 3926168565277531808, guid: 0802b572ad05186499c16eab7a723ffb,
+        type: 3}
+      propertyPath: _obstacleMask.m_Bits
+      value: 131072
+      objectReference: {fileID: 0}
+    - target: {fileID: 3926168565277531808, guid: 0802b572ad05186499c16eab7a723ffb,
+        type: 3}
+      propertyPath: _timeBetweenSpawnsVariation
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8167210018844406128, guid: 0802b572ad05186499c16eab7a723ffb,
         type: 3}
       propertyPath: m_RootOrder

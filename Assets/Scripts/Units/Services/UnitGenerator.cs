@@ -25,6 +25,7 @@ namespace Units.Services
         [SerializeField] private float _timeBetweenSpawnsVariation = 4f;
         [MinValue(1)]
         [SerializeField] private int _maxInstancesPerSpawn;
+        [SerializeField] private int _numberOfTriesToSpawn = 5;
 
         [Title("Parameters")]
         [SerializeField] private int _probabilitySeed;
@@ -48,8 +49,12 @@ namespace Units.Services
         [SerializeField] private Transform _cubesParent;
         [SerializeField] private float _cubeScale = 0.3f;
 
-        private LayerMask _terrainMask;
-        
+        [Title("Casting")]
+        [SerializeField] private LayerMask _terrainMask;
+        [SerializeField] private LayerMask _obstacleMask;
+        [Space]
+        [SerializeField] private float _obstacleRadius = 5f;
+
         private Enemy.Factory _enemyFactory;
 
         private bool _generateTestCubes;
@@ -57,15 +62,12 @@ namespace Units.Services
 
         private Coroutine _generateAtIntervalCoroutine;
 
+        private readonly Collider[] _obstacleResults = new Collider[1];
+
         [Inject]
         public void Construct(Enemy.Factory enemyFactory)
         {
             _enemyFactory = enemyFactory;
-        }
-
-        private void Awake()
-        {
-            _terrainMask = LayerMask.GetMask("Terrain");
         }
 
         private void Start()
@@ -98,7 +100,7 @@ namespace Units.Services
             {
                 for (var x = -_xBounds; x < _xBounds; x += _gridInterval)
                 {
-                    TrySpawn(x, z);
+                    Spawn(x, z);
                 }
             }
 
@@ -131,60 +133,95 @@ namespace Units.Services
 
         private void Generate()
         {
+            var numberOfTries = 0;
+
+            while (numberOfTries < _numberOfTriesToSpawn)
+            {
+                if (TrySpawn())
+                {
+                    break;
+                }
+
+                numberOfTries++;
+            }
+        }
+
+        private bool TrySpawn()
+        {
             var x = Random.Range(-_xBounds, _xBounds);
             var z = Random.Range(-_zBounds, _zBounds);
             
-            TrySpawn(x, z);
+            if (!ShouldSpawn(x, z) || !InValidPlace(x, z, out var spawnPoint))
+            {
+                return false;
+            }
+
+            SpawnInstances(spawnPoint);
+            
+            return true;
         }
 
-        private void TrySpawn(float x, float z)
+        private void Spawn(float x, float z)
         {
-            if (!ShouldSpawn(x, z))
+            if (!ShouldSpawn(x, z) || !InValidPlace(x, z, out var spawnPoint))
             {
                 return;
             }
-
-            CheckForBoundaries(x, z);
+            
+            SpawnInstances(spawnPoint);
         }
 
         private bool ShouldSpawn(float x, float z)
         {
             var sample = Mathf.PerlinNoise((x * ( 1 / _scale) ) + _xOffset,
                 (z * ( 1 / _scale) ) + _zOffset);
-            
-            Random.InitState(_probabilitySeed);
-            var gauss = 8f * Random.Range(0f, 1f);
 
-            return sample < _probability && gauss < _probability;
+            return sample < _probability;
         }
 
-        private void CheckForBoundaries(float x, float z)
+        private bool InValidPlace(float x, float z, out Vector3 hitPoint)
         {
             var origin = new Vector3(x, 100f, z);
 
             if (Physics.Raycast(origin, Vector3.down, out var hit, Mathf.Infinity, _terrainMask))
             {
-                if (hit.point.y > _minHeight && hit.point.y < _maxHeight)
+                if (IsValidPoint(hit.point))
                 {
-                    SpawnInstances(hit);
+                    hitPoint = hit.point;
+                    return true;
                 }
             }
+
+            hitPoint = default;
+            return false;
         }
 
-        private void SpawnInstances(RaycastHit hit)
+        private bool IsValidPoint(Vector3 point)
+        {
+            if (point.y < _minHeight || point.y > _maxHeight)
+            {
+                return false;
+            }
+
+            var size = Physics.OverlapSphereNonAlloc(point, _obstacleRadius, _obstacleResults, _obstacleMask);
+            
+            return size == 0;
+        }
+
+        private void SpawnInstances(Vector3 spawnPoint)
         {
             var count = Random.Range(1, _maxInstancesPerSpawn + 1);
 
             for (int i = 0; i < count; i++)
             {
-                Spawn(hit);
+                Spawn(spawnPoint);
             }
         }
 
-        private void Spawn(RaycastHit hit)
+        private void Spawn(Vector3 spawnPoint)
         {
-            var position = new Vector3(hit.point.x + Random.Range(-_pointVariation, _pointVariation), hit.point.y,
-                hit.point.z + Random.Range(-_pointVariation, _pointVariation));
+            var position = new Vector3(spawnPoint.x + Random.Range(-_pointVariation, _pointVariation), spawnPoint.y,
+                spawnPoint.z + Random.Range(-_pointVariation, _pointVariation));
             var rotation = Quaternion.Euler(0, Random.Range(0, _rotationVariation), 0);
 
             PlaceAt(position, rotation);

@@ -96,7 +96,7 @@ namespace General.Selecting
             }
             else
             {
-                _lastClickTime = Time.time;
+                _lastClickTime = Time.unscaledTime;
                 _selection.SelectFromPoint(rect.center);
             }
         }
@@ -109,7 +109,7 @@ namespace General.Selecting
             }
             else
             {
-                _lastClickTime = Time.time;
+                _lastClickTime = Time.unscaledTime;
                 _selection.SelectFromPointAdditive(rect.center);
             }
         }
@@ -121,7 +121,7 @@ namespace General.Selecting
         
         private bool WasDoubleClick()
         {
-            return Time.time - _lastClickTime < _doubleClickDeltaTime;
+            return Time.unscaledTime - _lastClickTime < _doubleClickDeltaTime;
         }
     }
 }

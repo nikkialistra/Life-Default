@@ -33,7 +33,10 @@ namespace Units
         [SerializeField] private FieldOfView _unitFieldOfView;
         [Required]
         [SerializeField] private FieldOfHearing _unitFieldOfHearing;
-        [Space]
+        
+        [Title("Hints")]
+        [Required]
+        [SerializeField] private LandIndicator _targetIndicator;
         [Required]
         [SerializeField] private MessageShowing _messageShowing;
 
@@ -125,6 +128,16 @@ namespace Units
             _unitFieldOfHearing.HideDebugShow();
         }
 
+        public void ShowTargetIndicator()
+        {
+            _targetIndicator.Activate();
+        }
+        
+        public void HideTargetIndicator()
+        {
+            _targetIndicator.Deactivate();
+        }
+
         public void Die()
         {
             if (_died)
@@ -148,7 +161,7 @@ namespace Units
             _healthBars.SetRecoverySpeed(blood);
             HealthChange?.Invoke();
         }
-        
+
         private bool ColonistUnitShouldHaveColonist()
         {
             if (_fraction == Fraction.Colonists && _colonist == null)
@@ -158,7 +171,7 @@ namespace Units
             
             return true;
         }
-        
+
         private bool EnemyUnitShouldHaveEnemy()
         {
             if (_fraction == Fraction.Enemies && _enemy == null)

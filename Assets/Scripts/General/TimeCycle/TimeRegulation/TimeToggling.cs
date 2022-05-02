@@ -8,6 +8,9 @@ namespace General.TimeCycle.TimeRegulation
 {
     public class TimeToggling : MonoBehaviour
     {
+        [SerializeField] private float _pauseSpeed = 0.001f;
+        [SerializeField] private float _physicsUpdateRate = 0.02f;
+
         private bool _paused;
         private TimeSpeed _timeSpeed = TimeSpeed.X1;
 
@@ -59,10 +62,12 @@ namespace General.TimeCycle.TimeRegulation
         {
             if (_paused)
             {
-                Time.timeScale = 0;
+                Time.timeScale = _pauseSpeed;
+                Time.fixedDeltaTime = _physicsUpdateRate * _pauseSpeed;
             }
             else
             {
+                Time.fixedDeltaTime = _physicsUpdateRate;
                 Time.timeScale = _timeSpeed switch
                 {
                     TimeSpeed.X1 => 1f,

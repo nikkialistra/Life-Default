@@ -5808,7 +5808,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7458787756808962972}
   - component: {fileID: 7198459438215232955}
-  m_Layer: 0
+  m_Layer: 18
   m_Name: Head Covering No Hair
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6084,7 +6084,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8780518993586867513}
   - component: {fileID: 5116060696505359987}
-  m_Layer: 0
+  m_Layer: 18
   m_Name: Head Covering No Facial Hair
   m_TagString: Untagged
   m_Icon: {fileID: 0}

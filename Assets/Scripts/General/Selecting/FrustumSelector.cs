@@ -86,11 +86,8 @@ namespace General.Selecting
         {
             _frustumMeshCollider.DoGenerate = true;
             m_config.Active = true;
-
-            // OnTriggerEnter catches all colliders only within 3 frames
-            yield return null;
-            yield return null;
-            yield return null;
+            
+            yield return new WaitForFixedUpdate();
 
             m_config.Active = false;
 
@@ -102,6 +99,11 @@ namespace General.Selecting
             {
                 Selected?.Invoke(_selectionHashSet.ToList());
             }
+        }
+
+        private void FixedUpdate()
+        {
+            Debug.Log(1);
         }
 
         private void OnTriggerEnter(Collider other)

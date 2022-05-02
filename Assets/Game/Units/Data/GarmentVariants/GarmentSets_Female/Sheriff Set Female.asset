@@ -250,13 +250,13 @@ MonoBehaviour:
       _relativeChance: 0.2
   _legLeftVariants:
     _variants:
-    - _value: {fileID: 4301772, guid: 038320a534bd8b444b43734860d1a211, type: 3}
-      _chance: 1
-      _relativeChance: 0.2
     - _value: {fileID: 4301774, guid: 038320a534bd8b444b43734860d1a211, type: 3}
       _chance: 1
       _relativeChance: 0.2
     - _value: {fileID: 4301784, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+      _chance: 1
+      _relativeChance: 0.2
+    - _value: {fileID: 4301788, guid: 038320a534bd8b444b43734860d1a211, type: 3}
       _chance: 1
       _relativeChance: 0.2
     - _value: {fileID: 4301802, guid: 038320a534bd8b444b43734860d1a211, type: 3}

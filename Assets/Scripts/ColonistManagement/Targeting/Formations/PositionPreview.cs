@@ -69,7 +69,7 @@ namespace ColonistManagement.Targeting.Formations
 
             _decalProjector.transform.DOKill();
 
-            yield return _decalProjector.transform.DOScale(new Vector3(0f, 0f, 1f), _animationTime)
+            yield return _decalProjector.transform.DOScale(new Vector3(0f, 0f, 1f), _animationTime).SetUpdate(true)
                 .WaitForCompletion();
         }
 
@@ -82,7 +82,7 @@ namespace ColonistManagement.Targeting.Formations
                 var fraction = timeLeft / _animationTime;
                 _decalProjector.fadeFactor = fraction;
 
-                timeLeft -= Time.deltaTime;
+                timeLeft -= Time.unscaledDeltaTime;
 
                 yield return null;
             }

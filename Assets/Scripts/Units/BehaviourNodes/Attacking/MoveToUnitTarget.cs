@@ -20,7 +20,8 @@ namespace Units.BehaviourNodes.Attacking
                 UnitMeshAgent.ResetDestination();
                 return TaskStatus.Failure;
             }
-            
+
+            UnitAttacker.SetTrackedUnit(UnitTarget.Value);
             UnitEquipment.EquipWeapon();
 
             if (UnitAttacker.OnAttackRange(UnitTarget.Value.transform.position))

@@ -2,7 +2,7 @@
 
 namespace Units.Ancillaries
 {
-    public class HoverIndicator : MonoBehaviour
+    public class LandIndicator : MonoBehaviour
     {
         [SerializeField] private float _rotationSpeed;
 
@@ -34,7 +34,7 @@ namespace Units.Ancillaries
         {
             if (_activated)
             {
-                transform.Rotate(0, 0, _rotationSpeed * Time.deltaTime);
+                transform.Rotate(0, 0, _rotationSpeed * Time.unscaledDeltaTime);
             }
         }
     }

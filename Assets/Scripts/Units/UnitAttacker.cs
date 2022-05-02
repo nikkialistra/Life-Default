@@ -9,6 +9,7 @@ namespace Units
 {
     [RequireComponent(typeof(UnitStats))]
     [RequireComponent(typeof(UnitAnimator))]
+    [RequireComponent(typeof(UnitSelection))]
     public class UnitAttacker : MonoBehaviour
     {
         [SerializeField] private float _timeAfterAttackToIdle = 2f;
@@ -16,25 +17,29 @@ namespace Units
         [Required]
         [SerializeField] private MessageShowing _messageShowing;
 
-        private Unit _unit;
+        private Unit _trackedUnit;
+        private Unit _attackedUnit;
         
         private Action _onInteractionFinish;
 
         private UnitStats _unitStats;
         private UnitAnimator _unitAnimator;
+        
+        private UnitSelection _unitSelection;
 
         private float _attackAngle;
-        
+
         private float _waitTime;
 
         private float _lastAttackTime;
-        
+
         private Coroutine _attackingCoroutine;
 
         private void Awake()
         {
             _unitStats = GetComponent<UnitStats>();
             _unitAnimator = GetComponent<UnitAnimator>();
+            _unitSelection = GetComponent<UnitSelection>();
         }
 
         public bool IsAttacking { get; private set; }
@@ -48,11 +53,23 @@ namespace Units
             _unitAnimator.SetAttackSpeed(_unitStats.MeleeAttackSpeed);
         }
 
+        private void OnEnable()
+        {
+            _unitSelection.Hovered += ExposeUnitTarget;
+            _unitSelection.Unhovered += CoverUnitTarget;
+        }
+
+        private void OnDisable()
+        {
+            _unitSelection.Hovered -= ExposeUnitTarget;
+            _unitSelection.Unhovered -= CoverUnitTarget;
+        }
+
         public float AttackRange => _unitStats.MeleeAttackRange;
 
         public void Attack(Unit unit)
         {
-            _unit = unit;
+            _attackedUnit = unit;
             _unitAnimator.Attack(true);
             
             _attackingCoroutine = StartCoroutine(WatchForDestroy());
@@ -62,7 +79,7 @@ namespace Units
 
         public void Hit(float passedTime)
         {
-            if (_unit == null || !_unit.Alive)
+            if (_attackedUnit == null || !_attackedUnit.Alive)
             {
                 FinishAttacking();
                 return;
@@ -86,11 +103,11 @@ namespace Units
         {
             var damage = _unitStats.MeleeDamagePerSecond * passedTime;
 
-            _unit.TakeDamage(damage);
+            _attackedUnit.TakeDamage(damage);
 
-            if (!_unit.Alive)
+            if (!_attackedUnit.Alive)
             {
-                _unit = null;
+                ResetUnitTarget();
                 FinishAttacking();
             }
         }
@@ -116,7 +133,7 @@ namespace Units
                 _attackingCoroutine = null;
             }
 
-            _unit = null;
+            ResetUnitTarget();
         }
 
         public bool OnAttackRange(Vector3 position)
@@ -140,19 +157,24 @@ namespace Units
             return Mathf.Abs(angleDifference) < _attackAngle;
         }
 
+        public void SetTrackedUnit(Unit trackedUnit)
+        {
+            _trackedUnit = trackedUnit;
+        }
+
         private IEnumerator WatchForDestroy()
         {
-            while (_unit.Alive)
+            while (_attackedUnit.Alive)
             {
                 yield return new WaitForSeconds(_waitTime);
 
-                if (_unit == null)
+                if (_attackedUnit == null)
                 {
                     break;
                 }
             }
 
-            _unit = null;
+            ResetUnitTarget();
 
             FinishAttacking();
         }
@@ -166,7 +188,7 @@ namespace Units
 
         private void FinishAttacking()
         {
-            if (_unit != null)
+            if (_attackedUnit != null)
             {
                 return;
             }
@@ -187,6 +209,33 @@ namespace Units
             IsAttacking = false;
 
             _lastAttackTime = Time.time;
+        }
+
+        private void ResetUnitTarget()
+        {
+            if (_trackedUnit != null)
+            {
+                _trackedUnit.HideTargetIndicator();
+            }
+
+            _trackedUnit = null;
+            _attackedUnit = null;
+        }
+
+        private void ExposeUnitTarget()
+        {
+            if (_trackedUnit != null)
+            {
+                _trackedUnit.ShowTargetIndicator();
+            }
+        }
+
+        private void CoverUnitTarget()
+        {
+            if (_trackedUnit != null)
+            {
+                _trackedUnit.HideTargetIndicator();
+            }
         }
     }
 }

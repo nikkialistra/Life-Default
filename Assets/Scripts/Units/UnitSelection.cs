@@ -12,7 +12,7 @@ namespace Units
     public class UnitSelection : MonoBehaviour, ISelectable
     {
         [Required]
-        [SerializeField] private HoverIndicator _hoverIndicator;
+        [SerializeField] private LandIndicator _hoverIndicator;
         [Required]
         [SerializeField] private HealthBars _healthBars;
 
@@ -26,6 +26,8 @@ namespace Units
         
         private SelectingInput _selectingInput;
 
+        public event Action Hovered;
+        public event Action Unhovered;
         public event Action Selected;
         public event Action Deselected;
 
@@ -74,6 +76,8 @@ namespace Units
             {
                 _hoveringCoroutine = StartCoroutine(Hovering());
             }
+
+            Hovered?.Invoke();
         }
         
         public void Activate()
@@ -84,6 +88,7 @@ namespace Units
         public void Deactivate()
         {
             _activated = false;
+            Unhovered?.Invoke();
         }
 
         private IEnumerator Hovering()
@@ -116,6 +121,8 @@ namespace Units
         {
             _hoverIndicator.Deactivate();
             _healthBars.Hovered = false;
+            
+            Unhovered?.Invoke();
         }
     }
 }

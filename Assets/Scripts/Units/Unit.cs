@@ -31,7 +31,11 @@ namespace Units
         [Space]
         [Required]
         [SerializeField] private FieldOfView _unitFieldOfView;
+        [Required]
         [SerializeField] private FieldOfHearing _unitFieldOfHearing;
+        [Space]
+        [Required]
+        [SerializeField] private MessageShowing _messageShowing;
 
         private UnitStats _unitStats;
         
@@ -87,6 +91,7 @@ namespace Units
 
             if (Dodged())
             {
+                _messageShowing.Show("Dodge");
                 return;
             }
 

@@ -1,18 +1,29 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using DG.Tweening;
 using Pathfinding;
 using ResourceManagement;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Units
 {
+    [RequireComponent(typeof(AIPath))]
+    [RequireComponent(typeof(Seeker))]
     public class UnitMeshAgent : MonoBehaviour
     {
         [SerializeField] private float _rotationSpeed = 120f;
         [SerializeField] private float _entityOffsetForPathRecalculation = 0.6f;
+        [Space]
+        [Required]
+        [SerializeField] private LineRenderer _pathLineRenderer;
+        [SerializeField] private float _pathLineHeightAboveLand = 0.15f;
 
         private AIPath _aiPath;
+        private Seeker _seeker;
+
+        private List<GraphNode> _currentPathNodes = new();
 
         private float _interactionDistance;
 
@@ -21,7 +32,6 @@ namespace Units
         private Vector3 _lastUnitTargetPosition;
 
         private bool _movingToResource;
-        private Resource _resource;
 
         private Coroutine _movingCoroutine;
         private Coroutine _rotatingToCoroutine;
@@ -29,6 +39,7 @@ namespace Units
         private void Awake()
         {
             _aiPath = GetComponent<AIPath>();
+            _seeker = GetComponent<Seeker>();
         }
 
         private void Start()
@@ -36,17 +47,57 @@ namespace Units
             _aiPath.isStopped = true;
         }
 
+        private void OnEnable()
+        {
+            _seeker.pathCallback += ShowPathLine;
+            _seeker.pathCallback += GetPathNodes;
+        }
+
+        private void OnDisable()
+        {
+            _seeker.pathCallback -= ShowPathLine;
+            _seeker.pathCallback -= GetPathNodes;
+        }
+
+        private void ShowPathLine(Path path)
+        {
+            var positions = new List<Vector3>();
+            
+            foreach (var pathNode in path.path)
+            {
+                positions.Add(transform.InverseTransformPoint((Vector3)pathNode.position + new Vector3(0, _pathLineHeightAboveLand, 0)));
+            }
+            
+            _pathLineRenderer.SetPositions(positions.ToArray());
+        }
+        
+        private void OnDrawGizmos()
+        {
+            if (_currentPathNodes.Count != 0)
+            {
+                Gizmos.color = new Color(1f, 0, 0, 1f);
+                for (int i = 0; i < _currentPathNodes.Count-1; i++) {
+                    Gizmos.DrawLine((Vector3)_currentPathNodes[i].position, (Vector3)_currentPathNodes[i+1].position);
+                }
+            }
+        }
+
+        private void GetPathNodes(Path path)
+        {
+            _currentPathNodes = path.path;
+        }
+
         public event Action DestinationReach;
+
         public event Action RotationEnd;
 
         public bool IsMoving => !_aiPath.isStopped;
-        public bool IsRotating { get; private set; }
 
         public void SetDestinationToPosition(Vector3 position)
         {
             _aiPath.isStopped = false;
             _aiPath.destination = (Vector3)AstarPath.active.GetNearest(position, NNConstraint.Default).node.position;
-
+            
             Move();
         }
 
@@ -69,8 +120,6 @@ namespace Units
         public void SetDestinationToResource(Resource resource, float atDistance)
         {
             ResetDestination();
-
-            _resource = resource;
 
             _interactionDistance = atDistance;
             _aiPath.isStopped = false;
@@ -141,8 +190,6 @@ namespace Units
 
         public void StopRotating()
         {
-            IsRotating = false;
-
             if (_rotatingToCoroutine != null)
             {
                 StopCoroutine(_rotatingToCoroutine);
@@ -152,8 +199,6 @@ namespace Units
 
         public void RotateTo(Vector3 position)
         {
-            IsRotating = true;
-
             if (_rotatingToCoroutine != null)
             {
                 StopCoroutine(_rotatingToCoroutine);
@@ -164,8 +209,6 @@ namespace Units
 
         public void RotateToAngle(float angle)
         {
-            IsRotating = true;
-
             if (_rotatingToCoroutine != null)
             {
                 StopCoroutine(_rotatingToCoroutine);
@@ -231,7 +274,6 @@ namespace Units
         {
             if (Vector3.Distance(transform.position, _aiPath.destination) <= _interactionDistance)
             {
-                _resource = null;
                 return false;
             }
 
@@ -258,7 +300,6 @@ namespace Units
 
             yield return transform.DORotate(targetRotation, GetRotationDuration(targetRotation)).WaitForCompletion();
 
-            IsRotating = false;
             RotationEnd?.Invoke();
         }
 
@@ -268,7 +309,6 @@ namespace Units
 
             yield return transform.DORotate(targetRotation, GetRotationDuration(targetRotation)).WaitForCompletion();
 
-            IsRotating = false;
             RotationEnd?.Invoke();
         }
 

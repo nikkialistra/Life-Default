@@ -635,7 +635,7 @@ GameObject:
   - component: {fileID: 3020716833599595702}
   - component: {fileID: 3020716833599595703}
   m_Layer: 0
-  m_Name: TickingRegulator
+  m_Name: Ticking Regulator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2057,7 +2057,7 @@ GameObject:
   - component: {fileID: 3020716834492469546}
   - component: {fileID: 3020716834492469547}
   m_Layer: 0
-  m_Name: TimeToggling
+  m_Name: Time Toggling
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2103,7 +2103,7 @@ GameObject:
   - component: {fileID: 3020716834494046232}
   - component: {fileID: 3020716834494046233}
   m_Layer: 0
-  m_Name: DayCycle
+  m_Name: Day Cycle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2197,7 +2197,7 @@ GameObject:
   - component: {fileID: 3020716834614915362}
   - component: {fileID: 3020716834614915363}
   m_Layer: 0
-  m_Name: SeasonCycle
+  m_Name: Season Cycle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

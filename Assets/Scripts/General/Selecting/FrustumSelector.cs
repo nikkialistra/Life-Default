@@ -101,11 +101,6 @@ namespace General.Selecting
             }
         }
 
-        private void FixedUpdate()
-        {
-            Debug.Log(1);
-        }
-
         private void OnTriggerEnter(Collider other)
         {
             _selectionHashSet.Add(other);

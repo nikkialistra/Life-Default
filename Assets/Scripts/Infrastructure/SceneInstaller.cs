@@ -1,4 +1,5 @@
-﻿using Colonists.Services.Selecting;
+﻿using Colonists;
+using Colonists.Services.Selecting;
 using General;
 using General.Map;
 using General.Questing;
@@ -97,6 +98,10 @@ namespace Infrastructure
         [Space]
         [Required]
         [SerializeField] private Transform _resourceChunksParent;
+        
+        [Title("Other")]
+        [Required]
+        [SerializeField] private Transform _pathLineParent;
 
         public override void InstallBindings()
         {
@@ -109,6 +114,7 @@ namespace Infrastructure
             BindEntities();
             BindQuesting();
             BindMap();
+            BindOther();
         }
 
         private void BindTimeSystems()
@@ -182,6 +188,11 @@ namespace Infrastructure
             Container.BindInstance(_terrainModification);
             Container.BindInstance(_astarPath);
             Container.BindInstance(_resourceChunksParent).WithId("ResourceChunksParent");
+        }
+
+        private void BindOther()
+        {
+            Container.BindInstance(_pathLineParent).WhenInjectedInto<ColonistMeshAgent>();
         }
     }
 }

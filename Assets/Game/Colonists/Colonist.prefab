@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7633734473698753737}
   - component: {fileID: 455342869526137182}
-  m_Layer: 0
+  m_Layer: 1
   m_Name: Path Line
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -52,7 +52,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: deda211578c2d47f69bee1211faed775, type: 2}
+  - {fileID: 2100000, guid: c3baa6138580fa04cb37893578a57212, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -73,9 +73,7 @@ LineRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Positions:
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 1}
+  m_Positions: []
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 0.1
@@ -84,7 +82,7 @@ LineRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 1
+        value: 0.5
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -769,6 +767,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 291bf88645ec4389addf4cb07f2cdedf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _pathLineRenderer: {fileID: 455342869526137182}
+  _pathLineOffset: {x: 0, y: 0.2, z: 0}
 --- !u!114 &5149874996177493612
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -783,8 +783,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _rotationSpeed: 120
   _entityOffsetForPathRecalculation: 0.6
-  _pathLineRenderer: {fileID: 455342869526137182}
-  _pathLineHeightAboveLand: 0.3
 --- !u!114 &5715635598172236793
 MonoBehaviour:
   m_ObjectHideFlags: 0

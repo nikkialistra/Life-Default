@@ -123,16 +123,18 @@ namespace Colonists
                 return;
             }
             
-            _unit.Select();
-
             _selectionIndicator.SetActive(true);
+            _meshAgent.ShowLinePath();
+            
+            _unit.Select();
         }
 
         public void Deselect()
         {
-            _unit.Deselect();
-
             _selectionIndicator.SetActive(false);
+            _meshAgent.HideLinePath();
+            
+            _unit.Deselect();
         }
     
         public void Stop()

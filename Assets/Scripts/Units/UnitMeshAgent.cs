@@ -15,15 +15,8 @@ namespace Units
     {
         [SerializeField] private float _rotationSpeed = 120f;
         [SerializeField] private float _entityOffsetForPathRecalculation = 0.6f;
-        [Space]
-        [Required]
-        [SerializeField] private LineRenderer _pathLineRenderer;
-        [SerializeField] private float _pathLineHeightAboveLand = 0.15f;
 
         private AIPath _aiPath;
-        private Seeker _seeker;
-
-        private List<GraphNode> _currentPathNodes = new();
 
         private float _interactionDistance;
 
@@ -39,52 +32,11 @@ namespace Units
         private void Awake()
         {
             _aiPath = GetComponent<AIPath>();
-            _seeker = GetComponent<Seeker>();
         }
 
         private void Start()
         {
             _aiPath.isStopped = true;
-        }
-
-        private void OnEnable()
-        {
-            _seeker.pathCallback += ShowPathLine;
-            _seeker.pathCallback += GetPathNodes;
-        }
-
-        private void OnDisable()
-        {
-            _seeker.pathCallback -= ShowPathLine;
-            _seeker.pathCallback -= GetPathNodes;
-        }
-
-        private void ShowPathLine(Path path)
-        {
-            var positions = new List<Vector3>();
-            
-            foreach (var pathNode in path.path)
-            {
-                positions.Add(transform.InverseTransformPoint((Vector3)pathNode.position + new Vector3(0, _pathLineHeightAboveLand, 0)));
-            }
-            
-            _pathLineRenderer.SetPositions(positions.ToArray());
-        }
-        
-        private void OnDrawGizmos()
-        {
-            if (_currentPathNodes.Count != 0)
-            {
-                Gizmos.color = new Color(1f, 0, 0, 1f);
-                for (int i = 0; i < _currentPathNodes.Count-1; i++) {
-                    Gizmos.DrawLine((Vector3)_currentPathNodes[i].position, (Vector3)_currentPathNodes[i+1].position);
-                }
-            }
-        }
-
-        private void GetPathNodes(Path path)
-        {
-            _currentPathNodes = path.path;
         }
 
         public event Action DestinationReach;

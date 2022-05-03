@@ -14,6 +14,7 @@ namespace Units.MinimaxBehavior
         }
 
         public bool IsTerminal => _fight.IsTerminal;
+        public Fight.FightState State => _fight.State;
 
         public Player ActivePlayer => _fight.State switch
         {

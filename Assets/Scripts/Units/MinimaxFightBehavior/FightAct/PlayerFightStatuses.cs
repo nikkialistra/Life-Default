@@ -1,4 +1,6 @@
-﻿namespace Units.MinimaxBehavior
+﻿using UnityEngine;
+
+namespace Units.MinimaxFightBehavior.FightAct
 {
     public class PlayerFightStatuses
     {
@@ -18,12 +20,17 @@
 
         public void ChangeFirstPlayerHealth(float delta)
         {
-            _firstPlayerHealth += delta;
+            _firstPlayerHealth -= delta;
         }
         
         public void ChangeSecondPlayerHealth(float delta)
         {
-            _secondPlayerHealth += delta;
+            _secondPlayerHealth -= delta;
+        }
+
+        public void ShowCurrentFightStatus()
+        {
+            Debug.Log($"First Health: {_firstPlayerHealth}, Second Health: {_secondPlayerHealth}");
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using Units.Enums;
 
-namespace Units.MinimaxBehavior
+namespace Units.MinimaxFightBehavior.FightAct
 {
     public class HistoryFightState
     {

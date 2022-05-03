@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Units.Enums;
 
-namespace Units.MinimaxBehavior
+namespace Units.MinimaxFightBehavior.FightAct
 {
     public class Fight
     {
@@ -11,15 +11,15 @@ namespace Units.MinimaxBehavior
 
         private readonly PlayerFightStatuses _playerFightStatuses;
         
-        private readonly Stack<HistoryFightState> _history;
+        private readonly Stack<HistoryFightState> _history = new();
 
         public Fight(Player firstPlayer, Player secondPlayer)
         {
             _firstPlayer = firstPlayer;
             _secondPlayer = secondPlayer;
 
-            _history = new Stack<HistoryFightState>();
-            
+            _playerFightStatuses = new PlayerFightStatuses(firstPlayer.StartHealth, secondPlayer.StartHealth);
+
             State = FightState.FirstPlayerTurn;
         }
         
@@ -34,41 +34,54 @@ namespace Units.MinimaxBehavior
             Draw
         }
 
-        public Player FirstPlayer => _firstPlayer;
-        public Player SecondPlayer => _secondPlayer;
+        public Player ActivePlayer => State switch
+        {
+            FightState.FirstPlayerTurn => _firstPlayer,
+            FightState.SecondPlayerTurn => _secondPlayer,
+            _ => null
+        };
 
-        public FightState State { get; set; }
+        public FightState State { get; private set; }
 
         public bool IsTerminal => State is FightState.FirstPlayerVictory or FightState.SecondPlayerVictory or FightState.Draw;
 
-        public List<FightMove> GetPossibleMoves(Player player)
+        public void ShowCurrentFightStatus()
         {
+            _playerFightStatuses.ShowCurrentFightStatus();
+        }
+
+        public List<FightMove> GetPossibleMoves()
+        {
+            if (ActivePlayer == null)
+            {
+                throw new InvalidOperationException("Cannot make move when there is no turns");
+            }
+            
             if (IsTerminal)
             {
                 return new List<FightMove>();
             }
 
-            return player.GetPossibleMoves();
+            return ActivePlayer.GetPossibleMoves();
         }
 
-        public void MakeMove(Player player, FightMove fightMove)
+        public void MakeMove(FightMove fightMove)
         {
-            if ((State == FightState.FirstPlayerTurn && player.Fraction != Fraction.Colonists) ||
-            (State == FightState.SecondPlayerTurn && player.Fraction != Fraction.Enemies))
+            if (ActivePlayer == null)
             {
-                throw new InvalidOperationException("The turns belongs to another player");
+                throw new InvalidOperationException("Cannot make move when there is no turns");
             }
-
+            
             if (IsTerminal)
             {
                 throw new InvalidOperationException("The fight is finished");
             }
             
-            _history.Push(new HistoryFightState(State, player.Fraction, fightMove));
+            _history.Push(new HistoryFightState(State, ActivePlayer.Fraction, fightMove));
 
-            UpdatePlayerFightStatuses(player.Fraction, fightMove);
+            UpdatePlayerFightStatuses(ActivePlayer.Fraction, fightMove);
 
-            State = DeduceState(fightMove, player.Fraction);
+            State = DeduceState(ActivePlayer.Fraction);
         }
 
         public void UndoMove()
@@ -90,16 +103,16 @@ namespace Units.MinimaxBehavior
             if (fraction == Fraction.Colonists)
             {
                 _playerFightStatuses.ChangeSecondPlayerHealth(fightMove.HitDamage);
-                _playerFightStatuses.ChangeFirstPlayerHealth(fightMove.SelfDamage);
+                _playerFightStatuses.ChangeFirstPlayerHealth(fightMove.TakeDamage);
             }
             else
             {
                 _playerFightStatuses.ChangeFirstPlayerHealth(fightMove.HitDamage);
-                _playerFightStatuses.ChangeSecondPlayerHealth(fightMove.SelfDamage);
+                _playerFightStatuses.ChangeSecondPlayerHealth(fightMove.TakeDamage);
             }
         }
 
-        private FightState DeduceState(FightMove fightMove, Fraction fraction)
+        private FightState DeduceState(Fraction fraction)
         {
             if (IsSomeoneDefeated(out var fightState))
             {

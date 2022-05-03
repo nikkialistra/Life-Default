@@ -4,20 +4,16 @@ using static Units.MinimaxBehavior.Fight.FightState;
 
 namespace Units.MinimaxBehavior
 {
-    public class FightState
+    public class FightCondition
     {
         private readonly Fight _fight;
         
-        public FightState(Fight fight)
+        public FightCondition(Fight fight)
         {
             _fight = fight;
         }
 
-        public bool IsTerminal => _fight.State switch
-        {
-            FirstPlayerVictory or SecondPlayerVictory or Draw => true,
-            _ => false
-        };
+        public bool IsTerminal => _fight.IsTerminal;
 
         public Player ActivePlayer => _fight.State switch
         {
@@ -28,7 +24,7 @@ namespace Units.MinimaxBehavior
         
         public List<FightMove> GetPossibleMoves()
         {
-            return _fight.GetPossibleMoves();
+            return _fight.GetPossibleMoves(ActivePlayer);
         }
 
         public void MakeMove(FightMove fightMove)

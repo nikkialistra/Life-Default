@@ -1,18 +1,21 @@
 ﻿using System;
 using System.Linq;
 using Units.MinimaxFightBehavior.FightAct;
+using UnityEngine;
 
 namespace Units.MinimaxFightBehavior
 {
     public class Minimax
     {
         private readonly int _maxDepth;
+        private readonly bool _shouldLog;
 
         private int _currentDepth;
 
-        public Minimax(int maxDepth)
+        public Minimax(int maxDepth, bool shouldLog)
         {
             _maxDepth = maxDepth;
+            _shouldLog = shouldLog;
         }
         
         public FightMove FindBestMove(Fight fight)
@@ -38,16 +41,9 @@ namespace Units.MinimaxFightBehavior
 
         private (float Score, FightMove NextMove) Estimate(Fight fight, Player player, int depth)
         {
-            if (fight.IsTerminal || depth >= _maxDepth)
+            if (ShouldNotLookFurther(fight, player, depth, out var estimation))
             {
-                var score = MinimaxScoreFunction.Calculate(fight, player);
-                
-                LogScore(score, depth);
-
-                var defaultMove = GetDefaultMove(fight);
-                
-                return (Score: score,
-                    NextMove: defaultMove);
+                return estimation;
             }
 
             var possibleMoves = fight.GetPossibleMoves();
@@ -57,7 +53,7 @@ namespace Units.MinimaxFightBehavior
                 throw new InvalidOperationException("Cannot find moves for not terminal fight condition");
             }
 
-            var estimations = possibleMoves.Select((move) =>
+            var estimations = possibleMoves.Select(move =>
             {
                 var nextDepth = depth + 1;
                 
@@ -72,11 +68,42 @@ namespace Units.MinimaxFightBehavior
 
             var isOpponentTurn = player != fight.ActivePlayer;
 
-            var estimation = isOpponentTurn
+            var estim2 = isOpponentTurn
                 ? estimations.Aggregate((e1, e2) => e1.Score <= e2.Score ? e1 : e2)
                 : estimations.Aggregate((e1, e2) => e1.Score >= e2.Score ? e1 : e2);
-            
-            return estimation;
+
+            return estim2;
+        }
+
+        private bool ShouldNotLookFurther(Fight fight, Player player, int depth,
+            out (float Score, FightMove NextMove) estimation)
+        {
+            if (fight.IsTerminal)
+            {
+                {
+                    estimation = (Score: MinimaxScoreFunction.Calculate(fight, player),
+                        NextMove: null);
+                    return true;
+                }
+            }
+
+            if (depth >= _maxDepth)
+            {
+                var score = MinimaxScoreFunction.Calculate(fight, player);
+
+                LogScore(score, depth);
+
+                var defaultMove = GetDefaultMove(fight);
+
+                {
+                    estimation = (Score: score,
+                        NextMove: defaultMove);
+                    return true;
+                }
+            }
+
+            estimation = default;
+            return false;
         }
 
         private static FightMove GetDefaultMove(Fight fight)
@@ -91,9 +118,12 @@ namespace Units.MinimaxFightBehavior
             return fight.GetPossibleMoves()[0];
         }
 
-        private static void LogScore(float score, int depth)
+        private void LogScore(float score, int depth)
         {
-            //Debug.Log(new string('-', depth) + $" {score}");
+            if (_shouldLog)
+            {
+                Debug.Log(new string('-', depth) + $" {score}");
+            }
         }
     }
 }

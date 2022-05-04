@@ -24,6 +24,8 @@ namespace Units.MinimaxFightBehavior
             {
                 FirstPlayerVictory => 1f,
                 SecondPlayerVictory => -1f,
+                FirstPlayerEscape => 0.5f,
+                SecondPlayerEscape => 0.75f,
                 _ => 0f
             };
         }
@@ -34,6 +36,8 @@ namespace Units.MinimaxFightBehavior
             {
                 FirstPlayerVictory => -1f,
                 SecondPlayerVictory => 1f,
+                FirstPlayerEscape => 0.75f,
+                SecondPlayerEscape => 0.5f,
                 _ => 0f
             };
         }

@@ -13,8 +13,8 @@ namespace Units.MinimaxFightBehavior.FightAct
         
         public Fight.FightState State { get; }
         public Fraction WhichMove { get; }
-        
-        public FightMove FightMove { get; }
+
         public FightMove ReverseFightMove => FightMove.GetReverseState(FightMove);
+        private FightMove FightMove { get; }
     }
 }

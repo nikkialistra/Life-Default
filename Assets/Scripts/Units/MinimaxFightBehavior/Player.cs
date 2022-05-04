@@ -31,5 +31,10 @@ namespace Units.MinimaxFightBehavior
                 new (1000f, 1000f)
             };
         }
+
+        public bool IfAttackWouldLeadDefeat(float health)
+        {
+            return health - _hitDamage <= 0;
+        }
     }
 }

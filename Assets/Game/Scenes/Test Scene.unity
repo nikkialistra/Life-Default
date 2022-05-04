@@ -1979,9 +1979,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _shouldLog: 1
+  _shouldLogInDetail: 0
   _maxFightMoveCount: 17
   _maxMinimaxDepth: 4
-  _startHealths: 110
+  _startHealths: 140
 --- !u!1 &1132375669
 GameObject:
   m_ObjectHideFlags: 0

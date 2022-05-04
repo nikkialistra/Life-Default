@@ -18,16 +18,6 @@ namespace Units.MinimaxFightBehavior.FightAct
         
         public bool IsBothPlayersDefeated => IsFirstPlayerDefeated && IsSecondPlayerDefeated;
 
-        public bool IsFirstPlayerWillBeDefeated(Player player)
-        {
-            return player.IfAttackWouldLeadDefeat(_firstPlayerHealth);
-        }
-
-        public bool IsSecondPlayerWillBeDefeated(Player player)
-        {
-            return player.IfAttackWouldLeadDefeat(_secondPlayerHealth);
-        }
-
         public void ChangeFirstPlayerHealth(float delta)
         {
             _firstPlayerHealth -= delta;

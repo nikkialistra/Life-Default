@@ -9,6 +9,7 @@ namespace Units.MinimaxFightBehavior
     public class VirtualFight : MonoBehaviour
     {
         [SerializeField] private bool _shouldLog;
+        [SerializeField] private bool _shouldLogInDetail;
         
         [Space]
         [SerializeField] private int _maxFightMoveCount = 30;
@@ -27,7 +28,7 @@ namespace Units.MinimaxFightBehavior
             
             _moveCount = 0;
             
-            var minimax = new Minimax(_maxMinimaxDepth, _shouldLog);
+            var minimax = new Minimax(_maxMinimaxDepth, _shouldLogInDetail);
             
             var colonist = new Player(Fraction.Colonists,  _startHealths, 30f, 20f);
             var enemy = new Player(Fraction.Enemies, _startHealths, 20f, 30f);
@@ -54,8 +55,7 @@ namespace Units.MinimaxFightBehavior
         {
             if (_shouldLog)
             {
-                Debug.Log(
-                $"Player from {_fight.ActivePlayer.Fraction} chooses to hit {bestMove.HitDamage} and take {bestMove.TakeDamage}");
+                Debug.Log($"Player from {_fight.ActivePlayer.Fraction} chooses to hit {bestMove.HitDamage} and take {bestMove.TakeDamage}");
             }
         }
 

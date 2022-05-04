@@ -30,10 +30,7 @@ namespace Units.MinimaxFightBehavior.FightAct
             
             FirstPlayerVictory,
             SecondPlayerVictory,
-            
-            FirstPlayerEscape,
-            SecondPlayerEscape,
-            
+
             Draw
         }
 
@@ -120,16 +117,6 @@ namespace Units.MinimaxFightBehavior.FightAct
             if (IsSomeoneDefeated(out var fightState))
             {
                 return fightState;
-            }
-
-            if (_playerFightStatuses.IsFirstPlayerWillBeDefeated(_firstPlayer))
-            {
-                return FightState.FirstPlayerEscape;
-            }
-            
-            if (_playerFightStatuses.IsSecondPlayerWillBeDefeated(_secondPlayer))
-            {
-                return FightState.SecondPlayerEscape;
             }
 
             return fraction switch {

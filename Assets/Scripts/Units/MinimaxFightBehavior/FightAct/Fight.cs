@@ -126,27 +126,27 @@ namespace Units.MinimaxFightBehavior.FightAct
             };
         }
 
-        private bool IsSomeoneDefeated(out FightState secondPlayerVictory)
+        private bool IsSomeoneDefeated(out FightState fightState)
         {
             if (_playerFightStatuses.IsBothPlayersDefeated)
             {
-                secondPlayerVictory = FightState.Draw;
+                fightState = FightState.Draw;
                 return true;
             }
 
             if (_playerFightStatuses.IsFirstPlayerDefeated)
             {
-                secondPlayerVictory = FightState.FirstPlayerVictory;
+                fightState = FightState.SecondPlayerVictory;
                 return true;
             }
 
             if (_playerFightStatuses.IsSecondPlayerDefeated)
             {
-                secondPlayerVictory = FightState.SecondPlayerVictory;
+                fightState = FightState.FirstPlayerVictory;
                 return true;
             }
 
-            secondPlayerVictory = default;
+            fightState = default;
             return false;
         }
     }

@@ -1978,8 +1978,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5167d5e834c0418cb5b5a098024a357d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxFightMoveCount: 4
+  _maxFightMoveCount: 17
   _maxMinimaxDepth: 1
+  _startHealths: 200
 --- !u!1 &1132375669
 GameObject:
   m_ObjectHideFlags: 0

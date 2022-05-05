@@ -170,6 +170,7 @@ namespace Units
 
         public void Escape()
         {
+            FinalizeAttackingInstantly();
             WantEscape?.Invoke();
         }
 

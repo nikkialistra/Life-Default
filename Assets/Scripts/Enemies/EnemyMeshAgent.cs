@@ -41,6 +41,16 @@ namespace Enemies
             _animator.Move(true);
         }
 
+        public void RunFrom(Unit opponent, float distance)
+        {
+            var delta = transform.position - opponent.transform.position;
+            var flatNormalizedDelta = new Vector3(delta.x, 0, delta.z).normalized;
+
+            var oppositePoint = transform.position + (flatNormalizedDelta * distance);
+            
+            _unitMeshAgent.SetDestinationToPosition(oppositePoint);
+        }
+
         public void StopMoving()
         {
             _unitMeshAgent.StopMoving();

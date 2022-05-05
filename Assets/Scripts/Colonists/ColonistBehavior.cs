@@ -15,14 +15,14 @@ namespace Colonists
 
         private ColonistMeshAgent _colonistMeshAgent;
 
+        private SharedBool _newCommand;
+        
         private SharedPositions _positions;
         private SharedFloat _rotation;
         private SharedColonist _colonist;
         private SharedEnemy _enemy;
         private SharedResource _resource;
         private SharedUnit _unitTarget;
-
-        private SharedBool _newCommand;
 
         private bool _initialized;
 

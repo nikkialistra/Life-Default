@@ -11,6 +11,8 @@ namespace Enemies
         private bool _initialized;
 
         private SharedBool _newCommand;
+
+        private SharedBool _escape;
         
         private BehaviorTree _behaviorTree;
 
@@ -60,11 +62,14 @@ namespace Enemies
         private void Initialize()
         {
             _newCommand = (SharedBool)_behaviorTree.GetVariable("NewCommand");
+
+            _escape = (SharedBool)_behaviorTree.GetVariable("Escape");
         }
 
         private void Escape()
         {
-            
+            _newCommand.Value = true;
+            _escape.Value = true;
         }
     }
 }

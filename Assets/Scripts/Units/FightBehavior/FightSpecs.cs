@@ -2,9 +2,9 @@
 
 namespace Units.FightBehavior
 {
-    public readonly struct UnitFightSpecs
+    public readonly struct FightSpecs
     {
-        public UnitFightSpecs(float health, float averageDamagePerSecond)
+        public FightSpecs(float health, float averageDamagePerSecond)
         {
             if (health <= 0 || averageDamagePerSecond <= 0)
             {
@@ -18,7 +18,7 @@ namespace Units.FightBehavior
         private float Health { get; }
         private float AverageDamagePerSecond { get; }
 
-        public float WouldWinInTime(UnitFightSpecs opponent, float advanceTime)
+        public float WouldWinInTime(FightSpecs opponent, float advanceTime)
         {
             if (opponent.Health - (AverageDamagePerSecond * advanceTime) > 0)
             {
@@ -28,7 +28,7 @@ namespace Units.FightBehavior
             return opponent.Health / AverageDamagePerSecond;
         }
 
-        public float WouldLoseInTime(UnitFightSpecs opponent, float advanceTime)
+        public float WouldLoseInTime(FightSpecs opponent, float advanceTime)
         {
             if (Health - (opponent.AverageDamagePerSecond * advanceTime) > 0)
             {

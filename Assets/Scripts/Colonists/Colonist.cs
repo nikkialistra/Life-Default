@@ -201,18 +201,6 @@ namespace Colonists
             _animator.Die(DestroySelf);
         }
 
-        private void DeactivateComponents()
-        {
-            _unit.HideUnitVisibilityFields();
-            _gatherer.HideResourceFieldOfView();
-
-            _unitSelection.Deactivate();
-            _unitAttacker.FinalizeAttackingInstantly();
-            
-            _meshAgent.Deactivate();
-            _behavior.Deactivate();
-        }
-
         private void Initialize()
         {
             _gender = EnumUtils.RandomValue<Gender>();
@@ -232,6 +220,18 @@ namespace Colonists
             _unitSelection.Activate();
             _meshAgent.Activate();
             _behavior.Activate();
+        }
+
+        private void DeactivateComponents()
+        {
+            _unit.HideUnitVisibilityFields();
+            _gatherer.HideResourceFieldOfView();
+
+            _unitSelection.Deactivate();
+            _unitAttacker.FinalizeAttackingInstantly();
+            
+            _meshAgent.Deactivate();
+            _behavior.Deactivate();
         }
 
         private void DestroySelf()

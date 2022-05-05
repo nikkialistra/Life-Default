@@ -1,23 +1,31 @@
 ﻿using System;
+using System.Collections;
 using UnityEngine;
 
 namespace Units.FightBehavior
 {
-    
+    [RequireComponent(typeof(Unit))]
     [RequireComponent(typeof(UnitAttacker))]
     public class UnitFightBehavior : MonoBehaviour
     {
         [SerializeField] private float _advanceTime = 3f;
+        [SerializeField] private float _refreshTime = 1f;
 
-        private UnitFightSpecs _selfSpecs;
-        private UnitFightSpecs _opponentSpecs;
-        
+        private FightSpecs _selfSpecs;
+        private FightSpecs _opponentSpecs;
+
         private bool _fighting;
-        
+
+        private Unit _self;
+        private Unit _opponent;
+
         private UnitAttacker _unitAttacker;
+
+        private Coroutine _choosingBehaviorCoroutine;
 
         private void Awake()
         {
+            _self = GetComponent<Unit>();
             _unitAttacker = GetComponent<UnitAttacker>();
         }
 
@@ -35,19 +43,48 @@ namespace Units.FightBehavior
 
         private void StartFight()
         {
-            //RefreshSpecs(selfSpecs, opponentSpecs);
+            if (_fighting)
+            {
+                return;
+            }
+            
             _fighting = true;
+            _opponent = _unitAttacker.AttackedUnit;
+
+            _choosingBehaviorCoroutine = StartCoroutine(ChoosingBehavior());
+        }
+
+        private IEnumerator ChoosingBehavior()
+        {
+            while (true)
+            {
+                RefreshSpecs();
+
+                if (WouldBeDefeated())
+                {
+                    _unitAttacker.Escape();
+                }
+
+                yield return new WaitForSeconds(_refreshTime);
+            }
         }
 
         private void StopFight()
         {
+            if (_choosingBehaviorCoroutine != null)
+            {
+                StopCoroutine(_choosingBehaviorCoroutine);
+                _choosingBehaviorCoroutine = null;
+            }
+            
             _fighting = false;
+            _opponent = null;
         }
 
-        public void RefreshSpecs(UnitFightSpecs selfSpecs, UnitFightSpecs opponentSpecs)
+        private void RefreshSpecs()
         {
-            _selfSpecs = selfSpecs;
-            _opponentSpecs = opponentSpecs;
+            _selfSpecs = _self.GetSpecs();
+            _opponentSpecs = _opponent.GetSpecs();
         }
 
         public bool WouldBeDefeated()

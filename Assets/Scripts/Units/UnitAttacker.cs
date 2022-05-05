@@ -45,6 +45,8 @@ namespace Units
         public event Action AttackStart;
         public event Action AttackEnd;
 
+        public event Action WantEscape;
+
         public bool IsAttacking { get; private set; }
         public bool Idle => !IsAttacking && Time.time - _lastAttackTime > _timeAfterAttackToIdle;
 
@@ -69,6 +71,7 @@ namespace Units
         }
 
         public float AttackRange => _unitStats.MeleeAttackRange;
+        public Unit AttackedUnit => _attackedUnit;
 
         public void Attack(Unit unit)
         {
@@ -163,6 +166,11 @@ namespace Units
         public void SetTrackedUnit(Unit trackedUnit)
         {
             _trackedUnit = trackedUnit;
+        }
+
+        public void Escape()
+        {
+            WantEscape?.Invoke();
         }
 
         private IEnumerator WatchForDestroy()

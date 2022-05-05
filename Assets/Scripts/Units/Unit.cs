@@ -5,6 +5,7 @@ using Sirenix.OdinInspector;
 using Units.Ancillaries;
 using Units.Ancillaries.Fields;
 using Units.Enums;
+using Units.FightBehavior;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -99,6 +100,14 @@ namespace Units
             }
 
             Vitality.TakeDamage(value);
+        }
+        
+        public FightSpecs GetSpecs()
+        {
+            var health = Vitality.Health;
+            var averageDamagePerSecond = _unitStats.MeleeDamagePerSecond * _unitStats.MeleeAccuracy;
+
+            return new FightSpecs(health, averageDamagePerSecond);
         }
 
         private bool Dodged()

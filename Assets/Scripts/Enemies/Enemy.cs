@@ -69,7 +69,7 @@ namespace Enemies
         private void Start()
         {
             Initialize();
-            InitializeComponents();
+            ActivateComponents();
             
             Spawn?.Invoke();
         }
@@ -164,19 +164,23 @@ namespace Enemies
             _animator.Die(DestroySelf);
         }
 
+        private void ActivateComponents()
+        {
+            _behavior.Activate();
+            
+            _unitSelection.Activate();
+            _behavior.Enable();
+        }
+
         private void DeactivateComponents()
         {
+            _behavior.Deactivate();
+            
             _unitSelection.Deactivate();
             _unitAttacker.FinalizeAttackingInstantly();
             
             _meshAgent.Deactivate();
             _behavior.Disable();
-        }
-
-        private void InitializeComponents()
-        {
-            _unitSelection.Activate();
-            _behavior.Enable();
         }
 
         private void DestroySelf()

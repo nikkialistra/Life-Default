@@ -2,7 +2,7 @@
 using Units.MinimaxFightBehavior.FightAct;
 using static Units.MinimaxFightBehavior.FightAct.Fight.FightState;
 
-namespace Units.MinimaxFightBehavior
+namespace Units.MinimaxFightBehavior.Calculation
 {
     public class MinimaxScoreFunction
     {

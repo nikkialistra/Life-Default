@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
 using Units.Enums;
-using Units.MinimaxFightBehavior.FightAct;
 
-namespace Units.MinimaxFightBehavior
+namespace Units.MinimaxFightBehavior.FightAct
 {
     public class Player
     {
@@ -30,11 +29,6 @@ namespace Units.MinimaxFightBehavior
                 new (_hitDamage, _selfDamage),
                 new (1000f, 1000f)
             };
-        }
-
-        public bool IfAttackWouldLeadDefeat(float health)
-        {
-            return health - _hitDamage <= 0;
         }
     }
 }

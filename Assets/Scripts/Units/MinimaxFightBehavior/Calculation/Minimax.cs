@@ -4,7 +4,7 @@ using System.Linq;
 using Units.MinimaxFightBehavior.FightAct;
 using UnityEngine;
 
-namespace Units.MinimaxFightBehavior
+namespace Units.MinimaxFightBehavior.Calculation
 {
     public class Minimax
     {
@@ -40,7 +40,7 @@ namespace Units.MinimaxFightBehavior
             return nextMove;
         }
 
-        private (float Score, FightMove NextMove, bool ShouldCancel) Estimate(Fight fight, Player player, int depth)
+        private EstimationResult Estimate(Fight fight, Player player, int depth)
         {
             if (ShouldNotLookFurther(fight, player, depth, out var estimation))
             {
@@ -64,7 +64,7 @@ namespace Units.MinimaxFightBehavior
                 
                 LogScore(score, depth);
 
-                return (Score: score, NextMove: move, ShouldCancel: shouldCancel);
+                return new EstimationResult(score, move, shouldCancel);
             }).ToList();
 
             if (depth == 1)
@@ -74,9 +74,9 @@ namespace Units.MinimaxFightBehavior
 
             var isOpponentTurn = player != fight.ActivePlayer;
 
-            if (estimations.Any(item => item.ShouldCancel))
+            if (depth != 1 && estimations.Any(item => item.ShouldCancel))
             {
-                return (0, null, true);
+                return new EstimationResult(0, null, true);
             }
             
             return isOpponentTurn
@@ -84,14 +84,14 @@ namespace Units.MinimaxFightBehavior
                 : estimations.Aggregate((e1, e2) => e1.Score >= e2.Score ? e1 : e2);
         }
 
-        private static List<(float Score, FightMove NextMove, bool ShouldCancel)> FilterEstimationsWithDefeat(
-            List<(float Score, FightMove NextMove, bool ShouldCancel)> estimations)
+        private static List<EstimationResult> FilterEstimationsWithDefeat(
+            List<EstimationResult> estimations)
         {
             return estimations.Where(estimation => estimation.ShouldCancel != true).ToList();
         }
 
         private bool ShouldNotLookFurther(Fight fight, Player player, int depth,
-            out (float Score, FightMove NextMove, bool ShouldCancel) estimation)
+            out EstimationResult estimation)
         {
             if (fight.IsTerminal)
             {
@@ -99,9 +99,8 @@ namespace Units.MinimaxFightBehavior
                     var score = MinimaxScoreFunction.Calculate(fight, player);
 
                     LogScore(score, depth);
-                    
-                    estimation = (Score: score,
-                        NextMove: null, ShouldCancel(score));
+
+                    estimation = new EstimationResult(score, null, ShouldCancel(score));
                     return true;
                 }
             }
@@ -114,11 +113,8 @@ namespace Units.MinimaxFightBehavior
 
                 var defaultMove = GetDefaultMove(fight);
 
-                {
-                    estimation = (Score: score,
-                        NextMove: defaultMove, false);
-                    return true;
-                }
+                estimation = new EstimationResult(score, defaultMove, false);
+                return true;
             }
 
             estimation = default;
@@ -147,7 +143,7 @@ namespace Units.MinimaxFightBehavior
 
         private static bool ShouldCancel(float score)
         {
-            return score is 1 or -1;
+            return score == -1;
         }
     }
 }

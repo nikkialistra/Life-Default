@@ -2,7 +2,7 @@
 
 namespace Units.MinimaxFightBehavior.FightAct
 {
-    public class HistoryFightState
+    public readonly struct HistoryFightState
     {
         public HistoryFightState(Fight.FightState state, Fraction whichMove, FightMove fightMove)
         {

@@ -1,6 +1,7 @@
 ﻿using System.Reflection;
 using Sirenix.OdinInspector;
 using Units.Enums;
+using Units.MinimaxFightBehavior.Calculation;
 using Units.MinimaxFightBehavior.FightAct;
 using UnityEngine;
 
@@ -30,8 +31,8 @@ namespace Units.MinimaxFightBehavior
             
             var minimax = new Minimax(_maxMinimaxDepth, _shouldLogInDetail);
             
-            var colonist = new Player(Fraction.Colonists,  _startHealths, 30f, 20f);
-            var enemy = new Player(Fraction.Enemies, _startHealths, 20f, 30f);
+            var colonist = new Player(Fraction.Colonists,  _startHealths, 10f, 20f);
+            var enemy = new Player(Fraction.Enemies, _startHealths, 30f, 30f);
 
             _fight = new Fight(colonist, enemy);
 

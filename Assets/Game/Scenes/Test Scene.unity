@@ -1981,8 +1981,8 @@ MonoBehaviour:
   _shouldLog: 1
   _shouldLogInDetail: 0
   _maxFightMoveCount: 17
-  _maxMinimaxDepth: 4
-  _startHealths: 140
+  _maxMinimaxDepth: 3
+  _startHealths: 200
 --- !u!1 &1132375669
 GameObject:
   m_ObjectHideFlags: 0

@@ -42,6 +42,9 @@ namespace Units
             _unitSelection = GetComponent<UnitSelection>();
         }
 
+        public event Action AttackStart;
+        public event Action AttackEnd;
+
         public bool IsAttacking { get; private set; }
         public bool Idle => !IsAttacking && Time.time - _lastAttackTime > _timeAfterAttackToIdle;
 
@@ -75,6 +78,7 @@ namespace Units
             _attackingCoroutine = StartCoroutine(WatchForDestroy());
 
             IsAttacking = true;
+            AttackStart?.Invoke();
         }
 
         public void Hit(float passedTime)
@@ -121,7 +125,6 @@ namespace Units
         public void FinalizeAttackingInstantly()
         {
             ResetAttacking();
-
             StopAttacking();
         }
 
@@ -201,14 +204,16 @@ namespace Units
             
             _unitAnimator.Attack(false);
             IsAttacking = false;
+            AttackEnd?.Invoke();
         }
 
         private void StopAttacking()
         {
+            _lastAttackTime = Time.time;
+            
             _unitAnimator.Attack(false);
             IsAttacking = false;
-
-            _lastAttackTime = Time.time;
+            AttackEnd?.Invoke();
         }
 
         private void ResetUnitTarget()

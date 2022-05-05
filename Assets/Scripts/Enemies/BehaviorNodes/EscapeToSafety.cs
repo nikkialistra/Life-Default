@@ -13,7 +13,7 @@ namespace Enemies.BehaviorNodes
         public float DistanceForOneRetreat = 5f;
         public float RandomizationRadius = 4f;
         
-        public LayerMask _targetMask;
+        public LayerMask TargetMask;
         public float TimeToRescan = 0.2f;
         
         public EnemyMeshAgent EnemyMeshAgent;
@@ -58,7 +58,7 @@ namespace Enemies.BehaviorNodes
 
         private List<Unit> FindOpponents()
         {
-            var colliders = Physics.OverlapSphere(transform.position, SafeDistance, _targetMask);
+            var colliders = Physics.OverlapSphere(transform.position, SafeDistance, TargetMask);
 
             var opponents = new List<Unit>();
 

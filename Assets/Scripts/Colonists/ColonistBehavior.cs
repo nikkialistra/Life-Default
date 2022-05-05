@@ -7,13 +7,13 @@ using UnityEngine;
 
 namespace Colonists
 {
-    [RequireComponent(typeof(ColonistMeshAgent))]
     [RequireComponent(typeof(BehaviorTree))]
+    [RequireComponent(typeof(ColonistMeshAgent))]
     public class ColonistBehavior : MonoBehaviour
     {
         private BehaviorTree _behaviorTree;
 
-        private ColonistMeshAgent _colonistMeshAgent;
+        private ColonistMeshAgent _meshAgent;
 
         private SharedBool _newCommand;
         
@@ -28,8 +28,9 @@ namespace Colonists
 
         private void Awake()
         {
-            _colonistMeshAgent = GetComponent<ColonistMeshAgent>();
             _behaviorTree = GetComponent<BehaviorTree>();
+
+            _meshAgent = GetComponent<ColonistMeshAgent>();
         }
 
         public void Activate()
@@ -55,7 +56,7 @@ namespace Colonists
 
         public void OrderTo(Colonist targetColonist)
         {
-            if (!_colonistMeshAgent.CanAcceptOrder())
+            if (!_meshAgent.CanAcceptOrder())
             {
                 return;
             }
@@ -68,7 +69,7 @@ namespace Colonists
 
         public void OrderTo(Unit unitTarget)
         {
-            if (!_colonistMeshAgent.CanAcceptOrder())
+            if (!_meshAgent.CanAcceptOrder())
             {
                 return;
             }
@@ -78,10 +79,10 @@ namespace Colonists
 
             _newCommand.Value = true;
         }
-        
+
         public void OrderTo(Resource resource)
         {
-            if (!_colonistMeshAgent.CanAcceptOrder())
+            if (!_meshAgent.CanAcceptOrder())
             {
                 return;
             }
@@ -104,7 +105,7 @@ namespace Colonists
 
         public void OrderToPosition(Vector3 position, float? angle)
         {
-            if (!_colonistMeshAgent.CanAcceptOrder())
+            if (!_meshAgent.CanAcceptOrder())
             {
                 return;
             }
@@ -121,7 +122,7 @@ namespace Colonists
 
         public void AddPositionToOrder(Vector3 position, float? angle)
         {
-            if (!_colonistMeshAgent.CanAcceptOrder())
+            if (!_meshAgent.CanAcceptOrder())
             {
                 return;
             }

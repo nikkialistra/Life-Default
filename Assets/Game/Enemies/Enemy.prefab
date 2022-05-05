@@ -17,17 +17,17 @@ GameObject:
   - component: {fileID: 6716084818144742275}
   - component: {fileID: 889070029107378900}
   - component: {fileID: 9005558398283325450}
-  - component: {fileID: 3020886004222341295}
-  - component: {fileID: 3711090713507644293}
-  - component: {fileID: 5364183396584065060}
-  - component: {fileID: 8477657715684973058}
-  - component: {fileID: 9130838204546555337}
-  - component: {fileID: 2192563380826325834}
   - component: {fileID: 5149874996177493612}
   - component: {fileID: 7905390231065561626}
+  - component: {fileID: 5364183396584065060}
+  - component: {fileID: 8477657715684973058}
   - component: {fileID: 298080858946743308}
-  - component: {fileID: 1149773730367073455}
   - component: {fileID: 2904803673409504266}
+  - component: {fileID: 3020886004222341295}
+  - component: {fileID: 3711090713507644293}
+  - component: {fileID: 9130838204546555337}
+  - component: {fileID: 2192563380826325834}
+  - component: {fileID: 1149773730367073455}
   m_Layer: 15
   m_Name: Enemy
   m_TagString: Untagged
@@ -119,7 +119,7 @@ MonoBehaviour:
         New Command","Instant":true,"SharedBoolvariable":{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":"NewCommand","IsShared":true,"BooleanmValue":false},"SharedBoolcompareTo":{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":null,"BooleanmValue":true}},{"Type":"Enemies.BehaviorNodes.ResetEnemyBehavior","NodeData":{"Offset":"(104.215279,161.6188)"},"ID":5,"Name":"Reset
         Enemy Behavior","Instant":true,"SharedBoolNewCommand":{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":"NewCommand","IsShared":true,"BooleanmValue":false},"EnemyMeshAgentEnemyMeshAgent":0,"UnitAttackerUnitAttacker":1}]},{"Type":"BehaviorDesigner.Runtime.Tasks.Sequence","NodeData":{"Offset":"(-577.979858,226.713058)"},"ID":6,"Name":"Sequence","Instant":true,"AbortTypeabortType":"None","Children":[{"Type":"BehaviorDesigner.Runtime.Tasks.Unity.SharedVariables.CompareSharedBool","NodeData":{"Offset":"(-95.52719,138.962372)"},"ID":7,"Name":"Should
         Escape","Instant":true,"SharedBoolvariable":{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":"Escape","IsShared":true,"BooleanmValue":false},"SharedBoolcompareTo":{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":null,"BooleanmValue":true}},{"Type":"BehaviorDesigner.Runtime.Tasks.Repeater","NodeData":{"Offset":"(132.051559,150.000031)"},"ID":8,"Name":"Repeater","Instant":true,"SharedIntcount":{"Type":"BehaviorDesigner.Runtime.SharedInt","Name":null,"Int32mValue":0},"SharedBoolrepeatForever":{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":null,"BooleanmValue":true},"SharedBoolendOnFailure":{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":null,"BooleanmValue":true},"Children":[{"Type":"Enemies.BehaviorNodes.EscapeToSafety","NodeData":{"Offset":"(1.53370667,170.681152)"},"ID":9,"Name":"Escape
-        To Safety","Instant":true,"SingleSafeDistance":15,"SingleDistanceForOneRetreat":10,"LayerMask_targetMask":16384,"SingleTimeToRescan":0.5,"EnemyMeshAgentEnemyMeshAgent":2,"SharedBoolEscape":{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":"Escape","IsShared":true,"BooleanmValue":false}}]}]},{"Type":"BehaviorDesigner.Runtime.Tasks.Sequence","NodeData":{"Offset":"(-0.683206558,182.537079)"},"ID":10,"Name":"Sequence","Instant":true,"AbortTypeabortType":"None","Children":[{"Type":"Units.BehaviourNodes.Attacking.GotNewUnitTarget","NodeData":{"Offset":"(-135.17865,189.4043)"},"ID":11,"Name":"Got
+        To Safety","Instant":true,"SingleSafeDistance":15,"SingleDistanceForOneRetreat":10,"SingleRandomizationRadius":4,"LayerMaskTargetMask":16384,"SingleTimeToRescan":0.5,"EnemyMeshAgentEnemyMeshAgent":2,"SharedBoolEscape":{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":"Escape","IsShared":true,"BooleanmValue":false}}]}]},{"Type":"BehaviorDesigner.Runtime.Tasks.Sequence","NodeData":{"Offset":"(-0.683206558,182.537079)"},"ID":10,"Name":"Sequence","Instant":true,"AbortTypeabortType":"None","Children":[{"Type":"Units.BehaviourNodes.Attacking.GotNewUnitTarget","NodeData":{"Offset":"(-135.17865,189.4043)"},"ID":11,"Name":"Got
         New Unit Target","Instant":true,"SharedUnitUnitTarget":{"Type":"Units.BehaviorVariables.SharedUnit","Name":"UnitTarget","IsShared":true}},{"Type":"BehaviorDesigner.Runtime.Tasks.Repeater","NodeData":{"Offset":"(144.82135,189.4043)"},"ID":12,"Name":"Repeater","Instant":true,"SharedIntcount":{"Type":"BehaviorDesigner.Runtime.SharedInt","Name":null,"Int32mValue":0},"SharedBoolrepeatForever":{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":null,"BooleanmValue":true},"SharedBoolendOnFailure":{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":null,"BooleanmValue":true},"Children":[{"Type":"BehaviorDesigner.Runtime.Tasks.Sequence","NodeData":{"Offset":"(0.535644531,129.4043)"},"ID":13,"Name":"Sequence","Instant":true,"AbortTypeabortType":"None","Children":[{"Type":"Units.BehaviourNodes.Attacking.MoveToUnitTarget","NodeData":{"Offset":"(-189.464355,159.404358)"},"ID":14,"Name":"Move
         To Unit Target","Instant":true,"SharedUnitUnitTarget":{"Type":"Units.BehaviorVariables.SharedUnit","Name":"UnitTarget","IsShared":true},"UnitMeshAgentUnitMeshAgent":3,"UnitAttackerUnitAttacker":4,"UnitEquipmentUnitEquipment":5},{"Type":"Units.BehaviourNodes.Attacking.RotateToUnitTarget","NodeData":{"Offset":"(0.535644531,159.404358)"},"ID":15,"Name":"Rotate
         To Unit Target","Instant":true,"SharedUnitUnitTarget":{"Type":"Units.BehaviorVariables.SharedUnit","Name":"UnitTarget","IsShared":true},"UnitMeshAgentUnitMeshAgent":6,"UnitAttackerUnitAttacker":7},{"Type":"Units.BehaviourNodes.Attacking.AttackUnitTarget","NodeData":{"Offset":"(180.535645,159.404358)"},"ID":16,"Name":"Attack
@@ -272,7 +272,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _timeAfterAttackToIdle: 2
   _messageShowing: {fileID: 587481625790340179}
---- !u!114 &3020886004222341295
+--- !u!114 &5149874996177493612
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -281,14 +281,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 4193433063631040808}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: adf04c0e1fa74f64bd1708f8571414bd, type: 3}
+  m_Script: {fileID: 11500000, guid: 573b1a3f297c41fb8c1f0dbfe5ac5abe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _name: 
-  _gender: 0
-  _humanAppearance: {fileID: 3667617560854097249}
-  _selectionIndicator: {fileID: 3207950516897515159}
---- !u!114 &3711090713507644293
+  _rotationSpeed: 120
+  _entityOffsetForPathRecalculation: 0.6
+--- !u!114 &7905390231065561626
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -297,10 +295,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 4193433063631040808}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2b730e9a1cd84493abfd50b97aef392f, type: 3}
+  m_Script: {fileID: 11500000, guid: db904903384243dea2d08ea39fcd5a63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _animator: {fileID: 2067455092801037215}
+  _hoverIndicator: {fileID: 152656352870599827}
+  _healthBars: {fileID: 1935489896466272434}
 --- !u!114 &5364183396584065060
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -333,6 +332,66 @@ MonoBehaviour:
   - 3
   - 2
   - 3.5
+--- !u!114 &298080858946743308
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4193433063631040808}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cabfe8004b864fb68f7983619a63a1b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _meleeDamage: 15
+  _meleeAttackSpeed: 0.8
+  _meleeAttackRange: 1.7
+  _meleeAccuracy: 0.8
+  _attackDodgeChance: 0.2
+--- !u!114 &2904803673409504266
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4193433063631040808}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41b24eb4444846398245d37c7ac57ada, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _advanceTime: 3
+  _refreshTime: 1
+--- !u!114 &3020886004222341295
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4193433063631040808}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adf04c0e1fa74f64bd1708f8571414bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _name: 
+  _gender: 0
+  _humanAppearance: {fileID: 3667617560854097249}
+  _selectionIndicator: {fileID: 3207950516897515159}
+--- !u!114 &3711090713507644293
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4193433063631040808}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b730e9a1cd84493abfd50b97aef392f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _animator: {fileID: 2067455092801037215}
 --- !u!114 &9130838204546555337
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -357,51 +416,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3362675ba7ef40e7ad9447791d830a7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &5149874996177493612
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4193433063631040808}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 573b1a3f297c41fb8c1f0dbfe5ac5abe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _rotationSpeed: 120
-  _entityOffsetForPathRecalculation: 0.6
---- !u!114 &7905390231065561626
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4193433063631040808}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: db904903384243dea2d08ea39fcd5a63, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _hoverIndicator: {fileID: 152656352870599827}
-  _healthBars: {fileID: 1935489896466272434}
---- !u!114 &298080858946743308
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4193433063631040808}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cabfe8004b864fb68f7983619a63a1b7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _meleeDamage: 15
-  _meleeAttackSpeed: 0.8
-  _meleeAttackRange: 1.7
-  _meleeAccuracy: 0.8
-  _attackDodgeChance: 0.2
 --- !u!114 &1149773730367073455
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -414,20 +428,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc5bec9bea554c84b0af9fecb15f8846, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &2904803673409504266
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4193433063631040808}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 41b24eb4444846398245d37c7ac57ada, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _advanceTime: 3
-  _refreshTime: 1
 --- !u!1 &5472537477924505346
 GameObject:
   m_ObjectHideFlags: 0

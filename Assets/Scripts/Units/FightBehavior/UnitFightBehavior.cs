@@ -88,7 +88,7 @@ namespace Units.FightBehavior
         {
             _selfSpecs = _self.GetSpecs();
 
-            if (!_opponent.Alive)
+            if (_opponent == null || !_opponent.Alive)
             {
                 StopFight();
                 return false;

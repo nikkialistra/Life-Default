@@ -58,7 +58,10 @@ namespace Units.FightBehavior
         {
             while (true)
             {
-                RefreshSpecs();
+                if (!TryRefreshSpecs())
+                {
+                    break;
+                }
 
                 if (WouldBeDefeated())
                 {
@@ -81,10 +84,18 @@ namespace Units.FightBehavior
             _opponent = null;
         }
 
-        private void RefreshSpecs()
+        private bool TryRefreshSpecs()
         {
             _selfSpecs = _self.GetSpecs();
+
+            if (!_opponent.Alive)
+            {
+                StopFight();
+                return false;
+            }
+            
             _opponentSpecs = _opponent.GetSpecs();
+            return true;
         }
 
         public bool WouldBeDefeated()

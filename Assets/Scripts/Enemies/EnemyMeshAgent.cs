@@ -1,6 +1,7 @@
 ﻿using System;
 using Units;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Enemies
 {
@@ -41,14 +42,15 @@ namespace Enemies
             _animator.Move(true);
         }
 
-        public void RunFrom(Unit opponent, float distance)
+        public void RunFrom(Unit opponent, float distance, float randomizationRadius)
         {
             var delta = transform.position - opponent.transform.position;
             var flatNormalizedDelta = new Vector3(delta.x, 0, delta.z).normalized;
-
-            var oppositePoint = transform.position + (flatNormalizedDelta * distance);
+            var randomizedDelta = Random.insideUnitSphere * randomizationRadius;
             
-            _unitMeshAgent.SetDestinationToPosition(oppositePoint);
+            var oppositePoint = transform.position + (flatNormalizedDelta * distance) + new Vector3(randomizedDelta.x, 0, randomizedDelta.z);
+            
+            GoToPosition(oppositePoint);
         }
 
         public void StopMoving()

@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using DG.Tweening;
 using Pathfinding;
 using ResourceManagement;
-using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Units
@@ -207,9 +206,15 @@ namespace Units
 
         private bool UpdateMovingToUnitTarget()
         {
+            if (_unitTarget == null)
+            {
+                return false;
+            }
+            
             if (Vector3.Distance(transform.position, _aiPath.destination) <= _interactionDistance)
             {
                 _unitTarget = null;
+                _movingToUnitTarget = false;
                 return false;
             }
 

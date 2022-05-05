@@ -11,6 +11,7 @@ namespace Enemies.BehaviorNodes
     {
         public float SafeDistance = 15f;
         public float DistanceForOneRetreat = 5f;
+        public float RandomizationRadius = 4f;
         
         public LayerMask _targetMask;
         public float TimeToRescan = 0.2f;
@@ -24,6 +25,8 @@ namespace Enemies.BehaviorNodes
         public override void OnStart()
         {
             EnemyMeshAgent.StopMoving();
+
+            _nextTimeToScan = Time.time;
         }
 
         public override TaskStatus OnUpdate()
@@ -94,7 +97,7 @@ namespace Enemies.BehaviorNodes
                 return;
             }
 
-            EnemyMeshAgent.RunFrom(closestOpponent, DistanceForOneRetreat);
+            EnemyMeshAgent.RunFrom(closestOpponent, DistanceForOneRetreat, RandomizationRadius);
         }
     }
 }

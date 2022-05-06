@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Units.Enums;
 
 namespace Units.MinimaxFightBehavior.FightAct
 {
@@ -8,17 +7,23 @@ namespace Units.MinimaxFightBehavior.FightAct
         private readonly float _hitDamage;
         private readonly float _selfDamage;
 
-        public Player(Fraction fraction, float startHealth, float hitDamage, float selfDamage)
+        public Player(PlayerSide side, float startHealth, float hitDamage, float selfDamage)
         {
-            Fraction = fraction;
+            Side = side;
 
             StartHealth = startHealth;
             
             _hitDamage = hitDamage;
             _selfDamage = selfDamage;
         }
+
+        public enum PlayerSide
+        {
+            First,
+            Second
+        }
         
-        public Fraction Fraction { get; }
+        public PlayerSide Side { get; }
 
         public float StartHealth { get; }
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Units.Enums;
+using static Units.MinimaxFightBehavior.FightAct.Player.PlayerSide;
 
 namespace Units.MinimaxFightBehavior.FightAct
 {
@@ -77,11 +78,11 @@ namespace Units.MinimaxFightBehavior.FightAct
                 throw new InvalidOperationException("The fight is finished");
             }
             
-            _history.Push(new HistoryFightState(State, ActivePlayer.Fraction, fightMove));
+            _history.Push(new HistoryFightState(State, ActivePlayer.Side, fightMove));
 
-            UpdatePlayerFightStatuses(ActivePlayer.Fraction, fightMove);
+            UpdatePlayerFightStatuses(ActivePlayer.Side, fightMove);
 
-            State = DeduceState(ActivePlayer.Fraction);
+            State = DeduceState(ActivePlayer.Side);
         }
 
         public void UndoMove()
@@ -98,9 +99,9 @@ namespace Units.MinimaxFightBehavior.FightAct
             State = fightState.State;
         }
 
-        private void UpdatePlayerFightStatuses(Fraction fraction, FightMove fightMove)
+        private void UpdatePlayerFightStatuses(Player.PlayerSide side, FightMove fightMove)
         {
-            if (fraction == Fraction.Colonists)
+            if (side == First)
             {
                 _playerFightStatuses.ChangeSecondPlayerHealth(fightMove.HitDamage);
                 _playerFightStatuses.ChangeFirstPlayerHealth(fightMove.TakeDamage);
@@ -112,17 +113,17 @@ namespace Units.MinimaxFightBehavior.FightAct
             }
         }
 
-        private FightState DeduceState(Fraction fraction)
+        private FightState DeduceState(Player.PlayerSide side)
         {
             if (IsSomeoneDefeated(out var fightState))
             {
                 return fightState;
             }
 
-            return fraction switch {
-                Fraction.Colonists => FightState.SecondPlayerTurn,
-                Fraction.Enemies => FightState.FirstPlayerTurn,
-                _ => throw new ArgumentOutOfRangeException(nameof(fraction), fraction, null)
+            return side switch {
+                First => FightState.SecondPlayerTurn,
+                Second => FightState.FirstPlayerTurn,
+                _ => throw new ArgumentOutOfRangeException(nameof(side), side, null)
             };
         }
 

@@ -17,8 +17,8 @@ namespace Units.FightBehavior
             AverageDamagePerSecond = averageDamagePerSecond;
         }
 
-        private float Health { get; }
-        private float AverageDamagePerSecond { get; }
+        public float Health { get; }
+        public float AverageDamagePerSecond { get; }
 
         public float WouldWinInTime(FightSpecs opponent, float advanceTime)
         {

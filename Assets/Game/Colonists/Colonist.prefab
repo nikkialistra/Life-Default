@@ -726,6 +726,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _advanceTime: 3
   _refreshTime: 1
+  _useMinimax: 1
 --- !u!114 &5364183396584065060
 MonoBehaviour:
   m_ObjectHideFlags: 0

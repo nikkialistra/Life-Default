@@ -1,6 +1,7 @@
 ﻿using Units.Enums;
 using Units.MinimaxFightBehavior.FightAct;
 using static Units.MinimaxFightBehavior.FightAct.Fight.FightState;
+using static Units.MinimaxFightBehavior.FightAct.Player.PlayerSide;
 
 namespace Units.MinimaxFightBehavior.Calculation
 {
@@ -8,7 +9,7 @@ namespace Units.MinimaxFightBehavior.Calculation
     {
         public static float Calculate(Fight fight, Player player)
         {
-            if (player.Fraction == Fraction.Colonists)
+            if (player.Side == First)
             {
                 return CalculateForFirstPlayer(fight);
             }

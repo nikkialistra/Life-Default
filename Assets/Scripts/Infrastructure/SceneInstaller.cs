@@ -12,13 +12,13 @@ using General.TimeCycle.Seasons;
 using General.TimeCycle.Ticking;
 using General.TimeCycle.TimeRegulation;
 using General.WeatherRegulation;
-using pointcache.Frustum;
 using ResourceManagement;
 using Sirenix.OdinInspector;
 using Testing;
 using UI;
 using Units;
 using Units.Appearance;
+using Units.MinimaxFightBehavior;
 using UnityEngine;
 using Zenject;
 
@@ -102,6 +102,8 @@ namespace Infrastructure
         [Title("Other")]
         [Required]
         [SerializeField] private Transform _pathLineParent;
+        [Required]
+        [SerializeField] private VirtualFight _virtualFight;
 
         public override void InstallBindings()
         {
@@ -193,6 +195,7 @@ namespace Infrastructure
         private void BindOther()
         {
             Container.BindInstance(_pathLineParent).WhenInjectedInto<ColonistMeshAgent>();
+            Container.BindInstance(_virtualFight);
         }
     }
 }

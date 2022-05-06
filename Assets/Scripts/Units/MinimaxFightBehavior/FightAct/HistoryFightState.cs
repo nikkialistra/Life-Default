@@ -4,7 +4,7 @@ namespace Units.MinimaxFightBehavior.FightAct
 {
     public readonly struct HistoryFightState
     {
-        public HistoryFightState(Fight.FightState state, Fraction whichMove, FightMove fightMove)
+        public HistoryFightState(Fight.FightState state, Player.PlayerSide whichMove, FightMove fightMove)
         {
             State = state;
             WhichMove = whichMove;
@@ -12,7 +12,7 @@ namespace Units.MinimaxFightBehavior.FightAct
         }
         
         public Fight.FightState State { get; }
-        public Fraction WhichMove { get; }
+        public Player.PlayerSide WhichMove { get; }
 
         public FightMove ReverseFightMove => FightMove.GetReverseState(FightMove);
         private FightMove FightMove { get; }

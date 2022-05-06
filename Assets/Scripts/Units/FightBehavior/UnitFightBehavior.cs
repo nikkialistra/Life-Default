@@ -2,7 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Units.MinimaxFightBehavior;
 using UnityEngine;
+using Zenject;
 
 namespace Units.FightBehavior
 {
@@ -12,7 +14,9 @@ namespace Units.FightBehavior
     {
         [SerializeField] private float _advanceTime = 3f;
         [SerializeField] private float _refreshTime = 1f;
-        
+        [Space]
+        [SerializeField] private bool _useMinimax;
+
         private bool _fighting;
 
         private Unit _self;
@@ -26,6 +30,14 @@ namespace Units.FightBehavior
         private UnitAttacker _unitAttacker;
 
         private Coroutine _choosingBehaviorCoroutine;
+        
+        private VirtualFight _virtualFight;
+
+        [Inject]
+        public void Construct(VirtualFight virtualFight)
+        {
+            _virtualFight = virtualFight;
+        }
 
         private void Awake()
         {
@@ -130,6 +142,11 @@ namespace Units.FightBehavior
             if (!_fighting)
             {
                 throw new InvalidOperationException("Trying to check condition of not started fight");
+            }
+
+            if (_useMinimax)
+            {
+                return _virtualFight.CheckDefeatForFight(_selfSpecs, _opponentSpecs, _surroundingOpponentsSpecs.Values.ToList());
             }
 
             var surroundingOpponentsSpecs = _surroundingOpponentsSpecs.Values.ToList();

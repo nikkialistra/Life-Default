@@ -45,7 +45,11 @@ namespace Units
         
         private bool _died;
 
+        public event Action<Unit> AttackFrom;
+        public event Action<Unit> LeavingAttackFrom;
+        
         public event Action HealthChange;
+        
         public event Action Dying;
 
         public bool Alive => !_died;
@@ -145,6 +149,16 @@ namespace Units
         public void HideTargetIndicator()
         {
             _targetIndicator.Deactivate();
+        }
+
+        public void NotifyAboutAttackFrom(Unit unit)
+        {
+            AttackFrom?.Invoke(unit);
+        }
+
+        public void NotifyAboutLeavingAttackFrom(Unit unit)
+        {
+            LeavingAttackFrom?.Invoke(unit);
         }
 
         public void Die()

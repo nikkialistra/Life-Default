@@ -7,6 +7,7 @@ using UnityEngine;
 namespace Colonists
 {
     [RequireComponent(typeof(UnitAttacker))]
+    [RequireComponent(typeof(Colonist))]
     public class ColonistNeedsIndication : MonoBehaviour
     {
         [Title("Want Escape")]
@@ -18,19 +19,34 @@ namespace Colonists
 
         private UnitAttacker _unitAttacker;
 
+        private Colonist _colonist;
+
         private void Awake()
         {
             _unitAttacker = GetComponent<UnitAttacker>();
+
+            _colonist = GetComponent<Colonist>();
         }
         
         private void OnEnable()
         {
+            _colonist.Dying += HideAllIndicators;
+            
             _unitAttacker.WantEscape += ShowWantEscapeIndicator;
         }
 
         private void OnDisable()
         {
+            _colonist.Dying += HideAllIndicators;
+            
             _unitAttacker.WantEscape -= ShowWantEscapeIndicator;
+        }
+
+        private void HideAllIndicators()
+        {
+            StopAllCoroutines();
+            
+            _wantEscapeIndicator.SetActive(false);
         }
 
         private void ShowWantEscapeIndicator()

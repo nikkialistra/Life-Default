@@ -7,6 +7,7 @@ using Random = UnityEngine.Random;
 
 namespace Units
 {
+    [RequireComponent(typeof(Unit))]
     [RequireComponent(typeof(UnitStats))]
     [RequireComponent(typeof(UnitAnimator))]
     [RequireComponent(typeof(UnitSelection))]
@@ -17,6 +18,8 @@ namespace Units
         [Required]
         [SerializeField] private MessageShowing _messageShowing;
 
+        private Unit _self;
+        
         private Unit _trackedUnit;
         private Unit _attackedUnit;
         
@@ -37,6 +40,8 @@ namespace Units
 
         private void Awake()
         {
+            _self = GetComponent<Unit>();
+            
             _unitStats = GetComponent<UnitStats>();
             _unitAnimator = GetComponent<UnitAnimator>();
             _unitSelection = GetComponent<UnitSelection>();
@@ -76,6 +81,9 @@ namespace Units
         public void Attack(Unit unit)
         {
             _attackedUnit = unit;
+
+            _attackedUnit.NotifyAboutAttackFrom(_self);
+            
             _unitAnimator.Attack(true);
             
             _attackingCoroutine = StartCoroutine(WatchForDestroy());
@@ -170,7 +178,6 @@ namespace Units
 
         public void Escape()
         {
-            FinalizeAttackingInstantly();
             WantEscape?.Invoke();
         }
 
@@ -232,6 +239,11 @@ namespace Units
                 _trackedUnit.HideTargetIndicator();
             }
 
+            if (_attackedUnit != null)
+            {
+                _attackedUnit.NotifyAboutLeavingAttackFrom(_self);
+            }
+            
             _trackedUnit = null;
             _attackedUnit = null;
         }

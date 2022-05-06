@@ -68,6 +68,8 @@ namespace Enemies
 
         private void Escape()
         {
+            _unitAttacker.FinalizeAttackingInstantly();
+            
             _newCommand.Value = true;
             _escape.Value = true;
         }

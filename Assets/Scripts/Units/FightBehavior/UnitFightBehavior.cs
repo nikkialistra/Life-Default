@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Units.FightBehavior
@@ -10,14 +12,16 @@ namespace Units.FightBehavior
     {
         [SerializeField] private float _advanceTime = 3f;
         [SerializeField] private float _refreshTime = 1f;
-
-        private FightSpecs _selfSpecs;
-        private FightSpecs _opponentSpecs;
-
+        
         private bool _fighting;
 
         private Unit _self;
         private Unit _opponent;
+
+        private FightSpecs _selfSpecs;
+        private FightSpecs _opponentSpecs;
+
+        private Dictionary<Unit, FightSpecs> _surroundingOpponentsSpecs = new();
 
         private UnitAttacker _unitAttacker;
 
@@ -31,14 +35,35 @@ namespace Units.FightBehavior
 
         private void OnEnable()
         {
+            _self.AttackFrom += AddOpponent;
+            _self.LeavingAttackFrom += RemoveOpponent;
+            
             _unitAttacker.AttackStart += StartFight;
             _unitAttacker.AttackEnd += StopFight;
         }
 
         private void OnDisable()
         {
+            _self.AttackFrom -= AddOpponent;
+            _self.LeavingAttackFrom -= RemoveOpponent;
+            
             _unitAttacker.AttackStart -= StartFight;
             _unitAttacker.AttackEnd -= StopFight;
+        }
+
+        private void AddOpponent(Unit opponent)
+        {
+            if (_fighting && _opponent == opponent)
+            {
+                return;
+            }
+            
+            _surroundingOpponentsSpecs.Add(opponent, opponent.GetSpecs());
+        }
+
+        private void RemoveOpponent(Unit opponent)
+        {
+            _surroundingOpponentsSpecs.Remove(opponent);
         }
 
         private void StartFight()
@@ -98,15 +123,17 @@ namespace Units.FightBehavior
             return true;
         }
 
-        public bool WouldBeDefeated()
+        private bool WouldBeDefeated()
         {
             if (!_fighting)
             {
                 throw new InvalidOperationException("Trying to check condition of not started fight");
             }
 
+            var surroundingOpponentsSpecs = _surroundingOpponentsSpecs.Values.ToList();
+
             var winTime = _selfSpecs.WouldWinInTime(_opponentSpecs, _advanceTime);
-            var loseTime = _selfSpecs.WouldLoseInTime(_opponentSpecs, _advanceTime);
+            var loseTime = _selfSpecs.WouldLoseInTime(_opponentSpecs, surroundingOpponentsSpecs, _advanceTime);
 
             if (float.IsNegativeInfinity(loseTime))
             {

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Units.FightBehavior
 {
@@ -28,9 +30,12 @@ namespace Units.FightBehavior
             return opponent.Health / AverageDamagePerSecond;
         }
 
-        public float WouldLoseInTime(FightSpecs opponent, float advanceTime)
+        public float WouldLoseInTime(FightSpecs opponent, List<FightSpecs> surroundingOpponents, float advanceTime)
         {
-            if (Health - (opponent.AverageDamagePerSecond * advanceTime) > 0)
+            var averageDamagePerSecond = opponent.AverageDamagePerSecond +
+                                         surroundingOpponents.Sum(surroundingOpponent => surroundingOpponent.AverageDamagePerSecond);
+            
+            if (Health - (averageDamagePerSecond * advanceTime) > 0)
             {
                 return float.NegativeInfinity;
             }

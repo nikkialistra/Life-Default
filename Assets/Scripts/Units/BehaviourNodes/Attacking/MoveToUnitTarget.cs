@@ -12,6 +12,12 @@ namespace Units.BehaviourNodes.Attacking
         public UnitAttacker UnitAttacker;
         public UnitEquipment UnitEquipment;
 
+        public override void OnStart()
+        {
+            UnitAttacker.SetTrackedUnit(UnitTarget.Value);
+            UnitEquipment.EquipWeapon();
+        }
+
         public override TaskStatus OnUpdate()
         {
             if (!UnitTarget.Value.Alive)
@@ -21,17 +27,14 @@ namespace Units.BehaviourNodes.Attacking
                 return TaskStatus.Failure;
             }
 
-            UnitAttacker.SetTrackedUnit(UnitTarget.Value);
-            UnitEquipment.EquipWeapon();
-
-            if (UnitAttacker.OnAttackRange(UnitTarget.Value.transform.position))
+            if (UnitAttacker.OnAttackDistance(UnitTarget.Value.transform.position))
             {
                 return TaskStatus.Success;
             }
 
             if (!UnitMeshAgent.IsMoving)
             {
-                UnitMeshAgent.SetDestinationToUnitTarget(UnitTarget.Value, UnitAttacker.AttackRange);
+                UnitMeshAgent.SetDestinationToUnitTarget(UnitTarget.Value, UnitAttacker.AttackDistance);
             }
 
             return TaskStatus.Running;

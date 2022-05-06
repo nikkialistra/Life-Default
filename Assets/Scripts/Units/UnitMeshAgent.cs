@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
+using General;
 using Pathfinding;
 using ResourceManagement;
 using UnityEngine;
@@ -23,6 +24,8 @@ namespace Units
         private Unit _unitTarget;
         private Vector3 _lastUnitTargetPosition;
 
+        private float _seekPredictionMultiplier;
+
         private bool _movingToResource;
 
         private Coroutine _movingCoroutine;
@@ -35,6 +38,7 @@ namespace Units
 
         private void Start()
         {
+            _seekPredictionMultiplier = GlobalParameters.Instance.SeekPredictionMultiplier;
             _aiPath.isStopped = true;
         }
 
@@ -62,7 +66,7 @@ namespace Units
             _interactionDistance = atDistance;
             _aiPath.isStopped = false;
 
-            _aiPath.destination = _lastUnitTargetPosition;
+            _aiPath.destination = _lastUnitTargetPosition + CalculateForwardCorrection();
 
             _movingToUnitTarget = true;
             Move();
@@ -211,7 +215,7 @@ namespace Units
                 return false;
             }
             
-            if (Vector3.Distance(transform.position, _aiPath.destination) <= _interactionDistance)
+            if (Vector3.Distance(transform.position, _unitTarget.transform.position) <= _interactionDistance)
             {
                 _unitTarget = null;
                 _movingToUnitTarget = false;
@@ -221,10 +225,15 @@ namespace Units
             if (Vector3.Distance(_unitTarget.transform.position, _lastUnitTargetPosition) > _entityOffsetForPathRecalculation)
             {
                 _lastUnitTargetPosition = _unitTarget.transform.position;
-                _aiPath.destination = _lastUnitTargetPosition;
+                _aiPath.destination = _lastUnitTargetPosition + CalculateForwardCorrection();
             }
 
             return true;
+        }
+
+        private Vector3 CalculateForwardCorrection()
+        {
+            return (_lastUnitTargetPosition - transform.position).normalized * _seekPredictionMultiplier;
         }
 
         private bool UpdateMovingToResource()

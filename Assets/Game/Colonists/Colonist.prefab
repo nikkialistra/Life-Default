@@ -680,7 +680,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _meleeDamage: 30
   _meleeAttackSpeed: 1
-  _meleeAttackRange: 1.7
+  _meleeAttackDistance: 1.7
+  _meleeAttackRange: 2.4
   _meleeAccuracy: 0.8
   _attackDodgeChance: 0.2
 --- !u!114 &5149874996177493612

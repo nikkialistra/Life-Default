@@ -21,7 +21,7 @@ namespace Units.FightBehavior
         private FightSpecs _selfSpecs;
         private FightSpecs _opponentSpecs;
 
-        private Dictionary<Unit, FightSpecs> _surroundingOpponentsSpecs = new();
+        private readonly Dictionary<Unit, FightSpecs> _surroundingOpponentsSpecs = new();
 
         private UnitAttacker _unitAttacker;
 
@@ -75,6 +75,8 @@ namespace Units.FightBehavior
             
             _fighting = true;
             _opponent = _unitAttacker.AttackedUnit;
+            
+            _surroundingOpponentsSpecs.Remove(_opponent);
 
             _choosingBehaviorCoroutine = StartCoroutine(ChoosingBehavior());
         }

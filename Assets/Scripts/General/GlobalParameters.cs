@@ -22,7 +22,8 @@ namespace General
 
         [Title("Attacking")]
         [SerializeField] private float _attackAngle = 60f;
-        
+        [SerializeField] private float _seekPredictionMultiplier = 2f;
+
         public static GlobalParameters Instance { get; private set; }
 
         public float TimeToHideHover => _timeToHideHover;
@@ -37,6 +38,7 @@ namespace General
         public Vector3 OriginPositionCorrection => _originPositionCorrection;
         
         public float AttackAngle => _attackAngle;
+        public float SeekPredictionMultiplier => _seekPredictionMultiplier;
 
         private void Awake()
         {

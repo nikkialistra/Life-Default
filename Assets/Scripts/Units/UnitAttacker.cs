@@ -75,6 +75,7 @@ namespace Units
             _unitSelection.Unhovered -= CoverUnitTarget;
         }
 
+        public float AttackDistance => _unitStats.MeleeAttackDistance;
         public float AttackRange => _unitStats.MeleeAttackRange;
         public Unit AttackedUnit => _attackedUnit;
 
@@ -148,6 +149,11 @@ namespace Units
             }
 
             ResetUnitTarget();
+        }
+        
+        public bool OnAttackDistance(Vector3 position)
+        {
+            return Vector3.Distance(transform.position, position) < _unitStats.MeleeAttackDistance;
         }
 
         public bool OnAttackRange(Vector3 position)

@@ -60,7 +60,7 @@ namespace General.Map
             _detailResolution = _terrainData.detailResolution;
             _terrainSize = _terrainData.size;
 
-            _originPositionCorrection = GlobalParameters.Instance.OriginPositionCorrection;
+            _originPositionCorrection = GlobalParameters.Instance.RaycastToTerrainCorrection;
         }
 
         [Button(ButtonSizes.Medium)]

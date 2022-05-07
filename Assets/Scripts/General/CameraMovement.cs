@@ -37,7 +37,6 @@ namespace General
 
         [Title("Zoom")]
         [SerializeField] private float _zoomScrollSensitivity;
-        [SerializeField] private float _zoomButtonSensitivity;
 
         [SerializeField] private float _minFov;
         [SerializeField] private float _maxFov;
@@ -104,7 +103,7 @@ namespace General
 
         private SelectingInput _selectingInput;
 
-        private Vector3 _originPositionCorrection;
+        private Vector3 _raycastToTerrainCorrection;
 
         private PlayerInput _playerInput;
 
@@ -170,7 +169,7 @@ namespace General
             _newRotation = transform.rotation;
             _newFieldOfView = _camera.fieldOfView;
             
-            _originPositionCorrection = GlobalParameters.Instance.OriginPositionCorrection;
+            _raycastToTerrainCorrection = GlobalParameters.Instance.RaycastToTerrainCorrection;
 
             LoadSettings();
             Activate();
@@ -255,7 +254,7 @@ namespace General
 
         private float GetDistanceAboveTerrain()
         {
-            if (Physics.Raycast(new Ray(transform.position + _originPositionCorrection, Vector3.down), out var hit,
+            if (Physics.Raycast(new Ray(transform.position + _raycastToTerrainCorrection, Vector3.down), out var hit,
                 100f, _terrainMask))
             {
                 return hit.distance;
@@ -541,7 +540,7 @@ namespace General
 
         private Vector3 RaiseAboveTerrain(Vector3 position)
         {
-            if (Physics.Raycast(new Ray(position + _originPositionCorrection, Vector3.down), out var hit,
+            if (Physics.Raycast(new Ray(position + _raycastToTerrainCorrection, Vector3.down), out var hit,
                 100f, _terrainMask))
             {
                 position.y = hit.point.y + _heightAboveTerrain;

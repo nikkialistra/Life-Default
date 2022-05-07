@@ -1136,6 +1136,11 @@ PrefabInstance:
       propertyPath: _unit
       value: 
       objectReference: {fileID: 4193433063631040809}
+    - target: {fileID: 8087438489340577505, guid: c619efd12c7f282409ab11179e99b759,
+        type: 3}
+      propertyPath: _unitTransform
+      value: 
+      objectReference: {fileID: 4193433063631040809}
     - target: {fileID: 9168862620057925102, guid: c619efd12c7f282409ab11179e99b759,
         type: 3}
       propertyPath: m_RootOrder

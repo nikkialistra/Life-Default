@@ -18,13 +18,11 @@ namespace General
         [SerializeField] private LayerMask _obstacleMask;
         
         [Title("Terrain Raycasting")]
-        [SerializeField] private Vector3 _originPositionCorrection = Vector3.up * 10f;
+        [SerializeField] private Vector3 _raycastToTerrainCorrection = Vector3.up * 10f;
 
         [Title("Attacking")]
         [SerializeField] private float _attackAngle = 60f;
         [SerializeField] private float _seekPredictionMultiplier = 2f;
-        [Space]
-        [SerializeField] private Vector3 _lineToUnitTargetCorrection = Vector3.up * 0.8f;
 
         public static GlobalParameters Instance { get; private set; }
 
@@ -37,11 +35,10 @@ namespace General
         public float VisibilityFieldRecalculationTime => _visibilityFieldRecalculationTime;
         public LayerMask ObstacleMask => _obstacleMask;
 
-        public Vector3 OriginPositionCorrection => _originPositionCorrection;
+        public Vector3 RaycastToTerrainCorrection => _raycastToTerrainCorrection;
         
         public float AttackAngle => _attackAngle;
         public float SeekPredictionMultiplier => _seekPredictionMultiplier;
-        public Vector3 LineToUnitTargetCorrection => _lineToUnitTargetCorrection;
 
         private void Awake()
         {

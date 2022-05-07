@@ -74,13 +74,6 @@ namespace Colonists
             _unitMeshAgent.SetDestinationToPosition(position);
         }
 
-        public void SetDestinationToUnitTarget(Unit unitTarget, float atDistance)
-        {
-            _hasPendingOrder = false;
-
-            _unitMeshAgent.SetDestinationToUnitTarget(unitTarget, atDistance);
-        }
-
         public void SetDestinationToResource(Resource resource, float atDistance)
         {
             _hasPendingOrder = false;

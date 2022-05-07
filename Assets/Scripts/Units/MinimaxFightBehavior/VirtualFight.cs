@@ -108,7 +108,14 @@ namespace Units.MinimaxFightBehavior
         {
             if (_shouldLog)
             {
-                Debug.Log($"Player from {_fight.ActivePlayer.Side} chooses to hit {bestMove.HitDamage} and take {bestMove.TakeDamage}");
+                if (bestMove.HitDamage == 1000f && bestMove.TakeDamage == 1000f)
+                {
+                    Debug.Log($"Player from {_fight.ActivePlayer.Side} chooses to accept a draw");
+                }
+                else
+                {
+                    Debug.Log($"Player from {_fight.ActivePlayer.Side} chooses to hit {bestMove.HitDamage} and take {bestMove.TakeDamage}");
+                }
             }
         }
 

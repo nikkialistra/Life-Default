@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Units.Enums;
 using static Units.MinimaxFightBehavior.FightAct.Player.PlayerSide;
 
 namespace Units.MinimaxFightBehavior.FightAct

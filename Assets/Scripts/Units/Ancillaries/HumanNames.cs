@@ -2,7 +2,7 @@
 using Units.Enums;
 using UnityEngine;
 
-namespace Units
+namespace Units.Ancillaries
 {
     public class HumanNames : MonoBehaviour
     {

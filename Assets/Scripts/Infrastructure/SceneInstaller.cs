@@ -17,6 +17,7 @@ using Sirenix.OdinInspector;
 using Testing;
 using UI;
 using Units;
+using Units.Ancillaries;
 using Units.Appearance;
 using Units.MinimaxFightBehavior;
 using UnityEngine;
@@ -102,6 +103,8 @@ namespace Infrastructure
         [Title("Other")]
         [Required]
         [SerializeField] private Transform _pathLineParent;
+        [Required]
+        [SerializeField] private Transform _linesToTrackedUnitsParent;
         [Required]
         [SerializeField] private VirtualFight _virtualFight;
 
@@ -195,6 +198,8 @@ namespace Infrastructure
         private void BindOther()
         {
             Container.BindInstance(_pathLineParent).WhenInjectedInto<ColonistMeshAgent>();
+            Container.BindInstance(_linesToTrackedUnitsParent).WhenInjectedInto<LineToTrackedUnit>();
+            
             Container.BindInstance(_virtualFight);
         }
     }

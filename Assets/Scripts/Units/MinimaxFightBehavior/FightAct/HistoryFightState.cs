@@ -1,6 +1,4 @@
-﻿using Units.Enums;
-
-namespace Units.MinimaxFightBehavior.FightAct
+﻿namespace Units.MinimaxFightBehavior.FightAct
 {
     public readonly struct HistoryFightState
     {

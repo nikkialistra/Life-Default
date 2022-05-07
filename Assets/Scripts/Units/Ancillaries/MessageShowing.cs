@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine;
 using Zenject;
 
-namespace Units
+namespace Units.Ancillaries
 {
     public class MessageShowing : MonoBehaviour
     {

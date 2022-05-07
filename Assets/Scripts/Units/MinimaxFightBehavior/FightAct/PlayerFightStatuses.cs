@@ -30,7 +30,14 @@ namespace Units.MinimaxFightBehavior.FightAct
 
         public void ShowCurrentFightStatus()
         {
-            Debug.Log($"First Health: {_firstPlayerHealth}, Second Health: {_secondPlayerHealth}");
+            if (_firstPlayerHealth < 0 && _secondPlayerHealth < 0)
+            {
+                Debug.Log("The fight ended in a draw");
+            }
+            else
+            {
+                Debug.Log($"First Health: {_firstPlayerHealth}, Second Health: {_secondPlayerHealth}");
+            }
         }
     }
 }

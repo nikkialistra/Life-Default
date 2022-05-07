@@ -2,6 +2,7 @@
 using System.Collections;
 using General;
 using Sirenix.OdinInspector;
+using Units.Ancillaries;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -14,6 +15,9 @@ namespace Units
     public class UnitAttacker : MonoBehaviour
     {
         [SerializeField] private float _timeAfterAttackToIdle = 2f;
+        [Space]
+        [Required]
+        [SerializeField] private LineToTrackedUnit _lineToTrackedUnit;
         [Space]
         [Required]
         [SerializeField] private MessageShowing _messageShowing;
@@ -35,6 +39,8 @@ namespace Units
         private float _waitTime;
 
         private float _lastAttackTime;
+        
+        private bool _unitTargetExposed;
 
         private Coroutine _attackingCoroutine;
 
@@ -256,17 +262,33 @@ namespace Units
 
         private void ExposeUnitTarget()
         {
+            if (_unitTargetExposed)
+            {
+                return;
+            }
+
+            _unitTargetExposed = true;
+
             if (_trackedUnit != null)
             {
                 _trackedUnit.ShowTargetIndicator();
+                _lineToTrackedUnit.ShowLineTo(_trackedUnit);
             }
         }
 
         private void CoverUnitTarget()
         {
+            if (!_unitTargetExposed)
+            {
+                return;
+            }
+
+            _unitTargetExposed = false;
+            
             if (_trackedUnit != null)
             {
                 _trackedUnit.HideTargetIndicator();
+                _lineToTrackedUnit.HideLine();
             }
         }
     }

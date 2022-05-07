@@ -79,18 +79,12 @@ namespace Enemies
         {
             _unit.HealthChange += OnHealthChange;
             _unit.Dying += OnDying;
-
-            _unitSelection.Selected += Select;
-            _unitSelection.Deselected += Deselect;
         }
 
         private void OnDisable()
         {
             _unit.HealthChange -= OnHealthChange;
             _unit.Dying += OnDying;
-            
-            _unitSelection.Selected -= Select;
-            _unitSelection.Deselected -= Deselect;
         }
 
         public void SetAt(Vector3 position)
@@ -138,6 +132,7 @@ namespace Enemies
             
             _unit.Select();
 
+            _unitSelection.Select();
             _selectionIndicator.SetActive(true);
         }
 
@@ -145,6 +140,7 @@ namespace Enemies
         {
             _unit.Deselect();
             
+            _unitSelection.Deselect();
             _selectionIndicator.SetActive(false);
         }
 

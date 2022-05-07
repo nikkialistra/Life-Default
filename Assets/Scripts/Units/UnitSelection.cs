@@ -52,8 +52,7 @@ namespace Units
         public void Deselect()
         {
             _selected = false;
-            HideHovering();
-            
+
             Deselected?.Invoke();
         }
 

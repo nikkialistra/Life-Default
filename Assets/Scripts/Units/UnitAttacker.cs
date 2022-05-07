@@ -42,6 +42,9 @@ namespace Units
         
         private bool _unitTargetExposed;
 
+        private bool _hovered;
+        private bool _selected;
+        
         private Coroutine _attackingCoroutine;
 
         private void Awake()
@@ -71,18 +74,24 @@ namespace Units
 
         private void OnEnable()
         {
-            _unitSelection.Hovered += ExposeUnitTarget;
-            _unitSelection.Unhovered += CoverUnitTarget;
+            _unitSelection.Hovered += OnHovered;
+            _unitSelection.Selected += OnSelected;
+
+            _unitSelection.Unhovered += OnUnhovered;
+            _unitSelection.Deselected += OnDeselected;
         }
 
         private void OnDisable()
         {
-            _unitSelection.Hovered -= ExposeUnitTarget;
-            _unitSelection.Unhovered -= CoverUnitTarget;
+            _unitSelection.Hovered -= OnHovered;
+            _unitSelection.Selected -= OnSelected;
+            
+            _unitSelection.Unhovered -= OnUnhovered;
+            _unitSelection.Deselected -= OnDeselected;
         }
 
         public float AttackDistance => _unitStats.MeleeAttackDistance;
-        public float AttackRange => _unitStats.MeleeAttackRange;
+
         public Unit AttackedUnit => _attackedUnit;
 
         public void Attack(Unit unit)
@@ -144,6 +153,30 @@ namespace Units
         {
             ResetAttacking();
             StopAttacking();
+        }
+
+        private void OnHovered()
+        {
+            _hovered = true;
+            TryExposeUnitTarget();
+        }
+        
+        private void OnUnhovered()
+        {
+            _hovered = false;
+            TryCoverUnitTarget();
+        }
+
+        private void OnSelected()
+        {
+            _selected = true;
+            TryExposeUnitTarget();
+        }
+
+        private void OnDeselected()
+        {
+            _selected = false;
+            TryCoverUnitTarget();
         }
 
         private void ResetAttacking()
@@ -260,7 +293,7 @@ namespace Units
             _attackedUnit = null;
         }
 
-        private void ExposeUnitTarget()
+        private void TryExposeUnitTarget()
         {
             if (_unitTargetExposed)
             {
@@ -276,9 +309,9 @@ namespace Units
             }
         }
 
-        private void CoverUnitTarget()
+        private void TryCoverUnitTarget()
         {
-            if (!_unitTargetExposed)
+            if (!_unitTargetExposed || _hovered || _selected)
             {
                 return;
             }

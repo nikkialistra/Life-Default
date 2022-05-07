@@ -147,4 +147,4 @@ MonoBehaviour:
   _unitTransform: {fileID: 0}
   _distanceForOneSegment: 1
   _lineToUnitTargetCorrection: {x: 0, y: 0.4, z: 0}
-  _updateTime: 0.2
+  _updateTime: 0.06

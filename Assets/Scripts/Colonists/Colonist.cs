@@ -123,7 +123,8 @@ namespace Colonists
             {
                 return;
             }
-            
+
+            _unitSelection.Select();
             _selectionIndicator.SetActive(true);
             _meshAgent.ShowLinePath();
             
@@ -132,6 +133,7 @@ namespace Colonists
 
         public void Deselect()
         {
+            _unitSelection.Deselect();
             _selectionIndicator.SetActive(false);
             _meshAgent.HideLinePath();
             

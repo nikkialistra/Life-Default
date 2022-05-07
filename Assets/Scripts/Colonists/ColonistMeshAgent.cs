@@ -169,6 +169,8 @@ namespace Colonists
 
         private void OnDestinationReach()
         {
+            HideLinePath();
+            
             DestinationReach?.Invoke();
         }
 

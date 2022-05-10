@@ -64,7 +64,14 @@ namespace Colonists
 
         private void Update()
         {
-            _animator.Move(_unitMeshAgent.IsMoving);
+            if (_unitMeshAgent.IsMoving)
+            {
+                _animator.Move();
+            }
+            else
+            {
+                _animator.Idle();
+            }
         }
 
         public void SetDestinationToPosition(Vector3 position)

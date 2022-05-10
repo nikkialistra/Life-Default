@@ -2,6 +2,7 @@
 using ResourceManagement;
 using Sirenix.OdinInspector;
 using Units;
+using Units.Humans;
 using UnityEngine;
 
 namespace Colonists
@@ -10,22 +11,29 @@ namespace Colonists
     public class ColonistAnimator : MonoBehaviour
     {
         [Required]
+        [SerializeField] private HumanAnimations _humanAnimations;
+
+        [Required]
         [SerializeField] private Animator _animator;
 
         private UnitAnimator _unitAnimator;
 
         private readonly int _cuttingTrees = Animator.StringToHash("cuttingTrees");
         private readonly int _miningRocks = Animator.StringToHash("miningRocks");
-        private readonly int _attacking = Animator.StringToHash("attacking");
 
         private void Awake()
         {
             _unitAnimator = GetComponent<UnitAnimator>();
         }
 
-        public void Move(bool value)
+        public void Move()
         {
-            _unitAnimator.Move(value);
+            _humanAnimations.Move();
+        }
+
+        public void Idle()
+        {
+            _humanAnimations.Idle();
         }
 
         public void Gather(Resource resource)
@@ -48,7 +56,7 @@ namespace Colonists
 
         public void Die(Action died)
         {
-            _unitAnimator.Die(died);
+            _humanAnimations.Die(died);
         }
     }
 }

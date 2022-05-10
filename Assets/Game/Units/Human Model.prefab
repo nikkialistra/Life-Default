@@ -3218,6 +3218,11 @@ GameObject:
   - component: {fileID: 95241917264262668}
   - component: {fileID: 3388593450940659954}
   - component: {fileID: 832335509996619287}
+  - component: {fileID: 5193365172632362054}
+  - component: {fileID: 4877044575306519140}
+  - component: {fileID: 4051447064366341766}
+  - component: {fileID: 8170319734661757682}
+  - component: {fileID: 2839083938651011249}
   m_Layer: 0
   m_Name: Human Model
   m_TagString: Untagged
@@ -3252,7 +3257,7 @@ Animator:
   m_GameObject: {fileID: 1588895830433058}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 038320a534bd8b444b43734860d1a211, type: 3}
-  m_Controller: {fileID: 9100000, guid: b31aad9670f19504a949a33b64cd6a78, type: 2}
+  m_Controller: {fileID: 0}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -3334,10 +3339,100 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _handSlot: {fileID: 4177720652290489099}
-  _sword: {fileID: 4300000, guid: ea984f49bb630774f9a9b132868e2962, type: 3}
+  _sword: {fileID: 4300000, guid: 66a670426360a4f48aab0d3a4d3d8a6b, type: 3}
   _axe: {fileID: 4300000, guid: 39f02ad978519fc45b717fabe7e64836, type: 3}
   _pickaxe: {fileID: 4300000, guid: db0b9acf5f036934c915aa7055f95485, type: 3}
   _timeToUnequip: 0.15
+--- !u!114 &5193365172632362054
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1588895830433058}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ad50f81b1d25c441943c37a89ba23f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _Animator: {fileID: 95241917264262668}
+  _ActionOnDisable: 0
+--- !u!114 &4877044575306519140
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1588895830433058}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83a99992a0434ced844865e657803eb9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _attacking: {fileID: 0}
+--- !u!114 &4051447064366341766
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1588895830433058}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9a02078cbd343dcb2e16c1679bf0669, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _clip:
+    _FadeDuration: 0.25
+    _Events:
+      _NormalizedTimes: []
+      _Callbacks: []
+      _Names: []
+    _Clip: {fileID: -203655887218126122, guid: fd4f09b7b7d9d044483dab4bdee9dd69, type: 3}
+    _Speed: 1
+    _NormalizedStartTime: 0
+--- !u!114 &8170319734661757682
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1588895830433058}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9293549c8f8e49be99b7b1a28b15be20, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _clip:
+    _FadeDuration: 0.25
+    _Events:
+      _NormalizedTimes: []
+      _Callbacks: []
+      _Names: []
+    _Clip: {fileID: -203655887218126122, guid: 57035d23c4a415b4ca96883c4259e211, type: 3}
+    _Speed: 1
+    _NormalizedStartTime: 0
+--- !u!114 &2839083938651011249
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1588895830433058}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aae722102eba4646ac27fdfa7e09971f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _clip:
+    _FadeDuration: 0.25
+    _Events:
+      _NormalizedTimes: []
+      _Callbacks: []
+      _Names: []
+    _Clip: {fileID: -203655887218126122, guid: 723b94e3765e9bc4c9a8d5bddc7abf8c, type: 3}
+    _Speed: 1
+    _NormalizedStartTime: 0
 --- !u!1 &1595924752652140
 GameObject:
   m_ObjectHideFlags: 0

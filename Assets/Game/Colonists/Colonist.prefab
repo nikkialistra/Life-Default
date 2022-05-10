@@ -790,6 +790,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba595e31a6f447b083af3159b6b18989, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _humanAnimations: {fileID: 6795354888401127415}
   _animator: {fileID: 2067455092801037215}
 --- !u!114 &7183938458047524081
 MonoBehaviour:
@@ -1208,11 +1209,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 832335509996619287, guid: bebe0fbb55beb9245925236a40cfe495,
-        type: 3}
-      propertyPath: _sword
-      value: 
-      objectReference: {fileID: 4300000, guid: 66a670426360a4f48aab0d3a4d3d8a6b, type: 3}
     m_RemovedComponents:
     - {fileID: 2666782124828171162, guid: bebe0fbb55beb9245925236a40cfe495, type: 3}
     - {fileID: 7319244257553421757, guid: bebe0fbb55beb9245925236a40cfe495, type: 3}
@@ -1251,6 +1247,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0deaabd68dc448e6a35e75cad0197970, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6795354888401127415 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4877044575306519140, guid: bebe0fbb55beb9245925236a40cfe495,
+    type: 3}
+  m_PrefabInstance: {fileID: 2153650220799956371}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83a99992a0434ced844865e657803eb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &2630013571293397487

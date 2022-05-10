@@ -39,7 +39,7 @@ namespace Enemies
         {
             Idle = false;
             _unitMeshAgent.SetDestinationToPosition(position);
-            _animator.Move(true);
+            _animator.Move();
         }
 
         public void RunFrom(Unit opponent, float distance, float randomizationRadius)
@@ -56,13 +56,13 @@ namespace Enemies
         public void StopMoving()
         {
             _unitMeshAgent.StopMoving();
-            _animator.Move(false);
+            _animator.Idle();
         }
 
         private void OnDestinationReach()
         {
             Idle = true;
-            _animator.Move(false);
+            _animator.Idle();
         }
     }
 }

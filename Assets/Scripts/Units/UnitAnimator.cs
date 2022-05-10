@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Collections;
 using Sirenix.OdinInspector;
+using Units.Humans;
 using UnityEngine;
 
 namespace Units
@@ -8,48 +8,36 @@ namespace Units
     public class UnitAnimator : MonoBehaviour
     {
         [Required]
-        [SerializeField] private Animator _animator;
+        [SerializeField] private HumanAnimations _humanAnimations;
 
-        private readonly int _moving = Animator.StringToHash("moving");
-        private readonly int _death = Animator.StringToHash("death");
-        private readonly int _attacking = Animator.StringToHash("attacking");
-
-        private readonly int _attackSpeed = Animator.StringToHash("attackSpeed");
-        
-        public void Die(Action died)
+        public void Idle()
         {
-            _animator.SetTrigger(_death);
-            StartCoroutine(WaitDeathFinish(died));
+            _humanAnimations.Idle();
         }
 
-        private IEnumerator WaitDeathFinish(Action died)
+        public void Move()
         {
-            if (!_animator.GetCurrentAnimatorStateInfo(0).IsName("Death"))
-            {
-                yield return null;
-            }
-
-            while (_animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.5f)
-            {
-                yield return null;
-            }
-
-            died();
+            _humanAnimations.Move();
         }
 
-        public void Move(bool value)
+        public void Attack()
         {
-            _animator.SetBool(_moving, value);
+            _humanAnimations.Attack();
         }
 
-        public void Attack(bool value)
+        public void StopAttack()
         {
-            _animator.SetBool(_attacking, value);
+            _humanAnimations.StopAttack();
         }
 
         public void SetAttackSpeed(float value)
         {
-            _animator.SetFloat(_attackSpeed, value);
+            _humanAnimations.SetAttackSpeed(value);
+        }
+
+        public void Die(Action died)
+        {
+            _humanAnimations.Die(died);
         }
     }
 }

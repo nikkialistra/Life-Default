@@ -100,7 +100,7 @@ namespace Units
 
             _attackedUnit.NotifyAboutAttackFrom(_self);
             
-            _unitAnimator.Attack(true);
+            _unitAnimator.Attack();
             
             _attackingCoroutine = StartCoroutine(WatchForDestroy());
 
@@ -263,7 +263,7 @@ namespace Units
                 _attackingCoroutine = null;
             }
             
-            _unitAnimator.Attack(false);
+            _unitAnimator.StopAttack();
             IsAttacking = false;
             AttackEnd?.Invoke();
         }
@@ -272,7 +272,7 @@ namespace Units
         {
             _lastAttackTime = Time.time;
             
-            _unitAnimator.Attack(false);
+            _unitAnimator.StopAttack();
             IsAttacking = false;
             AttackEnd?.Invoke();
         }

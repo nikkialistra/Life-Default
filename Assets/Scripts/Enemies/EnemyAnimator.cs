@@ -1,20 +1,12 @@
 ﻿using System;
-using Sirenix.OdinInspector;
 using Units;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Enemies
 {
     [RequireComponent(typeof(UnitAnimator))]
-    [RequireComponent(typeof(EnemyMeshAgent))]
     public class EnemyAnimator : MonoBehaviour
-    { 
-        [Required]
-        [SerializeField] private Animator _animator;
-        
-        private readonly int _attacking = Animator.StringToHash("attacking");
-        
+    {
         private UnitAnimator _unitAnimator;
 
         private void Awake()
@@ -22,14 +14,14 @@ namespace Enemies
             _unitAnimator = GetComponent<UnitAnimator>();
         }
 
-        public void Move(bool value)
+        public void Idle()
         {
-            _unitAnimator.Move(value);
+            _unitAnimator.Idle();
         }
-        
-        public void Attack(bool value)
+
+        public void Move()
         {
-            _animator.SetBool(_attacking, value);
+            _unitAnimator.Move();
         }
 
         public void Die(Action died)

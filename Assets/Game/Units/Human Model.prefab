@@ -3222,6 +3222,8 @@ GameObject:
   - component: {fileID: 4877044575306519140}
   - component: {fileID: 4051447064366341766}
   - component: {fileID: 8170319734661757682}
+  - component: {fileID: 2166837716100388886}
+  - component: {fileID: 8603551536509978916}
   - component: {fileID: 2839083938651011249}
   m_Layer: 0
   m_Name: Human Model
@@ -3369,7 +3371,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83a99992a0434ced844865e657803eb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _attacking: {fileID: 0}
+  _mineRocksState: {fileID: 8603551536509978916}
+  _cutTreesState: {fileID: 2166837716100388886}
 --- !u!114 &4051447064366341766
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3383,7 +3386,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _clip:
-    _FadeDuration: 0.25
+    _FadeDuration: 0.3
     _Events:
       _NormalizedTimes: []
       _Callbacks: []
@@ -3404,12 +3407,54 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _clip:
-    _FadeDuration: 0.25
+    _FadeDuration: 0.1
     _Events:
       _NormalizedTimes: []
       _Callbacks: []
       _Names: []
     _Clip: {fileID: -203655887218126122, guid: 57035d23c4a415b4ca96883c4259e211, type: 3}
+    _Speed: 1
+    _NormalizedStartTime: 0
+--- !u!114 &2166837716100388886
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1588895830433058}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72d6fda23ba449849123afa7370891a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _clip:
+    _FadeDuration: 0.1
+    _Events:
+      _NormalizedTimes: []
+      _Callbacks: []
+      _Names: []
+    _Clip: {fileID: -203655887218126122, guid: b0f748ce6a26b6449b280ea35f00cbbb, type: 3}
+    _Speed: 1
+    _NormalizedStartTime: 0
+--- !u!114 &8603551536509978916
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1588895830433058}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72d6fda23ba449849123afa7370891a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _clip:
+    _FadeDuration: 0.1
+    _Events:
+      _NormalizedTimes: []
+      _Callbacks: []
+      _Names: []
+    _Clip: {fileID: -203655887218126122, guid: b0f748ce6a26b6449b280ea35f00cbbb, type: 3}
     _Speed: 1
     _NormalizedStartTime: 0
 --- !u!114 &2839083938651011249
@@ -3427,7 +3472,8 @@ MonoBehaviour:
   _clip:
     _FadeDuration: 0.25
     _Events:
-      _NormalizedTimes: []
+      _NormalizedTimes:
+      - 1.5
       _Callbacks: []
       _Names: []
     _Clip: {fileID: -203655887218126122, guid: 723b94e3765e9bc4c9a8d5bddc7abf8c, type: 3}

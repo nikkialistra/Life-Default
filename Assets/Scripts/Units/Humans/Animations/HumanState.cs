@@ -6,9 +6,9 @@ using UnityEngine;
 namespace Units.Humans.Animations
 {
     [RequireComponent(typeof(AnimancerComponent))]
-    public class HumanState : MonoBehaviour, IState
+    public abstract class HumanState : MonoBehaviour, IState
     {
-        [SerializeField] private ClipTransition _clip;
+        [SerializeField] protected ClipTransition _clip;
 
         private AnimancerComponent _animancerComponent;
 
@@ -21,6 +21,7 @@ namespace Units.Humans.Animations
             throw new InvalidOperationException("Cannot get animation type of base human state");
 
         public virtual bool CanEnterState => true;
+
         public virtual bool CanExitState => true;
 
         public virtual void OnEnterState()

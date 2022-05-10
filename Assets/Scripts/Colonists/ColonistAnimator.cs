@@ -12,51 +12,45 @@ namespace Colonists
     {
         [Required]
         [SerializeField] private HumanAnimations _humanAnimations;
-
-        [Required]
-        [SerializeField] private Animator _animator;
-
+        
         private UnitAnimator _unitAnimator;
-
-        private readonly int _cuttingTrees = Animator.StringToHash("cuttingTrees");
-        private readonly int _miningRocks = Animator.StringToHash("miningRocks");
 
         private void Awake()
         {
             _unitAnimator = GetComponent<UnitAnimator>();
         }
 
-        public void Move()
-        {
-            _humanAnimations.Move();
-        }
-
         public void Idle()
         {
+            _unitAnimator.Idle();
             _humanAnimations.Idle();
+        }
+
+        public void Move()
+        {
+            _unitAnimator.Move();
         }
 
         public void Gather(Resource resource)
         {
-            var interactionType = resource.ResourceType switch
+            Action action = resource.ResourceType switch
             {
-                ResourceType.Wood => _cuttingTrees,
-                ResourceType.Stone => _miningRocks,
+                ResourceType.Wood => _humanAnimations.CutTrees,
+                ResourceType.Stone => _humanAnimations.MineRocks,
                 _ => throw new ArgumentOutOfRangeException()
             };
 
-            _animator.SetBool(interactionType, true);
+            action();
         }
 
         public void StopGathering()
         {
-            _animator.SetBool(_cuttingTrees, false);
-            _animator.SetBool(_miningRocks, false);
+            _humanAnimations.StopGathering();
         }
 
         public void Die(Action died)
         {
-            _humanAnimations.Die(died);
+            _unitAnimator.Die(died);
         }
     }
 }

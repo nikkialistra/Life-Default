@@ -5,8 +5,7 @@
         Idle,
         Move,
         Attack,
-        CutTrees,
-        MineRocks,
+        GatherResource,
         Die
     }
 }

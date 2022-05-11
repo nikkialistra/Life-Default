@@ -3370,10 +3370,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83a99992a0434ced844865e657803eb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _cutTreesState: {fileID: 0}
-  _mineRocksState: {fileID: 0}
   _fullMask: {fileID: 31900000, guid: 52abc0fdb637a06448a2a8edd7b4b467, type: 2}
-  _upperBodyMask: {fileID: 31900000, guid: 52abc0fdb637a06448a2a8edd7b4b467, type: 2}
+  _upperBodyMask: {fileID: 31900000, guid: 0e470f3b7649d4b4c9f99195052f9600, type: 2}
 --- !u!114 &4051447064366341766
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3456,13 +3454,17 @@ MonoBehaviour:
   _clip:
     _FadeDuration: 0.1
     _Events:
-      _NormalizedTimes: []
+      _NormalizedTimes:
+      - 0.7
+      - NaN
       _Callbacks: []
-      _Names: []
+      _Names:
+      - Hit
     _Clip: {fileID: -203655887218126122, guid: 7d3be70a0639acc40bc637b064246264, type: 3}
     _Speed: 1
     _NormalizedStartTime: 0
   _layer: 0
+  _unitAttacker: {fileID: 0}
 --- !u!1 &1595924752652140
 GameObject:
   m_ObjectHideFlags: 0

@@ -15,9 +15,6 @@ namespace Units.Humans
     [RequireComponent(typeof(DieState))]
     public class HumanAnimations : MonoBehaviour
     {
-        [SerializeField] private GatherResourceState _cutTreesState;
-        [SerializeField] private GatherResourceState _mineRocksState;
-        
         [Title("Masks")]
         [Required]
         [SerializeField] private AvatarMask _fullMask;
@@ -44,6 +41,8 @@ namespace Units.Humans
             
             _animancer = GetComponent<AnimancerComponent>();
         }
+
+        public StateMachine<HumanState> StateMachine => _stateMachine;
 
         private void OnEnable()
         {
@@ -73,6 +72,11 @@ namespace Units.Humans
             _stateMachine.TrySetState(_idleState);
         }
 
+        public void ForceIdle()
+        {
+            _stateMachine.ForceSetState(_idleState);
+        }
+
         public void Attack()
         {
             _stateMachine.TrySetState(_attackState);
@@ -86,21 +90,6 @@ namespace Units.Humans
         public void SetAttackSpeed(float value)
         {
             _attackState.Speed = value;
-        }
-
-        public void MineRocks()
-        {
-            _stateMachine.TrySetState(_mineRocksState);
-        }
-
-        public void CutTrees()
-        {
-            _stateMachine.TrySetState(_cutTreesState);
-        }
-
-        public void StopGathering()
-        {
-            _stateMachine.ForceSetState(_idleState);
         }
 
         public void Die(Action died)

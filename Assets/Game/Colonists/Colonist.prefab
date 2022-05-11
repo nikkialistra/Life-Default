@@ -409,6 +409,7 @@ GameObject:
   - component: {fileID: 1146573543387713412}
   - component: {fileID: 2721959709741817781}
   - component: {fileID: 6462541902987560591}
+  - component: {fileID: 6595220819161695667}
   m_Layer: 14
   m_Name: Colonist
   m_TagString: Untagged
@@ -790,7 +791,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba595e31a6f447b083af3159b6b18989, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _humanAnimations: {fileID: 6795354888401127415}
 --- !u!114 &7183938458047524081
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -881,6 +881,21 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 32768
   _wantEscapeIndicator: {fileID: 3120834959329647768}
+--- !u!114 &6595220819161695667
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4193433063631040808}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15f1302ed89d4660bb4a58f65d556748, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _humanAnimations: {fileID: 6795354888401127415}
+  _cutTreesState: {fileID: 3805221902070025205}
+  _mineRocksState: {fileID: 5695891513921607222}
 --- !u!1 &5716974408050622466
 GameObject:
   m_ObjectHideFlags: 0
@@ -1208,6 +1223,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3672132499008156490, guid: bebe0fbb55beb9245925236a40cfe495,
+        type: 3}
+      propertyPath: _unitAttacker
+      value: 
+      objectReference: {fileID: 2106437558306899865}
     - target: {fileID: 4877044575306519140, guid: bebe0fbb55beb9245925236a40cfe495,
         type: 3}
       propertyPath: _cutTreesState

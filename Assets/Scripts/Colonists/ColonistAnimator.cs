@@ -1,29 +1,27 @@
 ﻿using System;
 using ResourceManagement;
-using Sirenix.OdinInspector;
 using Units;
-using Units.Humans;
 using UnityEngine;
 
 namespace Colonists
 {
     [RequireComponent(typeof(UnitAnimator))]
+    [RequireComponent(typeof(ColonistAnimations))]
     public class ColonistAnimator : MonoBehaviour
-    {
-        [Required]
-        [SerializeField] private HumanAnimations _humanAnimations;
-        
+    { 
+        private ColonistAnimations _colonistAnimations;
         private UnitAnimator _unitAnimator;
 
         private void Awake()
         {
+            _colonistAnimations = GetComponent<ColonistAnimations>();
             _unitAnimator = GetComponent<UnitAnimator>();
         }
 
         public void Idle()
         {
             _unitAnimator.Idle();
-            _humanAnimations.Idle();
+            _colonistAnimations.Idle();
         }
 
         public void Move()
@@ -35,8 +33,8 @@ namespace Colonists
         {
             Action action = resource.ResourceType switch
             {
-                ResourceType.Wood => _humanAnimations.CutTrees,
-                ResourceType.Stone => _humanAnimations.MineRocks,
+                ResourceType.Wood => _colonistAnimations.CutTrees,
+                ResourceType.Stone => _colonistAnimations.MineRocks,
                 _ => throw new ArgumentOutOfRangeException()
             };
 
@@ -45,7 +43,7 @@ namespace Colonists
 
         public void StopGathering()
         {
-            _humanAnimations.StopGathering();
+            _colonistAnimations.StopGathering();
         }
 
         public void Die(Action died)

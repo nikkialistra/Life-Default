@@ -11,11 +11,11 @@ namespace Units.Humans.Animations
         [SerializeField] protected ClipTransition _clip;
         [SerializeField] private AnimationLayer _layer = AnimationLayer.Main;
 
-        private AnimancerComponent _animancerComponent;
+        protected AnimancerComponent _animancer;
 
         private void Awake()
         {
-            _animancerComponent = GetComponent<AnimancerComponent>();
+            _animancer = GetComponent<AnimancerComponent>();
         }
 
         private enum AnimationLayer
@@ -35,11 +35,11 @@ namespace Units.Humans.Animations
         {
             if (_layer == AnimationLayer.Main)
             {
-                _animancerComponent.Play(_clip);
+                _animancer.Play(_clip);
             }
             else
             {
-                _animancerComponent.Layers[AnimationLayers.Actions].Play(_clip);
+                _animancer.Layers[AnimationLayers.Actions].Play(_clip);
             }
         }
 

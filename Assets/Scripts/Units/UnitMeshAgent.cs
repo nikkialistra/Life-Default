@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using DG.Tweening;
 using General;
 using Pathfinding;
@@ -34,16 +33,15 @@ namespace Units
         private void Awake()
         {
             _aiPath = GetComponent<AIPath>();
+            _aiPath.isStopped = true;
         }
 
         private void Start()
         {
             _seekPredictionMultiplier = GlobalParameters.Instance.SeekPredictionMultiplier;
-            _aiPath.isStopped = true;
         }
 
         public event Action DestinationReach;
-
         public event Action RotationEnd;
 
         public bool IsMoving => !_aiPath.isStopped;

@@ -13,6 +13,11 @@ namespace Units.Humans.Animations.States
         {
             get
             {
+                if (StateChange<HumanState>.PreviousState == null)
+                {
+                    return true;
+                }
+                
                 return StateChange<HumanState>.PreviousState.AnimationType switch
                 {
                     AnimationType.Move => true,

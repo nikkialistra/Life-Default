@@ -27,8 +27,6 @@ namespace Units.Humans
 
         private DieState _dieState;
 
-        private readonly StateMachine<HumanState> _stateMachine = new();
-        
         private AnimancerComponent _animancer;
 
         private void Awake()
@@ -42,7 +40,7 @@ namespace Units.Humans
             _animancer = GetComponent<AnimancerComponent>();
         }
 
-        public StateMachine<HumanState> StateMachine => _stateMachine;
+        public StateMachine<HumanState> StateMachine { get; } = new();
 
         private void OnEnable()
         {
@@ -56,35 +54,29 @@ namespace Units.Humans
             _moveState.Enter -= SetUpperBodyMaskForActions;
         }
 
-        private void Start()
-        {
-            _stateMachine.ForceSetState(_idleState);
-            _idleState.enabled = true;
-        }
-
         public void Move()
         {
-            _stateMachine.TrySetState(_moveState);
+            StateMachine.TrySetState(_moveState);
         }
         
         public void Idle()
         {
-            _stateMachine.TrySetState(_idleState);
+            StateMachine.TrySetState(_idleState);
         }
 
         public void ForceIdle()
         {
-            _stateMachine.ForceSetState(_idleState);
+            StateMachine.ForceSetState(_idleState);
         }
 
         public void Attack()
         {
-            _stateMachine.TrySetState(_attackState);
+            StateMachine.TrySetState(_attackState);
         }
 
         public void StopAttack()
         {
-            _stateMachine.ForceSetState(_idleState);
+            StateMachine.ForceSetState(_idleState);
         }
 
         public void SetAttackSpeed(float value)
@@ -95,7 +87,7 @@ namespace Units.Humans
         public void Die(Action died)
         {
             _dieState.EndAction = died;
-            _stateMachine.TrySetState(_dieState);
+            StateMachine.TrySetState(_dieState);
         }
         
         private void SetFullMaskForActions()

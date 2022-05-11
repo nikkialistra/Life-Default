@@ -9,12 +9,19 @@ namespace Units.Humans.Animations
     public abstract class HumanState : MonoBehaviour, IState
     {
         [SerializeField] protected ClipTransition _clip;
+        [SerializeField] private AnimationLayer _layer = AnimationLayer.Main;
 
         private AnimancerComponent _animancerComponent;
 
         private void Awake()
         {
             _animancerComponent = GetComponent<AnimancerComponent>();
+        }
+
+        private enum AnimationLayer
+        {
+            Main,
+            Action
         }
 
         public virtual AnimationType AnimationType =>
@@ -26,7 +33,14 @@ namespace Units.Humans.Animations
 
         public virtual void OnEnterState()
         {
-            _animancerComponent.Play(_clip);
+            if (_layer == AnimationLayer.Main)
+            {
+                _animancerComponent.Play(_clip);
+            }
+            else
+            {
+                _animancerComponent.Layers[AnimationLayers.Actions].Play(_clip);
+            }
         }
 
         public virtual void OnExitState()

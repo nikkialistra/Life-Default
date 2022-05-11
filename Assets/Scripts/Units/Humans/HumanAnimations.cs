@@ -15,11 +15,15 @@ namespace Units.Humans
     [RequireComponent(typeof(DieState))]
     public class HumanAnimations : MonoBehaviour
     {
-        [Required]
         [SerializeField] private GatherResourceState _cutTreesState;
-        [Required]
         [SerializeField] private GatherResourceState _mineRocksState;
         
+        [Title("Masks")]
+        [Required]
+        [SerializeField] private AvatarMask _fullMask;
+        [Required]
+        [SerializeField] private AvatarMask _upperBodyMask;
+
         private IdleState _idleState;
         private MoveState _moveState;
         private AttackState _attackState;
@@ -27,6 +31,8 @@ namespace Units.Humans
         private DieState _dieState;
 
         private readonly StateMachine<HumanState> _stateMachine = new();
+        
+        private AnimancerComponent _animancer;
 
         private void Awake()
         {
@@ -35,6 +41,20 @@ namespace Units.Humans
             _attackState = GetComponent<AttackState>();
 
             _dieState = GetComponent<DieState>();
+            
+            _animancer = GetComponent<AnimancerComponent>();
+        }
+
+        private void OnEnable()
+        {
+            _idleState.Enter += SetFullMaskForActions;
+            _moveState.Enter += SetUpperBodyMaskForActions;
+        }
+
+        private void OnDisable()
+        {
+            _idleState.Enter -= SetFullMaskForActions;
+            _moveState.Enter -= SetUpperBodyMaskForActions;
         }
 
         private void Start()
@@ -87,6 +107,16 @@ namespace Units.Humans
         {
             _dieState.EndAction = died;
             _stateMachine.TrySetState(_dieState);
+        }
+        
+        private void SetFullMaskForActions()
+        {
+            _animancer.Layers[AnimationLayers.Actions].SetMask(_fullMask);
+        }
+
+        private void SetUpperBodyMaskForActions()
+        {
+            _animancer.Layers[AnimationLayers.Actions].SetMask(_upperBodyMask);
         }
     }
 }

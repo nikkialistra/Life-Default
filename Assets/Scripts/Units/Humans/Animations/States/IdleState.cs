@@ -1,9 +1,12 @@
-﻿using Animancer.FSM;
+﻿using System;
+using Animancer.FSM;
 
 namespace Units.Humans.Animations.States
 {
     public class IdleState : HumanState
     {
+        public event Action Enter;
+        
         public override AnimationType AnimationType => AnimationType.Idle;
 
         public override bool CanEnterState
@@ -16,6 +19,13 @@ namespace Units.Humans.Animations.States
                     _ => false
                 };
             }
+        }
+
+        public override void OnEnterState()
+        {
+            base.OnEnterState();
+            
+            Enter?.Invoke();
         }
     }
 }

@@ -44,6 +44,8 @@ namespace Units
 
         private bool _hovered;
         private bool _selected;
+
+        private bool _finalizingAttacking;
         
         private Coroutine _attackingCoroutine;
 
@@ -105,6 +107,7 @@ namespace Units
             _attackingCoroutine = StartCoroutine(WatchForDestroy());
 
             IsAttacking = true;
+            _finalizingAttacking = false;
             AttackStart?.Invoke();
         }
 
@@ -145,6 +148,13 @@ namespace Units
 
         public void FinalizeAttacking()
         {
+            if (_finalizingAttacking)
+            {
+                return;
+            }
+            
+            _finalizingAttacking = true;
+            
             ResetAttacking();
             StartCoroutine(FinishAttackingLater());
         }
@@ -265,6 +275,7 @@ namespace Units
             
             _unitAnimator.StopAttack();
             IsAttacking = false;
+            _finalizingAttacking = false;
             AttackEnd?.Invoke();
         }
 
@@ -274,6 +285,7 @@ namespace Units
             
             _unitAnimator.StopAttack();
             IsAttacking = false;
+            _finalizingAttacking = false;
             AttackEnd?.Invoke();
         }
 

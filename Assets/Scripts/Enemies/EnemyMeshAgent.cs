@@ -29,6 +29,18 @@ namespace Enemies
         {
             _unitMeshAgent.DestinationReach -= OnDestinationReach;
         }
+        
+        private void Update()
+        {
+            if (_unitMeshAgent.IsMoving)
+            {
+                _animator.Move();
+            }
+            else
+            {
+                _animator.Idle();
+            }
+        }
 
         public void Deactivate()
         {

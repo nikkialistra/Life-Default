@@ -22,22 +22,17 @@ namespace Units.BehaviourNodes.Attacking
         {
             if (!UnitTarget.Value.Alive)
             {
-                UnitTarget.Value = null;
-                UnitMeshAgent.ResetDestination();
                 return TaskStatus.Failure;
             }
 
-            if (UnitAttacker.OnAttackDistance(UnitTarget.Value.transform.position))
-            {
-                return TaskStatus.Success;
-            }
-
-            if (!UnitMeshAgent.IsMoving)
+            if (!UnitMeshAgent.IsMoving && OutOfAttackDistance)
             {
                 UnitMeshAgent.SetDestinationToUnitTarget(UnitTarget.Value, UnitAttacker.AttackDistance);
             }
 
             return TaskStatus.Running;
         }
+
+        private bool OutOfAttackDistance => !UnitAttacker.OnAttackDistance(UnitTarget.Value.transform.position);
     }
 }

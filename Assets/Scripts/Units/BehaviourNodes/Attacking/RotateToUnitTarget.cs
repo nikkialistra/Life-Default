@@ -5,21 +5,27 @@ namespace Units.BehaviourNodes.Attacking
 {
     public class RotateToUnitTarget : Action
     {
+        public float AngleDifferenceToRotate = 3f;
+        
         public SharedUnit UnitTarget;
 
         public UnitMeshAgent UnitMeshAgent;
+        public UnitAttacker UnitAttacker;
 
         public override TaskStatus OnUpdate()
         {
             if (!UnitTarget.Value.Alive)
             {
-                UnitTarget.Value = null;
-                UnitMeshAgent.ResetDestination();
                 return TaskStatus.Failure;
             }
 
-            UnitMeshAgent.RotateTo(UnitTarget.Value.transform.position);
-            return TaskStatus.Success;
+            if (UnitAttacker.OnAttackRange(UnitTarget.Value.transform.position) &&
+                UnitMeshAgent.GetAngleDifferenceWith(UnitTarget.Value.transform.position) > AngleDifferenceToRotate)
+            {
+                UnitMeshAgent.RotateTo(UnitTarget.Value.transform.position);
+            }
+
+            return TaskStatus.Running;
         }
     }
 }

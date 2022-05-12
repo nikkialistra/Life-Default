@@ -154,7 +154,7 @@ namespace Units
         {
             if (_rotatingToCoroutine != null)
             {
-                StopCoroutine(_rotatingToCoroutine);
+                return;
             }
 
             _rotatingToCoroutine = StartCoroutine(RotatingTo(position));
@@ -164,10 +164,17 @@ namespace Units
         {
             if (_rotatingToCoroutine != null)
             {
-                StopCoroutine(_rotatingToCoroutine);
+                return;
             }
 
             _rotatingToCoroutine = StartCoroutine(RotatingToAngle(angle));
+        }
+
+        public float GetAngleDifferenceWith(Vector3 targetPosition)
+        {
+            var targetRotation = Quaternion.LookRotation(targetPosition - transform.position).eulerAngles;
+            
+            return GetAngleDifference(transform.rotation.eulerAngles.y, targetRotation.y);
         }
 
         private void Move()
@@ -251,19 +258,11 @@ namespace Units
 
         private IEnumerator RotatingTo(Vector3 targetPosition)
         {
-            targetPosition.y = transform.position.y;
-            var targetDirection = (targetPosition - transform.position).normalized;
-
-            if (targetDirection == Vector3.zero)
-            {
-                RotationEnd?.Invoke();
-                yield break;
-            }
-
-            var targetRotation = Quaternion.LookRotation(targetDirection).eulerAngles;
+            var targetRotation = Quaternion.LookRotation(targetPosition - transform.position).eulerAngles;
 
             yield return transform.DORotate(targetRotation, GetRotationDuration(targetRotation)).WaitForCompletion();
 
+            _rotatingToCoroutine = null;
             RotationEnd?.Invoke();
         }
 
@@ -273,6 +272,7 @@ namespace Units
 
             yield return transform.DORotate(targetRotation, GetRotationDuration(targetRotation)).WaitForCompletion();
 
+            _rotatingToCoroutine = null;
             RotationEnd?.Invoke();
         }
 

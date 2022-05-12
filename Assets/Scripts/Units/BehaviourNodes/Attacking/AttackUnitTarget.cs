@@ -15,15 +15,17 @@ namespace Units.BehaviourNodes.Attacking
         {
             if (!UnitTarget.Value.Alive)
             {
-                UnitTarget.Value = null;
-                UnitMeshAgent.ResetDestination();
                 return TaskStatus.Failure;
             }
             
             if (OutOfReach(UnitTarget.Value.transform.position))
             {
-                UnitAttacker.FinalizeAttacking();
-                return TaskStatus.Success;
+                if (UnitAttacker.IsAttacking)
+                {
+                    UnitAttacker.FinalizeAttacking();
+                }
+                
+                return TaskStatus.Running;
             }
 
             if (!UnitAttacker.IsAttacking)

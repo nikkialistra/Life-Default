@@ -42,18 +42,6 @@ namespace Units.Humans
 
         public StateMachine<HumanState> StateMachine { get; } = new();
 
-        private void OnEnable()
-        {
-            _idleState.Enter += SetFullMaskForActions;
-            _moveState.Enter += SetUpperBodyMaskForActions;
-        }
-
-        private void OnDisable()
-        {
-            _idleState.Enter -= SetFullMaskForActions;
-            _moveState.Enter -= SetUpperBodyMaskForActions;
-        }
-
         public void Move()
         {
             StateMachine.TrySetState(_moveState);
@@ -89,13 +77,13 @@ namespace Units.Humans
             _dieState.EndAction = died;
             StateMachine.TrySetState(_dieState);
         }
-        
-        private void SetFullMaskForActions()
+
+        public void SetFullMaskForActions()
         {
             _animancer.Layers[AnimationLayers.Actions].SetMask(_fullMask);
         }
 
-        private void SetUpperBodyMaskForActions()
+        public void SetUpperBodyMaskForActions()
         {
             _animancer.Layers[AnimationLayers.Actions].SetMask(_upperBodyMask);
         }

@@ -13,10 +13,15 @@ namespace Units.Humans.Animations.States
         [SerializeField] private UnitAttacker _unitAttacker;
         [Required]
         [SerializeField] private UnitMeshAgent _unitMeshAgent;
+        [Required]
+        [SerializeField] private HumanAnimations _humanAnimations;
         
         [Space]
+        [Required]
         [SerializeField] private ClipTransition _moveClip;
-        
+        [Required]
+        [SerializeField] private ClipTransition _idleClip;
+
         private Coroutine _updatingMovingCoroutine;
 
         private const string HitEventName = "Hit";
@@ -74,12 +79,32 @@ namespace Units.Humans.Animations.States
         {
             if (_unitMeshAgent.IsMoving)
             {
-                _animancer.Play(_moveClip);
+                _humanAnimations.SetUpperBodyMaskForActions();
+                
+                if (!MovePlaying())
+                {
+                    _animancer.Layers[AnimationLayers.Main].Play(_moveClip);
+                }
             }
             else
             {
-                _animancer.Stop(_moveClip);
+                _humanAnimations.SetFullMaskForActions();
+                
+                if (!IdlePlaying())
+                {
+                    _animancer.Layers[AnimationLayers.Main].Play(_idleClip);
+                }
             }
+        }
+
+        private bool MovePlaying()
+        {
+            return _animancer.Layers[AnimationLayers.Main].IsPlayingClip(_moveClip.Clip);
+        }
+
+        private bool IdlePlaying()
+        {
+            return _animancer.Layers[AnimationLayers.Main].IsPlayingClip(_idleClip.Clip);
         }
 
         private void Hit()

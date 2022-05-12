@@ -45,7 +45,10 @@ namespace Units.Humans.Animations
 
         public virtual void OnExitState()
         {
-            
+            if (_layer != AnimationLayer.Main)
+            {
+                _animancer.Layers[AnimationLayers.Actions].Stop();
+            }
         }
     }
 }

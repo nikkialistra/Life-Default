@@ -19,7 +19,7 @@ namespace Units.BehaviourNodes.Attacking
                 return TaskStatus.Failure;
             }
 
-            if (UnitAttacker.OnAttackRange(UnitTarget.Value.transform.position) &&
+            if (UnitAttacker.OnAttackDistance(UnitTarget.Value.transform.position) &&
                 UnitMeshAgent.GetAngleDifferenceWith(UnitTarget.Value.transform.position) > AngleDifferenceToRotate)
             {
                 UnitMeshAgent.RotateTo(UnitTarget.Value.transform.position);

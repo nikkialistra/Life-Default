@@ -25,6 +25,11 @@ namespace Units
             _humanAnimations.Attack();
         }
 
+        public void FinishAttack()
+        {
+            _humanAnimations.StopAttackOnAnimationEnd();
+        }
+
         public void StopAttack()
         {
             _humanAnimations.StopAttack();

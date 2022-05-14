@@ -15,6 +15,9 @@ namespace Units.Humans
     [RequireComponent(typeof(DieState))]
     public class HumanAnimations : MonoBehaviour
     {
+        [Required]
+        [SerializeField] private UnitMeshAgent _unitMeshAgent;
+
         [Title("Masks")]
         [Required]
         [SerializeField] private AvatarMask _fullMask;
@@ -28,6 +31,8 @@ namespace Units.Humans
         private DieState _dieState;
 
         private AnimancerComponent _animancer;
+
+        private bool _attacking;
 
         private void Awake()
         {
@@ -46,7 +51,7 @@ namespace Units.Humans
         {
             StateMachine.TrySetState(_moveState);
         }
-        
+
         public void Idle()
         {
             StateMachine.TrySetState(_idleState);
@@ -59,12 +64,33 @@ namespace Units.Humans
 
         public void Attack()
         {
+            _attacking = true;
             StateMachine.TrySetState(_attackState);
+        }
+
+        public void StopAttackOnAnimationEnd()
+        {
+            _attacking = false;
         }
 
         public void StopAttack()
         {
-            StateMachine.ForceSetState(_idleState);
+            if (_unitMeshAgent.IsMoving)
+            {
+                StateMachine.ForceSetState(_idleState);
+            }
+            else
+            {
+                StateMachine.ForceSetState(_moveState);
+            }
+        }
+
+        public void StopIfNotAttacking()
+        {
+            if (!_attacking)
+            {
+                StopAttack();
+            }
         }
 
         public void SetAttackSpeed(float value)

@@ -52,6 +52,7 @@ namespace Units.Humans.Animations.States
             _updatingMovingCoroutine = StartCoroutine(UpdatingMoving());
             
             _clip.Events.SetCallback(HitEventName, Hit);
+            _clip.Events.OnEnd = _humanAnimations.StopIfNotAttacking;
         }
 
         public override void OnExitState()
@@ -92,7 +93,7 @@ namespace Units.Humans.Animations.States
                 
                 if (!IdlePlaying())
                 {
-                    _animancer.Layers[AnimationLayers.Main].Play(_idleClip);
+                    //_animancer.Layers[AnimationLayers.Main].Play(_idleClip);
                 }
             }
         }
@@ -111,7 +112,7 @@ namespace Units.Humans.Animations.States
         {
             _unitAttacker.Hit(GetHitTime());
         }
-        
+
         private float GetHitTime()
         {
             return _clip.Events[HitEventName].normalizedTime * _clip.Clip.length;

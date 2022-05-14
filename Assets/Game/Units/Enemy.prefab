@@ -212,7 +212,7 @@ MonoBehaviour:
   targetCompatibility: {fileID: 0}
   maxAcceleration: 1000
   rotationSpeed: 32400
-  slowdownDistance: 0.6
+  slowdownDistance: 0.1
   pickNextWaypointDist: 2
   endReachedDistance: 0.05
   alwaysDrawGizmos: 0
@@ -978,6 +978,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 9005558398283325450}
     - target: {fileID: 3672132499008156490, guid: bebe0fbb55beb9245925236a40cfe495,
+        type: 3}
+      propertyPath: _unitMeshAgent
+      value: 
+      objectReference: {fileID: 5149874996177493612}
+    - target: {fileID: 4877044575306519140, guid: bebe0fbb55beb9245925236a40cfe495,
         type: 3}
       propertyPath: _unitMeshAgent
       value: 

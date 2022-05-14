@@ -284,7 +284,7 @@ namespace Units
                 _attackingCoroutine = null;
             }
             
-            _unitAnimator.StopAttack();
+            _unitAnimator.FinishAttack();
             IsAttacking = false;
             _finalizingAttacking = false;
             AttackEnd?.Invoke();

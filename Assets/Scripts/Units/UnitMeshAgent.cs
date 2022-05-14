@@ -35,7 +35,7 @@ namespace Units
             _aiPath = GetComponent<AIPath>();
             _aiPath.isStopped = true;
         }
-
+        
         private void Start()
         {
             _seekPredictionMultiplier = GlobalParameters.Instance.SeekPredictionMultiplier;

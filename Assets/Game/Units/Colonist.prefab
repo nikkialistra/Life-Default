@@ -607,7 +607,7 @@ MonoBehaviour:
   targetCompatibility: {fileID: 0}
   maxAcceleration: 1000
   rotationSpeed: 32400
-  slowdownDistance: 0.6
+  slowdownDistance: 0.1
   pickNextWaypointDist: 2
   endReachedDistance: 0.05
   alwaysDrawGizmos: 0
@@ -687,7 +687,7 @@ MonoBehaviour:
   _meleeDamage: 30
   _meleeAttackSpeed: 1
   _meleeAttackDistance: 1.7
-  _meleeAttackRange: 2.4
+  _meleeAttackRange: 8
   _meleeAccuracy: 0.8
   _attackDodgeChance: 0.2
 --- !u!114 &5149874996177493612
@@ -1241,6 +1241,11 @@ PrefabInstance:
       propertyPath: _cutTreesState
       value: 
       objectReference: {fileID: 3805221902070025205}
+    - target: {fileID: 4877044575306519140, guid: bebe0fbb55beb9245925236a40cfe495,
+        type: 3}
+      propertyPath: _unitMeshAgent
+      value: 
+      objectReference: {fileID: 5149874996177493612}
     - target: {fileID: 4877044575306519140, guid: bebe0fbb55beb9245925236a40cfe495,
         type: 3}
       propertyPath: _mineRocksState

@@ -113,6 +113,11 @@ namespace Colonists
         // and prolongate animation after gathering a little
         public void FinishGathering()
         {
+            if (!IsGathering)
+            {
+                return;
+            }
+            
             if (_watchForExhaustionCoroutine != null)
             {
                 StopCoroutine(_watchForExhaustionCoroutine);

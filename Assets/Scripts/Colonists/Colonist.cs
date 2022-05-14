@@ -231,8 +231,9 @@ namespace Colonists
             _gatherer.HideResourceFieldOfView();
 
             _unitSelection.Deactivate();
+            _unitAttacker.CoverUnitTarget();
             _unitAttacker.FinalizeAttackingInstantly();
-            
+
             _meshAgent.Deactivate();
             _behavior.Deactivate();
         }

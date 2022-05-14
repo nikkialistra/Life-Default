@@ -21,7 +21,6 @@ namespace Colonists
         public void Idle()
         {
             _unitAnimator.Idle();
-            _colonistAnimations.Idle();
         }
 
         public void Move()

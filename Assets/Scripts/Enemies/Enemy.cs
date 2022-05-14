@@ -174,8 +174,9 @@ namespace Enemies
             _behavior.Deactivate();
             
             _unitSelection.Deactivate();
+            _unitAttacker.CoverUnitTarget();
             _unitAttacker.FinalizeAttackingInstantly();
-            
+
             _meshAgent.Deactivate();
             _behavior.Disable();
         }

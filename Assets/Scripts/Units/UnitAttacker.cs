@@ -148,7 +148,7 @@ namespace Units
 
         public void FinalizeAttacking()
         {
-            if (_finalizingAttacking)
+            if (!IsAttacking || _finalizingAttacking)
             {
                 return;
             }
@@ -234,6 +234,17 @@ namespace Units
         public void Escape()
         {
             WantEscape?.Invoke();
+        }
+
+        public void CoverUnitTarget()
+        {
+            _unitTargetExposed = false;
+
+            if (_trackedUnit != null)
+            {
+                _trackedUnit.HideTargetIndicator();
+                _lineToTrackedUnit.HideLine();
+            }
         }
 
         private IEnumerator WatchForDestroy()
@@ -328,13 +339,7 @@ namespace Units
                 return;
             }
 
-            _unitTargetExposed = false;
-            
-            if (_trackedUnit != null)
-            {
-                _trackedUnit.HideTargetIndicator();
-                _lineToTrackedUnit.HideLine();
-            }
+            CoverUnitTarget();
         }
     }
 }

@@ -15,6 +15,7 @@ namespace UI.Menus.Primary
         private VisualElement _tree;
 
         private Button _newGame;
+        private Button _testGame;
         private Button _loadGame;
         private Button _settings;
         private Button _exitGame;
@@ -44,6 +45,7 @@ namespace UI.Menus.Primary
             _buttons = _tree.Q<VisualElement>("buttons");
 
             _newGame = _tree.Q<Button>("new-game");
+            _testGame = _tree.Q<Button>("test-game");
             _loadGame = _tree.Q<Button>("load-game");
             _settings = _tree.Q<Button>("settings");
             _exitGame = _tree.Q<Button>("exit-game");
@@ -56,6 +58,7 @@ namespace UI.Menus.Primary
         private void OnEnable()
         {
             _newGame.clicked += NewGame;
+            _testGame.clicked += TestGame;
             _loadGame.clicked += LoadGame;
             _settings.clicked += Settings;
             _exitGame.clicked += ExitGame;
@@ -66,6 +69,7 @@ namespace UI.Menus.Primary
         private void OnDisable()
         {
             _newGame.clicked -= NewGame;
+            _testGame.clicked -= TestGame;
             _loadGame.clicked -= LoadGame;
             _settings.clicked -= Settings;
             _exitGame.clicked -= ExitGame;
@@ -93,6 +97,11 @@ namespace UI.Menus.Primary
         private static void NewGame()
         {
             SceneManager.LoadScene("Game", LoadSceneMode.Single);
+        }
+        
+        private static void TestGame()
+        {
+            SceneManager.LoadScene("Test Scene", LoadSceneMode.Single);
         }
 
         private static void LoadGame() { }

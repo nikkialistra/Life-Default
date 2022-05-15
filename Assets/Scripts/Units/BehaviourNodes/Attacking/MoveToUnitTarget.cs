@@ -33,6 +33,11 @@ namespace Units.BehaviourNodes.Attacking
             return TaskStatus.Running;
         }
 
+        public override void OnEnd()
+        {
+            UnitMeshAgent.StopMovingToUnitTarget();
+        }
+
         private bool OutOfAttackDistance => !UnitAttacker.OnAttackDistance(UnitTarget.Value.transform.position);
     }
 }

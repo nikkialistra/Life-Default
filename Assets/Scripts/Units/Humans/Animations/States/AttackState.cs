@@ -9,14 +9,17 @@ namespace Units.Humans.Animations.States
     [EventNames(HitEvent, HitEndEvent)]
     public class AttackState : HumanState
     {
+        [SerializeField] private float _timeToFade = 0.1f;
+
+        [Title("Components")]
         [Required]
         [SerializeField] private UnitAttacker _unitAttacker;
         [Required]
         [SerializeField] private UnitMeshAgent _unitMeshAgent;
         [Required]
         [SerializeField] private HumanAnimations _humanAnimations;
-        
-        [Space]
+      
+        [Title("Additional")]
         [Required]
         [SerializeField] private ClipTransition _moveClip;
         [Required]
@@ -32,6 +35,18 @@ namespace Units.Humans.Animations.States
         private bool _isMoving;
         
         private Coroutine _idleCoroutine;
+
+        private void OnEnable()
+        {
+            _clip.Events.SetCallback(HitEvent, Hit);
+            _clip.Events.SetCallback(HitEndEvent, _humanAnimations.StopIfNotAttacking);
+        }
+
+        private void OnDisable()
+        {
+            _clip.Events.RemoveCallback(HitEvent, Hit);
+            _clip.Events.RemoveCallback(HitEndEvent, _humanAnimations.StopIfNotAttacking);
+        }
 
         public float Speed
         {
@@ -57,23 +72,17 @@ namespace Units.Humans.Animations.States
             base.OnEnterState();
 
             _updatingMovingCoroutine = StartCoroutine(UpdatingMoving());
-            
-            _clip.Events.SetCallback(HitEvent, Hit);
-            _clip.Events.SetCallback(HitEndEvent, _humanAnimations.StopIfNotAttacking);
         }
 
         public override void OnExitState()
         {
-            _clip.Events.RemoveCallback(HitEvent, Hit);
-            _clip.Events.RemoveCallback(HitEndEvent, _humanAnimations.StopIfNotAttacking);
-            
             if (_updatingMovingCoroutine != null)
             {
                 StopCoroutine(_updatingMovingCoroutine);
                 _updatingMovingCoroutine = null;
             }
             
-            base.OnExitState();
+            _animancer.Layers[AnimationLayers.Actions].StartFade(0, _timeToFade);
         }
 
         private IEnumerator UpdatingMoving()

@@ -12,6 +12,7 @@ namespace Units.BehaviourNodes.Attacking
 
         public override TaskStatus OnUpdate()
         {
+            UnitMeshAgent.StopRotating();
             UnitMeshAgent.ResetDestination();
             UnitAttacker.CoverUnitTarget();
             UnitTarget.Value = null;

@@ -177,6 +177,11 @@ namespace Units
             return GetAngleDifference(transform.rotation.eulerAngles.y, targetRotation.y);
         }
 
+        public void StopMovingToUnitTarget()
+        {
+            _unitTarget = null;
+        }
+
         private void Move()
         {
             if (_movingCoroutine != null)
@@ -217,6 +222,7 @@ namespace Units
         {
             if (_unitTarget == null)
             {
+                _movingToUnitTarget = false;
                 return false;
             }
             

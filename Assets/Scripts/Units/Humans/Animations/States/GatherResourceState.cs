@@ -17,7 +17,17 @@ namespace Units.Humans.Animations.States
         private const string HitEvent = "Hit";
 
         public override AnimationType AnimationType => AnimationType.GatherResource;
-        
+
+        private void OnEnable()
+        {
+            _clip.Events.SetCallback(HitEvent, Hit);
+        }
+
+        private void OnDisable()
+        {
+            _clip.Events.RemoveCallback(HitEvent, Hit);
+        }
+
         public override bool CanEnterState
         {
             get
@@ -30,17 +40,8 @@ namespace Units.Humans.Animations.States
             }
         }
 
-        public override void OnEnterState()
-        {
-            base.OnEnterState();
-            
-            _clip.Events.SetCallback(HitEvent, Hit);
-        }
-
         public override void OnExitState()
         {
-            _clip.Events.RemoveCallback(HitEvent, Hit);
-            
             _unitEquipment.UnequipInstrument();
             
             base.OnExitState();

@@ -61,7 +61,7 @@ namespace Enemies
             var randomizedDelta = Random.insideUnitSphere * randomizationRadius;
             
             var oppositePoint = transform.position + (flatNormalizedDelta * distance) + new Vector3(randomizedDelta.x, 0, randomizedDelta.z);
-            
+
             GoToPosition(oppositePoint);
         }
 
@@ -69,6 +69,11 @@ namespace Enemies
         {
             _unitMeshAgent.StopMoving();
             _animator.Idle();
+        }
+
+        public void StopRotating()
+        {
+            _unitMeshAgent.StopRotating();
         }
 
         private void OnDestinationReach()

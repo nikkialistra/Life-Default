@@ -45,11 +45,7 @@ namespace Units.Humans.Animations
 
         public virtual void OnExitState()
         {
-            if (_layer != AnimationLayer.Main)
-            {
-                _animancer.Layers[AnimationLayers.Actions].FadeSpeed = 0.1f;
-                _animancer.Layers[AnimationLayers.Actions].Weight = 0f;
-            }
+            
         }
     }
 }

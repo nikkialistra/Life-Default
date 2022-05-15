@@ -25,6 +25,7 @@ namespace Enemies.BehaviorNodes
         public override void OnStart()
         {
             EnemyMeshAgent.StopMoving();
+            EnemyMeshAgent.StopRotating();
 
             _nextTimeToScan = Time.time;
         }

@@ -64,13 +64,16 @@ namespace Units.Humans.Animations.States
 
         public override void OnExitState()
         {
-            base.OnExitState();
-
+            _clip.Events.RemoveCallback(HitEvent, Hit);
+            _clip.Events.RemoveCallback(HitEndEvent, _humanAnimations.StopIfNotAttacking);
+            
             if (_updatingMovingCoroutine != null)
             {
                 StopCoroutine(_updatingMovingCoroutine);
                 _updatingMovingCoroutine = null;
             }
+            
+            base.OnExitState();
         }
 
         private IEnumerator UpdatingMoving()

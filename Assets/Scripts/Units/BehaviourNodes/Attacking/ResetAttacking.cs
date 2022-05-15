@@ -13,7 +13,7 @@ namespace Units.BehaviourNodes.Attacking
         public override TaskStatus OnUpdate()
         {
             UnitMeshAgent.ResetDestination();
-            UnitAttacker.FinalizeAttackingInstantly();
+            UnitAttacker.CoverUnitTarget();
             UnitTarget.Value = null;
             return TaskStatus.Success;
         }

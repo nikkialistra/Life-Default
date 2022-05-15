@@ -34,7 +34,7 @@ namespace Units.Humans
 
         private bool _attacking;
         
-        private bool _fullMaskSet = true;
+        private bool _fullMaskSet;
 
         private void Awake()
         {
@@ -49,7 +49,7 @@ namespace Units.Humans
 
         private void Start()
         {
-            _animancer.Layers[AnimationLayers.Actions].SetMask(_fullMask);
+            _animancer.Layers[AnimationLayers.Actions].SetMask(_upperBodyMask);
         }
 
         public StateMachine<HumanState> StateMachine { get; } = new();

@@ -39,9 +39,11 @@ namespace Units.Humans.Animations.States
 
         public override void OnExitState()
         {
-            base.OnExitState();
+            _clip.Events.RemoveCallback(HitEvent, Hit);
             
             _unitEquipment.UnequipInstrument();
+            
+            base.OnExitState();
         }
 
         private void Hit()

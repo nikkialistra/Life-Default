@@ -20,7 +20,7 @@ namespace Colonists
         [ValidateInput(nameof(EveryResourceHasDistanceInteraction))]
         [SerializeField] private ResourceInteractionDistanceDictionary _resourceInteractionDistances;
 
-        [SerializeField] private float _distanceCorrectionFromCenter = 1.85f;
+        [SerializeField] private float _distanceCorrectionFromCenter = 2f;
 
         [Space]
         [Required]

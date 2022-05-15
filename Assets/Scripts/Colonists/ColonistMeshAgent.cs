@@ -152,7 +152,7 @@ namespace Colonists
         public void HideLinePath()
         {
             _seeker.pathCallback -= ShowPathLine;
-            _pathLineRenderer.positionCount = 0;
+            HidePathLine();
         }
 
         private void ShowPathLine(Path path)
@@ -174,9 +174,14 @@ namespace Colonists
             }
         }
 
+        private void HidePathLine()
+        {
+            _pathLineRenderer.positionCount = 0;
+        }
+
         private void OnDestinationReach()
         {
-            HideLinePath();
+            HidePathLine();
             
             DestinationReach?.Invoke();
         }

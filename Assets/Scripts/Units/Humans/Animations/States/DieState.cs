@@ -13,7 +13,15 @@ namespace Units.Humans.Animations.States
         public override void OnEnterState()
         {
             base.OnEnterState();
+            
             _clip.Events.OnEnd = EndAction;
+        }
+
+        public override void OnExitState()
+        {
+            _clip.Events.OnEnd = null;
+            
+            base.OnExitState();
         }
     }
 }

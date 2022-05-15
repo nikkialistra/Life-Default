@@ -243,8 +243,9 @@ namespace Units
             if (_trackedUnit != null)
             {
                 _trackedUnit.HideTargetIndicator();
-                _lineToTrackedUnit.HideLine();
             }
+            
+            _lineToTrackedUnit.HideLine();
         }
 
         private IEnumerator WatchForDestroy()
@@ -302,6 +303,8 @@ namespace Units
 
         private void ResetUnitTarget()
         {
+            CoverUnitTarget();
+            
             if (_trackedUnit != null)
             {
                 _trackedUnit.HideTargetIndicator();

@@ -25,6 +25,8 @@ namespace UI.Game.GameLook.Components.Stock
 
         private VisualElement _activeQuests;
         private VisualElement _finishedQuests;
+
+        private Label _noQuests;
         
         private Label _active;
         private Label _finished;
@@ -44,6 +46,8 @@ namespace UI.Game.GameLook.Components.Stock
 
             _activeQuests = Tree.Q<VisualElement>("active-quests");
             _finishedQuests = Tree.Q<VisualElement>("finished-quests");
+            
+            _noQuests = Tree.Q<Label>("no-quests");
             
             _active = Tree.Q<Label>("active");
             _finished = Tree.Q<Label>("finished");
@@ -135,6 +139,8 @@ namespace UI.Game.GameLook.Components.Stock
 
         private void UpdateLabelShowing()
         {
+            _noQuests.style.display = _activeQuests.childCount + _finishedQuests.childCount == 0 ? DisplayStyle.Flex : DisplayStyle.None;
+            
             _active.style.display = _activeQuests.childCount > 0 ? DisplayStyle.Flex : DisplayStyle.None;
             _finished.style.display = _finishedQuests.childCount > 0 ? DisplayStyle.Flex : DisplayStyle.None;
         }

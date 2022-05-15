@@ -5,7 +5,7 @@
 }
 
 .content {
-    min-height: 117px;
+    min-height: 118px;
     padding: 5px 0 0 8px;
     min-width: 290px;
 }

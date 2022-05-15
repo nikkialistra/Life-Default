@@ -9,8 +9,8 @@ namespace Testing
 {
     public class TimeSpeedMultiplier : MonoBehaviour
     {
-        [MinValue(1)]
-        [SerializeField] private int _timeSpeedMultiplier = 3;
+        [MinValue(0.001f)]
+        [SerializeField] private float _timeSpeedMultiplier = 3;
 
         private TimeToggling _timeToggling;
         

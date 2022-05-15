@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Units.Humans.Animations.States
 {
-    [EventNames(HitEventName)]
+    [EventNames(HitEvent, HitEndEvent)]
     public class AttackState : HumanState
     {
         [Required]
@@ -21,11 +21,18 @@ namespace Units.Humans.Animations.States
         [SerializeField] private ClipTransition _moveClip;
         [Required]
         [SerializeField] private ClipTransition _idleClip;
+        [Space]
+        [SerializeField] private float _waitTimeToIdle = 0.1f;
+
+        private const string HitEvent = "Hit";
+        private const string HitEndEvent = "Hit End";
 
         private Coroutine _updatingMovingCoroutine;
 
-        private const string HitEventName = "Hit";
+        private bool _isMoving;
         
+        private Coroutine _idleCoroutine;
+
         public float Speed
         {
             set => _clip.Speed = value;
@@ -51,8 +58,8 @@ namespace Units.Humans.Animations.States
 
             _updatingMovingCoroutine = StartCoroutine(UpdatingMoving());
             
-            _clip.Events.SetCallback(HitEventName, Hit);
-            _clip.Events.OnEnd = _humanAnimations.StopIfNotAttacking;
+            _clip.Events.SetCallback(HitEvent, Hit);
+            _clip.Events.SetCallback(HitEndEvent, _humanAnimations.StopIfNotAttacking);
         }
 
         public override void OnExitState()
@@ -68,6 +75,8 @@ namespace Units.Humans.Animations.States
 
         private IEnumerator UpdatingMoving()
         {
+            _isMoving = _unitMeshAgent.IsMoving;
+            
             while (true)
             {
                 UpdateMoving();
@@ -78,23 +87,52 @@ namespace Units.Humans.Animations.States
 
         private void UpdateMoving()
         {
-            if (_unitMeshAgent.IsMoving)
+            if (_isMoving == _unitMeshAgent.IsMoving)
             {
-                _humanAnimations.SetUpperBodyMaskForActions();
-                
-                if (!MovePlaying())
+                return;
+            }
+
+            _isMoving = _unitMeshAgent.IsMoving;
+            UpdateBaseAnimation();
+        }
+
+        private void UpdateBaseAnimation()
+        {
+            if (_isMoving)
+            {
+                if (_idleCoroutine != null)
                 {
-                    _animancer.Layers[AnimationLayers.Main].Play(_moveClip);
+                    StopCoroutine(_idleCoroutine);
+                    _idleCoroutine = null;
                 }
+                
+                Move();
             }
             else
             {
-                _humanAnimations.SetFullMaskForActions();
-                
-                if (!IdlePlaying())
-                {
-                    //_animancer.Layers[AnimationLayers.Main].Play(_idleClip);
-                }
+                _idleCoroutine = StartCoroutine(Idle());
+            }
+        }
+
+        private void Move()
+        {
+            _humanAnimations.SetUpperBodyMaskForActions();
+
+            if (!MovePlaying())
+            {
+                _animancer.Layers[AnimationLayers.Main].Play(_moveClip);
+            }
+        }
+
+        private IEnumerator Idle()
+        {
+            yield return new WaitForSeconds(_waitTimeToIdle);
+            
+            _humanAnimations.SetFullMaskForActions();
+
+            if (!IdlePlaying())
+            {
+                _animancer.Layers[AnimationLayers.Main].Play(_idleClip);
             }
         }
 
@@ -115,7 +153,7 @@ namespace Units.Humans.Animations.States
 
         private float GetHitTime()
         {
-            return _clip.Events[HitEventName].normalizedTime * _clip.Clip.length;
+            return _clip.Events[HitEvent].normalizedTime * _clip.Clip.length;
         }
     }
 }

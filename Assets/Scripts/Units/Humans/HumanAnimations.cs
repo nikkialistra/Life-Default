@@ -33,6 +33,8 @@ namespace Units.Humans
         private AnimancerComponent _animancer;
 
         private bool _attacking;
+        
+        private bool _fullMaskSet = true;
 
         private void Awake()
         {
@@ -43,6 +45,11 @@ namespace Units.Humans
             _dieState = GetComponent<DieState>();
             
             _animancer = GetComponent<AnimancerComponent>();
+        }
+
+        private void Start()
+        {
+            _animancer.Layers[AnimationLayers.Actions].SetMask(_fullMask);
         }
 
         public StateMachine<HumanState> StateMachine { get; } = new();
@@ -77,11 +84,11 @@ namespace Units.Humans
         {
             if (_unitMeshAgent.IsMoving)
             {
-                StateMachine.ForceSetState(_idleState);
+                StateMachine.ForceSetState(_moveState);
             }
             else
             {
-                StateMachine.ForceSetState(_moveState);
+                StateMachine.ForceSetState(_idleState);
             }
         }
 
@@ -106,12 +113,26 @@ namespace Units.Humans
 
         public void SetFullMaskForActions()
         {
+            if (_fullMaskSet)
+            {
+                return;
+            }
+            
             _animancer.Layers[AnimationLayers.Actions].SetMask(_fullMask);
+
+            _fullMaskSet = true;
         }
 
         public void SetUpperBodyMaskForActions()
         {
+            if (!_fullMaskSet)
+            {
+                return;
+            }
+            
             _animancer.Layers[AnimationLayers.Actions].SetMask(_upperBodyMask);
+
+            _fullMaskSet = false;
         }
     }
 }

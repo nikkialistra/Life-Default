@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Units.Humans.Animations.States
 {
-    [EventNames(HitEventName)]
+    [EventNames(HitEvent)]
     public class GatherResourceState : HumanState
     {
         [Required]
@@ -14,7 +14,7 @@ namespace Units.Humans.Animations.States
         [Required]
         [SerializeField] private UnitEquipment _unitEquipment;
 
-        private const string HitEventName = "Hit";
+        private const string HitEvent = "Hit";
 
         public override AnimationType AnimationType => AnimationType.GatherResource;
         
@@ -34,7 +34,7 @@ namespace Units.Humans.Animations.States
         {
             base.OnEnterState();
             
-            _clip.Events.SetCallback(HitEventName, Hit);
+            _clip.Events.SetCallback(HitEvent, Hit);
         }
 
         public override void OnExitState()
@@ -51,7 +51,7 @@ namespace Units.Humans.Animations.States
 
         private float GetHitTime()
         {
-            return _clip.Events[HitEventName].normalizedTime * _clip.Clip.length;
+            return _clip.Events[HitEvent].normalizedTime * _clip.Clip.length;
         }
     }
 }

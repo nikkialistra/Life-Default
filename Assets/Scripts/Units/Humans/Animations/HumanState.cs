@@ -47,7 +47,8 @@ namespace Units.Humans.Animations
         {
             if (_layer != AnimationLayer.Main)
             {
-                _animancer.Layers[AnimationLayers.Actions].Stop();
+                _animancer.Layers[AnimationLayers.Actions].FadeSpeed = 0.1f;
+                _animancer.Layers[AnimationLayers.Actions].Weight = 0f;
             }
         }
     }

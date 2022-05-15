@@ -25,7 +25,7 @@ namespace General.TimeCycle.TimeRegulation
         public event Action<bool> PauseChange;
         public event Action<TimeSpeed> TimeSpeedChange;
 
-        public int TimeSpeedMultiplier { get; set; } = 1;
+        public float TimeSpeedMultiplier { get; set; } = 1;
 
         public void Pause()
         {

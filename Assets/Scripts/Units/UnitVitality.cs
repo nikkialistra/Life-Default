@@ -11,8 +11,6 @@ namespace Units
     public class UnitVitality : MonoBehaviour, IDamageable
     {
         [MinValue(1)]
-        [SerializeField] private float _maxHealth = 100;
-        [MinValue(1)]
         [SerializeField] private float _maxRecoverySpeed = 3;
 
         [ValidateInput("@_possibleMaxHealths.Count > 0", "Max health variant count should be greater than zero")]
@@ -21,24 +19,21 @@ namespace Units
         [ValidateInput("@_possibleRecoverySpeeds.Count > 0", "Recovery speed variant count should be greater than zero")]
         [SerializeField] private List<float> _possibleRecoverySpeeds;
 
-        private float _health;
-        private float _recoverySpeed;
-
         private Coroutine _takingDamageCoroutine;
 
         public event Action Wasted;
         public event Action<float, float> HealthChange;
 
-        public float Health => _health;
-        public float MaxHealth => _maxHealth;
+        public float Health { get; private set; }
+        public float MaxHealth { get; private set; }
 
-        public float RecoverySpeed => _recoverySpeed;
+        public float RecoverySpeed { get; private set; }
         public float MaxRecoverySpeed => _maxRecoverySpeed;
 
-        public int HealthPercent => (int)((Health / _maxHealth) * 100);
+        public int HealthPercent => (int)((Health / MaxHealth) * 100);
         public int RecoverySpeedPercent => (int)((RecoverySpeed / _maxRecoverySpeed) * 100);
         
-        private bool IsAlive => _health > 0;
+        private bool IsAlive => Health > 0;
 
         private void OnTriggerEnter(Collider other)
         {
@@ -58,11 +53,11 @@ namespace Units
 
         public void Initialize()
         {
-            _maxHealth = _possibleMaxHealths[Random.Range(0, _possibleMaxHealths.Count)];
-            _health = _maxHealth;
+            MaxHealth = _possibleMaxHealths[Random.Range(0, _possibleMaxHealths.Count)];
+            Health = MaxHealth;
             
             _maxRecoverySpeed = _possibleRecoverySpeeds[Random.Range(0, _possibleRecoverySpeeds.Count)];
-            _recoverySpeed = _maxRecoverySpeed;
+            RecoverySpeed = _maxRecoverySpeed;
         }
 
         public void TakeHealing(float value)
@@ -72,14 +67,14 @@ namespace Units
                 throw new InvalidOperationException("Healing cannot be applied to the died entity");
             }
 
-            _health = Math.Min(_health + value, _maxHealth);
+            Health = Math.Min(Health + value, MaxHealth);
         }
 
         public void TakeDamage(float value)
         {
             CheckTakeDamageValidity(value);
 
-            _health -= value;
+            Health -= value;
 
             if (!IsAlive)
             {
@@ -87,7 +82,7 @@ namespace Units
                 Wasted?.Invoke();
             }
 
-            HealthChange?.Invoke(_health / _maxHealth, _recoverySpeed / _maxRecoverySpeed);
+            HealthChange?.Invoke(Health / MaxHealth, RecoverySpeed / _maxRecoverySpeed);
         }
 
         public void TakeDamageContinuously(float value, float interval, float time = float.PositiveInfinity)

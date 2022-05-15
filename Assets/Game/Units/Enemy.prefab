@@ -332,7 +332,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _maxHealth: 200
   _maxRecoverySpeed: 3
-  _possibleMaxHealths: 640000005000000078000000
+  _possibleMaxHealths: 780000006400000050000000
   _possibleRecoverySpeeds:
   - 3
   - 2
@@ -369,7 +369,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _advanceTime: 6
   _refreshTime: 1
-  _useMinimax: 0
+  _useMinimax: 1
 --- !u!114 &3020886004222341295
 MonoBehaviour:
   m_ObjectHideFlags: 0

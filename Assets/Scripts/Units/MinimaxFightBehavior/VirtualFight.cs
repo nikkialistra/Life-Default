@@ -62,7 +62,9 @@ namespace Units.MinimaxFightBehavior
 
         private void StartFight()
         {
+#if UNITY_EDITOR
             ClearLog();
+#endif
             
             _moveCount = 0;
             _fight = new Fight(_firstPlayer, _secondPlayer);
@@ -127,6 +129,7 @@ namespace Units.MinimaxFightBehavior
             }
         }
 
+#if UNITY_EDITOR
         private static void ClearLog()
         {
             var assembly = Assembly.GetAssembly(typeof(UnityEditor.Editor));
@@ -134,5 +137,6 @@ namespace Units.MinimaxFightBehavior
             var method = type.GetMethod("Clear");
             method?.Invoke(new object(), null);
         }
+#endif
     }
 }

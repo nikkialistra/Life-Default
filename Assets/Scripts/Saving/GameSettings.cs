@@ -94,6 +94,11 @@ namespace Saving
 
         private void OnResolutionChange(Resolution value)
         {
+            if (value.width == 0)
+            {
+                return;
+            }
+            
             Screen.SetResolution(value.width, value.height, Fullscreen);
             _gameSettingsData.Resolution = value.ToString();
             Save();

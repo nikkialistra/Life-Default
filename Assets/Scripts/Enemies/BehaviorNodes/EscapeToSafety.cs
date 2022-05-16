@@ -9,7 +9,7 @@ namespace Enemies.BehaviorNodes
 {
     public class EscapeToSafety : Action
     {
-        public float SafeDistance = 15f;
+        public float SafeDistance = 20f;
         public float DistanceForOneRetreat = 5f;
         public float RandomizationRadius = 4f;
         

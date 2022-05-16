@@ -330,7 +330,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 582025014378409e8a9e7bb956e95378, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxHealth: 200
   _maxRecoverySpeed: 3
   _possibleMaxHealths: 780000006400000050000000
   _possibleRecoverySpeeds:
@@ -367,9 +366,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41b24eb4444846398245d37c7ac57ada, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _advanceTime: 6
+  _advanceTime: 3
   _refreshTime: 1
-  _useMinimax: 1
+  _useMinimax: 0
 --- !u!114 &3020886004222341295
 MonoBehaviour:
   m_ObjectHideFlags: 0

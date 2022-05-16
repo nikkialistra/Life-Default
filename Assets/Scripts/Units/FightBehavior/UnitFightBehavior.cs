@@ -49,6 +49,8 @@ namespace Units.FightBehavior
         {
             _self.AttackFrom += AddOpponent;
             _self.LeavingAttackFrom += RemoveOpponent;
+
+            _unitAttacker.TrackingStart += TestFight;
             
             _unitAttacker.AttackStart += StartFight;
             _unitAttacker.AttackEnd += StopFight;
@@ -58,6 +60,8 @@ namespace Units.FightBehavior
         {
             _self.AttackFrom -= AddOpponent;
             _self.LeavingAttackFrom -= RemoveOpponent;
+
+            _unitAttacker.TrackingStart -= TestFight;
             
             _unitAttacker.AttackStart -= StartFight;
             _unitAttacker.AttackEnd -= StopFight;
@@ -76,6 +80,24 @@ namespace Units.FightBehavior
         private void RemoveOpponent(Unit opponent)
         {
             _surroundingOpponentsSpecs.Remove(opponent);
+        }
+
+        private void TestFight()
+        {
+            _fighting = true;
+            
+            _opponent = _unitAttacker.TrackedUnit;
+            
+            _surroundingOpponentsSpecs.Clear();
+
+            TryRefreshSpecs();
+
+            if (WouldBeDefeated())
+            {
+                _unitAttacker.Escape();
+            }
+
+            _fighting = false;
         }
 
         private void StartFight()

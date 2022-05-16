@@ -58,6 +58,8 @@ namespace Units
             _unitSelection = GetComponent<UnitSelection>();
         }
 
+        public event Action TrackingStart;
+
         public event Action AttackStart;
         public event Action AttackEnd;
 
@@ -94,6 +96,7 @@ namespace Units
 
         public float AttackDistance => _unitStats.MeleeAttackDistance;
 
+        public Unit TrackedUnit => _trackedUnit;
         public Unit AttackedUnit => _attackedUnit;
 
         public void Attack(Unit unit)
@@ -229,6 +232,8 @@ namespace Units
         public void SetTrackedUnit(Unit trackedUnit)
         {
             _trackedUnit = trackedUnit;
+            
+            TrackingStart?.Invoke();
         }
 
         public void Escape()

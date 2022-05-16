@@ -1,10 +1,10 @@
 ﻿using Animancer.FSM;
+using UnityEngine;
 
 namespace Units.Humans.Animations.States
 {
     public class IdleState : HumanState
     {
-
         public override AnimationType AnimationType => AnimationType.Idle;
 
         public override bool CanEnterState
@@ -13,6 +13,7 @@ namespace Units.Humans.Animations.States
             {
                 if (StateChange<HumanState>.PreviousState == null)
                 {
+                    Debug.Log(1);
                     return true;
                 }
                 

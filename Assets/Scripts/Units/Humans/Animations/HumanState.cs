@@ -45,7 +45,7 @@ namespace Units.Humans.Animations
 
         public virtual void OnExitState()
         {
-            
+
         }
     }
 }

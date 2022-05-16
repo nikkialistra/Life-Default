@@ -157,6 +157,11 @@ namespace Colonists
 
         private void ShowPathLine(Path path)
         {
+            if (!_unitMeshAgent.IsMoving)
+            {
+                return;
+            }
+            
             var pathNodes = path.path;
             
             if (pathNodes.Count <= 2)

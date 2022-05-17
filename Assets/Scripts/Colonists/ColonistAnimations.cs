@@ -1,6 +1,6 @@
 ﻿using Sirenix.OdinInspector;
 using Units.Humans;
-using Units.Humans.Animations.States;
+using Units.Humans.Animations.Actions.States;
 using UnityEngine;
 
 namespace Colonists
@@ -15,19 +15,14 @@ namespace Colonists
         [Required]
         [SerializeField] private GatherResourceState _mineRocksState;
 
-        public void Idle()
-        {
-            _humanAnimations.Idle();
-        }
-        
         public void MineRocks()
         {
-            _humanAnimations.StateMachine.TrySetState(_mineRocksState);
+            _humanAnimations.TrySetActionsState(_mineRocksState);
         }
 
         public void CutTrees()
         {
-            _humanAnimations.StateMachine.TrySetState(_cutTreesState);
+            _humanAnimations.TrySetActionsState(_cutTreesState);
         }
 
         public void StopGathering()

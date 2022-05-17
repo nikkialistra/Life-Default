@@ -2,12 +2,14 @@
 using Animancer.FSM;
 using Colonists;
 using Sirenix.OdinInspector;
+using Units.Humans.Animations.Main;
+using Units.Humans.Animations.Main.States;
 using UnityEngine;
 
-namespace Units.Humans.Animations.States
+namespace Units.Humans.Animations.Actions.States
 {
     [EventNames(HitEvent)]
-    public class GatherResourceState : HumanState
+    public class GatherResourceState : ActionsHumanState
     {
         [Required]
         [SerializeField] private ColonistGatherer _colonistGatherer;
@@ -16,7 +18,7 @@ namespace Units.Humans.Animations.States
 
         private const string HitEvent = "Hit";
 
-        public override AnimationType AnimationType => AnimationType.GatherResource;
+        public override ActionsAnimationType ActionsAnimationType => ActionsAnimationType.GatherResource;
 
         private void OnEnable()
         {
@@ -32,9 +34,9 @@ namespace Units.Humans.Animations.States
         {
             get
             {
-                return StateChange<HumanState>.PreviousState.AnimationType switch
+                return StateChange<MainHumanState>.PreviousState.MainAnimationType switch
                 {
-                    AnimationType.Die => false,
+                    MainAnimationType.Die => false,
                     _ => true
                 };
             }
@@ -43,8 +45,6 @@ namespace Units.Humans.Animations.States
         public override void OnExitState()
         {
             _unitEquipment.UnequipInstrument();
-            
-            base.OnExitState();
         }
 
         private void Hit()

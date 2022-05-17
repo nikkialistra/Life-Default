@@ -1,12 +1,14 @@
 ﻿using System;
+using Units.Humans.Animations.Main;
+using Units.Humans.Animations.Main.States;
 
 namespace Units.Humans.Animations.States
 {
-    public class DieState : HumanState
+    public class DieState : MainHumanState
     {
         public Action EndAction { get; set; }
         
-        public override AnimationType AnimationType => AnimationType.Die;
+        public override MainAnimationType MainAnimationType => MainAnimationType.Die;
 
         public override bool CanEnterState => true;
 

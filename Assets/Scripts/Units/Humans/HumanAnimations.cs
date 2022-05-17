@@ -3,6 +3,8 @@ using Animancer;
 using Animancer.FSM;
 using Sirenix.OdinInspector;
 using Units.Humans.Animations;
+using Units.Humans.Animations.Actions.States;
+using Units.Humans.Animations.Main.States;
 using Units.Humans.Animations.States;
 using UnityEngine;
 
@@ -36,6 +38,8 @@ namespace Units.Humans
         
         private bool _fullMaskSet;
 
+        private Vector2 test;
+
         private void Awake()
         {
             _idleState = GetComponent<IdleState>();
@@ -52,27 +56,28 @@ namespace Units.Humans
             _animancer.Layers[AnimationLayers.Actions].SetMask(_upperBodyMask);
         }
 
-        public StateMachine<HumanState> StateMachine { get; } = new();
+        private StateMachine<MainHumanState> MainStateMachine { get; } = new();
+        private StateMachine<ActionsHumanState> ActionsStateMachine { get; } = new();
 
         public void Move()
         {
-            StateMachine.TrySetState(_moveState);
+            TrySetMainState(_moveState);
         }
 
         public void Idle()
         {
-            StateMachine.TrySetState(_idleState);
+            TrySetMainState(_idleState);
         }
 
         public void ForceIdle()
         {
-            StateMachine.ForceSetState(_idleState);
+            ForceSetMainState(_idleState);
         }
 
         public void Attack()
         {
             _attacking = true;
-            StateMachine.TrySetState(_attackState);
+            TrySetActionsState(_attackState);
         }
 
         public void StopAttackOnAnimationEnd()
@@ -84,11 +89,11 @@ namespace Units.Humans
         {
             if (_unitMeshAgent.IsMoving)
             {
-                StateMachine.ForceSetState(_moveState);
+                ForceSetMainState(_moveState);
             }
             else
             {
-                StateMachine.ForceSetState(_idleState);
+                ForceSetMainState(_idleState);
             }
         }
 
@@ -108,7 +113,7 @@ namespace Units.Humans
         public void Die(Action died)
         {
             _dieState.EndAction = died;
-            StateMachine.TrySetState(_dieState);
+            TrySetMainState(_dieState);
         }
 
         public void SetFullMaskForActions()
@@ -133,6 +138,33 @@ namespace Units.Humans
             _animancer.Layers[AnimationLayers.Actions].SetMask(_upperBodyMask);
 
             _fullMaskSet = false;
+        }
+
+        public void TrySetActionsState(ActionsHumanState state)
+        {
+            if (ActionsStateMachine.CurrentState != state)
+            {
+                //Debug.Log("Try set " + state + "from " + MainStateMachine.CurrentState);
+                ActionsStateMachine.TrySetState(state);
+            }
+        }
+
+        private void TrySetMainState(MainHumanState state)
+        {
+            if (MainStateMachine.CurrentState != state)
+            {
+                //Debug.Log("Try set " + state + "from " + MainStateMachine.CurrentState);
+                MainStateMachine.TrySetState(state);
+            }
+        }
+
+        private void ForceSetMainState(MainHumanState state)
+        {
+            if (MainStateMachine.CurrentState != state)
+            {
+                //Debug.Log("Force " + state + "from " + MainStateMachine.CurrentState);
+                MainStateMachine.ForceSetState(state);
+            }
         }
     }
 }

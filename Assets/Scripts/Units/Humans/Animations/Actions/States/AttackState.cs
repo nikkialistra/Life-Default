@@ -2,12 +2,16 @@
 using Animancer;
 using Animancer.FSM;
 using Sirenix.OdinInspector;
+using Units.Humans.Animations.Actions;
+using Units.Humans.Animations.Actions.States;
+using Units.Humans.Animations.Main;
+using Units.Humans.Animations.Main.States;
 using UnityEngine;
 
 namespace Units.Humans.Animations.States
 {
     [EventNames(HitEvent, HitEndEvent)]
-    public class AttackState : HumanState
+    public class AttackState : ActionsHumanState
     {
         [SerializeField] private float _timeToFade = 0.1f;
 
@@ -53,15 +57,15 @@ namespace Units.Humans.Animations.States
             set => _clip.Speed = value;
         }
         
-        public override AnimationType AnimationType => AnimationType.Attack;
+        public override ActionsAnimationType ActionsAnimationType => ActionsAnimationType.Attack;
 
         public override bool CanEnterState
         {
             get
             {
-                return StateChange<HumanState>.PreviousState.AnimationType switch
+                return StateChange<MainHumanState>.PreviousState.MainAnimationType switch
                 {
-                    AnimationType.Die => false,
+                    MainAnimationType.Die => false,
                     _ => true
                 };
             }

@@ -1,9 +1,6 @@
 ﻿using Animancer;
-using Animancer.FSM;
 using Colonists;
 using Sirenix.OdinInspector;
-using Units.Humans.Animations.Main;
-using Units.Humans.Animations.Main.States;
 using UnityEngine;
 
 namespace Units.Humans.Animations.Actions.States
@@ -15,6 +12,8 @@ namespace Units.Humans.Animations.Actions.States
         [SerializeField] private ColonistGatherer _colonistGatherer;
         [Required]
         [SerializeField] private UnitEquipment _unitEquipment;
+        [Required]
+        [SerializeField] private HumanAnimations _humanAnimations;
 
         private const string HitEvent = "Hit";
 
@@ -30,16 +29,11 @@ namespace Units.Humans.Animations.Actions.States
             _clip.Events.RemoveCallback(HitEvent, Hit);
         }
 
-        public override bool CanEnterState
+        public override void OnEnterState()
         {
-            get
-            {
-                return StateChange<MainHumanState>.PreviousState.MainAnimationType switch
-                {
-                    MainAnimationType.Die => false,
-                    _ => true
-                };
-            }
+            base.OnEnterState();
+            
+            _humanAnimations.SetFullMaskForActions();
         }
 
         public override void OnExitState()

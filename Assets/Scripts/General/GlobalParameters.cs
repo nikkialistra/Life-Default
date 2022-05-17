@@ -1,4 +1,6 @@
-﻿using Sirenix.OdinInspector;
+﻿using System;
+using Animancer;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace General
@@ -50,6 +52,11 @@ namespace General
             {
                 Destroy(gameObject);
             }
+        }
+
+        private void Start()
+        {
+            AnimancerState.AutomaticallyClearEvents = false;
         }
     }
 }

@@ -1,8 +1,6 @@
 ﻿using Animancer.FSM;
-using Units.Humans.Animations.Main;
-using Units.Humans.Animations.Main.States;
 
-namespace Units.Humans.Animations.States
+namespace Units.Humans.Animations.Main.States
 {
     public class MoveState : MainHumanState
     {

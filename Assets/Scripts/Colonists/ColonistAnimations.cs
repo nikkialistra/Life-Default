@@ -27,7 +27,7 @@ namespace Colonists
 
         public void StopGathering()
         {
-            _humanAnimations.ForceIdle();
+            _humanAnimations.StopActions();
         }
     }
 }

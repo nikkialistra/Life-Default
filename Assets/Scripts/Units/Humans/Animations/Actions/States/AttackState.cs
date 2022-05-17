@@ -1,20 +1,13 @@
 ﻿using System.Collections;
 using Animancer;
-using Animancer.FSM;
 using Sirenix.OdinInspector;
-using Units.Humans.Animations.Actions;
-using Units.Humans.Animations.Actions.States;
-using Units.Humans.Animations.Main;
-using Units.Humans.Animations.Main.States;
 using UnityEngine;
 
-namespace Units.Humans.Animations.States
+namespace Units.Humans.Animations.Actions.States
 {
     [EventNames(HitEvent, HitEndEvent)]
     public class AttackState : ActionsHumanState
     {
-        [SerializeField] private float _timeToFade = 0.1f;
-
         [Title("Components")]
         [Required]
         [SerializeField] private UnitAttacker _unitAttacker;
@@ -24,10 +17,6 @@ namespace Units.Humans.Animations.States
         [SerializeField] private HumanAnimations _humanAnimations;
       
         [Title("Additional")]
-        [Required]
-        [SerializeField] private ClipTransition _moveClip;
-        [Required]
-        [SerializeField] private ClipTransition _idleClip;
         [Space]
         [SerializeField] private float _waitTimeToIdle = 0.1f;
 
@@ -59,18 +48,6 @@ namespace Units.Humans.Animations.States
         
         public override ActionsAnimationType ActionsAnimationType => ActionsAnimationType.Attack;
 
-        public override bool CanEnterState
-        {
-            get
-            {
-                return StateChange<MainHumanState>.PreviousState.MainAnimationType switch
-                {
-                    MainAnimationType.Die => false,
-                    _ => true
-                };
-            }
-        }
-
         public override void OnEnterState()
         {
             base.OnEnterState();
@@ -85,14 +62,13 @@ namespace Units.Humans.Animations.States
                 StopCoroutine(_updatingMovingCoroutine);
                 _updatingMovingCoroutine = null;
             }
-            
-            _animancer.Layers[AnimationLayers.Actions].StartFade(0, _timeToFade);
         }
 
         private IEnumerator UpdatingMoving()
         {
             _isMoving = _unitMeshAgent.IsMoving;
-            
+            UpdateBaseAnimation();
+
             while (true)
             {
                 UpdateMoving();
@@ -133,11 +109,6 @@ namespace Units.Humans.Animations.States
         private void Move()
         {
             _humanAnimations.SetUpperBodyMaskForActions();
-
-            if (!MovePlaying())
-            {
-                _animancer.Layers[AnimationLayers.Main].Play(_moveClip);
-            }
         }
 
         private IEnumerator Idle()
@@ -145,21 +116,6 @@ namespace Units.Humans.Animations.States
             yield return new WaitForSeconds(_waitTimeToIdle);
             
             _humanAnimations.SetFullMaskForActions();
-
-            if (!IdlePlaying())
-            {
-                _animancer.Layers[AnimationLayers.Main].Play(_idleClip);
-            }
-        }
-
-        private bool MovePlaying()
-        {
-            return _animancer.Layers[AnimationLayers.Main].IsPlayingClip(_moveClip.Clip);
-        }
-
-        private bool IdlePlaying()
-        {
-            return _animancer.Layers[AnimationLayers.Main].IsPlayingClip(_idleClip.Clip);
         }
 
         private void Hit()

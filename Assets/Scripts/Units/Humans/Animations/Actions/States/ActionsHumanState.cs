@@ -26,7 +26,9 @@ namespace Units.Humans.Animations.Actions.States
 
         public virtual void OnEnterState()
         {
+            _animancer.Layers[AnimationLayers.Actions].Weight = 0;
             _animancer.Layers[AnimationLayers.Actions].Play(_clip);
+            _animancer.Layers[AnimationLayers.Actions].StartFade(1f, _clip.FadeDuration);
         }
 
         public virtual void OnExitState()

@@ -5,7 +5,6 @@ using Sirenix.OdinInspector;
 using Units.Humans.Animations;
 using Units.Humans.Animations.Actions.States;
 using Units.Humans.Animations.Main.States;
-using Units.Humans.Animations.States;
 using UnityEngine;
 
 namespace Units.Humans
@@ -14,6 +13,7 @@ namespace Units.Humans
     [RequireComponent(typeof(IdleState))]
     [RequireComponent(typeof(MoveState))]
     [RequireComponent(typeof(AttackState))]
+    [RequireComponent(typeof(NoneState))]
     [RequireComponent(typeof(DieState))]
     public class HumanAnimations : MonoBehaviour
     {
@@ -28,7 +28,9 @@ namespace Units.Humans
 
         private IdleState _idleState;
         private MoveState _moveState;
+        
         private AttackState _attackState;
+        private NoneState _noneState;
 
         private DieState _dieState;
 
@@ -42,13 +44,14 @@ namespace Units.Humans
 
         private void Awake()
         {
+            _animancer = GetComponent<AnimancerComponent>();
+            
             _idleState = GetComponent<IdleState>();
             _moveState = GetComponent<MoveState>();
-            _attackState = GetComponent<AttackState>();
-
             _dieState = GetComponent<DieState>();
             
-            _animancer = GetComponent<AnimancerComponent>();
+            _attackState = GetComponent<AttackState>();
+            _noneState = GetComponent<NoneState>();
         }
 
         private void Start()
@@ -69,11 +72,6 @@ namespace Units.Humans
             TrySetMainState(_idleState);
         }
 
-        public void ForceIdle()
-        {
-            ForceSetMainState(_idleState);
-        }
-
         public void Attack()
         {
             _attacking = true;
@@ -85,23 +83,16 @@ namespace Units.Humans
             _attacking = false;
         }
 
-        public void StopAttack()
+        public void StopActions()
         {
-            if (_unitMeshAgent.IsMoving)
-            {
-                ForceSetMainState(_moveState);
-            }
-            else
-            {
-                ForceSetMainState(_idleState);
-            }
+            ForceSetActionsState(_noneState);
         }
 
         public void StopIfNotAttacking()
         {
             if (!_attacking)
             {
-                StopAttack();
+                StopActions();
             }
         }
 
@@ -146,6 +137,15 @@ namespace Units.Humans
             {
                 //Debug.Log("Try set " + state + "from " + MainStateMachine.CurrentState);
                 ActionsStateMachine.TrySetState(state);
+            }
+        }
+        
+        private void ForceSetActionsState(ActionsHumanState state)
+        {
+            if (ActionsStateMachine.CurrentState != state)
+            {
+                //Debug.Log("Force " + state + "from " + MainStateMachine.CurrentState);
+                ActionsStateMachine.ForceSetState(state);
             }
         }
 

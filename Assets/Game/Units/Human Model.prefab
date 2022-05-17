@@ -3224,6 +3224,7 @@ GameObject:
   - component: {fileID: 8170319734661757682}
   - component: {fileID: 2839083938651011249}
   - component: {fileID: 3672132499008156490}
+  - component: {fileID: 1340824704365886448}
   m_Layer: 0
   m_Name: Human Model
   m_TagString: Untagged
@@ -3394,7 +3395,6 @@ MonoBehaviour:
     _Clip: {fileID: -203655887218126122, guid: fd4f09b7b7d9d044483dab4bdee9dd69, type: 3}
     _Speed: 1
     _NormalizedStartTime: 0
-  _layer: 0
 --- !u!114 &8170319734661757682
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3416,7 +3416,6 @@ MonoBehaviour:
     _Clip: {fileID: -203655887218126122, guid: 57035d23c4a415b4ca96883c4259e211, type: 3}
     _Speed: 1
     _NormalizedStartTime: 0
-  _layer: 0
 --- !u!114 &2839083938651011249
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3439,7 +3438,6 @@ MonoBehaviour:
     _Clip: {fileID: -203655887218126122, guid: 723b94e3765e9bc4c9a8d5bddc7abf8c, type: 3}
     _Speed: 1
     _NormalizedStartTime: 0
-  _layer: 0
 --- !u!114 &3672132499008156490
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3466,7 +3464,7 @@ MonoBehaviour:
     _Clip: {fileID: -203655887218126122, guid: 7d3be70a0639acc40bc637b064246264, type: 3}
     _Speed: 1
     _NormalizedStartTime: 0
-  _layer: 1
+  _timeToFade: 0.1
   _unitAttacker: {fileID: 0}
   _unitMeshAgent: {fileID: 0}
   _humanAnimations: {fileID: 4877044575306519140}
@@ -3486,6 +3484,28 @@ MonoBehaviour:
       _Callbacks: []
       _Names: []
     _Clip: {fileID: -203655887218126122, guid: fd4f09b7b7d9d044483dab4bdee9dd69, type: 3}
+    _Speed: 1
+    _NormalizedStartTime: 0
+  _waitTimeToIdle: 0.1
+--- !u!114 &1340824704365886448
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1588895830433058}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a297fe4be93144ee8c7e8e2c208b9bc7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _clip:
+    _FadeDuration: 0.2
+    _Events:
+      _NormalizedTimes: []
+      _Callbacks: []
+      _Names: []
+    _Clip: {fileID: 1827226128182048838, guid: 5edec0cfd9368d7478a3b39941970f5e, type: 3}
     _Speed: 1
     _NormalizedStartTime: 0
 --- !u!1 &1595924752652140

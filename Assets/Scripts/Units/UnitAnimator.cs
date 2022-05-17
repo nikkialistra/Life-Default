@@ -32,7 +32,7 @@ namespace Units
 
         public void StopAttack()
         {
-            _humanAnimations.StopAttack();
+            _humanAnimations.StopActions();
         }
 
         public void SetAttackSpeed(float value)

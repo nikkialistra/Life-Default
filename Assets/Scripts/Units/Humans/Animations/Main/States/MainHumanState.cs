@@ -10,7 +10,7 @@ namespace Units.Humans.Animations.Main.States
     {
         [SerializeField] protected ClipTransition _clip;
 
-        protected AnimancerComponent _animancer;
+        private AnimancerComponent _animancer;
 
         private void Awake()
         {

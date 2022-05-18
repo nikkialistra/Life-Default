@@ -135,7 +135,6 @@ namespace Units.Humans
         {
             if (ActionsStateMachine.CurrentState != state)
             {
-                //Debug.Log("Try set " + state + "from " + MainStateMachine.CurrentState);
                 ActionsStateMachine.TrySetState(state);
             }
         }
@@ -144,7 +143,6 @@ namespace Units.Humans
         {
             if (ActionsStateMachine.CurrentState != state)
             {
-                //Debug.Log("Force " + state + "from " + MainStateMachine.CurrentState);
                 ActionsStateMachine.ForceSetState(state);
             }
         }
@@ -153,17 +151,7 @@ namespace Units.Humans
         {
             if (MainStateMachine.CurrentState != state)
             {
-                //Debug.Log("Try set " + state + "from " + MainStateMachine.CurrentState);
                 MainStateMachine.TrySetState(state);
-            }
-        }
-
-        private void ForceSetMainState(MainHumanState state)
-        {
-            if (MainStateMachine.CurrentState != state)
-            {
-                //Debug.Log("Force " + state + "from " + MainStateMachine.CurrentState);
-                MainStateMachine.ForceSetState(state);
             }
         }
     }

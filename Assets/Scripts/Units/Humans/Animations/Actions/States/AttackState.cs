@@ -17,7 +17,6 @@ namespace Units.Humans.Animations.Actions.States
         [SerializeField] private HumanAnimations _humanAnimations;
       
         [Title("Additional")]
-        [Space]
         [SerializeField] private float _waitTimeToIdle = 0.1f;
 
         private const string HitEvent = "Hit";

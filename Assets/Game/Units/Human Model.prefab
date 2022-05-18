@@ -3464,28 +3464,9 @@ MonoBehaviour:
     _Clip: {fileID: -203655887218126122, guid: 7d3be70a0639acc40bc637b064246264, type: 3}
     _Speed: 1
     _NormalizedStartTime: 0
-  _timeToFade: 0.1
   _unitAttacker: {fileID: 0}
   _unitMeshAgent: {fileID: 0}
   _humanAnimations: {fileID: 4877044575306519140}
-  _moveClip:
-    _FadeDuration: 0.1
-    _Events:
-      _NormalizedTimes: []
-      _Callbacks: []
-      _Names: []
-    _Clip: {fileID: -203655887218126122, guid: 57035d23c4a415b4ca96883c4259e211, type: 3}
-    _Speed: 1
-    _NormalizedStartTime: 0
-  _idleClip:
-    _FadeDuration: 0.25
-    _Events:
-      _NormalizedTimes: []
-      _Callbacks: []
-      _Names: []
-    _Clip: {fileID: -203655887218126122, guid: fd4f09b7b7d9d044483dab4bdee9dd69, type: 3}
-    _Speed: 1
-    _NormalizedStartTime: 0
   _waitTimeToIdle: 0.1
 --- !u!114 &1340824704365886448
 MonoBehaviour:
@@ -3505,7 +3486,7 @@ MonoBehaviour:
       _NormalizedTimes: []
       _Callbacks: []
       _Names: []
-    _Clip: {fileID: 1827226128182048838, guid: 5edec0cfd9368d7478a3b39941970f5e, type: 3}
+    _Clip: {fileID: 1827226128182048838, guid: 237be577b8a5314489c3b388f28487bc, type: 3}
     _Speed: 1
     _NormalizedStartTime: 0
 --- !u!1 &1595924752652140

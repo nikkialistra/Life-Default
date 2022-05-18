@@ -3,8 +3,7 @@ using Animancer;
 using Animancer.FSM;
 using Sirenix.OdinInspector;
 using Units.Humans.Animations;
-using Units.Humans.Animations.Actions.States;
-using Units.Humans.Animations.Main.States;
+using Units.Humans.Animations.States;
 using UnityEngine;
 
 namespace Units.Humans
@@ -13,32 +12,27 @@ namespace Units.Humans
     [RequireComponent(typeof(IdleState))]
     [RequireComponent(typeof(MoveState))]
     [RequireComponent(typeof(AttackState))]
-    [RequireComponent(typeof(NoneState))]
     [RequireComponent(typeof(DieState))]
     public class HumanAnimations : MonoBehaviour
     {
         [Required]
         [SerializeField] private UnitMeshAgent _unitMeshAgent;
-
-        [Title("Masks")]
         [Required]
-        [SerializeField] private AvatarMask _fullMask;
+        [SerializeField] private ClipTransition _lowerBodyOverwriteMoveClip;
+        [Space]
         [Required]
-        [SerializeField] private AvatarMask _upperBodyMask;
-
+        [SerializeField] private AvatarMask _lowerBodyMask;
+        
         private IdleState _idleState;
         private MoveState _moveState;
         
         private AttackState _attackState;
-        private NoneState _noneState;
 
         private DieState _dieState;
 
         private AnimancerComponent _animancer;
 
         private bool _attacking;
-        
-        private bool _fullMaskSet;
 
         private Vector2 test;
 
@@ -48,34 +42,31 @@ namespace Units.Humans
             
             _idleState = GetComponent<IdleState>();
             _moveState = GetComponent<MoveState>();
-            _dieState = GetComponent<DieState>();
-            
             _attackState = GetComponent<AttackState>();
-            _noneState = GetComponent<NoneState>();
+            _dieState = GetComponent<DieState>();
         }
 
         private void Start()
         {
-            _animancer.Layers[AnimationLayers.Actions].SetMask(_upperBodyMask);
+            _animancer.Layers[AnimationLayers.LowerBodyOverwrite].SetMask(_lowerBodyMask);
         }
 
-        private StateMachine<MainHumanState> MainStateMachine { get; } = new();
-        private StateMachine<ActionsHumanState> ActionsStateMachine { get; } = new();
+        private StateMachine<HumanState> StateMachine { get; } = new();
 
         public void Move()
         {
-            TrySetMainState(_moveState);
+            TrySetState(_moveState);
         }
 
         public void Idle()
         {
-            TrySetMainState(_idleState);
+            TrySetState(_idleState);
         }
 
         public void Attack()
         {
             _attacking = true;
-            TrySetActionsState(_attackState);
+            TrySetState(_attackState);
         }
 
         public void StopAttackOnAnimationEnd()
@@ -85,7 +76,14 @@ namespace Units.Humans
 
         public void StopActions()
         {
-            ForceSetActionsState(_noneState);
+            if (_unitMeshAgent.IsMoving)
+            {
+                ForceSetState(_moveState);
+            }
+            else
+            {
+                ForceSetState(_idleState);
+            }
         }
 
         public void StopIfNotAttacking()
@@ -104,54 +102,32 @@ namespace Units.Humans
         public void Die(Action died)
         {
             _dieState.EndAction = died;
-            TrySetMainState(_dieState);
+            TrySetState(_dieState);
         }
 
-        public void SetFullMaskForActions()
+        public void LowerBodyOverwriteToMove()
         {
-            if (_fullMaskSet)
-            {
-                return;
-            }
-            
-            _animancer.Layers[AnimationLayers.Actions].SetMask(_fullMask);
-
-            _fullMaskSet = true;
+            _animancer.Layers[AnimationLayers.LowerBodyOverwrite].Play(_lowerBodyOverwriteMoveClip);
+        }
+        
+        public void LowerBodyOverwriteToNone()
+        {
+            _animancer.Layers[AnimationLayers.LowerBodyOverwrite].Stop();
         }
 
-        public void SetUpperBodyMaskForActions()
+        public void TrySetState(HumanState state)
         {
-            if (!_fullMaskSet)
+            if (StateMachine.CurrentState != state)
             {
-                return;
-            }
-            
-            _animancer.Layers[AnimationLayers.Actions].SetMask(_upperBodyMask);
-
-            _fullMaskSet = false;
-        }
-
-        public void TrySetActionsState(ActionsHumanState state)
-        {
-            if (ActionsStateMachine.CurrentState != state)
-            {
-                ActionsStateMachine.TrySetState(state);
+                StateMachine.TrySetState(state);
             }
         }
         
-        private void ForceSetActionsState(ActionsHumanState state)
+        private void ForceSetState(HumanState state)
         {
-            if (ActionsStateMachine.CurrentState != state)
+            if (StateMachine.CurrentState != state)
             {
-                ActionsStateMachine.ForceSetState(state);
-            }
-        }
-
-        private void TrySetMainState(MainHumanState state)
-        {
-            if (MainStateMachine.CurrentState != state)
-            {
-                MainStateMachine.TrySetState(state);
+                StateMachine.ForceSetState(state);
             }
         }
     }

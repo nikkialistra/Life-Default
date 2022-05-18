@@ -1,6 +1,6 @@
 ﻿using Sirenix.OdinInspector;
 using Units.Humans;
-using Units.Humans.Animations.Actions.States;
+using Units.Humans.Animations.States;
 using UnityEngine;
 
 namespace Colonists
@@ -17,12 +17,12 @@ namespace Colonists
 
         public void MineRocks()
         {
-            _humanAnimations.TrySetActionsState(_mineRocksState);
+            _humanAnimations.TrySetState(_mineRocksState);
         }
 
         public void CutTrees()
         {
-            _humanAnimations.TrySetActionsState(_cutTreesState);
+            _humanAnimations.TrySetState(_cutTreesState);
         }
 
         public void StopGathering()

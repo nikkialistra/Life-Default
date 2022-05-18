@@ -1,17 +1,14 @@
 fileFormatVersion: 2
-guid: 57035d23c4a415b4ca96883c4259e211
+guid: 237be577b8a5314489c3b388f28487bc
 ModelImporter:
   serializedVersion: 21202
   internalIDToNameTable:
   - first:
       74: 1827226128182048838
-    second: Take 001
+    second: None
   - first:
       74: -203655887218126122
-    second: Run (Running Forward Quickly)
-  - first:
-      74: -3780516532778130023
-    second: mixamo.com (1)
+    second: mixamo.com
   externalObjects: {}
   materials:
     materialImportMode: 2
@@ -42,11 +39,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Run (Running Forward Quickly)
-      takeName: mixamo.com
+      name: None
+      takeName: Take 001
       internalID: 0
-      firstFrame: 0
-      lastFrame: 42
+      firstFrame: 2
+      lastFrame: 48
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -57,19 +54,19 @@ ModelImporter:
       loopBlend: 0
       loopBlendOrientation: 1
       loopBlendPositionY: 1
-      loopBlendPositionXZ: 0
+      loopBlendPositionXZ: 1
       keepOriginalOrientation: 0
       keepOriginalPositionY: 1
       keepOriginalPositionXZ: 0
       heightFromFeet: 0
       mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      bodyMask: 01000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
       curves: []
       events: []
       transformMask: []
       maskType: 3
       maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
+      additiveReferencePoseFrame: 1.8
     isReadable: 0
   meshes:
     lODScreenPercentages: []
@@ -714,11 +711,12 @@ ModelImporter:
     hasTranslationDoF: 0
     hasExtraRoot: 1
     skeletonHasParents: 1
-  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: 57035d23c4a415b4ca96883c4259e211,
+    type: 3}
   autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 3
   humanoidOversampling: 1
-  avatarSetup: 1
+  avatarSetup: 2
   addHumanoidExtraRootOnlyWhenUsingAvatar: 1
   additionalBone: 0
   userData: 

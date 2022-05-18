@@ -3,21 +3,20 @@ using Colonists;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace Units.Humans.Animations.Actions.States
+namespace Units.Humans.Animations.States
 {
     [EventNames(HitEvent)]
-    public class GatherResourceState : ActionsHumanState
+    public class GatherResourceState : HumanState
     {
+        [Space]
         [Required]
         [SerializeField] private ColonistGatherer _colonistGatherer;
         [Required]
         [SerializeField] private UnitEquipment _unitEquipment;
-        [Required]
-        [SerializeField] private HumanAnimations _humanAnimations;
 
         private const string HitEvent = "Hit";
 
-        public override ActionsAnimationType ActionsAnimationType => ActionsAnimationType.GatherResource;
+        public override AnimationType AnimationType => AnimationType.GatherResource;
 
         private void OnEnable()
         {
@@ -27,13 +26,6 @@ namespace Units.Humans.Animations.Actions.States
         private void OnDisable()
         {
             _clip.Events.RemoveCallback(HitEvent, Hit);
-        }
-
-        public override void OnEnterState()
-        {
-            base.OnEnterState();
-            
-            _humanAnimations.SetFullMaskForActions();
         }
 
         public override void OnExitState()

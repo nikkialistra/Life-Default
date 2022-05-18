@@ -1225,6 +1225,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1340824704365886448, guid: bebe0fbb55beb9245925236a40cfe495,
+        type: 3}
+      propertyPath: _unitMeshAgent
+      value: 
+      objectReference: {fileID: 5149874996177493612}
     - target: {fileID: 3672132499008156490, guid: bebe0fbb55beb9245925236a40cfe495,
         type: 3}
       propertyPath: _unitAttacker
@@ -1296,9 +1301,11 @@ MonoBehaviour:
     _Clip: {fileID: -203655887218126122, guid: b0f748ce6a26b6449b280ea35f00cbbb, type: 3}
     _Speed: 1
     _NormalizedStartTime: 0
+  _isAction: 1
+  _unitMeshAgent: {fileID: 5149874996177493612}
+  _waitTimeToIdle: 0.1
   _colonistGatherer: {fileID: 1146573543387713412}
   _unitEquipment: {fileID: 1616301658998035332}
-  _humanAnimations: {fileID: 6795354888401127415}
 --- !u!114 &5695891513921607222
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1323,9 +1330,11 @@ MonoBehaviour:
     _Clip: {fileID: -203655887218126122, guid: b0f748ce6a26b6449b280ea35f00cbbb, type: 3}
     _Speed: 1
     _NormalizedStartTime: 0
+  _isAction: 1
+  _unitMeshAgent: {fileID: 5149874996177493612}
+  _waitTimeToIdle: 0.1
   _colonistGatherer: {fileID: 1146573543387713412}
   _unitEquipment: {fileID: 1616301658998035332}
-  _humanAnimations: {fileID: 6795354888401127415}
 --- !u!4 &2156511667892793195 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4005077195242232, guid: bebe0fbb55beb9245925236a40cfe495,

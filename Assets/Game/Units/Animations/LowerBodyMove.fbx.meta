@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: b0f748ce6a26b6449b280ea35f00cbbb
+guid: 227f82d67b43abe4c9bc097d619bbd21
 ModelImporter:
   serializedVersion: 21202
   internalIDToNameTable:
@@ -8,7 +8,10 @@ ModelImporter:
     second: Take 001
   - first:
       74: -203655887218126122
-    second: GatheringResource (Great Sword Slash)
+    second: Move (Running Forward Quickly)
+  - first:
+      74: -3780516532778130023
+    second: mixamo.com (1)
   externalObjects: {}
   materials:
     materialImportMode: 2
@@ -39,13 +42,13 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: GatheringResource (Great Sword Slash)
+      name: Move (Running Forward Quickly)
       takeName: mixamo.com
       internalID: 0
       firstFrame: 0
-      lastFrame: 58
+      lastFrame: 42
       wrapMode: 0
-      orientationOffsetY: -40
+      orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
@@ -54,13 +57,13 @@ ModelImporter:
       loopBlend: 0
       loopBlendOrientation: 1
       loopBlendPositionY: 1
-      loopBlendPositionXZ: 1
+      loopBlendPositionXZ: 0
       keepOriginalOrientation: 0
       keepOriginalPositionY: 1
       keepOriginalPositionXZ: 0
       heightFromFeet: 0
       mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      bodyMask: 01000000000000000000000001000000010000000000000000000000000000000000000001000000010000000000000000000000
       curves: []
       events: []
       transformMask: []
@@ -711,12 +714,11 @@ ModelImporter:
     hasTranslationDoF: 0
     hasExtraRoot: 1
     skeletonHasParents: 1
-  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: 57035d23c4a415b4ca96883c4259e211,
-    type: 3}
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
   autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 3
   humanoidOversampling: 1
-  avatarSetup: 2
+  avatarSetup: 1
   addHumanoidExtraRootOnlyWhenUsingAvatar: 1
   additionalBone: 0
   userData: 

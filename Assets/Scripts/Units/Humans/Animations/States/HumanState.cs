@@ -21,9 +21,9 @@ namespace Units.Humans.Animations.States
         [ShowIf("_isAction")]
         [SerializeField] private float _waitTimeToIdle = 0.1f;
 
-        private AnimancerComponent _animancer;
+        protected HumanAnimations _humanAnimations;
         
-        private HumanAnimations _humanAnimations;
+        private AnimancerComponent _animancer;
 
         private Coroutine _lowerBodyOverwriteCoroutine;
 
@@ -34,9 +34,9 @@ namespace Units.Humans.Animations.States
 
         private void Awake()
         {
-            _animancer = GetComponent<AnimancerComponent>();
-
             _humanAnimations = GetComponent<HumanAnimations>();
+            
+            _animancer = GetComponent<AnimancerComponent>();
         }
 
         public virtual AnimationType AnimationType =>
@@ -71,6 +71,7 @@ namespace Units.Humans.Animations.States
         private IEnumerator UpdatingMoving()
         {
             _isMoving = _unitMeshAgent.IsMoving;
+            UpdateBaseAnimation();
             
             while (true)
             {
@@ -118,7 +119,7 @@ namespace Units.Humans.Animations.States
         {
             yield return new WaitForSeconds(_waitTimeToIdle);
             
-            _humanAnimations.LowerBodyOverwriteToNone();
+            _humanAnimations.LowerBodyOverwriteToIdle();
         }
     }
 }

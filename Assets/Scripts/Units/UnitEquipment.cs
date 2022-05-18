@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using ResourceManagement;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Units
@@ -8,33 +9,25 @@ namespace Units
     public class UnitEquipment : MonoBehaviour
     {
         [SerializeField] private MeshFilter _handSlot;
-        [Space]
-        [SerializeField] private Mesh _sword;
-        [Space]
-        [SerializeField] private Mesh _axe;
-        [SerializeField] private Mesh _pickaxe;
-        [Space]
         [SerializeField] private float _timeToUnequip;
-
-        private EquipType _equipType = EquipType.None;
-
-        private bool _weaponEquiped;
         
-        private Coroutine _unequipAfterCoroutine;
+        [Title("Weapons")]
+        [SerializeField] private GameObject _knife;
+        
+        [Title("Instruments")]
+        [SerializeField] private GameObject _axe;
+        [SerializeField] private GameObject _pickaxe;
 
         public void EquipWeapon()
         {
-            _weaponEquiped = true;
-            
-            CancelUnequip();
-            
-            _handSlot.sharedMesh = _sword;
-            _equipType = EquipType.Weapon;
+            UnequipInstantly();
+
+            Instantiate(_knife, _handSlot.transform);
         }
-        
+
         public void EquipInstrumentFor(ResourceType resourceType)
         {
-            CancelUnequip();
+            UnequipInstantly();
             
             var instrument = resourceType switch
             {
@@ -43,53 +36,27 @@ namespace Units
                 _ => throw new ArgumentOutOfRangeException(nameof(resourceType), resourceType, null)
             };
             
-            _handSlot.sharedMesh = instrument;
-            _equipType = EquipType.Instrument;
+            Instantiate(instrument, _handSlot.transform);
         }
 
-        public void UnequipWeapon()
+        public void Unequip()
         {
-            if (!_weaponEquiped)
-            {
-                return;
-            }
-            
-            if (_equipType == EquipType.Weapon)
-            {
-                _weaponEquiped = false;
-                _unequipAfterCoroutine = StartCoroutine(UnequipAfter());
-            }
-        }
-
-        public void UnequipInstrument()
-        {
-            if (_equipType == EquipType.Instrument)
-            {
-                StartCoroutine(UnequipAfter());
-            }
-        }
-
-        private void CancelUnequip()
-        {
-            if (_unequipAfterCoroutine != null)
-            {
-                StopCoroutine(_unequipAfterCoroutine);
-                _unequipAfterCoroutine = null;
-            }
+            StartCoroutine(UnequipAfter());
         }
 
         private IEnumerator UnequipAfter()
         {
             yield return new WaitForSeconds(_timeToUnequip);
-                
-            _handSlot.sharedMesh = null;
+
+            UnequipInstantly();
         }
 
-        private enum EquipType
+        private void UnequipInstantly()
         {
-            None,
-            Instrument,
-            Weapon
+            if (_handSlot.transform.childCount > 0)
+            {
+                Destroy(_handSlot.transform.GetChild(0).gameObject);
+            }
         }
     }
 }

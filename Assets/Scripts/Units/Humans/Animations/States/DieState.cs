@@ -20,6 +20,8 @@ namespace Units.Humans.Animations.States
         public override void OnExitState()
         {
             _clip.Events.OnEnd = null;
+            
+            base.OnExitState();
         }
     }
 }

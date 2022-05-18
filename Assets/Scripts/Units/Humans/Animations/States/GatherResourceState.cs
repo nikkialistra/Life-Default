@@ -30,7 +30,9 @@ namespace Units.Humans.Animations.States
 
         public override void OnExitState()
         {
-            _unitEquipment.UnequipInstrument();
+            _unitEquipment.Unequip();
+            
+            base.OnExitState();
         }
 
         private void Hit()

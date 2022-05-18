@@ -110,9 +110,9 @@ namespace Units.Humans
             _animancer.Layers[AnimationLayers.LowerBodyOverwrite].Play(_lowerBodyOverwriteMoveClip);
         }
         
-        public void LowerBodyOverwriteToNone()
+        public void LowerBodyOverwriteToIdle()
         {
-            _animancer.Layers[AnimationLayers.LowerBodyOverwrite].Stop();
+            _animancer.Layers[AnimationLayers.LowerBodyOverwrite].StartFade(0f, _lowerBodyOverwriteMoveClip.FadeDuration);
         }
 
         public void TrySetState(HumanState state)

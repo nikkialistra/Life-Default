@@ -11,7 +11,7 @@ namespace Units.Humans.Animations.States
         [Required]
         [SerializeField] private UnitAttacker _unitAttacker;
         [Required]
-        [SerializeField] private HumanAnimations _humanAnimations;
+        [SerializeField] private UnitEquipment _unitEquipment;
 
         private const string HitEvent = "Hit";
         private const string HitEndEvent = "Hit End";
@@ -30,6 +30,13 @@ namespace Units.Humans.Animations.States
         {
             _clip.Events.RemoveCallback(HitEvent, Hit);
             _clip.Events.RemoveCallback(HitEndEvent, _humanAnimations.StopIfNotAttacking);
+        }
+
+        public override void OnExitState()
+        {
+            base.OnExitState();
+            
+            _unitEquipment.Unequip();
         }
 
         public float Speed

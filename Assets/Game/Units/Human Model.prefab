@@ -3340,10 +3340,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _handSlot: {fileID: 4177720652290489099}
-  _sword: {fileID: 4300000, guid: 66a670426360a4f48aab0d3a4d3d8a6b, type: 3}
-  _axe: {fileID: 4300000, guid: 39f02ad978519fc45b717fabe7e64836, type: 3}
-  _pickaxe: {fileID: 4300000, guid: db0b9acf5f036934c915aa7055f95485, type: 3}
-  _timeToUnequip: 0.15
+  _timeToUnequip: 0.5
+  _knife: {fileID: 4641975869840635787, guid: 1b2808c51cf55354fa9b15f94f548af2, type: 3}
+  _axe: {fileID: 2796058789668319780, guid: 1a6829fd9fae7894da138354dc865dc4, type: 3}
+  _pickaxe: {fileID: 994482616659160261, guid: 76227feff0e541f479a4b41d7eed9624, type: 3}
 --- !u!114 &5193365172632362054
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3372,7 +3372,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _unitMeshAgent: {fileID: 0}
   _lowerBodyOverwriteMoveClip:
-    _FadeDuration: 0.25
+    _FadeDuration: 0.1
     _Events:
       _NormalizedTimes: []
       _Callbacks: []
@@ -3484,7 +3484,7 @@ MonoBehaviour:
   _unitMeshAgent: {fileID: 0}
   _waitTimeToIdle: 0.1
   _unitAttacker: {fileID: 0}
-  _humanAnimations: {fileID: 4877044575306519140}
+  _unitEquipment: {fileID: 832335509996619287}
 --- !u!1 &1595924752652140
 GameObject:
   m_ObjectHideFlags: 0

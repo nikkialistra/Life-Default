@@ -1,9 +1,15 @@
 ﻿using System;
+using Animancer;
+using Sirenix.OdinInspector;
+using UnityEngine;
 
 namespace Units.Humans.Animations.States
 {
     public class DieState : HumanState
     {
+        [Required]
+        [SerializeField] private ClipTransition _clip;
+        
         public Action EndAction { get; set; }
         
         public override AnimationType AnimationType => AnimationType.Die;
@@ -12,7 +18,7 @@ namespace Units.Humans.Animations.States
 
         public override void OnEnterState()
         {
-            base.OnEnterState();
+            _animancer.Layers[AnimationLayers.Main].Play(_clip);
             
             _clip.Events.OnEnd = EndAction;
         }
@@ -20,8 +26,6 @@ namespace Units.Humans.Animations.States
         public override void OnExitState()
         {
             _clip.Events.OnEnd = null;
-            
-            base.OnExitState();
         }
     }
 }

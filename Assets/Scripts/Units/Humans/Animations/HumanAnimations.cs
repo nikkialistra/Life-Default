@@ -2,11 +2,10 @@
 using Animancer;
 using Animancer.FSM;
 using Sirenix.OdinInspector;
-using Units.Humans.Animations;
 using Units.Humans.Animations.States;
 using UnityEngine;
 
-namespace Units.Humans
+namespace Units.Humans.Animations
 {
     [RequireComponent(typeof(AnimancerComponent))]
     [RequireComponent(typeof(IdleState))]

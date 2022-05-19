@@ -98,6 +98,8 @@ namespace Units
 
         public Unit TrackedUnit => _trackedUnit;
         public Unit AttackedUnit => _attackedUnit;
+        
+        public bool HoldingWeapon => IsAttacking || _trackedUnit != null;
 
         public void Attack(Unit unit)
         {

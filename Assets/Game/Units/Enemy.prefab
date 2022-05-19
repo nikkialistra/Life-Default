@@ -991,6 +991,11 @@ PrefabInstance:
       propertyPath: _unitMeshAgent
       value: 
       objectReference: {fileID: 5149874996177493612}
+    - target: {fileID: 8170319734661757682, guid: bebe0fbb55beb9245925236a40cfe495,
+        type: 3}
+      propertyPath: _unitAttacker
+      value: 
+      objectReference: {fileID: 9005558398283325450}
     m_RemovedComponents:
     - {fileID: 2666782124828171162, guid: bebe0fbb55beb9245925236a40cfe495, type: 3}
     - {fileID: 7319244257553421757, guid: bebe0fbb55beb9245925236a40cfe495, type: 3}

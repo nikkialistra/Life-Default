@@ -13,6 +13,7 @@ namespace General
 
         [Title("Animations")]
         [SerializeField] private float _timeToStopInteraction = 0.2f;
+        [SerializeField] private float _waitTimeToIdle;
 
         [Title("Visibility Fields")]
         [SerializeField] private Vector3 _targetPositionCorrection = Vector3.up * 1.5f;
@@ -32,6 +33,7 @@ namespace General
         public float TimeToHideSelection => _timeToHideSelection;
 
         public float TimeToStopInteraction => _timeToStopInteraction;
+        public float WaitTimeToIdle => _waitTimeToIdle;
 
         public Vector3 TargetPositionCorrection => _targetPositionCorrection;
         public float VisibilityFieldRecalculationTime => _visibilityFieldRecalculationTime;
@@ -41,6 +43,7 @@ namespace General
         
         public float AttackAngle => _attackAngle;
         public float SeekPredictionMultiplier => _seekPredictionMultiplier;
+        
 
         private void Awake()
         {

@@ -6,15 +6,26 @@ using UnityEngine;
 namespace Units.Humans.Animations.States
 {
     [EventNames(HitEvent)]
+    [RequireComponent(typeof(UnitEquipment))]
     public class GatherResourceState : HumanState
     {
+        [Required]
+        [SerializeField] private ClipTransition _clip;
+        
         [Space]
         [Required]
         [SerializeField] private ColonistGatherer _colonistGatherer;
-        [Required]
-        [SerializeField] private UnitEquipment _unitEquipment;
+        
+        private UnitEquipment _unitEquipment;
 
         private const string HitEvent = "Hit";
+        
+        protected override void OnAwake()
+        {
+            base.OnAwake();
+
+            _unitEquipment = GetComponent<UnitEquipment>();
+        }
 
         public override AnimationType AnimationType => AnimationType.GatherResource;
 
@@ -28,11 +39,14 @@ namespace Units.Humans.Animations.States
             _clip.Events.RemoveCallback(HitEvent, Hit);
         }
 
+        public override void OnEnterState()
+        {
+            _animancer.Layers[AnimationLayers.Main].Play(_clip);
+        }
+
         public override void OnExitState()
         {
             _unitEquipment.Unequip();
-            
-            base.OnExitState();
         }
 
         private void Hit()

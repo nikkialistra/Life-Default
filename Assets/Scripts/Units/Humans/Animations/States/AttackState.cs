@@ -5,9 +5,15 @@ using UnityEngine;
 namespace Units.Humans.Animations.States
 {
     [EventNames(HitEvent, HitEndEvent)]
+    [RequireComponent(typeof(UnitEquipment))]
     public class AttackState : HumanState
     {
-        [Title("Components")]
+        [Required]
+        [SerializeField] private ClipTransition _clip;
+        
+        [Space]
+        [Required]
+        [SerializeField] private UnitMeshAgent _unitMeshAgent;
         [Required]
         [SerializeField] private UnitAttacker _unitAttacker;
         [Required]
@@ -16,9 +22,16 @@ namespace Units.Humans.Animations.States
         private const string HitEvent = "Hit";
         private const string HitEndEvent = "Hit End";
 
-        private Coroutine _updatingMovingCoroutine;
+        private LowerBodyMoving _lowerBodyMoving;
 
-        private Coroutine _idleCoroutine;
+        protected override void OnAwake()
+        {
+            base.OnAwake();
+
+            _unitEquipment = GetComponent<UnitEquipment>();
+
+            _lowerBodyMoving = new LowerBodyMoving(this, _unitMeshAgent, _humanAnimations);
+        }
 
         private void OnEnable()
         {
@@ -31,20 +44,25 @@ namespace Units.Humans.Animations.States
             _clip.Events.RemoveCallback(HitEvent, Hit);
             _clip.Events.RemoveCallback(HitEndEvent, _humanAnimations.StopIfNotAttacking);
         }
+        
+        public override void OnEnterState()
+        {
+            _lowerBodyMoving.Start();
+            
+            _animancer.Layers[AnimationLayers.Main].Play(_clip);
+        }
 
         public override void OnExitState()
         {
-            base.OnExitState();
-            
-            _unitEquipment.Unequip();
+            _lowerBodyMoving.Stop();
         }
+
+        public override AnimationType AnimationType => AnimationType.Attack;
 
         public float Speed
         {
             set => _clip.Speed = value;
         }
-        
-        public override AnimationType AnimationType => AnimationType.Attack;
 
         private void Hit()
         {

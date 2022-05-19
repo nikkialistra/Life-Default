@@ -1,9 +1,15 @@
-﻿using Animancer.FSM;
+﻿using Animancer;
+using Animancer.FSM;
+using Sirenix.OdinInspector;
+using UnityEngine;
 
 namespace Units.Humans.Animations.States
 {
     public class IdleState : HumanState
     {
+        [Required]
+        [SerializeField] private ClipTransition _clip;
+        
         public override AnimationType AnimationType => AnimationType.Idle;
 
         public override bool CanEnterState
@@ -21,6 +27,11 @@ namespace Units.Humans.Animations.States
                     _ => false
                 };
             }
+        }
+
+        public override void OnEnterState()
+        {
+            _animancer.Layers[AnimationLayers.Main].Play(_clip);
         }
     }
 }

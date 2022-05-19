@@ -3402,9 +3402,6 @@ MonoBehaviour:
     _Clip: {fileID: -203655887218126122, guid: fd4f09b7b7d9d044483dab4bdee9dd69, type: 3}
     _Speed: 1
     _NormalizedStartTime: 0
-  _isAction: 0
-  _unitMeshAgent: {fileID: 0}
-  _waitTimeToIdle: 0.1
 --- !u!114 &8170319734661757682
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3417,18 +3414,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9293549c8f8e49be99b7b1a28b15be20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _clip:
+  _clips:
     _FadeDuration: 0.1
     _Events:
       _NormalizedTimes: []
       _Callbacks: []
       _Names: []
-    _Clip: {fileID: -203655887218126122, guid: 57035d23c4a415b4ca96883c4259e211, type: 3}
     _Speed: 1
-    _NormalizedStartTime: 0
-  _isAction: 0
-  _unitMeshAgent: {fileID: 0}
-  _waitTimeToIdle: 0.1
+    _Animations:
+    - {fileID: 919132149155446097, guid: 57035d23c4a415b4ca96883c4259e211, type: 3}
+    - {fileID: 919132149155446097, guid: 408329658028db54f97a51d8148a3326, type: 3}
+    _Speeds: []
+    _SynchronizeChildren: 
+  _unitAttacker: {fileID: 0}
 --- !u!114 &2839083938651011249
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3451,9 +3449,6 @@ MonoBehaviour:
     _Clip: {fileID: -203655887218126122, guid: 723b94e3765e9bc4c9a8d5bddc7abf8c, type: 3}
     _Speed: 1
     _NormalizedStartTime: 0
-  _isAction: 0
-  _unitMeshAgent: {fileID: 0}
-  _waitTimeToIdle: 0.1
 --- !u!114 &3672132499008156490
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3480,9 +3475,7 @@ MonoBehaviour:
     _Clip: {fileID: -203655887218126122, guid: 7d3be70a0639acc40bc637b064246264, type: 3}
     _Speed: 1
     _NormalizedStartTime: 0
-  _isAction: 1
   _unitMeshAgent: {fileID: 0}
-  _waitTimeToIdle: 0.1
   _unitAttacker: {fileID: 0}
   _unitEquipment: {fileID: 832335509996619287}
 --- !u!1 &1595924752652140

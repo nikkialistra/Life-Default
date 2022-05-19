@@ -514,8 +514,8 @@ MonoBehaviour:
         To Unit Target","Instant":true,"SharedUnitUnitTarget":{"Type":"Units.BehaviorVariables.SharedUnit","Name":"UnitTarget","IsShared":true},"UnitMeshAgentUnitMeshAgent":11,"UnitAttackerUnitAttacker":12,"UnitEquipmentUnitEquipment":13},{"Type":"Units.BehaviourNodes.Attacking.RotateToUnitTarget","NodeData":{"Offset":"(0,160)"},"ID":27,"Name":"Rotate
         To Unit Target","Instant":true,"SingleAngleDifferenceToRotate":3,"SharedUnitUnitTarget":{"Type":"Units.BehaviorVariables.SharedUnit","Name":"UnitTarget","IsShared":true},"UnitMeshAgentUnitMeshAgent":14,"UnitAttackerUnitAttacker":15},{"Type":"Units.BehaviourNodes.Attacking.AttackUnitTarget","NodeData":{"Offset":"(180,160)"},"ID":28,"Name":"Attack
         Unit Target","Instant":true,"SharedUnitUnitTarget":{"Type":"Units.BehaviorVariables.SharedUnit","Name":"UnitTarget","IsShared":true},"UnitMeshAgentUnitMeshAgent":16,"UnitAttackerUnitAttacker":17}]}]}]},{"Type":"Units.BehaviourNodes.Attacking.ResetAttacking","NodeData":{"Offset":"(216.337158,153.768341)"},"ID":29,"Name":"Reset
-        Attacking","Instant":true,"SharedUnitUnitTarget":{"Type":"Units.BehaviorVariables.SharedUnit","Name":"UnitTarget","IsShared":true},"UnitMeshAgentUnitMeshAgent":18,"UnitAttackerUnitAttacker":19}]}]},{"Type":"BehaviorDesigner.Runtime.Tasks.Repeater","NodeData":{"Offset":"(1227.88733,297.425446)"},"ID":30,"Name":"Repeater","Instant":true,"SharedIntcount":{"Type":"BehaviorDesigner.Runtime.SharedInt","Name":null,"Int32mValue":0},"SharedBoolrepeatForever":{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":null,"BooleanmValue":true},"SharedBoolendOnFailure":{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":null,"BooleanmValue":false},"Children":[{"Type":"BehaviorDesigner.Runtime.Tasks.Sequence","NodeData":{"Offset":"(-2.85717773,102.380959)"},"ID":31,"Name":"Sequence","Instant":true,"AbortTypeabortType":"None","Children":[{"Type":"Units.BehaviourNodes.Attacking.SearchForUnitTarget","NodeData":{"Offset":"(1.06796265,167.0054)"},"ID":32,"Name":"Search
-        For Unit Target","Instant":true,"SharedUnitSelf":{"Type":"Units.BehaviorVariables.SharedUnit","Name":null,"UnitmValue":20},"SharedUnitUnitTarget":{"Type":"Units.BehaviorVariables.SharedUnit","Name":"UnitTarget","IsShared":true},"SharedBoolNewCommand":{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":"NewCommand","IsShared":true,"BooleanmValue":false},"FieldOfViewFieldOfView":21,"FieldOfHearingFieldOfHearing":22,"SingleTimeToRescan":0.2}]}]}]}]},"Variables":[{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":"NewCommand","IsShared":true,"BooleanmValue":false},null,null,null,null,{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":"Rotation","IsShared":true,"SinglemValue":0},null,null,{"Type":"Units.BehaviorVariables.SharedPositions","Name":"Positions","IsShared":true,"Queue`1mValue":{}},{"Type":"Units.BehaviorVariables.SharedResource","Name":"Resource","IsShared":true},null,{"Type":"Units.BehaviorVariables.SharedUnit","Name":"UnitTarget","IsShared":true},{"Type":"Units.BehaviorVariables.SharedColonist","Name":"Colonist","IsShared":true}]}'
+        Attacking","Instant":true,"SharedUnitUnitTarget":{"Type":"Units.BehaviorVariables.SharedUnit","Name":"UnitTarget","IsShared":true},"UnitMeshAgentUnitMeshAgent":18,"UnitAttackerUnitAttacker":19,"UnitEquipmentUnitEquipment":20}]}]},{"Type":"BehaviorDesigner.Runtime.Tasks.Repeater","NodeData":{"Offset":"(1227.88733,297.425446)"},"ID":30,"Name":"Repeater","Instant":true,"SharedIntcount":{"Type":"BehaviorDesigner.Runtime.SharedInt","Name":null,"Int32mValue":0},"SharedBoolrepeatForever":{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":null,"BooleanmValue":true},"SharedBoolendOnFailure":{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":null,"BooleanmValue":false},"Children":[{"Type":"BehaviorDesigner.Runtime.Tasks.Sequence","NodeData":{"Offset":"(-2.85717773,102.380959)"},"ID":31,"Name":"Sequence","Instant":true,"AbortTypeabortType":"None","Children":[{"Type":"Units.BehaviourNodes.Attacking.SearchForUnitTarget","NodeData":{"Offset":"(1.06796265,167.0054)"},"ID":32,"Name":"Search
+        For Unit Target","Instant":true,"SharedUnitSelf":{"Type":"Units.BehaviorVariables.SharedUnit","Name":null,"UnitmValue":21},"SharedUnitUnitTarget":{"Type":"Units.BehaviorVariables.SharedUnit","Name":"UnitTarget","IsShared":true},"SharedBoolNewCommand":{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":"NewCommand","IsShared":true,"BooleanmValue":false},"FieldOfViewFieldOfView":22,"FieldOfHearingFieldOfHearing":23,"SingleTimeToRescan":0.2}]}]}]}]},"Variables":[{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":"NewCommand","IsShared":true,"BooleanmValue":false},null,null,null,null,{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":"Rotation","IsShared":true,"SinglemValue":0},null,null,{"Type":"Units.BehaviorVariables.SharedPositions","Name":"Positions","IsShared":true,"Queue`1mValue":{}},{"Type":"Units.BehaviorVariables.SharedResource","Name":"Resource","IsShared":true},null,{"Type":"Units.BehaviorVariables.SharedUnit","Name":"UnitTarget","IsShared":true},{"Type":"Units.BehaviorVariables.SharedColonist","Name":"Colonist","IsShared":true}]}'
       fieldSerializationData:
         typeName: []
         fieldNameHash: 
@@ -542,6 +542,7 @@ MonoBehaviour:
         - {fileID: 2106437558306899865}
         - {fileID: 5149874996177493612}
         - {fileID: 2106437558306899865}
+        - {fileID: 1616301658998035332}
         - {fileID: 889070029107378900}
         - {fileID: 6010963258427484487}
         - {fileID: 6272643806473027086}
@@ -672,6 +673,7 @@ MonoBehaviour:
   _timeAfterAttackToIdle: 2
   _lineToTrackedUnit: {fileID: 578911681720659008}
   _messageShowing: {fileID: 1304669307844125713}
+  _unitEquipment: {fileID: 1616301658998035332}
 --- !u!114 &541429532207667477
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1123,7 +1125,7 @@ PrefabInstance:
     - target: {fileID: 6241910357395849221, guid: 390d34ec6c217464bb9b5699fe2e13ea,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 2.3
+      value: 1.9
       objectReference: {fileID: 0}
     - target: {fileID: 6241910357395849221, guid: 390d34ec6c217464bb9b5699fe2e13ea,
         type: 3}
@@ -1630,7 +1632,7 @@ PrefabInstance:
     - target: {fileID: 6241910357395849221, guid: 390d34ec6c217464bb9b5699fe2e13ea,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 2.3
+      value: 1.9
       objectReference: {fileID: 0}
     - target: {fileID: 6241910357395849221, guid: 390d34ec6c217464bb9b5699fe2e13ea,
         type: 3}

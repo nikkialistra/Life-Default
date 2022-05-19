@@ -22,8 +22,6 @@ namespace Units.Humans.Animations.States
         
         protected override void OnAwake()
         {
-            base.OnAwake();
-
             _unitEquipment = GetComponent<UnitEquipment>();
         }
 
@@ -46,7 +44,7 @@ namespace Units.Humans.Animations.States
 
         public override void OnExitState()
         {
-            _unitEquipment.Unequip();
+            _unitEquipment.UnequipInstrument();
         }
 
         private void Hit()

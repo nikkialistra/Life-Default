@@ -9,13 +9,18 @@ namespace Units.BehaviourNodes.Attacking
         
         public UnitMeshAgent UnitMeshAgent;
         public UnitAttacker UnitAttacker;
+        public UnitEquipment UnitEquipment;
 
         public override TaskStatus OnUpdate()
         {
             UnitMeshAgent.StopRotating();
             UnitMeshAgent.ResetDestination();
+            
             UnitAttacker.CoverUnitTarget();
+            UnitEquipment.UnequipWeapon();
+            
             UnitTarget.Value = null;
+            
             return TaskStatus.Success;
         }
     }

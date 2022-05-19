@@ -6,14 +6,15 @@ using UnityEngine;
 
 namespace Units.Humans.Animations.States
 {
+    [RequireComponent(typeof(UnitEquipment))]
     public class MoveState : HumanState
     {
         [Required]
         [SerializeField] private ManualMixerTransition _clips;
-
         [Space]
-        [Required]
-        [SerializeField] private UnitAttacker _unitAttacker;
+        [SerializeField] private float _timeToSwapAnimation = 0.1f;
+
+        private UnitEquipment _unitEquipment;
 
         private const int Move = 0;
         private const int MoveWithWeapon = 1;
@@ -21,6 +22,11 @@ namespace Units.Humans.Animations.States
         private Coroutine _choosingClipCoroutine;
 
         public override AnimationType AnimationType => AnimationType.Move;
+
+        protected override void OnAwake()
+        {
+            _unitEquipment = GetComponent<UnitEquipment>();
+        }
 
         public override bool CanEnterState
         {
@@ -54,7 +60,7 @@ namespace Units.Humans.Animations.States
         {
             while (true)
             {
-                if (_unitAttacker.HoldingWeapon)
+                if (_unitEquipment.HoldingSomething)
                 {
                     SetMoveAnimation();
                 }
@@ -69,14 +75,14 @@ namespace Units.Humans.Animations.States
 
         private void SetMoveAnimation()
         {
-            _clips.State.ChildStates[Move].Weight = 0;
-            _clips.State.ChildStates[MoveWithWeapon].Weight = 1;
+            _clips.State.ChildStates[Move].StartFade(0f, _timeToSwapAnimation);
+            _clips.State.ChildStates[MoveWithWeapon].StartFade(1f, _timeToSwapAnimation);
         }
 
         private void SetMoveWithWeaponAnimation()
         {
-            _clips.State.ChildStates[Move].Weight = 1;
-            _clips.State.ChildStates[MoveWithWeapon].Weight = 0;
+            _clips.State.ChildStates[Move].StartFade(1f, _timeToSwapAnimation);
+            _clips.State.ChildStates[MoveWithWeapon].StartFade(0f, _timeToSwapAnimation);
         }
     }
 }

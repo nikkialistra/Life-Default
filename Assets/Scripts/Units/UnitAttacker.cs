@@ -21,6 +21,8 @@ namespace Units
         [Space]
         [Required]
         [SerializeField] private MessageShowing _messageShowing;
+        [Required]
+        [SerializeField] private UnitEquipment _unitEquipment;
 
         private Unit _self;
         
@@ -293,8 +295,10 @@ namespace Units
             }
             
             _unitAnimator.FinishAttack();
+
             IsAttacking = false;
             _finalizingAttacking = false;
+            
             AttackEnd?.Invoke();
         }
 
@@ -303,8 +307,10 @@ namespace Units
             _lastAttackTime = Time.time;
             
             _unitAnimator.StopAttack();
+            
             IsAttacking = false;
             _finalizingAttacking = false;
+            
             AttackEnd?.Invoke();
         }
 

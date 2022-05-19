@@ -1,6 +1,5 @@
 ﻿using System;
 using Sirenix.OdinInspector;
-using Units.Humans;
 using Units.Humans.Animations;
 using UnityEngine;
 

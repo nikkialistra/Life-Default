@@ -35,9 +35,15 @@ namespace Units.Ancillaries
 
         public void Show(string message)
         {
+            Show(message, Color.white);
+        }
+
+        public void Show(string message, Color color)
+        {
             ResetAnimation();
-            
+
             _message.text = message;
+            _message.color = color;
 
             StartCoroutine(Fade());
         }
@@ -51,9 +57,22 @@ namespace Units.Ancillaries
         private IEnumerator Fade()
         {
             yield return null;
+            
+            transform.DOKill();
+            _message.DOKill();
+            
+            StartFading();
+        }
 
+        private void StartFading()
+        {
             transform.DOMoveY(transform.position.y + _liftDistance, _timeToFade);
-            _message.DOFade(0, _timeToFade);
+            _message.DOFade(0.9f, _timeToFade / 2).OnComplete(FadeToZero);
+        }
+
+        private void FadeToZero()
+        {
+            _message.DOFade(0, _timeToFade / 2);
         }
     }
 }

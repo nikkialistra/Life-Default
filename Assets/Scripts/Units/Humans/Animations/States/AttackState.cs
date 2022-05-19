@@ -16,8 +16,6 @@ namespace Units.Humans.Animations.States
         [SerializeField] private UnitMeshAgent _unitMeshAgent;
         [Required]
         [SerializeField] private UnitAttacker _unitAttacker;
-        [Required]
-        [SerializeField] private UnitEquipment _unitEquipment;
 
         private const string HitEvent = "Hit";
         private const string HitEndEvent = "Hit End";
@@ -26,10 +24,6 @@ namespace Units.Humans.Animations.States
 
         protected override void OnAwake()
         {
-            base.OnAwake();
-
-            _unitEquipment = GetComponent<UnitEquipment>();
-
             _lowerBodyMoving = new LowerBodyMoving(this, _unitMeshAgent, _humanAnimations);
         }
 

@@ -73,10 +73,6 @@ namespace Units.BehaviourNodes.Attacking
                 NewCommand.Value = true;
                 Self.Value.UnitEquipment.EquipWeapon();
             }
-            else
-            {
-                Self.Value.UnitEquipment.Unequip();
-            }
         }
 
         private IEnumerable<Transform> GetVisibleTargets()

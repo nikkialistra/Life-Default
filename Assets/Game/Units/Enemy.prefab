@@ -125,8 +125,8 @@ MonoBehaviour:
         To Unit Target","Instant":true,"SharedUnitUnitTarget":{"Type":"Units.BehaviorVariables.SharedUnit","Name":"UnitTarget","IsShared":true},"UnitMeshAgentUnitMeshAgent":3,"UnitAttackerUnitAttacker":4,"UnitEquipmentUnitEquipment":5},{"Type":"Units.BehaviourNodes.Attacking.RotateToUnitTarget","NodeData":{"Offset":"(-0.181396484,165.335327)"},"ID":16,"Name":"Rotate
         To Unit Target","Instant":true,"SingleAngleDifferenceToRotate":3,"SharedUnitUnitTarget":{"Type":"Units.BehaviorVariables.SharedUnit","Name":"UnitTarget","IsShared":true},"UnitMeshAgentUnitMeshAgent":6,"UnitAttackerUnitAttacker":7},{"Type":"Units.BehaviourNodes.Attacking.AttackUnitTarget","NodeData":{"Offset":"(184.961548,165.335327)"},"ID":17,"Name":"Attack
         Unit Target","Instant":true,"SharedUnitUnitTarget":{"Type":"Units.BehaviorVariables.SharedUnit","Name":"UnitTarget","IsShared":true},"UnitMeshAgentUnitMeshAgent":8,"UnitAttackerUnitAttacker":9}]}]}]},{"Type":"Units.BehaviourNodes.Attacking.ResetAttacking","NodeData":{"Offset":"(194.514648,163.303619)"},"ID":18,"Name":"Reset
-        Attacking","Instant":true,"SharedUnitUnitTarget":{"Type":"Units.BehaviorVariables.SharedUnit","Name":"UnitTarget","IsShared":true},"UnitMeshAgentUnitMeshAgent":10,"UnitAttackerUnitAttacker":11}]},{"Type":"BehaviorDesigner.Runtime.Tasks.Parallel","NodeData":{"Offset":"(855.511169,166.201172)"},"ID":19,"Name":"Parallel","Instant":true,"AbortTypeabortType":"None","Children":[{"Type":"Enemies.BehaviorNodes.Wander","NodeData":{"Offset":"(-118.750023,161.875076)"},"ID":20,"Name":"Wander","Instant":true,"SingleMinWanderDistance":5,"SingleMaxWanderDistance":10,"SingleWanderRate":3,"SingleMinPauseDuration":2,"SingleMaxPauseDuration":5,"EnemyMeshAgentEnemyMeshAgent":12,"UnitAttackerUnitAttacker":13},{"Type":"Units.BehaviourNodes.Attacking.SearchForUnitTarget","NodeData":{"Offset":"(134.156891,162.061676)"},"ID":21,"Name":"Search
-        For Unit Target","Instant":true,"SharedUnitSelf":{"Type":"Units.BehaviorVariables.SharedUnit","Name":null,"UnitmValue":14},"SharedUnitUnitTarget":{"Type":"Units.BehaviorVariables.SharedUnit","Name":"UnitTarget","IsShared":true},"SharedBoolNewCommand":{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":"NewCommand","IsShared":true,"BooleanmValue":false},"FieldOfViewFieldOfView":15,"FieldOfHearingFieldOfHearing":16,"SingleTimeToRescan":0.2}]}]}]},"Variables":[{"Type":"Units.BehaviorVariables.SharedUnit","Name":"UnitTarget","IsShared":true},{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":"NewCommand","IsShared":true,"BooleanmValue":false},{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":"Escape","IsShared":true,"BooleanmValue":false}]}'
+        Attacking","Instant":true,"SharedUnitUnitTarget":{"Type":"Units.BehaviorVariables.SharedUnit","Name":"UnitTarget","IsShared":true},"UnitMeshAgentUnitMeshAgent":10,"UnitAttackerUnitAttacker":11,"UnitEquipmentUnitEquipment":12}]},{"Type":"BehaviorDesigner.Runtime.Tasks.Parallel","NodeData":{"Offset":"(855.511169,166.201172)"},"ID":19,"Name":"Parallel","Instant":true,"AbortTypeabortType":"None","Children":[{"Type":"Enemies.BehaviorNodes.Wander","NodeData":{"Offset":"(-118.750023,161.875076)"},"ID":20,"Name":"Wander","Instant":true,"SingleMinWanderDistance":5,"SingleMaxWanderDistance":10,"SingleWanderRate":3,"SingleMinPauseDuration":2,"SingleMaxPauseDuration":5,"EnemyMeshAgentEnemyMeshAgent":13,"UnitAttackerUnitAttacker":14},{"Type":"Units.BehaviourNodes.Attacking.SearchForUnitTarget","NodeData":{"Offset":"(134.156891,162.061676)"},"ID":21,"Name":"Search
+        For Unit Target","Instant":true,"SharedUnitSelf":{"Type":"Units.BehaviorVariables.SharedUnit","Name":null,"UnitmValue":15},"SharedUnitUnitTarget":{"Type":"Units.BehaviorVariables.SharedUnit","Name":"UnitTarget","IsShared":true},"SharedBoolNewCommand":{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":"NewCommand","IsShared":true,"BooleanmValue":false},"FieldOfViewFieldOfView":16,"FieldOfHearingFieldOfHearing":17,"SingleTimeToRescan":0.2}]}]}]},"Variables":[{"Type":"Units.BehaviorVariables.SharedUnit","Name":"UnitTarget","IsShared":true},{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":"NewCommand","IsShared":true,"BooleanmValue":false},{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":"Escape","IsShared":true,"BooleanmValue":false}]}'
       fieldSerializationData:
         typeName: []
         fieldNameHash: 
@@ -145,6 +145,7 @@ MonoBehaviour:
         - {fileID: 9005558398283325450}
         - {fileID: 5149874996177493612}
         - {fileID: 9005558398283325450}
+        - {fileID: 1616301658998035332}
         - {fileID: 2192563380826325834}
         - {fileID: 9005558398283325450}
         - {fileID: 889070029107378900}
@@ -277,6 +278,7 @@ MonoBehaviour:
   _timeAfterAttackToIdle: 2
   _lineToTrackedUnit: {fileID: 3642188998073724583}
   _messageShowing: {fileID: 587481625790340179}
+  _unitEquipment: {fileID: 1616301658998035332}
 --- !u!114 &5149874996177493612
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -782,7 +784,7 @@ PrefabInstance:
     - target: {fileID: 6241910357395849221, guid: 390d34ec6c217464bb9b5699fe2e13ea,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 2.3
+      value: 1.9
       objectReference: {fileID: 0}
     - target: {fileID: 6241910357395849221, guid: 390d34ec6c217464bb9b5699fe2e13ea,
         type: 3}
@@ -1343,7 +1345,7 @@ PrefabInstance:
     - target: {fileID: 6241910357395849221, guid: 390d34ec6c217464bb9b5699fe2e13ea,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 2.3
+      value: 1.9
       objectReference: {fileID: 0}
     - target: {fileID: 6241910357395849221, guid: 390d34ec6c217464bb9b5699fe2e13ea,
         type: 3}

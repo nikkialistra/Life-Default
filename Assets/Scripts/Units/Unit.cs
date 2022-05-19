@@ -103,6 +103,7 @@ namespace Units
                 return;
             }
 
+            _messageShowing.Show(Mathf.Round(value).ToString(), Color.red);
             Vitality.TakeDamage(value);
         }
         

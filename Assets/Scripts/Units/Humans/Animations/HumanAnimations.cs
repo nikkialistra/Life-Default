@@ -22,14 +22,14 @@ namespace Units.Humans.Animations
         [Required]
         [SerializeField] private AvatarMask _lowerBodyMask;
         
+        private AnimancerComponent _animancer;
+
         private IdleState _idleState;
         private MoveState _moveState;
         
         private AttackState _attackState;
 
         private DieState _dieState;
-
-        private AnimancerComponent _animancer;
 
         private bool _attacking;
 
@@ -38,7 +38,7 @@ namespace Units.Humans.Animations
         private void Awake()
         {
             _animancer = GetComponent<AnimancerComponent>();
-            
+
             _idleState = GetComponent<IdleState>();
             _moveState = GetComponent<MoveState>();
             _attackState = GetComponent<AttackState>();

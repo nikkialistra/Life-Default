@@ -14,7 +14,10 @@ namespace Units.Humans.Animations.States
         [Space]
         [Required]
         [SerializeField] private UnitAttacker _unitAttacker;
-        
+
+        private const int Move = 0;
+        private const int MoveWithWeapon = 1;
+
         private Coroutine _choosingClipCoroutine;
 
         public override AnimationType AnimationType => AnimationType.Move;
@@ -51,21 +54,29 @@ namespace Units.Humans.Animations.States
         {
             while (true)
             {
-                yield return null;
-                
                 if (_unitAttacker.HoldingWeapon)
                 {
-                    _clips.State.ChildStates[0].Weight = 0;
-                    _clips.State.ChildStates[1].Weight = 1;
+                    SetMoveAnimation();
                 }
                 else
                 {
-                    _clips.State.ChildStates[0].Weight = 1;
-                    _clips.State.ChildStates[1].Weight = 0;
+                    SetMoveWithWeaponAnimation();
                 }
                 
                 yield return null;
             }
+        }
+
+        private void SetMoveAnimation()
+        {
+            _clips.State.ChildStates[Move].Weight = 0;
+            _clips.State.ChildStates[MoveWithWeapon].Weight = 1;
+        }
+
+        private void SetMoveWithWeaponAnimation()
+        {
+            _clips.State.ChildStates[Move].Weight = 1;
+            _clips.State.ChildStates[MoveWithWeapon].Weight = 0;
         }
     }
 }

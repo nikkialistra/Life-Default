@@ -3409,7 +3409,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1588895830433058}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9293549c8f8e49be99b7b1a28b15be20, type: 3}
   m_Name: 
@@ -3422,8 +3422,8 @@ MonoBehaviour:
       _Names: []
     _Speed: 1
     _Animations:
-    - {fileID: 919132149155446097, guid: 57035d23c4a415b4ca96883c4259e211, type: 3}
-    - {fileID: 919132149155446097, guid: 408329658028db54f97a51d8148a3326, type: 3}
+    - {fileID: -203655887218126122, guid: 57035d23c4a415b4ca96883c4259e211, type: 3}
+    - {fileID: -119516346840393027, guid: 408329658028db54f97a51d8148a3326, type: 3}
     _Speeds: []
     _SynchronizeChildren: 
   _unitAttacker: {fileID: 0}

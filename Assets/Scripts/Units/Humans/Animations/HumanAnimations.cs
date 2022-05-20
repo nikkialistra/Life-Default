@@ -33,8 +33,6 @@ namespace Units.Humans.Animations
 
         private bool _attacking;
 
-        private Vector2 test;
-
         private void Awake()
         {
             _animancer = GetComponent<AnimancerComponent>();

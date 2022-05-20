@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 45105a21e837c5f4da5b495a09bd6e25
+guid: 8cda251735b0a5d46abd98fb977a831f
 ModelImporter:
   serializedVersion: 21202
   internalIDToNameTable:
@@ -8,10 +8,7 @@ ModelImporter:
     second: Take 001
   - first:
       74: -203655887218126122
-    second: mixamo.com
-  - first:
-      74: -3780516532778130023
-    second: Attack Downward (Standing Melee Attack Downward)
+    second: Attack Idle (Standing Idle Looking Ver. 2)
   externalObjects: {}
   materials:
     materialImportMode: 2
@@ -42,18 +39,18 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Attack Downward (Standing Melee Attack Downward)
+      name: Attack Idle (Standing Idle Looking Ver. 2)
       takeName: mixamo.com
       internalID: 0
       firstFrame: 0
-      lastFrame: 136
+      lastFrame: 470
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
+      loopTime: 1
       loopBlend: 0
       loopBlendOrientation: 1
       loopBlendPositionY: 1
@@ -69,7 +66,7 @@ ModelImporter:
       transformMask: []
       maskType: 3
       maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 1.8
+      additiveReferencePoseFrame: 0
     isReadable: 0
   meshes:
     lODScreenPercentages: []

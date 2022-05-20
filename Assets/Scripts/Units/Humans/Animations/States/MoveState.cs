@@ -10,9 +10,7 @@ namespace Units.Humans.Animations.States
     public class MoveState : HumanState
     {
         [Required]
-        [SerializeField] private ManualMixerTransition _clips;
-        [Space]
-        [SerializeField] private float _timeToSwapAnimation = 0.1f;
+        [SerializeField] private LinearMixerTransition _clips;
 
         private UnitEquipment _unitEquipment;
 
@@ -62,27 +60,15 @@ namespace Units.Humans.Animations.States
             {
                 if (_unitEquipment.HoldingSomething)
                 {
-                    SetMoveAnimation();
+                    _clips.State.Parameter = MoveWithWeapon;
                 }
                 else
                 {
-                    SetMoveWithWeaponAnimation();
+                    _clips.State.Parameter = Move;
                 }
                 
                 yield return null;
             }
-        }
-
-        private void SetMoveAnimation()
-        {
-            _clips.State.ChildStates[Move].StartFade(0f, _timeToSwapAnimation);
-            _clips.State.ChildStates[MoveWithWeapon].StartFade(1f, _timeToSwapAnimation);
-        }
-
-        private void SetMoveWithWeaponAnimation()
-        {
-            _clips.State.ChildStates[Move].StartFade(1f, _timeToSwapAnimation);
-            _clips.State.ChildStates[MoveWithWeapon].StartFade(0f, _timeToSwapAnimation);
         }
     }
 }

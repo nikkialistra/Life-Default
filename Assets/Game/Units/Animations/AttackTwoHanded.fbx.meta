@@ -8,7 +8,7 @@ ModelImporter:
     second: Take 001
   - first:
       74: -203655887218126122
-    second: Attack (Great Sword Slash)
+    second: Attack Two Handed (Great Sword Slash)
   externalObjects: {}
   materials:
     materialImportMode: 2
@@ -39,7 +39,7 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Attack (Great Sword Slash)
+      name: Attack Two Handed (Great Sword Slash)
       takeName: mixamo.com
       internalID: 0
       firstFrame: 0

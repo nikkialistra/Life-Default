@@ -686,7 +686,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cabfe8004b864fb68f7983619a63a1b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _meleeDamage: 30
+  _meleeDamage: 10
   _meleeAttackSpeed: 1
   _meleeAttackDistance: 1.7
   _meleeAttackRange: 3.5

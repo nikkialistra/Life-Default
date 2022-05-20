@@ -31,11 +31,15 @@ namespace Units.Humans.Animations
 
         public void Start()
         {
+            _humanAnimations.ActivateLowerBodyOverwrite();
+            
             _updatingMovingCoroutine = _humanState.StartCoroutine(UpdatingMoving());
         }
 
         public void Stop()
         {
+            _humanAnimations.DeactivateLowerBodyOverwrite();
+            
             if (_updatingMovingCoroutine != null)
             {
                 _humanState.StopCoroutine(_updatingMovingCoroutine);

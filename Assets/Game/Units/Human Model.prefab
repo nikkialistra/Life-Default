@@ -3340,7 +3340,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _handSlot: {fileID: 4177720652290489099}
-  _timeToUnequip: 0.5
+  _timeToUnequipInstrument: 0.5
+  _timeToUnequipWeapon: 1.2
   _knife: {fileID: 4641975869840635787, guid: 1b2808c51cf55354fa9b15f94f548af2, type: 3}
   _axe: {fileID: 2796058789668319780, guid: 1a6829fd9fae7894da138354dc865dc4, type: 3}
   _pickaxe: {fileID: 994482616659160261, guid: 76227feff0e541f479a4b41d7eed9624, type: 3}
@@ -3461,8 +3462,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3633862c0ade45a180e6ee17a4b32f8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _clip:
-    _FadeDuration: 0.1
+  _clips:
+    _FadeDuration: 0.25
     _Events:
       _NormalizedTimes:
       - 0.6
@@ -3472,9 +3473,13 @@ MonoBehaviour:
       _Names:
       - Hit
       - Hit End
-    _Clip: {fileID: -203655887218126122, guid: 7d3be70a0639acc40bc637b064246264, type: 3}
     _Speed: 1
-    _NormalizedStartTime: 0
+    _Animations:
+    - {fileID: -3780516532778130023, guid: 45105a21e837c5f4da5b495a09bd6e25, type: 3}
+    - {fileID: -3780516532778130023, guid: fc81bb7f5eb916c428daf49a6d51e0b4, type: 3}
+    - {fileID: -3780516532778130023, guid: 90c095e47366b0847955c1fa5f813803, type: 3}
+    _Speeds: []
+    _SynchronizeChildren: 
   _unitMeshAgent: {fileID: 0}
   _unitAttacker: {fileID: 0}
 --- !u!1 &1595924752652140

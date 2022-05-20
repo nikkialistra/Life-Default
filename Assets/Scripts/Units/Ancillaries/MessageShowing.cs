@@ -67,7 +67,7 @@ namespace Units.Ancillaries
         private void StartFading()
         {
             transform.DOMoveY(transform.position.y + _liftDistance, _timeToFade);
-            _message.DOFade(0.9f, _timeToFade / 2).OnComplete(FadeToZero);
+            _message.DOFade(0.8f, _timeToFade / 2).OnComplete(FadeToZero);
         }
 
         private void FadeToZero()

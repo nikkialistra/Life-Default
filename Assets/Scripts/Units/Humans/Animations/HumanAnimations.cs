@@ -85,12 +85,15 @@ namespace Units.Humans.Animations
             }
         }
 
-        public void StopIfNotAttacking()
+        public bool TryStopIfNotAttacking()
         {
             if (!_attacking)
             {
                 StopActions();
+                return true;
             }
+
+            return false;
         }
 
         public void SetAttackSpeed(float value)
@@ -104,13 +107,26 @@ namespace Units.Humans.Animations
             TrySetState(_dieState);
         }
 
+        public void ActivateLowerBodyOverwrite()
+        {
+            _animancer.Layers[AnimationLayers.LowerBodyOverwrite].Play(_lowerBodyOverwriteMoveClip);
+            _animancer.Layers[AnimationLayers.LowerBodyOverwrite].Weight = 0;
+        }
+        
+        public void DeactivateLowerBodyOverwrite()
+        {
+            _animancer.Layers[AnimationLayers.LowerBodyOverwrite].Stop();
+        }
+
         public void LowerBodyOverwriteToMove()
         {
             _animancer.Layers[AnimationLayers.LowerBodyOverwrite].Play(_lowerBodyOverwriteMoveClip);
+            _animancer.Layers[AnimationLayers.LowerBodyOverwrite].StartFade(1f, _lowerBodyOverwriteMoveClip.FadeDuration);
         }
         
         public void LowerBodyOverwriteToIdle()
         {
+            _animancer.Layers[AnimationLayers.LowerBodyOverwrite].Play(_lowerBodyOverwriteMoveClip);
             _animancer.Layers[AnimationLayers.LowerBodyOverwrite].StartFade(0f, _lowerBodyOverwriteMoveClip.FadeDuration);
         }
 

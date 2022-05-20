@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 7d3be70a0639acc40bc637b064246264
+guid: 90c095e47366b0847955c1fa5f813803
 ModelImporter:
   serializedVersion: 21202
   internalIDToNameTable:
@@ -8,7 +8,10 @@ ModelImporter:
     second: Take 001
   - first:
       74: -203655887218126122
-    second: Attack (Great Sword Slash)
+    second: mixamo.com
+  - first:
+      74: -3780516532778130023
+    second: Attack Slash (Sword And Shield Slash)
   externalObjects: {}
   materials:
     materialImportMode: 2
@@ -39,13 +42,13 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Attack (Great Sword Slash)
+      name: Attack Slash (Sword And Shield Slash)
       takeName: mixamo.com
       internalID: 0
       firstFrame: 0
-      lastFrame: 92
+      lastFrame: 100
       wrapMode: 0
-      orientationOffsetY: 0
+      orientationOffsetY: -60
       level: 0
       cycleOffset: 0
       loop: 0

@@ -1,6 +1,7 @@
 ﻿using Animancer;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Units.Humans.Animations.States
 {
@@ -9,7 +10,7 @@ namespace Units.Humans.Animations.States
     public class AttackState : HumanState
     {
         [Required]
-        [SerializeField] private ClipTransition _clip;
+        [SerializeField] private ManualMixerTransition _clips;
         
         [Space]
         [Required]
@@ -20,6 +21,10 @@ namespace Units.Humans.Animations.States
         private const string HitEvent = "Hit";
         private const string HitEndEvent = "Hit End";
 
+        private const int AttackDownward = 0;
+        private const int AttackHorizontal = 1;
+        private const int AttackSlash = 2;
+
         private LowerBodyMoving _lowerBodyMoving;
 
         protected override void OnAwake()
@@ -29,21 +34,23 @@ namespace Units.Humans.Animations.States
 
         private void OnEnable()
         {
-            _clip.Events.SetCallback(HitEvent, Hit);
-            _clip.Events.SetCallback(HitEndEvent, _humanAnimations.StopIfNotAttacking);
+            _clips.Events.SetCallback(HitEvent, Hit);
+            _clips.Events.SetCallback(HitEndEvent, OnHitEnd);
         }
 
         private void OnDisable()
         {
-            _clip.Events.RemoveCallback(HitEvent, Hit);
-            _clip.Events.RemoveCallback(HitEndEvent, _humanAnimations.StopIfNotAttacking);
+            _clips.Events.RemoveCallback(HitEvent, Hit);
+            _clips.Events.RemoveCallback(HitEndEvent, OnHitEnd);
         }
-        
+
         public override void OnEnterState()
         {
             _lowerBodyMoving.Start();
             
-            _animancer.Layers[AnimationLayers.Main].Play(_clip);
+            _animancer.Layers[AnimationLayers.Main].Play(_clips);
+            
+            SetRandomAnimation();
         }
 
         public override void OnExitState()
@@ -55,7 +62,57 @@ namespace Units.Humans.Animations.States
 
         public float Speed
         {
-            set => _clip.Speed = value;
+            set => _clips.Speed = value;
+        }
+        
+        private void OnHitEnd()
+        {
+            if (_humanAnimations.TryStopIfNotAttacking())
+            {
+                return;
+            }
+            
+            SetRandomAnimation();
+        }
+        
+        private void SetRandomAnimation()
+        {
+            switch (Random.Range(AttackDownward, AttackSlash + 1))
+            {
+                case AttackDownward:
+                    SetAttackDownward();
+                    break;
+                case AttackHorizontal:
+                    SetAttackHorizontal();
+                    break;
+                case AttackSlash:
+                    SetAttackSlash();
+                    break;
+            }
+        }
+        
+        private void SetAttackDownward()
+        {
+            _clips.State.ChildStates[AttackDownward].StartFade(1f, _clips.FadeDuration);
+            _clips.State.ChildStates[AttackDownward].IsPlaying = true;
+            _clips.State.ChildStates[AttackHorizontal].StartFade(0f, _clips.FadeDuration);
+            _clips.State.ChildStates[AttackSlash].StartFade(0f, _clips.FadeDuration);
+        }
+
+        private void SetAttackHorizontal()
+        {
+            _clips.State.ChildStates[AttackDownward].StartFade(0f, _clips.FadeDuration);
+            _clips.State.ChildStates[AttackHorizontal].StartFade(1f, _clips.FadeDuration);
+            _clips.State.ChildStates[AttackHorizontal].IsPlaying = true;
+            _clips.State.ChildStates[AttackSlash].StartFade(0f, _clips.FadeDuration);
+        }
+
+        private void SetAttackSlash()
+        {
+            _clips.State.ChildStates[AttackDownward].StartFade(0f, _clips.FadeDuration);
+            _clips.State.ChildStates[AttackHorizontal].StartFade(0f, _clips.FadeDuration);
+            _clips.State.ChildStates[AttackSlash].StartFade(1f, _clips.FadeDuration);
+            _clips.State.ChildStates[AttackSlash].IsPlaying = true;
         }
 
         private void Hit()
@@ -65,7 +122,8 @@ namespace Units.Humans.Animations.States
 
         private float GetHitTime()
         {
-            return _clip.Events[HitEvent].normalizedTime * _clip.Clip.length;
+            return 1f;
+            //return _clip.Events[HitEvent].normalizedTime * _clip.Clip.length;
         }
     }
 }

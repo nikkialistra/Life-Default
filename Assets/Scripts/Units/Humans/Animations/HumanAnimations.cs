@@ -46,6 +46,7 @@ namespace Units.Humans.Animations
         private void Start()
         {
             _animancer.Layers[AnimationLayers.LowerBodyOverwrite].SetMask(_lowerBodyMask);
+            _animancer.Layers[AnimationLayers.LowerBodyOverwrite].Weight = 0;
         }
 
         private StateMachine<HumanState> StateMachine { get; } = new();
@@ -105,17 +106,6 @@ namespace Units.Humans.Animations
             TrySetState(_dieState);
         }
 
-        public void ActivateLowerBodyOverwrite()
-        {
-            _animancer.Layers[AnimationLayers.LowerBodyOverwrite].Play(_lowerBodyOverwriteMoveClip);
-            _animancer.Layers[AnimationLayers.LowerBodyOverwrite].Weight = 0;
-        }
-        
-        public void DeactivateLowerBodyOverwrite()
-        {
-            _animancer.Layers[AnimationLayers.LowerBodyOverwrite].Stop();
-        }
-
         public void LowerBodyOverwriteToMove()
         {
             _animancer.Layers[AnimationLayers.LowerBodyOverwrite].Play(_lowerBodyOverwriteMoveClip);
@@ -124,8 +114,10 @@ namespace Units.Humans.Animations
         
         public void LowerBodyOverwriteToIdle()
         {
-            _animancer.Layers[AnimationLayers.LowerBodyOverwrite].Play(_lowerBodyOverwriteMoveClip);
-            _animancer.Layers[AnimationLayers.LowerBodyOverwrite].StartFade(0f, _lowerBodyOverwriteMoveClip.FadeDuration);
+            if (_animancer.Layers[AnimationLayers.LowerBodyOverwrite].IsPlayingClip(_lowerBodyOverwriteMoveClip.Clip))
+            {
+                _animancer.Layers[AnimationLayers.LowerBodyOverwrite].StartFade(0f, _lowerBodyOverwriteMoveClip.FadeDuration);
+            }
         }
 
         public void TrySetState(HumanState state)
@@ -135,7 +127,7 @@ namespace Units.Humans.Animations
                 StateMachine.TrySetState(state);
             }
         }
-        
+
         private void ForceSetState(HumanState state)
         {
             if (StateMachine.CurrentState != state)

@@ -3379,7 +3379,7 @@ MonoBehaviour:
       _Callbacks: []
       _Names: []
     _Clip: {fileID: -203655887218126122, guid: 227f82d67b43abe4c9bc097d619bbd21, type: 3}
-    _Speed: 1
+    _Speed: 0.9
     _NormalizedStartTime: 0
   _lowerBodyMask: {fileID: 31900000, guid: 4d2e603d63f25ec4b9ff0b6a54418e7a, type: 2}
 --- !u!114 &4051447064366341766

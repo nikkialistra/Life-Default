@@ -12,9 +12,9 @@ namespace Units.Humans.Animations.States
     public class AttackState : HumanState
     {
         [Required]
-        [SerializeField] private LinearMixerTransition _clips;
-        [Required]
         [SerializeField] private ClipTransition _idleClip;
+        [Required]
+        [SerializeField] private LinearMixerTransition _clips;
 
         [Space]
         [Required]
@@ -27,11 +27,14 @@ namespace Units.Humans.Animations.States
 
         private const string HitEvent = "Hit";
         private const string HitEndEvent = "Hit End";
+        
+        private const int AttackIdle = 0;
+        private const int Attack = 1;
 
         private const int AttackDownward = 0;
         private const int AttackHorizontal = 1;
         private const int AttackSlash = 2;
-
+        
         private LowerBodyMoving _lowerBodyMoving;
         
         private LinearMixerState _attackCycleState;
@@ -50,8 +53,8 @@ namespace Units.Humans.Animations.States
             _attackCycleState.Initialize(2);
             _attackCycleState.DontSynchronizeChildren();
 
-            _attackCycleState.CreateChild(0, _clips, 0);
-            _attackCycleState.CreateChild(1, _idleClip, 1);
+            _attackCycleState.CreateChild(0, _idleClip, 0);
+            _attackCycleState.CreateChild(1, _clips, 1);
         }
 
         private void OnEnable()
@@ -70,7 +73,7 @@ namespace Units.Humans.Animations.States
         {
             _lowerBodyMoving.Start();
 
-            _attackCycleState.Parameter = 0;
+            _attackCycleState.Parameter = Attack;
             _animancer.Layers[AnimationLayers.Main].Play(_attackCycleState);
             
             SetRandomAnimation();
@@ -100,12 +103,12 @@ namespace Units.Humans.Animations.States
         
         private IEnumerator SetRandomAnimationAfter()
         {
-            _attackCycleTween.Start(1f, _idleClip.FadeDuration);
+            _attackCycleTween.Start(AttackIdle, _idleClip.FadeDuration);
             
             yield return new WaitForSeconds(_timeBetweenStrikes);
-            
-            _attackCycleTween.Start(0f, _idleClip.FadeDuration);
+
             SetRandomAnimation();
+            _attackCycleTween.Start(Attack, _idleClip.FadeDuration);
         }
 
         private void SetRandomAnimation()
@@ -116,13 +119,12 @@ namespace Units.Humans.Animations.States
 
         private void Hit()
         {
-            _unitAttacker.Hit(GetHitTime());
+            _unitAttacker.Hit(GetPassedTime());
         }
 
-        private float GetHitTime()
+        private float GetPassedTime()
         {
-            return 1f;
-            //return _clip.Events[HitEvent].normalizedTime * _clip.Clip.length;
+            return _clips.MaximumDuration + _timeBetweenStrikes;
         }
     }
 }

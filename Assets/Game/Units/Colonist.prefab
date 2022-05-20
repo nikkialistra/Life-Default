@@ -766,6 +766,7 @@ MonoBehaviour:
   - 3
   - 2
   - 3.5
+  _humanAnimations: {fileID: 6795354888401127415}
 --- !u!114 &2081193202370333819
 MonoBehaviour:
   m_ObjectHideFlags: 0

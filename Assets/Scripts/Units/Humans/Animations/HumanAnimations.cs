@@ -21,12 +21,16 @@ namespace Units.Humans.Animations
         [Space]
         [Required]
         [SerializeField] private AvatarMask _lowerBodyMask;
-        
+        [Space]
+        [SerializeField] private float _effectsWeight = 0.3f;
+        [Required]
+        [SerializeField] private ClipTransition _hitClip;
+
         private AnimancerComponent _animancer;
 
         private IdleState _idleState;
         private MoveState _moveState;
-        
+
         private AttackState _attackState;
 
         private DieState _dieState;
@@ -47,6 +51,8 @@ namespace Units.Humans.Animations
         {
             _animancer.Layers[AnimationLayers.LowerBodyOverwrite].SetMask(_lowerBodyMask);
             _animancer.Layers[AnimationLayers.LowerBodyOverwrite].Weight = 0;
+
+            _animancer.Layers[AnimationLayers.Effects].IsAdditive = true;
         }
 
         private StateMachine<HumanState> StateMachine { get; } = new();
@@ -118,6 +124,12 @@ namespace Units.Humans.Animations
             {
                 _animancer.Layers[AnimationLayers.LowerBodyOverwrite].StartFade(0f, _lowerBodyOverwriteMoveClip.FadeDuration);
             }
+        }
+
+        public void Hit()
+        {
+            _animancer.Layers[AnimationLayers.Effects].Play(_hitClip);
+            _animancer.Layers[AnimationLayers.Effects].StartFade(_effectsWeight);
         }
 
         public void TrySetState(HumanState state)

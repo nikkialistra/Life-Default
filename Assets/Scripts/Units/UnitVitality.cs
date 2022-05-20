@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using General.Interfaces;
 using Sirenix.OdinInspector;
+using Units.Humans.Animations;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -20,6 +21,9 @@ namespace Units
         [SerializeField] private List<float> _possibleRecoverySpeeds;
 
         private Coroutine _takingDamageCoroutine;
+
+        [Required]
+        [SerializeField] private HumanAnimations _humanAnimations;
 
         public event Action Wasted;
         public event Action<float, float> HealthChange;
@@ -82,6 +86,8 @@ namespace Units
                 Wasted?.Invoke();
             }
 
+            _humanAnimations.Hit();
+            
             HealthChange?.Invoke(Health / MaxHealth, RecoverySpeed / _maxRecoverySpeed);
         }
 

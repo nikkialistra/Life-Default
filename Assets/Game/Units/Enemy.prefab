@@ -338,6 +338,7 @@ MonoBehaviour:
   - 3
   - 2
   - 3.5
+  _humanAnimations: {fileID: 6795354888401127415}
 --- !u!114 &298080858946743308
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -368,7 +369,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41b24eb4444846398245d37c7ac57ada, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _advanceTime: 10
+  _advanceTime: 3
   _refreshTime: 1
   _useMinimax: 0
 --- !u!114 &3020886004222341295

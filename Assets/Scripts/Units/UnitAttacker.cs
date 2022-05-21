@@ -5,6 +5,7 @@ using Sirenix.OdinInspector;
 using Units.Ancillaries;
 using Units.Calculations;
 using Units.Enums;
+using Units.Stats;
 using UnityEngine;
 
 namespace Units

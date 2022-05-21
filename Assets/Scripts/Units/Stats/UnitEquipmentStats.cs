@@ -1,7 +1,7 @@
 ﻿using Units.Enums;
 using UnityEngine;
 
-namespace Units
+namespace Units.Stats
 {
     public class UnitEquipmentStats : MonoBehaviour
     {

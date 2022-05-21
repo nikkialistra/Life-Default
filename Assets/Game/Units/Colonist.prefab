@@ -721,21 +721,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cabfe8004b864fb68f7983619a63a1b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxHealth: 100
-  _maxRecoverySpeed: 3
-  _dodgeChance: 0.1
-  _meleeDamageMultiplier: 1
-  _meleeAttackSpeed: 0.4
-  _meleeCriticalChance: 0.1
-  _meleeAttackDistance: 1.7
-  _meleeAttackRange: 3.5
-  _meleeAccuracy: 0.8
-  _rangedDamageMultiplier: 1
-  _rangedAttackSpeed: 1
-  _rangedCriticalChance: 0.1
-  _rangedAttackDistance: 1.7
-  _rangedAttackRange: 2.2
-  _rangedAccuracy: 0.8
+  _attackRangeMultiplierToStartFight: 0.75
+  _maxHealth:
+    _baseValue: 100
+  _maxRecoverySpeed:
+    _baseValue: 3
+  _dodgeChance:
+    _baseValue: 0.1
+  _meleeDamageMultiplier:
+    _baseValue: 1
+  _meleeAttackSpeed:
+    _baseValue: 2.4
+  _meleeCriticalChance:
+    _baseValue: 0.1
+  _meleeAttackRange:
+    _baseValue: 2.2
+  _meleeAccuracy:
+    _baseValue: 0.9
+  _rangedDamageMultiplier:
+    _baseValue: 1
+  _rangedAttackSpeed:
+    _baseValue: 3
+  _rangedCriticalChance:
+    _baseValue: 0.1
+  _rangedAttackRange:
+    _baseValue: 6
+  _rangedAccuracy:
+    _baseValue: 0.9
 --- !u!114 &5149874996177493612
 MonoBehaviour:
   m_ObjectHideFlags: 0

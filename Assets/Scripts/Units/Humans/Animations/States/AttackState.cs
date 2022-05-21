@@ -94,10 +94,7 @@ namespace Units.Humans.Animations.States
 
         public void SetAttackSpeed(float value)
         {
-            var duration = 1 / value;
-            var speed = _clips.MaximumDuration / duration;
-
-            _clips.Speed = speed;
+            _clips.Speed = _clips.MaximumDuration / value;
         }
         
         private void OnHitEnd()

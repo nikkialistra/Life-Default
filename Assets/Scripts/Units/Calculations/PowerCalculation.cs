@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Units.Enums;
+using Units.Stats;
 using UnityEngine;
 
 namespace Units.Calculations

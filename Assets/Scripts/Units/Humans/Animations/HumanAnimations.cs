@@ -37,7 +37,7 @@ namespace Units.Humans.Animations
         private DieState _dieState;
 
         private bool _attacking;
-        
+
         private UnitMeshAgent _unitMeshAgent;
 
         [Inject]
@@ -112,7 +112,7 @@ namespace Units.Humans.Animations
 
         public void SetAttackSpeed(float value)
         {
-            _attackState.Speed = value;
+            _attackState.SetAttackSpeed(value);
         }
 
         public void Die(Action died)
@@ -124,14 +124,16 @@ namespace Units.Humans.Animations
         public void LowerBodyOverwriteToMove()
         {
             _animancer.Layers[AnimationLayers.LowerBodyOverwrite].Play(_lowerBodyOverwriteMoveClip);
-            _animancer.Layers[AnimationLayers.LowerBodyOverwrite].StartFade(1f, _lowerBodyOverwriteMoveClip.FadeDuration);
+            _animancer.Layers[AnimationLayers.LowerBodyOverwrite]
+                .StartFade(1f, _lowerBodyOverwriteMoveClip.FadeDuration);
         }
-        
+
         public void LowerBodyOverwriteToIdle()
         {
             if (_animancer.Layers[AnimationLayers.LowerBodyOverwrite].IsPlayingClip(_lowerBodyOverwriteMoveClip.Clip))
             {
-                _animancer.Layers[AnimationLayers.LowerBodyOverwrite].StartFade(0f, _lowerBodyOverwriteMoveClip.FadeDuration);
+                _animancer.Layers[AnimationLayers.LowerBodyOverwrite]
+                    .StartFade(0f, _lowerBodyOverwriteMoveClip.FadeDuration);
             }
         }
 
@@ -141,7 +143,7 @@ namespace Units.Humans.Animations
             {
                 return;
             }
-            
+
             _animancer.Layers[AnimationLayers.Effects].Play(_hitClips[Random.Range(0, _hitClips.Count)]);
             _animancer.Layers[AnimationLayers.Effects].StartFade(_effectsWeight);
         }

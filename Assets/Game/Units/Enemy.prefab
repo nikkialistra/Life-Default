@@ -25,6 +25,8 @@ GameObject:
   - component: {fileID: 8477657715684973058}
   - component: {fileID: 298080858946743308}
   - component: {fileID: 2904803673409504266}
+  - component: {fileID: 6055286198764241806}
+  - component: {fileID: 8890947443067596178}
   - component: {fileID: 3020886004222341295}
   - component: {fileID: 3711090713507644293}
   - component: {fileID: 9130838204546555337}
@@ -312,7 +314,6 @@ MonoBehaviour:
   _timeAfterAttackToIdle: 2
   _lineToTrackedUnit: {fileID: 3642188998073724583}
   _messageShowing: {fileID: 587481625790340179}
-  _unitEquipment: {fileID: 1616301658998035332}
 --- !u!114 &5149874996177493612
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -327,6 +328,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _rotationSpeed: 120
   _entityOffsetForPathRecalculation: 0.6
+  _minMoveTime: 0.3
+  _velocityToStop: 0.15
 --- !u!114 &7905390231065561626
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -385,12 +388,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cabfe8004b864fb68f7983619a63a1b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _meleeDamage: 10
-  _meleeAttackSpeed: 0.8
+  _maxHealth: 100
+  _maxRecoverySpeed: 3
+  _dodgeChance: 0.1
+  _meleeDamageMultiplier: 1
+  _meleeAttackSpeed: 0.4
+  _meleeCriticalChance: 0.1
   _meleeAttackDistance: 1.7
   _meleeAttackRange: 1.7
   _meleeAccuracy: 0.8
-  _attackDodgeChance: 0.2
+  _rangedDamageMultiplier: 1
+  _rangedAttackSpeed: 1
+  _rangedCriticalChance: 0.1
+  _rangedAttackDistance: 1.7
+  _rangedAttackRange: 2.2
+  _rangedAccuracy: 0.8
 --- !u!114 &2904803673409504266
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -406,6 +418,30 @@ MonoBehaviour:
   _advanceTime: 10
   _refreshTime: 1
   _useMinimax: 0
+--- !u!114 &6055286198764241806
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4193433063631040808}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7dc41665536f445f9e0cdc364f2d1a29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8890947443067596178
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4193433063631040808}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9daa94b56f447c5ac9613d7d7288e7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &3020886004222341295
 MonoBehaviour:
   m_ObjectHideFlags: 0

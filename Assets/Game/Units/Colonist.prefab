@@ -400,9 +400,11 @@ GameObject:
   - component: {fileID: 541429532207667477}
   - component: {fileID: 5149874996177493612}
   - component: {fileID: 7905390231065561626}
-  - component: {fileID: 3574752263784845962}
   - component: {fileID: 5364183396584065060}
   - component: {fileID: 8477657715684973058}
+  - component: {fileID: 3574752263784845962}
+  - component: {fileID: 8890947443067596178}
+  - component: {fileID: 6055286198764241806}
   - component: {fileID: 2081193202370333819}
   - component: {fileID: 6677395056416142622}
   - component: {fileID: 7183938458047524081}
@@ -707,7 +709,6 @@ MonoBehaviour:
   _timeAfterAttackToIdle: 2
   _lineToTrackedUnit: {fileID: 578911681720659008}
   _messageShowing: {fileID: 1304669307844125713}
-  _unitEquipment: {fileID: 1616301658998035332}
 --- !u!114 &541429532207667477
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -720,12 +721,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cabfe8004b864fb68f7983619a63a1b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _meleeDamage: 10
-  _meleeAttackSpeed: 1
+  _maxHealth: 100
+  _maxRecoverySpeed: 3
+  _dodgeChance: 0.1
+  _meleeDamageMultiplier: 1
+  _meleeAttackSpeed: 0.4
+  _meleeCriticalChance: 0.1
   _meleeAttackDistance: 1.7
   _meleeAttackRange: 3.5
   _meleeAccuracy: 0.8
-  _attackDodgeChance: 0.2
+  _rangedDamageMultiplier: 1
+  _rangedAttackSpeed: 1
+  _rangedCriticalChance: 0.1
+  _rangedAttackDistance: 1.7
+  _rangedAttackRange: 2.2
+  _rangedAccuracy: 0.8
 --- !u!114 &5149874996177493612
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -756,21 +766,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _hoverIndicator: {fileID: 6824455664991244363}
   _healthBars: {fileID: 1935489896466272434}
---- !u!114 &3574752263784845962
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4193433063631040808}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 41b24eb4444846398245d37c7ac57ada, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _advanceTime: 3
-  _refreshTime: 1
-  _useMinimax: 0
 --- !u!114 &5364183396584065060
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -803,6 +798,45 @@ MonoBehaviour:
   - 2
   - 3.5
   _humanAnimations: {fileID: 6795354888401127415}
+--- !u!114 &3574752263784845962
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4193433063631040808}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41b24eb4444846398245d37c7ac57ada, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _advanceTime: 3
+  _refreshTime: 1
+  _useMinimax: 0
+--- !u!114 &8890947443067596178
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4193433063631040808}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9daa94b56f447c5ac9613d7d7288e7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6055286198764241806
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4193433063631040808}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7dc41665536f445f9e0cdc364f2d1a29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &2081193202370333819
 MonoBehaviour:
   m_ObjectHideFlags: 0

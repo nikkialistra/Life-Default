@@ -85,14 +85,19 @@ namespace Units.Humans.Animations.States
 
         public override void OnExitState()
         {
-            _lowerBodyMoving.Stop();
+            {
+                _lowerBodyMoving.Stop();
+            }
         }
 
         public override AnimationType AnimationType => AnimationType.Attack;
 
-        public float Speed
+        public void SetAttackSpeed(float value)
         {
-            set => _clips.Speed = value;
+            var duration = 1 / value;
+            var speed = _clips.MaximumDuration / duration;
+
+            _clips.Speed = speed;
         }
         
         private void OnHitEnd()

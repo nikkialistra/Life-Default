@@ -1,4 +1,5 @@
 ﻿using Sirenix.OdinInspector;
+using Units.Enums;
 using UnityEngine;
 
 namespace Units
@@ -11,7 +12,7 @@ namespace Units
         
         [Space]
         [Range(0f, 1f)]
-        [SerializeField] private float _attackDodgeChance = 0.1f;
+        [SerializeField] private float _dodgeChance = 0.1f;
 
         [Title("Melee")]
         [SerializeField] private float _meleeDamageMultiplier = 1f;
@@ -36,14 +37,18 @@ namespace Units
         [SerializeField] private float _rangedAccuracy = 0.8f;
 
         private UnitEquipmentStats _unitEquipmentStats;
+
+        public WeaponType WeaponType => _unitEquipmentStats.WeaponType;
         
         public float MeleeCurrentDamage => _unitEquipmentStats.MeleeDamage * _meleeDamageMultiplier;
         public float RangedCurrentDamage => _unitEquipmentStats.RangedDamage * _rangedDamageMultiplier;
 
+        public float Armor => _unitEquipmentStats.Armor;
+
         public float MaxHealth => _maxHealth;
         public float MaxRecoverySpeed => _maxRecoverySpeed;
         
-        public float AttackDodgeChance => _attackDodgeChance;
+        public float DodgeChance => _dodgeChance;
 
         public float MeleeDamageMultiplier => _meleeDamageMultiplier;
         public float MeleeAttackSpeed => _meleeAttackSpeed;

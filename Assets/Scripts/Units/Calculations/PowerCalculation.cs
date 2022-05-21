@@ -1,22 +1,72 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using Units.Enums;
 using UnityEngine;
 
 namespace Units.Calculations
 {
-    public class PowerCalculation
+    public class PowerCalculation : MonoBehaviour
     {
-        public static int CalculateForOne(UnitStats unitStats)
-        {
-            var averageDPS = unitStats.MeleeCurrentDamage * (1 + unitStats.MeleeCriticalChance) * unitStats.MeleeAttackSpeed;
-            
-            var result = unitStats.MaxHealth * averageDPS;
+        [SerializeField] private float _groupDamageMultiplier = 0.7f;
 
-            return (int)Mathf.Round(result);
+        public int CalculateForOne(UnitStats unitStats, float multiplier = 1f)
+        {
+            var averageUptake = CalculateAverageUptake(unitStats);
+            var averageDPS = CalculateAverageDps(unitStats);
+
+            var power = averageUptake * (averageDPS * multiplier);
+
+            return (int)Mathf.Round(power);
         }
 
-        public static int CalculateForMultiple(List<UnitStats> unitStats)
+        public int CalculateForMultiple(List<UnitStats> unitStatsList)
         {
-            return 1;
+            if (unitStatsList.Count <= 1)
+            {
+                throw new InvalidOperationException($"Power calculation for multiple units have invalid length {unitStatsList.Count}");
+            }
+
+            float sumPower = 0;
+
+            foreach (var unitStats in unitStatsList)
+            {
+                sumPower += CalculateForOne(unitStats, _groupDamageMultiplier);
+            }
+            
+            return (int)Mathf.Round(sumPower);
+        }
+
+        private static float CalculateAverageUptake(UnitStats unitStats)
+        {
+            var averageAbsorption = unitStats.Armor * (1 - unitStats.DodgeChance);
+            var averageUptake = unitStats.MaxHealth / (1 - unitStats.DodgeChance + averageAbsorption);
+            return averageUptake;
+        }
+
+        public static float CalculateAverageDps(UnitStats unitStats)
+        {
+            if (unitStats.WeaponType == WeaponType.Melee)
+            {
+                return CalculateMeleeAverageDps(unitStats);
+            }
+            else
+            {
+                return CalculateRangedAverageDps(unitStats);
+            }
+        }
+
+        private static float CalculateMeleeAverageDps(UnitStats unitStats)
+        {
+            var averageDamage = unitStats.MeleeCurrentDamage * (1 + unitStats.MeleeCriticalChance) * unitStats.MeleeAccuracy;
+            var averageDps = averageDamage * unitStats.MeleeAttackSpeed;
+            return averageDps;
+        }
+
+        private static float CalculateRangedAverageDps(UnitStats unitStats)
+        {
+            var averageDamage = unitStats.RangedCurrentDamage * (1 + unitStats.RangedCriticalChance) * unitStats.RangedAccuracy;
+            var averageDps = averageDamage * unitStats.RangedAttackSpeed;
+            return averageDps;
         }
     }
 }

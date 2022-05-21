@@ -4,6 +4,7 @@ using Enemies;
 using Sirenix.OdinInspector;
 using Units.Ancillaries;
 using Units.Ancillaries.Fields;
+using Units.Calculations;
 using Units.Enums;
 using Units.FightBehavior;
 using UnityEngine;
@@ -13,6 +14,7 @@ namespace Units
 {
     [RequireComponent(typeof(UnitStats))]
     [RequireComponent(typeof(UnitVitality))]
+    [RequireComponent(typeof(UnitFightCalculation))]
     public class Unit : MonoBehaviour
     {
         [SerializeField] private Fraction _fraction;
@@ -44,6 +46,8 @@ namespace Units
         private UnitStats _unitStats;
         
         private bool _died;
+        
+        private UnitFightCalculation _unitFightCalculation;
 
         public event Action<Unit> AttackFrom;
         public event Action<Unit> LeavingAttackFrom;
@@ -62,6 +66,7 @@ namespace Units
         {
             _unitStats = GetComponent<UnitStats>();
             Vitality = GetComponent<UnitVitality>();
+            _unitFightCalculation = GetComponent<UnitFightCalculation>();
         }
         
         public Colonist Colonist => _colonist;
@@ -90,34 +95,31 @@ namespace Units
         }
 
         [Button(ButtonSizes.Medium)]
-        public void TakeDamage(float value)
+        public void TakeDamage(float damage)
         {
             if (_died)
             {
                 return;
             }
 
-            if (Dodged())
+            if (_unitFightCalculation.Dodged())
             {
                 _messageShowing.Show("Dodge");
                 return;
             }
 
-            _messageShowing.Show(Mathf.Round(value).ToString(), Color.red);
-            Vitality.TakeDamage(value);
+            var hitDamage = _unitFightCalculation.CalculateHitDamage(damage);
+
+            _messageShowing.Show(Mathf.Round(hitDamage).ToString(), Color.red);
+            Vitality.TakeDamage(damage);
         }
         
         public FightSpecs GetSpecs()
         {
             var health = Vitality.Health;
-            var averageDamagePerSecond = _unitStats.MeleeDamagePerSecond * _unitStats.MeleeAccuracy;
+            var averageDamagePerSecond = PowerCalculation.CalculateAverageDps(_unitStats) * _unitStats.MeleeAccuracy;
 
             return new FightSpecs(health, averageDamagePerSecond);
-        }
-
-        private bool Dodged()
-        {
-            return Random.Range(0f, 1f) <= _unitStats.AttackDodgeChance;
         }
 
         public void Select()

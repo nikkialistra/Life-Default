@@ -3,8 +3,9 @@ using System.Collections;
 using General;
 using Sirenix.OdinInspector;
 using Units.Ancillaries;
+using Units.Calculations;
+using Units.Enums;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 namespace Units
 {
@@ -12,6 +13,7 @@ namespace Units
     [RequireComponent(typeof(UnitStats))]
     [RequireComponent(typeof(UnitAnimator))]
     [RequireComponent(typeof(UnitSelection))]
+    [RequireComponent(typeof(UnitFightCalculation))]
     public class UnitAttacker : MonoBehaviour
     {
         [SerializeField] private float _timeAfterAttackToIdle = 2f;
@@ -21,8 +23,6 @@ namespace Units
         [Space]
         [Required]
         [SerializeField] private MessageShowing _messageShowing;
-        [Required]
-        [SerializeField] private UnitEquipment _unitEquipment;
 
         private Unit _self;
         
@@ -36,19 +36,21 @@ namespace Units
         
         private UnitSelection _unitSelection;
 
+        private UnitFightCalculation _unitFightCalculation;
+        
         private float _attackAngle;
 
         private float _waitTime;
 
         private float _lastAttackTime;
-        
+
         private bool _unitTargetExposed;
 
         private bool _hovered;
         private bool _selected;
 
         private bool _finalizingAttacking;
-        
+
         private Coroutine _attackingCoroutine;
 
         private void Awake()
@@ -58,6 +60,8 @@ namespace Units
             _unitStats = GetComponent<UnitStats>();
             _unitAnimator = GetComponent<UnitAnimator>();
             _unitSelection = GetComponent<UnitSelection>();
+
+            _unitFightCalculation = GetComponent<UnitFightCalculation>();
         }
 
         public event Action TrackingStart;
@@ -126,7 +130,7 @@ namespace Units
                 return;
             }
 
-            if (Miss())
+            if (_unitFightCalculation.Missed())
             {
                 _messageShowing.Show("Miss");
                 return;
@@ -135,14 +139,9 @@ namespace Units
             MakeDamage(passedTime);
         }
 
-        private bool Miss()
-        {
-            return Random.Range(0f, 1f) > _unitStats.MeleeAccuracy;
-        }
-
         private void MakeDamage(float passedTime)
         {
-            var damage = _unitStats.MeleeDamagePerSecond * passedTime;
+            var damage = _unitFightCalculation.CalculateDamage();
 
             _attackedUnit.TakeDamage(damage);
 
@@ -177,7 +176,7 @@ namespace Units
             _hovered = true;
             TryExposeUnitTarget();
         }
-        
+
         private void OnUnhovered()
         {
             _hovered = false;

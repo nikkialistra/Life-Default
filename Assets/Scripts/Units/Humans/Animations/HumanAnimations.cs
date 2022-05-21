@@ -5,6 +5,7 @@ using Animancer.FSM;
 using Sirenix.OdinInspector;
 using Units.Humans.Animations.States;
 using UnityEngine;
+using Zenject;
 using Random = UnityEngine.Random;
 
 namespace Units.Humans.Animations
@@ -16,8 +17,6 @@ namespace Units.Humans.Animations
     [RequireComponent(typeof(DieState))]
     public class HumanAnimations : MonoBehaviour
     {
-        [Required]
-        [SerializeField] private UnitMeshAgent _unitMeshAgent;
         [Required]
         [SerializeField] private ClipTransition _lowerBodyOverwriteMoveClip;
         [Space]
@@ -38,6 +37,14 @@ namespace Units.Humans.Animations
         private DieState _dieState;
 
         private bool _attacking;
+        
+        private UnitMeshAgent _unitMeshAgent;
+
+        [Inject]
+        public void Construct(UnitMeshAgent unitMeshAgent)
+        {
+            _unitMeshAgent = unitMeshAgent;
+        }
 
         private void Awake()
         {

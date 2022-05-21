@@ -3371,7 +3371,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83a99992a0434ced844865e657803eb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _unitMeshAgent: {fileID: 0}
   _lowerBodyOverwriteMoveClip:
     _FadeDuration: 0.1
     _Events:
@@ -3475,7 +3474,7 @@ MonoBehaviour:
     _FadeDuration: 0.1
     _Events:
       _NormalizedTimes:
-      - 0.4
+      - 0.5
       - 0.9999999
       - NaN
       _Callbacks: []
@@ -3495,8 +3494,6 @@ MonoBehaviour:
     - 2
     _DefaultParameter: 0
     _ExtrapolateSpeed: 1
-  _unitMeshAgent: {fileID: 0}
-  _unitAttacker: {fileID: 0}
   _timeBetweenStrikes: 0.4
 --- !u!114 &2839083938651011249
 MonoBehaviour:

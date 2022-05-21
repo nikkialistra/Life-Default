@@ -3,6 +3,7 @@ using System.Collections;
 using Animancer;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using Zenject;
 using Random = UnityEngine.Random;
 
 namespace Units.Humans.Animations.States
@@ -16,12 +17,6 @@ namespace Units.Humans.Animations.States
         [Required]
         [SerializeField] private LinearMixerTransition _clips;
 
-        [Space]
-        [Required]
-        [SerializeField] private UnitMeshAgent _unitMeshAgent;
-        [Required]
-        [SerializeField] private UnitAttacker _unitAttacker;
-        
         [Space]
         [SerializeField] private float _timeBetweenStrikes = 0.4f;
 
@@ -39,6 +34,16 @@ namespace Units.Humans.Animations.States
         
         private LinearMixerState _attackCycleState;
         private MixerParameterTweenFloat _attackCycleTween;
+        
+        private UnitMeshAgent _unitMeshAgent; 
+        private UnitAttacker _unitAttacker;
+
+        [Inject]
+        public void Construct(UnitMeshAgent unitMeshAgent, UnitAttacker unitAttacker)
+        {
+            _unitMeshAgent = unitMeshAgent;
+            _unitAttacker = unitAttacker;
+        }
 
         protected override void OnAwake()
         {

@@ -740,6 +740,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _rotationSpeed: 120
   _entityOffsetForPathRecalculation: 0.6
+  _minMoveTime: 0.3
+  _velocityToStop: 0.15
 --- !u!114 &7905390231065561626
 MonoBehaviour:
   m_ObjectHideFlags: 0

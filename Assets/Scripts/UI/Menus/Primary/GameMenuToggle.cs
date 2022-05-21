@@ -70,6 +70,18 @@ namespace UI.Menus.Primary
             _toggleMenuAction.started -= ToggleMenu;
         }
 
+        private void OnApplicationFocus(bool hasFocus)
+        {
+            if (hasFocus)
+            {
+                DoResume();
+            }
+            else
+            {
+                DoPause();
+            }
+        }
+
         private void DoPause()
         {
             _cameraMovement.DeactivateMovement();
@@ -81,11 +93,6 @@ namespace UI.Menus.Primary
             _timeToggling.ToggleTime();
             _cameraMovement.ActivateMovement();
             GameResume?.Invoke();
-        }
-
-        private void ShowGameMenu()
-        {
-            _gameMenuView.ShowSelf();
         }
 
         private void ToggleMenu(InputAction.CallbackContext context)

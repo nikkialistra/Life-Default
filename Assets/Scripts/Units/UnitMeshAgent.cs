@@ -14,6 +14,9 @@ namespace Units
     {
         [SerializeField] private float _rotationSpeed = 120f;
         [SerializeField] private float _entityOffsetForPathRecalculation = 0.6f;
+        [Space]
+        [SerializeField] private float _minMoveTime = 0.3f;
+        [SerializeField] private float _velocityToStop = 0.15f;
 
         private AIPath _aiPath;
 
@@ -27,6 +30,8 @@ namespace Units
 
         private bool _movingToResource;
 
+        private float _timeSetToDestination;
+        
         private Coroutine _movingCoroutine;
         private Coroutine _rotatingToCoroutine;
 
@@ -48,6 +53,8 @@ namespace Units
 
         public void SetDestinationToPosition(Vector3 position)
         {
+            _timeSetToDestination = Time.time;
+            
             _aiPath.isStopped = false;
             _aiPath.destination = (Vector3)AstarPath.active.GetNearest(position, NNConstraint.Default).node.position;
             
@@ -207,18 +214,18 @@ namespace Units
         {
             if (_movingToUnitTarget)
             {
-                return UpdateMovingToUnitTarget();
+                return IsMovingToUnitTarget();
             }
 
             if (_movingToResource)
             {
-                return UpdateMovingToResource();
+                return IsMovingToResource();
             }
 
-            return UpdateMovingToPosition();
+            return IsMovingToPosition();
         }
 
-        private bool UpdateMovingToUnitTarget()
+        private bool IsMovingToUnitTarget()
         {
             if (_unitTarget == null)
             {
@@ -247,7 +254,7 @@ namespace Units
             return (_lastUnitTargetPosition - transform.position).normalized * _seekPredictionMultiplier;
         }
 
-        private bool UpdateMovingToResource()
+        private bool IsMovingToResource()
         {
             if (Vector3.Distance(transform.position, _aiPath.destination) <= _interactionDistance)
             {
@@ -257,9 +264,14 @@ namespace Units
             return true;
         }
 
-        private bool UpdateMovingToPosition()
+        private bool IsMovingToPosition()
         {
-            return !_aiPath.reachedDestination;
+            if (Time.time - _timeSetToDestination < _minMoveTime)
+            {
+                return true;
+            }
+            
+            return _aiPath.velocity.magnitude > _velocityToStop && !_aiPath.reachedDestination;
         }
 
         private IEnumerator RotatingTo(Vector3 targetPosition)

@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using Animancer;
 using Animancer.FSM;
 using Sirenix.OdinInspector;
 using Units.Humans.Animations.States;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Units.Humans.Animations
 {
@@ -24,7 +26,7 @@ namespace Units.Humans.Animations
         [Space]
         [SerializeField] private float _effectsWeight = 0.3f;
         [Required]
-        [SerializeField] private ClipTransition _hitClip;
+        [SerializeField] private List<ClipTransition> _hitClips;
 
         private AnimancerComponent _animancer;
 
@@ -128,7 +130,12 @@ namespace Units.Humans.Animations
 
         public void Hit()
         {
-            _animancer.Layers[AnimationLayers.Effects].Play(_hitClip);
+            if (_animancer.Layers[AnimationLayers.Effects].IsAnyStatePlaying())
+            {
+                return;
+            }
+            
+            _animancer.Layers[AnimationLayers.Effects].Play(_hitClips[Random.Range(0, _hitClips.Count)]);
             _animancer.Layers[AnimationLayers.Effects].StartFade(_effectsWeight);
         }
 

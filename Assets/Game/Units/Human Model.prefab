@@ -3382,15 +3382,23 @@ MonoBehaviour:
     _Speed: 0.9
     _NormalizedStartTime: 0
   _lowerBodyMask: {fileID: 31900000, guid: 4d2e603d63f25ec4b9ff0b6a54418e7a, type: 2}
-  _effectsWeight: 0.5
-  _hitClip:
-    _FadeDuration: 0.1
+  _effectsWeight: 0.6
+  _hitClips:
+  - _FadeDuration: 0.1
     _Events:
       _NormalizedTimes: []
       _Callbacks: []
       _Names: []
     _Clip: {fileID: -203655887218126122, guid: 2375829b5a24c684f92912e87cce61cd, type: 3}
-    _Speed: 0.7
+    _Speed: 1
+    _NormalizedStartTime: 0
+  - _FadeDuration: 0.1
+    _Events:
+      _NormalizedTimes: []
+      _Callbacks: []
+      _Names: []
+    _Clip: {fileID: -203655887218126122, guid: 0d8585906e941da4091b9783a9faa47e, type: 3}
+    _Speed: 1
     _NormalizedStartTime: 0
 --- !u!114 &4051447064366341766
 MonoBehaviour:
@@ -3467,7 +3475,7 @@ MonoBehaviour:
     _FadeDuration: 0.1
     _Events:
       _NormalizedTimes:
-      - 0.5
+      - 0.4
       - 0.9999999
       - NaN
       _Callbacks: []

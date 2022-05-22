@@ -390,6 +390,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _attackRangeMultiplierToStartFight: 0.75
+  _movementSpeed:
+    _baseValue: 3.3
   _maxHealth:
     _baseValue: 100
   _maxRecoverySpeed:

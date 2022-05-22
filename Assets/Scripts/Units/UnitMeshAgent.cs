@@ -4,6 +4,8 @@ using DG.Tweening;
 using General;
 using Pathfinding;
 using ResourceManagement;
+using UniRx;
+using Units.Stats;
 using UnityEngine;
 
 namespace Units
@@ -50,6 +52,17 @@ namespace Units
         public event Action RotationEnd;
 
         public bool IsMoving => !_aiPath.isStopped;
+        
+        public void BindStats(Stat movementSpeed)
+        {
+            _aiPath.maxSpeed = movementSpeed.Value;
+            movementSpeed.ValueChange += ChangeMovementSpeed;
+        }
+
+        public void UnbindStats(Stat movementSpeed)
+        {
+            movementSpeed.ValueChange -= ChangeMovementSpeed;
+        }
 
         public void SetDestinationToPosition(Vector3 position)
         {
@@ -96,6 +109,16 @@ namespace Units
             _movingToUnitTarget = false;
             
             StopRotating();
+        }
+        
+        private void ChangeMovementSpeed(float value)
+        {
+            if (value < 0)
+            {
+                throw new ArgumentException("Movement speed cannot be less than 0");
+            }
+            
+            _aiPath.maxSpeed = value;
         }
 
         private Vector3 GetNearestWalkablePosition(Vector3 originalPosition)

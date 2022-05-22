@@ -2,6 +2,8 @@
 {
     public enum StatType
     {
+        MovementSpeed,
+        
         MaxHealth,
         MaxRecoverySpeed,
         

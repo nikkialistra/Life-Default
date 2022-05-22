@@ -88,8 +88,8 @@ namespace UI.Game.GameLook.Components.Info
 
             ShowRows();
 
-            FillRow(0, "Health:", $"{_enemy.Unit.Vitality.Health}");
-            FillRow(1, "Recovery Speed:", $"{_enemy.Unit.Vitality.RecoverySpeed}");
+            FillRow(0, "Health:", $"{_enemy.Unit.UnitVitality.Health}");
+            FillRow(1, "Recovery Speed:", $"{_enemy.Unit.UnitVitality.RecoverySpeed}");
 
             SubscribeToEnemy();
         }
@@ -122,8 +122,8 @@ namespace UI.Game.GameLook.Components.Info
 
         private void UpdateRows()
         {
-            _rowValues[0].text = $"{_enemy.Unit.Vitality.Health}";
-            _rowValues[0].text = $"{_enemy.Unit.Vitality.RecoverySpeed}";
+            _rowValues[0].text = $"{_enemy.Unit.UnitVitality.Health}";
+            _rowValues[0].text = $"{_enemy.Unit.UnitVitality.RecoverySpeed}";
         }
 
         private void FillRow(int index, string name, string value)

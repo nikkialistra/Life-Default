@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using General.Interfaces;
 using Sirenix.OdinInspector;
 using Units.Humans.Animations;
+using Units.Stats;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -32,7 +33,7 @@ namespace Units
         public float MaxHealth { get; private set; }
 
         public float RecoverySpeed { get; private set; }
-        public float MaxRecoverySpeed => _maxRecoverySpeed;
+        public float MaxRecoverySpeed { get; private set; }
 
         public int HealthPercent => (int)((Health / MaxHealth) * 100);
         public int RecoverySpeedPercent => (int)((RecoverySpeed / _maxRecoverySpeed) * 100);
@@ -55,13 +56,25 @@ namespace Units
             }
         }
 
-        public void Initialize()
+        public void BindStats(Stat maxHealth, Stat maxRecoverySpeed)
         {
-            MaxHealth = _possibleMaxHealths[Random.Range(0, _possibleMaxHealths.Count)];
+            MaxHealth = maxHealth.Value;
+            MaxRecoverySpeed = maxRecoverySpeed.Value;
+
+            maxHealth.ValueChange += ChangeMaxHealth;
+            maxRecoverySpeed.ValueChange += ChangeMaxRecoverySpeed;
+        }
+
+        public void UnbindStats(Stat maxHealth, Stat maxRecoverySpeed)
+        {
+            maxHealth.ValueChange -= ChangeMaxHealth;
+            maxRecoverySpeed.ValueChange -= ChangeMaxRecoverySpeed;
+        }
+        
+        public void SetInitialValues()
+        {
             Health = MaxHealth;
-            
-            _maxRecoverySpeed = _possibleRecoverySpeeds[Random.Range(0, _possibleRecoverySpeeds.Count)];
-            RecoverySpeed = _maxRecoverySpeed;
+            RecoverySpeed = MaxRecoverySpeed;
         }
 
         public void TakeHealing(float value)
@@ -108,6 +121,26 @@ namespace Units
                 StopCoroutine(_takingDamageCoroutine);
                 _takingDamageCoroutine = null;
             }
+        }
+        
+        private void ChangeMaxHealth(float value)
+        {
+            if (value < 1f)
+            {
+                throw new ArgumentException("Max health cannot be less than 1");
+            }
+            
+            MaxHealth = value;
+        }
+
+        private void ChangeMaxRecoverySpeed(float value)
+        {
+            if (value < 1f)
+            {
+                throw new ArgumentException("Max recovery speed cannot be less than 1");
+            }
+            
+            MaxRecoverySpeed = value;
         }
 
         private IEnumerator TakingDamage(float value, float interval, float time)

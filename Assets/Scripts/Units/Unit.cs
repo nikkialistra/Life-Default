@@ -17,6 +17,7 @@ namespace Units
     [RequireComponent(typeof(UnitTraits))]
     [RequireComponent(typeof(UnitVitality))]
     [RequireComponent(typeof(UnitFightCalculation))]
+    [RequireComponent(typeof(UnitMeshAgent))]
     public class Unit : MonoBehaviour
     {
         [SerializeField] private Fraction _fraction;
@@ -47,11 +48,25 @@ namespace Units
 
         private UnitStats _unitStats;
         private UnitTraits _unitTraits;
-        
+
+        private UnitVitality _unitVitality;
+        private UnitMeshAgent _unitMeshAgent;
+
         private bool _died;
         
         private UnitFightCalculation _unitFightCalculation;
 
+        private void Awake()
+        {
+            _unitStats = GetComponent<UnitStats>();
+            _unitTraits = GetComponent<UnitTraits>();
+
+            _unitMeshAgent = GetComponent<UnitMeshAgent>();
+            
+            _unitVitality = GetComponent<UnitVitality>();
+            _unitFightCalculation = GetComponent<UnitFightCalculation>();
+        }
+        
         public event Action<Unit> AttackFrom;
         public event Action<Unit> LeavingAttackFrom;
         
@@ -65,45 +80,45 @@ namespace Units
 
         public UnitEquipment UnitEquipment => _unitEquipment;
         
-        private void Awake()
-        {
-            _unitStats = GetComponent<UnitStats>();
-            _unitTraits = GetComponent<UnitTraits>();
-            
-            Vitality = GetComponent<UnitVitality>();
-            _unitFightCalculation = GetComponent<UnitFightCalculation>();
-        }
-        
         public Colonist Colonist => _colonist;
         public Enemy Enemy => _enemy;
 
-        public UnitVitality Vitality { get; set; }
+        public UnitVitality UnitVitality => _unitVitality;
 
         private void OnEnable()
         {
-            Vitality.HealthChange += OnHealthChange;
-            Vitality.Wasted += OnWasted;
+            _unitVitality.HealthChange += OnHealthChange;
+            _unitVitality.Wasted += OnWasted;
         }
 
         private void OnDisable()
         {
-            Vitality.HealthChange -= OnHealthChange;
-            Vitality.Wasted -= OnWasted;
+            _unitVitality.HealthChange -= OnHealthChange;
+            _unitVitality.Wasted -= OnWasted;
+        }
+
+        private void OnDestroy()
+        {
+            UnbindStatsFromComponents();
         }
 
         public void Initialize()
         {
-            Vitality.Initialize();
+            BindStatsToComponents();
             
-            _healthBars.SetHealth(Vitality.Health);
-            _healthBars.SetRecoverySpeed(Vitality.RecoverySpeed);
+            _unitVitality.SetInitialValues();
+            
+            _healthBars.SetHealth(_unitVitality.Health);
+            _healthBars.SetRecoverySpeed(_unitVitality.RecoverySpeed);
         }
 
+        [Button(ButtonSizes.Medium)]
         public void AddTrait(Trait trait)
         {
             _unitTraits.AddTrait(trait);
         }
 
+        [Button(ButtonSizes.Medium)]
         public void RemoveTrait(Trait trait)
         {
             _unitTraits.RemoveTrait(trait);
@@ -126,12 +141,12 @@ namespace Units
             var hitDamage = _unitFightCalculation.CalculateHitDamage(damage);
 
             _messageShowing.Show(Mathf.Round(hitDamage).ToString(), Color.red);
-            Vitality.TakeDamage(damage);
+            _unitVitality.TakeDamage(damage);
         }
         
         public FightSpecs GetSpecs()
         {
-            var health = Vitality.Health;
+            var health = _unitVitality.Health;
             var averageDamagePerSecond = PowerCalculation.CalculateAverageDps(_unitStats) * _unitStats.MeleeAccuracy;
 
             return new FightSpecs(health, averageDamagePerSecond);
@@ -186,13 +201,24 @@ namespace Units
                 return;
             }
             
-            Vitality.TakeDamage(10000f);
+            _unitVitality.TakeDamage(10000f);
+        }
+        
+        private void BindStatsToComponents()
+        {
+            _unitVitality.BindStats(_unitStats.MaxHealth, _unitStats.MaxRecoverySpeed);
+            _unitMeshAgent.BindStats(_unitStats.MovementSpeed);
+        }
+
+        private void UnbindStatsFromComponents()
+        {
+            _unitVitality.UnbindStats(_unitStats.MaxHealth, _unitStats.MaxRecoverySpeed);
+            _unitMeshAgent.UnbindStats(_unitStats.MovementSpeed);
         }
 
         private void OnWasted()
         {
             _died = true;
-
             Dying?.Invoke();
         }
 

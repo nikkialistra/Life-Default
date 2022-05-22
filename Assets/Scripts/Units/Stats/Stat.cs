@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using UniRx;
 using UnityEngine;
 
 namespace Units.Stats
@@ -9,42 +8,33 @@ namespace Units.Stats
     public class Stat
     {
         [SerializeField] private float _baseValue;
-
-        public float Value => ReactiveValue.Value;
-
-        public IReadOnlyReactiveProperty<float> ReactiveValue;
-        public IReadOnlyCollection<StatModifier> StatModifiers;
         
-        private ReactiveProperty<bool> _isDirty = new();
+        public float Value { get; private set; }
+        
+        public IReadOnlyList<StatModifier> StatModifiers;
+        
         private readonly List<StatModifier> _statModifiers = new();
 
         public void Initialize()
         {
             StatModifiers = _statModifiers.AsReadOnly();
 
-            ReactiveValue = _isDirty.ObserveEveryValueChanged(x => x.Value)
-                .Where(x => x == true)
-                .Select(_ =>
-                {
-                    _isDirty.Value = false;
-                    return CalculateFinalValue();
-                })
-                .ToReactiveProperty();
-
-            _isDirty.Value = true;
+            RecalculateValue();
         }
+        
+        public event Action<float> ValueChange;
 
         public virtual void AddModifier(StatModifier modifier)
         {
             _statModifiers.Add(modifier);
-            _isDirty.Value = true;
+            RecalculateValue();
         }
 
         public virtual bool RemoveModifier(StatModifier modifier)
         {
             if (_statModifiers.Remove(modifier))
             {
-                _isDirty.Value = true;
+                RecalculateValue();
                 return true;
             }
 
@@ -57,14 +47,14 @@ namespace Units.Stats
 
             if (removedCount > 0)
             {
-                _isDirty.Value = true;
+                RecalculateValue();
                 return true;
             }
 
             return false;
         }
 
-        private float CalculateFinalValue()
+        private void RecalculateValue()
         {
             var finalValue = _baseValue;
             var percentAddSum = 0f;
@@ -100,7 +90,9 @@ namespace Units.Stats
             }
 
             // Workaround for float calculation errors, like displaying 12.00001 instead of 12
-            return (float)Math.Round(finalValue, 4);
+            Value = (float)Math.Round(finalValue, 4);
+            
+            ValueChange?.Invoke(Value);
         }
 
         private int CompareModifierOrder(StatModifier a, StatModifier b)

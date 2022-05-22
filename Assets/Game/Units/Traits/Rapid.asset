@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6a41c84410b146d08f98c383e02f4b16, type: 3}
-  m_Name: Enduring
+  m_Name: Rapid
   m_EditorClassIdentifier: 
-  _name: Enduring
-  _description: Health +30
+  _name: Rapid
+  _description: You are as wind
   _statModifiers:
-  - _type: 1
+  - _type: 0
     _modifierType: 100
-    _value: 30
+    _value: 5

@@ -131,7 +131,7 @@ namespace UI.Game.GameLook.Components.Info.ColonistInfo
             _colonistHeader.FillInColonist(colonist);
             SubscribeToUnit();
 
-            _colonistIndicators.UpdateVitalityMaxValues(colonist.Unit.Vitality);
+            _colonistIndicators.UpdateVitalityMaxValues(colonist.Unit.UnitVitality);
             
             UpdateVitality();
             UpdateIndicators();
@@ -154,8 +154,8 @@ namespace UI.Game.GameLook.Components.Info.ColonistInfo
 
         private void UpdateVitality()
         {
-            _colonistIndicators.UpdateHealth(_colonist.Unit.Vitality);
-            _colonistIndicators.UpdateRecoverySpeed(_colonist.Unit.Vitality);
+            _colonistIndicators.UpdateHealth(_colonist.Unit.UnitVitality);
+            _colonistIndicators.UpdateRecoverySpeed(_colonist.Unit.UnitVitality);
         }
 
         private void UpdateIndicators()

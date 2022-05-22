@@ -11,6 +11,8 @@ namespace Units.Stats
         [SerializeField] private float _attackRangeMultiplierToStartFight = 0.75f;
         
         [Title("General")]
+        [SerializeField] private Stat _movementSpeed;
+        [Space]
         [SerializeField] private Stat _maxHealth;
         [SerializeField] private Stat _maxRecoverySpeed;
         [Space]
@@ -39,8 +41,10 @@ namespace Units.Stats
 
         public float Armor => _unitEquipmentStats.Armor;
 
-        public float MaxHealth => _maxHealth.Value;
-        public float MaxRecoverySpeed => _maxRecoverySpeed.Value;
+        public Stat MaxHealth => _maxHealth;
+        public Stat MaxRecoverySpeed => _maxRecoverySpeed;
+        
+        public Stat MovementSpeed => _movementSpeed;
         
         public float DodgeChance => _dodgeChance.Value;
 
@@ -81,6 +85,8 @@ namespace Units.Stats
 
         private void InitializeStats()
         {
+            _movementSpeed.Initialize();
+            
             _maxHealth.Initialize();
             _maxRecoverySpeed.Initialize();
             
@@ -103,6 +109,8 @@ namespace Units.Stats
         {
             var stat = statModifier.Type switch
             {
+                StatType.MovementSpeed => _movementSpeed,
+                
                 StatType.MaxHealth => _maxHealth,
                 StatType.MaxRecoverySpeed => _maxRecoverySpeed,
 

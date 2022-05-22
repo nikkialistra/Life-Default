@@ -723,6 +723,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _attackRangeMultiplierToStartFight: 0.75
+  _movementSpeed:
+    _baseValue: 4
   _maxHealth:
     _baseValue: 100
   _maxRecoverySpeed:
@@ -763,6 +765,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _traits:
   - {fileID: 11400000, guid: e694c8ec605b4ee46bc507cba25fd432, type: 2}
+  - {fileID: 11400000, guid: 49b0af2bc8c2d2e48a2a322e9805557a, type: 2}
 --- !u!114 &5149874996177493612
 MonoBehaviour:
   m_ObjectHideFlags: 0

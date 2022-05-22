@@ -8,12 +8,13 @@ using Units.Calculations;
 using Units.Enums;
 using Units.FightBehavior;
 using Units.Stats;
+using Units.Traits;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 namespace Units
 {
     [RequireComponent(typeof(UnitStats))]
+    [RequireComponent(typeof(UnitTraits))]
     [RequireComponent(typeof(UnitVitality))]
     [RequireComponent(typeof(UnitFightCalculation))]
     public class Unit : MonoBehaviour
@@ -45,6 +46,7 @@ namespace Units
         [SerializeField] private MessageShowing _messageShowing;
 
         private UnitStats _unitStats;
+        private UnitTraits _unitTraits;
         
         private bool _died;
         
@@ -66,6 +68,8 @@ namespace Units
         private void Awake()
         {
             _unitStats = GetComponent<UnitStats>();
+            _unitTraits = GetComponent<UnitTraits>();
+            
             Vitality = GetComponent<UnitVitality>();
             _unitFightCalculation = GetComponent<UnitFightCalculation>();
         }
@@ -93,6 +97,16 @@ namespace Units
             
             _healthBars.SetHealth(Vitality.Health);
             _healthBars.SetRecoverySpeed(Vitality.RecoverySpeed);
+        }
+
+        public void AddTrait(Trait trait)
+        {
+            _unitTraits.AddTrait(trait);
+        }
+
+        public void RemoveTrait(Trait trait)
+        {
+            _unitTraits.RemoveTrait(trait);
         }
 
         [Button(ButtonSizes.Medium)]

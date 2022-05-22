@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace General.Questing
 {
-    [CreateAssetMenu(fileName = "Collect Objective", menuName = "Quest/Quest")]
+    [CreateAssetMenu(fileName = "Quest", menuName = "Quest")]
     public class Quest : ScriptableObject
     {
         [SerializeField] private string _title;

@@ -79,8 +79,6 @@ namespace Units
         {
             _attackAngle = GlobalParameters.Instance.AttackAngle;
             _waitTime = GlobalParameters.Instance.TimeToStopInteraction;
-            
-            _unitAnimator.SetAttackSpeed(_unitStats.MeleeAttackSpeed);
         }
 
         private void OnEnable()
@@ -105,11 +103,11 @@ namespace Units
 
         public Unit TrackedUnit => _trackedUnit;
         public Unit AttackedUnit => _attackedUnit;
-        
-        public bool HoldingWeapon => IsAttacking || _trackedUnit != null;
 
         public void Attack(Unit unit)
         {
+            _unitAnimator.SetAttackSpeed(_unitStats.MeleeAttackSpeed);
+            
             _attackedUnit = unit;
 
             _attackedUnit.NotifyAboutAttackFrom(_self);

@@ -1,4 +1,5 @@
-﻿using Sirenix.OdinInspector;
+﻿using System;
+using Sirenix.OdinInspector;
 using Units.Enums;
 using UnityEngine;
 
@@ -64,6 +65,20 @@ namespace Units.Stats
             InitializeStats();
         }
 
+        public void AddStatModifier(StatModifier statModifier)
+        {
+            var stat = ChooseStat(statModifier);
+
+            stat.AddModifier(statModifier);
+        }
+
+        public void RemoveStatModifier(StatModifier statModifier)
+        {
+            var stat = ChooseStat(statModifier);
+
+            stat.RemoveModifier(statModifier);
+        }
+
         private void InitializeStats()
         {
             _maxHealth.Initialize();
@@ -82,6 +97,32 @@ namespace Units.Stats
             _rangedCriticalChance.Initialize();
             _rangedAttackRange.Initialize();
             _rangedAccuracy.Initialize();
+        }
+
+        private Stat ChooseStat(StatModifier statModifier)
+        {
+            var stat = statModifier.Type switch
+            {
+                StatType.MaxHealth => _maxHealth,
+                StatType.MaxRecoverySpeed => _maxRecoverySpeed,
+
+                StatType.DodgeChance => _dodgeChance,
+
+                StatType.MeleeDamageMultiplier => _meleeDamageMultiplier,
+                StatType.MeleeAttackSpeed => _meleeAttackSpeed,
+                StatType.MeleeCriticalChance => _meleeCriticalChance,
+                StatType.MeleeAttackRange => _meleeAttackRange,
+                StatType.MeleeAccuracy => _meleeAccuracy,
+
+                StatType.RangedDamageMultiplier => _rangedDamageMultiplier,
+                StatType.RangedAttackSpeed => _rangedAttackSpeed,
+                StatType.RangedCriticalChance => _rangedCriticalChance,
+                StatType.RangedAttackRange => _rangedAttackRange,
+                StatType.RangedAccuracy => _rangedAccuracy,
+
+                _ => throw new ArgumentOutOfRangeException()
+            };
+            return stat;
         }
     }
 }

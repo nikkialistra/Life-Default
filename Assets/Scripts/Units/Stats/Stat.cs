@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using UniRx;
 using UnityEngine;
 
@@ -14,7 +13,7 @@ namespace Units.Stats
         public float Value => ReactiveValue.Value;
 
         public IReadOnlyReactiveProperty<float> ReactiveValue;
-        public ReadOnlyCollection<StatModifier> StatModifiers;
+        public IReadOnlyCollection<StatModifier> StatModifiers;
         
         private ReactiveProperty<bool> _isDirty = new();
         private readonly List<StatModifier> _statModifiers = new();
@@ -76,7 +75,7 @@ namespace Units.Stats
             {
                 var modifier = _statModifiers[i];
 
-                switch (modifier.Type)
+                switch (modifier.ModifierType)
                 {
                     case StatModifierType.EarlyFlat:
                         finalValue += modifier.Value;
@@ -121,7 +120,7 @@ namespace Units.Stats
 
         private bool IsPercentAddModifiersEnd(int i)
         {
-            return i + 1 >= _statModifiers.Count || _statModifiers[i + 1].Type != StatModifierType.PercentAdd;
+            return i + 1 >= _statModifiers.Count || _statModifiers[i + 1].ModifierType != StatModifierType.PercentAdd;
         }
     }
 }

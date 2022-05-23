@@ -87,13 +87,13 @@ namespace Units
 
         private void OnEnable()
         {
-            _unitVitality.Change += OnVitalityChange;
+            _unitVitality.HealthChange += OnVitalityHealthChange;
             _unitVitality.Wasted += OnWasted;
         }
 
         private void OnDisable()
         {
-            _unitVitality.Change -= OnVitalityChange;
+            _unitVitality.HealthChange -= OnVitalityHealthChange;
             _unitVitality.Wasted -= OnWasted;
         }
 
@@ -222,7 +222,7 @@ namespace Units
             Dying?.Invoke();
         }
 
-        private void OnVitalityChange()
+        private void OnVitalityHealthChange()
         {
             _healthBars.SetHealth(_unitVitality.Health, _unitVitality.MaxHealth);
             _healthBars.SetRecoverySpeed(_unitVitality.RecoverySpeed, _unitVitality.MaxRecoverySpeed);

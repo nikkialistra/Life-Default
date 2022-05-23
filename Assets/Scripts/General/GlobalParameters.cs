@@ -7,8 +7,9 @@ namespace General
     public class GlobalParameters : MonoBehaviour
     {
         [Title("Units")]
+        [SerializeField] private float _healthFractionToDecreaseRecoverySpeed;
         [SerializeField] private float _recoveryHealthDelayAfterHit = 5f;
-
+        
         [Title("Hovering")]
         [SerializeField] private float _timeToHideHover = 0.05f;
         [SerializeField] private float _timeToHideSelection = 0.12f;
@@ -32,6 +33,7 @@ namespace General
 
         public static GlobalParameters Instance { get; private set; }
 
+        public float HealthFractionToDecreaseRecoverySpeed => _healthFractionToDecreaseRecoverySpeed;
         public float RecoveryHitDelayAfterHit => _recoveryHealthDelayAfterHit;
 
         public float TimeToHideHover => _timeToHideHover;

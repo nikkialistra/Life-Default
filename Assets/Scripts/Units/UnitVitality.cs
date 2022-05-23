@@ -4,6 +4,7 @@ using General;
 using General.Interfaces;
 using General.TimeCycle.Ticking;
 using Sirenix.OdinInspector;
+using Units.Calculations;
 using Units.Humans.Animations;
 using Units.Stats;
 using UnityEngine;
@@ -11,21 +12,23 @@ using Zenject;
 
 namespace Units
 {
-    public class UnitVitality : MonoBehaviour, IDamageable, ITickablePerHour
+    public class UnitVitality : MonoBehaviour, IDamageable
     {
         [Required]
         [SerializeField] private HumanAnimations _humanAnimations;
-        
-        private float _lastHitTime;
-        
-        private float _recoveryHealthDelayAfterHit;
-        
-        private TickingRegulator _tickingRegulator;
-        
-        private Coroutine _takingDamageCoroutine;
-        private Coroutine _recoveryHealthCoroutine;
 
-        public event Action Change;
+        private VitalityCalculation _vitalityCalculation;
+
+        private float _healthFractionToDecreaseRecoverySpeed;
+        private float _recoveryHealthDelayAfterHit;
+
+        private TickingRegulator _tickingRegulator;
+
+        private Coroutine _takingDamageCoroutine;
+
+        public event Action HealthChange;
+        public event Action RecoverySpeedChange;
+        
         public event Action Wasted;
 
         public float Health { get; private set; }
@@ -45,29 +48,31 @@ namespace Units
             _tickingRegulator = tickingRegulator;
         }
 
+        private void Awake()
+        {
+            _vitalityCalculation = new VitalityCalculation();
+        }
+
         private void Start()
         {
+            _healthFractionToDecreaseRecoverySpeed = GlobalParameters.Instance.HealthFractionToDecreaseRecoverySpeed;
             _recoveryHealthDelayAfterHit = GlobalParameters.Instance.RecoveryHitDelayAfterHit;
         }
 
         private void OnEnable()
         {
-            _tickingRegulator.AddToTickablesPerHour(this);
+            _vitalityCalculation.HealthChange += OnHealthChange;
+            _vitalityCalculation.RecoverySpeedChange += OnRecoverySpeedChange;
+            
+            _tickingRegulator.AddToTickablesPerHour(_vitalityCalculation);
         }
 
         private void OnDisable()
         {
-            _tickingRegulator.RemoveFromTickablesPerHour(this);
-        }
-
-        public void TickPerHour()
-        {
-            if (Time.time - _lastHitTime < _recoveryHealthDelayAfterHit)
-            {
-                return;
-            }
+            _vitalityCalculation.HealthChange -= OnHealthChange;
+            _vitalityCalculation.RecoverySpeedChange -= OnRecoverySpeedChange;
             
-            TakeHealing(RecoverySpeed);
+            _tickingRegulator.RemoveFromTickablesPerHour(_vitalityCalculation);
         }
 
         private void OnTriggerEnter(Collider other)
@@ -83,15 +88,6 @@ namespace Units
             if (other.TryGetComponent(out IHittable _))
             {
                 StopTakingDamage();
-            }
-        }
-
-        private void OnDestroy()
-        {
-            if (_recoveryHealthCoroutine != null)
-            {
-                StopCoroutine(_recoveryHealthCoroutine);
-                _recoveryHealthCoroutine = null;
             }
         }
 
@@ -114,23 +110,15 @@ namespace Units
         {
             Health = MaxHealth;
             RecoverySpeed = MaxRecoverySpeed;
+
+            _vitalityCalculation.Initialize(MaxHealth, MaxRecoverySpeed, _healthFractionToDecreaseRecoverySpeed, _recoveryHealthDelayAfterHit);
         }
 
         public void TakeDamage(float value)
         {
-            CheckTakeDamageValidity(value);
-
-            ReduceHealth(value);
-
-            if (!IsAlive)
-            {
-                StopTakingDamage();
-                Wasted?.Invoke();
-            }
-
-            _humanAnimations.Hit();
+            _vitalityCalculation.TakeDamage(value);
             
-            Change?.Invoke();
+            _humanAnimations.Hit();
         }
 
         public void TakeDamageContinuously(float value, float interval, float time = float.PositiveInfinity)
@@ -152,48 +140,35 @@ namespace Units
             }
         }
         
-        private void TakeHealing(float value)
+        private void OnHealthChange(float value)
         {
+            Health = value;
+            
             if (!IsAlive)
             {
-                throw new InvalidOperationException("Healing cannot be applied to the died entity");
+                StopTakingDamage();
+                Wasted?.Invoke();
             }
 
-            Health = Math.Min(Health + value, MaxHealth);
-            Change?.Invoke();
+            HealthChange?.Invoke();
         }
 
-        private void ReduceHealth(float value)
+        private void OnRecoverySpeedChange(float value)
         {
-            Health -= value;
-
-            _lastHitTime = Time.time;
+            RecoverySpeed = value;
+            RecoverySpeedChange?.Invoke();
         }
 
         private void ChangeMaxHealth(float value)
         {
-            if (value < 1f)
-            {
-                throw new ArgumentException("Max health cannot be less than 1");
-            }
-            
             MaxHealth = value;
-
-            Health = Mathf.Min(Health, MaxHealth);
-            Change?.Invoke();
+            _vitalityCalculation.ChangeMaxHealth(value);
         }
 
         private void ChangeMaxRecoverySpeed(float value)
         {
-            if (value < 1f)
-            {
-                throw new ArgumentException("Max recovery speed cannot be less than 1");
-            }
-            
             MaxRecoverySpeed = value;
-
-            RecoverySpeed = Mathf.Min(RecoverySpeed, MaxHealth);
-            Change?.Invoke();
+            _vitalityCalculation.ChangeMaxRecoverySpeed(value);
         }
 
         private IEnumerator TakingDamage(float value, float interval, float time)
@@ -207,14 +182,6 @@ namespace Units
                 TakeDamage(value);
                 yield return new WaitForSeconds(interval);
                 elapsedTime += interval;
-            }
-        }
-
-        private void CheckTakeDamageValidity(float value)
-        {
-            if (value <= 0)
-            {
-                throw new ArgumentException("Damage must be more than zero");
             }
         }
     }

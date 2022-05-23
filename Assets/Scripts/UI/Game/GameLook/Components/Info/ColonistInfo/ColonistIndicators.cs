@@ -80,26 +80,15 @@ namespace UI.Game.GameLook.Components.Info.ColonistInfo
             _entertainmentArrow = tree.Q<VisualElement>("entertainment-arrow");
         }
         
-        public void UpdateVitalityMaxValues(UnitVitality vitality)
+        public void UpdateVitality(UnitVitality vitality)
         {
             _healthProgress.highValue = vitality.MaxHealth;
-            
+
             _recoverySpeedProgress.lowValue = -vitality.MaxRecoverySpeed;
             _recoverySpeedProgress.highValue = vitality.MaxRecoverySpeed;
-        }
-        
-        public void UpdateHealth(UnitVitality vitality)
-        {
-            _healthProgress.value = vitality.Health;
-            _healthProgress.title = $"{(int)vitality.Health}/{vitality.MaxHealth}";
-            _healthValue.text = $"{vitality.HealthPercent}%";
-        }
-
-        public void UpdateRecoverySpeed(UnitVitality vitality)
-        {
-            _recoverySpeedProgress.value = vitality.RecoverySpeed;
-            _recoverySpeedProgress.title = $"{Math.Round(vitality.RecoverySpeed, 1)}/{Math.Round(vitality.MaxRecoverySpeed, 1)}";
-            _recoverySpeedValue.text = $"{vitality.RecoverySpeedPercent}%";
+            
+            UpdateHealth(vitality);
+            UpdateRecoverySpeed(vitality);
         }
 
         public void UpdateSatiety(float satiety)
@@ -130,6 +119,20 @@ namespace UI.Game.GameLook.Components.Info.ColonistInfo
         {
             _entertainmentProgress.value = entertainment;
             _entertainmentValue.text = $"{entertainment}%";
+        }
+        
+        private void UpdateHealth(UnitVitality vitality)
+        {
+            _healthProgress.value = vitality.Health;
+            _healthProgress.title = $"{(int)vitality.Health}/{vitality.MaxHealth}";
+            _healthValue.text = $"{vitality.HealthPercent}%";
+        }
+
+        private void UpdateRecoverySpeed(UnitVitality vitality)
+        {
+            _recoverySpeedProgress.value = vitality.RecoverySpeed;
+            _recoverySpeedProgress.title = $"{Math.Round(vitality.RecoverySpeed, 1)}/{Math.Round(vitality.MaxRecoverySpeed, 1)}";
+            _recoverySpeedValue.text = $"{vitality.RecoverySpeedPercent}%";
         }
     }
 }

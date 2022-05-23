@@ -64,7 +64,7 @@ namespace Colonists
         }
 
         public event Action Spawn;
-        public event Action HealthChange;
+        public event Action VitalityChange;
         public event Action Dying;
         public event Action<Colonist> ColonistDying;
         
@@ -96,13 +96,13 @@ namespace Colonists
 
         private void OnEnable()
         {
-            _unit.HealthChange += OnHealthChange;
+            _unit.VitalityChange += OnVitalityChange;
             _unit.Dying += OnDying;
         }
 
         private void OnDisable()
         {
-            _unit.HealthChange -= OnHealthChange;
+            _unit.VitalityChange -= OnVitalityChange;
             _unit.Dying -= OnDying;
         }
 
@@ -243,9 +243,9 @@ namespace Colonists
             Destroy(gameObject);
         }
 
-        private void OnHealthChange()
+        private void OnVitalityChange()
         {
-            HealthChange?.Invoke();
+            VitalityChange?.Invoke();
         }
 
         public class Factory : PlaceholderFactory<Colonist> { }

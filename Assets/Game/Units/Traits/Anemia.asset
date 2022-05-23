@@ -15,6 +15,6 @@ MonoBehaviour:
   _name: Anemia
   _description: Health -20
   _statModifiers:
-  - _type: 0
+  - _type: 1
     _modifierType: 100
     _value: -20

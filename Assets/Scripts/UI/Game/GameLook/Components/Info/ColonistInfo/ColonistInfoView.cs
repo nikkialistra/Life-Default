@@ -128,11 +128,9 @@ namespace UI.Game.GameLook.Components.Info.ColonistInfo
         {
             UnsubscribeFromUnit();
             _colonist = colonist;
-            _colonistHeader.FillInColonist(colonist);
+            _colonistHeader.FillInColonist(_colonist);
             SubscribeToUnit();
 
-            _colonistIndicators.UpdateVitalityMaxValues(colonist.Unit.UnitVitality);
-            
             UpdateVitality();
             UpdateIndicators();
         }
@@ -141,21 +139,20 @@ namespace UI.Game.GameLook.Components.Info.ColonistInfo
         {
             if (_colonist != null)
             {
-                _colonist.HealthChange -= UpdateVitality;
+                _colonist.VitalityChange -= UpdateVitality;
                 _colonist.Dying -= HidePanel;
             }
         }
 
         private void SubscribeToUnit()
         {
-            _colonist.HealthChange += UpdateVitality;
+            _colonist.VitalityChange += UpdateVitality;
             _colonist.Dying += HidePanel;
         }
 
         private void UpdateVitality()
         {
-            _colonistIndicators.UpdateHealth(_colonist.Unit.UnitVitality);
-            _colonistIndicators.UpdateRecoverySpeed(_colonist.Unit.UnitVitality);
+            _colonistIndicators.UpdateVitality(_colonist.Unit.UnitVitality);
         }
 
         private void UpdateIndicators()

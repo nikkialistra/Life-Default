@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using Sirenix.OdinInspector;
 using UniRx;
@@ -11,6 +12,8 @@ namespace Saving
     {
         [Required]
         [SerializeField] private PanelSettings _panelSettings;
+
+        private readonly CompositeDisposable _disposables = new();
 
         public bool Fullscreen
         {
@@ -71,6 +74,11 @@ namespace Saving
             SubscribeToChanges();
         }
 
+        private void OnDestroy()
+        {
+            UnsubscribeFromChanges();
+        }
+
         private void GenerateSavePath()
         {
             _savePath = Path.Combine(Application.persistentDataPath, "settings.json");
@@ -78,9 +86,14 @@ namespace Saving
 
         private void SubscribeToChanges()
         {
-            Resolution.Subscribe(OnResolutionChange);
-            CameraSensitivity.Subscribe(OnCameraSensitivityChange);
-            ScreenEdgeMouseScroll.Subscribe(OnScreenEdgeMouseScrollChange);
+            _disposables.Add(Resolution.Subscribe(OnResolutionChange));
+            _disposables.Add(CameraSensitivity.Subscribe(OnCameraSensitivityChange));
+            _disposables.Add(ScreenEdgeMouseScroll.Subscribe(OnScreenEdgeMouseScrollChange));
+        }
+
+        private void UnsubscribeFromChanges()
+        {
+            _disposables.Dispose();
         }
 
         private void ChangeUiScale()

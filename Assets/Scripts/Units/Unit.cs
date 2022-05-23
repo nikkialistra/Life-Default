@@ -70,7 +70,7 @@ namespace Units
         public event Action<Unit> AttackFrom;
         public event Action<Unit> LeavingAttackFrom;
         
-        public event Action HealthChange;
+        public event Action VitalityChange;
         
         public event Action Dying;
 
@@ -87,13 +87,13 @@ namespace Units
 
         private void OnEnable()
         {
-            _unitVitality.HealthChange += OnHealthChange;
+            _unitVitality.Change += OnVitalityChange;
             _unitVitality.Wasted += OnWasted;
         }
 
         private void OnDisable()
         {
-            _unitVitality.HealthChange -= OnHealthChange;
+            _unitVitality.Change -= OnVitalityChange;
             _unitVitality.Wasted -= OnWasted;
         }
 
@@ -108,8 +108,8 @@ namespace Units
             
             _unitVitality.SetInitialValues();
             
-            _healthBars.SetHealth(_unitVitality.Health);
-            _healthBars.SetRecoverySpeed(_unitVitality.RecoverySpeed);
+            _healthBars.SetHealth(_unitVitality.Health, _unitVitality.MaxHealth);
+            _healthBars.SetRecoverySpeed(_unitVitality.RecoverySpeed, _unitVitality.MaxRecoverySpeed);
         }
 
         [Button(ButtonSizes.Medium)]
@@ -222,11 +222,11 @@ namespace Units
             Dying?.Invoke();
         }
 
-        private void OnHealthChange(float health, float blood)
+        private void OnVitalityChange()
         {
-            _healthBars.SetHealth(health);
-            _healthBars.SetRecoverySpeed(blood);
-            HealthChange?.Invoke();
+            _healthBars.SetHealth(_unitVitality.Health, _unitVitality.MaxHealth);
+            _healthBars.SetRecoverySpeed(_unitVitality.RecoverySpeed, _unitVitality.MaxRecoverySpeed);
+            VitalityChange?.Invoke();
         }
 
         private bool ColonistUnitShouldHaveColonist()

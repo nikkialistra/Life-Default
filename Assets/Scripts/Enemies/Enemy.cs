@@ -77,13 +77,13 @@ namespace Enemies
 
         private void OnEnable()
         {
-            _unit.HealthChange += OnHealthChange;
+            _unit.VitalityChange += OnVitalityChange;
             _unit.Dying += OnDying;
         }
 
         private void OnDisable()
         {
-            _unit.HealthChange -= OnHealthChange;
+            _unit.VitalityChange -= OnVitalityChange;
             _unit.Dying += OnDying;
         }
 
@@ -186,7 +186,7 @@ namespace Enemies
             Destroy(gameObject);
         }
 
-        private void OnHealthChange()
+        private void OnVitalityChange()
         {
             HealthChange?.Invoke();
         }

@@ -56,15 +56,17 @@ namespace Units.Ancillaries
             transform.LookAt(transform.position + _cameraTransform.forward);
         }
 
-        public void SetHealth(float value)
+        public void SetHealth(float value, float maxValue)
         {
+            _healthSlider.maxValue = maxValue;
             _healthSlider.value = value;
 
             UpdateShowStatus();
         }
         
-        public void SetRecoverySpeed(float value)
+        public void SetRecoverySpeed(float value, float maxValue)
         {
+            _recoverySpeedSlider.maxValue = maxValue;
             _recoverySpeedSlider.value = value;
 
             UpdateShowStatus();

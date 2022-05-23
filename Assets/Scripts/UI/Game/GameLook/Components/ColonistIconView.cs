@@ -51,7 +51,7 @@ namespace UI.Game.GameLook.Components
             
             _root.RegisterCallback<MouseDownEvent>(OnMouseDownEvent);
             
-            _colonist.HealthChange += UpdateHealth;
+            _colonist.VitalityChange += UpdateVitality;
             _colonist.NameChange += UpdateName;
 
             FillIn(colonist);
@@ -68,8 +68,8 @@ namespace UI.Game.GameLook.Components
                 return;
             }
 
-            _colonist.HealthChange -= UpdateHealth;
-            _colonist.HealthChange -= UpdateHealth;
+            _colonist.VitalityChange -= UpdateVitality;
+            _colonist.VitalityChange -= UpdateVitality;
             _colonist = null;
         }
 
@@ -91,7 +91,7 @@ namespace UI.Game.GameLook.Components
             _recoverySpeedProgress.highValue = _colonist.Unit.UnitVitality.MaxRecoverySpeed;
 
             _name.text = colonist.Name;
-            UpdateHealth();
+            UpdateVitality();
         }
 
         private void OnMouseDownEvent(MouseDownEvent _)
@@ -99,8 +99,11 @@ namespace UI.Game.GameLook.Components
             Click?.Invoke(_colonist);
         }
 
-        private void UpdateHealth()
+        private void UpdateVitality()
         {
+            _healthProgress.highValue = _colonist.Unit.UnitVitality.MaxHealth;
+            _recoverySpeedProgress.highValue = _colonist.Unit.UnitVitality.MaxRecoverySpeed;
+            
             _healthProgress.value = _colonist.Unit.UnitVitality.Health;
             _recoverySpeedProgress.value = _colonist.Unit.UnitVitality.RecoverySpeed;
         }

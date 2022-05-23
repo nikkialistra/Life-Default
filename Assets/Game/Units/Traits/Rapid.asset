@@ -16,5 +16,5 @@ MonoBehaviour:
   _description: You are as wind
   _statModifiers:
   - _type: 0
-    _modifierType: 100
-    _value: 5
+    _modifierType: 300
+    _value: 1.25

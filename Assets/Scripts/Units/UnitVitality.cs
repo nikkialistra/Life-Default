@@ -1,33 +1,22 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using General.Interfaces;
 using Sirenix.OdinInspector;
 using Units.Humans.Animations;
 using Units.Stats;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 namespace Units
 {
     public class UnitVitality : MonoBehaviour, IDamageable
     {
-        [MinValue(1)]
-        [SerializeField] private float _maxRecoverySpeed = 3;
-
-        [ValidateInput("@_possibleMaxHealths.Count > 0", "Max health variant count should be greater than zero")]
-        [SerializeField] private List<int> _possibleMaxHealths;
-        
-        [ValidateInput("@_possibleRecoverySpeeds.Count > 0", "Recovery speed variant count should be greater than zero")]
-        [SerializeField] private List<float> _possibleRecoverySpeeds;
-
-        private Coroutine _takingDamageCoroutine;
-
         [Required]
         [SerializeField] private HumanAnimations _humanAnimations;
+        
+        private Coroutine _takingDamageCoroutine;
 
         public event Action Wasted;
-        public event Action<float, float> HealthChange;
+        public event Action Change;
 
         public float Health { get; private set; }
         public float MaxHealth { get; private set; }
@@ -36,7 +25,7 @@ namespace Units
         public float MaxRecoverySpeed { get; private set; }
 
         public int HealthPercent => (int)((Health / MaxHealth) * 100);
-        public int RecoverySpeedPercent => (int)((RecoverySpeed / _maxRecoverySpeed) * 100);
+        public int RecoverySpeedPercent => (int)((RecoverySpeed / MaxRecoverySpeed) * 100);
         
         private bool IsAlive => Health > 0;
 
@@ -101,7 +90,7 @@ namespace Units
 
             _humanAnimations.Hit();
             
-            HealthChange?.Invoke(Health / MaxHealth, RecoverySpeed / _maxRecoverySpeed);
+            Change?.Invoke();
         }
 
         public void TakeDamageContinuously(float value, float interval, float time = float.PositiveInfinity)
@@ -131,6 +120,9 @@ namespace Units
             }
             
             MaxHealth = value;
+
+            Health = Mathf.Min(Health, MaxHealth);
+            Change?.Invoke();
         }
 
         private void ChangeMaxRecoverySpeed(float value)
@@ -141,6 +133,9 @@ namespace Units
             }
             
             MaxRecoverySpeed = value;
+
+            RecoverySpeed = Mathf.Min(RecoverySpeed, MaxHealth);
+            Change?.Invoke();
         }
 
         private IEnumerator TakingDamage(float value, float interval, float time)

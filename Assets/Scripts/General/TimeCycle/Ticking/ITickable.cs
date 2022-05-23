@@ -1,6 +1,6 @@
 ﻿namespace General.TimeCycle.Ticking
 {
-    public interface ITicking
+    public interface ITickable
     {
         void Tick();
     }

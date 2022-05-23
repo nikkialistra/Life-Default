@@ -4,6 +4,7 @@ using General;
 using Sirenix.OdinInspector;
 using Units.Ancillaries;
 using Units.Calculations;
+using Units.Enums;
 using Units.Stats;
 using UnityEngine;
 
@@ -37,9 +38,11 @@ namespace Units
         private UnitSelection _unitSelection;
 
         private UnitFightCalculation _unitFightCalculation;
-        
-        private float _attackAngle;
 
+        private WeaponType _weaponType;
+        
+        private float _attackRangeMultiplierToStartFight;
+        private float _attackAngle;
         private float _waitTime;
 
         private float _lastAttackTime;
@@ -76,6 +79,7 @@ namespace Units
 
         private void Start()
         {
+            _attackRangeMultiplierToStartFight = GlobalParameters.Instance.AttackRangeMultiplierToStartFight;
             _attackAngle = GlobalParameters.Instance.AttackAngle;
             _waitTime = GlobalParameters.Instance.TimeToStopInteraction;
         }
@@ -98,10 +102,17 @@ namespace Units
             _unitSelection.Deselected -= OnDeselected;
         }
 
-        public float AttackDistance => _unitStats.MeleeAttackDistance;
+        public float AttackDistance => AttackRange * _attackRangeMultiplierToStartFight;
 
         public Unit TrackedUnit => _trackedUnit;
         public Unit AttackedUnit => _attackedUnit;
+        
+        private float AttackRange => _weaponType switch {
+            WeaponType.Melee => _unitStats.MeleeAttackRange.Value,
+            WeaponType.Ranged => _unitStats.RangedAttackRange.Value,
+            
+            _ => throw new ArgumentOutOfRangeException()
+        };
 
         public void BindStats(Stat meleeAttackSpeed, Stat rangedAttackSpeed)
         {
@@ -116,6 +127,11 @@ namespace Units
         {
             meleeAttackSpeed.ValueChange -= OnMeleeAttackSpeedChange;
             meleeAttackSpeed.ValueChange -= OnRangedAttackSpeedChange;
+        }
+
+        public void ChangeWeaponType(WeaponType weaponType)
+        {
+            _weaponType = weaponType;
         }
 
         public void Attack(Unit unit)
@@ -229,12 +245,12 @@ namespace Units
         
         public bool OnAttackDistance(Vector3 position)
         {
-            return Vector3.Distance(transform.position, position) < _unitStats.MeleeAttackDistance;
+            return Vector3.Distance(transform.position, position) < AttackDistance;
         }
 
         public bool OnAttackRange(Vector3 position)
         {
-            return Vector3.Distance(transform.position, position) < _unitStats.MeleeAttackRange.Value;
+            return Vector3.Distance(transform.position, position) < AttackRange;;
         }
 
         public bool OnAttackAngle(Vector3 position)

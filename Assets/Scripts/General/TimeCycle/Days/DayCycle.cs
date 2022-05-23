@@ -4,10 +4,11 @@ using General.TimeCycle.Ticking;
 using UI.Game.GameLook.Components;
 using UnityEngine;
 using Zenject;
+using ITickable = General.TimeCycle.Ticking.ITickable;
 
 namespace General.TimeCycle.Days
 {
-    public class DayCycle : MonoBehaviour, ITicking
+    public class DayCycle : MonoBehaviour, ITickable
     {
         [Range(0, 23)]
         [SerializeField] private int _hours = 23;
@@ -42,7 +43,7 @@ namespace General.TimeCycle.Days
 
             UpdateMinutes();
 
-            if (_ticks == 25)
+            if (_ticks == TickCounts.Hour)
             {
                 _ticks = 0;
                 UpdateHours();
@@ -53,7 +54,7 @@ namespace General.TimeCycle.Days
 
         private void UpdateMinutes()
         {
-            _minutes = Mathf.RoundToInt((float)_ticks / 25 * 60);
+            _minutes = Mathf.RoundToInt((float)_ticks / TickCounts.Hour * 60);
 
             _minutes -= _minutes % 10;
             

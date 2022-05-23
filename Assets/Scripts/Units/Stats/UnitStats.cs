@@ -8,8 +8,6 @@ namespace Units.Stats
     [RequireComponent(typeof(UnitEquipmentStats))]
     public class UnitStats : MonoBehaviour
     {
-        [SerializeField] private float _attackRangeMultiplierToStartFight = 0.75f;
-        
         [Title("General")]
         [SerializeField] private Stat _movementSpeed;
         [Space]
@@ -53,16 +51,12 @@ namespace Units.Stats
         public Stat MeleeCriticalChance => _meleeCriticalChance;
         public Stat MeleeAttackRange => _meleeAttackRange;
         public Stat MeleeAccuracy => _meleeAccuracy;
-        
-        public float MeleeAttackDistance => _meleeAttackRange.Value * _attackRangeMultiplierToStartFight;
 
         public Stat RangedDamageMultiplier => _rangedDamageMultiplier;
         public Stat RangedAttackSpeed => _rangedAttackSpeed;
         public Stat RangedCriticalChance => _rangedCriticalChance;
         public Stat RangedAttackRange => _rangedAttackRange;
         public Stat RangedAccuracy => _rangedAccuracy;
-        
-        public float RangedAttackDistance => _rangedAttackRange.Value * _attackRangeMultiplierToStartFight;
 
         private void Awake()
         {

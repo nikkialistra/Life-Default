@@ -8,7 +8,8 @@ namespace General.TimeCycle.Ticking
 {
     public class TickingRegulator : MonoBehaviour
     {
-        private readonly List<ITicking> _tickables = new();
+        private readonly List<ITickable> _tickables = new();
+        private readonly List<ITickablePerHour> _tickablesEveryHour = new();
 
         private float _seconds;
         
@@ -18,6 +19,8 @@ namespace General.TimeCycle.Ticking
         private TimeSpeed _timeSpeed;
 
         private TimeToggling _timeToggling;
+        
+        private int _tickCount;
 
         [Inject]
         public void Construct(TimeToggling timeToggling)
@@ -42,9 +45,19 @@ namespace General.TimeCycle.Ticking
             _timeToggling.TimeSpeedChange -= OnTimeSpeedChange;
         }
 
-        public void AddToTickables(ITicking tickable)
+        public void AddToTickables(ITickable tickable)
         {
             _tickables.Add(tickable);
+        }
+
+        public void AddToTickablesPerHour(ITickablePerHour tickablePerHour)
+        {
+            _tickablesEveryHour.Add(tickablePerHour);
+        }
+
+        public void RemoveFromTickablesPerHour(ITickablePerHour tickablePerHour)
+        {
+            _tickablesEveryHour.Remove(tickablePerHour);
         }
 
         private void Update()
@@ -93,6 +106,20 @@ namespace General.TimeCycle.Ticking
             foreach (var tickable in _tickables)
             {
                 tickable.Tick();
+            }
+
+            TickEveryHour();
+            _tickCount++;
+        }
+
+        private void TickEveryHour()
+        {
+            if (_tickCount % TickCounts.Hour == 0)
+            {
+                foreach (var tickablePerHour in _tickablesEveryHour)
+                {
+                    tickablePerHour.TickPerHour();
+                }
             }
         }
     }

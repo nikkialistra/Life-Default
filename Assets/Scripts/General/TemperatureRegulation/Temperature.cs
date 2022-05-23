@@ -7,10 +7,11 @@ using Sirenix.OdinInspector;
 using UI.Game.GameLook.Components;
 using UnityEngine;
 using Zenject;
+using ITickable = General.TimeCycle.Ticking.ITickable;
 
 namespace General.TemperatureRegulation
 {
-    public class Temperature : MonoBehaviour, ITicking
+    public class Temperature : MonoBehaviour, ITickable
     {
         [Title("Shifting")]
         [SerializeField] private int _nightToDayValueDifference = -10;

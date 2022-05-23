@@ -1,5 +1,4 @@
-﻿using System;
-using Animancer;
+﻿using Animancer;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -7,6 +6,9 @@ namespace General
 {
     public class GlobalParameters : MonoBehaviour
     {
+        [Title("Units")]
+        [SerializeField] private float _recoveryHealthDelayAfterHit = 5f;
+
         [Title("Hovering")]
         [SerializeField] private float _timeToHideHover = 0.05f;
         [SerializeField] private float _timeToHideSelection = 0.12f;
@@ -24,10 +26,13 @@ namespace General
         [SerializeField] private Vector3 _raycastToTerrainCorrection = Vector3.up * 10f;
 
         [Title("Attacking")]
+        [SerializeField] private float _attackRangeMultiplierToStartFight = 0.75f;
         [SerializeField] private float _attackAngle = 60f;
         [SerializeField] private float _seekPredictionMultiplier = 2f;
 
         public static GlobalParameters Instance { get; private set; }
+
+        public float RecoveryHitDelayAfterHit => _recoveryHealthDelayAfterHit;
 
         public float TimeToHideHover => _timeToHideHover;
         public float TimeToHideSelection => _timeToHideSelection;
@@ -40,7 +45,9 @@ namespace General
         public LayerMask ObstacleMask => _obstacleMask;
 
         public Vector3 RaycastToTerrainCorrection => _raycastToTerrainCorrection;
-        
+
+
+        public float AttackRangeMultiplierToStartFight => _attackRangeMultiplierToStartFight;
         public float AttackAngle => _attackAngle;
         public float SeekPredictionMultiplier => _seekPredictionMultiplier;
         

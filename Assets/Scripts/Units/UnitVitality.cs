@@ -1,22 +1,32 @@
 ﻿using System;
 using System.Collections;
+using General;
 using General.Interfaces;
+using General.TimeCycle.Ticking;
 using Sirenix.OdinInspector;
 using Units.Humans.Animations;
 using Units.Stats;
 using UnityEngine;
+using Zenject;
 
 namespace Units
 {
-    public class UnitVitality : MonoBehaviour, IDamageable
+    public class UnitVitality : MonoBehaviour, IDamageable, ITickablePerHour
     {
         [Required]
         [SerializeField] private HumanAnimations _humanAnimations;
         
+        private float _lastHitTime;
+        
+        private float _recoveryHealthDelayAfterHit;
+        
+        private TickingRegulator _tickingRegulator;
+        
         private Coroutine _takingDamageCoroutine;
+        private Coroutine _recoveryHealthCoroutine;
 
-        public event Action Wasted;
         public event Action Change;
+        public event Action Wasted;
 
         public float Health { get; private set; }
         public float MaxHealth { get; private set; }
@@ -28,6 +38,37 @@ namespace Units
         public int RecoverySpeedPercent => (int)((RecoverySpeed / MaxRecoverySpeed) * 100);
         
         private bool IsAlive => Health > 0;
+
+        [Inject]
+        public void Construct(TickingRegulator tickingRegulator)
+        {
+            _tickingRegulator = tickingRegulator;
+        }
+
+        private void Start()
+        {
+            _recoveryHealthDelayAfterHit = GlobalParameters.Instance.RecoveryHitDelayAfterHit;
+        }
+
+        private void OnEnable()
+        {
+            _tickingRegulator.AddToTickablesPerHour(this);
+        }
+
+        private void OnDisable()
+        {
+            _tickingRegulator.RemoveFromTickablesPerHour(this);
+        }
+
+        public void TickPerHour()
+        {
+            if (Time.time - _lastHitTime < _recoveryHealthDelayAfterHit)
+            {
+                return;
+            }
+            
+            TakeHealing(RecoverySpeed);
+        }
 
         private void OnTriggerEnter(Collider other)
         {
@@ -42,6 +83,15 @@ namespace Units
             if (other.TryGetComponent(out IHittable _))
             {
                 StopTakingDamage();
+            }
+        }
+
+        private void OnDestroy()
+        {
+            if (_recoveryHealthCoroutine != null)
+            {
+                StopCoroutine(_recoveryHealthCoroutine);
+                _recoveryHealthCoroutine = null;
             }
         }
 
@@ -66,21 +116,11 @@ namespace Units
             RecoverySpeed = MaxRecoverySpeed;
         }
 
-        public void TakeHealing(float value)
-        {
-            if (!IsAlive)
-            {
-                throw new InvalidOperationException("Healing cannot be applied to the died entity");
-            }
-
-            Health = Math.Min(Health + value, MaxHealth);
-        }
-
         public void TakeDamage(float value)
         {
             CheckTakeDamageValidity(value);
 
-            Health -= value;
+            ReduceHealth(value);
 
             if (!IsAlive)
             {
@@ -112,6 +152,24 @@ namespace Units
             }
         }
         
+        private void TakeHealing(float value)
+        {
+            if (!IsAlive)
+            {
+                throw new InvalidOperationException("Healing cannot be applied to the died entity");
+            }
+
+            Health = Math.Min(Health + value, MaxHealth);
+            Change?.Invoke();
+        }
+
+        private void ReduceHealth(float value)
+        {
+            Health -= value;
+
+            _lastHitTime = Time.time;
+        }
+
         private void ChangeMaxHealth(float value)
         {
             if (value < 1f)

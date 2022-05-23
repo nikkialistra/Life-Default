@@ -7,10 +7,11 @@ using Sirenix.OdinInspector;
 using UI.Game.GameLook.Components;
 using UnityEngine;
 using Zenject;
+using ITickable = General.TimeCycle.Ticking.ITickable;
 
 namespace General
 {
-    public class Light : MonoBehaviour, ITicking
+    public class Light : MonoBehaviour, ITickable
     {
         [SerializeField] private int _ticksToShift = 10;
         

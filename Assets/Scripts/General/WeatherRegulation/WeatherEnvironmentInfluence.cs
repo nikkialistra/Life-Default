@@ -1,10 +1,11 @@
 ﻿using General.TimeCycle.Ticking;
 using UnityEngine;
 using Zenject;
+using ITickable = General.TimeCycle.Ticking.ITickable;
 
 namespace General.WeatherRegulation
 {
-    public class WeatherEnvironmentInfluence : MonoBehaviour, ITicking
+    public class WeatherEnvironmentInfluence : MonoBehaviour, ITickable
     {
         [SerializeField] private int _ticksToShiftTemperature = 15;
         [SerializeField] private int _ticksToShiftLight = 7;

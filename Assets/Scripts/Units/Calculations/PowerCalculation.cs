@@ -39,8 +39,8 @@ namespace Units.Calculations
 
         private static float CalculateAverageUptake(UnitStats unitStats)
         {
-            var averageAbsorption = unitStats.Armor * (1 - unitStats.DodgeChance);
-            var averageUptake = unitStats.MaxHealth.Value / (1 - unitStats.DodgeChance + averageAbsorption);
+            var averageAbsorption = unitStats.Armor * (1 - unitStats.DodgeChance.Value);
+            var averageUptake = unitStats.MaxHealth.Value / (1 - unitStats.DodgeChance.Value + averageAbsorption);
             return averageUptake;
         }
 
@@ -58,15 +58,15 @@ namespace Units.Calculations
 
         private static float CalculateMeleeAverageDps(UnitStats unitStats)
         {
-            var averageDamage = unitStats.MeleeCurrentDamage * (1 + unitStats.MeleeCriticalChance) * unitStats.MeleeAccuracy;
-            var averageDps = averageDamage * unitStats.MeleeAttackSpeed;
+            var averageDamage = unitStats.MeleeCurrentDamage * (1 + unitStats.MeleeCriticalChance.Value) * unitStats.MeleeAccuracy.Value;
+            var averageDps = averageDamage * unitStats.MeleeAttackSpeed.Value;
             return averageDps;
         }
 
         private static float CalculateRangedAverageDps(UnitStats unitStats)
         {
-            var averageDamage = unitStats.RangedCurrentDamage * (1 + unitStats.RangedCriticalChance) * unitStats.RangedAccuracy;
-            var averageDps = averageDamage * unitStats.RangedAttackSpeed;
+            var averageDamage = unitStats.RangedCurrentDamage * (1 + unitStats.RangedCriticalChance.Value) * unitStats.RangedAccuracy.Value;
+            var averageDps = averageDamage * unitStats.RangedAttackSpeed.Value;
             return averageDps;
         }
     }

@@ -35,9 +35,14 @@ namespace Units
             _humanAnimations.StopActions();
         }
 
-        public void SetAttackSpeed(float value)
+        public void SetMeleeAttackSpeed(float value)
         {
-            _humanAnimations.SetAttackSpeed(value);
+            _humanAnimations.SetMeleeAttackSpeed(value);
+        }
+
+        public void SetRangedAttackSpeed(float value)
+        {
+            _humanAnimations.SetRangedAttackSpeed(value);
         }
 
         public void Die(Action died)

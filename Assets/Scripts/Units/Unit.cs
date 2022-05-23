@@ -147,7 +147,7 @@ namespace Units
         public FightSpecs GetSpecs()
         {
             var health = _unitVitality.Health;
-            var averageDamagePerSecond = PowerCalculation.CalculateAverageDps(_unitStats) * _unitStats.MeleeAccuracy;
+            var averageDamagePerSecond = PowerCalculation.CalculateAverageDps(_unitStats) * _unitStats.MeleeAccuracy.Value;
 
             return new FightSpecs(health, averageDamagePerSecond);
         }

@@ -31,19 +31,19 @@ namespace Units.Calculations
 
         public bool Missed()
         {
-            return Random.Range(0f, 1f) > _unitStats.MeleeAccuracy;
+            return Random.Range(0f, 1f) > _unitStats.MeleeAccuracy.Value;
         }
 
         public bool Dodged()
         {
-            return Random.Range(0f, 1f) <= _unitStats.DodgeChance;
+            return Random.Range(0f, 1f) <= _unitStats.DodgeChance.Value;
         }
 
         private float CalculateCriticalMultiplier(WeaponType weaponType)
         {
             var criticalChance = weaponType == WeaponType.Melee
-                ? _unitStats.MeleeCriticalChance
-                : _unitStats.RangedCriticalChance;
+                ? _unitStats.MeleeCriticalChance.Value
+                : _unitStats.RangedCriticalChance.Value;
 
             return Random.Range(0f, 1f) <= criticalChance ? 2f : 1f;
         }
@@ -52,11 +52,11 @@ namespace Units.Calculations
         {
             if (weaponType == WeaponType.Melee)
             {
-                return _unitStats.MeleeCurrentDamage * _unitStats.MeleeDamageMultiplier;
+                return _unitStats.MeleeCurrentDamage * _unitStats.MeleeDamageMultiplier.Value;
             }
             else
             {
-                return _unitStats.RangedCurrentDamage * _unitStats.RangedDamageMultiplier;
+                return _unitStats.RangedCurrentDamage * _unitStats.RangedDamageMultiplier.Value;
             }
         }
     }

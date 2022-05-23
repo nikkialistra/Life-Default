@@ -110,9 +110,14 @@ namespace Units.Humans.Animations
             return false;
         }
 
-        public void SetAttackSpeed(float value)
+        public void SetMeleeAttackSpeed(float value)
         {
-            _attackState.SetAttackSpeed(value);
+            _attackState.SetMeleeAttackSpeed(value);
+        }
+        
+        public void SetRangedAttackSpeed(float value)
+        {
+            _attackState.SetRangedAttackSpeed(value);
         }
 
         public void Die(Action died)

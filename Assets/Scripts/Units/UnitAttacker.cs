@@ -4,7 +4,6 @@ using General;
 using Sirenix.OdinInspector;
 using Units.Ancillaries;
 using Units.Calculations;
-using Units.Enums;
 using Units.Stats;
 using UnityEngine;
 
@@ -104,10 +103,23 @@ namespace Units
         public Unit TrackedUnit => _trackedUnit;
         public Unit AttackedUnit => _attackedUnit;
 
+        public void BindStats(Stat meleeAttackSpeed, Stat rangedAttackSpeed)
+        {
+            _unitAnimator.SetMeleeAttackSpeed(meleeAttackSpeed.Value);
+            _unitAnimator.SetRangedAttackSpeed(meleeAttackSpeed.Value);
+
+            meleeAttackSpeed.ValueChange += OnMeleeAttackSpeedChange;
+            meleeAttackSpeed.ValueChange += OnRangedAttackSpeedChange;
+        }
+
+        public void UnbindStats(Stat meleeAttackSpeed, Stat rangedAttackSpeed)
+        {
+            meleeAttackSpeed.ValueChange -= OnMeleeAttackSpeedChange;
+            meleeAttackSpeed.ValueChange -= OnRangedAttackSpeedChange;
+        }
+
         public void Attack(Unit unit)
         {
-            _unitAnimator.SetAttackSpeed(_unitStats.MeleeAttackSpeed);
-            
             _attackedUnit = unit;
 
             _attackedUnit.NotifyAboutAttackFrom(_self);
@@ -121,7 +133,7 @@ namespace Units
             AttackStart?.Invoke();
         }
 
-        public void Hit(float passedTime)
+        public void Hit()
         {
             if (_attackedUnit == null || !_attackedUnit.Alive)
             {
@@ -135,10 +147,10 @@ namespace Units
                 return;
             }
 
-            MakeDamage(passedTime);
+            MakeDamage();
         }
 
-        private void MakeDamage(float passedTime)
+        private void MakeDamage()
         {
             var damage = _unitFightCalculation.CalculateDamage();
 
@@ -168,6 +180,16 @@ namespace Units
         {
             ResetAttacking();
             StopAttacking();
+        }
+        
+        private void OnMeleeAttackSpeedChange(float value)
+        {
+            _unitAnimator.SetMeleeAttackSpeed(value);
+        }
+
+        private void OnRangedAttackSpeedChange(float value)
+        {
+            _unitAnimator.SetRangedAttackSpeed(value); 
         }
 
         private void OnHovered()
@@ -212,7 +234,7 @@ namespace Units
 
         public bool OnAttackRange(Vector3 position)
         {
-            return Vector3.Distance(transform.position, position) < _unitStats.MeleeAttackRange;
+            return Vector3.Distance(transform.position, position) < _unitStats.MeleeAttackRange.Value;
         }
 
         public bool OnAttackAngle(Vector3 position)

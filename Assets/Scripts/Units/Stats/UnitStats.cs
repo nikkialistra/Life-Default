@@ -46,21 +46,23 @@ namespace Units.Stats
         
         public Stat MovementSpeed => _movementSpeed;
         
-        public float DodgeChance => _dodgeChance.Value;
+        public Stat DodgeChance => _dodgeChance;
 
-        public float MeleeDamageMultiplier => _meleeDamageMultiplier.Value;
-        public float MeleeAttackSpeed => _meleeAttackSpeed.Value;
-        public float MeleeCriticalChance => _meleeCriticalChance.Value;
-        public float MeleeAttackRange => _meleeAttackRange.Value;
+        public Stat MeleeDamageMultiplier => _meleeDamageMultiplier;
+        public Stat MeleeAttackSpeed => _meleeAttackSpeed;
+        public Stat MeleeCriticalChance => _meleeCriticalChance;
+        public Stat MeleeAttackRange => _meleeAttackRange;
+        public Stat MeleeAccuracy => _meleeAccuracy;
+        
         public float MeleeAttackDistance => _meleeAttackRange.Value * _attackRangeMultiplierToStartFight;
-        public float MeleeAccuracy => _meleeAccuracy.Value;
 
-        public float RangedDamageMultiplier => _rangedDamageMultiplier.Value;
-        public float RangedAttackSpeed => _rangedAttackSpeed.Value;
-        public float RangedCriticalChance => _rangedCriticalChance.Value;
-        public float RangedAttackRange => _rangedAttackRange.Value;
+        public Stat RangedDamageMultiplier => _rangedDamageMultiplier;
+        public Stat RangedAttackSpeed => _rangedAttackSpeed;
+        public Stat RangedCriticalChance => _rangedCriticalChance;
+        public Stat RangedAttackRange => _rangedAttackRange;
+        public Stat RangedAccuracy => _rangedAccuracy;
+        
         public float RangedAttackDistance => _rangedAttackRange.Value * _attackRangeMultiplierToStartFight;
-        public float RangedAccuracy => _rangedAccuracy.Value;
 
         private void Awake()
         {

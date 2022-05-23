@@ -11,13 +11,24 @@ namespace Units.Humans.Animations.States
     [RequireComponent(typeof(UnitEquipment))]
     public class AttackState : HumanState
     {
+        [Title("Melee")]
         [Required]
-        [SerializeField] private ClipTransition _idleClip;
+        [SerializeField] private ClipTransition _meleeIdleClip;
         [Required]
-        [SerializeField] private LinearMixerTransition _clips;
-
+        [SerializeField] private LinearMixerTransition _meleeClips;
         [Space]
-        [SerializeField] private float _timeBetweenStrikes = 0.4f;
+        [SerializeField] private float _meleeTimeBetweenStrikesPercent = 0.16f;
+        
+        [Title("Ranged")]
+        [Required]
+        [SerializeField] private ClipTransition _rangedIdleClip;
+        [Required]
+        [SerializeField] private LinearMixerTransition _rangedClips;
+        [Space]
+        [SerializeField] private float _rangedTimeBetweenStrikesPercent = 0.2f;
+
+        private float _meleeTimeBetweenStrikes;
+        private float _rangedTimeBetweenStrikes;
 
         private const string HitEvent = "Hit";
         private const string HitEndEvent = "Hit End";
@@ -57,20 +68,20 @@ namespace Units.Humans.Animations.States
             _attackCycleState.Initialize(2);
             _attackCycleState.DontSynchronizeChildren();
 
-            _attackCycleState.CreateChild(0, _idleClip, 0);
-            _attackCycleState.CreateChild(1, _clips, 1);
+            _attackCycleState.CreateChild(0, _meleeIdleClip, 0);
+            _attackCycleState.CreateChild(1, _meleeClips, 1);
         }
 
         private void OnEnable()
         {
-            _clips.Events.SetCallback(HitEvent, Hit);
-            _clips.Events.SetCallback(HitEndEvent, OnHitEnd);
+            _meleeClips.Events.SetCallback(HitEvent, Hit);
+            _meleeClips.Events.SetCallback(HitEndEvent, OnMeleeHitEnd);
         }
 
         private void OnDisable()
         {
-            _clips.Events.RemoveCallback(HitEvent, Hit);
-            _clips.Events.RemoveCallback(HitEndEvent, OnHitEnd);
+            _meleeClips.Events.RemoveCallback(HitEvent, Hit);
+            _meleeClips.Events.RemoveCallback(HitEndEvent, OnMeleeHitEnd);
         }
 
         public override void OnEnterState()
@@ -80,7 +91,7 @@ namespace Units.Humans.Animations.States
             _attackCycleState.Parameter = Attack;
             _animancer.Layers[AnimationLayers.Main].Play(_attackCycleState);
             
-            SetRandomAnimation();
+            SetMeleeRandomAnimation();
         }
 
         public override void OnExitState()
@@ -92,45 +103,59 @@ namespace Units.Humans.Animations.States
 
         public override AnimationType AnimationType => AnimationType.Attack;
 
-        public void SetAttackSpeed(float value)
+        public void SetMeleeAttackSpeed(float value)
         {
-            _clips.Speed = _clips.MaximumDuration / value;
+            _meleeTimeBetweenStrikes = value * _meleeTimeBetweenStrikesPercent;
+            
+            _meleeClips.Speed = _meleeClips.MaximumDuration / TimeForMeleeHit(value);
         }
-        
-        private void OnHitEnd()
+
+        public void SetRangedAttackSpeed(float value)
+        {
+            _rangedTimeBetweenStrikes = value * _rangedTimeBetweenStrikesPercent;
+            
+            _rangedClips.Speed = _rangedClips.MaximumDuration / TimeForRangedHit(value);
+        }
+
+        private float TimeForMeleeHit(float value)
+        {
+            return value * (1 - _meleeTimeBetweenStrikesPercent);
+        }
+
+        private float TimeForRangedHit(float value)
+        {
+            return value * (1 - _rangedTimeBetweenStrikesPercent);
+        }
+
+        private void OnMeleeHitEnd()
         {
             if (_humanAnimations.TryStopIfNotAttacking())
             {
                 return;
             }
             
-            StartCoroutine(SetRandomAnimationAfter());
+            StartCoroutine(SetMeleeRandomAnimationAfter());
         }
         
-        private IEnumerator SetRandomAnimationAfter()
+        private IEnumerator SetMeleeRandomAnimationAfter()
         {
-            _attackCycleTween.Start(AttackIdle, _idleClip.FadeDuration);
+            _attackCycleTween.Start(AttackIdle, _meleeIdleClip.FadeDuration);
             
-            yield return new WaitForSeconds(_timeBetweenStrikes);
+            yield return new WaitForSeconds(_meleeTimeBetweenStrikes);
 
-            SetRandomAnimation();
-            _attackCycleTween.Start(Attack, _idleClip.FadeDuration);
+            SetMeleeRandomAnimation();
+            _attackCycleTween.Start(Attack, _meleeIdleClip.FadeDuration);
         }
 
-        private void SetRandomAnimation()
+        private void SetMeleeRandomAnimation()
         {
-            _clips.State.Parameter = Random.Range(AttackDownward, AttackSlash + 1);
-            _clips.State.NormalizedTime = 0;
+            _meleeClips.State.Parameter = Random.Range(AttackDownward, AttackSlash + 1);
+            _meleeClips.State.NormalizedTime = 0;
         }
 
         private void Hit()
         {
-            _unitAttacker.Hit(GetPassedTime());
-        }
-
-        private float GetPassedTime()
-        {
-            return _clips.MaximumDuration + _timeBetweenStrikes;
+            _unitAttacker.Hit();
         }
     }
 }

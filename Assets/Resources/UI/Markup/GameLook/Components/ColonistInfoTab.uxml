@@ -1,0 +1,31 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Resources/UI/Styles/Common/Text.uss?fileID=7433441132597879392&amp;guid=158167a2c7cf4f5292d78d1ed2683cfc&amp;type=3#Text" />
+    <Style src="project://database/Assets/Resources/UI/Styles/GameLook/Components/ColonistInfoTab.uss?fileID=7433441132597879392&amp;guid=1b3f16f25fa958346b381b5b99e42eda&amp;type=3#ColonistInfoTab" />
+    <ui:VisualElement name="colonist-info-tab" picking-mode="Ignore" class="colonist-info-tab">
+        <ui:VisualElement name="traits" class="traits">
+            <ui:Label text="Traits:" display-tooltip-when-elided="true" name="traits-header" class="label label-general left-aligned traits-header" />
+            <ui:VisualElement name="traits__list" class="traits__list">
+                <ui:VisualElement name="traits__first-row" class="traits__row">
+                    <ui:VisualElement name="first-trait" class="trait">
+                        <ui:VisualElement name="trait__icon" class="trait__icon" />
+                        <ui:Label text="Strength" display-tooltip-when-elided="true" name="trait_name" class="label trait__name left-aligned" />
+                    </ui:VisualElement>
+                    <ui:VisualElement name="second-trait" class="trait">
+                        <ui:VisualElement name="trait__icon" class="trait__icon" />
+                        <ui:Label text="Strength" display-tooltip-when-elided="true" name="trait_name" class="label trait__name left-aligned" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:VisualElement name="traits__second-row" class="traits__row">
+                    <ui:VisualElement name="third-trait" class="trait">
+                        <ui:VisualElement name="trait__icon" class="trait__icon" />
+                        <ui:Label text="Strength" display-tooltip-when-elided="true" name="trait_name" class="label trait__name left-aligned" />
+                    </ui:VisualElement>
+                    <ui:VisualElement name="forth-trait" class="trait">
+                        <ui:VisualElement name="trait__icon" class="trait__icon" />
+                        <ui:Label text="Strength" display-tooltip-when-elided="true" name="trait_name" class="label trait__name left-aligned" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

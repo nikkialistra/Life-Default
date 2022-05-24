@@ -1874,6 +1874,9 @@ MonoBehaviour:
   _doubleArrowDown: {fileID: 21300000, guid: e128278536425d543908e241844239ab, type: 3}
   _tripleArrowUp: {fileID: 21300000, guid: 07d10f9f0b4d9494fbd548f2e3259418, type: 3}
   _tripleArrowDown: {fileID: 21300000, guid: 85d35deaadad35b45a8724243b12df5a, type: 3}
+  _changeSpeedForSingleArrow: 0.005
+  _changeSpeedForDoubleArrow: 0.0625
+  _changeSpeedForTripleArrow: 0.125
 --- !u!114 &3020716834402626414
 MonoBehaviour:
   m_ObjectHideFlags: 0

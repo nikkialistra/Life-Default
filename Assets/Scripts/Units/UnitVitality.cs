@@ -29,12 +29,15 @@ namespace Units
         public event Action VitalityChange;
 
         public event Action Wasted;
+        
 
         public float Health { get; private set; }
         public float MaxHealth { get; private set; }
 
         public float RecoverySpeed { get; private set; }
         public float MaxRecoverySpeed { get; private set; }
+        
+        public bool IsFullHealth => Health == MaxHealth;
 
         public int HealthPercent => (int)((Health / MaxHealth) * 100);
         public int RecoverySpeedPercent => (int)((RecoverySpeed / MaxRecoverySpeed) * 100);

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using Animancer;
+using Infrastructure.Settings;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using Zenject;
@@ -47,17 +48,21 @@ namespace Units.Humans.Animations.States
         
         private UnitMeshAgent _unitMeshAgent; 
         private UnitAttacker _unitAttacker;
+        
+        private AnimationSettings _animationSettings;
 
         [Inject]
-        public void Construct(UnitMeshAgent unitMeshAgent, UnitAttacker unitAttacker)
+        public void Construct(UnitMeshAgent unitMeshAgent, UnitAttacker unitAttacker, AnimationSettings animationSettings)
         {
             _unitMeshAgent = unitMeshAgent;
             _unitAttacker = unitAttacker;
+            
+            _animationSettings = animationSettings;
         }
 
         protected override void OnAwake()
         {
-            _lowerBodyMoving = new LowerBodyMoving(this, _unitMeshAgent, _humanAnimations);
+            _lowerBodyMoving = new LowerBodyMoving(this, _unitMeshAgent, _humanAnimations, _animationSettings);
         }
 
         private void Start()

@@ -4,7 +4,6 @@ using System.Linq;
 using ColonistManagement.Targeting;
 using ColonistManagement.Targeting.Formations;
 using Colonists;
-using Colonists.Services.Selecting;
 using Entities;
 using Entities.Types;
 using General.Selecting.Selected;

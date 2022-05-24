@@ -2,6 +2,7 @@
 
 using System;
 using System.Linq;
+using Infrastructure.Settings;
 using ResourceManagement;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -43,9 +44,11 @@ namespace General.Map
         }
 
         [Inject]
-        public void Construct(Camera camera, Terrain terrain)
+        public void Construct(Camera camera, Terrain terrain, RaycastingSettings raycastingSettings)
         {
             _terrain = terrain;
+
+            _originPositionCorrection = raycastingSettings.RaycastToTerrainCorrection;
         }
 
         private void Awake()
@@ -59,8 +62,6 @@ namespace General.Map
             _heightmapResolution = _terrainData.heightmapResolution;
             _detailResolution = _terrainData.detailResolution;
             _terrainSize = _terrainData.size;
-
-            _originPositionCorrection = GlobalParameters.Instance.RaycastToTerrainCorrection;
         }
 
         [Button(ButtonSizes.Medium)]

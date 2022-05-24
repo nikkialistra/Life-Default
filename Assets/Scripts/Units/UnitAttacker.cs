@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections;
-using General;
+using Infrastructure.Settings;
 using Sirenix.OdinInspector;
 using Units.Ancillaries;
 using Units.Calculations;
 using Units.Enums;
 using Units.Stats;
 using UnityEngine;
+using Zenject;
 
 namespace Units
 {
@@ -56,6 +57,14 @@ namespace Units
 
         private Coroutine _attackingCoroutine;
 
+        [Inject]
+        public void Construct(AttackSettings attackSettings, AnimationSettings animationSettings)
+        {
+            _attackRangeMultiplierToStartFight = attackSettings.AttackRangeMultiplierToStartFight;
+            _attackAngle = attackSettings.AttackAngle;
+            _waitTime = animationSettings.TimeToStopInteraction;
+        }
+
         private void Awake()
         {
             _self = GetComponent<Unit>();
@@ -76,13 +85,6 @@ namespace Units
 
         public bool IsAttacking { get; private set; }
         public bool Idle => !IsAttacking && Time.time - _lastAttackTime > _timeAfterAttackToIdle;
-
-        private void Start()
-        {
-            _attackRangeMultiplierToStartFight = GlobalParameters.Instance.AttackRangeMultiplierToStartFight;
-            _attackAngle = GlobalParameters.Instance.AttackAngle;
-            _waitTime = GlobalParameters.Instance.TimeToStopInteraction;
-        }
 
         private void OnEnable()
         {
@@ -120,13 +122,13 @@ namespace Units
             _unitAnimator.SetRangedAttackSpeed(meleeAttackSpeed.Value);
 
             meleeAttackSpeed.ValueChange += OnMeleeAttackSpeedChange;
-            meleeAttackSpeed.ValueChange += OnRangedAttackSpeedChange;
+            rangedAttackSpeed.ValueChange += OnRangedAttackSpeedChange;
         }
 
         public void UnbindStats(Stat meleeAttackSpeed, Stat rangedAttackSpeed)
         {
             meleeAttackSpeed.ValueChange -= OnMeleeAttackSpeedChange;
-            meleeAttackSpeed.ValueChange -= OnRangedAttackSpeedChange;
+            rangedAttackSpeed.ValueChange -= OnRangedAttackSpeedChange;
         }
 
         public void ChangeWeaponType(WeaponType weaponType)

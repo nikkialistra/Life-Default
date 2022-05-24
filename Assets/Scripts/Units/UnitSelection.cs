@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections;
-using General;
 using General.Interfaces;
 using General.Selecting;
+using Infrastructure.Settings;
 using Sirenix.OdinInspector;
 using Units.Ancillaries;
 using UnityEngine;
+using Zenject;
 
 namespace Units
 {
@@ -26,15 +27,16 @@ namespace Units
         
         private SelectingInput _selectingInput;
 
+        [Inject]
+        public void Construct(SelectionSettings selectionSettings)
+        {
+            _timeToHideHover = selectionSettings.TimeToHideHover;
+        }
+
         public event Action Hovered;
         public event Action Unhovered;
         public event Action Selected;
         public event Action Deselected;
-
-        private void Start()
-        {
-            _timeToHideHover = GlobalParameters.Instance.TimeToHideHover;
-        }
 
         public void Flash()
         {

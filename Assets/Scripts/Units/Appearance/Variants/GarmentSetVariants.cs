@@ -1,6 +1,5 @@
 ﻿using Units.Appearance.ItemVariants;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Units.Appearance.Variants
 {

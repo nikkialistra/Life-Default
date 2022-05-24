@@ -1,6 +1,5 @@
 ﻿using ColonistManagement.Targeting.Formations;
 using Colonists;
-using Colonists.Services.Selecting;
 using General.Map;
 using General.Selecting.Selected;
 using ResourceManagement;

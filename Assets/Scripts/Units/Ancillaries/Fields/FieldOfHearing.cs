@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
-using General;
+using Infrastructure.Settings;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using Zenject;
 
 namespace Units.Ancillaries.Fields
 {
@@ -23,16 +24,17 @@ namespace Units.Ancillaries.Fields
         
         private FieldVisualization _fieldVisualization;
 
+        [Inject]
+        public void Construct(VisibilityFieldsSettings visibilityFieldsSettings)
+        {
+            _targetPositionCorrection = visibilityFieldsSettings.TargetPositionCorrection;
+            _recalculationTime = visibilityFieldsSettings.VisibilityFieldRecalculationTime;
+            _obstacleMask = visibilityFieldsSettings.ObstacleMask;
+        }
+
         private void Awake()
         {
             _fieldVisualization = GetComponent<FieldVisualization>();
-        }
-
-        private void Start()
-        {
-            _targetPositionCorrection = GlobalParameters.Instance.TargetPositionCorrection;
-            _recalculationTime = GlobalParameters.Instance.VisibilityFieldRecalculationTime;
-            _obstacleMask = GlobalParameters.Instance.ObstacleMask;
         }
 
         private void Update()

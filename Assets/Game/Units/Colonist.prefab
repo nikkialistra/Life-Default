@@ -686,7 +686,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8174075577af4735b0816bff22e1e19a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _fraction: 0
+  _faction: 0
   _colonist: {fileID: 2081193202370333819}
   _enemy: {fileID: 0}
   _healthBars: {fileID: 1935489896466272434}
@@ -831,7 +831,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41b24eb4444846398245d37c7ac57ada, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _advanceTime: 3
+  _advanceTime: 2
   _refreshTime: 1
   _useMinimax: 0
 --- !u!114 &8890947443067596178

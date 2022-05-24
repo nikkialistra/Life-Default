@@ -1,7 +1,6 @@
 ﻿using System;
 using UI.Game.GameLook.Components;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using Zenject;
 
 namespace General.TimeCycle.TimeRegulation

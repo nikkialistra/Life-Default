@@ -1,6 +1,5 @@
 ﻿using System.Linq;
 using General.Selecting.Selected;
-using UI.Game.GameLook.Components;
 using UI.Game.GameLook.Components.Info;
 using UnityEngine;
 using Zenject;

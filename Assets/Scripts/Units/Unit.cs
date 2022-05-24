@@ -18,6 +18,7 @@ namespace Units
     [RequireComponent(typeof(UnitVitality))]
     [RequireComponent(typeof(UnitFightCalculation))]
     [RequireComponent(typeof(UnitMeshAgent))]
+    [RequireComponent(typeof(UnitAttacker))]
     public class Unit : MonoBehaviour
     {
         [SerializeField] private Faction _faction;
@@ -51,6 +52,7 @@ namespace Units
 
         private UnitVitality _unitVitality;
         private UnitMeshAgent _unitMeshAgent;
+        private UnitAttacker _unitAttacker;
 
         private bool _died;
         
@@ -61,9 +63,10 @@ namespace Units
             _unitStats = GetComponent<UnitStats>();
             _unitTraits = GetComponent<UnitTraits>();
 
-            _unitMeshAgent = GetComponent<UnitMeshAgent>();
-            
             _unitVitality = GetComponent<UnitVitality>();
+            _unitMeshAgent = GetComponent<UnitMeshAgent>();
+            _unitAttacker = GetComponent<UnitAttacker>();
+
             _unitFightCalculation = GetComponent<UnitFightCalculation>();
         }
         
@@ -208,12 +211,14 @@ namespace Units
         {
             _unitVitality.BindStats(_unitStats.MaxHealth, _unitStats.MaxRecoverySpeed);
             _unitMeshAgent.BindStats(_unitStats.MovementSpeed);
+            _unitAttacker.BindStats(_unitStats.MeleeAttackSpeed, _unitStats.RangedAttackSpeed);
         }
 
         private void UnbindStatsFromComponents()
         {
             _unitVitality.UnbindStats(_unitStats.MaxHealth, _unitStats.MaxRecoverySpeed);
             _unitMeshAgent.UnbindStats(_unitStats.MovementSpeed);
+            _unitAttacker.UnbindStats(_unitStats.MeleeAttackSpeed, _unitStats.RangedAttackSpeed);
         }
 
         private void OnWasted()

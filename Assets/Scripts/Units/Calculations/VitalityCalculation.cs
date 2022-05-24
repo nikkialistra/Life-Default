@@ -1,5 +1,6 @@
 ﻿using System;
 using General.TimeCycle.Ticking;
+using Infrastructure.Settings;
 using UnityEngine;
 
 namespace Units.Calculations
@@ -18,9 +19,9 @@ namespace Units.Calculations
         private float _lastHitTime;
 
         private bool _initialized;
-        private float _recoverySpeedRestoreSpeed = 0.1f;
+        private float _recoverySpeedRestoreSpeed;
 
-        public void Initialize(float maxHealth, float maxRecoverySpeed, float healthFractionToDecreaseRecoverySpeed, float recoveryHealthDelayAfterHit)
+        public void Initialize(float maxHealth, float maxRecoverySpeed, UnitsSettings unitsSettings)
         {
             _initialized = true;
             
@@ -30,8 +31,9 @@ namespace Units.Calculations
             _recoverySpeed = maxRecoverySpeed;
             _maxRecoverySpeed = maxRecoverySpeed;
             
-            _healthFractionToDecreaseRecoverySpeed = healthFractionToDecreaseRecoverySpeed;
-            _recoveryHealthDelayAfterHit = recoveryHealthDelayAfterHit;
+            _healthFractionToDecreaseRecoverySpeed = unitsSettings.HealthFractionToDecreaseRecoverySpeed;
+            _recoveryHealthDelayAfterHit = unitsSettings.RecoveryHealthDelayAfterHit;
+            _recoverySpeedRestoreSpeed = unitsSettings.RecoverySpeedRestoreSpeed;
         }
 
         public event Action<float> HealthChange;

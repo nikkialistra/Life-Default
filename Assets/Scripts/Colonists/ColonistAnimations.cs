@@ -1,5 +1,4 @@
 ﻿using Sirenix.OdinInspector;
-using Units.Humans;
 using Units.Humans.Animations;
 using Units.Humans.Animations.States;
 using UnityEngine;

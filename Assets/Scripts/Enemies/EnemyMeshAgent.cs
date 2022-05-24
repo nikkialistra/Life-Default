@@ -1,5 +1,4 @@
-﻿using System;
-using Units;
+﻿using Units;
 using UnityEngine;
 using Random = UnityEngine.Random;
 

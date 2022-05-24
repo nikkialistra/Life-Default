@@ -1,5 +1,5 @@
 ﻿using System.Collections;
-using General;
+using Infrastructure.Settings;
 using Units.Humans.Animations.States;
 using UnityEngine;
 
@@ -20,13 +20,14 @@ namespace Units.Humans.Animations
         private Coroutine _updatingMovingCoroutine;
         private Coroutine _idleCoroutine;
 
-        public LowerBodyMoving(HumanState humanState, UnitMeshAgent unitMeshAgent, HumanAnimations humanAnimations)
+        public LowerBodyMoving(HumanState humanState, UnitMeshAgent unitMeshAgent, HumanAnimations humanAnimations,
+            AnimationSettings animationSettings)
         {
             _humanState = humanState;
             _unitMeshAgent = unitMeshAgent;
             _humanAnimations = humanAnimations;
             
-            _waitTimeToIdle = GlobalParameters.Instance.WaitTimeToIdle;
+            _waitTimeToIdle = animationSettings.WaitTimeToIdle;
         }
 
         public void Start()

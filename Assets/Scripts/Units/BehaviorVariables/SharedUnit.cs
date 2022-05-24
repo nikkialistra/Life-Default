@@ -1,6 +1,5 @@
 ﻿using System;
 using BehaviorDesigner.Runtime;
-using Enemies;
 
 namespace Units.BehaviorVariables
 {

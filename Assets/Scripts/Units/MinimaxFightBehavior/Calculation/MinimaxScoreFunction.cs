@@ -1,5 +1,4 @@
-﻿using Units.Enums;
-using Units.MinimaxFightBehavior.FightAct;
+﻿using Units.MinimaxFightBehavior.FightAct;
 using static Units.MinimaxFightBehavior.FightAct.Fight.FightState;
 using static Units.MinimaxFightBehavior.FightAct.Player.PlayerSide;
 

@@ -1,7 +1,8 @@
 ﻿using System.Collections;
-using General;
 using General.Interfaces;
+using Infrastructure.Settings;
 using UnityEngine;
+using Zenject;
 
 namespace Entities
 {
@@ -25,11 +26,15 @@ namespace Entities
         private Coroutine _hoveringCoroutine;
         private Coroutine _hideSelectionCoroutine;
 
+        [Inject]
+        public void Construct(SelectionSettings selectionSettings)
+        {
+            _timeToHideHover = selectionSettings.TimeToHideHover;
+            _timeToHideSelection = selectionSettings.TimeToHideSelection;
+        }
+
         private void Start()
         {
-            _timeToHideHover = GlobalParameters.Instance.TimeToHideHover;
-            _timeToHideSelection = GlobalParameters.Instance.TimeToHideSelection;
-            
             _emissiveColor = Shader.PropertyToID(_propertyName);
         }
 

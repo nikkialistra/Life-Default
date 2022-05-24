@@ -4,6 +4,7 @@ using Colonists;
 using DG.Tweening;
 using General.Map;
 using General.Selecting;
+using Infrastructure.Settings;
 using Saving;
 using Sirenix.OdinInspector;
 using UI.Game;
@@ -117,7 +118,8 @@ namespace General
         private InputAction _toggleCameraMovementAction;
 
         [Inject]
-        public void Construct(MapInitialization mapInitialization, GameSettings gameSettings, GameViews gameViews, SelectingInput selectingInput, PlayerInput playerInput)
+        public void Construct(MapInitialization mapInitialization, GameSettings gameSettings, GameViews gameViews,
+            SelectingInput selectingInput, PlayerInput playerInput, RaycastingSettings raycastingSettings)
         {
             _mapInitialization = mapInitialization;
 
@@ -125,6 +127,8 @@ namespace General
             _gameViews = gameViews;
             _selectingInput = selectingInput;
             _playerInput = playerInput;
+            
+            _raycastToTerrainCorrection = raycastingSettings.RaycastToTerrainCorrection;
         }
 
         private void Awake()
@@ -168,8 +172,6 @@ namespace General
             _newPosition = transform.position;
             _newRotation = transform.rotation;
             _newFieldOfView = _camera.fieldOfView;
-            
-            _raycastToTerrainCorrection = GlobalParameters.Instance.RaycastToTerrainCorrection;
 
             LoadSettings();
             Activate();

@@ -1,5 +1,5 @@
 ﻿using System.Collections;
-using General;
+using Infrastructure.Settings;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using Zenject;
@@ -29,9 +29,11 @@ namespace Units.Ancillaries
         private int _terrainMask;
 
         [Inject]
-        public void Construct(Transform linesToTrackedUnitsParent)
+        public void Construct(Transform linesToTrackedUnitsParent, RaycastingSettings raycastingSettings)
         {
             _linesToTrackedUnitsParent = linesToTrackedUnitsParent;
+
+            _raycastToTerrainCorrection = raycastingSettings.RaycastToTerrainCorrection;
         }
 
         private void Awake()
@@ -45,8 +47,6 @@ namespace Units.Ancillaries
         {
             _lineRenderer.transform.parent = _linesToTrackedUnitsParent;
             _lineRenderer.transform.position = Vector3.zero;
-
-            _raycastToTerrainCorrection = GlobalParameters.Instance.RaycastToTerrainCorrection;
         }
 
         public void ShowLineTo(Unit trackedUnit)

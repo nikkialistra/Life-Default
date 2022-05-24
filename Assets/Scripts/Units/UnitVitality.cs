@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections;
-using General;
 using General.Interfaces;
 using General.TimeCycle.Ticking;
+using Infrastructure.Settings;
 using Sirenix.OdinInspector;
 using Units.Calculations;
 using Units.Humans.Animations;
@@ -19,8 +19,7 @@ namespace Units
 
         private VitalityCalculation _vitalityCalculation;
 
-        private float _healthFractionToDecreaseRecoverySpeed;
-        private float _recoveryHealthDelayAfterHit;
+        private UnitsSettings _unitsSettings;
 
         private TickingRegulator _tickingRegulator;
 
@@ -45,20 +44,16 @@ namespace Units
         private bool IsAlive => Health > 0;
 
         [Inject]
-        public void Construct(TickingRegulator tickingRegulator)
+        public void Construct(TickingRegulator tickingRegulator, UnitsSettings unitsSettings)
         {
             _tickingRegulator = tickingRegulator;
+
+            _unitsSettings = unitsSettings;
         }
 
         private void Awake()
         {
             _vitalityCalculation = new VitalityCalculation();
-        }
-
-        private void Start()
-        {
-            _healthFractionToDecreaseRecoverySpeed = GlobalParameters.Instance.HealthFractionToDecreaseRecoverySpeed;
-            _recoveryHealthDelayAfterHit = GlobalParameters.Instance.RecoveryHitDelayAfterHit;
         }
 
         private void OnEnable()
@@ -113,7 +108,7 @@ namespace Units
             Health = MaxHealth;
             RecoverySpeed = MaxRecoverySpeed;
 
-            _vitalityCalculation.Initialize(MaxHealth, MaxRecoverySpeed, _healthFractionToDecreaseRecoverySpeed, _recoveryHealthDelayAfterHit);
+            _vitalityCalculation.Initialize(MaxHealth, MaxRecoverySpeed, _unitsSettings);
         }
 
         public void TakeDamage(float value)

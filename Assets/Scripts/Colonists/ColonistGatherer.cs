@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections;
 using Common;
-using General;
+using Infrastructure.Settings;
 using ResourceManagement;
 using Sirenix.OdinInspector;
 using Units;
 using Units.Ancillaries.Fields;
 using UnityEngine;
+using Zenject;
 
 namespace Colonists
 {
@@ -36,6 +37,12 @@ namespace Colonists
 
         private Coroutine _watchForExhaustionCoroutine;
 
+        [Inject]
+        public void Construct(AnimationSettings animationSettings)
+        {
+            _waitTime = animationSettings.TimeToStopInteraction;
+        }
+
         private void Awake()
         {
             _animator = GetComponent<ColonistAnimator>();
@@ -43,11 +50,6 @@ namespace Colonists
         }
         
         public bool IsGathering { get; private set; }
-
-        private void Start()
-        {
-            _waitTime = GlobalParameters.Instance.TimeToStopInteraction;
-        }
 
         public float InteractionDistanceFor(ResourceType resourceType)
         {

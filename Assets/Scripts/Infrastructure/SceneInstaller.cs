@@ -1,4 +1,5 @@
-﻿using Colonists;
+﻿using Animancer;
+using Colonists;
 using Colonists.Services.Selecting;
 using General;
 using General.Map;
@@ -16,7 +17,6 @@ using ResourceManagement;
 using Sirenix.OdinInspector;
 using Testing;
 using UI;
-using Units;
 using Units.Ancillaries;
 using Units.Appearance;
 using Units.MinimaxFightBehavior;
@@ -107,6 +107,11 @@ namespace Infrastructure
         [SerializeField] private Transform _linesToTrackedUnitsParent;
         [Required]
         [SerializeField] private VirtualFight _virtualFight;
+
+        public override void Start()
+        {
+            AnimancerState.AutomaticallyClearEvents = false;
+        }
 
         public override void InstallBindings()
         {

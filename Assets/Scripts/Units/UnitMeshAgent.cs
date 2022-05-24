@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections;
 using DG.Tweening;
-using General;
+using Infrastructure.Settings;
 using Pathfinding;
 using ResourceManagement;
-using UniRx;
 using Units.Stats;
 using UnityEngine;
+using Zenject;
 
 namespace Units
 {
@@ -37,15 +37,16 @@ namespace Units
         private Coroutine _movingCoroutine;
         private Coroutine _rotatingToCoroutine;
 
+        [Inject]
+        public void Construct(AttackSettings attackSettings)
+        {
+            _seekPredictionMultiplier = attackSettings.SeekPredictionMultiplier;
+        }
+
         private void Awake()
         {
             _aiPath = GetComponent<AIPath>();
             _aiPath.isStopped = true;
-        }
-        
-        private void Start()
-        {
-            _seekPredictionMultiplier = GlobalParameters.Instance.SeekPredictionMultiplier;
         }
 
         public event Action DestinationReach;

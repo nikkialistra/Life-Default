@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Sirenix.OdinInspector;
 using Units.Appearance.ItemVariants.Item;
-using UnityEngine;
 using Random = UnityEngine.Random;
 
 namespace Units.Appearance.ItemVariants

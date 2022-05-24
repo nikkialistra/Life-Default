@@ -291,7 +291,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8174075577af4735b0816bff22e1e19a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _fraction: 1
+  _faction: 1
   _colonist: {fileID: 0}
   _enemy: {fileID: 3020886004222341295}
   _healthBars: {fileID: 1935489896466272434}
@@ -436,7 +436,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41b24eb4444846398245d37c7ac57ada, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _advanceTime: 10
+  _advanceTime: 2
   _refreshTime: 1
   _useMinimax: 0
 --- !u!114 &6055286198764241806

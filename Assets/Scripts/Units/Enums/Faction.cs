@@ -1,6 +1,6 @@
 ﻿namespace Units.Enums
 {
-    public enum Fraction
+    public enum Faction
     {
         Colonists,
         Enemies

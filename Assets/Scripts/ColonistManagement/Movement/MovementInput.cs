@@ -212,12 +212,12 @@ namespace ColonistManagement.Movement
         
         private void ChooseActionBasedOnUnitFraction(Unit unit)
         {
-            switch (unit.Fraction)
+            switch (unit.Faction)
             {
-                case Fraction.Colonists:
+                case Faction.Colonists:
                     ColonistSet?.Invoke(unit.Colonist);
                     break;
-                case Fraction.Enemies:
+                case Faction.Enemies:
                     UnitTarget?.Invoke(unit);
                     break;
                 default:

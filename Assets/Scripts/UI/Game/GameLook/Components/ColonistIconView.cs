@@ -102,7 +102,9 @@ namespace UI.Game.GameLook.Components
         private void UpdateVitality()
         {
             _healthProgress.highValue = _colonist.Unit.UnitVitality.MaxHealth;
+            
             _recoverySpeedProgress.highValue = _colonist.Unit.UnitVitality.MaxRecoverySpeed;
+            _recoverySpeedProgress.lowValue = -_colonist.Unit.UnitVitality.MaxRecoverySpeed;
             
             _healthProgress.value = _colonist.Unit.UnitVitality.Health;
             _recoverySpeedProgress.value = _colonist.Unit.UnitVitality.RecoverySpeed;

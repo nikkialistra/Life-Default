@@ -18,6 +18,7 @@ namespace Units.Calculations
         private float _lastHitTime;
 
         private bool _initialized;
+        private float _recoverySpeedRestoreSpeed = 0.1f;
 
         public void Initialize(float maxHealth, float maxRecoverySpeed, float healthFractionToDecreaseRecoverySpeed, float recoveryHealthDelayAfterHit)
         {
@@ -35,6 +36,8 @@ namespace Units.Calculations
 
         public event Action<float> HealthChange;
         public event Action<float> RecoverySpeedChange;
+
+        private float RecoverySpeedInterval => _maxRecoverySpeed * 2f;
         
         public void TickPerHour()
         {
@@ -44,6 +47,7 @@ namespace Units.Calculations
             }
 
             RecoverHealth();
+            UpdateRecoverySpeed();
         }
 
         private float BoundaryHealth => _maxHealth * _healthFractionToDecreaseRecoverySpeed;
@@ -102,6 +106,23 @@ namespace Units.Calculations
             HealthChange?.Invoke(_health);
         }
 
+        private void UpdateRecoverySpeed()
+        {
+            if (_health < BoundaryHealth)
+            {
+                return;
+            }
+
+            var oldRecoverySpeed = _recoverySpeed;
+
+            _recoverySpeed = Mathf.Min(_recoverySpeed * (1 + _recoverySpeedRestoreSpeed), _maxRecoverySpeed);
+            
+            if (_recoverySpeed != oldRecoverySpeed)
+            {
+                RecoverySpeedChange?.Invoke(_recoverySpeed);
+            }
+        }
+
         private void ReduceHealth(float value)
         {
             _lastHitTime = Time.time;
@@ -116,9 +137,9 @@ namespace Units.Calculations
 
             var fraction = differenceBelowBoundary / _maxHealth;
 
-            var newRecoverySpeed = _recoverySpeed - (_maxRecoverySpeed * fraction);
+            var newRecoverySpeed = _recoverySpeed - (RecoverySpeedInterval * fraction);
 
-            _recoverySpeed = Mathf.Max(newRecoverySpeed, -_maxRecoverySpeed);
+            _recoverySpeed = Mathf.Clamp(newRecoverySpeed, -_maxRecoverySpeed, _maxRecoverySpeed);
             RecoverySpeedChange?.Invoke(_recoverySpeed);
         }
 

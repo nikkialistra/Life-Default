@@ -4,13 +4,13 @@ namespace Units.Enums
 {
     public static class FractionExtensions
     {
-        public static string GetStringForMultiple(this Fraction fraction)
+        public static string GetStringForMultiple(this Faction faction)
         {
-            return fraction switch
+            return faction switch
             {
-                Fraction.Colonists => "colonists",
-                Fraction.Enemies => "enemies",
-                _ => throw new ArgumentOutOfRangeException(nameof(fraction), fraction, null)
+                Faction.Colonists => "colonists",
+                Faction.Enemies => "enemies",
+                _ => throw new ArgumentOutOfRangeException(nameof(faction), faction, null)
             };
         }
     }

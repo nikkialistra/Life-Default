@@ -26,9 +26,8 @@ namespace Units
 
         private Coroutine _takingDamageCoroutine;
 
-        public event Action HealthChange;
-        public event Action RecoverySpeedChange;
-        
+        public event Action VitalityChange;
+
         public event Action Wasted;
 
         public float Health { get; private set; }
@@ -150,13 +149,13 @@ namespace Units
                 Wasted?.Invoke();
             }
 
-            HealthChange?.Invoke();
+            VitalityChange?.Invoke();
         }
 
         private void OnRecoverySpeedChange(float value)
         {
             RecoverySpeed = value;
-            RecoverySpeedChange?.Invoke();
+            VitalityChange?.Invoke();
         }
 
         private void ChangeMaxHealth(float value)

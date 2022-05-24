@@ -67,7 +67,7 @@ namespace Enemies.BehaviorNodes
             {
                 if (collider.TryGetComponent(out Unit unit))
                 {
-                    if (unit.Fraction == Fraction.Colonists)
+                    if (unit.Faction == Faction.Colonists)
                     {
                         opponents.Add(unit);
                     }

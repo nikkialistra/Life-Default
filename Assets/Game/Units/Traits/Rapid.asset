@@ -17,4 +17,4 @@ MonoBehaviour:
   _statModifiers:
   - _type: 0
     _modifierType: 300
-    _value: 1.25
+    _value: 0.25

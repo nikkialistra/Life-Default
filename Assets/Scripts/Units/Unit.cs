@@ -20,13 +20,13 @@ namespace Units
     [RequireComponent(typeof(UnitMeshAgent))]
     public class Unit : MonoBehaviour
     {
-        [SerializeField] private Fraction _fraction;
+        [SerializeField] private Faction _faction;
         
-        [ShowIf(nameof(_fraction), Fraction.Colonists)]
+        [ShowIf(nameof(_faction), Faction.Colonists)]
         [ValidateInput(nameof(ColonistUnitShouldHaveColonist), "Unit with fraction 'Colonists' should have colonist")]
         [SerializeField] private Colonist _colonist;
 
-        [ShowIf(nameof(_fraction), Fraction.Enemies)]
+        [ShowIf(nameof(_faction), Faction.Enemies)]
         [ValidateInput(nameof(EnemyUnitShouldHaveEnemy), "Unit with fraction 'Enemies' should have enemy")]
         [SerializeField] private Enemy _enemy;
         
@@ -76,7 +76,7 @@ namespace Units
 
         public bool Alive => !_died;
         
-        public Fraction Fraction => _fraction;
+        public Faction Faction => _faction;
 
         public UnitEquipment UnitEquipment => _unitEquipment;
         
@@ -87,13 +87,13 @@ namespace Units
 
         private void OnEnable()
         {
-            _unitVitality.HealthChange += OnVitalityHealthChange;
+            _unitVitality.VitalityChange += OnVitalityChange;
             _unitVitality.Wasted += OnWasted;
         }
 
         private void OnDisable()
         {
-            _unitVitality.HealthChange -= OnVitalityHealthChange;
+            _unitVitality.VitalityChange -= OnVitalityChange;
             _unitVitality.Wasted -= OnWasted;
         }
 
@@ -141,7 +141,7 @@ namespace Units
             var hitDamage = _unitFightCalculation.CalculateHitDamage(damage);
 
             _messageShowing.Show(Mathf.Round(hitDamage).ToString(), Color.red);
-            _unitVitality.TakeDamage(damage);
+            _unitVitality.TakeDamage(hitDamage);
         }
         
         public FightSpecs GetSpecs()
@@ -222,7 +222,7 @@ namespace Units
             Dying?.Invoke();
         }
 
-        private void OnVitalityHealthChange()
+        private void OnVitalityChange()
         {
             _healthBars.SetHealth(_unitVitality.Health, _unitVitality.MaxHealth);
             _healthBars.SetRecoverySpeed(_unitVitality.RecoverySpeed, _unitVitality.MaxRecoverySpeed);
@@ -231,7 +231,7 @@ namespace Units
 
         private bool ColonistUnitShouldHaveColonist()
         {
-            if (_fraction == Fraction.Colonists && _colonist == null)
+            if (_faction == Faction.Colonists && _colonist == null)
             {
                 return false;
             }
@@ -241,7 +241,7 @@ namespace Units
 
         private bool EnemyUnitShouldHaveEnemy()
         {
-            if (_fraction == Fraction.Enemies && _enemy == null)
+            if (_faction == Faction.Enemies && _enemy == null)
             {
                 return false;
             }

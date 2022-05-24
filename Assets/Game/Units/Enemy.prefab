@@ -370,12 +370,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 582025014378409e8a9e7bb956e95378, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxRecoverySpeed: 3
-  _possibleMaxHealths: 780000006400000050000000
-  _possibleRecoverySpeeds:
-  - 3
-  - 2
-  - 3.5
   _humanAnimations: {fileID: 6795354888401127415}
 --- !u!114 &298080858946743308
 MonoBehaviour:
@@ -389,13 +383,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cabfe8004b864fb68f7983619a63a1b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _attackRangeMultiplierToStartFight: 0.75
   _movementSpeed:
     _baseValue: 3.3
   _maxHealth:
     _baseValue: 100
   _maxRecoverySpeed:
-    _baseValue: 3
+    _baseValue: 2
   _dodgeChance:
     _baseValue: 0.1
   _meleeDamageMultiplier:

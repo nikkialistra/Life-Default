@@ -9,7 +9,7 @@ namespace General.Questing.Objectives
     [Serializable]
     public class DestroyObjective : IObjective
     {
-        [SerializeField] private Fraction _type;
+        [SerializeField] private Faction _type;
         [SerializeField] private int _quantity;
 
         private int _destroyed;

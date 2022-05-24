@@ -73,7 +73,7 @@ namespace Colonists
             {
                 if (collider.TryGetComponent(out Unit unit))
                 {
-                    if (unit.Fraction == Fraction.Enemies)
+                    if (unit.Faction == Faction.Enemies)
                     {
                         return true;
                     }

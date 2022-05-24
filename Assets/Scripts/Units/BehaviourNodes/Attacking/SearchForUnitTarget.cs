@@ -82,7 +82,7 @@ namespace Units.BehaviourNodes.Attacking
 
         private bool IsUnitTarget(Unit unit)
         {
-            return unit != null && unit.Alive && Self.Value.Fraction != unit.Fraction;
+            return unit != null && unit.Alive && Self.Value.Faction != unit.Faction;
         }
 
         private void SetIfClosest(Unit unit)

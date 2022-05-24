@@ -1534,6 +1534,7 @@ MonoBehaviour:
   _astarPath: {fileID: 3020716834256895297}
   _resourceChunksParent: {fileID: 0}
   _pathLineParent: {fileID: 0}
+  _linesToTrackedUnitsParent: {fileID: 0}
   _virtualFight: {fileID: 0}
 --- !u!114 &3020716834333397145
 MonoBehaviour:
@@ -3019,15 +3020,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db91f266e0b845758dcd9ee4e0b60491, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _healthFractionToDecreaseRecoverySpeed: 0.8
+  _recoveryHealthDelayAfterHit: 5
   _timeToHideHover: 0.05
   _timeToHideSelection: 0.12
   _timeToStopInteraction: 0.2
+  _waitTimeToIdle: 0
   _targetPositionCorrection: {x: 0, y: 1.5, z: 0}
   _visibilityFieldRecalculationTime: 0.2
   _obstacleMask:
     serializedVersion: 2
     m_Bits: 64
-  _originPositionCorrection: {x: 0, y: 10, z: 0}
+  _raycastToTerrainCorrection: {x: 0, y: 10, z: 0}
+  _attackRangeMultiplierToStartFight: 0.75
   _attackAngle: 60
   _seekPredictionMultiplier: 2
 --- !u!1 &5929126415545556603

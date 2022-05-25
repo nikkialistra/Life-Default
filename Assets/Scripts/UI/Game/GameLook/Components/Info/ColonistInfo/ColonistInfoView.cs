@@ -1,4 +1,5 @@
 ﻿using ColonistManagement.Statuses;
+using Colonists;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -6,6 +7,7 @@ using UnityEngine.UIElements;
 namespace UI.Game.GameLook.Components.Info.ColonistInfo
 {
     [RequireComponent(typeof(InfoPanelView))]
+    [RequireComponent(typeof(ColonistDetailTabs))]
     [RequireComponent(typeof(ColonistIndicators))]
     [RequireComponent(typeof(ColonistHeader))]
     [RequireComponent(typeof(ColonistActions))]
@@ -16,8 +18,6 @@ namespace UI.Game.GameLook.Components.Info.ColonistInfo
 
         private bool _shown;
 
-        private Colonists.Colonist _colonist;
-        
         private InfoPanelView _parent;
         private TemplateContainer _tree;
 
@@ -50,7 +50,8 @@ namespace UI.Game.GameLook.Components.Info.ColonistInfo
 
             BindElements();
         }
-        
+
+        public Colonist Colonist { get; private set; }
         public VisualElement TabContent { get; private set; }
 
         private void OnEnable()
@@ -121,7 +122,7 @@ namespace UI.Game.GameLook.Components.Info.ColonistInfo
 
         private void HidePanel()
         {
-            _parent.UnsetColonist(_colonist);
+            _parent.UnsetColonist(Colonist);
         }
 
         private void FillInPreview(Colonists.Colonist colonist)
@@ -132,8 +133,8 @@ namespace UI.Game.GameLook.Components.Info.ColonistInfo
         private void FillInProperties(Colonists.Colonist colonist)
         {
             UnsubscribeFromUnit();
-            _colonist = colonist;
-            _colonistHeader.FillInColonist(_colonist);
+            Colonist = colonist;
+            _colonistHeader.FillInColonist(Colonist);
             SubscribeToUnit();
 
             UpdateVitality();
@@ -142,22 +143,22 @@ namespace UI.Game.GameLook.Components.Info.ColonistInfo
 
         private void UnsubscribeFromUnit()
         {
-            if (_colonist != null)
+            if (Colonist != null)
             {
-                _colonist.VitalityChange -= UpdateVitality;
-                _colonist.Dying -= HidePanel;
+                Colonist.VitalityChange -= UpdateVitality;
+                Colonist.Dying -= HidePanel;
             }
         }
 
         private void SubscribeToUnit()
         {
-            _colonist.VitalityChange += UpdateVitality;
-            _colonist.Dying += HidePanel;
+            Colonist.VitalityChange += UpdateVitality;
+            Colonist.Dying += HidePanel;
         }
 
         private void UpdateVitality()
         {
-            _colonistIndicators.UpdateVitality(_colonist.Unit.UnitVitality);
+            _colonistIndicators.UpdateVitality(Colonist.Unit.UnitVitality);
         }
 
         private void UpdateIndicators()

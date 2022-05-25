@@ -4,6 +4,7 @@ using UnityEngine.UIElements;
 
 namespace UI.Game.GameLook.Components.Info.ColonistInfo
 {
+    [RequireComponent(typeof(ColonistInfoView))]
     [RequireComponent(typeof(ColonistInfoTab))]
     public class ColonistDetailTabs : MonoBehaviour
     {
@@ -12,10 +13,14 @@ namespace UI.Game.GameLook.Components.Info.ColonistInfo
         private Toggle _skills;
         private Toggle _info;
 
+        private ColonistInfoView _colonistInfoView;
+        
         private ColonistInfoTab _colonistInfoTab;
 
         private void Awake()
         {
+            _colonistInfoView = GetComponent<ColonistInfoView>();
+            
             _colonistInfoTab = GetComponent<ColonistInfoTab>();
         }
 
@@ -78,7 +83,7 @@ namespace UI.Game.GameLook.Components.Info.ColonistInfo
             else
             {
                 HideAll();
-                //_colonistInfoTab.Fill();
+                _colonistInfoTab.Fill(_colonistInfoView.Colonist);
                 _colonistInfoTab.ShowSelf();
             }
         }

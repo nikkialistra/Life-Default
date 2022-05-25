@@ -9,26 +9,26 @@ namespace Units.Stats
     public class UnitStats : MonoBehaviour
     {
         [Title("General")]
-        [SerializeField] private Stat _movementSpeed;
+        [SerializeField] private Stat<UnitStat> _movementSpeed;
         [Space]
-        [SerializeField] private Stat _maxHealth;
-        [SerializeField] private Stat _maxRecoverySpeed;
+        [SerializeField] private Stat<UnitStat> _maxHealth;
+        [SerializeField] private Stat<UnitStat> _maxRecoverySpeed;
         [Space]
-        [SerializeField] private Stat _dodgeChance;
+        [SerializeField] private Stat<UnitStat> _dodgeChance;
 
         [Title("Melee")]
-        [SerializeField] private Stat _meleeDamageMultiplier;
-        [SerializeField] private Stat _meleeAttackSpeed;
-        [SerializeField] private Stat _meleeCriticalChance;
-        [SerializeField] private Stat _meleeAttackRange;
-        [SerializeField] private Stat _meleeAccuracy;
+        [SerializeField] private Stat<UnitStat> _meleeDamageMultiplier;
+        [SerializeField] private Stat<UnitStat> _meleeAttackSpeed;
+        [SerializeField] private Stat<UnitStat> _meleeCriticalChance;
+        [SerializeField] private Stat<UnitStat> _meleeAttackRange;
+        [SerializeField] private Stat<UnitStat> _meleeAccuracy;
         
         [Title("Ranged")]
-        [SerializeField] private Stat _rangedDamageMultiplier;
-        [SerializeField] private Stat _rangedAttackSpeed;
-        [SerializeField] private Stat _rangedCriticalChance;
-        [SerializeField] private Stat _rangedAttackRange;
-        [SerializeField] private Stat _rangedAccuracy;
+        [SerializeField] private Stat<UnitStat> _rangedDamageMultiplier;
+        [SerializeField] private Stat<UnitStat> _rangedAttackSpeed;
+        [SerializeField] private Stat<UnitStat> _rangedCriticalChance;
+        [SerializeField] private Stat<UnitStat> _rangedAttackRange;
+        [SerializeField] private Stat<UnitStat> _rangedAccuracy;
 
         private UnitEquipmentStats _unitEquipmentStats;
 
@@ -39,24 +39,24 @@ namespace Units.Stats
 
         public float Armor => _unitEquipmentStats.Armor;
 
-        public Stat MaxHealth => _maxHealth;
-        public Stat MaxRecoverySpeed => _maxRecoverySpeed;
+        public Stat<UnitStat> MaxHealth => _maxHealth;
+        public Stat<UnitStat> MaxRecoverySpeed => _maxRecoverySpeed;
         
-        public Stat MovementSpeed => _movementSpeed;
+        public Stat<UnitStat> MovementSpeed => _movementSpeed;
         
-        public Stat DodgeChance => _dodgeChance;
+        public Stat<UnitStat> DodgeChance => _dodgeChance;
 
-        public Stat MeleeDamageMultiplier => _meleeDamageMultiplier;
-        public Stat MeleeAttackSpeed => _meleeAttackSpeed;
-        public Stat MeleeCriticalChance => _meleeCriticalChance;
-        public Stat MeleeAttackRange => _meleeAttackRange;
-        public Stat MeleeAccuracy => _meleeAccuracy;
+        public Stat<UnitStat> MeleeDamageMultiplier => _meleeDamageMultiplier;
+        public Stat<UnitStat> MeleeAttackSpeed => _meleeAttackSpeed;
+        public Stat<UnitStat> MeleeCriticalChance => _meleeCriticalChance;
+        public Stat<UnitStat> MeleeAttackRange => _meleeAttackRange;
+        public Stat<UnitStat> MeleeAccuracy => _meleeAccuracy;
 
-        public Stat RangedDamageMultiplier => _rangedDamageMultiplier;
-        public Stat RangedAttackSpeed => _rangedAttackSpeed;
-        public Stat RangedCriticalChance => _rangedCriticalChance;
-        public Stat RangedAttackRange => _rangedAttackRange;
-        public Stat RangedAccuracy => _rangedAccuracy;
+        public Stat<UnitStat> RangedDamageMultiplier => _rangedDamageMultiplier;
+        public Stat<UnitStat> RangedAttackSpeed => _rangedAttackSpeed;
+        public Stat<UnitStat> RangedCriticalChance => _rangedCriticalChance;
+        public Stat<UnitStat> RangedAttackRange => _rangedAttackRange;
+        public Stat<UnitStat> RangedAccuracy => _rangedAccuracy;
 
         private void Awake()
         {
@@ -65,14 +65,14 @@ namespace Units.Stats
             InitializeStats();
         }
 
-        public void AddStatModifier(StatModifier statModifier)
+        public void AddStatModifier(StatModifier<UnitStat> statModifier)
         {
             var stat = ChooseStat(statModifier);
 
             stat.AddModifier(statModifier);
         }
 
-        public void RemoveStatModifier(StatModifier statModifier)
+        public void RemoveStatModifier(StatModifier<UnitStat> statModifier)
         {
             var stat = ChooseStat(statModifier);
 
@@ -101,28 +101,28 @@ namespace Units.Stats
             _rangedAccuracy.Initialize();
         }
 
-        private Stat ChooseStat(StatModifier statModifier)
+        private Stat<UnitStat> ChooseStat(StatModifier<UnitStat> statModifier)
         {
-            var stat = statModifier.Type switch
+            var stat = statModifier.StatType switch
             {
-                StatType.MovementSpeed => _movementSpeed,
+                UnitStat.MovementSpeed => _movementSpeed,
                 
-                StatType.MaxHealth => _maxHealth,
-                StatType.MaxRecoverySpeed => _maxRecoverySpeed,
+                UnitStat.MaxHealth => _maxHealth,
+                UnitStat.MaxRecoverySpeed => _maxRecoverySpeed,
 
-                StatType.DodgeChance => _dodgeChance,
+                UnitStat.DodgeChance => _dodgeChance,
 
-                StatType.MeleeDamageMultiplier => _meleeDamageMultiplier,
-                StatType.MeleeAttackSpeed => _meleeAttackSpeed,
-                StatType.MeleeCriticalChance => _meleeCriticalChance,
-                StatType.MeleeAttackRange => _meleeAttackRange,
-                StatType.MeleeAccuracy => _meleeAccuracy,
+                UnitStat.MeleeDamageMultiplier => _meleeDamageMultiplier,
+                UnitStat.MeleeAttackSpeed => _meleeAttackSpeed,
+                UnitStat.MeleeCriticalChance => _meleeCriticalChance,
+                UnitStat.MeleeAttackRange => _meleeAttackRange,
+                UnitStat.MeleeAccuracy => _meleeAccuracy,
 
-                StatType.RangedDamageMultiplier => _rangedDamageMultiplier,
-                StatType.RangedAttackSpeed => _rangedAttackSpeed,
-                StatType.RangedCriticalChance => _rangedCriticalChance,
-                StatType.RangedAttackRange => _rangedAttackRange,
-                StatType.RangedAccuracy => _rangedAccuracy,
+                UnitStat.RangedDamageMultiplier => _rangedDamageMultiplier,
+                UnitStat.RangedAttackSpeed => _rangedAttackSpeed,
+                UnitStat.RangedCriticalChance => _rangedCriticalChance,
+                UnitStat.RangedAttackRange => _rangedAttackRange,
+                UnitStat.RangedAccuracy => _rangedAccuracy,
 
                 _ => throw new ArgumentOutOfRangeException()
             };

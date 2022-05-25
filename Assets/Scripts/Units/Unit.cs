@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Colonists;
 using Enemies;
 using Sirenix.OdinInspector;
@@ -87,6 +88,8 @@ namespace Units
         public Enemy Enemy => _enemy;
 
         public UnitVitality UnitVitality => _unitVitality;
+
+        public IEnumerable<Trait> Traits => _unitTraits.Traits;
 
         private void OnEnable()
         {

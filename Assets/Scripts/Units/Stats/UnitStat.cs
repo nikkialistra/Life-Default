@@ -1,6 +1,6 @@
 ﻿namespace Units.Stats
 {
-    public enum StatType
+    public enum UnitStat
     {
         MovementSpeed,
         

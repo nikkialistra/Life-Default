@@ -54,13 +54,13 @@ namespace Units
 
         public bool IsMoving => !_aiPath.isStopped;
         
-        public void BindStats(Stat movementSpeed)
+        public void BindStats(Stat<UnitStat> movementSpeed)
         {
             _aiPath.maxSpeed = movementSpeed.Value;
             movementSpeed.ValueChange += ChangeMovementSpeed;
         }
 
-        public void UnbindStats(Stat movementSpeed)
+        public void UnbindStats(Stat<UnitStat> movementSpeed)
         {
             movementSpeed.ValueChange -= ChangeMovementSpeed;
         }

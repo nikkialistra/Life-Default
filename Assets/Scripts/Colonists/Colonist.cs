@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Common;
 using ResourceManagement;
 using Sirenix.OdinInspector;
@@ -6,6 +8,7 @@ using Units;
 using Units.Ancillaries;
 using Units.Appearance;
 using Units.Enums;
+using Units.Traits;
 using UnityEngine;
 using Zenject;
 using static Units.Appearance.HumanAppearanceRegistry;
@@ -15,6 +18,8 @@ namespace Colonists
     [RequireComponent(typeof(Unit))]
     [RequireComponent(typeof(UnitSelection))]
     [RequireComponent(typeof(UnitAttacker))]
+    [RequireComponent(typeof(ColonistStats))]
+    [RequireComponent(typeof(ColonistTraits))]
     [RequireComponent(typeof(ColonistAnimator))]
     [RequireComponent(typeof(ColonistMeshAgent))]
     [RequireComponent(typeof(ColonistGatherer))]
@@ -36,6 +41,8 @@ namespace Colonists
         private UnitSelection _unitSelection;
         private UnitAttacker _unitAttacker;
 
+        private ColonistStats _stats;
+        private ColonistTraits _traits;
         private ColonistAnimator _animator;
         private ColonistMeshAgent _meshAgent;
         private ColonistGatherer _gatherer;
@@ -43,7 +50,7 @@ namespace Colonists
 
         private HumanAppearanceRegistry _humanAppearanceRegistry;
         private HumanNames _humanNames;
-
+        
         [Inject]
         public void Construct(HumanAppearanceRegistry humanAppearanceRegistry , HumanNames humanNames)
         {
@@ -56,7 +63,9 @@ namespace Colonists
             _unit = GetComponent<Unit>();
             _unitSelection = GetComponent<UnitSelection>();
             _unitAttacker = GetComponent<UnitAttacker>();
-            
+
+            _stats = GetComponent<ColonistStats>();
+            _traits = GetComponent<ColonistTraits>();
             _animator = GetComponent<ColonistAnimator>();
             _meshAgent = GetComponent<ColonistMeshAgent>();
             _gatherer = GetComponent<ColonistGatherer>();
@@ -84,8 +93,11 @@ namespace Colonists
             }
         }
 
+        public IReadOnlyList<Trait> Traits => _traits.Traits;
+
         public Vector3 Center => _center.position;
 
+        
         private void Start()
         {
             Initialize();
@@ -106,6 +118,11 @@ namespace Colonists
             _unit.Dying -= OnDying;
         }
 
+        private void OnDestroy()
+        {
+            UnbindStatsFromComponents();
+        }
+
         public void SetAt(Vector3 position)
         {
             transform.position = position;
@@ -115,6 +132,20 @@ namespace Colonists
         public void RandomizeAppearance()
         {
             _humanAppearance.RandomizeAppearanceWith(_gender, HumanType.Colonist, _humanAppearanceRegistry);
+        }
+        
+        [Button(ButtonSizes.Medium)]
+        public void AddTrait(Trait trait)
+        {
+            _traits.AddTrait(trait);
+            _unit.AddTrait(trait);
+        }
+
+        [Button(ButtonSizes.Medium)]
+        public void RemoveTrait(Trait trait)
+        {
+            _traits.RemoveTrait(trait);
+            _unit.RemoveTrait(trait);
         }
         
         public void Select()
@@ -215,7 +246,29 @@ namespace Colonists
                 
             _humanAppearance.RandomizeAppearanceWith(_gender, HumanType.Colonist, _humanAppearanceRegistry);
 
+            BindStatsToComponents();
+
+            InitializeUnit();
+        }
+
+        private void InitializeUnit()
+        {
+            foreach (var trait in _traits.Traits)
+            {
+                _unit.AddTrait(trait);
+            }
+
             _unit.Initialize();
+        }
+
+        private void BindStatsToComponents()
+        {
+            
+        }
+
+        private void UnbindStatsFromComponents()
+        {
+            
         }
 
         private void ActivateComponents()

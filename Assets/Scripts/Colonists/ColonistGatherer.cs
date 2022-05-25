@@ -88,9 +88,9 @@ namespace Colonists
                 return;
             }
 
-            var extractedQuantity = _colonistStats.ResourceDestructionSpeed * passedTime;
+            var extractedQuantity = _colonistStats.ResourceDestructionSpeed.Value * passedTime;
 
-            _resource.Extract(extractedQuantity, _colonistStats.ResourceExtractionEfficiency);
+            _resource.Extract(extractedQuantity, _colonistStats.ResourceExtractionEfficiency.Value);
             _resource.Hit(transform.position);
 
             if (_resource.Exhausted)

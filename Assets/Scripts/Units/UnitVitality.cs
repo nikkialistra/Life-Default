@@ -88,7 +88,7 @@ namespace Units
             }
         }
 
-        public void BindStats(Stat maxHealth, Stat maxRecoverySpeed)
+        public void BindStats(Stat<UnitStat> maxHealth, Stat<UnitStat> maxRecoverySpeed)
         {
             MaxHealth = maxHealth.Value;
             MaxRecoverySpeed = maxRecoverySpeed.Value;
@@ -97,7 +97,7 @@ namespace Units
             maxRecoverySpeed.ValueChange += ChangeMaxRecoverySpeed;
         }
 
-        public void UnbindStats(Stat maxHealth, Stat maxRecoverySpeed)
+        public void UnbindStats(Stat<UnitStat> maxHealth, Stat<UnitStat> maxRecoverySpeed)
         {
             maxHealth.ValueChange -= ChangeMaxHealth;
             maxRecoverySpeed.ValueChange -= ChangeMaxRecoverySpeed;

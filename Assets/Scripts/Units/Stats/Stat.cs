@@ -5,15 +5,15 @@ using UnityEngine;
 namespace Units.Stats
 {
     [Serializable]
-    public class Stat
+    public class Stat<T>
     {
         [SerializeField] private float _baseValue;
         
         public float Value { get; private set; }
         
-        public IReadOnlyList<StatModifier> StatModifiers;
+        public IReadOnlyList<StatModifier<T>> StatModifiers;
         
-        private readonly List<StatModifier> _statModifiers = new();
+        private readonly List<StatModifier<T>> _statModifiers = new();
 
         public void Initialize()
         {
@@ -24,13 +24,13 @@ namespace Units.Stats
         
         public event Action<float> ValueChange;
 
-        public virtual void AddModifier(StatModifier modifier)
+        public virtual void AddModifier(StatModifier<T> modifier)
         {
             _statModifiers.Add(modifier);
             RecalculateValue();
         }
 
-        public virtual bool RemoveModifier(StatModifier modifier)
+        public virtual bool RemoveModifier(StatModifier<T> modifier)
         {
             if (_statModifiers.Remove(modifier))
             {
@@ -95,7 +95,7 @@ namespace Units.Stats
             ValueChange?.Invoke(Value);
         }
 
-        private int CompareModifierOrder(StatModifier a, StatModifier b)
+        private int CompareModifierOrder(StatModifier<T> a, StatModifier<T> b)
         {
             if (a.Order < b.Order)
             {

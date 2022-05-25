@@ -116,7 +116,7 @@ namespace Units
             _ => throw new ArgumentOutOfRangeException()
         };
 
-        public void BindStats(Stat meleeAttackSpeed, Stat rangedAttackSpeed)
+        public void BindStats(Stat<UnitStat> meleeAttackSpeed, Stat<UnitStat> rangedAttackSpeed)
         {
             _unitAnimator.SetMeleeAttackSpeed(meleeAttackSpeed.Value);
             _unitAnimator.SetRangedAttackSpeed(meleeAttackSpeed.Value);
@@ -125,7 +125,7 @@ namespace Units
             rangedAttackSpeed.ValueChange += OnRangedAttackSpeedChange;
         }
 
-        public void UnbindStats(Stat meleeAttackSpeed, Stat rangedAttackSpeed)
+        public void UnbindStats(Stat<UnitStat> meleeAttackSpeed, Stat<UnitStat> rangedAttackSpeed)
         {
             meleeAttackSpeed.ValueChange -= OnMeleeAttackSpeedChange;
             rangedAttackSpeed.ValueChange -= OnRangedAttackSpeedChange;

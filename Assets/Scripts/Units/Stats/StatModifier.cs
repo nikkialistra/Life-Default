@@ -4,9 +4,9 @@ using UnityEngine;
 namespace Units.Stats
 {
     [Serializable]
-    public class StatModifier
+    public class StatModifier<T>
     {
-        [SerializeField] private StatType _type;
+        [SerializeField] private T _statType;
         [SerializeField] private StatModifierType _modifierType;
 
         [Space]
@@ -14,16 +14,16 @@ namespace Units.Stats
 
         private object _source;
         
-        public StatModifier(StatType type, StatModifierType modifierType, float value, object source = null)
+        public StatModifier(T statType, StatModifierType modifierType, float value, object source = null)
         {
-            _type = type;
+            _statType = statType;
             _modifierType = modifierType;
 
             _value = value;
             _source = source;
         }
 
-        public StatType Type => _type;
+        public T StatType => _statType;
         public StatModifierType ModifierType => _modifierType;
 
         public float Value => _value;

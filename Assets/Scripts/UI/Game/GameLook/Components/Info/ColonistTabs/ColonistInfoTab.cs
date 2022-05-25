@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Colonists;
 using Sirenix.OdinInspector;
 using UI.Game.GameLook.Components.Info.ColonistInfo;
 using Units.Traits;
@@ -20,7 +21,7 @@ namespace UI.Game.GameLook.Components.Info.ColonistTabs
 
         private ColonistInfoView _parent;
         
-        private List<Trait> _traits;
+        private IReadOnlyList<Trait> _traits;
 
         private void Awake()
         {
@@ -57,8 +58,10 @@ namespace UI.Game.GameLook.Components.Info.ColonistTabs
             Shown = false;
         }
 
-        public void Fill(List<Trait> traits)
+        public void Fill(Colonist colonist)
         {
+            var traits = colonist.Traits;
+            
             if (traits.Count > MaxTraits)
             {
                 throw new ArgumentException($"Info tab can show only {MaxTraits} traits");

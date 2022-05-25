@@ -10,11 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6a41c84410b146d08f98c383e02f4b16, type: 3}
-  m_Name: Anemia
+  m_Name: Careful
   m_EditorClassIdentifier: 
-  _name: Anemia
+  _icon: {fileID: 21300000, guid: af889389e4ffaf444908e885347ac970, type: 3}
+  _name: Careful
   _description: Health -20
-  _statModifiers:
-  - _type: 1
+  _unitStatModifiers:
+  - _statType: 8
+    _modifierType: 300
+    _value: 0.05
+  - _statType: 13
+    _modifierType: 300
+    _value: 0.05
+  _colonistStatModifiers:
+  - _statType: 1
     _modifierType: 100
-    _value: -20
+    _value: 0.01

@@ -407,12 +407,13 @@ GameObject:
   - component: {fileID: 8890947443067596178}
   - component: {fileID: 6055286198764241806}
   - component: {fileID: 2081193202370333819}
+  - component: {fileID: 2721959709741817781}
+  - component: {fileID: 9157852220687819738}
   - component: {fileID: 6677395056416142622}
   - component: {fileID: 7183938458047524081}
   - component: {fileID: 2308330324105463307}
   - component: {fileID: 5715635598172236793}
   - component: {fileID: 1146573543387713412}
-  - component: {fileID: 2721959709741817781}
   - component: {fileID: 6462541902987560591}
   - component: {fileID: 6595220819161695667}
   m_Layer: 14
@@ -875,6 +876,37 @@ MonoBehaviour:
   _humanAppearance: {fileID: 3667617560854097249}
   _selectionIndicator: {fileID: 3207950516897515159}
   _center: {fileID: 1556855133966464186}
+--- !u!114 &2721959709741817781
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4193433063631040808}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f45892a7c9843beac9b41308fc7d308, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _resourceDestructionSpeed:
+    _baseValue: 0
+  _resourceExtractionEfficiency:
+    _baseValue: 0
+--- !u!114 &9157852220687819738
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4193433063631040808}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bf5f9eda9454d69b32ffd80c856fb1b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _traits:
+  - {fileID: 11400000, guid: e694c8ec605b4ee46bc507cba25fd432, type: 2}
+  - {fileID: 11400000, guid: 23642326c5926d1419b1ec94351a51cc, type: 2}
 --- !u!114 &6677395056416142622
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -945,20 +977,6 @@ MonoBehaviour:
     - 0.15
   _distanceCorrectionFromCenter: 2.1
   _resourceFieldOfView: {fileID: 3861131080668585495}
---- !u!114 &2721959709741817781
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4193433063631040808}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f45892a7c9843beac9b41308fc7d308, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _resourceDestructionSpeed: 5
-  _resourceExtractionEfficiency: 0.86
 --- !u!114 &6462541902987560591
 MonoBehaviour:
   m_ObjectHideFlags: 0

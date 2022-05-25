@@ -11,6 +11,7 @@ namespace Units.Traits
         [HorizontalGroup("Split", 100)]
         [VerticalGroup("Split/Left")]
         [HideLabel]
+        [PreviewField(80, ObjectFieldAlignment.Left)]
         [SerializeField] private Sprite _icon;
 
         [VerticalGroup("Split/Right")]
@@ -18,15 +19,17 @@ namespace Units.Traits
         [VerticalGroup("Split/Right")]
         [TextArea]
         [SerializeField] private string _description;
-
+        
         [Space]
-        [SerializeField] private List<StatModifier> _statModifiers;
+        [SerializeField] private List<StatModifier<UnitStat>> _unitStatModifiers;
+        [SerializeField] private List<StatModifier<ColonistStat>> _colonistStatModifiers;
 
         public Sprite Icon => _icon;
         
         public string Name => _name;
         public string Description => _description;
         
-        public IReadOnlyCollection<StatModifier> StatModifiers => _statModifiers;
+        public IReadOnlyCollection<StatModifier<UnitStat>> UnitStatModifiers => _unitStatModifiers;
+        public IReadOnlyCollection<StatModifier<ColonistStat>> ColonistStatModifiers => _colonistStatModifiers;
     }
 }

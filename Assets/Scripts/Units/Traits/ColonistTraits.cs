@@ -1,22 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
-using Units.Stats;
+using Colonists;
 using UnityEngine;
 
 namespace Units.Traits
 {
-    [RequireComponent(typeof(UnitStats))]
-    public class UnitTraits : MonoBehaviour
+    [RequireComponent(typeof(ColonistStats))]
+    public class ColonistTraits : MonoBehaviour
     {
         [SerializeField] private List<Trait> _traits = new();
 
-        private UnitStats _unitStats;
+        private ColonistStats _colonistStats;
 
         public IReadOnlyList<Trait> Traits;
 
         private void Awake()
         {
-            _unitStats = GetComponent<UnitStats>();
+            _colonistStats = GetComponent<ColonistStats>();
 
             Traits = _traits.AsReadOnly();
         }
@@ -58,17 +58,17 @@ namespace Units.Traits
 
         private void ApplyTrait(Trait trait)
         {
-            foreach (var statModifier in trait.UnitStatModifiers)
+            foreach (var statModifier in trait.ColonistStatModifiers)
             {
-                _unitStats.AddStatModifier(statModifier);
+                _colonistStats.AddStatModifier(statModifier);
             }
         }
         
         private void DiscardTrait(Trait trait)
         {
-            foreach (var statModifier in trait.UnitStatModifiers)
+            foreach (var statModifier in trait.ColonistStatModifiers)
             {
-                _unitStats.RemoveStatModifier(statModifier);
+                _colonistStats.RemoveStatModifier(statModifier);
             }
         }
     }

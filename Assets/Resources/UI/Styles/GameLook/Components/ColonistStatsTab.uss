@@ -1,0 +1,44 @@
+﻿.colonist-stats-tab {
+    width: 280px;
+    height: 530px;
+    background-color: rgba(34, 36, 38, 0.9);
+    border-radius: 5px;
+    justify-content: flex-start;
+    align-items: center;
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
+.stats {
+    width: 280px;
+    justify-content: center;
+}
+
+.bottom-indent {
+    margin-bottom: 10px;
+}
+
+.military-stats-header {
+    margin-bottom: 5px;
+}
+
+.stat {
+    width: 270px;
+    height: 26px;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.stat-odd {
+    background-color: rgba(191, 194, 199, 0.04);
+    border-radius: 3px;
+}
+
+.stat__name {
+    width: 200px;
+}
+
+.stat__value {
+    width: 60px
+}
+

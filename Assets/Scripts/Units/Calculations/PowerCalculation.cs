@@ -39,8 +39,8 @@ namespace Units.Calculations
 
         private static float CalculateAverageUptake(UnitStats unitStats)
         {
-            var averageAbsorption = unitStats.Armor * (1 - unitStats.DodgeChance.Value);
-            var averageUptake = unitStats.MaxHealth.Value / (1 - unitStats.DodgeChance.Value + averageAbsorption);
+            var averageAbsorption = unitStats.Armor * (1 - unitStats.EvadeChance.Value);
+            var averageUptake = unitStats.MaxHealth.Value / (1 - unitStats.EvadeChance.Value + averageAbsorption);
             return averageUptake;
         }
 

@@ -18,7 +18,7 @@
 }
 
 .label-general {
-    font-size: 16px;
+    font-size: 18px;
     -unity-text-align: middle-left;
     text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.4);
 }
@@ -71,10 +71,22 @@
     text-shadow: 1.7px 1.7px 0 rgba(0, 0, 0, 0.4);
 }
 
+.label-indented {
+    margin-left: 5px;
+}
+
+.label-indented-big {
+    margin-left: 10px;
+}
+
 .no-shadow {
     text-shadow: 1px 1px 0 rgba(0, 0, 0, 0);
 }
 
 .left-aligned {
     -unity-text-align: middle-left;
+}
+
+.right-aligned {
+    -unity-text-align: middle-right;
 }

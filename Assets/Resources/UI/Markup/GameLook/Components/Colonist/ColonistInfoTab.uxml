@@ -3,7 +3,7 @@
     <Style src="project://database/Assets/Resources/UI/Styles/GameLook/Components/ColonistInfoTab.uss?fileID=7433441132597879392&amp;guid=1b3f16f25fa958346b381b5b99e42eda&amp;type=3#ColonistInfoTab" />
     <ui:VisualElement name="colonist-info-tab" picking-mode="Ignore" class="colonist-info-tab">
         <ui:VisualElement name="traits" class="traits">
-            <ui:Label text="Traits:" display-tooltip-when-elided="true" name="traits-header" class="label label-general left-aligned traits-header" />
+            <ui:Label text="Traits:" display-tooltip-when-elided="true" name="traits-header" class="label label-general left-aligned traits-header label-indented" />
             <ui:VisualElement name="traits__list" class="traits__list">
                 <ui:VisualElement name="traits__first-row" class="traits__row">
                     <ui:VisualElement name="first-trait" class="trait">

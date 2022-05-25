@@ -36,7 +36,7 @@ namespace Units.Calculations
 
         public bool Dodged()
         {
-            return Random.Range(0f, 1f) <= _unitStats.DodgeChance.Value;
+            return Random.Range(0f, 1f) <= _unitStats.EvadeChance.Value;
         }
 
         private float CalculateCriticalMultiplier(WeaponType weaponType)

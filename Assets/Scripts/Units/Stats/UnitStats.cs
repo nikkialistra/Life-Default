@@ -2,6 +2,7 @@
 using Sirenix.OdinInspector;
 using Units.Enums;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Units.Stats
 {
@@ -14,7 +15,7 @@ namespace Units.Stats
         [SerializeField] private Stat<UnitStat> _maxHealth;
         [SerializeField] private Stat<UnitStat> _maxRecoverySpeed;
         [Space]
-        [SerializeField] private Stat<UnitStat> _dodgeChance;
+        [SerializeField] private Stat<UnitStat> _evadeChance;
 
         [Title("Melee")]
         [SerializeField] private Stat<UnitStat> _meleeDamageMultiplier;
@@ -44,7 +45,7 @@ namespace Units.Stats
         
         public Stat<UnitStat> MovementSpeed => _movementSpeed;
         
-        public Stat<UnitStat> DodgeChance => _dodgeChance;
+        public Stat<UnitStat> EvadeChance => _evadeChance;
 
         public Stat<UnitStat> MeleeDamageMultiplier => _meleeDamageMultiplier;
         public Stat<UnitStat> MeleeAttackSpeed => _meleeAttackSpeed;
@@ -86,7 +87,7 @@ namespace Units.Stats
             _maxHealth.Initialize();
             _maxRecoverySpeed.Initialize();
             
-            _dodgeChance.Initialize();
+            _evadeChance.Initialize();
 
             _meleeDamageMultiplier.Initialize();
             _meleeAttackSpeed.Initialize();
@@ -110,7 +111,7 @@ namespace Units.Stats
                 UnitStat.MaxHealth => _maxHealth,
                 UnitStat.MaxRecoverySpeed => _maxRecoverySpeed,
 
-                UnitStat.DodgeChance => _dodgeChance,
+                UnitStat.EvadeChance => _evadeChance,
 
                 UnitStat.MeleeDamageMultiplier => _meleeDamageMultiplier,
                 UnitStat.MeleeAttackSpeed => _meleeAttackSpeed,

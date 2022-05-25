@@ -7,7 +7,7 @@
         MaxHealth,
         MaxRecoverySpeed,
         
-        DodgeChance,
+        EvadeChance,
         
         MeleeDamageMultiplier,
         MeleeAttackSpeed,

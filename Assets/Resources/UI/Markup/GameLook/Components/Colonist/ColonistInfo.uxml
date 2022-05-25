@@ -11,7 +11,7 @@
                 <ui:Toggle label="Info" name="info" focusable="false" class="details__toggle label label-small label-bold" />
             </ui:VisualElement>
             <ui:VisualElement name="header" picking-mode="Ignore" class="header panel-part">
-                <ui:TextField picking-mode="Ignore" text="Tiffany" name="name-field" focusable="false" max-length="12" class="label header__label name-field label-big" style="-unity-background-image-tint-color: rgba(255, 255, 255, 0.89);" />
+                <ui:TextField picking-mode="Ignore" text="Tiffany" name="name-field" focusable="false" max-length="12" class="label header__label label-big label-indented name-field" style="-unity-background-image-tint-color: rgba(255, 255, 255, 0.89);" />
                 <ui:VisualElement name="header__actions" class="header__actions">
                     <ui:Button name="rename" class="button rename" />
                     <ui:Button name="focus" class="button focus" />
@@ -111,7 +111,7 @@
             </ui:VisualElement>
             <ui:VisualElement name="actions" class="actions">
                 <ui:VisualElement name="actions__content" class="actions__content">
-                    <ui:Label text="Current Action" display-tooltip-when-elided="true" name="current-action__label" class="label label-general head-label" />
+                    <ui:Label text="Current Action" display-tooltip-when-elided="true" name="current-action__label" class="label label-general head-label label-indented" />
                     <ui:VisualElement name="current-action" class="current-action">
                         <ui:VisualElement name="current-action__icon" class="nomination__icon current-action__icon" style="background-image: resource(&apos;UI/Sprites/Icons/ColonistInfo/Skills/IconStrength&apos;); max-width: 32px; max-height: 32px;" />
                         <ui:Label text="Cutting - Wood" display-tooltip-when-elided="true" name="current-action__text" class="label" />
@@ -122,7 +122,7 @@
                 </ui:Button>
             </ui:VisualElement>
             <ui:VisualElement name="statuses" class="statuses panel-part">
-                <ui:Label text="Statuses" name="statuses-label" class="label label-general head-label statuses__label" />
+                <ui:Label text="Statuses" name="statuses-label" class="label label-general head-label statuses__label label-indented" />
                 <ui:VisualElement name="statuses__row" class="statuses__row">
                     <ui:Label text="Hungry" name="status-one" class="status label label-small" style="display: none;" />
                     <ui:Label text="Don’t have enough sleep" name="status-two" class="status label label-small" style="display: none;" />

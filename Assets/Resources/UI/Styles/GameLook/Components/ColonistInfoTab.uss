@@ -21,7 +21,6 @@
 }
 
 .traits-header {
-    height: 21px;
     margin-bottom: 5px;
 }
 

@@ -8,21 +8,21 @@
                 <ui:VisualElement name="traits__first-row" class="traits__row">
                     <ui:VisualElement name="first-trait" class="trait">
                         <ui:VisualElement name="first-trait__icon" class="trait__icon" />
-                        <ui:Label text="Strength" display-tooltip-when-elided="true" name="first-trait_name" class="label trait__name left-aligned" />
+                        <ui:Label text="Strength" display-tooltip-when-elided="true" name="first-trait__name" class="label trait__name left-aligned" />
                     </ui:VisualElement>
                     <ui:VisualElement name="second-trait" class="trait">
                         <ui:VisualElement name="second-trait__icon" class="trait__icon" />
-                        <ui:Label text="Strength" display-tooltip-when-elided="true" name="second-trait_name" class="label trait__name left-aligned" />
+                        <ui:Label text="Strength" display-tooltip-when-elided="true" name="second-trait__name" class="label trait__name left-aligned" />
                     </ui:VisualElement>
                 </ui:VisualElement>
                 <ui:VisualElement name="traits__second-row" class="traits__row">
                     <ui:VisualElement name="third-trait" class="trait">
                         <ui:VisualElement name="third-trait__icon" class="trait__icon" />
-                        <ui:Label text="Strength" display-tooltip-when-elided="true" name="third-trait_name" class="label trait__name left-aligned" />
+                        <ui:Label text="Strength" display-tooltip-when-elided="true" name="third-trait__name" class="label trait__name left-aligned" />
                     </ui:VisualElement>
                     <ui:VisualElement name="forth-trait" class="trait">
                         <ui:VisualElement name="forth-trait__icon" class="trait__icon" />
-                        <ui:Label text="Strength" display-tooltip-when-elided="true" name="forth-trait_name" class="label trait__name left-aligned" />
+                        <ui:Label text="Strength" display-tooltip-when-elided="true" name="forth-trait__name" class="label trait__name left-aligned" />
                     </ui:VisualElement>
                 </ui:VisualElement>
             </ui:VisualElement>

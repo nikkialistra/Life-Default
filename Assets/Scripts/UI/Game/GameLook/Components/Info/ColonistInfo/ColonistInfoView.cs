@@ -83,7 +83,7 @@ namespace UI.Game.GameLook.Components.Info.ColonistInfo
 
         private void OnDestroy()
         {
-            UnsubscribeFromUnit();
+            UnsubscribeFromColonist();
         }
 
         public void ShowSelf()
@@ -106,7 +106,7 @@ namespace UI.Game.GameLook.Components.Info.ColonistInfo
                 return;
             }
             
-            UnsubscribeFromUnit();
+            UnsubscribeFromColonist();
 
             _parent.InfoPanel.Remove(_tree);
             _colonistHeader.UnbindPanelActions();
@@ -114,10 +114,12 @@ namespace UI.Game.GameLook.Components.Info.ColonistInfo
             _shown = false;
         }
 
-        public void FillIn(Colonists.Colonist colonist)
+        public void FillIn(Colonist colonist)
         {
             FillInPreview(colonist);
             FillInProperties(colonist);
+
+            _colonistDetailTabs.FillIn(colonist);
         }
 
         private void HidePanel()
@@ -125,23 +127,23 @@ namespace UI.Game.GameLook.Components.Info.ColonistInfo
             _parent.UnsetColonist(Colonist);
         }
 
-        private void FillInPreview(Colonists.Colonist colonist)
+        private void FillInPreview(Colonist colonist)
         {
             _colonistHeader.FillInName(colonist.Name);
         }
 
-        private void FillInProperties(Colonists.Colonist colonist)
+        private void FillInProperties(Colonist colonist)
         {
-            UnsubscribeFromUnit();
+            UnsubscribeFromColonist();
             Colonist = colonist;
             _colonistHeader.FillInColonist(Colonist);
-            SubscribeToUnit();
+            SubscribeToColonist();
 
             UpdateVitality();
             UpdateIndicators();
         }
 
-        private void UnsubscribeFromUnit()
+        private void UnsubscribeFromColonist()
         {
             if (Colonist != null)
             {
@@ -150,7 +152,7 @@ namespace UI.Game.GameLook.Components.Info.ColonistInfo
             }
         }
 
-        private void SubscribeToUnit()
+        private void SubscribeToColonist()
         {
             Colonist.VitalityChange += UpdateVitality;
             Colonist.Dying += HidePanel;

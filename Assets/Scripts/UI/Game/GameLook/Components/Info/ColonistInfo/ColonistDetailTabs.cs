@@ -1,4 +1,5 @@
-﻿using UI.Game.GameLook.Components.Info.ColonistTabs;
+﻿using Colonists;
+using UI.Game.GameLook.Components.Info.ColonistTabs;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -47,6 +48,14 @@ namespace UI.Game.GameLook.Components.Info.ColonistInfo
             _skills.UnregisterValueChangedCallback(OnSkillsToggle);
             _info.UnregisterValueChangedCallback(OnInfoToggle);
         }
+        
+        public void FillIn(Colonist colonist)
+        {
+            if (_colonistInfoTab.Shown)
+            {
+                _colonistInfoTab.FillIn(colonist);
+            }
+        }
 
         private void OnEquipmentToggle(ChangeEvent<bool> changeEvent)
         {
@@ -83,7 +92,7 @@ namespace UI.Game.GameLook.Components.Info.ColonistInfo
             else
             {
                 HideAll();
-                _colonistInfoTab.Fill(_colonistInfoView.Colonist);
+                _colonistInfoTab.FillIn(_colonistInfoView.Colonist);
                 _colonistInfoTab.ShowSelf();
             }
         }

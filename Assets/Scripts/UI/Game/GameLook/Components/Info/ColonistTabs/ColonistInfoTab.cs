@@ -20,8 +20,8 @@ namespace UI.Game.GameLook.Components.Info.ColonistTabs
         private readonly TraitElement[] _traitElements = new TraitElement[MaxTraits];
 
         private ColonistInfoView _parent;
-        
-        private IReadOnlyList<Trait> _traits;
+
+        private Colonist _colonist;
 
         private void Awake()
         {
@@ -35,7 +35,22 @@ namespace UI.Game.GameLook.Components.Info.ColonistTabs
 
         public bool Shown { get; private set; }
         private VisualElement Tree { get; set; }
-        
+
+        public void FillIn(Colonist colonist)
+        {
+            UnsubscribeFromChanges();
+            
+            _colonist = colonist;
+
+            if (colonist.Traits.Count > MaxTraits)
+            {
+                throw new ArgumentException($"Info tab can show only {MaxTraits} traits");
+            }
+            
+            FillTraits();
+            SubscribeToChanges();
+        }
+
         public void ShowSelf()
         {
             if (Shown)
@@ -53,27 +68,36 @@ namespace UI.Game.GameLook.Components.Info.ColonistTabs
             {
                 return;
             }
+
+            UnsubscribeFromChanges();
             
             _parent.TabContent.Remove(Tree);
             Shown = false;
         }
 
-        public void Fill(Colonist colonist)
+        private void SubscribeToChanges()
         {
-            var traits = colonist.Traits;
-            
-            if (traits.Count > MaxTraits)
-            {
-                throw new ArgumentException($"Info tab can show only {MaxTraits} traits");
-            }
-            
-            _traits = traits;
+            _colonist.TraitsChange += FillTraits;
+        }
 
+        private void UnsubscribeFromChanges()
+        {
+            if (_colonist != null)
+            {
+                _colonist.TraitsChange -= FillTraits;
+                _colonist = null;
+            }
+        }
+
+        private void FillTraits()
+        {
+            var traits = _colonist.Traits;
+            
             for (int i = 0; i < MaxTraits; i++)
             {
-                if (_traits.Count > i)
+                if (traits.Count > i)
                 {
-                    FillTrait(i, _traits[i]);
+                    FillTrait(i, traits[i]);
                 }
                 else
                 {

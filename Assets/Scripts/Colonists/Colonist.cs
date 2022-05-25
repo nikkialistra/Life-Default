@@ -41,12 +41,12 @@ namespace Colonists
         private UnitSelection _unitSelection;
         private UnitAttacker _unitAttacker;
 
-        private ColonistStats _stats;
-        private ColonistTraits _traits;
-        private ColonistAnimator _animator;
-        private ColonistMeshAgent _meshAgent;
-        private ColonistGatherer _gatherer;
-        private ColonistBehavior _behavior;
+        private ColonistStats _colonistStats;
+        private ColonistTraits _colonistTraits;
+        private ColonistAnimator _colonistAnimator;
+        private ColonistMeshAgent _colonistMeshAgent;
+        private ColonistGatherer _colonistGatherer;
+        private ColonistBehavior _colonistBehavior;
 
         private HumanAppearanceRegistry _humanAppearanceRegistry;
         private HumanNames _humanNames;
@@ -64,12 +64,12 @@ namespace Colonists
             _unitSelection = GetComponent<UnitSelection>();
             _unitAttacker = GetComponent<UnitAttacker>();
 
-            _stats = GetComponent<ColonistStats>();
-            _traits = GetComponent<ColonistTraits>();
-            _animator = GetComponent<ColonistAnimator>();
-            _meshAgent = GetComponent<ColonistMeshAgent>();
-            _gatherer = GetComponent<ColonistGatherer>();
-            _behavior = GetComponent<ColonistBehavior>();
+            _colonistStats = GetComponent<ColonistStats>();
+            _colonistTraits = GetComponent<ColonistTraits>();
+            _colonistAnimator = GetComponent<ColonistAnimator>();
+            _colonistMeshAgent = GetComponent<ColonistMeshAgent>();
+            _colonistGatherer = GetComponent<ColonistGatherer>();
+            _colonistBehavior = GetComponent<ColonistBehavior>();
         }
 
         public event Action Spawn;
@@ -78,6 +78,8 @@ namespace Colonists
         public event Action<Colonist> ColonistDying;
         
         public event Action<string> NameChange;
+
+        public event Action TraitsChange;
 
         public Unit Unit => _unit;
 
@@ -93,11 +95,11 @@ namespace Colonists
             }
         }
 
-        public IReadOnlyList<Trait> Traits => _traits.Traits;
+        public IReadOnlyList<Trait> Traits => _colonistTraits.Traits;
 
         public Vector3 Center => _center.position;
 
-        
+
         private void Start()
         {
             Initialize();
@@ -137,15 +139,19 @@ namespace Colonists
         [Button(ButtonSizes.Medium)]
         public void AddTrait(Trait trait)
         {
-            _traits.AddTrait(trait);
+            _colonistTraits.AddTrait(trait);
             _unit.AddTrait(trait);
+            
+            TraitsChange?.Invoke();
         }
 
         [Button(ButtonSizes.Medium)]
         public void RemoveTrait(Trait trait)
         {
-            _traits.RemoveTrait(trait);
+            _colonistTraits.RemoveTrait(trait);
             _unit.RemoveTrait(trait);
+            
+            TraitsChange?.Invoke();
         }
         
         public void Select()
@@ -157,7 +163,7 @@ namespace Colonists
 
             _unitSelection.Select();
             _selectionIndicator.SetActive(true);
-            _meshAgent.ShowLinePath();
+            _colonistMeshAgent.ShowLinePath();
             
             _unit.Select();
         }
@@ -166,14 +172,14 @@ namespace Colonists
         {
             _unitSelection.Deselect();
             _selectionIndicator.SetActive(false);
-            _meshAgent.HideLinePath();
+            _colonistMeshAgent.HideLinePath();
             
             _unit.Deselect();
         }
     
         public void Stop()
         {
-            _behavior.Stop();
+            _colonistBehavior.Stop();
         }
 
         public void OrderTo(Colonist targetColonist)
@@ -183,27 +189,27 @@ namespace Colonists
                 return;
             }
 
-            _behavior.OrderTo(targetColonist);
+            _colonistBehavior.OrderTo(targetColonist);
         }
 
         public void OrderTo(Unit unitTarget)
         {
-            _behavior.OrderTo(unitTarget);
+            _colonistBehavior.OrderTo(unitTarget);
         }
         
         public void OrderTo(Resource resource)
         {
-            _behavior.OrderTo(resource);
+            _colonistBehavior.OrderTo(resource);
         }
 
         public void OrderToPosition(Vector3 position, float? angle)
         {
-            _behavior.OrderToPosition(position, angle);
+            _colonistBehavior.OrderToPosition(position, angle);
         }
 
         public void TryAddPositionToOrder(Vector3 position, float? angle)
         {
-            _behavior.AddPositionToOrder(position, angle);
+            _colonistBehavior.AddPositionToOrder(position, angle);
         }
 
         public void Die()
@@ -218,7 +224,7 @@ namespace Colonists
 
         public void ToggleResourceFieldOfView()
         {
-            _gatherer.ToggleResourceFieldOfView();
+            _colonistGatherer.ToggleResourceFieldOfView();
         }
 
         private void OnDying()
@@ -232,7 +238,7 @@ namespace Colonists
             ColonistDying?.Invoke(this);
             Dying?.Invoke();
 
-            _animator.Die(DestroySelf);
+            _colonistAnimator.Die(DestroySelf);
         }
 
         private void Initialize()
@@ -253,7 +259,7 @@ namespace Colonists
 
         private void InitializeUnit()
         {
-            foreach (var trait in _traits.Traits)
+            foreach (var trait in _colonistTraits.Traits)
             {
                 _unit.AddTrait(trait);
             }
@@ -263,32 +269,32 @@ namespace Colonists
 
         private void BindStatsToComponents()
         {
-            
+            _colonistGatherer.BindStats(_colonistStats.ResourceDestructionSpeed, _colonistStats.ResourceExtractionEfficiency);
         }
 
         private void UnbindStatsFromComponents()
         {
-            
+            _colonistGatherer.UnbindStats(_colonistStats.ResourceDestructionSpeed, _colonistStats.ResourceExtractionEfficiency);
         }
 
         private void ActivateComponents()
         {
             _unitSelection.Activate();
-            _meshAgent.Activate();
-            _behavior.Activate();
+            _colonistMeshAgent.Activate();
+            _colonistBehavior.Activate();
         }
 
         private void DeactivateComponents()
         {
             _unit.HideUnitVisibilityFields();
-            _gatherer.HideResourceFieldOfView();
+            _colonistGatherer.HideResourceFieldOfView();
 
             _unitSelection.Deactivate();
             _unitAttacker.CoverUnitTarget();
             _unitAttacker.FinalizeAttackingInstantly();
 
-            _meshAgent.Deactivate();
-            _behavior.Deactivate();
+            _colonistMeshAgent.Deactivate();
+            _colonistBehavior.Deactivate();
         }
 
         private void DestroySelf()

@@ -6,12 +6,12 @@ using ResourceManagement;
 using Sirenix.OdinInspector;
 using Units;
 using Units.Ancillaries.Fields;
+using Units.Stats;
 using UnityEngine;
 using Zenject;
 
 namespace Colonists
 {
-    [RequireComponent(typeof(ColonistStats))]
     [RequireComponent(typeof(ColonistAnimator))]
     public class ColonistGatherer : MonoBehaviour
     {
@@ -29,10 +29,11 @@ namespace Colonists
         
         private float _waitTime;
         
+        private float _resourceDestructionSpeed;
+        private float _resourceExtractionEfficiency;
+
         private Resource _resource;
 
-        private ColonistStats _colonistStats;
-        
         private ColonistAnimator _animator;
 
         private Coroutine _watchForExhaustionCoroutine;
@@ -46,10 +47,25 @@ namespace Colonists
         private void Awake()
         {
             _animator = GetComponent<ColonistAnimator>();
-            _colonistStats = GetComponent<ColonistStats>();
         }
         
         public bool IsGathering { get; private set; }
+        
+        public void BindStats(Stat<ColonistStat> resourceDestructionSpeed, Stat<ColonistStat> resourceExtractionEfficiency)
+        {
+            _resourceDestructionSpeed = resourceDestructionSpeed.Value;
+            _resourceExtractionEfficiency = resourceExtractionEfficiency.Value;
+
+            resourceDestructionSpeed.ValueChange += OnResourceDestructionSpeedChange;
+            resourceExtractionEfficiency.ValueChange += OnResourceExtractionEfficiencyChange;
+        }
+
+        public void UnbindStats(Stat<ColonistStat> resourceDestructionSpeed,
+            Stat<ColonistStat> resourceExtractionEfficiency)
+        {
+            resourceDestructionSpeed.ValueChange -= OnResourceDestructionSpeedChange;
+            resourceExtractionEfficiency.ValueChange -= OnResourceExtractionEfficiencyChange;
+        }
 
         public float InteractionDistanceFor(ResourceType resourceType)
         {
@@ -79,7 +95,7 @@ namespace Colonists
 
             IsGathering = true;
         }
-        
+
         public void Hit(float passedTime)
         {
             if (_resource == null || _resource.Exhausted)
@@ -88,9 +104,9 @@ namespace Colonists
                 return;
             }
 
-            var extractedQuantity = _colonistStats.ResourceDestructionSpeed.Value * passedTime;
+            var extractedQuantity = _resourceDestructionSpeed * passedTime;
 
-            _resource.Extract(extractedQuantity, _colonistStats.ResourceExtractionEfficiency.Value);
+            _resource.Extract(extractedQuantity, _resourceExtractionEfficiency);
             _resource.Hit(transform.position);
 
             if (_resource.Exhausted)
@@ -98,6 +114,16 @@ namespace Colonists
                 _resource = null;
                 StopGathering();
             }
+        }
+
+        private void OnResourceDestructionSpeedChange(float value)
+        {
+            _resourceDestructionSpeed = value;
+        }
+
+        private void OnResourceExtractionEfficiencyChange(float value)
+        {
+            _resourceExtractionEfficiency = value;
         }
 
         private IEnumerator WatchForExhaustion()

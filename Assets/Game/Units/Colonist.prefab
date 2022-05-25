@@ -889,9 +889,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _resourceDestructionSpeed:
-    _baseValue: 0
+    _baseValue: 5
   _resourceExtractionEfficiency:
-    _baseValue: 0
+    _baseValue: 0.86
 --- !u!114 &9157852220687819738
 MonoBehaviour:
   m_ObjectHideFlags: 0

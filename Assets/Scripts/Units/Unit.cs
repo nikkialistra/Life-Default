@@ -89,8 +89,6 @@ namespace Units
 
         public UnitVitality UnitVitality => _unitVitality;
 
-        public IEnumerable<Trait> Traits => _unitTraits.Traits;
-
         private void OnEnable()
         {
             _unitVitality.VitalityChange += OnVitalityChange;

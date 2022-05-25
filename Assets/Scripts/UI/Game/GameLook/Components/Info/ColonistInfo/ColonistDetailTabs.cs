@@ -1,15 +1,25 @@
-﻿using UnityEngine.UIElements;
+﻿using UI.Game.GameLook.Components.Info.ColonistTabs;
+using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace UI.Game.GameLook.Components.Info.ColonistInfo
 {
-    public class ColonistDetails
+    [RequireComponent(typeof(ColonistInfoTab))]
+    public class ColonistDetailTabs : MonoBehaviour
     {
-        private readonly Toggle _equipment;
-        private readonly Toggle _stats;
-        private readonly Toggle _skills;
-        private readonly Toggle _info;
+        private Toggle _equipment;
+        private Toggle _stats;
+        private Toggle _skills;
+        private Toggle _info;
 
-        public ColonistDetails(VisualElement tree)
+        private ColonistInfoTab _colonistInfoTab;
+
+        private void Awake()
+        {
+            _colonistInfoTab = GetComponent<ColonistInfoTab>();
+        }
+
+        public void Initialize(VisualElement tree)
         {
             _equipment = tree.Q<Toggle>("equipment");
             _stats = tree.Q<Toggle>("stats");
@@ -55,6 +65,22 @@ namespace UI.Game.GameLook.Components.Info.ColonistInfo
         {
             UncheckToggles();
             _info.SetValueWithoutNotify(changeEvent.newValue);
+
+            ToggleInfo();
+        }
+
+        private void ToggleInfo()
+        {
+            if (_colonistInfoTab.Shown)
+            {
+                _colonistInfoTab.HideSelf();
+            }
+            else
+            {
+                HideAll();
+                //_colonistInfoTab.Fill();
+                _colonistInfoTab.ShowSelf();
+            }
         }
 
         private void UncheckToggles()
@@ -63,6 +89,11 @@ namespace UI.Game.GameLook.Components.Info.ColonistInfo
             _stats.SetValueWithoutNotify(false);
             _skills.SetValueWithoutNotify(false);
             _info.SetValueWithoutNotify(false);
+        }
+
+        private void HideAll()
+        {
+            _colonistInfoTab.HideSelf();
         }
     }
 }

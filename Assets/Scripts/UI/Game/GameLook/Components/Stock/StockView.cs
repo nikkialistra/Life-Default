@@ -30,13 +30,13 @@ namespace UI.Game.GameLook.Components.Stock
             _quests = Tree.Q<Button>("quests");
         }
 
-        public VisualElement Tree { get; private set; }
-        public VisualElement Content { get; private set; }
-
         private void Start()
         {
             _resourcesView.ShowSelf();
         }
+
+        public VisualElement Tree { get; private set; }
+        public VisualElement Content { get; private set; }
 
         private void OnEnable()
         {

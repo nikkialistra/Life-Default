@@ -22,16 +22,13 @@ namespace UI.Game.GameLook.Components.Stock
             _parent = GetComponent<StockView>();
             
             Tree = _asset.CloneTree();
+            
+            BindElements();
         }
         
         public bool Shown { get; private set; }
         private VisualElement Tree { get; set; }
 
-        private void Start()
-        {
-            FillInLabels();
-        }
-        
         public void ShowSelf()
         {
             if (Shown)
@@ -70,7 +67,7 @@ namespace UI.Game.GameLook.Components.Stock
             }
         }
 
-        private void FillInLabels()
+        private void BindElements()
         {
             _resourceLabels.Add(ResourceType.Wood, Tree.Q<Label>("wood__count"));
             _resourceLabels.Add(ResourceType.Stone, Tree.Q<Label>("stone__count"));

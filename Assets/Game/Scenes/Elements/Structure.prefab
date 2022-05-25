@@ -282,7 +282,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _deactivateAtStartup: 1
-  _moveSpeed: 30
+  _moveSpeed: 40
   _positionMoveXThreshold: 0.97
   _positionMoveYThreshold: 0.97
   _rotateHorizontalSpeed: 0.2
@@ -290,7 +290,6 @@ MonoBehaviour:
   _minVerticalRotation: 20
   _maxVerticalRotation: 70
   _zoomScrollSensitivity: 0.03
-  _zoomButtonSensitivity: 0.5
   _minFov: 20
   _maxFov: 70
   _minimumPositionX: -160

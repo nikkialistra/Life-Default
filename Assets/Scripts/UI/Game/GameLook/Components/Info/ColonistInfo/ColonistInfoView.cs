@@ -21,7 +21,7 @@ namespace UI.Game.GameLook.Components.Info.ColonistInfo
         private InfoPanelView _parent;
         private TemplateContainer _tree;
 
-        private ColonistDetails _colonistDetails;
+        private ColonistDetailTabs _colonistDetailTabs;
         private ColonistHeader _colonistHeader;
         private ColonistIndicators _colonistIndicators;
         private ColonistActions _colonistActions;
@@ -37,6 +37,7 @@ namespace UI.Game.GameLook.Components.Info.ColonistInfo
         {
             _parent = GetComponent<InfoPanelView>();
 
+            _colonistDetailTabs = GetComponent<ColonistDetailTabs>();
             _colonistIndicators = GetComponent<ColonistIndicators>();
             _colonistHeader = GetComponent<ColonistHeader>();
             _colonistActions = GetComponent<ColonistActions>();
@@ -44,13 +45,17 @@ namespace UI.Game.GameLook.Components.Info.ColonistInfo
 
             _tree = _asset.CloneTree();
             _tree.pickingMode = PickingMode.Ignore;
+            
+            TabContent = _tree.Q<VisualElement>("tab-content");
 
             BindElements();
         }
+        
+        public VisualElement TabContent { get; private set; }
 
         private void OnEnable()
         {
-            _colonistDetails.BindSelf();
+            _colonistDetailTabs.BindSelf();
             _colonistActions.BindSelf();
         }
 
@@ -58,13 +63,13 @@ namespace UI.Game.GameLook.Components.Info.ColonistInfo
         {
             HideSelf();
             
-            _colonistDetails.UnbindSelf();
+            _colonistDetailTabs.UnbindSelf();
             _colonistActions.UnbindSelf();
         }
 
         private void BindElements()
         {
-            _colonistDetails = new ColonistDetails(_tree);
+            _colonistDetailTabs.Initialize(_tree);
             _colonistHeader.Initialize(_tree);
             _colonistIndicators.Initialize(_tree);
             _colonistActions.Initialize(_tree);

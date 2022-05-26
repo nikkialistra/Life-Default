@@ -181,14 +181,14 @@ namespace Colonists
             _colonistBehavior.Stop();
         }
         
-        public bool HasWeaponOf(WeaponType weaponType)
+        public bool HasWeaponOf(WeaponSlotType weaponSlotType)
         {
-            return _unit.HasWeaponOf(weaponType);
+            return _unit.HasWeaponOf(weaponSlotType);
         }
         
-        public void ChooseWeapon(WeaponType weaponType)
+        public void ChooseWeapon(WeaponSlotType weaponSlotType)
         {
-            _unit.ChooseWeapon(weaponType);
+            _unit.ChooseWeapon(weaponSlotType);
         }
 
         public void OrderTo(Colonist targetColonist)

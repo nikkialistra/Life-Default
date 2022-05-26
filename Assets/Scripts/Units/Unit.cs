@@ -166,14 +166,14 @@ namespace Units
             _healthBars.Selected = false;
         }
         
-        public bool HasWeaponOf(WeaponType weaponType)
+        public bool HasWeaponOf(WeaponSlotType weaponSlotType)
         {
-            return _unitEquipment.HasWeaponOf(weaponType);
+            return _unitEquipment.HasWeaponOf(weaponSlotType);
         }
         
-        public void ChooseWeapon(WeaponType weaponType)
+        public void ChooseWeapon(WeaponSlotType weaponSlotType)
         {
-            _unitEquipment.ChooseWeapon(weaponType);
+            _unitEquipment.ChooseWeapon(weaponSlotType);
         }
 
         public void ToggleUnitVisibilityFields()

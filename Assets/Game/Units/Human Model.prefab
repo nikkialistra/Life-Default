@@ -3342,6 +3342,8 @@ MonoBehaviour:
   _handSlot: {fileID: 4177720652290489099}
   _timeToUnequipInstrument: 0.5
   _timeToUnequipWeapon: 1.2
+  _meleeWeapon: {fileID: 0}
+  _rangedWeapon: {fileID: 0}
   _knife: {fileID: 4641975869840635787, guid: 1b2808c51cf55354fa9b15f94f548af2, type: 3}
   _axe: {fileID: 2796058789668319780, guid: 1a6829fd9fae7894da138354dc865dc4, type: 3}
   _pickaxe: {fileID: 994482616659160261, guid: 76227feff0e541f479a4b41d7eed9624, type: 3}
@@ -3461,8 +3463,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3633862c0ade45a180e6ee17a4b32f8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _idleClip:
-    _FadeDuration: 0.2
+  _meleeIdleClip:
+    _FadeDuration: 0.1
     _Events:
       _NormalizedTimes: []
       _Callbacks: []
@@ -3470,12 +3472,12 @@ MonoBehaviour:
     _Clip: {fileID: -203655887218126122, guid: 8cda251735b0a5d46abd98fb977a831f, type: 3}
     _Speed: 1
     _NormalizedStartTime: 0
-  _clips:
-    _FadeDuration: 0.1
+  _meleeClips:
+    _FadeDuration: 0.25
     _Events:
       _NormalizedTimes:
       - 0.5
-      - 0.9999999
+      - 0.999999
       - NaN
       _Callbacks: []
       _Names:
@@ -3494,7 +3496,30 @@ MonoBehaviour:
     - 2
     _DefaultParameter: 0
     _ExtrapolateSpeed: 1
-  _timeBetweenStrikes: 0.4
+  _meleeTimeBetweenStrikesPercent: 0.16
+  _rangedIdleClip:
+    _FadeDuration: 0.25
+    _Events:
+      _NormalizedTimes: []
+      _Callbacks: []
+      _Names: []
+    _Clip: {fileID: 0}
+    _Speed: 1
+    _NormalizedStartTime: 0
+  _rangedClips:
+    _FadeDuration: 0.25
+    _Events:
+      _NormalizedTimes: []
+      _Callbacks: []
+      _Names: []
+    _Speed: 1
+    _Animations: []
+    _Speeds: []
+    _SynchronizeChildren: 
+    _Thresholds: []
+    _DefaultParameter: 0
+    _ExtrapolateSpeed: 1
+  _rangedTimeBetweenStrikesPercent: 0.2
 --- !u!114 &2839083938651011249
 MonoBehaviour:
   m_ObjectHideFlags: 0

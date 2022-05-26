@@ -46,7 +46,7 @@ namespace Units.Calculations
 
         public static float CalculateAverageDps(UnitStats unitStats)
         {
-            if (unitStats.WeaponType == WeaponType.Melee)
+            if (unitStats.WeaponType.IsMelee())
             {
                 return CalculateMeleeAverageDps(unitStats);
             }

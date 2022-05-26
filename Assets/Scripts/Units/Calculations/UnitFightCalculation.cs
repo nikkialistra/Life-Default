@@ -41,7 +41,7 @@ namespace Units.Calculations
 
         private float CalculateCriticalMultiplier(WeaponType weaponType)
         {
-            var criticalChance = weaponType == WeaponType.Melee
+            var criticalChance = weaponType.IsMelee()
                 ? _unitStats.MeleeCriticalChance.Value
                 : _unitStats.RangedCriticalChance.Value;
 
@@ -50,7 +50,7 @@ namespace Units.Calculations
 
         private float CalculateNormalDamage(WeaponType weaponType)
         {
-            if (weaponType == WeaponType.Melee)
+            if (weaponType.IsMelee())
             {
                 return _unitStats.MeleeCurrentDamage * _unitStats.MeleeDamageMultiplier.Value;
             }

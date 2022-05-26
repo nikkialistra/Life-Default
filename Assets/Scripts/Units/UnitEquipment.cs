@@ -71,12 +71,12 @@ namespace Units
             Unequip();
         }
         
-        public bool HasWeaponOf(WeaponType weaponType)
+        public bool HasWeaponOf(WeaponSlotType weaponSlotType)
         {
-            return weaponType == WeaponType.Melee ? _meleeWeapon.NotEmpty : _rangedWeapon.NotEmpty;
+            return weaponSlotType == WeaponSlotType.Melee ? _meleeWeapon.NotEmpty : _rangedWeapon.NotEmpty;
         }
         
-        public void ChooseWeapon(WeaponType weaponType)
+        public void ChooseWeapon(WeaponSlotType weaponSlotType)
         {
             
         }

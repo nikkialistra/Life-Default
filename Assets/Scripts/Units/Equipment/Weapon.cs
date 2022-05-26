@@ -3,6 +3,8 @@ using UnityEngine;
 
 namespace Units.Equipment
 {
+    
+    [CreateAssetMenu(fileName = "Weapon", menuName = "Weapon")]
     public class Weapon : ScriptableObject
     {
         [SerializeField] private WeaponType _weaponType;

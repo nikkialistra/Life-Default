@@ -109,12 +109,8 @@ namespace Units
         public Unit TrackedUnit => _trackedUnit;
         public Unit AttackedUnit => _attackedUnit;
         
-        private float AttackRange => _weaponType switch {
-            WeaponType.Melee => _unitStats.MeleeAttackRange.Value,
-            WeaponType.Ranged => _unitStats.RangedAttackRange.Value,
-            
-            _ => throw new ArgumentOutOfRangeException()
-        };
+        private float AttackRange =>
+            _weaponType.IsMelee() ? _unitStats.MeleeAttackRange.Value : _unitStats.RangedAttackRange.Value;
 
         public void BindStats(Stat<UnitStat> meleeAttackSpeed, Stat<UnitStat> rangedAttackSpeed)
         {

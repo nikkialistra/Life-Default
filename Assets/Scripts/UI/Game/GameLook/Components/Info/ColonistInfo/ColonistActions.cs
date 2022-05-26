@@ -29,7 +29,7 @@ namespace UI.Game.GameLook.Components.Info.ColonistInfo
 
         private bool _isOrdering;
 
-        private WeaponType _weaponType;
+        private WeaponSlotType _activeWeaponSlot;
 
         private Colonist _colonist;
         
@@ -93,23 +93,23 @@ namespace UI.Game.GameLook.Components.Info.ColonistInfo
 
         private void ChooseMelee()
         {
-            if (_colonist.HasWeaponOf(WeaponType.Melee))
+            if (_colonist.HasWeaponOf(WeaponSlotType.Melee))
             {
-                _weaponType = WeaponType.Melee;
+                _activeWeaponSlot = WeaponSlotType.Melee;
                 UpdateWeaponType();
 
-                _colonist.ChooseWeapon(WeaponType.Melee);
+                _colonist.ChooseWeapon(WeaponSlotType.Melee);
             } 
         }
 
         private void ChooseRanged()
         {
-            if (_colonist.HasWeaponOf(WeaponType.Ranged))
+            if (_colonist.HasWeaponOf(WeaponSlotType.Ranged))
             {
-                _weaponType = WeaponType.Ranged;
+                _activeWeaponSlot = WeaponSlotType.Ranged;
                 UpdateWeaponType();
                 
-                _colonist.ChooseWeapon(WeaponType.Ranged);
+                _colonist.ChooseWeapon(WeaponSlotType.Ranged);
             } 
         }
 
@@ -133,7 +133,7 @@ namespace UI.Game.GameLook.Components.Info.ColonistInfo
 
         private void UpdateWeaponType()
         {
-            if (_weaponType == WeaponType.Melee)
+            if (_activeWeaponSlot == WeaponSlotType.Melee)
             {
                 _melee.RemoveFromClassList("disabled");
                 _ranged.AddToClassList("disabled");

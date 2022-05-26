@@ -2,7 +2,7 @@
 
 namespace Units.Enums
 {
-    public static class FractionExtensions
+    public static class FactionExtensions
     {
         public static string GetStringForMultiple(this Faction faction)
         {

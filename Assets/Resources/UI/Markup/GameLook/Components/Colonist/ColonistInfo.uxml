@@ -121,10 +121,10 @@
                     <ui:VisualElement name="action-type__icon" class="action-type__icon" />
                 </ui:Button>
                 <ui:VisualElement name="weapon-types" class="weapon-types">
-                    <ui:Button name="weapon-type" class="button weapon-type">
+                    <ui:Button name="melee" class="button weapon-type">
                         <ui:VisualElement name="melee__icon" class="weapon-type__icon melee" />
                     </ui:Button>
-                    <ui:Button name="weapon-type" class="button weapon-type disabled">
+                    <ui:Button name="ranged" class="button weapon-type disabled">
                         <ui:VisualElement name="ranged__icon" class="weapon-type__icon ranged" />
                     </ui:Button>
                 </ui:VisualElement>

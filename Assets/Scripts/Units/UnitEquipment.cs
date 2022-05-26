@@ -2,6 +2,8 @@
 using System.Collections;
 using ResourceManagement;
 using Sirenix.OdinInspector;
+using Units.Enums;
+using Units.Equipment;
 using UnityEngine;
 
 namespace Units
@@ -11,7 +13,10 @@ namespace Units
         [SerializeField] private MeshFilter _handSlot;
         [SerializeField] private float _timeToUnequipInstrument = 0.5f;
         [SerializeField] private float _timeToUnequipWeapon = 1.2f;
-        
+
+        [SerializeField] private WeaponSlot _meleeWeapon;
+        [SerializeField] private WeaponSlot _rangedWeapon;
+
         [Title("Weapons")]
         [SerializeField] private GameObject _knife;
         
@@ -64,6 +69,16 @@ namespace Units
         {
             ResetUnequipment();
             Unequip();
+        }
+        
+        public bool HasWeaponOf(WeaponType weaponType)
+        {
+            return weaponType == WeaponType.Melee ? _meleeWeapon.NotEmpty : _rangedWeapon.NotEmpty;
+        }
+        
+        public void ChooseWeapon(WeaponType weaponType)
+        {
+            
         }
 
         private void ResetUnequipment()

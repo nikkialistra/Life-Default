@@ -1,5 +1,7 @@
 ﻿using ColonistManagement.Tasking;
+using Colonists;
 using Sirenix.OdinInspector;
+using Units.Enums;
 using UnityEngine;
 using UnityEngine.UIElements;
 using Zenject;
@@ -18,8 +20,18 @@ namespace UI.Game.GameLook.Components.Info.ColonistInfo
 
         private Button _actionType;
         private VisualElement _actionTypeIcon;
+        
+        private Button _melee;
+        private Button _ranged;
+        
+        private VisualElement _meleeIcon;
+        private VisualElement _rangedIcon;
 
         private bool _isOrdering;
+
+        private WeaponType _weaponType;
+
+        private Colonist _colonist;
         
         private ActionIconsRegistry _actionIconsRegistry;
 
@@ -36,16 +48,33 @@ namespace UI.Game.GameLook.Components.Info.ColonistInfo
 
             _actionType = tree.Q<Button>("action-type");
             _actionTypeIcon = tree.Q<VisualElement>("action-type__icon");
+
+            _melee = tree.Q<Button>("melee");
+            _ranged = tree.Q<Button>("ranged");
+            
+            _meleeIcon = tree.Q<VisualElement>("melee__icon");
+            _rangedIcon = tree.Q<VisualElement>("ranged__icon");
+        }
+
+        public void FillIn(Colonist colonist)
+        {
+            _colonist = colonist;
         }
 
         public void BindSelf()
         {
             _actionType.clicked += ToggleActionType;
+
+            _melee.clicked += ChooseMelee;
+            _ranged.clicked += ChooseRanged;
         }
 
         public void UnbindSelf()
         {
             _actionType.clicked -= ToggleActionType;
+            
+            _melee.clicked -= ChooseMelee;
+            _ranged.clicked -= ChooseRanged;
         }
 
         private void ToggleActionType()
@@ -60,6 +89,28 @@ namespace UI.Game.GameLook.Components.Info.ColonistInfo
             {
                 SwitchToTasking();
             }
+        }
+
+        private void ChooseMelee()
+        {
+            if (_colonist.HasWeaponOf(WeaponType.Melee))
+            {
+                _weaponType = WeaponType.Melee;
+                UpdateWeaponType();
+
+                _colonist.ChooseWeapon(WeaponType.Melee);
+            } 
+        }
+
+        private void ChooseRanged()
+        {
+            if (_colonist.HasWeaponOf(WeaponType.Ranged))
+            {
+                _weaponType = WeaponType.Ranged;
+                UpdateWeaponType();
+                
+                _colonist.ChooseWeapon(WeaponType.Ranged);
+            } 
         }
 
         private void SwitchToOrdering()
@@ -78,6 +129,20 @@ namespace UI.Game.GameLook.Components.Info.ColonistInfo
             _currentActionIcon.style.backgroundImage =
                 new StyleBackground(_actionIconsRegistry[ActionType.Relaxing]);
             _currentAction.text = ActionType.Relaxing.GetString();
+        }
+
+        private void UpdateWeaponType()
+        {
+            if (_weaponType == WeaponType.Melee)
+            {
+                _melee.RemoveFromClassList("disabled");
+                _ranged.AddToClassList("disabled");
+            }
+            else
+            {
+                _melee.AddToClassList("disabled");
+                _ranged.RemoveFromClassList("disabled");
+            }
         }
     }
 }

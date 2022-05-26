@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using Common;
 using ResourceManagement;
 using Sirenix.OdinInspector;
@@ -153,7 +152,7 @@ namespace Colonists
             
             TraitsChange?.Invoke();
         }
-        
+
         public void Select()
         {
             if (!_unit.Alive)
@@ -180,6 +179,16 @@ namespace Colonists
         public void Stop()
         {
             _colonistBehavior.Stop();
+        }
+        
+        public bool HasWeaponOf(WeaponType weaponType)
+        {
+            return _unit.HasWeaponOf(weaponType);
+        }
+        
+        public void ChooseWeapon(WeaponType weaponType)
+        {
+            _unit.ChooseWeapon(weaponType);
         }
 
         public void OrderTo(Colonist targetColonist)

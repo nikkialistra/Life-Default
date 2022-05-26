@@ -120,6 +120,7 @@ namespace UI.Game.GameLook.Components.Info.ColonistInfo
             FillInProperties(colonist);
 
             _colonistDetailTabs.FillIn(colonist);
+            _colonistActions.FillIn(colonist);
         }
 
         private void HidePanel()

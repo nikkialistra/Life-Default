@@ -1,30 +1,37 @@
 ﻿using System;
 using System.Collections;
 using ResourceManagement;
-using Sirenix.OdinInspector;
 using Units.Enums;
 using Units.Equipment;
 using UnityEngine;
 
 namespace Units
 {
+    [RequireComponent(typeof(UnitWeapons))]
+    [RequireComponent(typeof(UnitInventory))]
     public class UnitEquipment : MonoBehaviour
     {
         [SerializeField] private MeshFilter _handSlot;
         [SerializeField] private float _timeToUnequipInstrument = 0.5f;
         [SerializeField] private float _timeToUnequipWeapon = 1.2f;
 
-        [SerializeField] private WeaponSlot _meleeWeapon;
-        [SerializeField] private WeaponSlot _rangedWeapon;
+        private UnitWeapons _unitWeapons;
+        private UnitInventory _unitInventory;
 
-        [Title("Weapons")]
-        [SerializeField] private GameObject _knife;
-        
-        [Title("Instruments")]
-        [SerializeField] private GameObject _axe;
-        [SerializeField] private GameObject _pickaxe;
+        private Weapon _activeWeapon;
         
         private Coroutine _unequipAfterCoroutine;
+
+        private void Awake()
+        {
+            _unitWeapons = GetComponent<UnitWeapons>();
+            _unitInventory = GetComponent<UnitInventory>();
+        }
+
+        private void Start()
+        {
+            _activeWeapon = _unitWeapons.ChooseWeapon(WeaponSlotType.Melee);
+        }
 
         public bool HoldingSomething { get; private set; }
 
@@ -32,25 +39,32 @@ namespace Units
         {
             UnequipInstantly();
 
-            Instantiate(_knife, _handSlot.transform);
+            Instantiate(_activeWeapon.WeaponGameObject, _handSlot.transform);
 
             HoldingSomething = true;
         }
 
-        public void EquipInstrumentFor(ResourceType resourceType)
+        public bool TryEquipInstrumentFor(ResourceType resourceType)
         {
+            if (!_unitInventory.HasInstrumentFor(resourceType))
+            {
+                return false;
+            }
+
             UnequipInstantly();
             
             var instrument = resourceType switch
             {
-                ResourceType.Wood => _axe,
-                ResourceType.Stone => _pickaxe,
+                ResourceType.Wood => _unitInventory.ChooseInstrumentFor(ResourceType.Wood),
+                ResourceType.Stone => _unitInventory.ChooseInstrumentFor(ResourceType.Stone),
                 _ => throw new ArgumentOutOfRangeException(nameof(resourceType), resourceType, null)
             };
             
             Instantiate(instrument, _handSlot.transform);
 
             HoldingSomething = true;
+
+            return true;
         }
 
         public void UnequipInstrument()
@@ -73,12 +87,12 @@ namespace Units
         
         public bool HasWeaponOf(WeaponSlotType weaponSlotType)
         {
-            return weaponSlotType == WeaponSlotType.Melee ? _meleeWeapon.NotEmpty : _rangedWeapon.NotEmpty;
+            return _unitWeapons.HasWeaponOf(weaponSlotType);
         }
         
         public void ChooseWeapon(WeaponSlotType weaponSlotType)
         {
-            
+            _activeWeapon = _unitWeapons.ChooseWeapon(weaponSlotType);
         }
 
         private void ResetUnequipment()

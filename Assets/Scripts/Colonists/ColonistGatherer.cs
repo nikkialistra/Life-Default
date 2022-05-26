@@ -87,8 +87,11 @@ namespace Colonists
             }
 
             _resource = resource;
-            
-            _unitEquipment.EquipInstrumentFor(resource.ResourceType);
+
+            if (!_unitEquipment.TryEquipInstrumentFor(resource.ResourceType))
+            {
+                throw new NotImplementedException();
+            }
             _animator.Gather(resource);
 
             _watchForExhaustionCoroutine = StartCoroutine(WatchForExhaustion());

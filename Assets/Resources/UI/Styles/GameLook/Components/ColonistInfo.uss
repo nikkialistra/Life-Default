@@ -333,7 +333,7 @@
 }
 
 .actions__content {
-    width: 208px;
+    width: 185px;
     height: 58px;
     justify-content: space-between;
 }
@@ -359,23 +359,66 @@
 .action-type {
     width: 52px;
     height: 52px;
-    background-image: resource('UI/Sprites/ColonistInfo/BigButton_Default');
+    margin-right: 1px;
+    background-image: resource('UI/Sprites/ColonistInfo/Buttons/BigButton_Default');
     justify-content: center;
     align-items: center;
 }
 
 .action-type:hover {
-    background-image: resource('UI/Sprites/ColonistInfo/BigButton_Hovered');
+    background-image: resource('UI/Sprites/ColonistInfo/Buttons/BigButton_Hovered');
 }
 
 .action-type:active {
-    background-image: resource('UI/Sprites/ColonistInfo/BigButton_Pressed');
+    background-image: resource('UI/Sprites/ColonistInfo/Buttons/BigButton_Pressed');
 }
 
 .action-type__icon {
     width: 48px;
     height: 48px;
     background-image: resource('UI/Sprites/Icons/ColonistInfo/IconTasks');
+}
+
+.weapon-type {
+    width: 26px;
+    height: 26px;
+    align-items: center;
+    justify-content: center;
+    background-image: resource('UI/Sprites/ColonistInfo/Buttons/SmallButtonEnabled_Normal');
+}
+
+.weapon-type:hover {
+    background-image: resource('UI/Sprites/ColonistInfo/Buttons/SmallButtonEnabled_Hovered');
+}
+
+.weapon-type:active {
+    background-image: resource('UI/Sprites/ColonistInfo/Buttons/SmallButtonEnabled_Pressed');
+}
+
+.weapon-type.disabled {
+    background-image: resource('UI/Sprites/ColonistInfo/Buttons/SmallButtonDisabled_Normal');
+    opacity: 0.5;
+}
+
+.weapon-type.disabled:hover {
+    background-image: resource('UI/Sprites/ColonistInfo/Buttons/SmallButtonDisabled_Hovered');
+}
+
+.weapon-type.disabled:active {
+    background-image: resource('UI/Sprites/ColonistInfo/Buttons/SmallButtonDisabled_Pressed');
+}
+
+.weapon-type__icon {
+    width: 22px;
+    height: 22px;
+}
+
+.melee {
+    background-image: resource('UI/Sprites/Icons/ColonistInfo/IconMelee');
+}
+
+.ranged {
+    background-image: resource('UI/Sprites/Icons/ColonistInfo/IconRanged');
 }
 
 .statuses {

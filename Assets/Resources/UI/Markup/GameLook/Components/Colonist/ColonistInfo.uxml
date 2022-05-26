@@ -120,6 +120,14 @@
                 <ui:Button name="action-type" class="button action-type">
                     <ui:VisualElement name="action-type__icon" class="action-type__icon" />
                 </ui:Button>
+                <ui:VisualElement name="weapon-types" class="weapon-types">
+                    <ui:Button name="weapon-type" class="button weapon-type">
+                        <ui:VisualElement name="melee__icon" class="weapon-type__icon melee" />
+                    </ui:Button>
+                    <ui:Button name="weapon-type" class="button weapon-type disabled">
+                        <ui:VisualElement name="ranged__icon" class="weapon-type__icon ranged" />
+                    </ui:Button>
+                </ui:VisualElement>
             </ui:VisualElement>
             <ui:VisualElement name="statuses" class="statuses panel-part">
                 <ui:Label text="Statuses" name="statuses-label" class="label label-general head-label statuses__label label-indented" />

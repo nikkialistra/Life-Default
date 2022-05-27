@@ -1,4 +1,5 @@
-﻿using ColonistManagement.Tasking;
+﻿using System;
+using ColonistManagement.Tasking;
 using Colonists;
 using Sirenix.OdinInspector;
 using Units.Enums;
@@ -29,7 +30,7 @@ namespace UI.Game.GameLook.Components.Info.ColonistInfo
 
         private bool _isOrdering;
 
-        private WeaponSlotType _activeWeaponSlot;
+        private WeaponSlotType _activeWeaponSlot = WeaponSlotType.None;
 
         private Colonist _colonist;
         
@@ -133,15 +134,22 @@ namespace UI.Game.GameLook.Components.Info.ColonistInfo
 
         private void UpdateWeaponType()
         {
-            if (_activeWeaponSlot == WeaponSlotType.Melee)
+            switch (_activeWeaponSlot)
             {
-                _melee.RemoveFromClassList("disabled");
-                _ranged.AddToClassList("disabled");
-            }
-            else
-            {
-                _melee.AddToClassList("disabled");
-                _ranged.RemoveFromClassList("disabled");
+                case WeaponSlotType.Melee:
+                    _melee.RemoveFromClassList("disabled");
+                    _ranged.AddToClassList("disabled");
+                    break;
+                case WeaponSlotType.Ranged:
+                    _melee.AddToClassList("disabled");
+                    _ranged.RemoveFromClassList("disabled");
+                    break;
+                case WeaponSlotType.None:
+                    _melee.AddToClassList("disabled");
+                    _ranged.AddToClassList("disabled");
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
         }
     }

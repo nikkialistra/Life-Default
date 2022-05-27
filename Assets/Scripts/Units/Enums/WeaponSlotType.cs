@@ -3,6 +3,7 @@
     public enum WeaponSlotType
     {
         Melee,
-        Ranged
+        Ranged,
+        None
     }
 }

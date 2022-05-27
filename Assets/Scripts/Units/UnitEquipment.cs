@@ -52,14 +52,9 @@ namespace Units
             }
 
             UnequipInstantly();
-            
-            var instrument = resourceType switch
-            {
-                ResourceType.Wood => _unitInventory.ChooseInstrumentFor(ResourceType.Wood),
-                ResourceType.Stone => _unitInventory.ChooseInstrumentFor(ResourceType.Stone),
-                _ => throw new ArgumentOutOfRangeException(nameof(resourceType), resourceType, null)
-            };
-            
+
+            var instrument = _unitInventory.ChooseInstrumentFor(resourceType);
+
             Instantiate(instrument, _handSlot.transform);
 
             HoldingSomething = true;

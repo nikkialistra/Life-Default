@@ -38,13 +38,13 @@ namespace Colonists.BehaviorNodes.ResourceGathering
             }
             else
             {
-                return CanGather();
+                return AtInteractionDistance();
             }
         }
 
-        private TaskStatus CanGather()
+        private TaskStatus AtInteractionDistance()
         {
-            if (ColonistGatherer.CanGather(Resource.Value))
+            if (ColonistGatherer.AtInteractionDistance(Resource.Value))
             {
                 return TaskStatus.Success;
             }

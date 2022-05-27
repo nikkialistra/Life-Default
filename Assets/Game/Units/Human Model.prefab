@@ -3218,6 +3218,8 @@ GameObject:
   - component: {fileID: 95241917264262668}
   - component: {fileID: 3388593450940659954}
   - component: {fileID: 832335509996619287}
+  - component: {fileID: 8922059550196166575}
+  - component: {fileID: 2489951822996797987}
   - component: {fileID: 5193365172632362054}
   - component: {fileID: 4877044575306519140}
   - component: {fileID: 4051447064366341766}
@@ -3342,11 +3344,62 @@ MonoBehaviour:
   _handSlot: {fileID: 4177720652290489099}
   _timeToUnequipInstrument: 0.5
   _timeToUnequipWeapon: 1.2
-  _meleeWeapon: {fileID: 0}
-  _rangedWeapon: {fileID: 0}
-  _knife: {fileID: 4641975869840635787, guid: 1b2808c51cf55354fa9b15f94f548af2, type: 3}
-  _axe: {fileID: 2796058789668319780, guid: 1a6829fd9fae7894da138354dc865dc4, type: 3}
-  _pickaxe: {fileID: 994482616659160261, guid: 76227feff0e541f479a4b41d7eed9624, type: 3}
+--- !u!114 &8922059550196166575
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1588895830433058}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84a7c88be86c43ff915cab219444fd19, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _meleeWeapon:
+    _weaponType: 0
+    _weapon: {fileID: 11400000, guid: 8c12bad896bf558468fe2e91f199a97f, type: 2}
+  _rangedWeapon:
+    _weaponType: 2
+    _weapon: {fileID: 11400000, guid: e79f68b3753331949bbe4d6fb8f89186, type: 2}
+--- !u!114 &2489951822996797987
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1588895830433058}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2c0f04360ab4638877c354bc97745da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _slots:
+  - _itemType: 1
+    _item:
+      rid: 6354121199407333377
+  - _itemType: 1
+    _item:
+      rid: 6354121199407333378
+  - _itemType: 0
+    _item:
+      rid: -2
+  - _itemType: 0
+    _item:
+      rid: -2
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
+    - rid: 6354121199407333377
+      type: {class: InstrumentItem, ns: Units.Equipment.Items, asm: Scripts}
+      data:
+        _content: {fileID: 11400000, guid: 22b86163e07740a4da69dd95e07fc213, type: 2}
+    - rid: 6354121199407333378
+      type: {class: InstrumentItem, ns: Units.Equipment.Items, asm: Scripts}
+      data:
+        _content: {fileID: 11400000, guid: 70ef3f8b99bb6c54897f4d5b01c1d95b, type: 2}
 --- !u!114 &5193365172632362054
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -15,12 +15,45 @@ namespace Units
         
         public bool HasInstrumentFor(ResourceType resourceType)
         {
-            return true;
+            foreach (var item in GetItems())
+            {
+                if (item.TryGetInstrument(out var instrument))
+                {
+                    return instrument.CanExtract(resourceType);
+                }
+            }
+
+            return false;
         }
 
-        public Instrument ChooseInstrumentFor(ResourceType wood)
+        public Instrument ChooseInstrumentFor(ResourceType resourceType)
         {
-            throw new NotImplementedException();
+            foreach (var item in GetItems())
+            {
+                if (item.TryGetInstrument(out var instrument) && instrument.CanExtract(resourceType))
+                {
+                    return instrument;
+                }
+            }
+
+            throw new InvalidOperationException(
+                $"Cannot find suitable item, {nameof(HasInstrumentFor)} should be called first");
+        }
+
+        public IItem GetItemAt(int index)
+        {
+            return HasItemAt(index) ? _slots[index].Item : null;
+        }
+
+        private IEnumerable<IItem> GetItems()
+        {
+            for (int i = 0; i < NumberOfSlots; i++)
+            {
+                if (_slots[i].HasItem)
+                {
+                    yield return _slots[i].Item;
+                }
+            }
         }
 
         private bool HasItemAt(int index)
@@ -28,11 +61,6 @@ namespace Units
             ValidateIndex(index);
 
             return _slots[index].HasItem;
-        }
-
-        public IItem GetItemAt(int index)
-        {
-            return HasItemAt(index) ? _slots[index].Item : null;
         }
 
         private static void ValidateIndex(int index)

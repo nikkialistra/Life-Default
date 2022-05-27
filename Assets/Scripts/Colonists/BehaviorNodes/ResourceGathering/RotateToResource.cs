@@ -41,7 +41,7 @@ namespace Colonists.BehaviorNodes.ResourceGathering
         
         private TaskStatus CanGather()
         {
-            if (ColonistGatherer.CanGather(Resource.Value))
+            if (ColonistGatherer.AtInteractionDistance(Resource.Value))
             {
                 return TaskStatus.Success;
             }

@@ -9,28 +9,16 @@ namespace Colonists.BehaviorNodes.ResourceGathering
 
         public ColonistGatherer ColonistGatherer;
 
-        private bool _failed;
+        private bool _gathering;
 
         public override void OnStart()
         {
-            _failed = false;
-        
-            if (ColonistGatherer.CanGather(Resource.Value))
-            {
-                if (!ColonistGatherer.IsGathering)
-                {
-                    ColonistGatherer.Gather(Resource.Value);
-                }
-            }
-            else
-            {
-                _failed = true;
-            }
+            _gathering = ColonistGatherer.TryGather(Resource.Value);
         }
 
         public override TaskStatus OnUpdate()
         {
-            if (_failed)
+            if (!_gathering)
             {
                 return TaskStatus.Failure;
             }

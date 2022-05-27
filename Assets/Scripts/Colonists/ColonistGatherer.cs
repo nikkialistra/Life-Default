@@ -72,31 +72,33 @@ namespace Colonists
             return _resourceInteractionDistances[resourceType];
         }
 
-        public bool CanGather(Resource resource)
+        public bool AtInteractionDistance(Resource resource)
         {
             var distance = Vector3.Distance(transform.position, resource.transform.position);
 
             return distance <= _resourceInteractionDistances[resource.ResourceType] + _distanceCorrectionFromCenter;
         }
 
-        public void Gather(Resource resource)
+        public bool TryGather(Resource resource)
         {
-            if (_resource == resource)
+            if (_resource == resource || !AtInteractionDistance(resource))
             {
-                return;
+                return false;
+            }
+            
+            if (!_unitEquipment.TryEquipInstrumentFor(resource.ResourceType))
+            {
+                return false;
             }
 
             _resource = resource;
 
-            if (!_unitEquipment.TryEquipInstrumentFor(resource.ResourceType))
-            {
-                throw new NotImplementedException();
-            }
             _animator.Gather(resource);
 
             _watchForExhaustionCoroutine = StartCoroutine(WatchForExhaustion());
-
             IsGathering = true;
+
+            return true;
         }
 
         public void Hit(float passedTime)
@@ -141,7 +143,9 @@ namespace Colonists
         }
 
         // Add wait time for cancelling stop gathering if user clicked same resource,
+
         // and prolongate animation after gathering a little
+
         public void FinishGathering()
         {
             if (!IsGathering)
@@ -160,7 +164,7 @@ namespace Colonists
             
             StartCoroutine(StopGatheringLater());
         }
-        
+
         public void ToggleResourceFieldOfView()
         {
             _resourceFieldOfView.ToggleDebugShow();
@@ -207,7 +211,7 @@ namespace Colonists
 
             return true;
         }
-        
+
         [Serializable] public class ResourceInteractionDistanceDictionary : SerializableDictionary<ResourceType, float> { }
     }
 }

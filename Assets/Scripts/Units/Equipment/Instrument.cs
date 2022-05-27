@@ -1,4 +1,6 @@
-﻿using Units.Enums;
+﻿using System;
+using ResourceManagement;
+using Units.Enums;
 using UnityEngine;
 
 namespace Units.Equipment
@@ -12,5 +14,15 @@ namespace Units.Equipment
 
         public InstrumentType InstrumentType => _instrumentType;
         public GameObject InstrumentGameObject => _instrument;
+
+        public bool CanExtract(ResourceType resourceType)
+        {
+            return resourceType switch
+            {
+                ResourceType.Wood => _instrumentType == InstrumentType.Axe,
+                ResourceType.Stone => _instrumentType == InstrumentType.Pickaxe,
+                _ => throw new ArgumentOutOfRangeException(nameof(resourceType), resourceType, null)
+            };
+        }
     }
 }

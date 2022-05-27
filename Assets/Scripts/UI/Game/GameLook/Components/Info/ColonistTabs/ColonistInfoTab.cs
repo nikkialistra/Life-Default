@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using Colonists;
 using Sirenix.OdinInspector;
 using UI.Game.GameLook.Components.Info.ColonistInfo;
@@ -48,6 +47,7 @@ namespace UI.Game.GameLook.Components.Info.ColonistTabs
             }
             
             FillTraits();
+            
             SubscribeToChanges();
         }
 

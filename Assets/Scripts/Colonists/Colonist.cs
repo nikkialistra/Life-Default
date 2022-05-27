@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Colonists.Skills;
 using Common;
 using ResourceManagement;
 using Sirenix.OdinInspector;
@@ -23,6 +24,7 @@ namespace Colonists
     [RequireComponent(typeof(ColonistMeshAgent))]
     [RequireComponent(typeof(ColonistGatherer))]
     [RequireComponent(typeof(ColonistBehavior))]
+    [RequireComponent(typeof(ColonistSkills))]
     public class Colonist : MonoBehaviour
     {
         [SerializeField] private string _name;
@@ -46,6 +48,7 @@ namespace Colonists
         private ColonistMeshAgent _colonistMeshAgent;
         private ColonistGatherer _colonistGatherer;
         private ColonistBehavior _colonistBehavior;
+        private ColonistSkills _colonistSkills;
 
         private HumanAppearanceRegistry _humanAppearanceRegistry;
         private HumanNames _humanNames;
@@ -69,6 +72,7 @@ namespace Colonists
             _colonistMeshAgent = GetComponent<ColonistMeshAgent>();
             _colonistGatherer = GetComponent<ColonistGatherer>();
             _colonistBehavior = GetComponent<ColonistBehavior>();
+            _colonistSkills = GetComponent<ColonistSkills>();
         }
 
         public event Action Spawn;
@@ -79,6 +83,7 @@ namespace Colonists
         public event Action<string> NameChange;
 
         public event Action TraitsChange;
+        public event Action<Skill> SkillChange;
 
         public Unit Unit => _unit;
 
@@ -97,8 +102,7 @@ namespace Colonists
         public IReadOnlyList<Trait> Traits => _colonistTraits.Traits;
 
         public Vector3 Center => _center.position;
-
-
+        
         private void Start()
         {
             Initialize();
@@ -234,6 +238,13 @@ namespace Colonists
         public void ToggleResourceFieldOfView()
         {
             _colonistGatherer.ToggleResourceFieldOfView();
+        }
+
+        public void ImproveSkill(SkillType skillType, int quantity)
+        {
+            _colonistSkills.ImproveSkill(skillType, quantity);
+            
+            SkillChange?.Invoke(_colonistSkills.GetSkill(skillType));
         }
 
         private void OnDying()

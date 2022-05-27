@@ -13,7 +13,7 @@
                 </ui:VisualElement>
                 <ui:VisualElement name="strength__progress" class="skill__progress">
                     <ui:VisualElement name="strength__favorite-icon" class="skill__favorite-icon" />
-                    <ui:ProgressBar name="strength__progress-bar" high-value="100" title="100/100" class="skill__progress-bar">
+                    <ui:ProgressBar name="strength__progress-bar" high-value="1000" class="skill__progress-bar">
                         <ui:VisualElement name="background" class="background" />
                     </ui:ProgressBar>
                     <ui:Label text="1" name="strength__level" class="label skill__level right-aligned" />
@@ -28,7 +28,7 @@
                 </ui:VisualElement>
                 <ui:VisualElement name="dexterity__progress" class="skill__progress">
                     <ui:VisualElement name="dexterity__favorite-icon" class="skill__favorite-icon" />
-                    <ui:ProgressBar name="dexterity__progress-bar" high-value="100" title="100/100" class="skill__progress-bar">
+                    <ui:ProgressBar name="dexterity__progress-bar" high-value="1000" class="skill__progress-bar">
                         <ui:VisualElement name="background" class="background" />
                     </ui:ProgressBar>
                     <ui:Label text="1" name="dexterity__level" class="label skill__level right-aligned" />
@@ -43,7 +43,7 @@
                 </ui:VisualElement>
                 <ui:VisualElement name="accuracy__progress" class="skill__progress">
                     <ui:VisualElement name="accuracy__favorite-icon" class="skill__favorite-icon" />
-                    <ui:ProgressBar name="accuracy__progress-bar" high-value="100" title="100/100" class="skill__progress-bar">
+                    <ui:ProgressBar name="accuracy__progress-bar" high-value="1000" class="skill__progress-bar">
                         <ui:VisualElement name="background" class="background" />
                     </ui:ProgressBar>
                     <ui:Label text="1" name="accuracy__level" class="label skill__level right-aligned" />
@@ -58,7 +58,7 @@
                 </ui:VisualElement>
                 <ui:VisualElement name="athletics__progress" class="skill__progress">
                     <ui:VisualElement name="athletics__favorite-icon" class="skill__favorite-icon" />
-                    <ui:ProgressBar name="athletics__progress-bar" high-value="100" title="100/100" class="skill__progress-bar">
+                    <ui:ProgressBar name="athletics__progress-bar" high-value="1000" class="skill__progress-bar">
                         <ui:VisualElement name="background" class="background" />
                     </ui:ProgressBar>
                     <ui:Label text="1" name="athletics__level" class="label skill__level right-aligned" />
@@ -73,7 +73,7 @@
                 </ui:VisualElement>
                 <ui:VisualElement name="construction__progress" class="skill__progress">
                     <ui:VisualElement name="construction__favorite-icon" class="skill__favorite-icon" />
-                    <ui:ProgressBar name="construction__progress-bar" high-value="100" title="100/100" class="skill__progress-bar">
+                    <ui:ProgressBar name="construction__progress-bar" high-value="1000" class="skill__progress-bar">
                         <ui:VisualElement name="background" class="background" />
                     </ui:ProgressBar>
                     <ui:Label text="1" name="construction__level" class="label skill__level right-aligned" />
@@ -88,7 +88,7 @@
                 </ui:VisualElement>
                 <ui:VisualElement name="mining__progress" class="skill__progress">
                     <ui:VisualElement name="mining__favorite-icon" class="skill__favorite-icon" />
-                    <ui:ProgressBar name="mining__progress-bar" high-value="100" title="100/100" class="skill__progress-bar">
+                    <ui:ProgressBar name="mining__progress-bar" high-value="1000" class="skill__progress-bar">
                         <ui:VisualElement name="background" class="background" />
                     </ui:ProgressBar>
                     <ui:Label text="1" name="mining__level" class="label skill__level right-aligned" />
@@ -103,7 +103,7 @@
                 </ui:VisualElement>
                 <ui:VisualElement name="research__progress" class="skill__progress">
                     <ui:VisualElement name="research__favorite-icon" class="skill__favorite-icon" />
-                    <ui:ProgressBar name="research__progress-bar" high-value="100" title="100/100" class="skill__progress-bar">
+                    <ui:ProgressBar name="research__progress-bar" high-value="1000" class="skill__progress-bar">
                         <ui:VisualElement name="background" class="background" />
                     </ui:ProgressBar>
                     <ui:Label text="1" name="research__level" class="label skill__level right-aligned" />
@@ -118,7 +118,7 @@
                 </ui:VisualElement>
                 <ui:VisualElement name="cooking__progress" class="skill__progress">
                     <ui:VisualElement name="cooking__favorite-icon" class="skill__favorite-icon" />
-                    <ui:ProgressBar name="cooking__progress-bar" high-value="100" title="100/100" class="skill__progress-bar">
+                    <ui:ProgressBar name="cooking__progress-bar" high-value="1000" class="skill__progress-bar">
                         <ui:VisualElement name="background" class="background" />
                     </ui:ProgressBar>
                     <ui:Label text="1" name="cooking__level" class="label skill__level right-aligned" />
@@ -133,7 +133,7 @@
                 </ui:VisualElement>
                 <ui:VisualElement name="communication__progress" class="skill__progress">
                     <ui:VisualElement name="communication__favorite-icon" class="skill__favorite-icon" />
-                    <ui:ProgressBar name="communication__progress-bar" high-value="100" title="100/100" class="skill__progress-bar">
+                    <ui:ProgressBar name="communication__progress-bar" high-value="1000" class="skill__progress-bar">
                         <ui:VisualElement name="background" class="background" />
                     </ui:ProgressBar>
                     <ui:Label text="1" name="communication__level" class="label skill__level right-aligned" />
@@ -148,7 +148,7 @@
                 </ui:VisualElement>
                 <ui:VisualElement name="creativity__progress" class="skill__progress">
                     <ui:VisualElement name="creativity__favorite-icon" class="skill__favorite-icon" />
-                    <ui:ProgressBar name="creativity__progress-bar" high-value="100" title="100/100" class="skill__progress-bar">
+                    <ui:ProgressBar name="creativity__progress-bar" high-value="1000" class="skill__progress-bar">
                         <ui:VisualElement name="background" class="background" />
                     </ui:ProgressBar>
                     <ui:Label text="1" name="creativity__level" class="label skill__level right-aligned" />
@@ -163,7 +163,7 @@
                 </ui:VisualElement>
                 <ui:VisualElement name="medicine__progress" class="skill__progress">
                     <ui:VisualElement name="medicine__favorite-icon" class="skill__favorite-icon" />
-                    <ui:ProgressBar name="medicine__progress-bar" high-value="100" title="100/100" class="skill__progress-bar">
+                    <ui:ProgressBar name="medicine__progress-bar" high-value="1000" class="skill__progress-bar">
                         <ui:VisualElement name="background" class="background" />
                     </ui:ProgressBar>
                     <ui:Label text="1" name="medicine__level" class="label skill__level right-aligned" />
@@ -178,7 +178,7 @@
                 </ui:VisualElement>
                 <ui:VisualElement name="agriculture__progress" class="skill__progress">
                     <ui:VisualElement name="agriculture__favorite-icon" class="skill__favorite-icon" />
-                    <ui:ProgressBar name="agriculture__progress-bar" high-value="100" title="100/100" class="skill__progress-bar">
+                    <ui:ProgressBar name="agriculture__progress-bar" high-value="1000" class="skill__progress-bar">
                         <ui:VisualElement name="background" class="background" />
                     </ui:ProgressBar>
                     <ui:Label text="1" name="agriculture__level" class="label skill__level right-aligned" />
@@ -193,7 +193,7 @@
                 </ui:VisualElement>
                 <ui:VisualElement name="animal-handling__progress" class="skill__progress">
                     <ui:VisualElement name="animal-handling__favorite-icon" class="skill__favorite-icon" />
-                    <ui:ProgressBar name="animal-handling__progress-bar" high-value="100" title="100/100" class="skill__progress-bar">
+                    <ui:ProgressBar name="animal-handling__progress-bar" high-value="1000" class="skill__progress-bar">
                         <ui:VisualElement name="background" class="background" />
                     </ui:ProgressBar>
                     <ui:Label text="1" name="animal-handling__level" class="label skill__level right-aligned" />

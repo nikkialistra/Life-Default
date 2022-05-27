@@ -21,33 +21,44 @@
             <ui:VisualElement name="outfit-columns" class="outfit-columns">
                 <ui:VisualElement name="armor" class="outfit-column first-column">
                     <ui:Label text="Armor" display-tooltip-when-elided="true" name="armor-header" class="label left-aligned label-regular column-header" />
-                    <ui:VisualElement name="head-slot" class="slot">
+                    <ui:VisualElement name="head-slot" class="slot slot-with-name">
                         <ui:VisualElement name="head-slot__icon" class="slot__icon" />
                         <ui:Label text="Head" display-tooltip-when-elided="true" name="head-slot__name" class="label slot__name" />
                     </ui:VisualElement>
-                    <ui:VisualElement name="body-slot" class="slot">
+                    <ui:VisualElement name="body-slot" class="slot slot-with-name">
                         <ui:VisualElement name="body-slot__icon" class="slot__icon" />
                         <ui:Label text="Body" display-tooltip-when-elided="true" name="body-slot__name" class="label slot__name" />
                     </ui:VisualElement>
                 </ui:VisualElement>
-                <ui:VisualElement name="weapons" class="outfit-column first-column">
+                <ui:VisualElement name="weapons" class="outfit-column">
                     <ui:Label text="Weapons" display-tooltip-when-elided="true" name="weapons-header" class="label left-aligned label-regular column-header" />
-                    <ui:VisualElement name="melee-slot" class="slot">
+                    <ui:VisualElement name="melee-slot" class="slot slot-with-name">
                         <ui:VisualElement name="melee-slot__icon" class="slot__icon" />
                         <ui:Label text="Melee" display-tooltip-when-elided="true" name="melee-slot__name" class="label slot__name" />
                     </ui:VisualElement>
-                    <ui:VisualElement name="ranged-slot" class="slot">
+                    <ui:VisualElement name="ranged-slot" class="slot slot-with-name">
                         <ui:VisualElement name="ranged-slot__icon" class="slot__icon" />
                         <ui:Label text="Ranged" display-tooltip-when-elided="true" name="ranged-slot__name" class="label slot__name" />
                     </ui:VisualElement>
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>
-        <ui:VisualElement name="inventory" class="inventory bottom-indent">
+        <ui:VisualElement name="inventory" class="inventory">
             <ui:Label text="Inventory" display-tooltip-when-elided="true" name="inventory-header" class="label label-general left-aligned label-indented-big margin-bottom" />
             <ui:VisualElement name="inventory-slots" class="inventory-slots">
-                <ui:VisualElement name="first-slot" class="slot">
-                    <ui:VisualElement name="first-slot__icon" class="slot__icon" />
+                <ui:VisualElement name="inventory-slots__content" class="inventory-slots__content">
+                    <ui:VisualElement name="first-slot" class="slot">
+                        <ui:VisualElement name="first-slot__icon" class="slot__icon" />
+                    </ui:VisualElement>
+                    <ui:VisualElement name="second-slot" class="slot">
+                        <ui:VisualElement name="second-slot__icon" class="slot__icon" />
+                    </ui:VisualElement>
+                    <ui:VisualElement name="third-slot" class="slot">
+                        <ui:VisualElement name="third-slot__icon" class="slot__icon" />
+                    </ui:VisualElement>
+                    <ui:VisualElement name="fourth-slot" class="slot">
+                        <ui:VisualElement name="fourth-slot__icon" class="slot__icon" />
+                    </ui:VisualElement>
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>

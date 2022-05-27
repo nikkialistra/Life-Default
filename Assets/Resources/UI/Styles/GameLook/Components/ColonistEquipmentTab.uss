@@ -4,12 +4,14 @@
 
 .outfit-columns {
     width: 280px;
+    min-height: 123px;
     flex-direction: row;
     justify-content: center;
 }
 
 .outfit-column {
-    width: 96px
+    width: 96px;
+    height: 123px;
 }
 
 .first-column {
@@ -18,30 +20,43 @@
 
 .column-header {
     margin-bottom: 5px;
+    height: 16px;
 }
 
 .slot {
-    width: 96px;
-    height: 42px;
+    width: 46px;
+    height: 46px;
     flex-direction: row;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
+}
+
+.slot-with-name {
+    width: 96px;
 }
 
 .slot__icon {
-    width: 42px;
-    height: 42px;
+    width: 46px;
+    height: 46px;
     background-image: resource('UI/Sprites/ColonistInfo/ColonistSlot');
 }
 
 .slot__name {
     width: 54px;
+    height: 46px;
 }
 
 .inventory {
     width: 280px;
-    align-items: center;
+    align-items: stretch;
+    margin-bottom: 12px;
 }
 
 .inventory-slots {
+    align-items: center;
+}
+
+.inventory-slots__content {
     width: 216px;
+    flex-direction: row;
+    justify-content: space-between;
 }

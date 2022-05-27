@@ -1,0 +1,204 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Resources/UI/Styles/Common/Text.uss?fileID=7433441132597879392&amp;guid=158167a2c7cf4f5292d78d1ed2683cfc&amp;type=3#Text" />
+    <Style src="project://database/Assets/Resources/UI/Styles/GameLook/Components/ColonistPanel.uss?fileID=7433441132597879392&amp;guid=57c3dde8601441008a8e9f518deebeb1&amp;type=3#ColonistPanel" />
+    <Style src="project://database/Assets/Resources/UI/Styles/GameLook/Components/ColonistSkillsTab.uss?fileID=7433441132597879392&amp;guid=b35ea3b7979558e4eafa80b1ca2972c2&amp;type=3#ColonistSkillsTab" />
+    <ui:VisualElement name="colonist-skills-tab" picking-mode="Ignore" class="colonist-panel">
+        <ui:VisualElement name="skills" class="skills">
+            <ui:VisualElement name="strength" class="skill">
+                <ui:VisualElement name="strength__nomination" class="skill__nomination">
+                    <ui:VisualElement name="strength__icon-place" class="skill__icon-place">
+                        <ui:VisualElement name="strength__icon" class="skill__icon strength" />
+                    </ui:VisualElement>
+                    <ui:Label text="Strength" display-tooltip-when-elided="true" name="strength__name" class="label left-aligned skill__name label-regular" />
+                </ui:VisualElement>
+                <ui:VisualElement name="strength__progress" class="skill__progress">
+                    <ui:VisualElement name="strength__favorite-icon" class="skill__favorite-icon" />
+                    <ui:ProgressBar name="strength__progress-bar" high-value="100" title="100/100" class="skill__progress-bar">
+                        <ui:VisualElement name="background" class="background" />
+                    </ui:ProgressBar>
+                    <ui:Label text="1" name="strength__level" class="label skill__level right-aligned" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="dexterity" class="skill">
+                <ui:VisualElement name="dexterity__nomination" class="skill__nomination">
+                    <ui:VisualElement name="dexterity__icon-place" class="skill__icon-place">
+                        <ui:VisualElement name="dexterity__icon" class="skill__icon strength" />
+                    </ui:VisualElement>
+                    <ui:Label text="Dexterity" display-tooltip-when-elided="true" name="dexterity__name" class="label left-aligned skill__name label-regular" />
+                </ui:VisualElement>
+                <ui:VisualElement name="dexterity__progress" class="skill__progress">
+                    <ui:VisualElement name="dexterity__favorite-icon" class="skill__favorite-icon" />
+                    <ui:ProgressBar name="dexterity__progress-bar" high-value="100" title="100/100" class="skill__progress-bar">
+                        <ui:VisualElement name="background" class="background" />
+                    </ui:ProgressBar>
+                    <ui:Label text="1" name="dexterity__level" class="label skill__level right-aligned" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="accuracy" class="skill">
+                <ui:VisualElement name="accuracy__nomination" class="skill__nomination">
+                    <ui:VisualElement name="accuracy__icon-place" class="skill__icon-place">
+                        <ui:VisualElement name="accuracy__icon" class="skill__icon strength" />
+                    </ui:VisualElement>
+                    <ui:Label text="Accuracy" display-tooltip-when-elided="true" name="accuracy__name" class="label left-aligned skill__name label-regular" />
+                </ui:VisualElement>
+                <ui:VisualElement name="accuracy__progress" class="skill__progress">
+                    <ui:VisualElement name="accuracy__favorite-icon" class="skill__favorite-icon" />
+                    <ui:ProgressBar name="accuracy__progress-bar" high-value="100" title="100/100" class="skill__progress-bar">
+                        <ui:VisualElement name="background" class="background" />
+                    </ui:ProgressBar>
+                    <ui:Label text="1" name="accuracy__level" class="label skill__level right-aligned" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="athletics" class="skill">
+                <ui:VisualElement name="athletics__nomination" class="skill__nomination">
+                    <ui:VisualElement name="athletics__icon-place" class="skill__icon-place">
+                        <ui:VisualElement name="athletics__icon" class="skill__icon strength" />
+                    </ui:VisualElement>
+                    <ui:Label text="Athletics" display-tooltip-when-elided="true" name="athletics__name" class="label left-aligned skill__name label-regular" />
+                </ui:VisualElement>
+                <ui:VisualElement name="athletics__progress" class="skill__progress">
+                    <ui:VisualElement name="athletics__favorite-icon" class="skill__favorite-icon" />
+                    <ui:ProgressBar name="athletics__progress-bar" high-value="100" title="100/100" class="skill__progress-bar">
+                        <ui:VisualElement name="background" class="background" />
+                    </ui:ProgressBar>
+                    <ui:Label text="1" name="athletics__level" class="label skill__level right-aligned" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="construction" class="skill">
+                <ui:VisualElement name="construction__nomination" class="skill__nomination">
+                    <ui:VisualElement name="construction__icon-place" class="skill__icon-place">
+                        <ui:VisualElement name="construction__icon" class="skill__icon strength" />
+                    </ui:VisualElement>
+                    <ui:Label text="Construction" display-tooltip-when-elided="true" name="construction__name" class="label left-aligned skill__name label-regular" />
+                </ui:VisualElement>
+                <ui:VisualElement name="construction__progress" class="skill__progress">
+                    <ui:VisualElement name="construction__favorite-icon" class="skill__favorite-icon" />
+                    <ui:ProgressBar name="construction__progress-bar" high-value="100" title="100/100" class="skill__progress-bar">
+                        <ui:VisualElement name="background" class="background" />
+                    </ui:ProgressBar>
+                    <ui:Label text="1" name="construction__level" class="label skill__level right-aligned" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="mining" class="skill">
+                <ui:VisualElement name="mining__nomination" class="skill__nomination">
+                    <ui:VisualElement name="mining__icon-place" class="skill__icon-place">
+                        <ui:VisualElement name="mining__icon" class="skill__icon strength" />
+                    </ui:VisualElement>
+                    <ui:Label text="Mining" display-tooltip-when-elided="true" name="mining__name" class="label left-aligned skill__name label-regular" />
+                </ui:VisualElement>
+                <ui:VisualElement name="mining__progress" class="skill__progress">
+                    <ui:VisualElement name="mining__favorite-icon" class="skill__favorite-icon" />
+                    <ui:ProgressBar name="mining__progress-bar" high-value="100" title="100/100" class="skill__progress-bar">
+                        <ui:VisualElement name="background" class="background" />
+                    </ui:ProgressBar>
+                    <ui:Label text="1" name="mining__level" class="label skill__level right-aligned" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="research" class="skill">
+                <ui:VisualElement name="research__nomination" class="skill__nomination">
+                    <ui:VisualElement name="research__icon-place" class="skill__icon-place">
+                        <ui:VisualElement name="research__icon" class="skill__icon strength" />
+                    </ui:VisualElement>
+                    <ui:Label text="Research" display-tooltip-when-elided="true" name="research__name" class="label left-aligned skill__name label-regular" />
+                </ui:VisualElement>
+                <ui:VisualElement name="research__progress" class="skill__progress">
+                    <ui:VisualElement name="research__favorite-icon" class="skill__favorite-icon" />
+                    <ui:ProgressBar name="research__progress-bar" high-value="100" title="100/100" class="skill__progress-bar">
+                        <ui:VisualElement name="background" class="background" />
+                    </ui:ProgressBar>
+                    <ui:Label text="1" name="research__level" class="label skill__level right-aligned" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="cooking" class="skill">
+                <ui:VisualElement name="cooking__nomination" class="skill__nomination">
+                    <ui:VisualElement name="cooking__icon-place" class="skill__icon-place">
+                        <ui:VisualElement name="cooking__icon" class="skill__icon strength" />
+                    </ui:VisualElement>
+                    <ui:Label text="Cooking" display-tooltip-when-elided="true" name="cooking__name" class="label left-aligned skill__name label-regular" />
+                </ui:VisualElement>
+                <ui:VisualElement name="cooking__progress" class="skill__progress">
+                    <ui:VisualElement name="cooking__favorite-icon" class="skill__favorite-icon" />
+                    <ui:ProgressBar name="cooking__progress-bar" high-value="100" title="100/100" class="skill__progress-bar">
+                        <ui:VisualElement name="background" class="background" />
+                    </ui:ProgressBar>
+                    <ui:Label text="1" name="cooking__level" class="label skill__level right-aligned" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="communication" class="skill">
+                <ui:VisualElement name="communication__nomination" class="skill__nomination">
+                    <ui:VisualElement name="communication__icon-place" class="skill__icon-place">
+                        <ui:VisualElement name="communication__icon" class="skill__icon strength" />
+                    </ui:VisualElement>
+                    <ui:Label text="Communication" display-tooltip-when-elided="true" name="communication__name" class="label left-aligned skill__name label-regular" />
+                </ui:VisualElement>
+                <ui:VisualElement name="communication__progress" class="skill__progress">
+                    <ui:VisualElement name="communication__favorite-icon" class="skill__favorite-icon" />
+                    <ui:ProgressBar name="communication__progress-bar" high-value="100" title="100/100" class="skill__progress-bar">
+                        <ui:VisualElement name="background" class="background" />
+                    </ui:ProgressBar>
+                    <ui:Label text="1" name="communication__level" class="label skill__level right-aligned" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="creativity" class="skill">
+                <ui:VisualElement name="creativity__nomination" class="skill__nomination">
+                    <ui:VisualElement name="creativity__icon-place" class="skill__icon-place">
+                        <ui:VisualElement name="creativity__icon" class="skill__icon strength" />
+                    </ui:VisualElement>
+                    <ui:Label text="Creativity" display-tooltip-when-elided="true" name="creativity__name" class="label left-aligned skill__name label-regular" />
+                </ui:VisualElement>
+                <ui:VisualElement name="creativity__progress" class="skill__progress">
+                    <ui:VisualElement name="creativity__favorite-icon" class="skill__favorite-icon" />
+                    <ui:ProgressBar name="creativity__progress-bar" high-value="100" title="100/100" class="skill__progress-bar">
+                        <ui:VisualElement name="background" class="background" />
+                    </ui:ProgressBar>
+                    <ui:Label text="1" name="creativity__level" class="label skill__level right-aligned" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="medicine" class="skill">
+                <ui:VisualElement name="medicine__nomination" class="skill__nomination">
+                    <ui:VisualElement name="medicine__icon-place" class="skill__icon-place">
+                        <ui:VisualElement name="medicine__icon" class="skill__icon strength" />
+                    </ui:VisualElement>
+                    <ui:Label text="Medicine" display-tooltip-when-elided="true" name="medicine__name" class="label left-aligned skill__name label-regular" />
+                </ui:VisualElement>
+                <ui:VisualElement name="medicine__progress" class="skill__progress">
+                    <ui:VisualElement name="medicine__favorite-icon" class="skill__favorite-icon" />
+                    <ui:ProgressBar name="medicine__progress-bar" high-value="100" title="100/100" class="skill__progress-bar">
+                        <ui:VisualElement name="background" class="background" />
+                    </ui:ProgressBar>
+                    <ui:Label text="1" name="medicine__level" class="label skill__level right-aligned" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="agriculture" class="skill">
+                <ui:VisualElement name="agriculture__nomination" class="skill__nomination">
+                    <ui:VisualElement name="agriculture__icon-place" class="skill__icon-place">
+                        <ui:VisualElement name="agriculture__icon" class="skill__icon strength" />  
+                    </ui:VisualElement>
+                    <ui:Label text="Agriculture" display-tooltip-when-elided="true" name="agriculture__name" class="label left-aligned skill__name label-regular" />
+                </ui:VisualElement>
+                <ui:VisualElement name="agriculture__progress" class="skill__progress">
+                    <ui:VisualElement name="agriculture__favorite-icon" class="skill__favorite-icon" />
+                    <ui:ProgressBar name="agriculture__progress-bar" high-value="100" title="100/100" class="skill__progress-bar">
+                        <ui:VisualElement name="background" class="background" />
+                    </ui:ProgressBar>
+                    <ui:Label text="1" name="agriculture__level" class="label skill__level right-aligned" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="animal-handling" class="skill">
+                <ui:VisualElement name="animal-handling__nomination" class="skill__nomination">
+                    <ui:VisualElement name="animal-handling__icon-place" class="skill__icon-place">
+                        <ui:VisualElement name="animal-handling__icon" class="skill__icon strength  " />
+                    </ui:VisualElement>
+                    <ui:Label text="Animal Handling" display-tooltip-when-elided="true" name="animal-handling__name" class="label left-aligned skill__name label-regular" />
+                </ui:VisualElement>
+                <ui:VisualElement name="animal-handling__progress" class="skill__progress">
+                    <ui:VisualElement name="animal-handling__favorite-icon" class="skill__favorite-icon" />
+                    <ui:ProgressBar name="animal-handling__progress-bar" high-value="100" title="100/100" class="skill__progress-bar">
+                        <ui:VisualElement name="background" class="background" />
+                    </ui:ProgressBar>
+                    <ui:Label text="1" name="animal-handling__level" class="label skill__level right-aligned" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

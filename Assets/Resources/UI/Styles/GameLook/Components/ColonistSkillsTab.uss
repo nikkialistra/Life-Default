@@ -1,0 +1,90 @@
+.skills {
+    height: 515px;
+    justify-content: space-between;
+}
+
+.skill {
+    width: 260px;
+    height: 32px;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.disabled {
+    opacity: 0.3;
+}
+
+.skill__nomination {
+    width: 136px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.skill__progress {
+    width: 119px;
+    flex-direction: row;
+    align-items: center;
+}
+
+.skill__icon-place {
+    width: 24px;
+    height: 24px;
+    background-color: rgb(58, 60, 64);
+    border-radius: 2px;
+}
+
+.skill__icon {
+    width: 24px;
+    height: 24px;
+}
+
+.skill__name {
+    width: 107px;
+    height: 32px;
+    white-space: normal;
+}
+
+.skill__favorite-icon {
+    width: 24px;
+    height: 18px;
+}
+
+.skill__progress-bar {
+    width: 66px;
+    height: 16px;
+}
+
+.skill__progress-bar .unity-progress-bar__background {
+    border-width: 0;
+    background-color: rgba(255, 255, 255, 0);
+}
+
+.skill__progress-bar .background {
+    position: absolute;
+    width: 66px;
+    height: 16px;
+    background-image: resource('UI/Sprites/ColonistInfo/SkillBar');
+}
+
+.skill__progress-bar .unity-progress-bar__progress {
+    height: 12px;
+    margin: 3px 2px 1px 2px;
+    border-radius: 1px;
+}
+
+.bar.red .unity-progress-bar__progress {
+    background-color: rgb(37, 106, 115);
+}
+
+.skill__progress-bar .unity-label {
+    display: none;
+}
+
+.skill__level {
+    width: 20px;
+}
+
+.strength {
+    background-image: resource('UI/Sprites/Icons/ColonistInfo/Skills/IconStrength');
+}

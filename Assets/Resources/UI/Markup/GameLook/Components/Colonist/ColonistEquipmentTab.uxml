@@ -1,0 +1,84 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Resources/UI/Styles/Common/Text.uss?fileID=7433441132597879392&amp;guid=158167a2c7cf4f5292d78d1ed2683cfc&amp;type=3#Text" />
+    <Style src="project://database/Assets/Resources/UI/Styles/GameLook/Components/ColonistEquipmentTab.uss?fileID=7433441132597879392&amp;guid=baeee912499c1bf4793f296b27f0c8c0&amp;type=3#ColonistEquipmentTab" />
+    <Style src="project://database/Assets/Resources/UI/Styles/GameLook/Components/ColonistPanel.uss?fileID=7433441132597879392&amp;guid=57c3dde8601441008a8e9f518deebeb1&amp;type=3#ColonistPanel" />
+    <ui:VisualElement name="colonist-equipment-tab" picking-mode="Ignore" class="colonist-panel">
+        <ui:VisualElement name="state-stats" class="stats bottom-indent">
+            <ui:Label text="State" display-tooltip-when-elided="true" name="state-stats-header" class="label label-general left-aligned label-indented-big margin-bottom" />
+            <ui:VisualElement name="state-stats-list">
+                <ui:VisualElement name="mass-carried" class="stat stat-odd">
+                    <ui:Label text="Mass Carried:" display-tooltip-when-elided="true" name="mass-carried__name" class="label left-aligned stat__name" />
+                    <ui:Label text="10%" display-tooltip-when-elided="true" name="mass-carried__value" class="label stat__value right-aligned" />
+                </ui:VisualElement>
+                <ui:VisualElement name="comfortable-temperature" class="stat">
+                    <ui:Label text="Comfortable Temperature:" display-tooltip-when-elided="true" name="comfortable-temperature__name" class="label left-aligned stat__name" />
+                    <ui:Label text="100%" display-tooltip-when-elided="true" name="comfortable-temperature__value" class="label stat__value right-aligned" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="outfit" class="bottom-indent outfit">
+            <ui:Label text="Outfit" display-tooltip-when-elided="true" name="outfit-header" class="label label-general left-aligned label-indented-big margin-bottom" />
+            <ui:VisualElement name="outfit-columns" class="outfit-columns">
+                <ui:VisualElement name="armor" class="outfit-column first-column">
+                    <ui:Label text="Armor" display-tooltip-when-elided="true" name="armor-header" class="label left-aligned label-regular column-header" />
+                    <ui:VisualElement name="head-slot" class="slot">
+                        <ui:VisualElement name="head-slot__icon" class="slot__icon" />
+                        <ui:Label text="Head" display-tooltip-when-elided="true" name="head-slot__name" class="label slot__name" />
+                    </ui:VisualElement>
+                    <ui:VisualElement name="body-slot" class="slot">
+                        <ui:VisualElement name="body-slot__icon" class="slot__icon" />
+                        <ui:Label text="Body" display-tooltip-when-elided="true" name="body-slot__name" class="label slot__name" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:VisualElement name="weapons" class="outfit-column first-column">
+                    <ui:Label text="Weapons" display-tooltip-when-elided="true" name="weapons-header" class="label left-aligned label-regular column-header" />
+                    <ui:VisualElement name="melee-slot" class="slot">
+                        <ui:VisualElement name="melee-slot__icon" class="slot__icon" />
+                        <ui:Label text="Melee" display-tooltip-when-elided="true" name="melee-slot__name" class="label slot__name" />
+                    </ui:VisualElement>
+                    <ui:VisualElement name="ranged-slot" class="slot">
+                        <ui:VisualElement name="ranged-slot__icon" class="slot__icon" />
+                        <ui:Label text="Ranged" display-tooltip-when-elided="true" name="ranged-slot__name" class="label slot__name" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="inventory" class="inventory bottom-indent">
+            <ui:Label text="Inventory" display-tooltip-when-elided="true" name="inventory-header" class="label label-general left-aligned label-indented-big margin-bottom" />
+            <ui:VisualElement name="inventory-slots" class="inventory-slots">
+                <ui:VisualElement name="first-slot" class="slot">
+                    <ui:VisualElement name="first-slot__icon" class="slot__icon" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="military-stats" class="stats">
+            <ui:Label text="Military" display-tooltip-when-elided="true" name="military-stats-header" class="label label-general left-aligned label-indented-big margin-bottom" />
+            <ui:VisualElement name="military-stats-list">
+                <ui:VisualElement name="head-armor" class="stat stat-odd">
+                    <ui:Label text="Head Armor:" display-tooltip-when-elided="true" name="head-armor__name" class="label left-aligned stat__name" />
+                    <ui:Label text="0%" display-tooltip-when-elided="true" name="head-armor__value" class="label stat__value right-aligned" />
+                </ui:VisualElement>
+                <ui:VisualElement name="body-armor" class="stat">
+                    <ui:Label text="Body Armor:" display-tooltip-when-elided="true" name="body-armor__name" class="label left-aligned stat__name" />
+                    <ui:Label text="0%" display-tooltip-when-elided="true" name="body-armor__value" class="label stat__value right-aligned" />
+                </ui:VisualElement>
+                <ui:VisualElement name="movement-speed" class="stat stat-odd">
+                    <ui:Label text="Movement Speed:" display-tooltip-when-elided="true" name="movement-speed__name" class="label left-aligned stat__name" />
+                    <ui:Label text="4 m/s" display-tooltip-when-elided="true" name="movement-speed__value" class="label stat__value right-aligned" />
+                </ui:VisualElement>
+                <ui:VisualElement name="attack-range" class="stat">
+                    <ui:Label text="Attack Range:" display-tooltip-when-elided="true" name="attack-range__name" class="label left-aligned stat__name" />
+                    <ui:Label text="2.2 m" display-tooltip-when-elided="true" name="attack-range__value" class="label stat__value right-aligned" />
+                </ui:VisualElement>
+                <ui:VisualElement name="damage" class="stat stat-odd">
+                    <ui:Label text="Damage:" display-tooltip-when-elided="true" name="damage__name" class="label left-aligned stat__name" />
+                    <ui:Label text="10" display-tooltip-when-elided="true" name="damage__value" class="label stat__value right-aligned" />
+                </ui:VisualElement>
+                <ui:VisualElement name="attack-speed" class="stat">
+                    <ui:Label text="Attack Speed:" display-tooltip-when-elided="true" name="attack-speed__name" class="label left-aligned stat__name" />
+                    <ui:Label text="2.4 s" display-tooltip-when-elided="true" name="attack-speed__value" class="label stat__value right-aligned" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

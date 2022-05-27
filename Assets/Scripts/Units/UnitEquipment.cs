@@ -55,7 +55,7 @@ namespace Units
 
             var instrument = _unitInventory.ChooseInstrumentFor(resourceType);
 
-            Instantiate(instrument, _handSlot.transform);
+            Instantiate(instrument.InstrumentGameObject, _handSlot.transform);
 
             HoldingSomething = true;
 

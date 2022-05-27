@@ -1,14 +1,3 @@
-.colonist-info-tab {
-    width: 280px;
-    height: 530px;
-    background-color: rgba(34, 36, 38, 0.9);
-    border-radius: 5px;
-    justify-content: flex-start;
-    align-items: center;
-    padding-top: 8px;
-    padding-bottom: 8px;
-}
-
 .traits {
     width: 260px;
     margin-bottom: 20px;

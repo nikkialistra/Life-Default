@@ -1,0 +1,47 @@
+.header {
+    width: 280px;
+}
+
+.outfit-columns {
+    width: 280px;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.outfit-column {
+    width: 96px
+}
+
+.first-column {
+    margin-right: 24px;
+}
+
+.column-header {
+    margin-bottom: 5px;
+}
+
+.slot {
+    width: 96px;
+    height: 42px;
+    flex-direction: row;
+    margin-bottom: 10px;
+}
+
+.slot__icon {
+    width: 42px;
+    height: 42px;
+    background-image: resource('UI/Sprites/ColonistInfo/ColonistSlot');
+}
+
+.slot__name {
+    width: 54px;
+}
+
+.inventory {
+    width: 280px;
+    align-items: center;
+}
+
+.inventory-slots {
+    width: 216px;
+}

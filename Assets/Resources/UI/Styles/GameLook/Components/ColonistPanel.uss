@@ -1,4 +1,4 @@
-﻿.colonist-stats-tab {
+﻿.colonist-panel {
     width: 280px;
     height: 530px;
     background-color: rgba(34, 36, 38, 0.9);
@@ -18,13 +18,10 @@
     margin-bottom: 10px;
 }
 
-.military-stats-header {
-    margin-bottom: 5px;
-}
-
 .stat {
     width: 270px;
     height: 26px;
+    margin-left: 5px;
     flex-direction: row;
     justify-content: center;
 }
@@ -41,4 +38,3 @@
 .stat__value {
     width: 60px
 }
-

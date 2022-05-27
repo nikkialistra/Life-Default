@@ -17,9 +17,9 @@ namespace Units
         {
             foreach (var item in GetItems())
             {
-                if (item.TryGetInstrument(out var instrument))
+                if (item.TryGetInstrument(out var instrument) && instrument.CanExtract(resourceType))
                 {
-                    return instrument.CanExtract(resourceType);
+                    return true;
                 }
             }
 

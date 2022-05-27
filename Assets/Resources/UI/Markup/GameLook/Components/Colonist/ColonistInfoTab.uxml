@@ -1,7 +1,8 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/Resources/UI/Styles/Common/Text.uss?fileID=7433441132597879392&amp;guid=158167a2c7cf4f5292d78d1ed2683cfc&amp;type=3#Text" />
     <Style src="project://database/Assets/Resources/UI/Styles/GameLook/Components/ColonistInfoTab.uss?fileID=7433441132597879392&amp;guid=1b3f16f25fa958346b381b5b99e42eda&amp;type=3#ColonistInfoTab" />
-    <ui:VisualElement name="colonist-info-tab" picking-mode="Ignore" class="colonist-info-tab">
+    <Style src="project://database/Assets/Resources/UI/Styles/GameLook/Components/ColonistPanel.uss?fileID=7433441132597879392&amp;guid=57c3dde8601441008a8e9f518deebeb1&amp;type=3#ColonistPanel" />
+    <ui:VisualElement name="colonist-info-tab" picking-mode="Ignore" class="colonist-panel">
         <ui:VisualElement name="traits" class="traits">
             <ui:Label text="Traits:" display-tooltip-when-elided="true" name="traits-header" class="label label-general left-aligned traits-header label-indented" />
             <ui:VisualElement name="traits__list" class="traits__list">

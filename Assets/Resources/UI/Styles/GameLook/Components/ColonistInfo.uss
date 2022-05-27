@@ -2,18 +2,6 @@
     flex-direction: row;
 }
 
-.colonist-info {
-    width: 280px;
-    height: 530px;
-    background-color: rgba(34, 36, 38, 0.9);
-    border-radius: 5px;
-    justify-content: flex-start;
-    align-items: center;
-    margin-left: 10px;
-    padding-top: 8px;
-    padding-bottom: 8px;
-}
-
 .multiple {
     height: 160px;
     justify-content: space-between;

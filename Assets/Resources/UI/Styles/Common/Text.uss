@@ -17,6 +17,11 @@
     text-shadow: 0.8px 0.8px 0 rgba(0, 0, 0, 0.4);
 }
 
+.label-regular {
+    font-size: 14px;
+    text-shadow: 0.8px 0.8px 0 rgba(0, 0, 0, 0.4);
+}
+
 .label-general {
     font-size: 18px;
     -unity-text-align: middle-left;
@@ -77,6 +82,14 @@
 
 .label-indented-big {
     margin-left: 10px;
+}
+
+.margin-bottom {
+    margin-bottom: 5px;
+}
+
+.margin-bottom-big {
+    margin-bottom: 10px;
 }
 
 .no-shadow {

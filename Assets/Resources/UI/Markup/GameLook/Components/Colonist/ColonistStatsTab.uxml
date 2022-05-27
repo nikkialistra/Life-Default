@@ -1,66 +1,66 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/Resources/UI/Styles/Common/Text.uss?fileID=7433441132597879392&amp;guid=158167a2c7cf4f5292d78d1ed2683cfc&amp;type=3#Text" />
-    <Style src="project://database/Assets/Resources/UI/Styles/GameLook/Components/ColonistStatsTab.uss?fileID=7433441132597879392&amp;guid=91708185b53e47b3817467a23423a0fd&amp;type=3#ColonistStatsTab" />
-    <ui:VisualElement name="colonist-stats-tab" picking-mode="Ignore" class="colonist-stats-tab">
+    <Style src="project://database/Assets/Resources/UI/Styles/GameLook/Components/ColonistPanel.uss?fileID=7433441132597879392&amp;guid=57c3dde8601441008a8e9f518deebeb1&amp;type=3#ColonistPanel" />
+    <ui:VisualElement name="colonist-stats-tab" picking-mode="Ignore" class="colonist-panel">
         <ui:VisualElement name="military-stats" class="stats bottom-indent">
-            <ui:Label text="Military" display-tooltip-when-elided="true" name="military-stats-header" class="label label-general left-aligned military-stats-header label-indented-big" />
+            <ui:Label text="Military" display-tooltip-when-elided="true" name="military-stats-header" class="label label-general left-aligned label-indented-big margin-bottom" />
             <ui:VisualElement name="military-stats-list">
-                <ui:VisualElement name="evade-chance" class="stat">
-                    <ui:Label text="Evade Chance:" display-tooltip-when-elided="true" name="evade-chance__name" class="label trait__name left-aligned stat__name" />
-                    <ui:Label text="10%" display-tooltip-when-elided="true" name="evade-chance__value" class="label trait__name stat__value right-aligned" />
+                <ui:VisualElement name="evade-chance" class="stat stat-odd">
+                    <ui:Label text="Evade Chance:" display-tooltip-when-elided="true" name="evade-chance__name" class="label left-aligned stat__name" />
+                    <ui:Label text="10%" display-tooltip-when-elided="true" name="evade-chance__value" class="label stat__value right-aligned" />
                 </ui:VisualElement>
-                <ui:VisualElement name="melee-damage-multiplier" class="stat stat-odd">
-                    <ui:Label text="Melee Damage Multiplier:" display-tooltip-when-elided="true" name="melee-damage-multiplier__name" class="label trait__name left-aligned stat__name" />
-                    <ui:Label text="100%" display-tooltip-when-elided="true" name="melee-damage-multiplier__value" class="label trait__name stat__value right-aligned" />
+                <ui:VisualElement name="melee-damage-multiplier" class="stat">
+                    <ui:Label text="Melee Damage Multiplier:" display-tooltip-when-elided="true" name="melee-damage-multiplier__name" class="label left-aligned stat__name" />
+                    <ui:Label text="100%" display-tooltip-when-elided="true" name="melee-damage-multiplier__value" class="label stat__value right-aligned" />
                 </ui:VisualElement>
-                <ui:VisualElement name="melee-attack-speed" class="stat">
-                    <ui:Label text="Melee Attack Speed:" display-tooltip-when-elided="true" name="melee-attack-speed__name" class="label trait__name left-aligned stat__name" />
-                    <ui:Label text="2.4s" display-tooltip-when-elided="true" name="melee-attack-speed__value" class="label trait__name stat__value right-aligned" />
+                <ui:VisualElement name="melee-attack-speed" class="stat stat-odd">
+                    <ui:Label text="Melee Attack Speed:" display-tooltip-when-elided="true" name="melee-attack-speed__name" class="label left-aligned stat__name" />
+                    <ui:Label text="2.4 s" display-tooltip-when-elided="true" name="melee-attack-speed__value" class="label stat__value right-aligned" />
                 </ui:VisualElement>
-                <ui:VisualElement name="melee-critical-chance" class="stat stat-odd">
-                    <ui:Label text="Melee Critical Chance:" display-tooltip-when-elided="true" name="melee-critical-chance__name" class="label trait__name left-aligned stat__name" />
-                    <ui:Label text="10%" display-tooltip-when-elided="true" name="melee-critical-chance__value" class="label trait__name stat__value right-aligned" />
+                <ui:VisualElement name="melee-critical-chance" class="stat">
+                    <ui:Label text="Melee Critical Chance:" display-tooltip-when-elided="true" name="melee-critical-chance__name" class="label left-aligned stat__name" />
+                    <ui:Label text="10%" display-tooltip-when-elided="true" name="melee-critical-chance__value" class="label stat__value right-aligned" />
                 </ui:VisualElement>
-                <ui:VisualElement name="melee-attack-range" class="stat">
-                    <ui:Label text="Melee Attack Range:" display-tooltip-when-elided="true" name="melee-attack-range__name" class="label trait__name left-aligned stat__name" />
-                    <ui:Label text="2.2m" display-tooltip-when-elided="true" name="melee-attack-range__value" class="label trait__name stat__value right-aligned" />
+                <ui:VisualElement name="melee-attack-range" class="stat stat-odd">
+                    <ui:Label text="Melee Attack Range:" display-tooltip-when-elided="true" name="melee-attack-range__name" class="label left-aligned stat__name" />
+                    <ui:Label text="2.2 m" display-tooltip-when-elided="true" name="melee-attack-range__value" class="label stat__value right-aligned" />
                 </ui:VisualElement>
-                <ui:VisualElement name="melee-accuracy" class="stat stat-odd">
-                    <ui:Label text="Melee Accuracy:" display-tooltip-when-elided="true" name="melee-accuracy__name" class="label trait__name left-aligned stat__name" />
-                    <ui:Label text="90%" display-tooltip-when-elided="true" name="melee-accuracy__value" class="label trait__name stat__value right-aligned" />
+                <ui:VisualElement name="melee-accuracy" class="stat">
+                    <ui:Label text="Melee Accuracy:" display-tooltip-when-elided="true" name="melee-accuracy__name" class="label left-aligned stat__name" />
+                    <ui:Label text="90%" display-tooltip-when-elided="true" name="melee-accuracy__value" class="label stat__value right-aligned" />
                 </ui:VisualElement>
-                <ui:VisualElement name="ranged-damage-multiplier" class="stat">
-                    <ui:Label text="Ranged Damage Multiplier:" display-tooltip-when-elided="true" name="ranged-damage-multiplier__name" class="label trait__name left-aligned stat__name" />
-                    <ui:Label text="100%" display-tooltip-when-elided="true" name="ranged-damage-multiplier__value" class="label trait__name stat__value right-aligned" />
+                <ui:VisualElement name="ranged-damage-multiplier" class="stat stat-odd">
+                    <ui:Label text="Ranged Damage Multiplier:" display-tooltip-when-elided="true" name="ranged-damage-multiplier__name" class="label left-aligned stat__name" />
+                    <ui:Label text="100%" display-tooltip-when-elided="true" name="ranged-damage-multiplier__value" class="label stat__value right-aligned" />
                 </ui:VisualElement>
-                <ui:VisualElement name="ranged-attack-speed" class="stat stat-odd">
-                    <ui:Label text="Ranged Attack Speed:" display-tooltip-when-elided="true" name="ranged-attack-speed__name" class="label trait__name left-aligned stat__name" />
-                    <ui:Label text="2.4s" display-tooltip-when-elided="true" name="ranged-attack-speed__value" class="label trait__name stat__value right-aligned" />
+                <ui:VisualElement name="ranged-attack-speed" class="stat">
+                    <ui:Label text="Ranged Attack Speed:" display-tooltip-when-elided="true" name="ranged-attack-speed__name" class="label left-aligned stat__name" />
+                    <ui:Label text="2.4 s" display-tooltip-when-elided="true" name="ranged-attack-speed__value" class="label stat__value right-aligned" />
                 </ui:VisualElement>
-                <ui:VisualElement name="ranged-critical-chance" class="stat">
-                    <ui:Label text="Ranged Critical Chance:" display-tooltip-when-elided="true" name="ranged-critical-chance__name" class="label trait__name left-aligned stat__name" />
-                    <ui:Label text="10%" display-tooltip-when-elided="true" name="ranged-critical-chance__value" class="label trait__name stat__value right-aligned" />
+                <ui:VisualElement name="ranged-critical-chance" class="stat stat-odd">
+                    <ui:Label text="Ranged Critical Chance:" display-tooltip-when-elided="true" name="ranged-critical-chance__name" class="label left-aligned stat__name" />
+                    <ui:Label text="10%" display-tooltip-when-elided="true" name="ranged-critical-chance__value" class="label stat__value right-aligned" />
                 </ui:VisualElement>
-                <ui:VisualElement name="ranged-attack-range" class="stat stat-odd">
-                    <ui:Label text="Ranged Attack Range:" display-tooltip-when-elided="true" name="ranged-attack-range__name" class="label trait__name left-aligned stat__name" />
-                    <ui:Label text="2.2m" display-tooltip-when-elided="true" name="ranged-attack-range__value" class="label trait__name stat__value right-aligned" />
+                <ui:VisualElement name="ranged-attack-range" class="stat">
+                    <ui:Label text="Ranged Attack Range:" display-tooltip-when-elided="true" name="ranged-attack-range__name" class="label left-aligned stat__name" />
+                    <ui:Label text="2.2 m" display-tooltip-when-elided="true" name="ranged-attack-range__value" class="label stat__value right-aligned" />
                 </ui:VisualElement>
-                <ui:VisualElement name="ranged-accuracy" class="stat">
-                    <ui:Label text="Ranged Accuracy:" display-tooltip-when-elided="true" name="ranged-accuracy__name" class="label trait__name left-aligned stat__name" />
-                    <ui:Label text="90%" display-tooltip-when-elided="true" name="ranged-accuracy__value" class="label trait__name stat__value right-aligned" />
+                <ui:VisualElement name="ranged-accuracy" class="stat stat-odd">
+                    <ui:Label text="Ranged Accuracy:" display-tooltip-when-elided="true" name="ranged-accuracy__name" class="label left-aligned stat__name" />
+                    <ui:Label text="90%" display-tooltip-when-elided="true" name="ranged-accuracy__value" class="label stat__value right-aligned" />
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement name="task-related-stats" class="stats">
-            <ui:Label text="Task Related" display-tooltip-when-elided="true" name="task-related-stats-header" class="label label-general left-aligned military-stats-header label-indented-big" />
+            <ui:Label text="Task Related" display-tooltip-when-elided="true" name="task-related-stats-header" class="label label-general left-aligned label-indented-big margin-bottom" />
             <ui:VisualElement name="task-related-stats-list">
                 <ui:VisualElement name="resource-destruction-speed" class="stat stat-odd">
-                    <ui:Label text="Resource Destruction Speed:" display-tooltip-when-elided="true" name="resource-destruction-speed__name" class="label trait__name left-aligned stat__name" />
-                    <ui:Label text="5 / s" display-tooltip-when-elided="true" name="resource-destruction-speed__value" class="label trait__name stat__value right-aligned" />
+                    <ui:Label text="Resource Destruction Speed:" display-tooltip-when-elided="true" name="resource-destruction-speed__name" class="label left-aligned stat__name" />
+                    <ui:Label text="5 / s" display-tooltip-when-elided="true" name="resource-destruction-speed__value" class="label stat__value right-aligned" />
                 </ui:VisualElement>
                 <ui:VisualElement name="resource-extraction-efficiency" class="stat">
-                    <ui:Label text="Resource Extraction Efficiency:" display-tooltip-when-elided="true" name="resource-extraction-efficiency__name" class="label trait__name left-aligned stat__name" />
-                    <ui:Label text="86%" display-tooltip-when-elided="true" name="resource-extraction-efficiency__value" class="label trait__name stat__value right-aligned" />
+                    <ui:Label text="Resource Extraction Efficiency:" display-tooltip-when-elided="true" name="resource-extraction-efficiency__name" class="label left-aligned stat__name" />
+                    <ui:Label text="86%" display-tooltip-when-elided="true" name="resource-extraction-efficiency__value" class="label stat__value right-aligned" />
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>

@@ -2,7 +2,9 @@
 {
     public enum ItemType
     {
+        Weapon,
         Instrument,
-        Thing
+        Property,
+        Consumable
     }
 }

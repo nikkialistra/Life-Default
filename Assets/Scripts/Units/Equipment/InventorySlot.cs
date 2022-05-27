@@ -1,5 +1,6 @@
 ﻿using System;
 using Units.Enums;
+using Units.Equipment.Items;
 using UnityEngine;
 
 namespace Units.Equipment
@@ -8,10 +9,10 @@ namespace Units.Equipment
     public class InventorySlot
     {
         [SerializeField] private ItemType _itemType;
-        [SerializeField] private Item _item;
+        [SerializeReference] private IItem _item;
 
         public ItemType ItemType => _itemType;
-        public Item Item => _item;
+        public IItem Item => _item;
 
         public bool HasItem => _item != null;
     }

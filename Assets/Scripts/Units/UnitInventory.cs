@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using ResourceManagement;
 using Units.Equipment;
+using Units.Equipment.Items;
 using UnityEngine;
 
 namespace Units
@@ -29,7 +30,7 @@ namespace Units
             return _slots[index].HasItem;
         }
 
-        public Item GetItemAt(int index)
+        public IItem GetItemAt(int index)
         {
             return HasItemAt(index) ? _slots[index].Item : null;
         }

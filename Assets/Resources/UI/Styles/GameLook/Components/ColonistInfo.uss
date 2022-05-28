@@ -314,7 +314,7 @@
     margin-top: 2px;
 }
 
-.actions {
+.activities {
     width: 260px;
     height: 58px;
     flex-direction: row;
@@ -324,7 +324,7 @@
     margin-bottom: 7px;
 }
 
-.actions__content {
+.activities__content {
     width: 185px;
     height: 58px;
     justify-content: space-between;
@@ -334,7 +334,7 @@
     height: 25px;
 }
 
-.current-action {
+.current-activity {
     width: 190px;
     height: 32px;
     padding-left: 8px;
@@ -342,13 +342,13 @@
     flex-direction: row;
 }
 
-.current-action__icon {
+.current-activity__icon {
     width: 32px;
     height: 32px;
     margin-right: 3px;
 }
 
-.action-type {
+.activity-type {
     width: 52px;
     height: 52px;
     margin-right: 1px;
@@ -357,15 +357,15 @@
     align-items: center;
 }
 
-.action-type:hover {
+.activity-type:hover {
     background-image: resource('UI/Sprites/ColonistInfo/Buttons/BigButton_Hovered');
 }
 
-.action-type:active {
+.activity-type:active {
     background-image: resource('UI/Sprites/ColonistInfo/Buttons/BigButton_Pressed');
 }
 
-.action-type__icon {
+.activity-type__icon {
     width: 48px;
     height: 48px;
     background-image: resource('UI/Sprites/Icons/ColonistInfo/IconTasks');

@@ -10,7 +10,7 @@ namespace UI.Game.GameLook.Components.Info.ColonistInfo
     [RequireComponent(typeof(ColonistDetailTabs))]
     [RequireComponent(typeof(ColonistIndicators))]
     [RequireComponent(typeof(ColonistHeader))]
-    [RequireComponent(typeof(ColonistActions))]
+    [RequireComponent(typeof(ColonistActivityPanel))]
     [RequireComponent(typeof(CommandsView))]
     public class ColonistInfoView : MonoBehaviour
     {
@@ -24,7 +24,7 @@ namespace UI.Game.GameLook.Components.Info.ColonistInfo
         private ColonistDetailTabs _colonistDetailTabs;
         private ColonistHeader _colonistHeader;
         private ColonistIndicators _colonistIndicators;
-        private ColonistActions _colonistActions;
+        private ColonistActivityPanel _colonistActivityPanel;
         private ColonistStatuses _colonistStatuses;
 
         private VisualElement _picture;
@@ -40,7 +40,7 @@ namespace UI.Game.GameLook.Components.Info.ColonistInfo
             _colonistDetailTabs = GetComponent<ColonistDetailTabs>();
             _colonistIndicators = GetComponent<ColonistIndicators>();
             _colonistHeader = GetComponent<ColonistHeader>();
-            _colonistActions = GetComponent<ColonistActions>();
+            _colonistActivityPanel = GetComponent<ColonistActivityPanel>();
             _commandsView = GetComponent<CommandsView>();
 
             _tree = _asset.CloneTree();
@@ -57,7 +57,7 @@ namespace UI.Game.GameLook.Components.Info.ColonistInfo
         private void OnEnable()
         {
             _colonistDetailTabs.BindSelf();
-            _colonistActions.BindSelf();
+            _colonistActivityPanel.BindSelf();
         }
 
         private void OnDisable()
@@ -65,7 +65,7 @@ namespace UI.Game.GameLook.Components.Info.ColonistInfo
             HideSelf();
             
             _colonistDetailTabs.UnbindSelf();
-            _colonistActions.UnbindSelf();
+            _colonistActivityPanel.UnbindSelf();
         }
 
         private void BindElements()
@@ -73,7 +73,7 @@ namespace UI.Game.GameLook.Components.Info.ColonistInfo
             _colonistDetailTabs.Initialize(_tree);
             _colonistHeader.Initialize(_tree);
             _colonistIndicators.Initialize(_tree);
-            _colonistActions.Initialize(_tree);
+            _colonistActivityPanel.Initialize(_tree);
             _colonistStatuses = new ColonistStatuses(_tree);
 
             _picture = _tree.Q<VisualElement>("picture");
@@ -120,7 +120,7 @@ namespace UI.Game.GameLook.Components.Info.ColonistInfo
             FillInProperties(colonist);
 
             _colonistDetailTabs.FillIn(colonist);
-            _colonistActions.FillIn(colonist);
+            _colonistActivityPanel.FillIn(colonist);
         }
 
         private void HidePanel()

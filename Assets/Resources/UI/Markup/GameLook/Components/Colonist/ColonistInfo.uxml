@@ -110,16 +110,16 @@
                     </ui:VisualElement>
                 </ui:VisualElement>
             </ui:VisualElement>
-            <ui:VisualElement name="actions" class="actions">
-                <ui:VisualElement name="actions__content" class="actions__content">
-                    <ui:Label text="Current Action" display-tooltip-when-elided="true" name="current-action__label" class="label label-general head-label label-indented" />
-                    <ui:VisualElement name="current-action" class="current-action">
-                        <ui:VisualElement name="current-action__icon" class="nomination__icon current-action__icon" style="background-image: resource(&apos;UI/Sprites/Icons/ColonistInfo/Skills/IconStrength&apos;); max-width: 32px; max-height: 32px;" />
-                        <ui:Label text="Cutting - Wood" display-tooltip-when-elided="true" name="current-action__text" class="label" />
+            <ui:VisualElement name="activities" class="activities">
+                <ui:VisualElement name="activities__content" class="activities__content">
+                    <ui:Label text="Current Activity" display-tooltip-when-elided="true" name="current-activity__label" class="label label-general head-label label-indented" />
+                    <ui:VisualElement name="current-activity" class="current-activity">
+                        <ui:VisualElement name="current-activity__icon" class="nomination__icon current-activity__icon" style="background-image: resource(&apos;UI/Sprites/Icons/ColonistInfo/Skills/IconStrength&apos;); max-width: 32px; max-height: 32px;" />
+                        <ui:Label text="Cutting - Wood" display-tooltip-when-elided="true" name="current-activity__text" class="label" />
                     </ui:VisualElement>
                 </ui:VisualElement>
-                <ui:Button name="action-type" class="button action-type">
-                    <ui:VisualElement name="action-type__icon" class="action-type__icon" />
+                <ui:Button name="activity-type" class="button activity-type">
+                    <ui:VisualElement name="activity-type__icon" class="activity-type__icon" />
                 </ui:Button>
                 <ui:VisualElement name="weapon-types" class="weapon-types">
                     <ui:Button name="melee" class="button weapon-type">

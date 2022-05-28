@@ -9,24 +9,21 @@ using Zenject;
 
 namespace UI.Game.GameLook.Components.Info.ColonistInfo
 {
-    public class ColonistActions : MonoBehaviour
+    public class ColonistActivityPanel : MonoBehaviour
     {
         [Required]
         [SerializeField] private Sprite _iconTasks;
         [Required]
         [SerializeField] private Sprite _iconOrders;
         
-        private VisualElement _currentActionIcon;
-        private Label _currentAction;
+        private VisualElement _currentActivityIcon;
+        private Label _currentActivity;
 
-        private Button _actionType;
-        private VisualElement _actionTypeIcon;
+        private Button _activityType;
+        private VisualElement _activityTypeIcon;
         
         private Button _melee;
         private Button _ranged;
-        
-        private VisualElement _meleeIcon;
-        private VisualElement _rangedIcon;
 
         private bool _isOrdering;
 
@@ -44,17 +41,14 @@ namespace UI.Game.GameLook.Components.Info.ColonistInfo
 
         public void Initialize(VisualElement tree)
         {
-            _currentActionIcon = tree.Q<VisualElement>("current-action__icon");
-            _currentAction = tree.Q<Label>("current-action__text");
+            _currentActivityIcon = tree.Q<VisualElement>("current-activity__icon");
+            _currentActivity = tree.Q<Label>("current-activity__text");
 
-            _actionType = tree.Q<Button>("action-type");
-            _actionTypeIcon = tree.Q<VisualElement>("action-type__icon");
+            _activityType = tree.Q<Button>("activity-type");
+            _activityTypeIcon = tree.Q<VisualElement>("activity-type__icon");
 
             _melee = tree.Q<Button>("melee");
             _ranged = tree.Q<Button>("ranged");
-            
-            _meleeIcon = tree.Q<VisualElement>("melee__icon");
-            _rangedIcon = tree.Q<VisualElement>("ranged__icon");
         }
 
         public void FillIn(Colonist colonist)
@@ -64,7 +58,7 @@ namespace UI.Game.GameLook.Components.Info.ColonistInfo
 
         public void BindSelf()
         {
-            _actionType.clicked += ToggleActionType;
+            _activityType.clicked += ToggleActivityType;
 
             _melee.clicked += ChooseMelee;
             _ranged.clicked += ChooseRanged;
@@ -72,13 +66,13 @@ namespace UI.Game.GameLook.Components.Info.ColonistInfo
 
         public void UnbindSelf()
         {
-            _actionType.clicked -= ToggleActionType;
+            _activityType.clicked -= ToggleActivityType;
             
             _melee.clicked -= ChooseMelee;
             _ranged.clicked -= ChooseRanged;
         }
 
-        private void ToggleActionType()
+        private void ToggleActivityType()
         {
             _isOrdering = !_isOrdering;
 
@@ -116,20 +110,20 @@ namespace UI.Game.GameLook.Components.Info.ColonistInfo
 
         private void SwitchToOrdering()
         {
-            _actionTypeIcon.style.backgroundImage = new StyleBackground(_iconOrders);
+            _activityTypeIcon.style.backgroundImage = new StyleBackground(_iconOrders);
 
-            _currentActionIcon.style.backgroundImage =
+            _currentActivityIcon.style.backgroundImage =
                 new StyleBackground(_actionIconsRegistry[ActionType.FollowingOrders]);
-            _currentAction.text = ActionType.FollowingOrders.GetString();
+            _currentActivity.text = ActionType.FollowingOrders.GetString();
         }
 
         private void SwitchToTasking()
         {
-            _actionTypeIcon.style.backgroundImage = new StyleBackground(_iconTasks);
+            _activityTypeIcon.style.backgroundImage = new StyleBackground(_iconTasks);
             
-            _currentActionIcon.style.backgroundImage =
+            _currentActivityIcon.style.backgroundImage =
                 new StyleBackground(_actionIconsRegistry[ActionType.Relaxing]);
-            _currentAction.text = ActionType.Relaxing.GetString();
+            _currentActivity.text = ActionType.Relaxing.GetString();
         }
 
         private void UpdateWeaponType()

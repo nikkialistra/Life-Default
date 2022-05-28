@@ -16,7 +16,7 @@ namespace Colonists.Skills
         [Range(0, MaxLevel)]
         [SerializeField] private int _level;
         [Range(0, ProgressRange)]
-        [SerializeField] private int _progress;
+        [SerializeField] private float _progress;
 
         private const int MaxLevel = 9;
         private const int ProgressRange = 1000;
@@ -36,9 +36,9 @@ namespace Colonists.Skills
         public FavoriteLevel FavoriteLevel => _favoriteLevel;
 
         public int Level => _level;
-        public int Progress => _progress;
+        public int Progress => (int)_progress;
 
-        public void ImproveBy(int quantity)
+        public void ImproveBy(float quantity)
         {
             if (_level == MaxLevel)
             {

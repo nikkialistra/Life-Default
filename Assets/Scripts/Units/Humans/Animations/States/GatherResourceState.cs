@@ -49,12 +49,7 @@ namespace Units.Humans.Animations.States
 
         private void Hit()
         {
-            _colonistGatherer.Hit(GetHitTime());
-        }
-
-        private float GetHitTime()
-        {
-            return _clip.Events[HitEvent].normalizedTime * _clip.Clip.length;
+            _colonistGatherer.Hit(_clip.MaximumDuration);
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using Colonists.Activities;
 using Common;
 using Infrastructure.Settings;
 using ResourceManagement;
@@ -13,6 +14,7 @@ using Zenject;
 namespace Colonists
 {
     [RequireComponent(typeof(ColonistAnimator))]
+    [RequireComponent(typeof(ColonistActivities))]
     public class ColonistGatherer : MonoBehaviour
     {
         [Required]
@@ -34,7 +36,8 @@ namespace Colonists
 
         private Resource _resource;
 
-        private ColonistAnimator _animator;
+        private ColonistAnimator _colonistAnimator;
+        private ColonistActivities _colonistActivities;
 
         private Coroutine _watchForExhaustionCoroutine;
 
@@ -46,9 +49,10 @@ namespace Colonists
 
         private void Awake()
         {
-            _animator = GetComponent<ColonistAnimator>();
+            _colonistAnimator = GetComponent<ColonistAnimator>();
+            _colonistActivities = GetComponent<ColonistActivities>();
         }
-        
+
         public bool IsGathering { get; private set; }
         
         public void BindStats(Stat<ColonistStat> resourceDestructionSpeed, Stat<ColonistStat> resourceExtractionEfficiency)
@@ -93,7 +97,7 @@ namespace Colonists
 
             _resource = resource;
 
-            _animator.Gather(resource);
+            _colonistAnimator.Gather(resource);
 
             _watchForExhaustionCoroutine = StartCoroutine(WatchForExhaustion());
             IsGathering = true;
@@ -101,7 +105,7 @@ namespace Colonists
             return true;
         }
 
-        public void Hit(float passedTime)
+        public void Hit(float duration)
         {
             if (_resource == null || _resource.Exhausted)
             {
@@ -109,7 +113,9 @@ namespace Colonists
                 return;
             }
 
-            var extractedQuantity = _resourceDestructionSpeed * passedTime;
+            _colonistActivities.Advance(ActivityType.Gathering, duration);
+
+            var extractedQuantity = _resourceDestructionSpeed * duration;
 
             _resource.Extract(extractedQuantity, _resourceExtractionEfficiency);
             _resource.Hit(transform.position);
@@ -195,7 +201,7 @@ namespace Colonists
                 _watchForExhaustionCoroutine = null;
             }
             
-            _animator.StopGathering();
+            _colonistAnimator.StopGathering();
         }
 
         private bool EveryResourceHasDistanceInteraction(ResourceInteractionDistanceDictionary distances, ref string errorMessage)

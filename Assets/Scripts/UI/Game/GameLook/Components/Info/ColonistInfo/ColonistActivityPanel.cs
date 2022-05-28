@@ -1,6 +1,7 @@
 ﻿using System;
 using ColonistManagement.Tasking;
 using Colonists;
+using Colonists.Activities;
 using Sirenix.OdinInspector;
 using Units.Enums;
 using UnityEngine;
@@ -54,6 +55,9 @@ namespace UI.Game.GameLook.Components.Info.ColonistInfo
         public void FillIn(Colonist colonist)
         {
             _colonist = colonist;
+            
+            _colonist.ActivityChange -= UpdateActivity;
+            _colonist.ActivityChange += UpdateActivity;
         }
 
         public void BindSelf()
@@ -66,10 +70,17 @@ namespace UI.Game.GameLook.Components.Info.ColonistInfo
 
         public void UnbindSelf()
         {
+            _colonist.ActivityChange -= UpdateActivity;
+            
             _activityType.clicked -= ToggleActivityType;
             
             _melee.clicked -= ChooseMelee;
             _ranged.clicked -= ChooseRanged;
+        }
+
+        private void UpdateActivity(ActivityType activityType)
+        {
+            _currentActivity.text = activityType.ToString();
         }
 
         private void ToggleActivityType()

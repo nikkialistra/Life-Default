@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Colonists.Activities;
 using Colonists.Skills;
 using Common;
 using Infrastructure.Settings;
@@ -16,6 +17,8 @@ namespace Colonists
         [SerializeField] private SkillsDictionary _skills;
 
         public IReadOnlyList<Skill> Skills => _skills.Values.ToList();
+        
+        private float _skillProgressPerSecond;
 
         [Inject]
         public void Construct(SkillsSettings skillsSettings)
@@ -24,9 +27,23 @@ namespace Colonists
             {
                 skill.Initialize(skillsSettings);
             }
+
+            _skillProgressPerSecond = skillsSettings.SkillProgressPerSecond;
+        }
+        
+        public void Advance(ActivityType activityType, float duration)
+        {
+            var skillType = activityType.ToSkillType();
+
+            if (!skillType.HasValue)
+            {
+                return;
+            }
+            
+            ImproveSkill(skillType.Value, duration * _skillProgressPerSecond);
         }
 
-        public void ImproveSkill(SkillType skillType, int quantity)
+        public void ImproveSkill(SkillType skillType, float quantity)
         {
             _skills[skillType].ImproveBy(quantity);
         }

@@ -7,7 +7,7 @@
         Accuracy,
         Athletics,
         Construction,
-        Mining,
+        Gathering,
         Research,
         Cooking,
         Communication,

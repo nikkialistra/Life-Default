@@ -79,19 +79,19 @@
                     <ui:Label text="1" name="construction__level" class="label skill__level right-aligned" />
                 </ui:VisualElement>
             </ui:VisualElement>
-            <ui:VisualElement name="mining" class="skill">
-                <ui:VisualElement name="mining__nomination" class="skill__nomination">
-                    <ui:VisualElement name="mining__icon-place" class="skill__icon-place">
-                        <ui:VisualElement name="mining__icon" class="skill__icon strength" />
+            <ui:VisualElement name="gathering" class="skill">
+                <ui:VisualElement name="gathering__nomination" class="skill__nomination">
+                    <ui:VisualElement name="gathering__icon-place" class="skill__icon-place">
+                        <ui:VisualElement name="gathering__icon" class="skill__icon strength" />
                     </ui:VisualElement>
-                    <ui:Label text="Mining" display-tooltip-when-elided="true" name="mining__name" class="label left-aligned skill__name label-regular" />
+                    <ui:Label text="Gathering" display-tooltip-when-elided="true" name="gathering__name" class="label left-aligned skill__name label-regular" />
                 </ui:VisualElement>
-                <ui:VisualElement name="mining__progress" class="skill__progress">
-                    <ui:VisualElement name="mining__favorite-icon" class="skill__favorite-icon" />
-                    <ui:ProgressBar name="mining__progress-bar" high-value="1000" class="skill__progress-bar">
+                <ui:VisualElement name="gathering__progress" class="skill__progress">
+                    <ui:VisualElement name="gathering__favorite-icon" class="skill__favorite-icon" />
+                    <ui:ProgressBar name="gathering__progress-bar" high-value="1000" class="skill__progress-bar">
                         <ui:VisualElement name="background" class="background" />
                     </ui:ProgressBar>
-                    <ui:Label text="1" name="mining__level" class="label skill__level right-aligned" />
+                    <ui:Label text="1" name="gathering__level" class="label skill__level right-aligned" />
                 </ui:VisualElement>
             </ui:VisualElement>
             <ui:VisualElement name="research" class="skill">

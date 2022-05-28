@@ -1,4 +1,5 @@
 ﻿using BehaviorDesigner.Runtime.Tasks;
+using Colonists.Activities;
 using Units.BehaviorVariables;
 
 namespace Colonists.BehaviorNodes.ResourceGathering
@@ -8,12 +9,18 @@ namespace Colonists.BehaviorNodes.ResourceGathering
         public SharedResource Resource;
 
         public ColonistGatherer ColonistGatherer;
+        public ColonistActivities ColonistActivities;
 
         private bool _gathering;
 
         public override void OnStart()
         {
             _gathering = ColonistGatherer.TryGather(Resource.Value);
+
+            if (_gathering)
+            {
+                ColonistActivities.SwitchTo(ActivityType.Gathering);
+            }
         }
 
         public override TaskStatus OnUpdate()

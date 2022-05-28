@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Colonists.Activities;
 using Colonists.Skills;
 using Common;
 using ResourceManagement;
@@ -25,6 +26,7 @@ namespace Colonists
     [RequireComponent(typeof(ColonistGatherer))]
     [RequireComponent(typeof(ColonistBehavior))]
     [RequireComponent(typeof(ColonistSkills))]
+    [RequireComponent(typeof(ColonistActivities))]
     public class Colonist : MonoBehaviour
     {
         [SerializeField] private string _name;
@@ -49,6 +51,7 @@ namespace Colonists
         private ColonistGatherer _colonistGatherer;
         private ColonistBehavior _colonistBehavior;
         private ColonistSkills _colonistSkills;
+        private ColonistActivities _colonistActivities;
 
         private HumanAppearanceRegistry _humanAppearanceRegistry;
         private HumanNames _humanNames;
@@ -73,6 +76,7 @@ namespace Colonists
             _colonistGatherer = GetComponent<ColonistGatherer>();
             _colonistBehavior = GetComponent<ColonistBehavior>();
             _colonistSkills = GetComponent<ColonistSkills>();
+            _colonistActivities = GetComponent<ColonistActivities>();
         }
 
         public event Action Spawn;
@@ -82,6 +86,7 @@ namespace Colonists
         
         public event Action<string> NameChange;
 
+        public event Action<ActivityType> ActivityChange; 
         public event Action TraitsChange;
         public event Action<Skill> SkillChange;
 
@@ -114,12 +119,16 @@ namespace Colonists
 
         private void OnEnable()
         {
+            _colonistActivities.ActivityChange += OnActivityChange;
+            
             _unit.VitalityChange += OnVitalityChange;
             _unit.Dying += OnDying;
         }
 
         private void OnDisable()
         {
+            _colonistActivities.ActivityChange -= OnActivityChange;
+            
             _unit.VitalityChange -= OnVitalityChange;
             _unit.Dying -= OnDying;
         }
@@ -326,6 +335,11 @@ namespace Colonists
         private void OnVitalityChange()
         {
             VitalityChange?.Invoke();
+        }
+        
+        private void OnActivityChange(ActivityType activityType)
+        {
+            ActivityChange?.Invoke(activityType);
         }
 
         public class Factory : PlaceholderFactory<Colonist> { }

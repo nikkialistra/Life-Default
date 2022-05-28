@@ -1,4 +1,5 @@
-﻿using Colonists;
+﻿using System;
+using Colonists;
 using Colonists.Skills;
 using Sirenix.OdinInspector;
 using UI.Game.GameLook.Components.Info.ColonistInfo;
@@ -12,6 +13,10 @@ namespace UI.Game.GameLook.Components.Info.ColonistTabs
     {
         [Required]
         [SerializeField] private VisualTreeAsset _asset;
+        
+        [Space]
+        [SerializeField] private Sprite _oneStar;
+        [SerializeField] private Sprite _twoStars;
 
         private const int NumberOfSkills = 13;
 
@@ -84,11 +89,9 @@ namespace UI.Game.GameLook.Components.Info.ColonistTabs
 
         private void FillSkills()
         {
-            var traits = _colonist.Traits;
-            
-            for (int i = 0; i < NumberOfSkills; i++)
+            foreach (var skill in _colonist.Skills)
             {
-                
+                FillSkill(skill);
             }
         }
 
@@ -96,8 +99,21 @@ namespace UI.Game.GameLook.Components.Info.ColonistTabs
         {
             var skillElement = _skills[(int)skill.SkillType];
 
+            FillFavoriteIcon(skillElement.FavoriteIcon, skill.FavoriteLevel);
             skillElement.Level.text = skill.Level.ToString();
             skillElement.ProgressBar.value = skill.Progress;
+        }
+
+        private void FillFavoriteIcon(VisualElement favoriteIcon, FavoriteLevel favoriteLevel)
+        {
+            favoriteIcon.style.backgroundImage = new StyleBackground(favoriteLevel switch
+            {
+                FavoriteLevel.None => null,
+                FavoriteLevel.OneStar => _oneStar,
+                FavoriteLevel.TwoStars => _twoStars,
+                
+                _ => throw new ArgumentOutOfRangeException(nameof(favoriteLevel), favoriteLevel, null)
+            });
         }
 
         private void BindElements()

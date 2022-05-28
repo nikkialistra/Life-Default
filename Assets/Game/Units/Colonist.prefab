@@ -409,6 +409,7 @@ GameObject:
   - component: {fileID: 2081193202370333819}
   - component: {fileID: 2721959709741817781}
   - component: {fileID: 9157852220687819738}
+  - component: {fileID: 6790719135267143472}
   - component: {fileID: 6677395056416142622}
   - component: {fileID: 7183938458047524081}
   - component: {fileID: 2308330324105463307}
@@ -729,8 +730,8 @@ MonoBehaviour:
     _baseValue: 100
   _maxRecoverySpeed:
     _baseValue: 2
-  _dodgeChance:
-    _baseValue: 0.1
+  _evadeChance:
+    _baseValue: 0
   _meleeDamageMultiplier:
     _baseValue: 1
   _meleeAttackSpeed:
@@ -907,6 +908,73 @@ MonoBehaviour:
   _traits:
   - {fileID: 11400000, guid: e694c8ec605b4ee46bc507cba25fd432, type: 2}
   - {fileID: 11400000, guid: 23642326c5926d1419b1ec94351a51cc, type: 2}
+--- !u!114 &6790719135267143472
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4193433063631040808}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9cd87a654e354b41b9c58efd189e2663, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _skills:
+    _keys: 000000000100000002000000030000000400000005000000060000000700000008000000090000000a0000000b0000000c000000
+    _values:
+    - _skillType: 0
+      _favoriteLevel: 0
+      _level: 0
+      _progress: 0
+    - _skillType: 1
+      _favoriteLevel: 0
+      _level: 0
+      _progress: 0
+    - _skillType: 2
+      _favoriteLevel: 0
+      _level: 0
+      _progress: 0
+    - _skillType: 3
+      _favoriteLevel: 0
+      _level: 0
+      _progress: 0
+    - _skillType: 4
+      _favoriteLevel: 0
+      _level: 0
+      _progress: 0
+    - _skillType: 5
+      _favoriteLevel: 0
+      _level: 0
+      _progress: 0
+    - _skillType: 6
+      _favoriteLevel: 0
+      _level: 0
+      _progress: 0
+    - _skillType: 7
+      _favoriteLevel: 0
+      _level: 0
+      _progress: 0
+    - _skillType: 8
+      _favoriteLevel: 0
+      _level: 0
+      _progress: 0
+    - _skillType: 9
+      _favoriteLevel: 0
+      _level: 0
+      _progress: 0
+    - _skillType: 10
+      _favoriteLevel: 0
+      _level: 0
+      _progress: 0
+    - _skillType: 11
+      _favoriteLevel: 0
+      _level: 0
+      _progress: 0
+    - _skillType: 12
+      _favoriteLevel: 0
+      _level: 0
+      _progress: 0
 --- !u!114 &6677395056416142622
 MonoBehaviour:
   m_ObjectHideFlags: 0

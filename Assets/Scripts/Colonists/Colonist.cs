@@ -99,6 +99,7 @@ namespace Colonists
             }
         }
 
+        public IReadOnlyList<Skill> Skills => _colonistSkills.Skills;
         public IReadOnlyList<Trait> Traits => _colonistTraits.Traits;
 
         public Vector3 Center => _center.position;

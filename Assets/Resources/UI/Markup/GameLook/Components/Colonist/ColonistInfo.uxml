@@ -4,7 +4,7 @@
     <Style src="project://database/Assets/Resources/UI/Styles/GameLook/Components/ColonistPanel.uss?fileID=7433441132597879392&amp;guid=57c3dde8601441008a8e9f518deebeb1&amp;type=3#ColonistPanel" />
     <ui:VisualElement name="colonist-info-with-tabs" class="colonist-info-with-tabs">
         <ui:VisualElement name="tab-content" />
-        <ui:VisualElement name="colonist-info" picking-mode="Ignore" class="colonist-panel">
+        <ui:VisualElement name="colonist-info" picking-mode="Ignore" class="colonist-panel margin-left">
             <ui:VisualElement name="details" class="details panel-part">
                 <ui:Toggle label="Equipment" name="equipment" focusable="false" class="label details__toggle label-small" />
                 <ui:Toggle label="Stats" name="stats" focusable="false" class="details__toggle label label-small label-bold" />

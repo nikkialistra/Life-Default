@@ -6,6 +6,7 @@ using UnityEngine.UIElements;
 namespace UI.Game.GameLook.Components.Info.ColonistInfo
 {
     [RequireComponent(typeof(ColonistInfoView))]
+    [RequireComponent(typeof(ColonistSkillsTab))]
     [RequireComponent(typeof(ColonistInfoTab))]
     public class ColonistDetailTabs : MonoBehaviour
     {
@@ -15,13 +16,15 @@ namespace UI.Game.GameLook.Components.Info.ColonistInfo
         private Toggle _info;
 
         private ColonistInfoView _colonistInfoView;
-        
+
+        private ColonistSkillsTab _colonistSkillsTab;
         private ColonistInfoTab _colonistInfoTab;
 
         private void Awake()
         {
             _colonistInfoView = GetComponent<ColonistInfoView>();
-            
+
+            _colonistSkillsTab = GetComponent<ColonistSkillsTab>();
             _colonistInfoTab = GetComponent<ColonistInfoTab>();
         }
 
@@ -73,6 +76,8 @@ namespace UI.Game.GameLook.Components.Info.ColonistInfo
         {
             UncheckToggles();
             _skills.SetValueWithoutNotify(changeEvent.newValue);
+
+            ToggleSkills();
         }
 
         private void OnInfoToggle(ChangeEvent<bool> changeEvent)
@@ -97,6 +102,20 @@ namespace UI.Game.GameLook.Components.Info.ColonistInfo
             }
         }
 
+        private void ToggleSkills()
+        {
+            if (_colonistSkillsTab.Shown)
+            {
+                _colonistSkillsTab.HideSelf();
+            }
+            else
+            {
+                HideAll();
+                _colonistSkillsTab.FillIn(_colonistInfoView.Colonist);
+                _colonistSkillsTab.ShowSelf();
+            }
+        }
+
         private void UncheckToggles()
         {
             _equipment.SetValueWithoutNotify(false);
@@ -107,6 +126,7 @@ namespace UI.Game.GameLook.Components.Info.ColonistInfo
 
         private void HideAll()
         {
+            _colonistSkillsTab.HideSelf();
             _colonistInfoTab.HideSelf();
         }
     }

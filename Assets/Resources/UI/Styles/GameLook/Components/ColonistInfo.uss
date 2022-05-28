@@ -2,6 +2,10 @@
     flex-direction: row;
 }
 
+.margin-left {
+    margin-left: 10px;
+}
+
 .multiple {
     height: 160px;
     justify-content: space-between;

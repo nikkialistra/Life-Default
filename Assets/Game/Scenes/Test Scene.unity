@@ -133,7 +133,7 @@ PrefabInstance:
     - target: {fileID: 8108227751601384566, guid: 0aab87523433ac24d926938acc6c9005,
         type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8108227751601384566, guid: 0aab87523433ac24d926938acc6c9005,
         type: 3}
@@ -742,75 +742,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &512345604
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 446769677059305097, guid: 829142ac533182545bf8f4bc213582fe,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 446769677059305097, guid: 829142ac533182545bf8f4bc213582fe,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 5.459956
-      objectReference: {fileID: 0}
-    - target: {fileID: 446769677059305097, guid: 829142ac533182545bf8f4bc213582fe,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 12.664474
-      objectReference: {fileID: 0}
-    - target: {fileID: 446769677059305097, guid: 829142ac533182545bf8f4bc213582fe,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -21.525671
-      objectReference: {fileID: 0}
-    - target: {fileID: 446769677059305097, guid: 829142ac533182545bf8f4bc213582fe,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 446769677059305097, guid: 829142ac533182545bf8f4bc213582fe,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 446769677059305097, guid: 829142ac533182545bf8f4bc213582fe,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 446769677059305097, guid: 829142ac533182545bf8f4bc213582fe,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 446769677059305097, guid: 829142ac533182545bf8f4bc213582fe,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 446769677059305097, guid: 829142ac533182545bf8f4bc213582fe,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 446769677059305097, guid: 829142ac533182545bf8f4bc213582fe,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 446769677059305098, guid: 829142ac533182545bf8f4bc213582fe,
-        type: 3}
-      propertyPath: m_Name
-      value: Pistol
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 829142ac533182545bf8f4bc213582fe, type: 3}
 --- !u!4 &545101010 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4898071424285268, guid: 55305678b9bd1fb498528a0255154adb,
@@ -1446,7 +1377,7 @@ PrefabInstance:
     - target: {fileID: 3020716833698687496, guid: 0802b572ad05186499c16eab7a723ffb,
         type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3020716833698687496, guid: 0802b572ad05186499c16eab7a723ffb,
         type: 3}
@@ -1676,7 +1607,7 @@ PrefabInstance:
     - target: {fileID: 8167210018844406128, guid: 0802b572ad05186499c16eab7a723ffb,
         type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 8303854619932393626, guid: 0802b572ad05186499c16eab7a723ffb,
         type: 3}
@@ -2076,7 +2007,7 @@ PrefabInstance:
     - target: {fileID: 5177722665010982305, guid: 29f5dc2bbb3c79a49ab31b6e8f03f691,
         type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5177722665010982305, guid: 29f5dc2bbb3c79a49ab31b6e8f03f691,
         type: 3}

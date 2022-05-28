@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using Colonists.Skills;
 using Common;
+using Infrastructure.Settings;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using Zenject;
 
 namespace Colonists
 {
@@ -13,7 +15,16 @@ namespace Colonists
         [ValidateInput(nameof(ColonistHaveEachSkill))]
         [SerializeField] private SkillsDictionary _skills;
 
-        public IReadOnlyList<Skill> Skills => _skills.Values.ToList(); 
+        public IReadOnlyList<Skill> Skills => _skills.Values.ToList();
+
+        [Inject]
+        public void Construct(SkillsSettings skillsSettings)
+        {
+            foreach (var skill in _skills.Values)
+            {
+                skill.Initialize(skillsSettings);
+            }
+        }
 
         public void ImproveSkill(SkillType skillType, int quantity)
         {

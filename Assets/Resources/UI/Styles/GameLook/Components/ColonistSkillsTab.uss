@@ -73,7 +73,7 @@
     border-radius: 1px;
 }
 
-.bar.red .unity-progress-bar__progress {
+.skill__progress-bar .unity-progress-bar__progress {
     background-color: rgb(37, 106, 115);
 }
 

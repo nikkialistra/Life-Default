@@ -11,6 +11,7 @@ namespace Infrastructure.Settings
         [SerializeField] private SelectionSettings _selectionSettings;
         [SerializeField] private AttackSettings _attackSettings;
         [SerializeField] private AnimationSettings _animationSettings;
+        [SerializeField] private SkillsSettings _skillsSettings;
         [SerializeField] private VisibilityFieldsSettings _visibilityFieldsSettings;
 
         public override void InstallBindings()
@@ -20,6 +21,7 @@ namespace Infrastructure.Settings
             Container.BindInstance(_selectionSettings);
             Container.BindInstance(_attackSettings);
             Container.BindInstance(_animationSettings);
+            Container.BindInstance(_skillsSettings);
             Container.BindInstance(_visibilityFieldsSettings);
         }
     }

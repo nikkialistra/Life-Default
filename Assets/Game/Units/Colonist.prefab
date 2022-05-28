@@ -924,54 +924,67 @@ MonoBehaviour:
     _keys: 000000000100000002000000030000000400000005000000060000000700000008000000090000000a0000000b0000000c000000
     _values:
     - _skillType: 0
+      _canDo: 1
       _favoriteLevel: 0
-      _level: 0
+      _level: 3
       _progress: 0
     - _skillType: 1
-      _favoriteLevel: 0
-      _level: 0
+      _canDo: 1
+      _favoriteLevel: 2
+      _level: 1
       _progress: 0
     - _skillType: 2
+      _canDo: 1
       _favoriteLevel: 0
       _level: 0
       _progress: 0
     - _skillType: 3
+      _canDo: 1
       _favoriteLevel: 0
       _level: 0
       _progress: 0
     - _skillType: 4
+      _canDo: 1
       _favoriteLevel: 0
       _level: 0
       _progress: 0
     - _skillType: 5
-      _favoriteLevel: 0
-      _level: 0
+      _canDo: 1
+      _favoriteLevel: 1
+      _level: 2
       _progress: 0
     - _skillType: 6
+      _canDo: 1
       _favoriteLevel: 0
       _level: 0
       _progress: 0
     - _skillType: 7
+      _canDo: 1
       _favoriteLevel: 0
       _level: 0
       _progress: 0
     - _skillType: 8
+      _canDo: 1
       _favoriteLevel: 0
       _level: 0
       _progress: 0
     - _skillType: 9
+      _canDo: 1
       _favoriteLevel: 0
-      _level: 0
+      _level: 1
       _progress: 0
     - _skillType: 10
+      _canDo: 1
       _favoriteLevel: 0
       _level: 0
       _progress: 0
     - _skillType: 11
+      _canDo: 1
       _favoriteLevel: 0
       _level: 0
       _progress: 0
     - _skillType: 12
+      _canDo: 1
       _favoriteLevel: 0
       _level: 0
       _progress: 0

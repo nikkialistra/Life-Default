@@ -75,14 +75,14 @@ namespace UI.Game.GameLook.Components.Info.ColonistTabs
 
         private void SubscribeToChanges()
         {
-            _colonist.SkillChange += FillSkill;
+            _colonist.SkillChange += UpdateSkill;
         }
 
         private void UnsubscribeFromChanges()
         {
             if (_colonist != null)
             {
-                _colonist.SkillChange -= FillSkill;
+                _colonist.SkillChange -= UpdateSkill;
                 _colonist = null;
             }
         }
@@ -98,8 +98,25 @@ namespace UI.Game.GameLook.Components.Info.ColonistTabs
         private void FillSkill(Skill skill)
         {
             var skillElement = _skills[(int)skill.SkillType];
-
+            
             FillFavoriteIcon(skillElement.FavoriteIcon, skill.FavoriteLevel);
+            
+            if (skill.CanDo)
+            {
+                skillElement.Root.RemoveFromClassList("disabled");
+            }
+            else
+            {
+                skillElement.Root.AddToClassList("disabled");
+            }
+            
+            UpdateSkill(skill);
+        }
+
+        private void UpdateSkill(Skill skill)
+        {
+            var skillElement = _skills[(int)skill.SkillType];
+
             skillElement.Level.text = skill.Level.ToString();
             skillElement.ProgressBar.value = skill.Progress;
         }
@@ -124,9 +141,7 @@ namespace UI.Game.GameLook.Components.Info.ColonistTabs
 
                 _skills[i] = new SkillElement()
                 {
-                    Icon = Tree.Q<VisualElement>($"{skillUxmlName}__icon"),
-                    Name = Tree.Q<Label>($"{skillUxmlName}__name"),
-
+                    Root = Tree.Q<VisualElement>($"{skillUxmlName}"),
                     FavoriteIcon = Tree.Q<VisualElement>($"{skillUxmlName}__favorite-icon"),
                     ProgressBar = Tree.Q<ProgressBar>($"{skillUxmlName}__progress-bar"),
                     Level = Tree.Q<Label>($"{skillUxmlName}__level")
@@ -136,8 +151,7 @@ namespace UI.Game.GameLook.Components.Info.ColonistTabs
 
         private struct SkillElement
         {
-            public VisualElement Icon;
-            public Label Name;
+            public VisualElement Root;
             
             public VisualElement FavoriteIcon;
             public ProgressBar ProgressBar;

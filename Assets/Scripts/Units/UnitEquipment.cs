@@ -12,7 +12,7 @@ namespace Units
     public class UnitEquipment : MonoBehaviour
     {
         [SerializeField] private MeshFilter _handSlot;
-        [SerializeField] private float _timeToUnequipInstrument = 0.5f;
+        [SerializeField] private float _timeToUnequipTool = 0.5f;
         [SerializeField] private float _timeToUnequipWeapon = 1.2f;
 
         private UnitWeapons _unitWeapons;
@@ -44,28 +44,28 @@ namespace Units
             HoldingSomething = true;
         }
 
-        public bool TryEquipInstrumentFor(ResourceType resourceType)
+        public bool TryEquipToolFor(ResourceType resourceType)
         {
-            if (!_unitInventory.HasInstrumentFor(resourceType))
+            if (!_unitInventory.HasToolFor(resourceType))
             {
                 return false;
             }
 
             UnequipInstantly();
 
-            var instrument = _unitInventory.ChooseInstrumentFor(resourceType);
+            var tool = _unitInventory.ChooseToolFor(resourceType);
 
-            Instantiate(instrument.InstrumentGameObject, _handSlot.transform);
+            Instantiate(tool.ToolGameObject, _handSlot.transform);
 
             HoldingSomething = true;
 
             return true;
         }
 
-        public void UnequipInstrument()
+        public void UnequipTool()
         {
             ResetUnequipment();
-            _unequipAfterCoroutine = StartCoroutine(UnequipAfter(_timeToUnequipInstrument));
+            _unequipAfterCoroutine = StartCoroutine(UnequipAfter(_timeToUnequipTool));
         }
 
         public void UnequipWeapon()

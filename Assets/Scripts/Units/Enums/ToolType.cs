@@ -1,6 +1,6 @@
 ﻿namespace Units.Enums
 {
-    public enum InstrumentType
+    public enum ToolType
     {
         Axe,
         Pickaxe

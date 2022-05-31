@@ -7,51 +7,51 @@ namespace Units.Equipment.Items
         ItemType ItemType { get; }
         object Content { get; }
         
-        public bool TryGetWeapon(out Weapon instrument)
+        public bool TryGetWeapon(out Weapon weapon)
         {
             if (ItemType == ItemType.Weapon)
             {
-                instrument = (Weapon)Content;
+                weapon = (Weapon)Content;
                 return true;
             }
 
-            instrument = null;
+            weapon = null;
             return false;
         }
         
-        public bool TryGetInstrument(out Instrument instrument)
+        public bool TryGetTool(out Tool tool)
         {
-            if (ItemType == ItemType.Instrument)
+            if (ItemType == ItemType.Tool)
             {
-                instrument = (Instrument)Content;
+                tool = (Tool)Content;
                 return true;
             }
 
-            instrument = null;
+            tool = null;
             return false;
         }
         
-        public bool TryGetProperty(out Property instrument)
+        public bool TryGetProperty(out Property property)
         {
             if (ItemType == ItemType.Property)
             {
-                instrument = (Property)Content;
+                property = (Property)Content;
                 return true;
             }
 
-            instrument = null;
+            property = null;
             return false;
         }
         
-        public bool TryGetConsumable(out Consumable instrument)
+        public bool TryGetConsumable(out Consumable consumable)
         {
             if (ItemType == ItemType.Consumable)
             {
-                instrument = (Consumable)Content;
+                consumable = (Consumable)Content;
                 return true;
             }
 
-            instrument = null;
+            consumable = null;
             return false;
         }
     }

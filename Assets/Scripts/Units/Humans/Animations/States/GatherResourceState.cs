@@ -44,7 +44,7 @@ namespace Units.Humans.Animations.States
 
         public override void OnExitState()
         {
-            _unitEquipment.UnequipInstrument();
+            _unitEquipment.UnequipTool();
         }
 
         private void Hit()

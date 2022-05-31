@@ -13,11 +13,11 @@ namespace Units
 
         private const int NumberOfSlots = 4;
         
-        public bool HasInstrumentFor(ResourceType resourceType)
+        public bool HasToolFor(ResourceType resourceType)
         {
             foreach (var item in GetItems())
             {
-                if (item.TryGetInstrument(out var instrument) && instrument.CanExtract(resourceType))
+                if (item.TryGetTool(out var tool) && tool.CanExtract(resourceType))
                 {
                     return true;
                 }
@@ -26,18 +26,18 @@ namespace Units
             return false;
         }
 
-        public Instrument ChooseInstrumentFor(ResourceType resourceType)
+        public Tool ChooseToolFor(ResourceType resourceType)
         {
             foreach (var item in GetItems())
             {
-                if (item.TryGetInstrument(out var instrument) && instrument.CanExtract(resourceType))
+                if (item.TryGetTool(out var tool) && tool.CanExtract(resourceType))
                 {
-                    return instrument;
+                    return tool;
                 }
             }
 
             throw new InvalidOperationException(
-                $"Cannot find suitable item, {nameof(HasInstrumentFor)} should be called first");
+                $"Cannot find suitable item, {nameof(HasToolFor)} should be called first");
         }
 
         public IItem GetItemAt(int index)

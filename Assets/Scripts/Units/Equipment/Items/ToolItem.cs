@@ -5,11 +5,11 @@ using UnityEngine;
 namespace Units.Equipment.Items
 {
     [Serializable]
-    public class InstrumentItem : IItem
+    public class ToolItem : IItem
     {
-        [SerializeField] private Instrument _content;
+        [SerializeField] private Tool _content;
 
-        public ItemType ItemType => ItemType.Instrument;
+        public ItemType ItemType => ItemType.Tool;
         public object Content => _content;
     }
 }

@@ -90,7 +90,7 @@ namespace Colonists
                 return false;
             }
             
-            if (!_unitEquipment.TryEquipInstrumentFor(resource.ResourceType))
+            if (!_unitEquipment.TryEquipToolFor(resource.ResourceType))
             {
                 return false;
             }

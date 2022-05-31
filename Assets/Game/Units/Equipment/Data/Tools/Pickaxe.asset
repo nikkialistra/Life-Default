@@ -12,6 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60004ae68022414690680361935965bd, type: 3}
   m_Name: Pickaxe
   m_EditorClassIdentifier: 
-  _instrumentType: 1
-  _instrument: {fileID: 994482616659160261, guid: 76227feff0e541f479a4b41d7eed9624,
-    type: 3}
+  _toolType: 1
+  _tool: {fileID: 994482616659160261, guid: 76227feff0e541f479a4b41d7eed9624, type: 3}

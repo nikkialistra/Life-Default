@@ -12,6 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60004ae68022414690680361935965bd, type: 3}
   m_Name: Axe
   m_EditorClassIdentifier: 
-  _instrumentType: 0
-  _instrument: {fileID: 2796058789668319780, guid: 1a6829fd9fae7894da138354dc865dc4,
-    type: 3}
+  _toolType: 0
+  _tool: {fileID: 2796058789668319780, guid: 1a6829fd9fae7894da138354dc865dc4, type: 3}

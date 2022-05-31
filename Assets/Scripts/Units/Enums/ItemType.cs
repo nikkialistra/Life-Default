@@ -3,7 +3,7 @@
     public enum ItemType
     {
         Weapon,
-        Instrument,
+        Tool,
         Property,
         Consumable
     }

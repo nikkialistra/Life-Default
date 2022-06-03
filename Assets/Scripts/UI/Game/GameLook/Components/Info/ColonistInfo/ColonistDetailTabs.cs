@@ -6,6 +6,8 @@ using UnityEngine.UIElements;
 namespace UI.Game.GameLook.Components.Info.ColonistInfo
 {
     [RequireComponent(typeof(ColonistInfoView))]
+    [RequireComponent(typeof(ColonistEquipmentTab))]
+    [RequireComponent(typeof(ColonistStatsTab))]
     [RequireComponent(typeof(ColonistSkillsTab))]
     [RequireComponent(typeof(ColonistInfoTab))]
     public class ColonistDetailTabs : MonoBehaviour
@@ -17,6 +19,8 @@ namespace UI.Game.GameLook.Components.Info.ColonistInfo
 
         private ColonistInfoView _colonistInfoView;
 
+        private ColonistEquipmentTab _colonistEquipmentTab;
+        private ColonistStatsTab _colonistStatsTab;
         private ColonistSkillsTab _colonistSkillsTab;
         private ColonistInfoTab _colonistInfoTab;
 
@@ -24,6 +28,8 @@ namespace UI.Game.GameLook.Components.Info.ColonistInfo
         {
             _colonistInfoView = GetComponent<ColonistInfoView>();
 
+            _colonistEquipmentTab = GetComponent<ColonistEquipmentTab>();
+            _colonistStatsTab = GetComponent<ColonistStatsTab>();
             _colonistSkillsTab = GetComponent<ColonistSkillsTab>();
             _colonistInfoTab = GetComponent<ColonistInfoTab>();
         }
@@ -64,12 +70,16 @@ namespace UI.Game.GameLook.Components.Info.ColonistInfo
         {
             UncheckToggles();
             _equipment.SetValueWithoutNotify(changeEvent.newValue);
+
+            ToggleEquipment();
         }
 
         private void OnStatsToggle(ChangeEvent<bool> changeEvent)
         {
             UncheckToggles();
             _stats.SetValueWithoutNotify(changeEvent.newValue);
+
+            ToggleStats();
         }
 
         private void OnSkillsToggle(ChangeEvent<bool> changeEvent)
@@ -88,17 +98,31 @@ namespace UI.Game.GameLook.Components.Info.ColonistInfo
             ToggleInfo();
         }
 
-        private void ToggleInfo()
+        private void ToggleEquipment()
         {
-            if (_colonistInfoTab.Shown)
+            if (_colonistEquipmentTab.Shown)
             {
-                _colonistInfoTab.HideSelf();
+                _colonistEquipmentTab.HideSelf();
             }
             else
             {
                 HideAll();
-                _colonistInfoTab.FillIn(_colonistInfoView.Colonist);
-                _colonistInfoTab.ShowSelf();
+                _colonistEquipmentTab.FillIn(_colonistInfoView.Colonist);
+                _colonistEquipmentTab.ShowSelf();
+            }
+        }
+
+        private void ToggleStats()
+        {
+            if (_colonistStatsTab.Shown)
+            {
+                _colonistStatsTab.HideSelf();
+            }
+            else
+            {
+                HideAll();
+                _colonistStatsTab.FillIn(_colonistInfoView.Colonist);
+                _colonistStatsTab.ShowSelf();
             }
         }
 
@@ -116,6 +140,20 @@ namespace UI.Game.GameLook.Components.Info.ColonistInfo
             }
         }
 
+        private void ToggleInfo()
+        {
+            if (_colonistInfoTab.Shown)
+            {
+                _colonistInfoTab.HideSelf();
+            }
+            else
+            {
+                HideAll();
+                _colonistInfoTab.FillIn(_colonistInfoView.Colonist);
+                _colonistInfoTab.ShowSelf();
+            }
+        }
+
         private void UncheckToggles()
         {
             _equipment.SetValueWithoutNotify(false);
@@ -126,6 +164,8 @@ namespace UI.Game.GameLook.Components.Info.ColonistInfo
 
         private void HideAll()
         {
+            _colonistEquipmentTab.HideSelf();
+            _colonistStatsTab.HideSelf();
             _colonistSkillsTab.HideSelf();
             _colonistInfoTab.HideSelf();
         }

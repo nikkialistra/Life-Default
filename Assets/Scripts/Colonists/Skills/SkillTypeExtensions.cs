@@ -12,7 +12,7 @@ namespace Colonists.Skills
                 SkillType.Accuracy => "accuracy",
                 SkillType.Athletics => "athletics",
                 SkillType.Construction => "construction",
-                SkillType.Gathering => "mining",
+                SkillType.Gathering => "gathering",
                 SkillType.Research => "research",
                 SkillType.Cooking => "cooking",
                 SkillType.Communication => "communication",

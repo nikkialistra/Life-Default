@@ -70,6 +70,11 @@ namespace UI.Game.GameLook.Components.Info.ColonistInfo
 
         public void UnbindSelf()
         {
+            if (_colonist == null)
+            {
+                return;
+            }
+            
             _colonist.ActivityChange -= UpdateActivity;
             
             _activityType.clicked -= ToggleActivityType;

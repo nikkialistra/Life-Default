@@ -729,7 +729,7 @@ MonoBehaviour:
   _movementSpeed:
     _baseValue: 4
   _maxHealth:
-    _baseValue: 100
+    _baseValue: 200
   _maxRecoverySpeed:
     _baseValue: 2
   _evadeChance:

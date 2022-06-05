@@ -29,6 +29,11 @@ namespace Colonists.BehaviorNodes.ResourceGathering
             {
                 return TaskStatus.Failure;
             }
+            
+            if (Resource.Value.Exhausted)
+            {
+                return TaskStatus.Success;
+            }
 
             if (ColonistGatherer.IsGathering)
             {
@@ -36,14 +41,7 @@ namespace Colonists.BehaviorNodes.ResourceGathering
             }
             else
             {
-                if (Resource.Value.Exhausted)
-                {
-                    return TaskStatus.Success;
-                }
-                else
-                {
-                    return TaskStatus.Failure;
-                }
+                return TaskStatus.Failure;
             }
         }
     }

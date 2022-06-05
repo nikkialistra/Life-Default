@@ -386,11 +386,11 @@ MonoBehaviour:
   _movementSpeed:
     _baseValue: 3.3
   _maxHealth:
-    _baseValue: 100
+    _baseValue: 200
   _maxRecoverySpeed:
     _baseValue: 2
-  _dodgeChance:
-    _baseValue: 0.1
+  _evadeChance:
+    _baseValue: 0
   _meleeDamageMultiplier:
     _baseValue: 1
   _meleeAttackSpeed:

@@ -86,7 +86,7 @@ namespace Units.Ancillaries
 
         private bool Dead()
         {
-            return _healthSlider.value == 0 || _recoverySpeedSlider.value == 0;
+            return _healthSlider.value == 0;
         }
 
         private void ShowIfPointedOrHit()

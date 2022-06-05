@@ -9,6 +9,12 @@
     padding-bottom: 8px;
 }
 
+.multiple {
+    height: 160px;
+    justify-content: space-between;
+    padding-top: 10px;
+}
+
 .stats {
     width: 280px;
     justify-content: center;

@@ -17,9 +17,9 @@ namespace UI.Game.GameLook.Components.Info
         
         private Label _name;
 
-        private readonly List<VisualElement> _rows = new(1);
-        private readonly List<Label> _rowNames = new(1);
-        private readonly List<Label> _rowValues = new(1);
+        private readonly List<VisualElement> _rows = new(2);
+        private readonly List<Label> _rowNames = new(2);
+        private readonly List<Label> _rowValues = new(2);
 
         private bool _shown;
 
@@ -38,10 +38,13 @@ namespace UI.Game.GameLook.Components.Info
         private void BindRows()
         {
             _rows.Add(_tree.Q<VisualElement>("row-one"));
+            _rows.Add(_tree.Q<VisualElement>("row-two"));
 
             _rowNames.Add(_tree.Q<Label>("row-one__name"));
+            _rowNames.Add(_tree.Q<Label>("row-two__name"));
 
             _rowValues.Add(_tree.Q<Label>("row-one__value"));
+            _rowValues.Add(_tree.Q<Label>("row-two__value"));
         }
 
         public void ShowSelf()

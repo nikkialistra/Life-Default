@@ -2,6 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Infrastructure.Settings;
+using Units.Enums;
 using Units.MinimaxFightBehavior;
 using UnityEngine;
 using Zenject;
@@ -32,11 +34,17 @@ namespace Units.FightBehavior
         private Coroutine _choosingBehaviorCoroutine;
         
         private VirtualFight _virtualFight;
+        
+        private float _carefulFightMannerMultiplier;
+        private float _franticFightMannerMultiplier;
 
         [Inject]
-        public void Construct(VirtualFight virtualFight)
+        public void Construct(VirtualFight virtualFight, AttackSettings attackSettings)
         {
             _virtualFight = virtualFight;
+
+            _carefulFightMannerMultiplier = attackSettings.CarefulFightMannerMultiplier;
+            _franticFightMannerMultiplier = attackSettings.FranticFightMannerMultiplier;
         }
 
         private void Awake()
@@ -65,6 +73,17 @@ namespace Units.FightBehavior
             
             _unitAttacker.AttackStart -= StartFight;
             _unitAttacker.AttackEnd -= StopFight;
+        }
+        
+        public void SetManner(FightManner fightManner)
+        {
+            _advanceTime = fightManner switch {
+                FightManner.Careful => _advanceTime * _carefulFightMannerMultiplier,
+                FightManner.Normal => _advanceTime,
+                FightManner.Frantic => _advanceTime * _franticFightMannerMultiplier,
+                
+                _ => throw new ArgumentOutOfRangeException(nameof(fightManner), fightManner, null)
+            };
         }
 
         private void AddOpponent(Unit opponent)
@@ -168,7 +187,7 @@ namespace Units.FightBehavior
 
             if (_useMinimax)
             {
-                return _virtualFight.CheckDefeatForFight(_selfSpecs, _opponentSpecs, _surroundingOpponentsSpecs.Values.ToList());
+                return _virtualFight.CheckDefeatForFight(_selfSpecs, _opponentSpecs, _surroundingOpponentsSpecs.Values.ToList(), (int)_advanceTime);
             }
 
             var surroundingOpponentsSpecs = _surroundingOpponentsSpecs.Values.ToList();

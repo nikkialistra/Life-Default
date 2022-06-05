@@ -392,7 +392,7 @@ MonoBehaviour:
   _evadeChance:
     _baseValue: 0
   _meleeDamageMultiplier:
-    _baseValue: 1
+    _baseValue: 0.3
   _meleeAttackSpeed:
     _baseValue: 2.4
   _meleeCriticalChance:
@@ -438,7 +438,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _advanceTime: 2
   _refreshTime: 1
-  _useMinimax: 0
+  _useMinimax: 1
 --- !u!114 &6055286198764241806
 MonoBehaviour:
   m_ObjectHideFlags: 0

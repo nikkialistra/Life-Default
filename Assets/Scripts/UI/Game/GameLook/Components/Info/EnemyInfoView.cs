@@ -41,12 +41,15 @@ namespace UI.Game.GameLook.Components.Info
         {
             _rows.Add(_tree.Q<VisualElement>("row-one"));
             _rows.Add(_tree.Q<VisualElement>("row-two"));
+            _rows.Add(_tree.Q<VisualElement>("row-three"));
 
             _rowNames.Add(_tree.Q<Label>("row-one__name"));
             _rowNames.Add(_tree.Q<Label>("row-two__name"));
+            _rowNames.Add(_tree.Q<Label>("row-three__name"));
 
             _rowValues.Add(_tree.Q<Label>("row-one__value"));
             _rowValues.Add(_tree.Q<Label>("row-two__value"));
+            _rowValues.Add(_tree.Q<Label>("row-three__value"));
         }
 
         private void OnDestroy()
@@ -90,6 +93,7 @@ namespace UI.Game.GameLook.Components.Info
 
             FillRow(0, "Health:", $"{_enemy.Unit.UnitVitality.Health}");
             FillRow(1, "Recovery Speed:", $"{_enemy.Unit.UnitVitality.RecoverySpeed}");
+            FillRow(2, "Behavior:", $"{_enemy.FightManner.ToString()}");
 
             SubscribeToEnemy();
         }
@@ -118,6 +122,7 @@ namespace UI.Game.GameLook.Components.Info
         {
             _rows[0].style.display = DisplayStyle.Flex;
             _rows[1].style.display = DisplayStyle.Flex;
+            _rows[2].style.display = DisplayStyle.Flex;
         }
 
         private void UpdateRows()

@@ -5,6 +5,7 @@ using Units;
 using Units.Ancillaries;
 using Units.Appearance;
 using Units.Enums;
+using Units.FightBehavior;
 using UnityEngine;
 using Zenject;
 using static Units.Appearance.HumanAppearanceRegistry;
@@ -14,6 +15,7 @@ namespace Enemies
     [RequireComponent(typeof(Unit))]
     [RequireComponent(typeof(UnitSelection))]
     [RequireComponent(typeof(UnitAttacker))]
+    [RequireComponent(typeof(UnitFightBehavior))]
     [RequireComponent(typeof(EnemyAnimator))]
     [RequireComponent(typeof(EnemyMeshAgent))]
     [RequireComponent(typeof(EnemyBehavior))]
@@ -31,6 +33,7 @@ namespace Enemies
         private Unit _unit;
         private UnitSelection _unitSelection;
         private UnitAttacker _unitAttacker;
+        private UnitFightBehavior _unitFightBehavior;
 
         private EnemyAnimator _animator;
         private EnemyMeshAgent _meshAgent;
@@ -51,6 +54,7 @@ namespace Enemies
             _unit = GetComponent<Unit>();
             _unitSelection = GetComponent<UnitSelection>();
             _unitAttacker = GetComponent<UnitAttacker>();
+            _unitFightBehavior = GetComponent<UnitFightBehavior>();
 
             _animator = GetComponent<EnemyAnimator>();
             _meshAgent = GetComponent<EnemyMeshAgent>();
@@ -61,11 +65,13 @@ namespace Enemies
         public event Action HealthChange;
         public event Action<Enemy> EnemyDying;
         public event Action Dying;
-        
+
         public Unit Unit => _unit;
 
         public string Name => _name;
         public bool Alive => _unit.Alive;
+        
+        public FightManner FightManner { get; private set;}
 
         private void Start()
         {
@@ -120,6 +126,8 @@ namespace Enemies
                 
             _humanAppearance.RandomizeAppearanceWith(_gender, HumanType.Enemy, _humanAppearanceRegistry);
 
+            FightManner = EnumUtils.RandomValue<FightManner>();
+
             _unit.Initialize();
         }
 
@@ -167,6 +175,8 @@ namespace Enemies
             
             _unitSelection.Activate();
             _behavior.Enable();
+
+            _unitFightBehavior.SetManner(FightManner);
         }
 
         private void DeactivateComponents()

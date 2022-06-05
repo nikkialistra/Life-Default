@@ -35,16 +35,16 @@ namespace Units.MinimaxFightBehavior
         private void StartTestFight()
         {
             CreateExamplePlayers();
-            StartFight();
+            StartFight(_maxMinimaxDepth);
         }
 
         public bool CheckDefeatForFight(FightSpecs selfSpecs, FightSpecs opponentSpecs,
-            List<FightSpecs> surroundingOpponentsSpecs)
+            List<FightSpecs> surroundingOpponentsSpecs, int depth)
         {
             _defeatOnFirstMove = false;
 
             CreatePlayersFrom(selfSpecs, opponentSpecs, surroundingOpponentsSpecs);
-            StartFight();
+            StartFight(depth);
 
             return _defeatOnFirstMove;
         }
@@ -60,7 +60,7 @@ namespace Units.MinimaxFightBehavior
                 firstSpecs.AverageDamagePerSecond);
         }
 
-        private void StartFight()
+        private void StartFight(int depth)
         {
 #if UNITY_EDITOR
             ClearLog();
@@ -69,7 +69,7 @@ namespace Units.MinimaxFightBehavior
             _moveCount = 0;
             _fight = new Fight(_firstPlayer, _secondPlayer);
             
-            var minimax = new Minimax(_maxMinimaxDepth, _shouldLogInDetail);
+            var minimax = new Minimax(depth, _shouldLogInDetail);
 
             ShowStatus();
             

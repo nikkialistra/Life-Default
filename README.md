@@ -39,3 +39,13 @@
 - Clone this git repository
 - Clone repository with plugins and graphics under directory name "Extra" to the project root directory
 
+## Screenshots ##
+
+![Main](https://raw.github.com/nikkialistra/Life-Default/main/Screenshots/Main.jpg)
+![Quests](https://raw.github.com/nikkialistra/Life-Default/main/Screenshots/Quests.jpg)
+![Fight](https://raw.github.com/nikkialistra/Life-Default/main/Screenshots/Fight.jpg)
+![Stats](https://raw.github.com/nikkialistra/Life-Default/main/Screenshots/Stats.jpg)
+![HelpPanel](https://raw.github.com/nikkialistra/Life-Default/main/Screenshots/HelpPanel.jpg)
+![MainMenu](https://raw.github.com/nikkialistra/Life-Default/main/Screenshots/MainMenu.jpg)
+![Settings](https://raw.github.com/nikkialistra/Life-Default/main/Screenshots/Settings.jpg)
+

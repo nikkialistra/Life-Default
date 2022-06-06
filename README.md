@@ -39,6 +39,14 @@
 - Clone this git repository
 - Clone repository with plugins and graphics under directory name "Extra" to the project root directory
 
+## Gameplay ##
+
+Gameplay video can be seen here:
+
+[![GameplayVideo](https://raw.github.com/nikkialistra/Life-Default/main/Screenshots/GameplayVideo.jpg)](https://www.youtube.com/watch?v=jQpa8jhGzMs)
+
+(or by link https://www.youtube.com/watch?v=jQpa8jhGzMs)
+
 ## Screenshots ##
 
 ![Main](https://raw.github.com/nikkialistra/Life-Default/main/Screenshots/Main.jpg)

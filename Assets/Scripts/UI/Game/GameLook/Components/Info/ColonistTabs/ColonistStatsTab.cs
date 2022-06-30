@@ -70,7 +70,6 @@ namespace UI.Game.GameLook.Components.Info.ColonistTabs
         {
             if (_colonist != null)
             {
-                
                 _colonist = null;
             }
         }

@@ -9,6 +9,9 @@ namespace ColonistManagement.Targeting.Formations
 {
     public class PositionPreview : MonoBehaviour
     {
+        public bool Activated { get; private set; }
+        public float AnimationTime => _animationTime;
+
         [Required]
         [SerializeField] private DecalProjector _decalProjector;
         [Space]
@@ -34,9 +37,6 @@ namespace ColonistManagement.Targeting.Formations
             };
         }
 
-        public bool Activated { get; private set; }
-        public float AnimationTime => _animationTime;
-
         public void Activate(FormationColor formationColor)
         {
             _decalProjector.transform.DOKill();
@@ -56,6 +56,7 @@ namespace ColonistManagement.Targeting.Formations
         public void Deactivate()
         {
             Activated = false;
+
             if (_animateCoroutine != null)
             {
                 StopCoroutine(_animateCoroutine);

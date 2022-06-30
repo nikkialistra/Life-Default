@@ -32,26 +32,12 @@ namespace Colonists.BehaviorNodes.ResourceGathering
                 return TaskStatus.Failure;
             }
 
-            if (!_destinationReached)
-            {
-                return TaskStatus.Running;
-            }
-            else
-            {
-                return AtInteractionDistance();
-            }
+            return !_destinationReached ? TaskStatus.Running : AtInteractionDistance();
         }
 
         private TaskStatus AtInteractionDistance()
         {
-            if (ColonistGatherer.AtInteractionDistance(Resource.Value))
-            {
-                return TaskStatus.Success;
-            }
-            else
-            {
-                return TaskStatus.Failure;
-            }
+            return ColonistGatherer.AtInteractionDistance(Resource.Value) ? TaskStatus.Success : TaskStatus.Failure;
         }
 
         private void OnDestinationReach()

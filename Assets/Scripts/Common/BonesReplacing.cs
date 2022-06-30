@@ -20,11 +20,11 @@ namespace Common
             meshRenderer.rootBone = _rootBone;
 
             var newBones = new Transform[meshRenderer.bones.Length];
-            
-            for (var i = 0; i < meshRenderer.bones.Length; ++i)
+
+            for (int i = 0; i < meshRenderer.bones.Length; ++i)
             {
                 var bone = meshRenderer.bones[i].gameObject;
-                
+
                 if (!boneMap.TryGetValue(bone.name, out newBones[i]))
                 {
                     Debug.Log("Unable to map bone \"" + bone.name + "\" to target skeleton.");

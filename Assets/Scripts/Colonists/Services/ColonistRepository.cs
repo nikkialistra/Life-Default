@@ -14,12 +14,8 @@ namespace Colonists.Services
         public IEnumerable<Colonist> GetColonists()
         {
             foreach (var colonist in _colonists)
-            {
                 if (colonist.Alive)
-                {
                     yield return colonist;
-                }
-            }
         }
 
         public void AddColonist(Colonist colonist)

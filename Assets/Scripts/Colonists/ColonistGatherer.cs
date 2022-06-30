@@ -17,9 +17,11 @@ namespace Colonists
     [RequireComponent(typeof(ColonistActivities))]
     public class ColonistGatherer : MonoBehaviour
     {
+        public bool IsGathering { get; private set; }
+
         [Required]
         [SerializeField] private UnitEquipment _unitEquipment;
-        
+
         [ValidateInput(nameof(EveryResourceHasDistanceInteraction))]
         [SerializeField] private ResourceInteractionDistanceDictionary _resourceInteractionDistances;
 
@@ -28,9 +30,9 @@ namespace Colonists
         [Space]
         [Required]
         [SerializeField] private FieldOfView _resourceFieldOfView;
-        
+
         private float _waitTime;
-        
+
         private float _resourceDestructionSpeed;
         private float _resourceExtractionEfficiency;
 
@@ -53,9 +55,8 @@ namespace Colonists
             _colonistActivities = GetComponent<ColonistActivities>();
         }
 
-        public bool IsGathering { get; private set; }
-        
-        public void BindStats(Stat<ColonistStat> resourceDestructionSpeed, Stat<ColonistStat> resourceExtractionEfficiency)
+        public void BindStats(Stat<ColonistStat> resourceDestructionSpeed,
+            Stat<ColonistStat> resourceExtractionEfficiency)
         {
             _resourceDestructionSpeed = resourceDestructionSpeed.Value;
             _resourceExtractionEfficiency = resourceExtractionEfficiency.Value;
@@ -86,14 +87,10 @@ namespace Colonists
         public bool TryGather(Resource resource)
         {
             if (_resource == resource || !AtInteractionDistance(resource))
-            {
                 return false;
-            }
-            
+
             if (!_unitEquipment.TryEquipToolFor(resource.ResourceType))
-            {
                 return false;
-            }
 
             _resource = resource;
 
@@ -140,34 +137,27 @@ namespace Colonists
         private IEnumerator WatchForExhaustion()
         {
             while (!_resource.Exhausted)
-            {
                 yield return new WaitForSeconds(_waitTime);
-            }
 
             _resource = null;
             StopGathering();
         }
 
         // Add wait time for cancelling stop gathering if user clicked same resource,
-
         // and prolongate animation after gathering a little
-
         public void FinishGathering()
         {
-            if (!IsGathering)
-            {
-                return;
-            }
-            
+            if (!IsGathering) return;
+
             if (_watchForExhaustionCoroutine != null)
             {
                 StopCoroutine(_watchForExhaustionCoroutine);
                 _watchForExhaustionCoroutine = null;
             }
-            
+
             _resource = null;
             IsGathering = false;
-            
+
             StartCoroutine(StopGatheringLater());
         }
 
@@ -190,34 +180,31 @@ namespace Colonists
 
         private void StopGathering()
         {
-            if (_resource != null)
-            {
-                return;
-            }
+            if (_resource != null) return;
 
             if (_watchForExhaustionCoroutine != null)
             {
                 StopCoroutine(_watchForExhaustionCoroutine);
                 _watchForExhaustionCoroutine = null;
             }
-            
+
             _colonistAnimator.StopGathering();
         }
 
-        private bool EveryResourceHasDistanceInteraction(ResourceInteractionDistanceDictionary distances, ref string errorMessage)
+        private bool EveryResourceHasDistanceInteraction(ResourceInteractionDistanceDictionary distances,
+            ref string errorMessage)
         {
             foreach (var resourceType in (ResourceType[])Enum.GetValues(typeof(ResourceType)))
-            {
                 if (!distances.ContainsKey(resourceType))
                 {
                     errorMessage = $"{resourceType} don't have distance";
                     return false;
                 }
-            }
 
             return true;
         }
 
-        [Serializable] public class ResourceInteractionDistanceDictionary : SerializableDictionary<ResourceType, float> { }
+        [Serializable]
+        public class ResourceInteractionDistanceDictionary : SerializableDictionary<ResourceType, float> { }
     }
 }

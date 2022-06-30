@@ -8,7 +8,7 @@ namespace Colonists
     [RequireComponent(typeof(UnitAnimator))]
     [RequireComponent(typeof(ColonistAnimations))]
     public class ColonistAnimator : MonoBehaviour
-    { 
+    {
         private ColonistAnimations _colonistAnimations;
         private UnitAnimator _unitAnimator;
 

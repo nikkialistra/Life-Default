@@ -36,9 +36,7 @@ namespace Colonists
         public void Activate()
         {
             if (!_initialized)
-            {
                 Initialize();
-            }
 
             _behaviorTree.EnableBehavior();
         }
@@ -56,11 +54,9 @@ namespace Colonists
 
         public void OrderTo(Colonist targetColonist)
         {
-            if (!_meshAgent.CanAcceptOrder())
-            {
+            if (_meshAgent.CanAcceptOrder() == false)
                 return;
-            }
-            
+
             ResetParameters();
             _colonist.Value = targetColonist;
 
@@ -82,10 +78,7 @@ namespace Colonists
 
         public void OrderTo(Resource resource)
         {
-            if (!_meshAgent.CanAcceptOrder())
-            {
-                return;
-            }
+            if (!_meshAgent.CanAcceptOrder()) return;
 
             ResetParameters();
             _resource.Value = resource;
@@ -105,38 +98,28 @@ namespace Colonists
 
         public void OrderToPosition(Vector3 position, float? angle)
         {
-            if (!_meshAgent.CanAcceptOrder())
-            {
-                return;
-            }
+            if (!_meshAgent.CanAcceptOrder()) return;
 
             ResetParameters();
             _positions.Value.Enqueue(position);
+
             if (angle.HasValue)
-            {
                 _rotation.Value = angle.Value;
-            }
 
             _newCommand.Value = true;
         }
 
         public void AddPositionToOrder(Vector3 position, float? angle)
         {
-            if (!_meshAgent.CanAcceptOrder())
-            {
-                return;
-            }
-            
+            if (!_meshAgent.CanAcceptOrder()) return;
+
             if (_positions.Value.Count == 0)
-            {
                 OrderToPosition(position, angle);
-            }
 
             _positions.Value.Enqueue(position);
+
             if (angle.HasValue)
-            {
                 _rotation.Value = angle.Value;
-            }
         }
 
         private void Initialize()

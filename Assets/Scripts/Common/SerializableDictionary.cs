@@ -30,15 +30,11 @@ namespace Common
             Clear();
 
             if (_keys.Count != _values.Count)
-            {
                 throw new Exception(string.Format(
                     "there are {0} keys and {1} values after deserialization. Make sure that both key and value types are serializable."));
-            }
 
-            for (var i = 0; i < _keys.Count; i++)
-            {
+            for (int i = 0; i < _keys.Count; i++)
                 Add(_keys[i], _values[i]);
-            }
         }
     }
 }

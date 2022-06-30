@@ -13,6 +13,9 @@ namespace Colonists
     [RequireComponent(typeof(UnitMeshAgent))]
     public class ColonistMeshAgent : MonoBehaviour
     {
+        public event Action DestinationReach;
+        public event Action RotationEnd;
+
         [Required]
         [SerializeField] private LineRenderer _pathLineRenderer;
         [SerializeField] private Vector3 _pathLineOffset = new(0, 0.2f, 0);
@@ -22,9 +25,9 @@ namespace Colonists
 
         private ColonistAnimator _animator;
         private UnitMeshAgent _unitMeshAgent;
-        
+
         private Seeker _seeker;
-        
+
         private Transform _pathLineParent;
 
         [Inject]
@@ -37,12 +40,9 @@ namespace Colonists
         {
             _animator = GetComponent<ColonistAnimator>();
             _unitMeshAgent = GetComponent<UnitMeshAgent>();
-            
+
             _seeker = GetComponent<Seeker>();
         }
-
-        public event Action DestinationReach;
-        public event Action RotationEnd;
 
         private void Start()
         {
@@ -65,13 +65,9 @@ namespace Colonists
         private void Update()
         {
             if (_unitMeshAgent.IsMoving)
-            {
                 _animator.Move();
-            }
             else
-            {
                 _animator.Idle();
-            }
         }
 
         public void SetDestinationToPosition(Vector3 position)
@@ -113,10 +109,7 @@ namespace Colonists
 
         public void StopMoving()
         {
-            if (_hasPendingOrder)
-            {
-                return;
-            }
+            if (_hasPendingOrder) return;
 
             _unitMeshAgent.StopMoving();
         }
@@ -140,7 +133,7 @@ namespace Colonists
 
         public void ResetDestination()
         {
-           _unitMeshAgent.ResetDestination();
+            _unitMeshAgent.ResetDestination();
         }
 
         public void ShowLinePath()
@@ -157,13 +150,10 @@ namespace Colonists
 
         private void ShowPathLine(Path path)
         {
-            if (!_unitMeshAgent.IsMoving)
-            {
-                return;
-            }
-            
+            if (!_unitMeshAgent.IsMoving) return;
+
             var pathNodes = path.path;
-            
+
             if (pathNodes.Count <= 2)
             {
                 _pathLineRenderer.positionCount = 0;
@@ -173,10 +163,8 @@ namespace Colonists
             _pathLineRenderer.positionCount = pathNodes.Count - 1;
 
             for (int i = 1; i < pathNodes.Count; i++)
-            {
                 _pathLineRenderer.SetPosition(i - 1,
                     (Vector3)pathNodes[i].position + _pathLineOffset);
-            }
         }
 
         private void HidePathLine()
@@ -187,7 +175,7 @@ namespace Colonists
         private void OnDestinationReach()
         {
             HidePathLine();
-            
+
             DestinationReach?.Invoke();
         }
 

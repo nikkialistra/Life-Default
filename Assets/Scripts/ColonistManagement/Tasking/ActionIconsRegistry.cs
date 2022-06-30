@@ -7,12 +7,12 @@ namespace ColonistManagement.Tasking
 {
     public class ActionIconsRegistry : MonoBehaviour
     {
+        public Sprite this[ActionType actionType] => _taskIcons[actionType];
+
         [ValidateInput(nameof(EveryActionHaveIcon), "Not every task has icon")]
         [DictionaryDrawerSettings(DisplayMode = DictionaryDisplayOptions.ExpandedFoldout)]
         [SerializeField] private TaskIconsDictionary _taskIcons;
 
-        public Sprite this[ActionType actionType] => _taskIcons[actionType];
-        
         private bool EveryActionHaveIcon(TaskIconsDictionary taskIcons, ref string errorMessage)
         {
             foreach (var actionType in (ActionType[])Enum.GetValues(typeof(ActionType)))
@@ -26,7 +26,7 @@ namespace ColonistManagement.Tasking
 
             return true;
         }
-        
+
         [Serializable] public class TaskIconsDictionary : SerializableDictionary<ActionType, Sprite> { }
     }
 }

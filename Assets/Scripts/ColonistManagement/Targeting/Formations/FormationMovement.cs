@@ -64,7 +64,7 @@ namespace ColonistManagement.Targeting.Formations
         public void ShowFormation(Vector3 position, List<Colonist> colonists, FormationColor formationColor)
         {
             _targetPoint = position;
-            
+
             _shown = true;
             _lastAngle = 0f;
 
@@ -74,24 +74,16 @@ namespace ColonistManagement.Targeting.Formations
 
             _colonistPositions.Clear();
             foreach (var colonist in _colonists)
-            {
                 _colonistPositions.Add(colonist.transform.position);
-            }
 
             Show(formationColor);
         }
 
         public void RotateFormation(float angle)
         {
-            if (!_shown)
-            {
-                throw new InvalidOperationException();
-            }
+            if (!_shown) throw new InvalidOperationException();
 
-            if (_colonists.Count == 0 || _formationType == FormationType.None)
-            {
-                return;
-            }
+            if (_colonists.Count == 0 || _formationType == FormationType.None) return;
 
             _lastAngle = angle;
 
@@ -103,10 +95,7 @@ namespace ColonistManagement.Targeting.Formations
         {
             _shown = false;
 
-            if (_colonists.Count == 0)
-            {
-                return;
-            }
+            if (_colonists.Count == 0) return;
 
             _formationPreviewDrawing.ChangeColor(formationColor);
 
@@ -115,14 +104,10 @@ namespace ColonistManagement.Targeting.Formations
             UnsubscribeFromColonists();
 
             if (_formationPreviewDrawing.ShowDirectionArrow)
-            {
                 MoveColonistsToPositions(_formationPositions.Skip(1).ToArray(), _regionFormation.CurrentYRotation,
                     additional);
-            }
             else
-            {
                 MoveColonistsToPositions(_formationPositions, null, additional);
-            }
 
             _formationPreviewDrawing.Animate();
         }
@@ -130,17 +115,13 @@ namespace ColonistManagement.Targeting.Formations
         private void SubscribeToColonists()
         {
             foreach (var colonist in _colonists)
-            {
                 colonist.ColonistDying += RemoveFromFormation;
-            }
         }
 
         private void UnsubscribeFromColonists()
         {
             foreach (var colonist in _colonists)
-            {
                 colonist.ColonistDying -= RemoveFromFormation;
-            }
         }
 
         private void RemoveFromFormation(Colonist colonist)
@@ -148,13 +129,9 @@ namespace ColonistManagement.Targeting.Formations
             _colonists.Remove(colonist);
 
             if (_colonists.Count > 0)
-            {
                 Show();
-            }
             else
-            {
                 _formationPreviewDrawing.Reset();
-            }
         }
 
         private void Show(FormationColor formationColor)
@@ -165,10 +142,7 @@ namespace ColonistManagement.Targeting.Formations
 
         private void Show()
         {
-            if (!_shown)
-            {
-                return;
-            }
+            if (!_shown) return;
 
             _formationPositions = GenerateFormation(_targetPoint);
 
@@ -222,22 +196,16 @@ namespace ColonistManagement.Targeting.Formations
 
             FindMappingBetweenColonistsAndPositions(formationPositions, orderedFormationPositions, orderedColonists);
 
-            for (var i = 0; i < orderedColonists.Length; i++)
-            {
+            for (int i = 0; i < orderedColonists.Length; i++)
                 OrderUnit(orderedColonists[i], formationPositions[i], lastAngle, additional);
-            }
         }
 
         private void OrderUnit(Colonist colonist, Vector3 position, float? lastAngle, bool additional)
         {
             if (!additional)
-            {
                 colonist.OrderToPosition(position, lastAngle);
-            }
             else
-            {
                 colonist.TryAddPositionToOrder(position, lastAngle);
-            }
         }
 
         private void FindMappingBetweenColonistsAndPositions(Vector3[] formationPositions,
@@ -249,14 +217,15 @@ namespace ColonistManagement.Targeting.Formations
 
             var middlePoint = FormationUtils.FindMiddlePoint(_colonistPositions);
 
-            for (var i = 0; i < formationPositions.Length; i++)
+            for (int i = 0; i < formationPositions.Length; i++)
             {
                 var formationIndex = _formationType == FormationType.Free
                     ? FormationUtils.FarthestPointIndexFrom(formationPositions, assignedPositionsBitmask, middlePoint)
                     : i;
 
                 var closestUnitIndex =
-                    FormationUtils.ClosestUnitIndexTo(_colonists, formationPositions[formationIndex], assignedColonistsBitmask);
+                    FormationUtils.ClosestUnitIndexTo(_colonists, formationPositions[formationIndex],
+                        assignedColonistsBitmask);
 
                 assignedPositionsBitmask[formationIndex] = true;
                 assignedColonistsBitmask[closestUnitIndex] = true;
@@ -269,9 +238,7 @@ namespace ColonistManagement.Targeting.Formations
         private Vector3[] GenerateFormation(Vector3 targetPoint)
         {
             if (_colonists.Count == 0)
-            {
                 return Array.Empty<Vector3>();
-            }
 
             return _formationType switch
             {
@@ -287,18 +254,9 @@ namespace ColonistManagement.Targeting.Formations
         private Vector3[] GenerateFormationWithRotation(float rotation)
         {
             if (_colonists.Count == 0)
-            {
                 return Array.Empty<Vector3>();
-            }
 
-            if (FormationIsRegion)
-            {
-                return RotateRegionFormation(rotation);
-            }
-            else
-            {
-                return RotateFreeFormation(rotation);
-            }
+            return FormationIsRegion ? RotateRegionFormation(rotation) : RotateFreeFormation(rotation);
         }
 
         private Vector3[] GenerateRegionFormation(Vector3 targetPoint, RegionFormationType regionFormationType)
@@ -308,7 +266,8 @@ namespace ColonistManagement.Targeting.Formations
             var count = _colonists.Count;
 
             _relativeYRotation =
-                FormationUtils.RotationFromOriginToTarget(FormationUtils.FindMiddlePoint(_colonistPositions), targetPoint);
+                FormationUtils.RotationFromOriginToTarget(FormationUtils.FindMiddlePoint(_colonistPositions),
+                    targetPoint);
 
             var relativeRotation = Quaternion.Euler(0f, _relativeYRotation, 0f);
 
@@ -330,7 +289,7 @@ namespace ColonistManagement.Targeting.Formations
             var difference = targetPoint - originPoint;
 
             var freeFormationPositions = new Vector3[_colonists.Count];
-            for (var i = 0; i < _colonists.Count; i++)
+            for (int i = 0; i < _colonists.Count; i++)
             {
                 var targetPosition = _colonists[i].transform.position + difference;
                 freeFormationPositions[i] = new Vector3(
@@ -347,7 +306,7 @@ namespace ColonistManagement.Targeting.Formations
             var centerPoint = FormationUtils.FindCenterPoint(_formationPositions);
 
             var rotatedPositions = new Vector3[_formationPositions.Length];
-            for (var i = 0; i < _formationPositions.Length; i++)
+            for (int i = 0; i < _formationPositions.Length; i++)
             {
                 var targetUnitPositionRotated =
                     centerPoint + relativeRotation * (_formationPositions[i] - centerPoint);
@@ -362,10 +321,9 @@ namespace ColonistManagement.Targeting.Formations
         private Vector3[] GenerateNoFormation(Vector3 targetPoint)
         {
             var noFormationPositions = new Vector3[_colonists.Count];
-            for (var i = 0; i < _colonists.Count; i++)
-            {
+
+            for (int i = 0; i < _colonists.Count; i++)
                 noFormationPositions[i] = targetPoint;
-            }
 
             return noFormationPositions;
         }

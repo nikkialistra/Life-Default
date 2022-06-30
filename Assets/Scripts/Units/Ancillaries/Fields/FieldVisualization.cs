@@ -77,7 +77,7 @@ namespace Units.Ancillaries.Fields
             var viewPoints = new List<Vector3>();
             var oldViewCast = new ViewCastInfo();
 
-            for (var i = 0; i <= stepCount; i++)
+            for (int i = 0; i <= stepCount; i++)
             {
                 var angle = transform.eulerAngles.y - _viewAngle / 2 + stepAngleSize * i;
                 var newViewCast = ViewCast(angle);
@@ -116,7 +116,7 @@ namespace Units.Ancillaries.Fields
             var triangles = new int[(vertexCount - 2) * 3];
 
             vertices[0] = Vector3.zero;
-            for (var i = 0; i < vertexCount - 1; i++)
+            for (int i = 0; i < vertexCount - 1; i++)
             {
                 vertices[i + 1] = transform.InverseTransformPoint(viewPoints[i]);
 
@@ -144,7 +144,8 @@ namespace Units.Ancillaries.Fields
             else
             {
                 _linesToTargets.positionCount = _targets.Count * 2;
-                for (var i = 0; i < _targets.Count; i++)
+
+                for (int i = 0; i < _targets.Count; i++)
                 {
                     _linesToTargets.SetPosition(i * 2, _linesToTargets.transform.position);
                     _linesToTargets.SetPosition(i * 2 + 1,
@@ -160,7 +161,7 @@ namespace Units.Ancillaries.Fields
             var minPoint = Vector3.zero;
             var maxPoint = Vector3.zero;
 
-            for (var i = 0; i < _edgeResolveIterations; i++)
+            for (int i = 0; i < _edgeResolveIterations; i++)
             {
                 var angle = (minAngle + maxAngle) / 2;
                 var newViewCast = ViewCast(angle);

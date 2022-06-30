@@ -19,6 +19,23 @@ namespace ColonistManagement.Movement
 {
     public class MovementInput : MonoBehaviour
     {
+        public event Action<Vector3, FormationColor> PositionSet;
+
+        public event Action<float> RotationUpdate;
+        public event Action<bool, FormationColor> DestinationSet;
+
+        public event Action MultiCommandReset;
+
+        public event Action<Colonist> ColonistSet;
+        public event Action<Unit> UnitTarget;
+        public event Action<Resource> ResourceSet;
+
+        public event Action Stop;
+
+        public bool CanTarget => _selectedColonists.Colonists.Any() && !_gameViews.MouseOverUi;
+
+        public bool MultiCommand => _multiCommand;
+
         [SerializeField] private float _mouseOffsetForRotationUpdate = 0.5f;
 
         private Camera _camera;
@@ -50,7 +67,8 @@ namespace ColonistManagement.Movement
         private InputAction _stopAction;
 
         [Inject]
-        public void Construct(PlayerInput playerInput, Camera camera, GameViews gameViews, SelectedColonists selectedColonists)
+        public void Construct(PlayerInput playerInput, Camera camera, GameViews gameViews,
+            SelectedColonists selectedColonists)
         {
             _playerInput = playerInput;
             _camera = camera;
@@ -70,19 +88,6 @@ namespace ColonistManagement.Movement
 
             _stopAction = _playerInput.actions.FindAction("Stop");
         }
-
-        public event Action<Vector3, FormationColor> PositionSet;
-
-        public event Action<float> RotationUpdate;
-        public event Action<bool, FormationColor> DestinationSet;
-
-        public event Action MultiCommandReset;
-
-        public event Action<Colonist> ColonistSet;
-        public event Action<Unit> UnitTarget; 
-        public event Action<Resource> ResourceSet;
-
-        public event Action Stop;
 
         private void OnEnable()
         {
@@ -104,10 +109,6 @@ namespace ColonistManagement.Movement
             _stopAction.started -= OnStop;
         }
 
-        public bool CanTarget => _selectedColonists.Colonists.Any() && !_gameViews.MouseOverUi;
-
-        public bool MultiCommand => _multiCommand;
-
         public void SubscribeToActions()
         {
             _moveAction.started += SetTarget;
@@ -122,11 +123,8 @@ namespace ColonistManagement.Movement
 
         public void TargetGround(FormationColor formationColor)
         {
-            if (!CanTarget)
-            {
-                return;
-            }
-            
+            if (!CanTarget) return;
+
             if (Physics.Raycast(GetRayFromMouse(), out var hit, Mathf.Infinity, _rayMask))
             {
                 var ground = hit.transform.GetComponentInParent<Ground>();
@@ -164,19 +162,13 @@ namespace ColonistManagement.Movement
 
         private void SetTarget(InputAction.CallbackContext context)
         {
-            if (!CanTarget)
-            {
-                return;
-            }
+            if (!CanTarget) return;
 
-            if (TryTargetUnit() || TryTargetEntity())
-            {
-                return;
-            }
-            
+            if (TryTargetUnit() || TryTargetEntity()) return;
+
             TargetGround(FormationColor.White);
         }
-        
+
         private bool TryTargetUnit()
         {
             if (Physics.Raycast(GetRayFromMouse(), out var hit, Mathf.Infinity, _rayMask))
@@ -185,7 +177,7 @@ namespace ColonistManagement.Movement
                 if (unit != null)
                 {
                     ChooseActionBasedOnUnitFraction(unit);
-                    
+
                     return true;
                 }
             }
@@ -201,14 +193,14 @@ namespace ColonistManagement.Movement
                 if (entity != null)
                 {
                     ChooseActionBasedOnUnitType(entity);
-                    
+
                     return true;
                 }
             }
 
             return false;
         }
-        
+
         private void ChooseActionBasedOnUnitFraction(Unit unit)
         {
             switch (unit.Faction)
@@ -252,10 +244,8 @@ namespace ColonistManagement.Movement
 
         private IEnumerator PositionRotating(Vector3 position)
         {
-            while (!GotSufficientMouseOffset(position))
-            {
+            while (GotSufficientMouseOffset(position) == false)
                 yield return null;
-            }
 
             while (true)
             {

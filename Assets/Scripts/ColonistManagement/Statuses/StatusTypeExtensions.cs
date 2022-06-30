@@ -6,7 +6,8 @@ namespace ColonistManagement.Statuses
     {
         public static string GetString(this StatusType statusType)
         {
-            return statusType switch {
+            return statusType switch
+            {
                 StatusType.None => "",
                 StatusType.Injured => "Injured",
                 StatusType.Hungry => "Hungry",
@@ -14,7 +15,7 @@ namespace ColonistManagement.Statuses
                 StatusType.Unhappy => "Unhappy",
                 StatusType.Dizzy => "Dizzy",
                 StatusType.Bored => "Bored",
-                _ => throw new ArgumentOutOfRangeException(nameof(statusType), statusType, null)
+                _ => throw new ArgumentOutOfRangeException()
             };
         }
     }

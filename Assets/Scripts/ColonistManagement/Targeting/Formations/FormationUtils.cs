@@ -9,10 +9,7 @@ namespace ColonistManagement.Targeting.Formations
     {
         public static Vector3 FindMiddlePoint(List<Vector3> positions)
         {
-            if (positions.Count == 0)
-            {
-                throw new InvalidOperationException();
-            }
+            if (positions.Count == 0) throw new InvalidOperationException();
 
             var minPositionX = positions[0].x;
             var maxPositionX = minPositionX;
@@ -36,16 +33,12 @@ namespace ColonistManagement.Targeting.Formations
 
         public static Vector3 FindCenterPoint(Vector3[] positions)
         {
-            if (positions.Length == 0)
-            {
-                throw new InvalidOperationException();
-            }
+            if (positions.Length == 0) throw new InvalidOperationException();
 
             var centerPoint = Vector3.zero;
+
             foreach (var position in positions)
-            {
                 centerPoint += position;
-            }
 
             centerPoint /= positions.Length;
 
@@ -57,12 +50,10 @@ namespace ColonistManagement.Targeting.Formations
         {
             var farthestPointDistance = 0f;
             var farthestPointIndex = 0;
-            for (var i = 0; i < assignedPositionsBitmask.Length; i++)
+
+            for (int i = 0; i < assignedPositionsBitmask.Length; i++)
             {
-                if (assignedPositionsBitmask[i])
-                {
-                    continue;
-                }
+                if (assignedPositionsBitmask[i]) continue;
 
                 var distanceToPoint = Vector3.Distance(originPoint, formationPositions[i]);
                 if (distanceToPoint > farthestPointDistance)
@@ -75,16 +66,15 @@ namespace ColonistManagement.Targeting.Formations
             return farthestPointIndex;
         }
 
-        public static int ClosestUnitIndexTo(List<Colonist> colonists, Vector3 targetPoint, bool[] assignedColonistsBitmask)
+        public static int ClosestUnitIndexTo(List<Colonist> colonists, Vector3 targetPoint,
+            bool[] assignedColonistsBitmask)
         {
             var closestUnitDistance = 1000f;
             var closestUnitIndex = 0;
-            for (var i = 0; i < assignedColonistsBitmask.Length; i++)
+
+            for (int i = 0; i < assignedColonistsBitmask.Length; i++)
             {
-                if (assignedColonistsBitmask[i])
-                {
-                    continue;
-                }
+                if (assignedColonistsBitmask[i]) continue;
 
                 var distanceToPoint = Vector3.Distance(colonists[i].transform.position, targetPoint);
                 if (distanceToPoint < closestUnitDistance)
@@ -105,14 +95,7 @@ namespace ColonistManagement.Targeting.Formations
 
             var angleBetween = Vector3.Angle(Vector3.forward * distToTarget, differenceVector);
 
-            if (targetPoint.x > originPoint.x)
-            {
-                return angleBetween;
-            }
-            else
-            {
-                return 360f - angleBetween;
-            }
+            return targetPoint.x > originPoint.x ? angleBetween : 360f - angleBetween;
         }
     }
 }

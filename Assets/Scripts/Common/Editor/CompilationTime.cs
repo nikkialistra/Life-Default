@@ -20,7 +20,7 @@ namespace Common.Editor
             CompilationPipeline.assemblyCompilationFinished += OnAssemblyCompilationFinished;
             CompilationPipeline.compilationFinished += OnCompilationFinished;
         }
-        
+
         private static void OnCompilationStarted(object context)
         {
             Stopwatch.Start();
@@ -39,10 +39,8 @@ namespace Common.Editor
             Stopwatch.Reset();
 
             foreach (var pair in AssemblyCompilationTimes)
-            {
                 Debug.Log($"Assembly {pair.Key.Replace("Library/ScriptAssemblies/", string.Empty)} " +
                           $"built after {pair.Value:F} seconds.");
-            }
 
             Debug.Log($"Total compilation time: {elapsed.TotalSeconds:F} seconds.");
         }

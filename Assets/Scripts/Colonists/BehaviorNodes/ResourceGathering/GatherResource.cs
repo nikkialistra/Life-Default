@@ -18,31 +18,18 @@ namespace Colonists.BehaviorNodes.ResourceGathering
             _gathering = ColonistGatherer.TryGather(Resource.Value);
 
             if (_gathering)
-            {
                 ColonistActivities.SwitchTo(ActivityType.Gathering);
-            }
         }
 
         public override TaskStatus OnUpdate()
         {
             if (!_gathering)
-            {
                 return TaskStatus.Failure;
-            }
-            
-            if (Resource.Value.Exhausted)
-            {
-                return TaskStatus.Success;
-            }
 
-            if (ColonistGatherer.IsGathering)
-            {
-                return TaskStatus.Running;
-            }
-            else
-            {
-                return TaskStatus.Failure;
-            }
+            if (Resource.Value.Exhausted)
+                return TaskStatus.Success;
+
+            return ColonistGatherer.IsGathering ? TaskStatus.Running : TaskStatus.Failure;
         }
     }
 }

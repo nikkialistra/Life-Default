@@ -13,33 +13,28 @@ namespace Colonists
 {
     public class ColonistSkills : MonoBehaviour
     {
+        public IReadOnlyList<Skill> Skills => _skills.Values.ToList();
+
         [ValidateInput(nameof(ColonistHaveEachSkill))]
         [SerializeField] private SkillsDictionary _skills;
 
-        public IReadOnlyList<Skill> Skills => _skills.Values.ToList();
-        
         private float _skillProgressPerSecond;
 
         [Inject]
         public void Construct(SkillsSettings skillsSettings)
         {
             foreach (var skill in _skills.Values)
-            {
                 skill.Initialize(skillsSettings);
-            }
 
             _skillProgressPerSecond = skillsSettings.SkillProgressPerSecond;
         }
-        
+
         public void Advance(ActivityType activityType, float duration)
         {
             var skillType = activityType.ToSkillType();
 
-            if (!skillType.HasValue)
-            {
-                return;
-            }
-            
+            if (!skillType.HasValue) return;
+
             ImproveSkill(skillType.Value, duration * _skillProgressPerSecond);
         }
 
@@ -72,7 +67,7 @@ namespace Colonists
 
             return true;
         }
-        
+
         [Serializable] public class SkillsDictionary : SerializableDictionary<SkillType, Skill> { }
     }
 }

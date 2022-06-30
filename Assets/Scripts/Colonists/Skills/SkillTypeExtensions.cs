@@ -6,7 +6,8 @@ namespace Colonists.Skills
     {
         public static string GetUxmlName(this SkillType skillType)
         {
-            return skillType switch {
+            return skillType switch
+            {
                 SkillType.Strength => "strength",
                 SkillType.Dexterity => "dexterity",
                 SkillType.Accuracy => "accuracy",
@@ -20,8 +21,7 @@ namespace Colonists.Skills
                 SkillType.Medicine => "medicine",
                 SkillType.Agriculture => "agriculture",
                 SkillType.AnimalHandling => "animal-handling",
-                
-                _ => throw new ArgumentOutOfRangeException(nameof(skillType), skillType, null)
+                _ => throw new ArgumentOutOfRangeException()
             };
         }
     }

@@ -10,7 +10,7 @@ namespace Colonists.BehaviorNodes
 
         public ColonistMeshAgent ColonistMeshAgent;
         public ColonistGatherer ColonistGatherer;
-        
+
         public UnitAttacker UnitAttacker;
 
         public override TaskStatus OnUpdate()
@@ -20,7 +20,7 @@ namespace Colonists.BehaviorNodes
             ColonistMeshAgent.StopMoving();
             ColonistMeshAgent.ResetDestination();
             ColonistGatherer.FinishGathering();
-            
+
             UnitAttacker.FinalizeAttackingInstantly();
 
             return TaskStatus.Success;

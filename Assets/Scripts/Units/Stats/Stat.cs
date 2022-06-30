@@ -61,7 +61,7 @@ namespace Units.Stats
 
             _statModifiers.Sort(CompareModifierOrder);
 
-            for (var i = 0; i < _statModifiers.Count; i++)
+            for (int i = 0; i < _statModifiers.Count; i++)
             {
                 var modifier = _statModifiers[i];
 

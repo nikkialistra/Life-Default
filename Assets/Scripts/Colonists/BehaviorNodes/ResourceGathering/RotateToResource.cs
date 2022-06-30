@@ -28,27 +28,13 @@ namespace Colonists.BehaviorNodes.ResourceGathering
                 ColonistMeshAgent.StopRotating();
                 return TaskStatus.Failure;
             }
-            
-            if (!_rotationEnd)
-            {
-                return TaskStatus.Running;
-            }
-            else
-            {
-                return CanGather();
-            }
+
+            return !_rotationEnd ? TaskStatus.Running : CanGather();
         }
-        
+
         private TaskStatus CanGather()
         {
-            if (ColonistGatherer.AtInteractionDistance(Resource.Value))
-            {
-                return TaskStatus.Success;
-            }
-            else
-            {
-                return TaskStatus.Failure;
-            }
+            return ColonistGatherer.AtInteractionDistance(Resource.Value) ? TaskStatus.Success : TaskStatus.Failure;
         }
 
         public override void OnEnd()

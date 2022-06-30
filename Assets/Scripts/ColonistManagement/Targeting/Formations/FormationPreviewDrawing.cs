@@ -40,6 +40,7 @@ namespace ColonistManagement.Targeting.Formations
             Reset();
 
             int startIndex;
+
             if (ShowDirectionArrow)
             {
                 PlaceDirectionArrow(formationPositions, rotation);
@@ -76,30 +77,22 @@ namespace ColonistManagement.Targeting.Formations
             {
                 UpdateDirectionArrow(formationPositions, rotation);
 
-                for (var i = 1; i < formationPositions.Length; i++)
-                {
+                for (int i = 1; i < formationPositions.Length; i++)
                     _positionPreviews[i - 1].transform.position = formationPositions[i];
-                }
             }
             else
             {
-                for (var i = 0; i < formationPositions.Length; i++)
-                {
+                for (int i = 0; i < formationPositions.Length; i++)
                     _positionPreviews[i].transform.position = formationPositions[i];
-                }
             }
         }
 
         public void Animate()
         {
             if (_showNoFormationMark)
-            {
                 _noFormationMark.StartAnimation();
-            }
             else
-            {
                 AnimateFormation();
-            }
 
             _flashFinishCoroutine = StartCoroutine(FinishAnimation(_positionPreviewPrefab.AnimationTime));
         }
@@ -136,14 +129,10 @@ namespace ColonistManagement.Targeting.Formations
         private void AnimateFormation()
         {
             if (ShowDirectionArrow)
-            {
                 _directionArrow.StartAnimation();
-            }
 
-            for (var i = 0; i < _nextIndex; i++)
-            {
+            for (int i = 0; i < _nextIndex; i++)
                 _positionPreviews[i].StartAnimation();
-            }
         }
 
         private void PlaceDirectionArrow(Vector3[] formationPositions, float rotation)
@@ -189,9 +178,7 @@ namespace ColonistManagement.Targeting.Formations
             _directionArrow.gameObject.SetActive(false);
 
             foreach (var positionPreview in _positionPreviews)
-            {
                 positionPreview.gameObject.SetActive(false);
-            }
         }
     }
 }

@@ -32,7 +32,8 @@ namespace ColonistManagement.Movement
         private InputAction _cancelAction;
 
         [Inject]
-        public void Construct(PlayerInput playerInput, SelectedColonists selectedColonists, SelectingInput selectingInput,
+        public void Construct(PlayerInput playerInput, SelectedColonists selectedColonists,
+            SelectingInput selectingInput,
             GameCursors gameCursors)
         {
             _playerInput = playerInput;
@@ -106,10 +107,7 @@ namespace ColonistManagement.Movement
 
         public void SelectMove()
         {
-            if (IfNoColonistsSelected())
-            {
-                return;
-            }
+            if (IfNoColonistsSelected()) return;
 
             _movementAction = MovementAction.Move;
             PauseAnotherInput();
@@ -118,10 +116,7 @@ namespace ColonistManagement.Movement
 
         public void SelectAttack()
         {
-            if (IfNoColonistsSelected() || Keyboard.current.altKey.isPressed)
-            {
-                return;
-            }
+            if (IfNoColonistsSelected() || Keyboard.current.altKey.isPressed) return;
 
             _movementAction = MovementAction.Attack;
             PauseAnotherInput();
@@ -130,10 +125,7 @@ namespace ColonistManagement.Movement
 
         public void SelectHold()
         {
-            if (IfNoColonistsSelected())
-            {
-                return;
-            }
+            if (IfNoColonistsSelected()) return;
 
             _movementAction = MovementAction.Hold;
             PauseAnotherInput();
@@ -141,10 +133,7 @@ namespace ColonistManagement.Movement
 
         public void SelectPatrol()
         {
-            if (IfNoColonistsSelected())
-            {
-                return;
-            }
+            if (IfNoColonistsSelected()) return;
 
             _movementAction = MovementAction.Patrol;
             PauseAnotherInput();
@@ -152,12 +141,7 @@ namespace ColonistManagement.Movement
 
         private bool IfNoColonistsSelected()
         {
-            if (_selectedColonists.Count == 0)
-            {
-                return true;
-            }
-
-            return false;
+            return _selectedColonists.Count == 0;
         }
 
         private void PauseAnotherInput()
@@ -168,10 +152,7 @@ namespace ColonistManagement.Movement
 
         private void StartDo(InputAction.CallbackContext context)
         {
-            if (_movementAction == MovementAction.None || !_movementInput.CanTarget)
-            {
-                return;
-            }
+            if (_movementAction == MovementAction.None || !_movementInput.CanTarget) return;
 
             _movementInput.TargetGround(_movementAction == MovementAction.Attack
                 ? FormationColor.Red
@@ -180,10 +161,7 @@ namespace ColonistManagement.Movement
 
         private void Do(InputAction.CallbackContext context)
         {
-            if (_movementAction == MovementAction.None)
-            {
-                return;
-            }
+            if (_movementAction == MovementAction.None) return;
 
             switch (_movementAction)
             {
@@ -205,9 +183,7 @@ namespace ColonistManagement.Movement
             }
 
             if (!_movementInput.MultiCommand)
-            {
                 Complete();
-            }
         }
 
         private void Cancel(InputAction.CallbackContext context)

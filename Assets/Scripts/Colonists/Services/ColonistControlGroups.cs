@@ -37,7 +37,7 @@ namespace Colonists.Services
 
         private void Initialize()
         {
-            for (var i = 0; i < ControlGroupNumber; i++)
+            for (int i = 0; i < ControlGroupNumber; i++)
             {
                 var number = i;
 
@@ -60,9 +60,7 @@ namespace Colonists.Services
         private void OnDestroy()
         {
             foreach (var number in _controlGroups.Keys)
-            {
                 UnsubscribeFromColonists(number);
-            }
         }
 
         private void OnDigitPress(InputAction.CallbackContext context)
@@ -70,13 +68,9 @@ namespace Colonists.Services
             var digit = Mathf.RoundToInt(context.ReadValue<float>());
 
             if (!Keyboard.current.ctrlKey.isPressed)
-            {
                 _selectedColonists.Set(_controlGroups[digit - 1]);
-            }
             else
-            {
                 AddToControlGroup(digit - 1);
-            }
         }
 
         private void AddToControlGroup(int number)
@@ -91,17 +85,13 @@ namespace Colonists.Services
         private void SubscribeToColonists(int number)
         {
             foreach (var colonist in _controlGroups[number])
-            {
                 colonist.ColonistDying += _removeFromControlGroup[number];
-            }
         }
 
         private void UnsubscribeFromColonists(int number)
         {
             foreach (var oldColonist in _controlGroups[number])
-            {
                 oldColonist.ColonistDying -= _removeFromControlGroup[number];
-            }
         }
     }
 }

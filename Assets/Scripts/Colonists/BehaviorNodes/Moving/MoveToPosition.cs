@@ -31,9 +31,7 @@ namespace Colonists.BehaviorNodes.Moving
         public override TaskStatus OnUpdate()
         {
             if (_end)
-            {
                 return TaskStatus.Failure;
-            }
 
             return _finished ? TaskStatus.Success : TaskStatus.Running;
         }
@@ -41,9 +39,7 @@ namespace Colonists.BehaviorNodes.Moving
         private void OnDestinationReach()
         {
             if (Positions.Value.Count > 0)
-            {
                 Positions.Value.Dequeue();
-            }
 
             ColonistMeshAgent.DestinationReach -= OnDestinationReach;
             _finished = true;

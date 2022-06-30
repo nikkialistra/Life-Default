@@ -60,25 +60,19 @@ namespace ColonistManagement.Movement
         private void OrderToColonist(Colonist targetColonist)
         {
             foreach (var colonist in _selectedColonists.Colonists)
-            {
                 colonist.OrderTo(targetColonist);
-            }
         }
 
         private void OrderToUnitTarget(Unit unit)
         {
             foreach (var colonist in _selectedColonists.Colonists)
-            {
                 colonist.OrderTo(unit);
-            }
         }
 
         private void OrderToResource(Resource resource)
         {
             foreach (var colonist in _selectedColonists.Colonists)
-            {
                 colonist.OrderTo(resource);
-            }
         }
 
         private void ShowFormation(Vector3 position, FormationColor formationColor)
@@ -99,9 +93,7 @@ namespace ColonistManagement.Movement
         public void Stop()
         {
             foreach (var colonist in _selectedColonists.Colonists)
-            {
                 colonist.Stop();
-            }
         }
     }
 }

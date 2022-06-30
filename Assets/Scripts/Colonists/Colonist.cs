@@ -29,6 +29,36 @@ namespace Colonists
     [RequireComponent(typeof(ColonistActivities))]
     public class Colonist : MonoBehaviour
     {
+        public event Action Spawn;
+        public event Action VitalityChange;
+        public event Action Dying;
+        public event Action<Colonist> ColonistDying;
+
+        public event Action<string> NameChange;
+
+        public event Action<ActivityType> ActivityChange;
+        public event Action TraitsChange;
+        public event Action<Skill> SkillChange;
+
+        public string Name
+        {
+            get => _name;
+            set
+            {
+                _name = value;
+                NameChange?.Invoke(_name);
+            }
+        }
+
+        public Unit Unit => _unit;
+
+        public bool Alive => _unit.Alive;
+
+        public IReadOnlyList<Skill> Skills => _colonistSkills.Skills;
+        public IReadOnlyList<Trait> Traits => _colonistTraits.Traits;
+
+        public Vector3 Center => _center.position;
+
         [SerializeField] private string _name;
         [SerializeField] private Gender _gender;
         [Space]
@@ -55,9 +85,9 @@ namespace Colonists
 
         private HumanAppearanceRegistry _humanAppearanceRegistry;
         private HumanNames _humanNames;
-        
+
         [Inject]
-        public void Construct(HumanAppearanceRegistry humanAppearanceRegistry , HumanNames humanNames)
+        public void Construct(HumanAppearanceRegistry humanAppearanceRegistry, HumanNames humanNames)
         {
             _humanAppearanceRegistry = humanAppearanceRegistry;
             _humanNames = humanNames;
@@ -79,36 +109,6 @@ namespace Colonists
             _colonistActivities = GetComponent<ColonistActivities>();
         }
 
-        public event Action Spawn;
-        public event Action VitalityChange;
-        public event Action Dying;
-        public event Action<Colonist> ColonistDying;
-        
-        public event Action<string> NameChange;
-
-        public event Action<ActivityType> ActivityChange; 
-        public event Action TraitsChange;
-        public event Action<Skill> SkillChange;
-
-        public Unit Unit => _unit;
-
-        public bool Alive => _unit.Alive;
-        
-        public string Name
-        {
-            get => _name;
-            set
-            {
-                _name = value;
-                NameChange?.Invoke(_name);
-            }
-        }
-
-        public IReadOnlyList<Skill> Skills => _colonistSkills.Skills;
-        public IReadOnlyList<Trait> Traits => _colonistTraits.Traits;
-
-        public Vector3 Center => _center.position;
-        
         private void Start()
         {
             Initialize();
@@ -120,7 +120,7 @@ namespace Colonists
         private void OnEnable()
         {
             _colonistActivities.ActivityChange += OnActivityChange;
-            
+
             _unit.VitalityChange += OnVitalityChange;
             _unit.Dying += OnDying;
         }
@@ -128,7 +128,7 @@ namespace Colonists
         private void OnDisable()
         {
             _colonistActivities.ActivityChange -= OnActivityChange;
-            
+
             _unit.VitalityChange -= OnVitalityChange;
             _unit.Dying -= OnDying;
         }
@@ -148,13 +148,13 @@ namespace Colonists
         {
             _humanAppearance.RandomizeAppearanceWith(_gender, HumanType.Colonist, _humanAppearanceRegistry);
         }
-        
+
         [Button(ButtonSizes.Medium)]
         public void AddTrait(Trait trait)
         {
             _colonistTraits.AddTrait(trait);
             _unit.AddTrait(trait);
-            
+
             TraitsChange?.Invoke();
         }
 
@@ -163,21 +163,18 @@ namespace Colonists
         {
             _colonistTraits.RemoveTrait(trait);
             _unit.RemoveTrait(trait);
-            
+
             TraitsChange?.Invoke();
         }
 
         public void Select()
         {
-            if (!_unit.Alive)
-            {
-                return;
-            }
+            if (!_unit.Alive) return;
 
             _unitSelection.Select();
             _selectionIndicator.SetActive(true);
             _colonistMeshAgent.ShowLinePath();
-            
+
             _unit.Select();
         }
 
@@ -186,20 +183,20 @@ namespace Colonists
             _unitSelection.Deselect();
             _selectionIndicator.SetActive(false);
             _colonistMeshAgent.HideLinePath();
-            
+
             _unit.Deselect();
         }
-    
+
         public void Stop()
         {
             _colonistBehavior.Stop();
         }
-        
+
         public bool HasWeaponOf(WeaponSlotType weaponSlotType)
         {
             return _unit.HasWeaponOf(weaponSlotType);
         }
-        
+
         public void ChooseWeapon(WeaponSlotType weaponSlotType)
         {
             _unit.ChooseWeapon(weaponSlotType);
@@ -207,10 +204,7 @@ namespace Colonists
 
         public void OrderTo(Colonist targetColonist)
         {
-            if (this == targetColonist)
-            {
-                return;
-            }
+            if (this == targetColonist) return;
 
             _colonistBehavior.OrderTo(targetColonist);
         }
@@ -219,7 +213,7 @@ namespace Colonists
         {
             _colonistBehavior.OrderTo(unitTarget);
         }
-        
+
         public void OrderTo(Resource resource)
         {
             _colonistBehavior.OrderTo(resource);
@@ -253,7 +247,7 @@ namespace Colonists
         public void ImproveSkill(SkillType skillType, int quantity)
         {
             _colonistSkills.ImproveSkill(skillType, quantity);
-            
+
             SkillChange?.Invoke(_colonistSkills.GetSkill(skillType));
         }
 
@@ -276,10 +270,8 @@ namespace Colonists
             _gender = EnumUtils.RandomValue<Gender>();
 
             if (_name == "")
-            { 
                 _name = _humanNames.GetRandomNameFor(_gender);
-            }
-                
+
             _humanAppearance.RandomizeAppearanceWith(_gender, HumanType.Colonist, _humanAppearanceRegistry);
 
             BindStatsToComponents();
@@ -290,21 +282,21 @@ namespace Colonists
         private void InitializeUnit()
         {
             foreach (var trait in _colonistTraits.Traits)
-            {
                 _unit.AddTrait(trait);
-            }
 
             _unit.Initialize();
         }
 
         private void BindStatsToComponents()
         {
-            _colonistGatherer.BindStats(_colonistStats.ResourceDestructionSpeed, _colonistStats.ResourceExtractionEfficiency);
+            _colonistGatherer.BindStats(_colonistStats.ResourceDestructionSpeed,
+                _colonistStats.ResourceExtractionEfficiency);
         }
 
         private void UnbindStatsFromComponents()
         {
-            _colonistGatherer.UnbindStats(_colonistStats.ResourceDestructionSpeed, _colonistStats.ResourceExtractionEfficiency);
+            _colonistGatherer.UnbindStats(_colonistStats.ResourceDestructionSpeed,
+                _colonistStats.ResourceExtractionEfficiency);
         }
 
         private void ActivateComponents()
@@ -336,7 +328,7 @@ namespace Colonists
         {
             VitalityChange?.Invoke();
         }
-        
+
         private void OnActivityChange(ActivityType activityType)
         {
             ActivityChange?.Invoke(activityType);

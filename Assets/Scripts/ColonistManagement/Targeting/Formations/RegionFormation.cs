@@ -5,6 +5,8 @@ namespace ColonistManagement.Targeting.Formations
 {
     public class RegionFormation : MonoBehaviour
     {
+        public float CurrentYRotation => _rotation.eulerAngles.y;
+
         [SerializeField] private float _colonistSize = 1f;
         [Space]
         [SerializeField] private float _distanceMultiplierForPacked = 2f;
@@ -27,8 +29,6 @@ namespace ColonistManagement.Targeting.Formations
         private float _leftIndent;
 
         private Vector3[] _areaFormationPositions;
-
-        public float CurrentYRotation => _rotation.eulerAngles.y;
 
         public Vector3[] CalculatePositions(int count, Quaternion rotation, Vector3 targetPoint, float height,
             RegionFormationType regionFormationType)
@@ -104,11 +104,12 @@ namespace ColonistManagement.Targeting.Formations
         private int CalculateFormationPositions()
         {
             var currentPosition = 1;
-            for (var i = 0; i < _rowsCount; i++)
+
+            for (int i = 0; i < _rowsCount; i++)
             {
                 _leftIndent = (-1) * ((float)_columnsCount / 2 - 0.5f);
 
-                for (var j = 0; j < _columnsCount; j++)
+                for (int j = 0; j < _columnsCount; j++)
                 {
                     _areaFormationPositions[currentPosition] = GetUnitPositionInFormation(
                         _targetPointFlat, _rowsOffset, _leftIndent);
@@ -137,14 +138,10 @@ namespace ColonistManagement.Targeting.Formations
         private float GetFirstRowMiddlePosition()
         {
             if (_columnsCount % 2 == 1)
-            {
                 return _areaFormationPositions[_columnsCount / 2 + 1].x;
-            }
             else
-            {
                 return (_areaFormationPositions[_columnsCount / 2].x +
                         _areaFormationPositions[_columnsCount / 2 + 1].x) / 2;
-            }
         }
 
         private float IndentFromFirstPosition()
@@ -159,7 +156,7 @@ namespace ColonistManagement.Targeting.Formations
                 _leftIndent =
                     -1 * ((float)_behindFormation / 2 - 0.5f);
 
-                for (var j = 0; j < _behindFormation; j++)
+                for (int j = 0; j < _behindFormation; j++)
                 {
                     _areaFormationPositions[currentPosition] = GetUnitPositionInFormation(
                         _targetPointFlat, _rowsOffset, _leftIndent
@@ -175,7 +172,8 @@ namespace ColonistManagement.Targeting.Formations
         private Vector3[] RotateFormationPositions()
         {
             var rotatedPositions = new Vector3[_areaFormationPositions.Length];
-            for (var i = 0; i < _areaFormationPositions.Length; i++)
+
+            for (int i = 0; i < _areaFormationPositions.Length; i++)
             {
                 var targetUnitPositionRotated =
                     _targetPointFlat + _rotation * (_areaFormationPositions[i] - _targetPointFlat);

@@ -146,7 +146,7 @@ namespace UI.Menus.Settings
 
             _resolution.choices = new List<string>();
             var currentIndex = 0;
-            for (var i = 0; i < _resolutions.Count; i++)
+            for (int i = 0; i < _resolutions.Count; i++)
             {
                 var resolution = _resolutions[i];
                 var resolutionText = resolution.ToString();

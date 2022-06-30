@@ -100,9 +100,9 @@ namespace Units.Services
             
             _generateTestCubes = true;
             
-            for (var z = -_zBounds; z < _zBounds; z += _gridInterval)
+            for (float z = -_zBounds; z < _zBounds; z += _gridInterval)
             {
-                for (var x = -_xBounds; x < _xBounds; x += _gridInterval)
+                for (float x = -_xBounds; x < _xBounds; x += _gridInterval)
                 {
                     Spawn(x, z);
                 }

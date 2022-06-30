@@ -37,18 +37,13 @@ namespace Colonists.BehaviorNodes.ResourceGathering
             {
                 var resource = target.GetComponent<Resource>();
                 if (resource != null && resource != _oldResource)
-                {
                     SetIfSuitable(resource);
-                }
             }
         }
 
         private void SetIfSuitable(Resource resource)
         {
-            if (resource.ResourceType != _oldResource.ResourceType)
-            {
-                return;
-            }
+            if (resource.ResourceType != _oldResource.ResourceType) return;
 
             SetIfClosest(resource);
         }
@@ -57,10 +52,7 @@ namespace Colonists.BehaviorNodes.ResourceGathering
         {
             var distanceToResource = Vector3.Distance(transform.position, resource.transform.position);
 
-            if (distanceToResource > _shortestDistanceToEntity)
-            {
-                return;
-            }
+            if (distanceToResource > _shortestDistanceToEntity) return;
 
             _shortestDistanceToEntity = distanceToResource;
             Resource.Value = resource;

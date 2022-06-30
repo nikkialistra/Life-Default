@@ -6,17 +6,17 @@ namespace Colonists
 {
     public class ColonistStats : MonoBehaviour
     {
-        [SerializeField] private Stat<ColonistStat> _resourceDestructionSpeed;
-        [SerializeField] private Stat<ColonistStat> _resourceExtractionEfficiency;
-        
         public Stat<ColonistStat> ResourceDestructionSpeed => _resourceDestructionSpeed;
         public Stat<ColonistStat> ResourceExtractionEfficiency => _resourceExtractionEfficiency;
+
+        [SerializeField] private Stat<ColonistStat> _resourceDestructionSpeed;
+        [SerializeField] private Stat<ColonistStat> _resourceExtractionEfficiency;
 
         private void Awake()
         {
             InitializeStats();
         }
-        
+
         public void AddStatModifier(StatModifier<ColonistStat> statModifier)
         {
             var stat = ChooseStat(statModifier);
@@ -36,14 +36,13 @@ namespace Colonists
             _resourceDestructionSpeed.Initialize();
             _resourceExtractionEfficiency.Initialize();
         }
-        
+
         private Stat<ColonistStat> ChooseStat(StatModifier<ColonistStat> statModifier)
         {
             var stat = statModifier.StatType switch
             {
                 ColonistStat.ResourceDestructionSpeed => _resourceDestructionSpeed,
                 ColonistStat.ResourceExtractionEfficiency => _resourceExtractionEfficiency,
-                
                 _ => throw new ArgumentOutOfRangeException()
             };
             return stat;

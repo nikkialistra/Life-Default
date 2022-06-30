@@ -58,10 +58,8 @@ namespace Colonists
         private IEnumerator Escaping()
         {
             while (IsOpponentsAround())
-            {
                 yield return new WaitForSeconds(_rescanTime);
-            }
-            
+
             _wantEscapeIndicator.SetActive(false);
         }
 
@@ -70,15 +68,8 @@ namespace Colonists
             var colliders = Physics.OverlapSphere(transform.position, _escapeRelieveDistanceFromOpponents, _targetMask);
             
             foreach (var collider in colliders)
-            {
-                if (collider.TryGetComponent(out Unit unit))
-                {
-                    if (unit.Faction == Faction.Enemies)
-                    {
-                        return true;
-                    }
-                }
-            }
+                if (collider.TryGetComponent(out Unit unit) && unit.Faction == Faction.Enemies)
+                    return true;
 
             return false;
         }

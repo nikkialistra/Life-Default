@@ -10,11 +10,12 @@ namespace Colonists.Services.Selecting
     {
         private ColonistRepository _colonistRepository;
         private SelectedColonists _selectedColonists;
-        
+
         private int _indexToTake;
 
         [Inject]
-        public void Construct(ColonistsInfoView colonistsInfoView, ColonistRepository colonistRepository, SelectedColonists selectedColonists)
+        public void Construct(ColonistsInfoView colonistsInfoView, ColonistRepository colonistRepository,
+            SelectedColonists selectedColonists)
         {
             _colonistRepository = colonistRepository;
             _selectedColonists = selectedColonists;
@@ -30,13 +31,9 @@ namespace Colonists.Services.Selecting
 
         private int GetColonistIndex(Colonist[] colonists, Colonist colonist)
         {
-            for (var i = 0; i < colonists.Length; i++)
-            {
+            for (int i = 0; i < colonists.Length; i++)
                 if (colonists[i] == colonist)
-                {
                     return i;
-                }
-            }
 
             return -1;
         }

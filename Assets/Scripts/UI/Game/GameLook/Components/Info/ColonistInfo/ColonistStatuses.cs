@@ -49,12 +49,12 @@ namespace UI.Game.GameLook.Components.Info.ColonistInfo
 
         private void UpdateShownStatuses()
         {
-            for (var i = 0; i < _statusTypes.Count; i++)
+            for (int i = 0; i < _statusTypes.Count; i++)
             {
                 _statuses[i].text = _statusTypes.ElementAt(i).GetString();
             }
 
-            for (var i = _statusTypes.Count; i < MaxStatuses; i++)
+            for (int i = _statusTypes.Count; i < MaxStatuses; i++)
             {
                 _statuses[i].style.display = DisplayStyle.None;
             }

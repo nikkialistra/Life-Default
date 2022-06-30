@@ -116,9 +116,9 @@ namespace General.Map
 
         private static void ClearInCircle(int[,] details, Vector2Int detailBrushSize, int circleRadius)
         {
-            for (var y = 0; y < detailBrushSize.y; y++)
+            for (int y = 0; y < detailBrushSize.y; y++)
             {
-                for (var x = 0; x < detailBrushSize.x; x++)
+                for (int x = 0; x < detailBrushSize.x; x++)
                 {
                     if (InCircle(y, x, circleRadius))
                     {
@@ -188,9 +188,9 @@ namespace General.Map
 
             var heights = _terrainData.GetHeights(brushPosition.x, brushPosition.y, brushSize.x, brushSize.y);
 
-            for (var y = 0; y < brushSize.y; y++)
+            for (int y = 0; y < brushSize.y; y++)
             {
-                for (var x = 0; x < brushSize.x; x++)
+                for (int x = 0; x < brushSize.x; x++)
                 {
                     heights[y, x] += strength * Time.deltaTime;
                 }
@@ -206,9 +206,9 @@ namespace General.Map
 
             var heights = _terrainData.GetHeights(brushPosition.x, brushPosition.y, brushSize.x, brushSize.y);
 
-            for (var y = 0; y < brushSize.y; y++)
+            for (int y = 0; y < brushSize.y; y++)
             {
-                for (var x = 0; x < brushSize.x; x++)
+                for (int x = 0; x < brushSize.x; x++)
                 {
                     heights[y, x] -= strength * Time.deltaTime;
                 }
@@ -224,9 +224,9 @@ namespace General.Map
 
             var heights = _terrainData.GetHeights(brushPosition.x, brushPosition.y, brushSize.x, brushSize.y);
 
-            for (var y = 0; y < brushSize.y; y++)
+            for (int y = 0; y < brushSize.y; y++)
             {
-                for (var x = 0; x < brushSize.x; x++)
+                for (int x = 0; x < brushSize.x; x++)
                 {
                     heights[y, x] = height;
                 }

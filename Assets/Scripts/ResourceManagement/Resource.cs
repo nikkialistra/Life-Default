@@ -17,6 +17,31 @@ namespace ResourceManagement
     [RequireComponent(typeof(ResourceChunkScattering))]
     public class Resource : MonoBehaviour, ISelectable
     {
+        public event Action<Resource> ResourceDestroying;
+        public event Action Destroying;
+
+        public event Action<int> QuantityChange;
+        public event Action<int> DurabilityChange;
+
+        public Entity Entity { get; private set; }
+
+        public int Quantity
+        {
+            get
+            {
+                var quantity = _storedQuantity + _preservedExtractedQuantity;
+                return quantity >= 1f ? (int)Mathf.Floor(_storedQuantity + _preservedExtractedQuantity) : 0;
+            }
+        }
+
+        public ResourceType ResourceType => _resourceType;
+
+        public string Name => _name;
+
+        public int Durability => (int)Mathf.Round(_durability);
+
+        public bool Exhausted => _durability == 0;
+
         [SerializeField] private ResourceType _resourceType;
         [Space]
         [SerializeField] private string _name;
@@ -30,7 +55,7 @@ namespace ResourceManagement
         [SerializeField] private int _minExtractedQuantityForDrop;
         [MinValue(1)]
         [SerializeField] private int _maxExtractedQuantityForDrop;
-        
+
         [Title("Configuration")]
         [Required]
         [SerializeField] private Transform _holder;
@@ -53,15 +78,16 @@ namespace ResourceManagement
         private ResourceCounts _resourceCounts;
 
         private InfoPanelView _infoPanelView;
-        
+
         private TerrainModification _terrainModification;
 
         [Inject]
-        public void Construct(ResourceCounts resourceCounts, InfoPanelView infoPanelView, TerrainModification terrainModification)
+        public void Construct(ResourceCounts resourceCounts, InfoPanelView infoPanelView,
+            TerrainModification terrainModification)
         {
             _resourceCounts = resourceCounts;
             _infoPanelView = infoPanelView;
-            
+
             _terrainModification = terrainModification;
         }
 
@@ -73,40 +99,17 @@ namespace ResourceManagement
             _resourceChunkScattering = GetComponent<ResourceChunkScattering>();
         }
 
-        public event Action<Resource> ResourceDestroying;
-        public event Action Destroying;
-
-        public event Action<int> QuantityChange;
-        public event Action<int> DurabilityChange;
-
-        public Entity Entity { get; private set; }
-        
-        public ResourceType ResourceType => _resourceType;
-        
-        public string Name => _name;
-        public int Quantity
-        {
-            get
-            {
-                var quantity = _storedQuantity + _preservedExtractedQuantity;
-                return quantity >= 1f ? (int)Mathf.Floor(_storedQuantity + _preservedExtractedQuantity) : 0;
-            }
-        }
-        public int Durability => (int)Mathf.Round(_durability);
-
-        public bool Exhausted => _durability == 0;
-
         [Button(ButtonSizes.Medium)]
         public void ClearDetailsAround()
         {
             _terrainModification.ClearDetailsAt(transform.position, _clearDetailsRadius);
         }
-        
+
         private void Start()
         {
             _quantityToDrop = CalculateNextQuantityToDrop();
         }
-        
+
         public void Hover()
         {
             _entitySelection.Hover();
@@ -119,25 +122,19 @@ namespace ResourceManagement
 
         public void Select()
         {
-            if (Exhausted)
-            {
-                return;
-            }
-            
+            if (Exhausted) return;
+
             _entitySelection.Select();
-            
+
             _infoPanelView.SetResource(this);
         }
 
         public void Deselect()
         {
-            if (Exhausted)
-            {
-                return;
-            }
-            
+            if (Exhausted) return;
+
             _entitySelection.Deselect();
-            
+
             _infoPanelView.UnsetResource(this);
         }
 
@@ -156,47 +153,43 @@ namespace ResourceManagement
             {
                 _infoPanelView.UnsetResource(this);
                 StopDisplay();
-                
+
                 _animations.OnDestroy(position, Destroy);
             }
         }
-        
+
         public void Extract(float destructionValue, float extractionEfficiency)
         {
             _preservedExtractedQuantity += ApplyDestruction(destructionValue) * extractionEfficiency;
 
             if (_preservedExtractedQuantity > _quantityToDrop)
-            {
                 DropPreservedQuantity();
-            }
             else if (Exhausted && _preservedExtractedQuantity >= 1f)
-            {
                 DropRemainingQuantity();
-            }
         }
 
         private void DropPreservedQuantity()
         {
             var sizeMultiplier = CalculateSizeMultiplier(_quantityToDrop, _maxExtractedQuantityForDrop);
-            
+
             _resourceChunkScattering.Spawn(_resourceType, _quantityToDrop, sizeMultiplier);
-            
+
             _preservedExtractedQuantity -= _quantityToDrop;
             _resourceCounts.ChangeResourceTypeCount(_resourceType, _quantityToDrop);
 
             _quantityToDrop = CalculateNextQuantityToDrop();
-            
+
             QuantityChange?.Invoke(Quantity);
         }
 
         private void DropRemainingQuantity()
         {
             var sizeMultiplier = CalculateSizeMultiplier(_preservedExtractedQuantity, _maxExtractedQuantityForDrop);
-     
+
             _resourceChunkScattering.Spawn(_resourceType, (int)_preservedExtractedQuantity, sizeMultiplier);
-            
+
             _resourceCounts.ChangeResourceTypeCount(_resourceType, (int)_preservedExtractedQuantity);
-            
+
             QuantityChange?.Invoke(Quantity);
         }
 
@@ -213,7 +206,7 @@ namespace ResourceManagement
         public void Destroy()
         {
             _durability = 0;
-            
+
             ResourceDestroying?.Invoke(this);
             Destroying?.Invoke();
 
@@ -228,7 +221,7 @@ namespace ResourceManagement
             {
                 throw new InvalidOperationException("Making damage cannot be applied to the destroyed resource");
             }
-            
+
             var quantityToDurabilityFraction = _storedQuantity / _durability;
 
             float extractedQuantity;
@@ -243,9 +236,9 @@ namespace ResourceManagement
                 extractedQuantity = _durability * quantityToDurabilityFraction;
                 _durability = 0;
             }
-            
+
             _storedQuantity -= extractedQuantity;
-            
+
             DurabilityChange?.Invoke(Durability);
 
             return extractedQuantity;

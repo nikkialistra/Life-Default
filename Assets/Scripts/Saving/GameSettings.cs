@@ -9,11 +9,6 @@ namespace Saving
 {
     public class GameSettings : MonoBehaviour
     {
-        [Required]
-        [SerializeField] private PanelSettings _panelSettings;
-
-        private readonly CompositeDisposable _disposables = new();
-
         public bool Fullscreen
         {
             get => _gameSettingsData.Fullscreen;
@@ -51,6 +46,11 @@ namespace Saving
         public ReactiveProperty<float> CameraSensitivity { get; } = new();
 
         public ReactiveProperty<bool> ScreenEdgeMouseScroll { get; } = new();
+
+        [Required]
+        [SerializeField] private PanelSettings _panelSettings;
+
+        private readonly CompositeDisposable _disposables = new();
 
         private bool _loaded;
 
@@ -106,11 +106,8 @@ namespace Saving
 
         private void OnResolutionChange(Resolution value)
         {
-            if (value.width == 0)
-            {
-                return;
-            }
-            
+            if (value.width == 0) return;
+
             Screen.SetResolution(value.width, value.height, Fullscreen);
             _gameSettingsData.Resolution = value.ToString();
             Save();
@@ -164,9 +161,7 @@ namespace Saving
         private void Apply()
         {
             if (!_loaded)
-            {
                 Load();
-            }
 
             SetUpParameters();
         }
@@ -208,12 +203,8 @@ namespace Saving
         private void FindResolution()
         {
             foreach (var resolution in Screen.resolutions)
-            {
                 if (resolution.ToString() == _gameSettingsData.Resolution)
-                {
                     Resolution.Value = resolution;
-                }
-            }
         }
 
         private void CreateDefaultSettings()

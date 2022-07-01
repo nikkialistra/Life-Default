@@ -19,7 +19,7 @@ namespace Infrastructure
         [SerializeField] private GameObject _colonistPrefab;
         [Required]
         [SerializeField] private Transform _colonistsParent;
-        
+
         [Title("Commands")]
         [Required]
         [SerializeField] private MovementCommand _movementCommand;
@@ -42,7 +42,7 @@ namespace Infrastructure
         {
             Container.BindInstance(_actionIconsRegistry);
         }
-        
+
         private void BindSpawning()
         {
             Container.BindFactory<Colonist, Colonist.Factory>()

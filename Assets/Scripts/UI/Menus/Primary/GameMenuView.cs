@@ -9,6 +9,12 @@ namespace UI.Menus.Primary
 {
     public class GameMenuView : IMenuView
     {
+        public event Action Pause;
+        public event Action Resume;
+
+        public bool Shown { get; private set; }
+        public bool ShownSubView { get; private set; }
+
         private readonly VisualElement _root;
         private readonly IHideNotify _hideNotify;
 
@@ -25,9 +31,6 @@ namespace UI.Menus.Primary
         private SettingsView _settingsView;
 
         private readonly GameSettings _gameSettings;
-
-        public bool Shown { get; private set; }
-        public bool ShownSubView { get; private set; }
 
         public GameMenuView(VisualElement root, IHideNotify hideNotify, GameSettings gameSettings)
         {
@@ -47,9 +50,6 @@ namespace UI.Menus.Primary
             _mainMenu = _tree.Q<Button>("main-menu");
             _exitGame = _tree.Q<Button>("exit-game");
         }
-
-        public event Action Pause;
-        public event Action Resume;
 
         public void ShowSelf()
         {

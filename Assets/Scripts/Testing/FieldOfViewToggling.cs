@@ -16,7 +16,8 @@ namespace Testing
         private InputAction _toggleResourceFieldOfViewAction;
 
         [Inject]
-        public void Construct(SelectedColonists selectedColonists, SelectedEnemies selectedEnemies, PlayerInput playerInput)
+        public void Construct(SelectedColonists selectedColonists, SelectedEnemies selectedEnemies,
+            PlayerInput playerInput)
         {
             _selectedColonists = selectedColonists;
             _selectedEnemies = selectedEnemies;
@@ -45,22 +46,16 @@ namespace Testing
         private void ToggleEnemyFieldOfView(InputAction.CallbackContext context)
         {
             foreach (var colonist in _selectedColonists.Colonists)
-            {
                 colonist.ToggleUnitFieldOfView();
-            }
 
             foreach (var enemy in _selectedEnemies.Enemies)
-            {
                 enemy.ToggleUnitFieldOfView();
-            }
         }
 
         private void ToggleResourceFieldOfView(InputAction.CallbackContext context)
         {
             foreach (var colonist in _selectedColonists.Colonists)
-            {
                 colonist.ToggleResourceFieldOfView();
-            }
         }
     }
 }

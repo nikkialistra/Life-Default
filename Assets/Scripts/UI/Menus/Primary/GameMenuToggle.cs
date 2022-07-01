@@ -12,6 +12,11 @@ namespace UI.Menus.Primary
     [RequireComponent(typeof(UIDocument))]
     public class GameMenuToggle : MonoBehaviour, IHideNotify
     {
+        public event Action HideCurrentMenu;
+
+        public event Action GamePause;
+        public event Action GameResume;
+
         private VisualElement _root;
 
         private GameMenuView _gameMenuView;
@@ -44,11 +49,6 @@ namespace UI.Menus.Primary
             _toggleMenuAction = _playerInput.actions.FindAction("Toggle Menu");
         }
 
-        public event Action HideCurrentMenu;
-
-        public event Action GamePause;
-        public event Action GameResume;
-
         private void Start()
         {
             Time.timeScale = 1;
@@ -73,13 +73,9 @@ namespace UI.Menus.Primary
         private void OnApplicationFocus(bool hasFocus)
         {
             if (hasFocus)
-            {
                 DoResume();
-            }
             else
-            {
                 DoPause();
-            }
         }
 
         private void DoPause()
@@ -98,25 +94,17 @@ namespace UI.Menus.Primary
         private void ToggleMenu(InputAction.CallbackContext context)
         {
             if (_gameMenuView.ShownSubView)
-            {
                 HideCurrentMenu?.Invoke();
-            }
             else
-            {
                 ToggleGameMenu();
-            }
         }
 
         private void ToggleGameMenu()
         {
             if (_gameMenuView.Shown)
-            {
                 _gameMenuView.HideSelf();
-            }
             else
-            {
                 _gameMenuView.ShowSelf();
-            }
         }
     }
 }

@@ -20,18 +20,21 @@ namespace UI.Game.GameLook.Components.Info
     [RequireComponent(typeof(CommandsView))]
     public class InfoPanelView : MonoBehaviour
     {
+        public VisualElement Tree { get; private set; }
+        public VisualElement InfoPanel { get; private set; }
+
         [Required]
         [SerializeField] private VisualTreeAsset _asset;
 
         private ColonistInfoView _colonistInfoView;
         private ColonistsInfoView _colonistsInfoView;
-        
+
         private EnemyInfoView _enemyInfoView;
         private EnemiesInfoView _enemiesInfoView;
-        
+
         private ResourceInfoView _resourceInfoView;
         private ResourcesInfoView _resourcesInfoView;
-        
+
         private ResourceChunkInfoView _resourceChunkInfoView;
         private ResourceChunksInfoView _resourceChunksInfoView;
 
@@ -44,13 +47,13 @@ namespace UI.Game.GameLook.Components.Info
         {
             _colonistInfoView = GetComponent<ColonistInfoView>();
             _colonistsInfoView = GetComponent<ColonistsInfoView>();
-            
+
             _enemyInfoView = GetComponent<EnemyInfoView>();
             _enemiesInfoView = GetComponent<EnemiesInfoView>();
-            
+
             _resourceInfoView = GetComponent<ResourceInfoView>();
             _resourcesInfoView = GetComponent<ResourcesInfoView>();
-            
+
             _resourceChunkInfoView = GetComponent<ResourceChunkInfoView>();
             _resourceChunksInfoView = GetComponent<ResourceChunksInfoView>();
 
@@ -58,9 +61,6 @@ namespace UI.Game.GameLook.Components.Info
 
             InfoPanel = Tree.Q<VisualElement>("info-panel");
         }
-
-        public VisualElement Tree { get; private set; }
-        public VisualElement InfoPanel { get; private set; }
 
         private void Start()
         {
@@ -283,13 +283,13 @@ namespace UI.Game.GameLook.Components.Info
         {
             _colonistInfoView.HideSelf();
             _colonistsInfoView.HideSelf();
-            
+
             _enemyInfoView.HideSelf();
             _enemiesInfoView.HideSelf();
-            
+
             _resourceInfoView.HideSelf();
             _resourcesInfoView.HideSelf();
-            
+
             _resourceChunkInfoView.HideSelf();
             _resourceChunksInfoView.HideSelf();
         }

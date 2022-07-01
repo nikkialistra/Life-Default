@@ -41,10 +41,8 @@ namespace Units.Appearance.ItemVariants
             foreach (var variant in Variants)
             {
                 if (randomValue <= variant.RelativeChance)
-                {
                     return variant.Value;
-                }
-                
+
                 randomValue -= variant.RelativeChance;
             }
 
@@ -58,11 +56,8 @@ namespace Units.Appearance.ItemVariants
 
             foreach (var variant in Variants)
             {
-                if (randomValue <= variant.RelativeChance)
-                {
-                    break;
-                }
-                
+                if (randomValue <= variant.RelativeChance) break;
+
                 randomValue -= variant.RelativeChance;
                 index++;
             }
@@ -73,9 +68,7 @@ namespace Units.Appearance.ItemVariants
         public T GetAtIndex(int index)
         {
             if (index >= Variants.Count())
-            {
                 throw new InvalidOperationException("Taking item element at not existing index");
-            }
 
             return Variants.ElementAt(index).Value;
         }

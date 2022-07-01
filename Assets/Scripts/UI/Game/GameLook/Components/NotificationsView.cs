@@ -9,6 +9,8 @@ namespace UI.Game.GameLook.Components
 {
     public class NotificationsView : MonoBehaviour
     {
+        public VisualElement Tree { get; private set; }
+
         [Required]
         [SerializeField] private VisualTreeAsset _asset;
         [Space]
@@ -27,8 +29,6 @@ namespace UI.Game.GameLook.Components
 
             _notifications = Tree.Q<VisualElement>("notifications");
         }
-        
-        public VisualElement Tree { get; private set; }
 
         public void AddNotification(Notification notification)
         {

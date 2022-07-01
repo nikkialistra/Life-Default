@@ -9,22 +9,6 @@ namespace Entities
 {
     public class Entity : MonoBehaviour
     {
-        [SerializeField] private EntityType _entityType;
-
-        [ShowIf(nameof(_entityType), EntityType.Resource)]
-        [ValidateInput(nameof(ResourceEntityShouldHaveResource), "Resource entity should have resource")]
-        [SerializeField] private Resource _resource;
-        
-        [ShowIf(nameof(_entityType), EntityType.ResourceChunk)]
-        [ValidateInput(nameof(ResourceChunkEntityShouldHaveResourceChunk), "Resource chunk entity should have resource chunk")]
-        [SerializeField] private ResourceChunk _resourceChunk;
-        
-        [ShowIf(nameof(_entityType), EntityType.Building)]
-        [ValidateInput(nameof(BuildingEntityShouldHaveBuilding), "Building entity should have resource")]
-        [SerializeField] private Building _building;
-        
-        private bool _destroyed;
-
         public event Action<Entity> EntityDestroying;
 
         public EntityType EntityType => _entityType;
@@ -33,7 +17,24 @@ namespace Entities
         public Resource Resource => _resource;
         public ResourceChunk ResourceChunk => _resourceChunk;
         public Building Building => _building;
-        
+
+        [SerializeField] private EntityType _entityType;
+
+        [ShowIf(nameof(_entityType), EntityType.Resource)]
+        [ValidateInput(nameof(ResourceEntityShouldHaveResource), "Resource entity should have resource")]
+        [SerializeField] private Resource _resource;
+
+        [ShowIf(nameof(_entityType), EntityType.ResourceChunk)]
+        [ValidateInput(nameof(ResourceChunkEntityShouldHaveResourceChunk),
+            "Resource chunk entity should have resource chunk")]
+        [SerializeField] private ResourceChunk _resourceChunk;
+
+        [ShowIf(nameof(_entityType), EntityType.Building)]
+        [ValidateInput(nameof(BuildingEntityShouldHaveBuilding), "Building entity should have resource")]
+        [SerializeField] private Building _building;
+
+        private bool _destroyed;
+
         private void OnEnable()
         {
             switch (_entityType)
@@ -104,10 +105,7 @@ namespace Entities
 
         public void Destroy()
         {
-            if (_destroyed)
-            {
-                return;
-            }
+            if (_destroyed) return;
 
             switch (_entityType)
             {
@@ -127,26 +125,22 @@ namespace Entities
         private void OnDestroying()
         {
             _destroyed = true;
-            
+
             EntityDestroying?.Invoke(this);
         }
 
         private bool ResourceEntityShouldHaveResource()
         {
             if (_entityType == EntityType.Resource && _resource == null)
-            {
                 return false;
-            }
 
             return true;
         }
-        
+
         private bool ResourceChunkEntityShouldHaveResourceChunk()
         {
             if (_entityType == EntityType.ResourceChunk && _resourceChunk == null)
-            {
                 return false;
-            }
 
             return true;
         }
@@ -154,9 +148,7 @@ namespace Entities
         private bool BuildingEntityShouldHaveBuilding()
         {
             if (_entityType == EntityType.Building && _building == null)
-            {
                 return false;
-            }
 
             return true;
         }

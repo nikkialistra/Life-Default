@@ -24,11 +24,8 @@ namespace UI.Game.GameLook.Components.Info.ColonistInfo
 
         public void AddStatus(StatusType statusType)
         {
-            if (_statusTypes.Count >= MaxStatuses || HasStatus(statusType))
-            {
-                return;
-            }
-            
+            if (_statusTypes.Count >= MaxStatuses || HasStatus(statusType)) return;
+
             _statuses[_statusTypes.Count].style.display = DisplayStyle.Flex;
             _statuses[_statusTypes.Count].text = statusType.GetString();
 
@@ -43,21 +40,17 @@ namespace UI.Game.GameLook.Components.Info.ColonistInfo
         public void RemoveStatus(StatusType statusType)
         {
             _statusTypes.Remove(statusType);
-            
+
             UpdateShownStatuses();
         }
 
         private void UpdateShownStatuses()
         {
             for (int i = 0; i < _statusTypes.Count; i++)
-            {
                 _statuses[i].text = _statusTypes.ElementAt(i).GetString();
-            }
 
             for (int i = _statusTypes.Count; i < MaxStatuses; i++)
-            {
                 _statuses[i].style.display = DisplayStyle.None;
-            }
         }
     }
 }

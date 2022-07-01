@@ -7,7 +7,7 @@ namespace UI.Menus.Settings
     public class LanguageView : IMenuView
     {
         private const string VisualTreePath = "UI/Markup/Menus/Settings/Language";
-        
+
         private readonly VisualElement _root;
         private readonly SettingsView _parent;
 

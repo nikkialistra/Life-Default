@@ -7,7 +7,7 @@ namespace UI.Menus.Settings
     public class GameView : IMenuView
     {
         private const string VisualTreePath = "UI/Markup/Menus/Settings/Game";
-        
+
         private readonly VisualElement _root;
         private readonly SettingsView _parent;
 

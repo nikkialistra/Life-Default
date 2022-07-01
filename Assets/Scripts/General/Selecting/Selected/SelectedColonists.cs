@@ -8,6 +8,11 @@ namespace General.Selecting.Selected
 {
     public class SelectedColonists
     {
+        public event Action SelectionChange;
+
+        public List<Colonist> Colonists { get; private set; } = new();
+        public int Count => Colonists.Count;
+
         private readonly InfoPanelView _infoPanelView;
 
         public SelectedColonists(InfoPanelView infoPanelView)
@@ -15,18 +20,13 @@ namespace General.Selecting.Selected
             _infoPanelView = infoPanelView;
         }
 
-        public event Action SelectionChange; 
-
-        public List<Colonist> Colonists { get; private set; } = new();
-        public int Count => Colonists.Count;
-
         public void Set(List<Colonist> colonists)
         {
             UnsubscribeFromColonists();
 
             Colonists = colonists.ToList();
             UpdateSelectionStatuses();
-            
+
             _infoPanelView.SetColonists(Colonists);
 
             SubscribeToColonists();
@@ -49,7 +49,7 @@ namespace General.Selecting.Selected
 
             Colonists = Colonists.Union(colonists).ToList();
             UpdateSelectionStatuses();
-            
+
             _infoPanelView.SetColonists(Colonists);
 
             SubscribeToColonists();
@@ -78,12 +78,10 @@ namespace General.Selecting.Selected
             UnsubscribeFromColonists();
 
             foreach (var colonist in Colonists)
-            {
                 colonist.Deselect();
-            }
 
             Colonists.Clear();
-            
+
             SelectionChange?.Invoke();
         }
 
@@ -92,9 +90,7 @@ namespace General.Selecting.Selected
             UnsubscribeFromColonists();
 
             foreach (var colonist in Colonists)
-            {
                 colonist.Die();
-            }
 
             Colonists.Clear();
         }
@@ -107,17 +103,13 @@ namespace General.Selecting.Selected
         private void SubscribeToColonists()
         {
             foreach (var colonist in Colonists)
-            {
                 colonist.ColonistDying += RemoveFromSelected;
-            }
         }
 
         private void UnsubscribeFromColonists()
         {
             foreach (var colonist in Colonists)
-            {
                 colonist.ColonistDying -= RemoveFromSelected;
-            }
         }
 
         private void RemoveFromSelected(Colonist colonist)
@@ -128,9 +120,7 @@ namespace General.Selecting.Selected
         private void UpdateSelectionStatuses()
         {
             foreach (var colonist in Colonists)
-            {
                 colonist.Select();
-            }
 
             SelectionChange?.Invoke();
         }

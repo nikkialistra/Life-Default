@@ -24,7 +24,7 @@ namespace UI.Game.GameLook.Components.Info.ColonistInfo
         [SerializeField] private float _changeSpeedForSingleArrow = 0.005f;
         [SerializeField] private float _changeSpeedForDoubleArrow = 0.0625f;
         [SerializeField] private float _changeSpeedForTripleArrow = 0.125f;
-        
+
         private Sprite _noneArrow;
 
         private ProgressBar _healthProgress;
@@ -54,9 +54,9 @@ namespace UI.Game.GameLook.Components.Info.ColonistInfo
         private ProgressBar _entertainmentProgress;
         private Label _entertainmentValue;
         private VisualElement _entertainmentArrow;
-        
+
         public void Initialize(VisualElement tree)
-        { 
+        {
             _healthProgress = tree.Q<ProgressBar>("health-progress");
             _healthValue = tree.Q<Label>("health-value");
             _healthArrow = tree.Q<VisualElement>("health-arrow");
@@ -64,7 +64,7 @@ namespace UI.Game.GameLook.Components.Info.ColonistInfo
             _recoverySpeedProgress = tree.Q<ProgressBar>("recovery-speed-progress");
             _recoverySpeedValue = tree.Q<Label>("recovery-speed-value");
             _recoverySpeedArrow = tree.Q<VisualElement>("recovery-speed-arrow");
-            
+
             _satietyProgress = tree.Q<ProgressBar>("satiety-progress");
             _satietyValue = tree.Q<Label>("satiety-value");
             _satietyArrow = tree.Q<VisualElement>("satiety-arrow");
@@ -85,14 +85,14 @@ namespace UI.Game.GameLook.Components.Info.ColonistInfo
             _entertainmentValue = tree.Q<Label>("entertainment-value");
             _entertainmentArrow = tree.Q<VisualElement>("entertainment-arrow");
         }
-        
+
         public void UpdateVitality(UnitVitality vitality)
         {
             _healthProgress.highValue = vitality.MaxHealth;
 
             _recoverySpeedProgress.lowValue = -vitality.MaxRecoverySpeed;
             _recoverySpeedProgress.highValue = vitality.MaxRecoverySpeed;
-            
+
             UpdateHealth(vitality);
             UpdateRecoverySpeed(vitality);
         }
@@ -126,7 +126,7 @@ namespace UI.Game.GameLook.Components.Info.ColonistInfo
             _entertainmentProgress.value = entertainment;
             _entertainmentValue.text = $"{entertainment}%";
         }
-        
+
         private void UpdateHealth(UnitVitality vitality)
         {
             _healthProgress.value = vitality.Health;
@@ -140,14 +140,15 @@ namespace UI.Game.GameLook.Components.Info.ColonistInfo
         {
             var arrowConstraint = vitality.IsFullHealth ? ArrowConstraint.DownArrows : ArrowConstraint.None;
             var arrow = ChooseArrow(vitality.RecoverySpeed / vitality.MaxHealth, arrowConstraint);
-            
+
             _healthArrow.style.backgroundImage = new StyleBackground(arrow);
         }
 
         private void UpdateRecoverySpeed(UnitVitality vitality)
         {
             _recoverySpeedProgress.value = vitality.RecoverySpeed;
-            _recoverySpeedProgress.title = $"{Math.Round(vitality.RecoverySpeed, 1)}/{Math.Round(vitality.MaxRecoverySpeed, 1)}";
+            _recoverySpeedProgress.title =
+                $"{Math.Round(vitality.RecoverySpeed, 1)}/{Math.Round(vitality.MaxRecoverySpeed, 1)}";
             _recoverySpeedValue.text = $"{vitality.RecoverySpeedPercent}%";
         }
 
@@ -159,20 +160,18 @@ namespace UI.Game.GameLook.Components.Info.ColonistInfo
                 return _noneArrow;
             }
 
-            return changeSpeedFraction > 0 ? ChooseArrowUp(changeSpeedFraction) : ChooseArrowDown(Mathf.Abs(changeSpeedFraction));
+            return changeSpeedFraction > 0
+                ? ChooseArrowUp(changeSpeedFraction)
+                : ChooseArrowDown(Mathf.Abs(changeSpeedFraction));
         }
 
         private Sprite ChooseArrowUp(float changeSpeedFraction)
         {
             if (changeSpeedFraction > _changeSpeedForTripleArrow)
-            {
                 return _tripleArrowUp;
-            }
-            
+
             if (changeSpeedFraction > _changeSpeedForDoubleArrow)
-            {
                 return _doubleArrowUp;
-            }
 
             return _singleArrowUp;
         }
@@ -180,14 +179,10 @@ namespace UI.Game.GameLook.Components.Info.ColonistInfo
         private Sprite ChooseArrowDown(float changeSpeedFraction)
         {
             if (changeSpeedFraction > _changeSpeedForTripleArrow)
-            {
                 return _tripleArrowDown;
-            }
-            
+
             if (changeSpeedFraction > _changeSpeedForDoubleArrow)
-            {
                 return _doubleArrowDown;
-            }
 
             return _singleArrowDown;
         }

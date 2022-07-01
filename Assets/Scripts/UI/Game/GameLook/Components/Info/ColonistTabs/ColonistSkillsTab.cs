@@ -11,14 +11,16 @@ namespace UI.Game.GameLook.Components.Info.ColonistTabs
     [RequireComponent(typeof(ColonistInfoView))]
     public class ColonistSkillsTab : MonoBehaviour
     {
+        private const int NumberOfSkills = 13;
+
+        public bool Shown { get; private set; }
+
         [Required]
         [SerializeField] private VisualTreeAsset _asset;
-        
+
         [Space]
         [SerializeField] private Sprite _oneStar;
         [SerializeField] private Sprite _twoStars;
-
-        private const int NumberOfSkills = 13;
 
         private readonly SkillElement[] _skills = new SkillElement[NumberOfSkills];
 
@@ -35,26 +37,22 @@ namespace UI.Game.GameLook.Components.Info.ColonistTabs
             BindElements();
         }
 
-        public bool Shown { get; private set; }
         private VisualElement Tree { get; set; }
 
         public void FillIn(Colonist colonist)
         {
             UnsubscribeFromChanges();
-            
+
             _colonist = colonist;
 
             FillSkills();
-            
+
             SubscribeToChanges();
         }
 
         public void ShowSelf()
         {
-            if (Shown)
-            {
-                return;
-            }
+            if (Shown) return;
 
             _parent.TabContent.Add(Tree);
             Shown = true;
@@ -62,13 +60,10 @@ namespace UI.Game.GameLook.Components.Info.ColonistTabs
 
         public void HideSelf()
         {
-            if (!Shown)
-            {
-                return;
-            }
+            if (!Shown) return;
 
             UnsubscribeFromChanges();
-            
+
             _parent.TabContent.Remove(Tree);
             Shown = false;
         }
@@ -90,26 +85,20 @@ namespace UI.Game.GameLook.Components.Info.ColonistTabs
         private void FillSkills()
         {
             foreach (var skill in _colonist.Skills)
-            {
                 FillSkill(skill);
-            }
         }
 
         private void FillSkill(Skill skill)
         {
             var skillElement = _skills[(int)skill.SkillType];
-            
+
             FillFavoriteIcon(skillElement.FavoriteIcon, skill.FavoriteLevel);
-            
+
             if (skill.CanDo)
-            {
                 skillElement.Root.RemoveFromClassList("disabled");
-            }
             else
-            {
                 skillElement.Root.AddToClassList("disabled");
-            }
-            
+
             UpdateSkill(skill);
         }
 
@@ -128,8 +117,7 @@ namespace UI.Game.GameLook.Components.Info.ColonistTabs
                 FavoriteLevel.None => null,
                 FavoriteLevel.OneStar => _oneStar,
                 FavoriteLevel.TwoStars => _twoStars,
-                
-                _ => throw new ArgumentOutOfRangeException(nameof(favoriteLevel), favoriteLevel, null)
+                _ => throw new ArgumentOutOfRangeException()
             });
         }
 
@@ -152,7 +140,7 @@ namespace UI.Game.GameLook.Components.Info.ColonistTabs
         private struct SkillElement
         {
             public VisualElement Root;
-            
+
             public VisualElement FavoriteIcon;
             public ProgressBar ProgressBar;
             public Label Level;

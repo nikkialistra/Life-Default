@@ -8,9 +8,12 @@ namespace UI.Game.GameLook.Components.Stock
     [RequireComponent(typeof(QuestsView))]
     public class StockView : MonoBehaviour
     {
+        public VisualElement Tree { get; private set; }
+        public VisualElement Content { get; private set; }
+
         [Required]
         [SerializeField] private VisualTreeAsset _asset;
-        
+
         private Button _resources;
         private Button _quests;
 
@@ -21,7 +24,7 @@ namespace UI.Game.GameLook.Components.Stock
         {
             _resourcesView = GetComponent<ResourcesView>();
             _questsView = GetComponent<QuestsView>();
-            
+
             Tree = _asset.CloneTree();
 
             Content = Tree.Q<VisualElement>("content");
@@ -34,9 +37,6 @@ namespace UI.Game.GameLook.Components.Stock
         {
             _resourcesView.ShowSelf();
         }
-
-        public VisualElement Tree { get; private set; }
-        public VisualElement Content { get; private set; }
 
         private void OnEnable()
         {

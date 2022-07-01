@@ -12,21 +12,33 @@ namespace ResourceManagement
     [RequireComponent(typeof(Rigidbody))]
     public class ResourceChunk : MonoBehaviour, ISelectable
     {
+        public event Action<ResourceChunk> ResourceChunkDestroying;
+        public event Action Destroying;
+
+        public Entity Entity { get; private set; }
+
+        public ResourceType ResourceType { get; private set; }
+        public int Quantity { get; private set; }
+
+        public string Name => _name;
+
+
         [SerializeField] private string _name;
 
         private Rigidbody _rigidbody;
         private EntitySelection _entitySelection;
-        
+
         private InfoPanelView _infoPanelView;
-        
+
         private void Awake()
         {
             Entity = GetComponent<Entity>();
             _entitySelection = GetComponent<EntitySelection>();
             _rigidbody = GetComponent<Rigidbody>();
         }
-        
-        public void Initialize(ResourceType resourceType, int quantity, float sizeMultiplier, InfoPanelView infoPanelView)
+
+        public void Initialize(ResourceType resourceType, int quantity, float sizeMultiplier,
+            InfoPanelView infoPanelView)
         {
             ResourceType = resourceType;
             Quantity = quantity;
@@ -35,15 +47,6 @@ namespace ResourceManagement
 
             transform.localScale *= sizeMultiplier;
         }
-
-        public Entity Entity { get; private set; }
-        
-        public string Name => _name;
-        public ResourceType ResourceType { get; private set; }
-        public int Quantity { get; private set; }
-        
-        public event Action<ResourceChunk> ResourceChunkDestroying;
-        public event Action Destroying;
 
         public void Hover()
         {
@@ -75,10 +78,10 @@ namespace ResourceManagement
         public void BurstOutTo(Vector3 randomForce, float timeToFreeze)
         {
             _rigidbody.velocity = randomForce;
-            
+
             StartCoroutine(FreezeAfter(timeToFreeze));
         }
-        
+
         public void Destroy()
         {
             ResourceChunkDestroying?.Invoke(this);

@@ -9,6 +9,8 @@ namespace ResourceManagement
 {
     public class ResourceCounts : MonoBehaviour
     {
+        public event Action<ResourceType, int> ResourceUpdate;
+
         private ResourcesView _resourcesView;
 
         private readonly Dictionary<ResourceType, int> _resourceCounts = new();
@@ -19,8 +21,6 @@ namespace ResourceManagement
             _resourcesView = resourcesView;
         }
 
-        public event Action<ResourceType, int> ResourceUpdate; 
-
         private void Start()
         {
             FillInCounts();
@@ -30,14 +30,12 @@ namespace ResourceManagement
         public void ChangeResourceTypeCount(ResourceType resourceType, int amount)
         {
             if (_resourceCounts[resourceType] + amount < 0)
-            {
                 throw new InvalidOperationException($"{resourceType} cannot be less than zero");
-            }
-            
+
             _resourceCounts[resourceType] += amount;
 
             _resourcesView.ChangeResourceTypeCount(resourceType, _resourceCounts[resourceType]);
-            
+
             ResourceUpdate?.Invoke(resourceType, _resourceCounts[resourceType]);
         }
 

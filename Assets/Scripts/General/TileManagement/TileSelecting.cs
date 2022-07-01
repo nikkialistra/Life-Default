@@ -13,16 +13,16 @@ namespace General.TileManagement
         [SerializeField] private float _rayRecastingTime = 0.15f;
 
         private TileGrid _tileGrid;
-        
+
         private LayerMask _terrainMask;
 
         private Camera _camera;
-        
+
         private Guid _managementMapId;
 
         private Coroutine _selectingTilesCoroutine;
         private WaitForSecondsRealtime _waitPeriod;
-        
+
         private GameMenuToggle _gameMenuToggle;
 
         private PlayerInput _playerInput;
@@ -100,11 +100,8 @@ namespace General.TileManagement
 
         private void SelectTile()
         {
-            if (_playerInput.currentActionMap.id != _managementMapId)
-            {
-                return;
-            }
-            
+            if (_playerInput.currentActionMap.id != _managementMapId) return;
+
             var position = _mousePositionAction.ReadValue<Vector2>();
 
             var ray = _camera.ScreenPointToRay(new Vector3(position.x, position.y, _camera.nearClipPlane));

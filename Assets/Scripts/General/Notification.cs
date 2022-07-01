@@ -4,13 +4,14 @@ namespace General
 {
     public class Notification
     {
-        private readonly Action _onClick;
         public string Title { get; }
+
+        private readonly Action _onClick;
 
         public Notification(string title, Action onClick)
         {
             Title = title;
-            
+
             _onClick = onClick;
         }
 

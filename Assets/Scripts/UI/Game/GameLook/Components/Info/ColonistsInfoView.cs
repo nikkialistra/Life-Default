@@ -13,13 +13,13 @@ namespace UI.Game.GameLook.Components.Info
 
         private InfoPanelView _parent;
         private TemplateContainer _tree;
-        
+
         private Label _count;
 
         private VisualElement _commands;
 
         private bool _shown;
-        
+
         private CommandsView _commandsView;
 
         private void Awake()
@@ -28,20 +28,17 @@ namespace UI.Game.GameLook.Components.Info
 
             _tree = _asset.CloneTree();
             _tree.pickingMode = PickingMode.Ignore;
-            
+
             _commandsView = GetComponent<CommandsView>();
 
             _count = _tree.Q<Label>("count");
-            
+
             _commands = _tree.Q<VisualElement>("commands");
         }
-        
+
         public void ShowSelf()
         {
-            if (_shown)
-            {
-                return;
-            }
+            if (_shown) return;
 
             _parent.InfoPanel.Add(_tree);
             _commandsView.BindSelf(_commands);
@@ -50,11 +47,8 @@ namespace UI.Game.GameLook.Components.Info
 
         public void HideSelf()
         {
-            if (!_shown)
-            {
-                return;
-            }
-            
+            if (!_shown) return;
+
             _parent.InfoPanel.Remove(_tree);
             _commandsView.UnbindSelf();
             _shown = false;

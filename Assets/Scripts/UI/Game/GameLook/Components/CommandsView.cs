@@ -16,7 +16,7 @@ namespace UI.Game.GameLook.Components
         private Button _attack;
         private Button _hold;
         private Button _patrol;
-        
+
         private bool _shown;
 
         private TemplateContainer _tree;
@@ -44,16 +44,11 @@ namespace UI.Game.GameLook.Components
 
         public void BindSelf(VisualElement parent)
         {
-            if (_shown)
-            {
-                return;
-            }
+            if (_shown) return;
 
             if (parent.childCount == 0)
-            {
                 parent.Add(_tree);
-            }
-            
+
             _shown = true;
 
             BindButtons();
@@ -61,11 +56,8 @@ namespace UI.Game.GameLook.Components
 
         public void UnbindSelf()
         {
-            if (!_shown)
-            {
-                return;
-            }
-            
+            if (!_shown) return;
+
             UnbindButtons();
 
             _shown = false;
@@ -86,29 +78,29 @@ namespace UI.Game.GameLook.Components
             _stop.clicked -= Stop;
             _attack.clicked -= Attack;
             _hold.clicked -= Hold;
-            _patrol.clicked -= Patrol;  
+            _patrol.clicked -= Patrol;
         }
 
         private void Move()
         {
             _movementActionInput.SelectMove();
         }
-        
+
         private void Stop()
         {
             _movementCommand.Stop();
         }
-        
+
         private void Attack()
         {
             _movementActionInput.SelectAttack();
         }
-        
+
         private void Hold()
         {
             _movementActionInput.SelectHold();
         }
-        
+
         private void Patrol()
         {
             _movementActionInput.SelectPatrol();

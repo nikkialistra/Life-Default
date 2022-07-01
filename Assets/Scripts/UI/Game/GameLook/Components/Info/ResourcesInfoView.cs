@@ -15,7 +15,7 @@ namespace UI.Game.GameLook.Components.Info
 
         private InfoPanelView _parent;
         private TemplateContainer _tree;
-        
+
         private Label _name;
 
         private readonly List<VisualElement> _rows = new(2);
@@ -34,7 +34,7 @@ namespace UI.Game.GameLook.Components.Info
             _tree.pickingMode = PickingMode.Ignore;
 
             _name = _tree.Q<Label>("name");
-            
+
             BindRows();
         }
 
@@ -54,13 +54,10 @@ namespace UI.Game.GameLook.Components.Info
         {
             UnsubscribeFromResources();
         }
-        
+
         public void ShowSelf()
         {
-            if (_shown)
-            {
-                return;
-            }
+            if (_shown) return;
 
             _parent.InfoPanel.Add(_tree);
             _shown = true;
@@ -68,28 +65,22 @@ namespace UI.Game.GameLook.Components.Info
 
         public void HideSelf()
         {
-            if (!_shown)
-            {
-                return;
-            }
-            
+            if (!_shown) return;
+
             UnsubscribeFromResources();
-            
+
             _parent.InfoPanel.Remove(_tree);
             _shown = false;
         }
-        
+
         public void FillIn(List<Resource> resources)
         {
-            if (resources.Count == 0)
-            {
-                return;
-            }
+            if (resources.Count == 0) return;
 
             UnsubscribeFromResources();
 
             _resources = resources;
-            
+
             _name.text = $"{resources[0].ResourceType.GetStringForResources()}";
 
             ShowRows();
@@ -106,17 +97,15 @@ namespace UI.Game.GameLook.Components.Info
             {
                 resource.QuantityChange += UpdateQuantity;
                 resource.DurabilityChange += UpdateDurability;
-                
+
                 resource.ResourceDestroying += UnsubscribeFromResource;
             }
         }
-        
+
         private void UnsubscribeFromResources()
         {
             foreach (var resource in _resources)
-            {
                 UnsubscribeFromResource(resource);
-            }
         }
 
         private void UnsubscribeFromResource(Resource resource)

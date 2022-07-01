@@ -13,21 +13,22 @@ namespace General.Questing
         private readonly Dictionary<Quest, Notification> _notifications = new();
 
         private QuestsView _questsView;
-        
+
         private NotificationsView _notificationsView;
         private StockView _stockView;
         private QuestServices _questServices;
 
         [Inject]
-        public void Construct(QuestServices questServices,QuestsView questsView, NotificationsView notificationsView, StockView stockView)
+        public void Construct(QuestServices questServices, QuestsView questsView, NotificationsView notificationsView,
+            StockView stockView)
         {
             _questServices = questServices;
-            
+
             _questsView = questsView;
             _notificationsView = notificationsView;
             _stockView = stockView;
         }
-        
+
         private void Start()
         {
             foreach (var quest in _startingQuests)

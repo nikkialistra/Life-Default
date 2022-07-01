@@ -16,13 +16,13 @@ namespace UI.Game.GameLook.Components.Info.ColonistInfo
         [SerializeField] private Sprite _iconTasks;
         [Required]
         [SerializeField] private Sprite _iconOrders;
-        
+
         private VisualElement _currentActivityIcon;
         private Label _currentActivity;
 
         private Button _activityType;
         private VisualElement _activityTypeIcon;
-        
+
         private Button _melee;
         private Button _ranged;
 
@@ -31,7 +31,7 @@ namespace UI.Game.GameLook.Components.Info.ColonistInfo
         private WeaponSlotType _activeWeaponSlot = WeaponSlotType.None;
 
         private Colonist _colonist;
-        
+
         private ActionIconsRegistry _actionIconsRegistry;
 
         [Inject]
@@ -55,7 +55,7 @@ namespace UI.Game.GameLook.Components.Info.ColonistInfo
         public void FillIn(Colonist colonist)
         {
             _colonist = colonist;
-            
+
             _colonist.ActivityChange -= UpdateActivity;
             _colonist.ActivityChange += UpdateActivity;
         }
@@ -70,15 +70,12 @@ namespace UI.Game.GameLook.Components.Info.ColonistInfo
 
         public void UnbindSelf()
         {
-            if (_colonist == null)
-            {
-                return;
-            }
-            
+            if (_colonist == null) return;
+
             _colonist.ActivityChange -= UpdateActivity;
-            
+
             _activityType.clicked -= ToggleActivityType;
-            
+
             _melee.clicked -= ChooseMelee;
             _ranged.clicked -= ChooseRanged;
         }
@@ -93,13 +90,9 @@ namespace UI.Game.GameLook.Components.Info.ColonistInfo
             _isOrdering = !_isOrdering;
 
             if (_isOrdering)
-            {
                 SwitchToOrdering();
-            }
             else
-            {
                 SwitchToTasking();
-            }
         }
 
         private void ChooseMelee()
@@ -110,7 +103,7 @@ namespace UI.Game.GameLook.Components.Info.ColonistInfo
                 UpdateWeaponType();
 
                 _colonist.ChooseWeapon(WeaponSlotType.Melee);
-            } 
+            }
         }
 
         private void ChooseRanged()
@@ -119,9 +112,9 @@ namespace UI.Game.GameLook.Components.Info.ColonistInfo
             {
                 _activeWeaponSlot = WeaponSlotType.Ranged;
                 UpdateWeaponType();
-                
+
                 _colonist.ChooseWeapon(WeaponSlotType.Ranged);
-            } 
+            }
         }
 
         private void SwitchToOrdering()
@@ -136,7 +129,7 @@ namespace UI.Game.GameLook.Components.Info.ColonistInfo
         private void SwitchToTasking()
         {
             _activityTypeIcon.style.backgroundImage = new StyleBackground(_iconTasks);
-            
+
             _currentActivityIcon.style.backgroundImage =
                 new StyleBackground(_actionIconsRegistry[ActionType.Relaxing]);
             _currentActivity.text = ActionType.Relaxing.GetString();

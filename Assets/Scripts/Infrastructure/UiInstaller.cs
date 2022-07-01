@@ -20,7 +20,7 @@ namespace Infrastructure
         [SerializeField] private GameMenuToggle _gameMenuToggle;
         [Required]
         [SerializeField] private GameViews _gameViews;
-        
+
         [Title("Top Panels")]
         [Required]
         [SerializeField] private StockView _stockView;

@@ -7,30 +7,6 @@ namespace Units.Ancillaries
 {
     public class HealthBars : MonoBehaviour
     {
-        [Required]
-        [SerializeField] private Slider _healthSlider;
-        [Required]
-        [SerializeField] private Slider _recoverySpeedSlider;
-
-        [Required]
-        [SerializeField] private GameObject _sliders;
-
-        private bool _shown;
-
-        private GameObject _healthGameObject;
-        private GameObject _recoverySpeedGameObject;
-        
-        private Transform _cameraTransform;
-
-        private bool _hovered;
-        private bool _selected;
-
-        [Inject]
-        public void Construct(Camera camera)
-        {
-            _cameraTransform = camera.transform;
-        }
-        
         public bool Hovered
         {
             get => _hovered;
@@ -51,6 +27,30 @@ namespace Units.Ancillaries
             }
         }
 
+        [Required]
+        [SerializeField] private Slider _healthSlider;
+        [Required]
+        [SerializeField] private Slider _recoverySpeedSlider;
+
+        [Required]
+        [SerializeField] private GameObject _sliders;
+
+        private bool _shown;
+
+        private GameObject _healthGameObject;
+        private GameObject _recoverySpeedGameObject;
+
+        private Transform _cameraTransform;
+
+        private bool _hovered;
+        private bool _selected;
+
+        [Inject]
+        public void Construct(Camera camera)
+        {
+            _cameraTransform = camera.transform;
+        }
+
         private void LateUpdate()
         {
             transform.LookAt(transform.position + _cameraTransform.forward);
@@ -63,7 +63,7 @@ namespace Units.Ancillaries
 
             UpdateShowStatus();
         }
-        
+
         public void SetRecoverySpeed(float value, float maxValue)
         {
             _recoverySpeedSlider.maxValue = maxValue;
@@ -75,13 +75,9 @@ namespace Units.Ancillaries
         private void UpdateShowStatus()
         {
             if (Dead())
-            {
                 Hide();
-            }
             else
-            {
                 ShowIfPointedOrHit();
-            }
         }
 
         private bool Dead()
@@ -92,13 +88,9 @@ namespace Units.Ancillaries
         private void ShowIfPointedOrHit()
         {
             if (Hovered || Selected || NotFull())
-            {
                 Show();
-            }
             else
-            {
                 Hide();
-            }
         }
 
         private bool NotFull()
@@ -113,11 +105,8 @@ namespace Units.Ancillaries
 
         private void Hide()
         {
-            if (_sliders.gameObject == null)
-            {
-                return;
-            }
-            
+            if (_sliders.gameObject == null) return;
+
             _sliders.SetActive(false);
         }
     }

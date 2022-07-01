@@ -45,9 +45,7 @@ namespace General.Selecting
         private void Draw(Rect rect)
         {
             if (!WasClick(rect))
-            {
                 _selectingAreaDisplaying.Draw(rect);
-            }
         }
 
         private void Select(Rect rect)
@@ -67,25 +65,17 @@ namespace General.Selecting
         private void MakeSelection(Rect rect)
         {
             if (WasClick(rect))
-            {
                 SelectFromClick(rect);
-            }
             else
-            {
                 _selection.SelectFromRect(rect);
-            }
         }
 
         private void MakeSelectionAdditive(Rect rect)
         {
             if (WasClick(rect))
-            {
                 SelectFromClickAdditive(rect);
-            }
             else
-            {
                 _selection.SelectFromRectAdditive(rect);
-            }
         }
 
         private void SelectFromClick(Rect rect)
@@ -118,7 +108,7 @@ namespace General.Selecting
         {
             return rect.width <= 8f && rect.height <= 8f;
         }
-        
+
         private bool WasDoubleClick()
         {
             return Time.unscaledTime - _lastClickTime < _doubleClickDeltaTime;

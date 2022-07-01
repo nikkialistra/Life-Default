@@ -17,7 +17,7 @@ namespace General.WeatherRegulation
         {
             return _seasons.HasFlag(season) && _temperatureRange.Contains(dayTemperature);
         }
-            
+
         public bool SuitableWith(int dayTemperature)
         {
             return _temperatureRange.Contains(dayTemperature);

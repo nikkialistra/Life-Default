@@ -7,11 +7,14 @@ namespace General.TimeCycle.Seasons
 {
     public class SeasonCycle : MonoBehaviour
     {
+        public event Action SeasonDayChange;
+        public event Action<Season> SeasonChange;
+
         [SerializeField] private int _year = 2114;
         [SerializeField] private Season _season = Season.Spring;
         [Range(1, 7)]
         [SerializeField] private int _day = 1;
-        
+
         private TimeWeatherView _timeWeatherView;
 
         [Inject]
@@ -19,9 +22,6 @@ namespace General.TimeCycle.Seasons
         {
             _timeWeatherView = timeWeatherView;
         }
-
-        public event Action SeasonDayChange;
-        public event Action<Season> SeasonChange; 
 
         private void Start()
         {
@@ -48,7 +48,8 @@ namespace General.TimeCycle.Seasons
 
         private void NextSeason()
         {
-            _season = _season switch {
+            _season = _season switch
+            {
                 Season.Spring => Season.Summer,
                 Season.Summer => Season.Autumn,
                 Season.Autumn => Season.Winter,
@@ -57,9 +58,7 @@ namespace General.TimeCycle.Seasons
             };
 
             if (_season == Season.Spring)
-            {
                 _year++;
-            }
         }
 
         private void UpdateView()

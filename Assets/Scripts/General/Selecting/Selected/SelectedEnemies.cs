@@ -75,9 +75,7 @@ namespace General.Selecting.Selected
             UnsubscribeFromEnemies();
 
             foreach (var enemy in Enemies)
-            {
                 enemy.Deselect();
-            }
 
             Enemies.Clear();
         }
@@ -87,9 +85,7 @@ namespace General.Selecting.Selected
             UnsubscribeFromEnemies();
 
             foreach (var enemy in Enemies)
-            {
                 enemy.Die();
-            }
 
             Enemies.Clear();
         }
@@ -97,17 +93,13 @@ namespace General.Selecting.Selected
         private void SubscribeToEnemies()
         {
             foreach (var enemy in Enemies)
-            {
                 enemy.EnemyDying += RemoveFromSelected;
-            }
         }
 
         private void UnsubscribeFromEnemies()
         {
             foreach (var enemy in Enemies)
-            {
                 enemy.EnemyDying -= RemoveFromSelected;
-            }
         }
 
         private void RemoveFromSelected(Enemy enemy)
@@ -118,9 +110,7 @@ namespace General.Selecting.Selected
         private void UpdateSelectionStatuses()
         {
             foreach (var enemy in Enemies)
-            {
                 enemy.Select();
-            }
         }
     }
 }

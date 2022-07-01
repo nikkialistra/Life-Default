@@ -16,12 +16,12 @@ namespace Units.Ancillaries.Fields
         private Vector3 _targetPositionCorrection;
         private float _recalculationTime;
         private LayerMask _obstacleMask;
-        
+
         private readonly List<Transform> _visibleTargets = new();
 
         private bool _show;
         private float _updateTime;
-        
+
         private FieldVisualization _fieldVisualization;
 
         [Inject]
@@ -53,20 +53,15 @@ namespace Units.Ancillaries.Fields
             _show = !_show;
 
             if (_show)
-            {
                 _fieldVisualization.Show();
-                
-            }
             else
-            {
                 _fieldVisualization.Hide();
-            }
         }
 
         public void HideDebugShow()
         {
             _show = false;
-            
+
             _fieldVisualization.Hide();
         }
 
@@ -79,7 +74,7 @@ namespace Units.Ancillaries.Fields
             {
                 var targetPosition = target.transform.position + _targetPositionCorrection;
                 var directionToTarget = (targetPosition - transform.position).normalized;
-                
+
                 var distanceToTarget = Vector3.Distance(transform.position, targetPosition);
 
                 if (!Physics.Raycast(transform.position, directionToTarget, distanceToTarget, _obstacleMask))

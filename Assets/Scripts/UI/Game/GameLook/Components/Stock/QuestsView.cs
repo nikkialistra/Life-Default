@@ -9,6 +9,8 @@ namespace UI.Game.GameLook.Components.Stock
     [RequireComponent(typeof(StockView))]
     public class QuestsView : MonoBehaviour
     {
+        public bool Shown { get; private set; }
+
         [Required]
         [SerializeField] private VisualTreeAsset _asset;
         [Space]
@@ -26,7 +28,7 @@ namespace UI.Game.GameLook.Components.Stock
         private VisualElement _finishedQuests;
 
         private Label _noQuests;
-        
+
         private Label _active;
         private Label _finished;
 
@@ -45,14 +47,13 @@ namespace UI.Game.GameLook.Components.Stock
 
             _activeQuests = Tree.Q<VisualElement>("active-quests");
             _finishedQuests = Tree.Q<VisualElement>("finished-quests");
-            
+
             _noQuests = Tree.Q<Label>("no-quests");
-            
+
             _active = Tree.Q<Label>("active");
             _finished = Tree.Q<Label>("finished");
         }
-        
-        public bool Shown { get; private set; }
+
         private VisualElement Tree { get; set; }
 
         private void Start()
@@ -81,10 +82,7 @@ namespace UI.Game.GameLook.Components.Stock
 
         public void ShowSelf()
         {
-            if (Shown)
-            {
-                return;
-            }
+            if (Shown) return;
 
             _parent.Content.Add(Tree);
             Shown = true;
@@ -92,11 +90,8 @@ namespace UI.Game.GameLook.Components.Stock
 
         public void HideSelf()
         {
-            if (!Shown)
-            {
-                return;
-            }
-            
+            if (!Shown) return;
+
             _parent.Content.Remove(Tree);
             Shown = false;
         }
@@ -105,7 +100,7 @@ namespace UI.Game.GameLook.Components.Stock
         {
             var questView = new QuestView(_questAsset);
             questView.Bind(quest);
-            
+
             _activeQuests.Add(questView.Tree);
 
             quest.Complete += MoveToFinished;
@@ -127,19 +122,19 @@ namespace UI.Game.GameLook.Components.Stock
             _questViews[quest].Unbind();
 
             if (_activeQuests.Contains(_questViews[quest].Tree))
-            {
                 _activeQuests.Remove(_questViews[quest].Tree);
-            }
-            
+
             _finishedQuests.Add(_questViews[quest].Tree);
-            
+
             UpdateLabelShowing();
         }
 
         private void UpdateLabelShowing()
         {
-            _noQuests.style.display = _activeQuests.childCount + _finishedQuests.childCount == 0 ? DisplayStyle.Flex : DisplayStyle.None;
-            
+            _noQuests.style.display = _activeQuests.childCount + _finishedQuests.childCount == 0
+                ? DisplayStyle.Flex
+                : DisplayStyle.None;
+
             _active.style.display = _activeQuests.childCount > 0 ? DisplayStyle.Flex : DisplayStyle.None;
             _finished.style.display = _finishedQuests.childCount > 0 ? DisplayStyle.Flex : DisplayStyle.None;
         }

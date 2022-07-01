@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Infrastructure.Settings;
 using Units.Enums;
-using Units.MinimaxFightBehavior;
 using UnityEngine;
 using Zenject;
 
@@ -32,17 +31,13 @@ namespace Units.FightBehavior
         private UnitAttacker _unitAttacker;
 
         private Coroutine _choosingBehaviorCoroutine;
-        
-        private VirtualFight _virtualFight;
-        
+
         private float _carefulFightMannerMultiplier;
         private float _franticFightMannerMultiplier;
 
         [Inject]
-        public void Construct(VirtualFight virtualFight, AttackSettings attackSettings)
+        public void Construct(AttackSettings attackSettings)
         {
-            _virtualFight = virtualFight;
-
             _carefulFightMannerMultiplier = attackSettings.CarefulFightMannerMultiplier;
             _franticFightMannerMultiplier = attackSettings.FranticFightMannerMultiplier;
         }
@@ -181,14 +176,7 @@ namespace Units.FightBehavior
         private bool WouldBeDefeated()
         {
             if (!_fighting)
-            {
                 throw new InvalidOperationException("Trying to check condition of not started fight");
-            }
-
-            if (_useMinimax)
-            {
-                return _virtualFight.CheckDefeatForFight(_selfSpecs, _opponentSpecs, _surroundingOpponentsSpecs.Values.ToList(), (int)_advanceTime);
-            }
 
             var surroundingOpponentsSpecs = _surroundingOpponentsSpecs.Values.ToList();
 
@@ -196,14 +184,10 @@ namespace Units.FightBehavior
             var loseTime = _selfSpecs.WouldLoseInTime(_opponentSpecs, surroundingOpponentsSpecs, _advanceTime);
 
             if (float.IsNegativeInfinity(loseTime))
-            {
                 return false;
-            }
 
             if (!float.IsNegativeInfinity(winTime) && winTime < loseTime)
-            {
                 return false;
-            }
 
             return true;
         }

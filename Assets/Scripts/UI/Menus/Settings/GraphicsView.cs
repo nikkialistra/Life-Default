@@ -11,7 +11,7 @@ namespace UI.Menus.Settings
     {
         private const string VisualTreePath = "UI/Markup/Menus/Settings/Graphics";
         private const string DropdownContainerStyles = "UI/Styles/Common/DropdownContainer";
-        
+
         private List<Resolution> _resolutions;
 
         private readonly VisualElement _root;
@@ -153,9 +153,7 @@ namespace UI.Menus.Settings
                 _resolution.choices.Add(resolutionText);
 
                 if (resolutionText == _gameSettings.Resolution.Value.ToString())
-                {
                     currentIndex = i;
-                }
             }
 
             _resolution.index = currentIndex;

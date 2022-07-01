@@ -24,9 +24,9 @@ namespace Units.Ancillaries.Fields
 
         private bool _show;
         private float _updateTime;
-        
+
         private FieldVisualization _fieldVisualization;
-        
+
         [Inject]
         public void Construct(VisibilityFieldsSettings visibilityFieldsSettings)
         {
@@ -56,20 +56,15 @@ namespace Units.Ancillaries.Fields
             _show = !_show;
 
             if (_show)
-            {
                 _fieldVisualization.Show();
-                
-            }
             else
-            {
                 _fieldVisualization.Hide();
-            }
         }
 
         public void HideDebugShow()
         {
             _show = false;
-            
+
             _fieldVisualization.Hide();
         }
 
@@ -87,9 +82,7 @@ namespace Units.Ancillaries.Fields
                     var distanceToTarget = Vector3.Distance(transform.position, targetPosition);
 
                     if (!Physics.Raycast(transform.position, directionToTarget, distanceToTarget, _obstacleMask))
-                    {
                         _visibleTargets.Add(target.transform);
-                    }
                 }
             }
 

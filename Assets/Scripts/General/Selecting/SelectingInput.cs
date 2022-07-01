@@ -10,6 +10,13 @@ namespace General.Selecting
 {
     public class SelectingInput : MonoBehaviour
     {
+        public event Action<Rect> Selecting;
+        public event Action SelectingArea;
+        public event Action<Rect> SelectingEnd;
+        public event Action<Rect> SelectingEndAdditive;
+
+        public bool Deactivated { get; set; }
+
         private Vector2? _startPoint;
         private bool _updatingArea;
 
@@ -37,12 +44,6 @@ namespace General.Selecting
             _mousePositionAction = _playerInput.actions.FindAction("Mouse Position");
         }
 
-        public bool Deactivated { get; set; }
-
-        public event Action<Rect> Selecting;
-        public event Action SelectingArea;
-        public event Action<Rect> SelectingEnd;
-        public event Action<Rect> SelectingEndAdditive;
 
         private void OnEnable()
         {
@@ -74,18 +75,14 @@ namespace General.Selecting
 
         private void StartArea(InputAction.CallbackContext context)
         {
-            if (Keyboard.current.altKey.isPressed || Keyboard.current.ctrlKey.isPressed || _gameViews.MouseOverUi || Deactivated)
-            {
-                return;
-            }
+            if (Keyboard.current.altKey.isPressed || Keyboard.current.ctrlKey.isPressed || _gameViews.MouseOverUi ||
+                Deactivated) return;
 
             _startPoint = _mousePositionAction.ReadValue<Vector2>();
 
             if (_areaUpdateCoroutine != null)
-            {
                 StopCoroutine(_areaUpdateCoroutine);
-            }
-            
+
             _areaUpdateCoroutine = StartCoroutine(UpdateArea());
         }
 
@@ -96,23 +93,19 @@ namespace General.Selecting
             while (true)
             {
                 if (_startPoint == null)
-                {
                     throw new InvalidOperationException();
-                }
 
                 var rect = GetRect(_startPoint.Value, _mousePositionAction.ReadValue<Vector2>());
 
                 Selecting?.Invoke(rect);
 
                 if (IsArea(rect))
-                {
                     SelectingArea?.Invoke();
-                }
 
                 yield return null;
             }
         }
-        
+
         private static bool IsArea(Rect rect)
         {
             return rect.width > 3f && rect.height > 3f;
@@ -120,24 +113,14 @@ namespace General.Selecting
 
         private void EndArea(InputAction.CallbackContext context)
         {
-            if (!_updatingArea)
-            {
-                return;
-            }
+            if (!_updatingArea) return;
 
-            if (_startPoint == null || _areaUpdateCoroutine == null)
-            {
-                throw new InvalidOperationException();
-            }
+            if (_startPoint == null || _areaUpdateCoroutine == null) throw new InvalidOperationException();
 
             if (Keyboard.current.shiftKey.isPressed)
-            {
                 SelectingEndAdditive?.Invoke(GetRect(_startPoint.Value, _mousePositionAction.ReadValue<Vector2>()));
-            }
             else
-            {
                 SelectingEnd?.Invoke(GetRect(_startPoint.Value, _mousePositionAction.ReadValue<Vector2>()));
-            }
 
             _startPoint = null;
             _updatingArea = false;

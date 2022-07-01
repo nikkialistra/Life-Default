@@ -9,7 +9,7 @@ namespace Enemies.BehaviorNodes
         public SharedBool NewCommand;
 
         public EnemyMeshAgent EnemyMeshAgent;
-        
+
         public UnitAttacker UnitAttacker;
 
         public override TaskStatus OnUpdate()

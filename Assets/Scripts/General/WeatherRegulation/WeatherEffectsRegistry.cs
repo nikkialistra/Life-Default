@@ -7,12 +7,12 @@ namespace General.WeatherRegulation
 {
     public class WeatherEffectsRegistry : MonoBehaviour
     {
+        public WeatherEffects this[Weather weather] => _weatherEffects[weather];
+
         [ValidateInput(nameof(EveryWeatherHasEffects), "Not every weather has effects")]
         [DictionaryDrawerSettings(DisplayMode = DictionaryDisplayOptions.ExpandedFoldout)]
         [SerializeField] private WeatherEffectsDictionary _weatherEffects;
-        
-        public WeatherEffects this[Weather weather] => _weatherEffects[weather];
-        
+
         private bool EveryWeatherHasEffects(WeatherEffectsDictionary effects, ref string errorMessage)
         {
             foreach (var weatherValue in (Weather[])Enum.GetValues(typeof(Weather)))
@@ -26,7 +26,7 @@ namespace General.WeatherRegulation
 
             return true;
         }
-        
+
         [Serializable] public class WeatherEffectsDictionary : SerializableDictionary<Weather, WeatherEffects> { }
     }
 }

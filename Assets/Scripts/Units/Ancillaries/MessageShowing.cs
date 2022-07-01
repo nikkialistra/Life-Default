@@ -14,7 +14,7 @@ namespace Units.Ancillaries
         [Space]
         [SerializeField] private float _timeToFade = 0.8f;
         [SerializeField] private float _liftDistance = 0.5f;
-        
+
         private Transform _cameraTransform;
 
         [Inject]
@@ -27,7 +27,7 @@ namespace Units.Ancillaries
         {
             _message.alpha = 0f;
         }
-        
+
         private void LateUpdate()
         {
             transform.LookAt(transform.position + _cameraTransform.forward);
@@ -57,10 +57,10 @@ namespace Units.Ancillaries
         private IEnumerator Fade()
         {
             yield return null;
-            
+
             transform.DOKill();
             _message.DOKill();
-            
+
             StartFading();
         }
 

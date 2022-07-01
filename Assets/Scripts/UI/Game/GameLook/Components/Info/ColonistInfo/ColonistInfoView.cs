@@ -14,6 +14,9 @@ namespace UI.Game.GameLook.Components.Info.ColonistInfo
     [RequireComponent(typeof(CommandsView))]
     public class ColonistInfoView : MonoBehaviour
     {
+        public Colonist Colonist { get; private set; }
+        public VisualElement TabContent { get; private set; }
+
         [SerializeField] private VisualTreeAsset _asset;
 
         private bool _shown;
@@ -45,14 +48,11 @@ namespace UI.Game.GameLook.Components.Info.ColonistInfo
 
             _tree = _asset.CloneTree();
             _tree.pickingMode = PickingMode.Ignore;
-            
+
             TabContent = _tree.Q<VisualElement>("tab-content");
 
             BindElements();
         }
-
-        public Colonist Colonist { get; private set; }
-        public VisualElement TabContent { get; private set; }
 
         private void OnEnable()
         {
@@ -63,7 +63,7 @@ namespace UI.Game.GameLook.Components.Info.ColonistInfo
         private void OnDisable()
         {
             HideSelf();
-            
+
             _colonistDetailTabs.UnbindSelf();
             _colonistActivityPanel.UnbindSelf();
         }
@@ -88,10 +88,7 @@ namespace UI.Game.GameLook.Components.Info.ColonistInfo
 
         public void ShowSelf()
         {
-            if (_shown)
-            {
-                return;
-            }
+            if (_shown) return;
 
             _parent.InfoPanel.Add(_tree);
             _colonistHeader.BindPanelActions();
@@ -101,11 +98,8 @@ namespace UI.Game.GameLook.Components.Info.ColonistInfo
 
         public void HideSelf()
         {
-            if (!_shown)
-            {
-                return;
-            }
-            
+            if (!_shown) return;
+
             UnsubscribeFromColonist();
 
             _parent.InfoPanel.Remove(_tree);

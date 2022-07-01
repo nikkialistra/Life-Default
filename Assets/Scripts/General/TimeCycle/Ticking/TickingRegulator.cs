@@ -12,14 +12,14 @@ namespace General.TimeCycle.Ticking
         private readonly List<ITickablePerHour> _tickablesEveryHour = new();
 
         private float _seconds;
-        
+
         private int _tickSpeed = 1;
-        
+
         private bool _paused;
         private TimeSpeed _timeSpeed;
 
         private TimeToggling _timeToggling;
-        
+
         private int _tickCount;
 
         [Inject]
@@ -104,9 +104,7 @@ namespace General.TimeCycle.Ticking
         private void Tick()
         {
             foreach (var tickable in _tickables)
-            {
                 tickable.Tick();
-            }
 
             TickEveryHour();
             _tickCount++;
@@ -115,12 +113,8 @@ namespace General.TimeCycle.Ticking
         private void TickEveryHour()
         {
             if (_tickCount % TickCounts.Hour == 0)
-            {
                 foreach (var tickablePerHour in _tickablesEveryHour)
-                {
                     tickablePerHour.TickPerHour();
-                }
-            }
         }
     }
 }

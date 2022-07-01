@@ -14,13 +14,13 @@ namespace UI.Game.GameLook.Components.Info
 
         private InfoPanelView _parent;
         private TemplateContainer _tree;
-        
+
         private Label _name;
 
         private readonly List<VisualElement> _rows = new(2);
         private readonly List<Label> _rowNames = new(2);
         private readonly List<Label> _rowValues = new(2);
-        
+
         private Enemy _enemy;
 
         private bool _shown;
@@ -33,7 +33,7 @@ namespace UI.Game.GameLook.Components.Info
             _tree.pickingMode = PickingMode.Ignore;
 
             _name = _tree.Q<Label>("name");
-            
+
             BindRows();
         }
 
@@ -56,13 +56,10 @@ namespace UI.Game.GameLook.Components.Info
         {
             UnsubscribeFromEnemy();
         }
-        
+
         public void ShowSelf()
         {
-            if (_shown)
-            {
-                return;
-            }
+            if (_shown) return;
 
             _parent.InfoPanel.Add(_tree);
             _shown = true;
@@ -70,23 +67,20 @@ namespace UI.Game.GameLook.Components.Info
 
         public void HideSelf()
         {
-            if (!_shown)
-            {
-                return;
-            }
-            
+            if (!_shown) return;
+
             UnsubscribeFromEnemy();
-            
+
             _parent.InfoPanel.Remove(_tree);
             _shown = false;
         }
-        
+
         public void FillIn(Enemy enemy)
         {
             UnsubscribeFromEnemy();
-            
+
             _enemy = enemy;
-            
+
             _name.text = $"{enemy.Name}";
 
             ShowRows();
@@ -97,7 +91,7 @@ namespace UI.Game.GameLook.Components.Info
 
             SubscribeToEnemy();
         }
-        
+
         private void HidePanel()
         {
             _parent.UnsetEnemy(_enemy);

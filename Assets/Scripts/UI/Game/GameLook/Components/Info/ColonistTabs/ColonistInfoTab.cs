@@ -11,10 +11,13 @@ namespace UI.Game.GameLook.Components.Info.ColonistTabs
     [RequireComponent(typeof(ColonistInfoView))]
     public class ColonistInfoTab : MonoBehaviour
     {
+        private const int MaxTraits = 4;
+
+
+        public bool Shown { get; private set; }
+
         [Required]
         [SerializeField] private VisualTreeAsset _asset;
-
-        private const int MaxTraits = 4;
 
         private readonly TraitElement[] _traitElements = new TraitElement[MaxTraits];
 
@@ -32,31 +35,25 @@ namespace UI.Game.GameLook.Components.Info.ColonistTabs
             HideAll();
         }
 
-        public bool Shown { get; private set; }
         private VisualElement Tree { get; set; }
 
         public void FillIn(Colonist colonist)
         {
             UnsubscribeFromChanges();
-            
+
             _colonist = colonist;
 
             if (colonist.Traits.Count > MaxTraits)
-            {
                 throw new ArgumentException($"Info tab can show only {MaxTraits} traits");
-            }
-            
+
             FillTraits();
-            
+
             SubscribeToChanges();
         }
 
         public void ShowSelf()
         {
-            if (Shown)
-            {
-                return;
-            }
+            if (Shown) return;
 
             _parent.TabContent.Add(Tree);
             Shown = true;
@@ -64,13 +61,10 @@ namespace UI.Game.GameLook.Components.Info.ColonistTabs
 
         public void HideSelf()
         {
-            if (!Shown)
-            {
-                return;
-            }
+            if (!Shown) return;
 
             UnsubscribeFromChanges();
-            
+
             _parent.TabContent.Remove(Tree);
             Shown = false;
         }
@@ -92,24 +86,20 @@ namespace UI.Game.GameLook.Components.Info.ColonistTabs
         private void FillTraits()
         {
             var traits = _colonist.Traits;
-            
+
             for (int i = 0; i < MaxTraits; i++)
             {
                 if (traits.Count > i)
-                {
                     FillTrait(i, traits[i]);
-                }
                 else
-                {
                     HideTrait(i);
-                }
             }
         }
 
         private void FillTrait(int index, Trait trait)
         {
             _traitElements[index].Root.style.display = DisplayStyle.Flex;
-            
+
             _traitElements[index].Icon.style.backgroundImage = new StyleBackground(trait.Icon);
             _traitElements[index].Name.text = trait.Name;
         }
@@ -127,21 +117,21 @@ namespace UI.Game.GameLook.Components.Info.ColonistTabs
                 Icon = Tree.Q<VisualElement>("first-trait__icon"),
                 Name = Tree.Q<Label>("first-trait__name")
             };
-            
+
             _traitElements[1] = new TraitElement
             {
                 Root = Tree.Q<VisualElement>("second-trait"),
                 Icon = Tree.Q<VisualElement>("second-trait__icon"),
                 Name = Tree.Q<Label>("second-trait__name")
             };
-            
+
             _traitElements[2] = new TraitElement
             {
                 Root = Tree.Q<VisualElement>("third-trait"),
                 Icon = Tree.Q<VisualElement>("third-trait__icon"),
                 Name = Tree.Q<Label>("third-trait__name")
             };
-            
+
             _traitElements[3] = new TraitElement
             {
                 Root = Tree.Q<VisualElement>("forth-trait"),
@@ -149,13 +139,11 @@ namespace UI.Game.GameLook.Components.Info.ColonistTabs
                 Name = Tree.Q<Label>("forth-trait__name")
             };
         }
-        
+
         private void HideAll()
         {
             for (int i = 0; i < MaxTraits; i++)
-            {
                 HideTrait(i);
-            }
         }
 
         private struct TraitElement

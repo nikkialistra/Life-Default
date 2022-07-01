@@ -10,16 +10,17 @@ namespace ResourceManagement
             {
                 ResourceType.Wood => "Trees",
                 ResourceType.Stone => "Rocks",
-                _ => throw new ArgumentOutOfRangeException(nameof(resourceType), resourceType, null)
+                _ => throw new ArgumentOutOfRangeException()
             };
         }
+
         public static string GetStringForResourceChunks(this ResourceType resourceType)
         {
             return resourceType switch
             {
                 ResourceType.Wood => "Logs",
                 ResourceType.Stone => "Stones",
-                _ => throw new ArgumentOutOfRangeException(nameof(resourceType), resourceType, null)
+                _ => throw new ArgumentOutOfRangeException()
             };
         }
 
@@ -29,7 +30,7 @@ namespace ResourceManagement
             {
                 ResourceType.Wood => "woods",
                 ResourceType.Stone => "stones",
-                _ => throw new ArgumentOutOfRangeException(nameof(resourceType), resourceType, null)
+                _ => throw new ArgumentOutOfRangeException()
             };
         }
     }

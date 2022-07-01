@@ -23,19 +23,19 @@ namespace General.WeatherRegulation
         [SerializeField] private WeatherNecessaryConditionsDictionary _weatherNecessaryConditions;
 
         private Weather _currentWeather;
-        
+
         private Weather _futureWeather;
         private int _weatherBeginTime;
 
         private bool _weatherChangePending;
-        
+
         private Season _season;
 
         private WeatherEnvironmentInfluence _weatherEnvironmentInfluence;
         private SeasonCycle _seasonCycle;
         private DayCycle _dayCycle;
         private Temperature _temperature;
-        
+
         private TimeWeatherView _timeWeatherView;
 
         [Inject]
@@ -59,7 +59,7 @@ namespace General.WeatherRegulation
         private void OnEnable()
         {
             _dayCycle.HourChange += OnHourChange;
-            
+
             _seasonCycle.SeasonChange += OnSeasonChange;
             _seasonCycle.SeasonDayChange += FindNewFutureWeather;
         }
@@ -67,11 +67,11 @@ namespace General.WeatherRegulation
         private void OnDisable()
         {
             _dayCycle.HourChange -= OnHourChange;
-            
+
             _seasonCycle.SeasonChange -= OnSeasonChange;
             _seasonCycle.SeasonDayChange -= FindNewFutureWeather;
         }
-        
+
         private bool EveryWeatherHasConditions(WeatherNecessaryConditionsDictionary conditions, ref string errorMessage)
         {
             foreach (var weatherValue in (Weather[])Enum.GetValues(typeof(Weather)))
@@ -88,12 +88,10 @@ namespace General.WeatherRegulation
 
         private void OnHourChange(int hour)
         {
-            if (!_weatherChangePending)
-            {
-                return;
-            }
-            
-            if (hour >= _weatherBeginTime && _weatherNecessaryConditions[_futureWeather].SuitableWith(_temperature.CurrentBaseTemperature))
+            if (!_weatherChangePending) return;
+
+            if (hour >= _weatherBeginTime && _weatherNecessaryConditions[_futureWeather]
+                .SuitableWith(_temperature.CurrentBaseTemperature))
             {
                 _currentWeather = _futureWeather;
                 _weatherChangePending = false;
@@ -109,14 +107,7 @@ namespace General.WeatherRegulation
 
         private void FindNewFutureWeather()
         {
-            if (WeatherEventOccured)
-            {
-                _futureWeather = Weather.Rain;
-            }
-            else
-            {
-                _futureWeather = Weather.Rain;
-            }
+            _futureWeather = WeatherEventOccured ? Weather.Rain : Weather.Clear;
 
             _weatherBeginTime = _weatherBeginTimeRange.GetRandomHour();
             _weatherChangePending = true;
@@ -138,13 +129,9 @@ namespace General.WeatherRegulation
             var possibleWeather = new List<Weather>();
 
             foreach (var (weather, necessaryConditions) in _weatherNecessaryConditions)
-            {
                 if (necessaryConditions.SuitableWith(_season, dayTemperature))
-                {
                     possibleWeather.Add(weather);
-                }
-            }
-            
+
             return possibleWeather;
         }
 
@@ -152,7 +139,8 @@ namespace General.WeatherRegulation
         {
             _timeWeatherView.UpdateWeather(_currentWeather);
         }
-        
-        [Serializable] public class WeatherNecessaryConditionsDictionary : SerializableDictionary<Weather, WeatherNecessaryConditions> { }
+
+        [Serializable]
+        public class WeatherNecessaryConditionsDictionary : SerializableDictionary<Weather, WeatherNecessaryConditions> { }
     }
 }

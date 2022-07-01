@@ -13,6 +13,9 @@ namespace General.TemperatureRegulation
 {
     public class Temperature : MonoBehaviour, ITickable
     {
+        public int DayTemperature { get; private set; }
+        public int CurrentBaseTemperature => Mathf.RoundToInt(_currentBaseTemperature);
+
         [Title("Shifting")]
         [SerializeField] private int _nightToDayValueDifference = -10;
         [SerializeField] private int _ticksToShift = 25;
@@ -48,14 +51,11 @@ namespace General.TemperatureRegulation
             _weatherEnvironmentInfluence = weatherEnvironmentInfluence;
 
             _timeWeatherView = timeWeatherView;
-            
+
             _activeRange = _springRange;
-            
+
             tickingRegulator.AddToTickables(this);
         }
-
-        public int DayTemperature { get; private set; }
-        public int CurrentBaseTemperature => Mathf.RoundToInt(_currentBaseTemperature);
 
         private void Start()
         {
@@ -77,7 +77,7 @@ namespace General.TemperatureRegulation
         {
             _seasonCycle.SeasonDayChange -= OnSeasonDayChange;
             _seasonCycle.SeasonChange -= OnSeasonChange;
-            
+
             _dayCycle.DayBegin -= OnDayBegin;
             _dayCycle.NightBegin -= OnNightBegin;
         }
@@ -123,7 +123,8 @@ namespace General.TemperatureRegulation
 
         private void OnSeasonChange(Season season)
         {
-            _activeRange = season switch {
+            _activeRange = season switch
+            {
                 Season.Spring => _springRange,
                 Season.Summer => _summerRange,
                 Season.Autumn => _autumnRange,

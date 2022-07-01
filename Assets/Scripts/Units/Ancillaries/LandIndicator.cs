@@ -14,7 +14,7 @@ namespace Units.Ancillaries
             {
                 return;
             }
-            
+
             _activated = true;
             gameObject.SetActive(true);
         }
@@ -25,7 +25,7 @@ namespace Units.Ancillaries
             {
                 return;
             }
-            
+
             _activated = false;
             gameObject.SetActive(false);
         }
@@ -33,9 +33,7 @@ namespace Units.Ancillaries
         private void Update()
         {
             if (_activated)
-            {
                 transform.Rotate(0, 0, _rotationSpeed * Time.unscaledDeltaTime);
-            }
         }
     }
 }

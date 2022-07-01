@@ -66,9 +66,7 @@ namespace General.Selecting
         public void Draw(Rect rect)
         {
             if (_selection.ClassListContains("not-displayed"))
-            {
                 _selection.RemoveFromClassList("not-displayed");
-            }
 
             _selection.style.left = new Length(rect.xMin / _width * 100f, LengthUnit.Percent);
             _selection.style.bottom = new Length(rect.yMin / _height * 100f, LengthUnit.Percent);

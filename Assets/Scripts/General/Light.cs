@@ -14,7 +14,7 @@ namespace General
     public class Light : MonoBehaviour, ITickable
     {
         [SerializeField] private int _ticksToShift = 10;
-        
+
         [Title("Season Light")]
         [SerializeField] private int _springLight;
         [SerializeField] private int _summerLight;
@@ -23,13 +23,13 @@ namespace General
 
         private float _currentBaseLight;
         private float _currentInfluencedLight;
-        
+
         private int _seasonLight;
 
         private float _valueShiftPerTick;
         private bool _shifting;
         private int _shiftTickCount;
-        
+
         private SeasonCycle _seasonCycle;
         private DayCycle _dayCycle;
         private WeatherEnvironmentInfluence _weatherEnvironmentInfluence;
@@ -81,7 +81,7 @@ namespace General
                 Shift();
                 CheckForShiftFinish();
             }
-            
+
             CalculateInfluencedLight();
 
             UpdateView();
@@ -104,12 +104,14 @@ namespace General
 
         private void CalculateInfluencedLight()
         {
-            _currentInfluencedLight = Mathf.Clamp(_currentBaseLight + _weatherEnvironmentInfluence.LightSumModifier, 0, 100);
+            _currentInfluencedLight =
+                Mathf.Clamp(_currentBaseLight + _weatherEnvironmentInfluence.LightSumModifier, 0, 100);
         }
 
         private void OnSeasonChange(Season season)
         {
-            _seasonLight = season switch {
+            _seasonLight = season switch
+            {
                 Season.Spring => _springLight,
                 Season.Summer => _summerLight,
                 Season.Autumn => _autumnLight,

@@ -9,8 +9,9 @@ namespace Units.Appearance.ItemVariants
     [Serializable]
     public class ItemObjectVariants<T> : IItemVariants<T> where T : UnityEngine.Object
     {
-        [SerializeField] private List<ItemObject<T>> _variants;
         public IEnumerable<IItem<T>> Variants => _variants;
+
+        [SerializeField] private List<ItemObject<T>> _variants;
 
         [Button]
         private void CalculateRelativeChances()

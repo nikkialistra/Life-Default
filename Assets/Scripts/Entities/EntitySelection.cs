@@ -14,15 +14,15 @@ namespace Entities
         [Space]
         [SerializeField] private Color _hoverColor;
         [SerializeField] private Color _selectionColor;
-        
+
         private float _timeToHideHover;
         private float _timeToHideSelection;
 
         private bool _hovered;
         private bool _selected;
-        
+
         private int _emissiveColor;
-        
+
         private Coroutine _hoveringCoroutine;
         private Coroutine _hideSelectionCoroutine;
 
@@ -40,20 +40,17 @@ namespace Entities
 
         public void Hover()
         {
-            if (_hovered || _selected)
-            {
-                return;
-            }
+            if (_hovered || _selected) return;
 
             _hovered = true;
-            
+
             _hoveringCoroutine ??= StartCoroutine(Hovering());
         }
-        
+
         public void Flash()
         {
             StopDisplay();
-            
+
             SetColor(_selectionColor);
 
             _hovered = false;
@@ -71,7 +68,7 @@ namespace Entities
 
             SetColor(_selectionColor);
         }
-        
+
         public void Deselect()
         {
             _selected = false;
@@ -109,14 +106,14 @@ namespace Entities
                     break;
                 }
             }
-            
+
             _hoveringCoroutine = null;
         }
 
         private IEnumerator HideSelectionAfter()
         {
             yield return new WaitForSecondsRealtime(_timeToHideSelection);
-            
+
             SetColor(Color.black);
             _selected = false;
         }

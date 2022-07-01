@@ -49,7 +49,7 @@ namespace General
         [Space]
         [SerializeField] private float _minimumPositionZ;
         [SerializeField] private float _maximumPositionZ;
-        
+
         [Title("Focusing")]
         [SerializeField] private float _focusFov = 40f;
         [SerializeField] private float _focusDistance = 30f;
@@ -127,14 +127,14 @@ namespace General
             _gameViews = gameViews;
             _selectingInput = selectingInput;
             _playerInput = playerInput;
-            
+
             _raycastToTerrainCorrection = raycastingSettings.RaycastToTerrainCorrection;
         }
 
         private void Awake()
         {
             _camera = GetComponent<Camera>();
-            
+
             _terrainMask = LayerMask.GetMask("Terrain");
 
             _movementAction = _playerInput.actions.FindAction("Movement");
@@ -158,7 +158,7 @@ namespace General
         private void OnDisable()
         {
             _toggleCameraMovementAction.started -= ToggleCameraMovement;
-            
+
             _selectingInput.Selecting -= OnSelecting;
             _selectingInput.SelectingEnd -= OnSelectingEnd;
         }
@@ -179,10 +179,7 @@ namespace General
 
         private void LateUpdate()
         {
-            if (!_activated)
-            {
-                return;
-            }
+            if (!_activated) return;
 
             CalculateDeltas();
 
@@ -222,7 +219,7 @@ namespace General
         public void FocusOn(Colonist colonist)
         {
             ResetFollow();
-            
+
             var yRotation = Quaternion.Euler(new Vector3(0, transform.rotation.eulerAngles.y, 0));
             var forward = yRotation * Vector3.forward;
 
@@ -258,13 +255,9 @@ namespace General
         {
             if (Physics.Raycast(new Ray(transform.position + _raycastToTerrainCorrection, Vector3.down), out var hit,
                 100f, _terrainMask))
-            {
                 return hit.distance;
-            }
             else
-            {
                 throw new InvalidOperationException("Camera is not above terrain");
-            }
         }
 
         private IEnumerator Focusing(Vector3 position, Vector3 eulerAngles, Colonist colonist)
@@ -272,16 +265,16 @@ namespace General
             _focusing = true;
 
             transform.DOMove(position, _focusDuration * Time.timeScale);
-            
+
             yield return new WaitForSecondsRealtime(_focusDuration / 2f);
-            
+
             // Start to change fov and rotation in the middle of movement
             SetFocusRotation(eulerAngles);
 
             yield return new WaitForSecondsRealtime(_focusDuration / 2f);
-            
+
             _newPosition = transform.position;
-            
+
             SetFollow(colonist);
 
             _focusing = false;
@@ -313,15 +306,11 @@ namespace General
             _activated = !_activated;
 
             if (_activated)
-            {
                 Activate();
-            }
             else
-            {
                 Deactivate();
-            }
         }
-        
+
         private void OnSelecting(Rect _)
         {
             _isSelectingInput = true;
@@ -366,9 +355,7 @@ namespace General
                              Mathf.Abs(normalisedPosition.y) > _positionMoveYThreshold;
 
             if (keyboardMoved || mouseMoved || _dragAction.IsPressed())
-            {
                 _following = false;
-            }
         }
 
         private void UpdateFollow()
@@ -383,16 +370,10 @@ namespace General
             var ray = _camera.ScreenPointToRay(screenPoint);
 
             if (Physics.Raycast(ray, out var hit))
-            {
                 if (hit.transform.gameObject.TryGetComponent<Colonist>(out var colonist))
-                {
                     SetFollow(colonist);
-                }
                 else
-                {
                     ResetFollow();
-                }
-            }
         }
 
         private void SetFollow(Colonist colonist)
@@ -417,9 +398,7 @@ namespace General
         private void UnsubscribeFromLastUnit()
         {
             if (_colonist != null)
-            {
                 _colonist.Dying -= ResetFollow;
-            }
         }
 
         private void CalculateDeltas()
@@ -436,17 +415,14 @@ namespace General
         private void UpdatePosition()
         {
             var movement = _movementAction.ReadValue<Vector2>();
-            
+
             _newPosition += transform.right * (_moveSpeed * Time.unscaledDeltaTime * movement.x);
             _newPosition += transform.forward * (_moveSpeed * Time.unscaledDeltaTime * movement.y);
         }
 
         private void UpdateRotation()
         {
-            if (!_dragAction.IsPressed())
-            {
-                return;
-            }
+            if (!_dragAction.IsPressed()) return;
 
             _verticalRotation = _newRotation.eulerAngles.x;
             _horizontalRotation = _newRotation.eulerAngles.y;
@@ -460,11 +436,8 @@ namespace General
 
         private void UpdateZoom()
         {
-            if (_gameViews.MouseOverUi)
-            {
-                return;
-            }
-            
+            if (_gameViews.MouseOverUi) return;
+
             var zoomScroll = _zoomScrollAction.ReadValue<Vector2>().y;
             _newFieldOfView = Mathf.Clamp(_newFieldOfView - zoomScroll * _zoomScrollSensitivity,
                 _minFov, _maxFov);
@@ -472,29 +445,20 @@ namespace General
 
         private void UpdatePositionFromMouseThresholdMovement()
         {
-            if (!_canMouseScroll || !_screenEdgeMouseScroll || _isSelectingInput)
-            {
-                return;
-            }
+            if (!_canMouseScroll || !_screenEdgeMouseScroll || _isSelectingInput) return;
 
             var position = _mousePositionAction.ReadValue<Vector2>();
             var normalisedPosition = GetNormalisedPosition(position);
             var movement = Vector2.zero;
 
             if (Mathf.Abs(normalisedPosition.x) > _positionMoveXThreshold)
-            {
                 movement.x = Mathf.Sign(normalisedPosition.x) * _moveSpeed * Time.unscaledDeltaTime;
-            }
 
             if (Mathf.Abs(normalisedPosition.y) > _positionMoveYThreshold)
-            {
                 movement.y = Mathf.Sign(normalisedPosition.y) * _moveSpeed * Time.unscaledDeltaTime;
-            }
 
             if (movement != Vector2.zero)
-            {
                 UpdatePositionFromMouseMovement(movement);
-            }
         }
 
         //Result between -1 and 1 is the result between 0 and 1 subtracted with 0.5 and multiplied by 2
@@ -514,28 +478,20 @@ namespace General
         private void ClampPositionByConstraints()
         {
             var position = _newPosition;
-            
+
             position = RaiseAboveTerrain(position);
 
             if (position.x < _minimumPositionX)
-            {
                 position.x = _minimumPositionX;
-            }
 
             if (position.x > _maximumPositionX)
-            {
                 position.x = _maximumPositionX;
-            }
 
             if (position.z < _minimumPositionZ)
-            {
                 position.z = _minimumPositionZ;
-            }
 
             if (position.z > _maximumPositionZ)
-            {
                 position.z = _maximumPositionZ;
-            }
 
             _newPosition = position;
         }
@@ -544,9 +500,7 @@ namespace General
         {
             if (Physics.Raycast(new Ray(position + _raycastToTerrainCorrection, Vector3.down), out var hit,
                 100f, _terrainMask))
-            {
                 position.y = hit.point.y + _heightAboveTerrain;
-            }
 
             return position;
         }
@@ -554,14 +508,12 @@ namespace General
         private void SmoothUpdate()
         {
             if (!_focusing)
-            {
                 transform.position = Vector3.Lerp(transform.position, _newPosition,
                     _positionSmoothing * Time.unscaledDeltaTime) + new Vector3(0, _raiseDistance, 0);
-            }
-            
+
             transform.rotation = Quaternion.Lerp(transform.rotation, _newRotation,
                 _rotationSmoothing * Time.unscaledDeltaTime);
-            
+
             _camera.fieldOfView =
                 Mathf.Lerp(_camera.fieldOfView, _newFieldOfView, _zoomSmoothing * Time.unscaledDeltaTime);
         }

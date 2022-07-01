@@ -56,10 +56,7 @@ namespace UI.Game.GameLook.Components.Info
         
         public void ShowSelf()
         {
-            if (_shown)
-            {
-                return;
-            }
+            if (_shown) return;
 
             _parent.InfoPanel.Add(_tree);
             _shown = true;
@@ -67,11 +64,8 @@ namespace UI.Game.GameLook.Components.Info
 
         public void HideSelf()
         {
-            if (!_shown)
-            {
-                return;
-            }
-            
+            if (!_shown) return;
+
             UnsubscribeFromResource();
             
             _parent.InfoPanel.Remove(_tree);

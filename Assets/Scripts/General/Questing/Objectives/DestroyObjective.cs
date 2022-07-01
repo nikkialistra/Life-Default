@@ -9,6 +9,9 @@ namespace General.Questing.Objectives
     [Serializable]
     public class DestroyObjective : IObjective
     {
+        public event Action<string> Update;
+        public event Action<string> Complete;
+
         [SerializeField] private Faction _type;
         [SerializeField] private int _quantity;
 
@@ -16,9 +19,6 @@ namespace General.Questing.Objectives
 
         private EnemyRepository _enemyRepository;
 
-        public event Action<string> Update;
-        public event Action<string> Complete;
-        
         public void Activate(QuestServices questServices)
         {
             _destroyed = 0;
@@ -43,7 +43,7 @@ namespace General.Questing.Objectives
             _destroyed++;
 
             Update?.Invoke(ToText());
-            
+
             CheckForCompletion();
         }
 

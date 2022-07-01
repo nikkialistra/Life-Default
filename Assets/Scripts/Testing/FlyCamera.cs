@@ -16,6 +16,16 @@ namespace Testing
 
         [SerializeField] private Vector3 _velocity;
 
+        private static bool Focused
+        {
+            get => Cursor.lockState == CursorLockMode.Locked;
+            set
+            {
+                Cursor.lockState = value ? CursorLockMode.Locked : CursorLockMode.None;
+                Cursor.visible = value == false;
+            }
+        }
+
         private Camera _camera;
 
         private bool _isSetUpSession;
@@ -31,16 +41,6 @@ namespace Testing
             _camera = GetComponent<Camera>();
         }
 
-        private static bool Focused
-        {
-            get => Cursor.lockState == CursorLockMode.Locked;
-            set
-            {
-                Cursor.lockState = value ? CursorLockMode.Locked : CursorLockMode.None;
-                Cursor.visible = value == false;
-            }
-        }
-
         private void Start()
         {
             if (!_isSetUpSession)
@@ -53,9 +53,7 @@ namespace Testing
         private void OnEnable()
         {
             if (_focusOnEnable)
-            {
                 Focused = true;
-            }
         }
 
         private void OnDisable()
@@ -66,13 +64,9 @@ namespace Testing
         private void Update()
         {
             if (Focused)
-            {
                 UpdateInput();
-            }
             else if (Mouse.current.leftButton.isPressed)
-            {
                 Focused = true;
-            }
 
             _velocity = Vector3.Lerp(_velocity, Vector3.zero, _dampingCoefficient * Time.deltaTime);
             transform.position += _velocity * Time.deltaTime;
@@ -92,22 +86,12 @@ namespace Testing
             transform.rotation = horizontal * rotation * vertical;
 
             if (Keyboard.current.altKey.isPressed && Keyboard.current.qKey.wasPressedThisFrame)
-            {
                 Focused = false;
-            }
         }
 
         private Vector3 GetAccelerationVector()
         {
             Vector3 moveInput = default;
-
-            void AddMovementIfPressed(KeyControl key, Vector3 dir)
-            {
-                if (key.isPressed)
-                {
-                    moveInput += dir;
-                }
-            }
 
             AddMovementIfPressed(Keyboard.current.wKey, Vector3.forward);
             AddMovementIfPressed(Keyboard.current.sKey, Vector3.back);
@@ -124,6 +108,12 @@ namespace Testing
             }
 
             return direction * _acceleration;
+
+            void AddMovementIfPressed(KeyControl key, Vector3 dir)
+            {
+                if (key.isPressed)
+                    moveInput += dir;
+            }
         }
     }
 }

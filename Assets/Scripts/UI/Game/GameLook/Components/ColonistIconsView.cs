@@ -15,6 +15,9 @@ namespace UI.Game.GameLook.Components
     [RequireComponent(typeof(UIDocument))]
     public class ColonistIconsView : MonoBehaviour
     {
+        public VisualElement Tree { get; private set; }
+        public VisualElement ColonistIcons { get; private set; }
+
         [Required]
         [SerializeField] private VisualTreeAsset _asset;
         [Space]
@@ -55,9 +58,6 @@ namespace UI.Game.GameLook.Components
 
             ColonistIcons = Tree.Q<VisualElement>("colonist-icons");
         }
-        
-        public VisualElement Tree { get; private set; }
-        public VisualElement ColonistIcons { get; private set; }
 
         private enum IconSize
         {
@@ -71,7 +71,7 @@ namespace UI.Game.GameLook.Components
             _colonistRepository.Remove += Remove;
 
             _selectedColonists.SelectionChange += UpdateOutlines;
-            
+
             _selectingInput.SelectingEnd += Select;
         }
 
@@ -81,19 +81,16 @@ namespace UI.Game.GameLook.Components
             _colonistRepository.Remove -= Remove;
 
             _selectedColonists.SelectionChange -= UpdateOutlines;
-            
+
             _selectingInput.SelectingEnd -= Select;
         }
 
         private void Add(Colonist colonist)
         {
-            if (_colonistIconViews.Count >= _maxShownColonists)
-            {
-                return;
-            }
-            
+            if (_colonistIconViews.Count >= _maxShownColonists) return;
+
             CreateColonistIconView(colonist);
-            
+
             RecreateIconsOnIconChangeCondition();
         }
 
@@ -114,7 +111,7 @@ namespace UI.Game.GameLook.Components
         private void CreateColonistIconView(Colonist colonist)
         {
             var iconAsset = _currentIconSize == IconSize.Normal ? _assetIcon : _assetIconSmall;
-            
+
             var colonistIconView = new ColonistIconView(this, iconAsset);
             colonistIconView.Bind(colonist);
             colonistIconView.Click += OnColonistClick;
@@ -125,31 +122,25 @@ namespace UI.Game.GameLook.Components
         private void ChangeIconSizes()
         {
             foreach (var colonistIconView in _colonistIconViews.Values)
-            {
                 colonistIconView.Unbind();
-            }
-            
+
             _colonistIconViews.Clear();
 
             foreach (var colonist in _colonistRepository.GetColonists())
-            {
                 CreateColonistIconView(colonist);
-            }
         }
 
         private void Remove(Colonist colonist)
         {
             if (!_colonistIconViews.ContainsKey(colonist))
-            {
                 throw new ArgumentException("Colonist icons view doesn't have this colonist");
-            }
-            
+
             var colonistIconView = _colonistIconViews[colonist];
             colonistIconView.Unbind();
             colonistIconView.Click -= OnColonistClick;
 
             _colonistIconViews.Remove(colonist);
-            
+
             RecreateIconsOnIconChangeCondition();
         }
 
@@ -157,14 +148,10 @@ namespace UI.Game.GameLook.Components
         {
             var transformedRect = TransformRect(rect);
             var colonists = new List<Colonist>();
-            
+
             foreach (var (colonist, colonistIconView) in _colonistIconViews)
-            {
                 if (transformedRect.Contains(colonistIconView.Center))
-                {
                     colonists.Add(colonist);
-                }
-            }
 
             if (colonists.Count != 0)
             {
@@ -199,14 +186,10 @@ namespace UI.Game.GameLook.Components
         private void OnColonistClick(Colonist colonist)
         {
             if (Keyboard.current.shiftKey.isPressed)
-            {
                 _selectedColonists.Add(colonist);
-            }
             else
-            {
                 _selectedColonists.Set(colonist);
-            }
-            
+
             UpdateOutlines();
         }
 
@@ -215,13 +198,9 @@ namespace UI.Game.GameLook.Components
             foreach (var (colonist, colonistIconView) in _colonistIconViews)
             {
                 if (_selectedColonists.Contains(colonist))
-                {
                     colonistIconView.ShowOutline();
-                }
                 else
-                {
                     colonistIconView.HideOutline();
-                }
             }
         }
     }

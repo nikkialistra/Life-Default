@@ -12,6 +12,15 @@ namespace General.Map
 {
     public class TerrainModification : MonoBehaviour
     {
+        public enum ModificationType
+        {
+            Raise,
+            Lower,
+            Flatten,
+            Sample,
+            SampleAverage,
+        }
+
         [MinValue(0)]
         [SerializeField] private int _minDetailLayerNumber;
         [MinValue(0)]
@@ -33,15 +42,6 @@ namespace General.Map
         private float _sampledHeight;
 
         private Vector3 _originPositionCorrection;
-
-        public enum ModificationType
-        {
-            Raise,
-            Lower,
-            Flatten,
-            Sample,
-            SampleAverage,
-        }
 
         [Inject]
         public void Construct(Camera camera, Terrain terrain, RaycastingSettings raycastingSettings)
@@ -70,26 +70,22 @@ namespace General.Map
             var resources = FindObjectsOfType<Resource>();
 
             foreach (var resource in resources)
-            {
                 resource.ClearDetailsAround();
-            }
         }
 
         public void ClearDetailsAt(Vector3 position, int radius)
         {
             var closestTerrainPoint = GetClosestTerrainPoint(position);
 
-            if (float.IsNegativeInfinity(closestTerrainPoint.x))
-            {
-                return;
-            }
+            if (float.IsNegativeInfinity(closestTerrainPoint.x)) return;
 
             CalculateDetailBrushArea(radius, closestTerrainPoint, out var detailBrushPosition, out var detailBrushSize);
 
             ClearDetailsAtLayers(detailBrushPosition, detailBrushSize);
         }
 
-        private void CalculateDetailBrushArea(int radius, Vector3 closestTerrainPoint, out Vector2Int detailBrushPosition,
+        private void CalculateDetailBrushArea(int radius, Vector3 closestTerrainPoint,
+            out Vector2Int detailBrushPosition,
             out Vector2Int detailBrushSize)
         {
             var brushPosition = GetDetailBrushPosition(closestTerrainPoint, radius, radius);
@@ -103,7 +99,8 @@ namespace General.Map
         {
             for (int layerNumber = _minDetailLayerNumber; layerNumber <= _maxDetailLayerNumber; layerNumber++)
             {
-                var details = _terrainData.GetDetailLayer(detailBrushPosition.x, detailBrushPosition.y, detailBrushSize.x,
+                var details = _terrainData.GetDetailLayer(detailBrushPosition.x, detailBrushPosition.y,
+                    detailBrushSize.x,
                     detailBrushSize.y, layerNumber);
 
                 var circleRadius = detailBrushSize.y / 2;
@@ -117,15 +114,9 @@ namespace General.Map
         private static void ClearInCircle(int[,] details, Vector2Int detailBrushSize, int circleRadius)
         {
             for (int y = 0; y < detailBrushSize.y; y++)
-            {
                 for (int x = 0; x < detailBrushSize.x; x++)
-                {
                     if (InCircle(y, x, circleRadius))
-                    {
                         details[y, x] = 0;
-                    }
-                }
-            }
         }
 
         private static bool InCircle(int y, int x, int circleRadius)
@@ -138,10 +129,7 @@ namespace General.Map
         {
             var closestTerrainPoint = GetClosestTerrainPoint(position);
 
-            if (float.IsNegativeInfinity(closestTerrainPoint.x))
-            {
-                return;
-            }
+            if (float.IsNegativeInfinity(closestTerrainPoint.x)) return;
 
             _brushWidth = radius;
             _brushHeight = radius;
@@ -174,9 +162,7 @@ namespace General.Map
         {
             if (Physics.Raycast(new Ray(position + _originPositionCorrection, Vector3.down), out var hit,
                 100f, _terrainMask))
-            {
                 return hit.point;
-            }
 
             return Vector3.negativeInfinity;
         }
@@ -189,12 +175,8 @@ namespace General.Map
             var heights = _terrainData.GetHeights(brushPosition.x, brushPosition.y, brushSize.x, brushSize.y);
 
             for (int y = 0; y < brushSize.y; y++)
-            {
                 for (int x = 0; x < brushSize.x; x++)
-                {
                     heights[y, x] += strength * Time.deltaTime;
-                }
-            }
 
             _terrainData.SetHeights(brushPosition.x, brushPosition.y, heights);
         }
@@ -207,12 +189,8 @@ namespace General.Map
             var heights = _terrainData.GetHeights(brushPosition.x, brushPosition.y, brushSize.x, brushSize.y);
 
             for (int y = 0; y < brushSize.y; y++)
-            {
                 for (int x = 0; x < brushSize.x; x++)
-                {
                     heights[y, x] -= strength * Time.deltaTime;
-                }
-            }
 
             _terrainData.SetHeights(brushPosition.x, brushPosition.y, heights);
         }
@@ -225,12 +203,8 @@ namespace General.Map
             var heights = _terrainData.GetHeights(brushPosition.x, brushPosition.y, brushSize.x, brushSize.y);
 
             for (int y = 0; y < brushSize.y; y++)
-            {
                 for (int x = 0; x < brushSize.x; x++)
-                {
                     heights[y, x] = height;
-                }
-            }
 
             _terrainData.SetHeights(brushPosition.x, brushPosition.y, heights);
         }
@@ -254,12 +228,8 @@ namespace General.Map
             var i = 0;
 
             for (int y = 0; y <= heights2D.GetUpperBound(0); y++)
-            {
                 for (int x = 0; x <= heights2D.GetUpperBound(1); x++)
-                {
                     heights[i++] = heights2D[y, x];
-                }
-            }
 
             return heights.Average();
         }
@@ -271,7 +241,7 @@ namespace General.Map
             return new Vector2Int((int)Mathf.Clamp(terrainPosition.x - brushWidth / 2.0f, 0.0f, _heightmapResolution),
                 (int)Mathf.Clamp(terrainPosition.z - brushHeight / 2.0f, 0.0f, _heightmapResolution));
         }
-        
+
         private Vector2Int GetDetailBrushPosition(Vector3 worldPosition, int brushWidth, int brushHeight)
         {
             var terrainPosition = WorldToTerrainDetailPosition(worldPosition);
@@ -297,35 +267,28 @@ namespace General.Map
             terrainPosition = new Vector3(terrainPosition.x / _terrainSize.x, terrainPosition.y / _terrainSize.y,
                 terrainPosition.z / _terrainSize.z);
 
-            return new Vector3(terrainPosition.x * _terrainData.detailResolution, 0, terrainPosition.z * _terrainData.detailResolution);
+            return new Vector3(terrainPosition.x * _terrainData.detailResolution, 0,
+                terrainPosition.z * _terrainData.detailResolution);
         }
 
         private Vector2Int GetSafeBrushSize(int brushX, int brushY, int brushWidth, int brushHeight)
         {
             while (_heightmapResolution - (brushX + brushWidth) < 0)
-            {
                 brushWidth--;
-            }
 
             while (_heightmapResolution - (brushY + brushHeight) < 0)
-            {
                 brushHeight--;
-            }
 
             return new Vector2Int(brushWidth, brushHeight);
         }
-        
+
         private Vector2Int GetSafeDetailBrushSize(int brushX, int brushY, int brushWidth, int brushHeight)
         {
             while (_detailResolution - (brushX + brushWidth) < 0)
-            {
                 brushWidth--;
-            }
 
             while (_detailResolution - (brushY + brushHeight) < 0)
-            {
                 brushHeight--;
-            }
 
             return new Vector2Int(brushWidth, brushHeight);
         }

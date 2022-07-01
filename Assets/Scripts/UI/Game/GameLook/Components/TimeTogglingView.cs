@@ -19,7 +19,7 @@ namespace UI.Game.GameLook.Components
         private Toggle _x3;
 
         private TimeToggling _timeToggling;
-        
+
         private PlayerInput _playerInput;
 
         private InputAction _pauseTimeAction;
@@ -40,7 +40,7 @@ namespace UI.Game.GameLook.Components
             _x1 = Tree.Q<Toggle>("x1");
             _x2 = Tree.Q<Toggle>("x2");
             _x3 = Tree.Q<Toggle>("x3");
-            
+
             _pauseTimeAction = _playerInput.actions.FindAction("Pause Time");
             _nextTimeSpeedAction = _playerInput.actions.FindAction("Next Time Speed");
         }
@@ -58,7 +58,7 @@ namespace UI.Game.GameLook.Components
             _x1.RegisterValueChangedCallback(OnX1Toggle);
             _x2.RegisterValueChangedCallback(OnX2Toggle);
             _x3.RegisterValueChangedCallback(OnX3Toggle);
-            
+
             _pauseTimeAction.started += OnPauseTime;
             _nextTimeSpeedAction.started += OnNextTimeSpeed;
         }
@@ -69,7 +69,7 @@ namespace UI.Game.GameLook.Components
             _x1.UnregisterValueChangedCallback(OnX1Toggle);
             _x2.UnregisterValueChangedCallback(OnX2Toggle);
             _x3.UnregisterValueChangedCallback(OnX3Toggle);
-            
+
             _pauseTimeAction.started -= OnPauseTime;
             _nextTimeSpeedAction.started -= OnNextTimeSpeed;
         }

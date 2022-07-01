@@ -20,7 +20,8 @@ namespace Testing
         private InputAction _mousePositionAction;
 
         [Inject]
-        public void Construct(Colonist.Factory colonistFactory, Enemy.Factory enemyFactory, Camera camera, PlayerInput playerInput)
+        public void Construct(Colonist.Factory colonistFactory, Enemy.Factory enemyFactory, Camera camera,
+            PlayerInput playerInput)
         {
             _colonistFactory = colonistFactory;
             _enemyFactory = enemyFactory;
@@ -48,10 +49,7 @@ namespace Testing
 
         private void Generate(InputAction.CallbackContext context)
         {
-            if (!Keyboard.current.altKey.isPressed && !Keyboard.current.ctrlKey.isPressed)
-            {
-                return;
-            }
+            if (!Keyboard.current.altKey.isPressed && !Keyboard.current.ctrlKey.isPressed) return;
 
             var position = _mousePositionAction.ReadValue<Vector2>();
 
@@ -60,10 +58,7 @@ namespace Testing
             {
                 var node = AstarPath.active.GetNearest(hit.point).node;
 
-                if (!node.Walkable)
-                {
-                    return;
-                }
+                if (!node.Walkable) return;
 
                 GenerateUnit(hit);
             }

@@ -12,6 +12,8 @@ namespace UI.Menus.Primary
     [RequireComponent(typeof(UIDocument))]
     public class MainMenuView : MonoBehaviour, IMenuView, IHideNotify
     {
+        public event Action HideCurrentMenu;
+
         private VisualElement _tree;
 
         private Button _newGame;
@@ -52,8 +54,6 @@ namespace UI.Menus.Primary
 
             _hideMenuAction = _playerInput.actions.FindAction("Toggle Menu");
         }
-
-        public event Action HideCurrentMenu;
 
         private void OnEnable()
         {
@@ -98,13 +98,16 @@ namespace UI.Menus.Primary
         {
             SceneManager.LoadScene("Game", LoadSceneMode.Single);
         }
-        
+
         private static void TestGame()
         {
             SceneManager.LoadScene("Test Scene", LoadSceneMode.Single);
         }
 
-        private static void LoadGame() { }
+        private static void LoadGame()
+        {
+
+        }
 
         private void Settings()
         {

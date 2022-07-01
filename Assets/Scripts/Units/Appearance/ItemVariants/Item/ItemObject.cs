@@ -7,6 +7,15 @@ namespace Units.Appearance.ItemVariants.Item
     [Serializable]
     public class ItemObject<T> : IItem<T> where T : UnityEngine.Object
     {
+        public float RelativeChance
+        {
+            get => _relativeChance;
+            set => _relativeChance = value;
+        }
+
+        public T Value => _value;
+        public int Chance => _chance;
+
         [HorizontalGroup("Split", 100)]
         [VerticalGroup("Split/Left")]
         [HideLabel]
@@ -15,17 +24,9 @@ namespace Units.Appearance.ItemVariants.Item
 
         [VerticalGroup("Split/Right")]
         [SerializeField] private int _chance = 1;
-        
+
         [VerticalGroup("Split/Right")]
         [ReadOnly]
         [SerializeField] private float _relativeChance;
-
-        public T Value => _value;
-        public int Chance => _chance;
-        public float RelativeChance
-        {
-            get => _relativeChance;
-            set => _relativeChance = value;
-        }
     }
 }

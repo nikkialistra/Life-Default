@@ -19,7 +19,6 @@ using Testing;
 using UI;
 using Units.Ancillaries;
 using Units.Appearance;
-using Units.MinimaxFightBehavior;
 using UnityEngine;
 using Zenject;
 
@@ -29,7 +28,7 @@ namespace Infrastructure
     {
         [Title("Set Up")]
         [SerializeField] private bool _isSetUpSession;
-        
+
         [Title("Selection")]
         [Required]
         [SerializeField] private FrustumSelector _frustumSelector;
@@ -51,11 +50,11 @@ namespace Infrastructure
         [SerializeField] private DayCycle _dayCycle;
         [Required]
         [SerializeField] private SeasonCycle _seasonCycle;
-        
+
         [Title("Tiles")]
         [Required]
         [SerializeField] private TileGrid _tileGrid;
-        
+
         [Title("Environment Conditions")]
         [Required]
         [SerializeField] private WeatherEnvironmentInfluence _weatherEnvironmentInfluence;
@@ -63,7 +62,7 @@ namespace Infrastructure
         [SerializeField] private WeatherEffectsRegistry _weatherEffectsRegistry;
         [Required]
         [SerializeField] private Temperature _temperature;
-        
+
         [Title("Resources")]
         [Required]
         [SerializeField] private ResourceCounts _resourceCounts;
@@ -77,7 +76,7 @@ namespace Infrastructure
         [SerializeField] private CameraMovement _cameraMovement;
         [Required]
         [SerializeField] private FlyCamera _flyCamera;
-        
+
         [Title("Entities")]
         [Required]
         [SerializeField] private InteractableHovering _interactableHovering;
@@ -99,14 +98,12 @@ namespace Infrastructure
         [Space]
         [Required]
         [SerializeField] private Transform _resourceChunksParent;
-        
+
         [Title("Other")]
         [Required]
         [SerializeField] private Transform _pathLineParent;
         [Required]
         [SerializeField] private Transform _linesToTrackedUnitsParent;
-        [Required]
-        [SerializeField] private VirtualFight _virtualFight;
 
         public override void Start()
         {
@@ -124,7 +121,7 @@ namespace Infrastructure
             BindEntities();
             BindQuesting();
             BindMap();
-            BindOther();
+            BindMisc();
         }
 
         private void BindTimeSystems()
@@ -139,11 +136,11 @@ namespace Infrastructure
         {
             Container.BindInstance(_frustumSelector).AsSingle();
             Container.BindInstance(_selection).AsSingle();
-            
+
             Container.Bind<SelectedColonists>().AsSingle();
             Container.Bind<SelectedEnemies>().AsSingle();
             Container.Bind<SelectedEntities>().AsSingle();
-            
+
             Container.BindInstance(_selectingOperation);
             Container.BindInstance(_selectingInput);
             Container.BindInstance(_colonistChoosing);
@@ -200,12 +197,10 @@ namespace Infrastructure
             Container.BindInstance(_resourceChunksParent).WithId("ResourceChunksParent");
         }
 
-        private void BindOther()
+        private void BindMisc()
         {
             Container.BindInstance(_pathLineParent).WhenInjectedInto<ColonistMeshAgent>();
             Container.BindInstance(_linesToTrackedUnitsParent).WhenInjectedInto<LineToTrackedUnit>();
-            
-            Container.BindInstance(_virtualFight);
         }
     }
 }

@@ -7,7 +7,7 @@ namespace UI.Menus.Settings
     public class AudioView : IMenuView
     {
         private const string VisualTreePath = "UI/Markup/Menus/Settings/Audio";
-        
+
         private readonly VisualElement _root;
         private readonly SettingsView _parent;
 

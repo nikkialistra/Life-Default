@@ -25,7 +25,7 @@ namespace Units.Ancillaries
             "Roy",
             "Elijah"
         };
-        
+
         [SerializeField] private List<string> _agenderNames = new()
         {
             "Sean",
@@ -42,7 +42,9 @@ namespace Units.Ancillaries
 
                 var randomNumber = Random.Range(0, count);
 
-                return randomNumber < _maleNames.Count ? _maleNames[randomNumber] : _agenderNames[randomNumber - _maleNames.Count];
+                return randomNumber < _maleNames.Count
+                    ? _maleNames[randomNumber]
+                    : _agenderNames[randomNumber - _maleNames.Count];
             }
             else
             {
@@ -50,7 +52,9 @@ namespace Units.Ancillaries
 
                 var randomNumber = Random.Range(0, count);
 
-                return randomNumber < _femaleNames.Count ? _femaleNames[randomNumber] : _agenderNames[randomNumber - _femaleNames.Count];
+                return randomNumber < _femaleNames.Count
+                    ? _femaleNames[randomNumber]
+                    : _agenderNames[randomNumber - _femaleNames.Count];
             }
         }
     }

@@ -6,7 +6,8 @@ namespace General.WeatherRegulation
     {
         public static string GetString(this Weather weather)
         {
-            return weather switch {
+            return weather switch
+            {
                 Weather.Clear => "Clear",
                 Weather.Rain => "Rain",
                 Weather.Hail => "Hail",
@@ -21,7 +22,7 @@ namespace General.WeatherRegulation
                 Weather.HeatWave => "Heat wave",
                 Weather.MagneticStorm => "Magnetic storm",
                 Weather.MeteorShower => "Meteor shower",
-                _ => throw new ArgumentOutOfRangeException(nameof(weather), weather, null)
+                _ => throw new ArgumentOutOfRangeException()
             };
         }
     }

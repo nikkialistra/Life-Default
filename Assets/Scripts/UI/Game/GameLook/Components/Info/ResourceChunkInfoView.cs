@@ -14,7 +14,7 @@ namespace UI.Game.GameLook.Components.Info
 
         private InfoPanelView _parent;
         private TemplateContainer _tree;
-        
+
         private Label _name;
 
         private readonly List<VisualElement> _rows = new(2);
@@ -31,7 +31,7 @@ namespace UI.Game.GameLook.Components.Info
             _tree.pickingMode = PickingMode.Ignore;
 
             _name = _tree.Q<Label>("name");
-            
+
             BindRows();
         }
 
@@ -49,10 +49,7 @@ namespace UI.Game.GameLook.Components.Info
 
         public void ShowSelf()
         {
-            if (_shown)
-            {
-                return;
-            }
+            if (_shown) return;
 
             _parent.InfoPanel.Add(_tree);
             _shown = true;
@@ -60,10 +57,7 @@ namespace UI.Game.GameLook.Components.Info
 
         public void HideSelf()
         {
-            if (!_shown)
-            {
-                return;
-            }
+            if (!_shown) return;
 
             _parent.InfoPanel.Remove(_tree);
             _shown = false;
@@ -74,7 +68,7 @@ namespace UI.Game.GameLook.Components.Info
             _name.text = $"{resourceChunk.Name}";
 
             ShowRow();
-            
+
             FillRow(0, $"{resourceChunk.ResourceType}:", $"~{resourceChunk.Quantity}");
         }
 

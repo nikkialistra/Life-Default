@@ -13,7 +13,7 @@ namespace UI.Game.GameLook.Components.Stock
         private readonly Label _description;
 
         private Quest _quest;
-        
+
         private readonly List<Label> _objectives = new();
 
         private readonly List<Action<string>> _updateObjectiveActions = new();
@@ -24,7 +24,7 @@ namespace UI.Game.GameLook.Components.Stock
             var tree = asset.CloneTree();
 
             _root = tree.Q<VisualElement>("quest");
-            
+
             _title = tree.Q<Label>("title");
             _description = tree.Q<Label>("description");
 
@@ -41,22 +41,18 @@ namespace UI.Game.GameLook.Components.Stock
         private void AddUpdateObjectiveActions()
         {
             for (int i = 0; i < 3; i++)
-            {
                 _updateObjectiveActions.Add(CreateAction(i));
-            }
 
             Action<string> CreateAction(int index)
             {
                 return text => _objectives[index].text = text;
             }
         }
-        
+
         private void AddCompleteObjectiveActions()
         {
             for (int i = 0; i < 3; i++)
-            {
                 _completeObjectiveActions.Add(CreateAction(i));
-            }
 
             Action<string> CreateAction(int index)
             {
@@ -67,7 +63,7 @@ namespace UI.Game.GameLook.Components.Stock
         public void Bind(Quest quest)
         {
             _quest = quest;
-            
+
             _title.text = _quest.Title;
             _description.text = _quest.Description;
 
@@ -88,7 +84,7 @@ namespace UI.Game.GameLook.Components.Stock
                 }
             }
         }
-        
+
         public void Unbind()
         {
             UnbindObjectives();

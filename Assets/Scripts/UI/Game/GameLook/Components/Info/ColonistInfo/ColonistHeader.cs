@@ -12,14 +12,14 @@ namespace UI.Game.GameLook.Components.Info.ColonistInfo
     {
         private const string InputMap = "Input";
         private const string ManagementMap = "Management";
-        
+
         private TextField _name;
         private Button _rename;
         private Button _focus;
         private Button _next;
 
         private Colonists.Colonist _colonist;
-        
+
         private bool _inputFinished;
 
         private ColonistChoosing _colonistChoosing;
@@ -51,7 +51,7 @@ namespace UI.Game.GameLook.Components.Info.ColonistInfo
             _focus = tree.Q<Button>("focus");
             _next = tree.Q<Button>("next");
         }
-        
+
         public void FillInName(string name)
         {
             _name.value = name;
@@ -67,7 +67,7 @@ namespace UI.Game.GameLook.Components.Info.ColonistInfo
             _name.RegisterCallback<MouseDownEvent>(OnNameMouseDown);
             _enterAction.started += FinishInput;
             _leftClickAction.started += OnLeftClick;
-            
+
             _rename.clicked += OnRename;
             _focus.clicked += OnFocus;
             _next.clicked += OnNext;
@@ -78,7 +78,7 @@ namespace UI.Game.GameLook.Components.Info.ColonistInfo
             _name.UnregisterCallback<MouseDownEvent>(OnNameMouseDown);
             _enterAction.started -= FinishInput;
             _leftClickAction.started -= OnLeftClick;
-            
+
             _rename.clicked -= OnRename;
             _focus.clicked -= OnFocus;
             _next.clicked -= OnNext;
@@ -92,7 +92,7 @@ namespace UI.Game.GameLook.Components.Info.ColonistInfo
         private void OnLeftClick(InputAction.CallbackContext context)
         {
             _inputFinished = true;
-            
+
             // cancel finish only if a user doesn't click on the name field, its event can be checked a frame later
             StartCoroutine(TryFinishInput());
         }
@@ -102,9 +102,7 @@ namespace UI.Game.GameLook.Components.Info.ColonistInfo
             yield return new WaitForSeconds(0.1f);
 
             if (_inputFinished)
-            {
                 FinishInput();
-            }
         }
 
         private void FinishInput(InputAction.CallbackContext context)
@@ -115,13 +113,9 @@ namespace UI.Game.GameLook.Components.Info.ColonistInfo
         private void OnRename()
         {
             if (_playerInput.currentActionMap.name == ManagementMap)
-            {
                 StartInput();
-            }
             else
-            {
                 FinishInput();
-            }
         }
 
         private void OnFocus()
@@ -147,7 +141,7 @@ namespace UI.Game.GameLook.Components.Info.ColonistInfo
         private void FinishInput()
         {
             _colonist.Name = _name.value;
-            
+
             _playerInput.SwitchCurrentActionMap(ManagementMap);
             _cameraMovement.ActivateMovement();
         }

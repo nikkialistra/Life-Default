@@ -7,6 +7,10 @@ namespace General.WeatherRegulation
 {
     public class WeatherEnvironmentInfluence : MonoBehaviour, ITickable
     {
+        public float TemperatureSumModifier { get; private set; }
+
+        public float LightSumModifier { get; private set; }
+
         [SerializeField] private int _ticksToShiftTemperature = 15;
         [SerializeField] private int _ticksToShiftLight = 7;
 
@@ -17,7 +21,7 @@ namespace General.WeatherRegulation
         private float _lightValueShiftPerTick;
         private bool _shiftingLight;
         private int _lightShiftTickCount;
-        
+
         private WeatherEffectsRegistry _weatherEffectsRegistry;
 
         [Inject]
@@ -26,10 +30,6 @@ namespace General.WeatherRegulation
             _weatherEffectsRegistry = weatherEffectsRegistry;
             tickingRegulator.AddToTickables(this);
         }
-        
-        public float TemperatureSumModifier { get; private set; }
-
-        public float LightSumModifier { get; private set; }
 
         public void Tick()
         {
@@ -49,7 +49,7 @@ namespace General.WeatherRegulation
         public void ChangeWeather(Weather weather)
         {
             var weatherEffects = _weatherEffectsRegistry[weather];
-            
+
             ShiftTemperatureBy(weatherEffects.TemperatureChange);
             ShiftLightBy(weatherEffects.LightChange);
         }

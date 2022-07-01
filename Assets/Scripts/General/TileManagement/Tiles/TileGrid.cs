@@ -11,12 +11,12 @@ namespace General.TileManagement.Tiles
         private Tile[] _tiles;
 
         private int _width;
-        
+
         private int _xIndexOffset;
         private int _yIndexOffset;
 
         private Vector2Int _lastPosition;
-        
+
         private AstarPath _astarPath;
         private MapInitialization _mapInitialization;
 
@@ -42,29 +42,24 @@ namespace General.TileManagement.Tiles
 
         public void ShowAtPosition(Vector2Int position)
         {
-            if (PositionNotChanged(position))
-            {
-                return;
-            }
+            if (PositionNotChanged(position)) return;
 
             if (PositionIsOutOfBounds(position))
             {
                 _tileInfoView.Hide();
                 return;
             }
-            
+
             var index = GetIndex(position);
             var tile = _tiles[index];
-            
+
             _tileInfoView.ShowFor(tile);
         }
 
         private bool PositionNotChanged(Vector2Int position)
         {
             if (position == _lastPosition)
-            {
                 return true;
-            }
 
             _lastPosition = position;
             return false;
@@ -72,7 +67,7 @@ namespace General.TileManagement.Tiles
 
         private bool PositionIsOutOfBounds(Vector2Int position)
         {
-            return position.x < -_xIndexOffset || position.x > _xIndexOffset - 1 || 
+            return position.x < -_xIndexOffset || position.x > _xIndexOffset - 1 ||
                    position.y < -_yIndexOffset || position.y > _yIndexOffset - 1;
         }
 
@@ -81,7 +76,7 @@ namespace General.TileManagement.Tiles
             var graph = _astarPath.data.gridGraph;
 
             _width = graph.width;
-            
+
             _xIndexOffset = graph.width / 2 - (int)graph.center.x;
             _yIndexOffset = graph.depth / 2 - (int)graph.center.z;
 

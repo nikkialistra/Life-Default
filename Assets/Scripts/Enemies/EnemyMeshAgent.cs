@@ -8,6 +8,8 @@ namespace Enemies
     [RequireComponent(typeof(EnemyAnimator))]
     public class EnemyMeshAgent : MonoBehaviour
     {
+        public bool Idle { get; private set; } = true;
+
         private UnitMeshAgent _unitMeshAgent;
         private EnemyAnimator _animator;
 
@@ -16,8 +18,6 @@ namespace Enemies
             _unitMeshAgent = GetComponent<UnitMeshAgent>();
             _animator = GetComponent<EnemyAnimator>();
         }
-        
-        public bool Idle { get; private set; } = true;
 
         private void OnEnable()
         {
@@ -28,17 +28,13 @@ namespace Enemies
         {
             _unitMeshAgent.DestinationReach -= OnDestinationReach;
         }
-        
+
         private void Update()
         {
             if (_unitMeshAgent.IsMoving)
-            {
                 _animator.Move();
-            }
             else
-            {
                 _animator.Idle();
-            }
         }
 
         public void Deactivate()
@@ -58,8 +54,9 @@ namespace Enemies
             var delta = transform.position - opponent.transform.position;
             var flatNormalizedDelta = new Vector3(delta.x, 0, delta.z).normalized;
             var randomizedDelta = Random.insideUnitSphere * randomizationRadius;
-            
-            var oppositePoint = transform.position + (flatNormalizedDelta * distance) + new Vector3(randomizedDelta.x, 0, randomizedDelta.z);
+
+            var oppositePoint = transform.position + (flatNormalizedDelta * distance) +
+                                new Vector3(randomizedDelta.x, 0, randomizedDelta.z);
 
             GoToPosition(oppositePoint);
         }

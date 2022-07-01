@@ -7,6 +7,9 @@ namespace General.Questing.Objectives
     [Serializable]
     public class CollectObjective : IObjective
     {
+        public event Action<string> Update;
+        public event Action<string> Complete;
+
         [SerializeField] private ResourceType _type;
         [SerializeField] private int _quantity;
 
@@ -14,15 +17,12 @@ namespace General.Questing.Objectives
 
         private ResourceCounts _resourceCounts;
 
-        public event Action<string> Update;
-        public event Action<string> Complete;
-        
         public void Activate(QuestServices questServices)
         {
             _collected = 0;
 
             _resourceCounts = questServices.ResourceCounts;
-            
+
             _resourceCounts.ResourceUpdate += OnResourceUpdate;
         }
 
@@ -38,15 +38,12 @@ namespace General.Questing.Objectives
 
         private void OnResourceUpdate(ResourceType resourceType, int count)
         {
-            if (_type != resourceType)
-            {
-                return;
-            }
+            if (_type != resourceType) return;
 
             _collected = count;
 
             CheckForCompletion();
-            
+
             Update?.Invoke(ToText());
         }
 

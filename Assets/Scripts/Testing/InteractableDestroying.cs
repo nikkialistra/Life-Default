@@ -10,12 +10,12 @@ namespace Testing
         private SelectedColonists _selectedColonists;
         private SelectedEnemies _selectedEnemies;
         private SelectedEntities _selectedEntities;
-        
+
         private PlayerInput _playerInput;
 
         private InputAction _selectAction;
         private InputAction _mousePositionAction;
-        
+
         private InputAction _destroyInteractableAction;
 
         [Inject]

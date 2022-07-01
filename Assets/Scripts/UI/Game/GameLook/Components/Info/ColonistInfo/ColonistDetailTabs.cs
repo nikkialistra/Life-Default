@@ -24,6 +24,14 @@ namespace UI.Game.GameLook.Components.Info.ColonistInfo
         private ColonistSkillsTab _colonistSkillsTab;
         private ColonistInfoTab _colonistInfoTab;
 
+        public void Initialize(VisualElement tree)
+        {
+            _equipment = tree.Q<Toggle>("equipment");
+            _stats = tree.Q<Toggle>("stats");
+            _skills = tree.Q<Toggle>("skills");
+            _info = tree.Q<Toggle>("info");
+        }
+
         private void Awake()
         {
             _colonistInfoView = GetComponent<ColonistInfoView>();
@@ -32,14 +40,6 @@ namespace UI.Game.GameLook.Components.Info.ColonistInfo
             _colonistStatsTab = GetComponent<ColonistStatsTab>();
             _colonistSkillsTab = GetComponent<ColonistSkillsTab>();
             _colonistInfoTab = GetComponent<ColonistInfoTab>();
-        }
-
-        public void Initialize(VisualElement tree)
-        {
-            _equipment = tree.Q<Toggle>("equipment");
-            _stats = tree.Q<Toggle>("stats");
-            _skills = tree.Q<Toggle>("skills");
-            _info = tree.Q<Toggle>("info");
         }
 
         public void BindSelf()
@@ -57,13 +57,11 @@ namespace UI.Game.GameLook.Components.Info.ColonistInfo
             _skills.UnregisterValueChangedCallback(OnSkillsToggle);
             _info.UnregisterValueChangedCallback(OnInfoToggle);
         }
-        
+
         public void FillIn(Colonist colonist)
         {
             if (_colonistInfoTab.Shown)
-            {
                 _colonistInfoTab.FillIn(colonist);
-            }
         }
 
         private void OnEquipmentToggle(ChangeEvent<bool> changeEvent)

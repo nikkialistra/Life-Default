@@ -10,27 +10,29 @@ namespace General.Selecting
     [RequireComponent(typeof(FrustumMeshCollider))]
     public class FrustumSelector : FrustumCamera
     {
+        public event Action<List<Collider>> Selected;
+        public event Action<List<Collider>> AdditiveSelected;
+
         [SerializeField] private Vector2 _extentsMinForAreaSelection = new(0.2f, 0.2f);
         [SerializeField] private Vector2 _extentsMaxForAreaSelection = new(0.8f, 0.8f);
 
         private readonly HashSet<Collider> _selectionHashSet = new();
 
         private FrustumMeshCollider _frustumMeshCollider;
-        
+
         private bool _additive;
 
-        protected override void Awake() {
+        protected override void Awake()
+        {
             base.Awake();
 
             _frustumMeshCollider = GetComponent<FrustumMeshCollider>();
-            
+
             m_config.Active = false;
         }
 
-        public event Action<List<Collider>> Selected; 
-        public event Action<List<Collider>> AdditiveSelected; 
-
-        private void Reset() {
+        private void Reset()
+        {
             m_config.UseExtents = true;
             m_config.SplitMeshVerts = false;
         }
@@ -86,19 +88,15 @@ namespace General.Selecting
         {
             _frustumMeshCollider.DoGenerate = true;
             m_config.Active = true;
-            
+
             yield return new WaitForFixedUpdate();
 
             m_config.Active = false;
 
             if (_additive)
-            {
                 AdditiveSelected?.Invoke(_selectionHashSet.ToList());
-            }
             else
-            {
                 Selected?.Invoke(_selectionHashSet.ToList());
-            }
         }
 
         private void OnTriggerEnter(Collider other)

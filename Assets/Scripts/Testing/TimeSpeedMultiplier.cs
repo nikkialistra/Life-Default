@@ -13,7 +13,7 @@ namespace Testing
         [SerializeField] private float _timeSpeedMultiplier = 3;
 
         private TimeToggling _timeToggling;
-        
+
         private GameLookView _gameLookView;
 
         private PlayerInput _playerInput;
@@ -27,7 +27,7 @@ namespace Testing
             _timeToggling = timeToggling;
             _gameLookView = gameLookView;
             _playerInput = playerInput;
-            
+
             _pauseTimeAction = _playerInput.actions.FindAction("Pause Time");
             _nextTimeSpeedAction = _playerInput.actions.FindAction("Next Time Speed");
         }
@@ -48,12 +48,12 @@ namespace Testing
         {
             ChangeTimeSpeedMultiplier();
         }
-        
+
         private void OnNextTimeSpeed(InputAction.CallbackContext context)
         {
             ChangeTimeSpeedMultiplier();
         }
-        
+
         private void ChangeTimeSpeedMultiplier()
         {
             if (Keyboard.current.ctrlKey.isPressed)

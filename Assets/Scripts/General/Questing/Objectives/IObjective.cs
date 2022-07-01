@@ -6,7 +6,7 @@ namespace General.Questing.Objectives
     {
         event Action<string> Update;
         event Action<string> Complete;
-        
+
         void Activate(QuestServices questServices);
         void Deactivate();
 

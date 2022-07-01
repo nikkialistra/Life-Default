@@ -13,7 +13,7 @@ namespace ResourceManagement
 
         [ValidateInput("@_resourceChunkPrefabs.Count > 0")]
         [SerializeField] private List<ResourceChunk> _resourceChunkPrefabs;
-        
+
         [Space]
         [SerializeField] private float _minSideForce;
         [SerializeField] private float _maxSideForce;
@@ -25,14 +25,14 @@ namespace ResourceManagement
         [SerializeField] private float _maxTimeToFreeze = 2f;
 
         private Transform _parent;
-        
+
         private InfoPanelView _infoPanelView;
 
         [Inject]
         public void Construct([Inject(Id = "ResourceChunksParent")] Transform parent, InfoPanelView infoPanelView)
         {
             _parent = parent;
-            
+
             _infoPanelView = infoPanelView;
         }
 
@@ -41,18 +41,19 @@ namespace ResourceManagement
             var resourceChunkPrefab = _resourceChunkPrefabs[Random.Range(0, _resourceChunkPrefabs.Count)];
 
             var rotation = new Vector3(0, Random.Range(0, 359), 0);
-            var resourceChunk = Instantiate(resourceChunkPrefab, _spawnPoint.position, Quaternion.Euler(rotation), _parent);
+            var resourceChunk = Instantiate(resourceChunkPrefab, _spawnPoint.position, Quaternion.Euler(rotation),
+                _parent);
 
             resourceChunk.Initialize(resourceType, quantity, sizeMultiplier, _infoPanelView);
-            
+
             BurstOutResource(resourceChunk);
         }
 
         private void BurstOutResource(ResourceChunk resourceChunk)
         {
-            var xSign = Random.Range(0, 2) == 0 ? 1 : -1; 
-            var zSign = Random.Range(0, 2) == 0 ? 1 : -1; 
-            
+            var xSign = Random.Range(0, 2) == 0 ? 1 : -1;
+            var zSign = Random.Range(0, 2) == 0 ? 1 : -1;
+
             var force = new Vector3(Random.Range(_minSideForce, _maxSideForce) * xSign,
                 Random.Range(_minUpForce, _maxUpForce),
                 Random.Range(_minSideForce, _maxSideForce) * zSign);

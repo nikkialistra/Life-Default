@@ -8,15 +8,17 @@ namespace UI.Game.GameLook.Components
 {
     public class TimeWeatherView : MonoBehaviour
     {
+        public VisualElement Tree { get; private set; }
+
         [Required]
         [SerializeField] private VisualTreeAsset _asset;
-        
+
         [Title("Time Status")]
         [Required]
         [SerializeField] private Sprite _iconDay;
         [Required]
         [SerializeField] private Sprite _iconNight;
-        
+
         [Title("Weather Icons")]
         [Required]
         [SerializeField] private Sprite _iconClear;
@@ -39,7 +41,7 @@ namespace UI.Game.GameLook.Components
 
             _day = Tree.Q<Label>("day");
             _seasonYear = Tree.Q<Label>("season-year");
-            
+
             _timeStatus = Tree.Q<VisualElement>("time-status");
             _temperature = Tree.Q<Label>("temperature");
 
@@ -49,8 +51,6 @@ namespace UI.Game.GameLook.Components
 
             _time = Tree.Q<Label>("time");
         }
-        
-        public VisualElement Tree { get; private set; }
 
         public void UpdateDate(int day, Season season, int year)
         {

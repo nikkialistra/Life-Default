@@ -7,6 +7,8 @@ namespace UI.Game.GameLook.Components
 {
     public class LogMessageCountsView : MonoBehaviour
     {
+        public VisualElement Tree { get; private set; }
+
         [Required]
         [SerializeField] private VisualTreeAsset _asset;
 
@@ -17,7 +19,7 @@ namespace UI.Game.GameLook.Components
         private int _info = 0;
         private int _warnings = 0;
         private int _errors = 0;
-        
+
         private void Awake()
         {
             Tree = _asset.CloneTree();
@@ -27,8 +29,6 @@ namespace UI.Game.GameLook.Components
             _errorsCount = Tree.Q<Label>("errors__count");
         }
 
-        public VisualElement Tree { get; private set; }
-        
         private void OnEnable()
         {
             Application.logMessageReceivedThreaded += OnLogMessageReceive;
@@ -73,14 +73,14 @@ namespace UI.Game.GameLook.Components
         private void UpdateWarnings()
         {
             _warnings++;
-            
+
             _warningsCount.text = $"{_warnings}";
         }
 
         private void UpdateInfo()
         {
             _info++;
-            
+
             _infoCount.text = $"{_info}";
         }
     }

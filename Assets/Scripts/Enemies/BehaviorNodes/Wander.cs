@@ -24,10 +24,9 @@ namespace Enemies.BehaviorNodes
         public override void OnStart()
         {
             EnemyMeshAgent.StopMoving();
+
             if (MaxPauseDuration < MinPauseDuration)
-            {
                 MaxPauseDuration = MinPauseDuration;
-            }
         }
 
         public override TaskStatus OnUpdate()
@@ -55,20 +54,14 @@ namespace Enemies.BehaviorNodes
 
         private void InitPause()
         {
-            if (!float.IsPositiveInfinity(_setTargetTime))
-            {
-                return;
-            }
+            if (!float.IsPositiveInfinity(_setTargetTime)) return;
 
             _setTargetTime = Time.time + Random.Range(MinPauseDuration, MaxPauseDuration);
         }
 
         private void SetTargetAfterPause()
         {
-            if (_setTargetTime > Time.time)
-            {
-                return;
-            }
+            if (_setTargetTime > Time.time) return;
 
             _setTargetTime = float.PositiveInfinity;
             SetTarget();

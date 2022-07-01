@@ -21,11 +21,11 @@ namespace Units.Ancillaries
 
         private Transform _trackedUnitTransform;
         private Transform _linesToTrackedUnitsParent;
-        
+
         private Coroutine _showingLineCoroutine;
-        
+
         private Vector3 _raycastToTerrainCorrection;
-        
+
         private int _terrainMask;
 
         [Inject]
@@ -39,7 +39,7 @@ namespace Units.Ancillaries
         private void Awake()
         {
             _lineRenderer = GetComponent<LineRenderer>();
-            
+
             _terrainMask = LayerMask.GetMask("Terrain");
         }
 
@@ -52,14 +52,14 @@ namespace Units.Ancillaries
         public void ShowLineTo(Unit trackedUnit)
         {
             _lineRenderer.enabled = true;
-            
+
             _trackedUnitTransform = trackedUnit.transform;
 
             if (_showingLineCoroutine != null)
             {
                 StopCoroutine(_showingLineCoroutine);
             }
-            
+
             _showingLineCoroutine = StartCoroutine(ShowingLine());
         }
 
@@ -87,25 +87,24 @@ namespace Units.Ancillaries
 
         private void CalculateLineRendererPositions()
         {
-            var distance = Vector3.Distance(_unitTransform.position, _trackedUnitTransform.position); 
+            var distance = Vector3.Distance(_unitTransform.position, _trackedUnitTransform.position);
             var numberOfSegments = (int)(distance / _distanceForOneSegment);
 
             _lineRenderer.positionCount = numberOfSegments + 2;
-            
+
             _lineRenderer.SetPosition(0, _unitTransform.position + _lineToUnitTargetCorrection);
 
             for (int i = 1; i <= numberOfSegments; i++)
-            {
                 _lineRenderer.SetPosition(i, CalculatePositionAt(i));
-            }
-            
-            _lineRenderer.SetPosition(numberOfSegments + 1, _trackedUnitTransform.position + _lineToUnitTargetCorrection);
+
+            _lineRenderer.SetPosition(numberOfSegments + 1,
+                _trackedUnitTransform.position + _lineToUnitTargetCorrection);
         }
 
         private Vector3 CalculatePositionAt(int index)
         {
             var vectorFraction = (_trackedUnitTransform.position - _unitTransform.position) *
-                                   ((float)index / _lineRenderer.positionCount);
+                                 ((float)index / _lineRenderer.positionCount);
 
             var position = _unitTransform.position + vectorFraction;
 
@@ -116,13 +115,9 @@ namespace Units.Ancillaries
         {
             if (Physics.Raycast(new Ray(position + _raycastToTerrainCorrection, Vector3.down), out var hit,
                 100f, _terrainMask))
-            {
                 return hit.point;
-            }
             else
-            {
                 return Vector3.zero;
-            }
         }
     }
 }

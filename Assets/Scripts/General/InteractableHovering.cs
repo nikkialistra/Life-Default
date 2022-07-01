@@ -22,7 +22,7 @@ namespace General
         private Coroutine _hoveringCoroutine;
 
         private WaitForSecondsRealtime _waitPeriod;
-        
+
         private bool _canSelect = true;
 
         private SelectingInput _selectingInput;
@@ -42,14 +42,14 @@ namespace General
             _gameViews = gameViews;
             _selectingInput = selectingInput;
             _gameMenuToggle = gameMenuToggle;
-            
+
             _playerInput = playerInput;
         }
 
         private void Awake()
         {
             _entitiesMask = LayerMask.GetMask("Colonists", "Enemies", "Buildings", "Resources", "Items");
-            
+
             _mousePositionAction = _playerInput.actions.FindAction("Mouse Position");
         }
 
@@ -57,7 +57,7 @@ namespace General
         {
             _gameMenuToggle.GamePause += StopHovering;
             _gameMenuToggle.GameResume += StartHovering;
-            
+
             _selectingInput.SelectingArea += OnSelectingArea;
             _selectingInput.SelectingEnd += OnSelectingEnd;
         }
@@ -66,7 +66,7 @@ namespace General
         {
             _gameMenuToggle.GamePause -= StopHovering;
             _gameMenuToggle.GameResume -= StartHovering;
-            
+
             _selectingInput.SelectingArea -= OnSelectingArea;
             _selectingInput.SelectingEnd -= OnSelectingEnd;
         }
@@ -76,7 +76,7 @@ namespace General
             _waitPeriod = new WaitForSecondsRealtime(_hoverRecastTime);
             StartHovering();
         }
-        
+
         private void StartHovering()
         {
             _hoveringCoroutine = StartCoroutine(Hovering());
@@ -118,18 +118,11 @@ namespace General
 
         private void Hover()
         {
-            if (!_canSelect || _gameViews.MouseOverUi)
-            {
-                return;
-            }
+            if (!_canSelect || _gameViews.MouseOverUi) return;
 
             if (Raycast(out var hit))
-            {
                 if (hit.transform.TryGetComponent(out ISelectable selectable))
-                {
                     selectable.Hover();
-                }
-            }
         }
 
         private bool Raycast(out RaycastHit hit)

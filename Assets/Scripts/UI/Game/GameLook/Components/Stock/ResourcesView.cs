@@ -10,9 +10,11 @@ namespace UI.Game.GameLook.Components.Stock
     [RequireComponent(typeof(StockView))]
     public class ResourcesView : MonoBehaviour
     {
+        public bool Shown { get; private set; }
+
         [Required]
         [SerializeField] private VisualTreeAsset _asset;
-        
+
         private readonly Dictionary<ResourceType, Label> _resourceLabels = new();
 
         private StockView _parent;
@@ -20,21 +22,17 @@ namespace UI.Game.GameLook.Components.Stock
         private void Awake()
         {
             _parent = GetComponent<StockView>();
-            
+
             Tree = _asset.CloneTree();
-            
+
             BindElements();
         }
-        
-        public bool Shown { get; private set; }
+
         private VisualElement Tree { get; set; }
 
         public void ShowSelf()
         {
-            if (Shown)
-            {
-                return;
-            }
+            if (Shown) return;
 
             _parent.Content.Add(Tree);
             Shown = true;
@@ -42,11 +40,8 @@ namespace UI.Game.GameLook.Components.Stock
 
         public void HideSelf()
         {
-            if (!Shown)
-            {
-                return;
-            }
-            
+            if (!Shown) return;
+
             _parent.Content.Remove(Tree);
             Shown = false;
         }
@@ -62,9 +57,7 @@ namespace UI.Game.GameLook.Components.Stock
         private void CheckResourceTypeExistence(ResourceType resourceType)
         {
             if (!_resourceLabels.ContainsKey(resourceType))
-            {
                 throw new ArgumentException($"Dictionary doesn't contain key {resourceType}");
-            }
         }
 
         private void BindElements()

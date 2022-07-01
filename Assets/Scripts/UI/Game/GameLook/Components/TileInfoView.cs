@@ -7,11 +7,13 @@ namespace UI.Game.GameLook.Components
 {
     public class TileInfoView : MonoBehaviour
     {
+        public VisualElement Tree { get; private set; }
+
         [Required]
         [SerializeField] private VisualTreeAsset _asset;
 
         private VisualElement _tileInfo;
-        
+
         private Label _position;
         private Label _temperature;
         private Label _light;
@@ -29,12 +31,10 @@ namespace UI.Game.GameLook.Components
             _beauty = Tree.Q<Label>("beauty");
         }
 
-        public VisualElement Tree { get; private set; }
-
         public void ShowFor(Tile tile)
         {
             _tileInfo.RemoveFromClassList("not-displayed");
-            
+
             _position.text = $"Position: {tile.Position}";
             _temperature.text = $"Temperature: {tile.Temperature} °C";
             _light.text = $"Light: {tile.Light}%";

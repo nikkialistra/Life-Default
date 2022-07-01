@@ -7,6 +7,11 @@ namespace General.TimeCycle.TimeRegulation
 {
     public class TimeToggling : MonoBehaviour
     {
+        public event Action<bool> PauseChange;
+        public event Action<TimeSpeed> TimeSpeedChange;
+
+        public float TimeSpeedMultiplier { get; set; } = 1;
+
         [SerializeField] private float _pauseSpeed = 0.001f;
         [SerializeField] private float _physicsUpdateRate = 0.02f;
 
@@ -21,17 +26,12 @@ namespace General.TimeCycle.TimeRegulation
             _timeTogglingView = timeTogglingView;
         }
 
-        public event Action<bool> PauseChange;
-        public event Action<TimeSpeed> TimeSpeedChange;
-
-        public float TimeSpeedMultiplier { get; set; } = 1;
-
         public void Pause()
         {
             _paused = !_paused;
             ToggleTime();
             UpdateView();
-            
+
             PauseChange?.Invoke(_paused);
         }
 
@@ -40,7 +40,7 @@ namespace General.TimeCycle.TimeRegulation
             _timeSpeed = timeSpeed;
             ToggleTime();
             UpdateView();
-            
+
             TimeSpeedChange?.Invoke(_timeSpeed);
         }
 
@@ -53,6 +53,7 @@ namespace General.TimeCycle.TimeRegulation
                 TimeSpeed.X3 => TimeSpeed.X1,
                 _ => throw new ArgumentOutOfRangeException()
             };
+
             ToggleTime();
             UpdateView();
         }

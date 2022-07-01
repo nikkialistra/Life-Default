@@ -21,6 +21,18 @@ namespace Enemies
     [RequireComponent(typeof(EnemyBehavior))]
     public class Enemy : MonoBehaviour
     {
+        public event Action Spawn;
+        public event Action HealthChange;
+        public event Action<Enemy> EnemyDying;
+        public event Action Dying;
+
+        public Unit Unit => _unit;
+
+        public FightManner FightManner { get; private set; }
+
+        public string Name => _name;
+        public bool Alive => _unit.Alive;
+
         [SerializeField] private string _name;
         [SerializeField] private Gender _gender;
         [Space]
@@ -43,7 +55,7 @@ namespace Enemies
         private HumanNames _humanNames;
 
         [Inject]
-        public void Construct(HumanAppearanceRegistry humanAppearanceRegistry , HumanNames humanNames)
+        public void Construct(HumanAppearanceRegistry humanAppearanceRegistry, HumanNames humanNames)
         {
             _humanAppearanceRegistry = humanAppearanceRegistry;
             _humanNames = humanNames;
@@ -60,24 +72,12 @@ namespace Enemies
             _meshAgent = GetComponent<EnemyMeshAgent>();
             _behavior = GetComponent<EnemyBehavior>();
         }
-        
-        public event Action Spawn;
-        public event Action HealthChange;
-        public event Action<Enemy> EnemyDying;
-        public event Action Dying;
-
-        public Unit Unit => _unit;
-
-        public string Name => _name;
-        public bool Alive => _unit.Alive;
-        
-        public FightManner FightManner { get; private set;}
 
         private void Start()
         {
             Initialize();
             ActivateComponents();
-            
+
             Spawn?.Invoke();
         }
 
@@ -120,10 +120,8 @@ namespace Enemies
             _gender = EnumUtils.RandomValue<Gender>();
 
             if (_name == "")
-            { 
                 _name = _humanNames.GetRandomNameFor(_gender);
-            }
-                
+
             _humanAppearance.RandomizeAppearanceWith(_gender, HumanType.Enemy, _humanAppearanceRegistry);
 
             FightManner = EnumUtils.RandomValue<FightManner>();
@@ -133,11 +131,8 @@ namespace Enemies
 
         public void Select()
         {
-            if (!_unit.Alive)
-            {
-                return;
-            }
-            
+            if (!_unit.Alive) return;
+
             _unit.Select();
 
             _unitSelection.Select();
@@ -147,7 +142,7 @@ namespace Enemies
         public void Deselect()
         {
             _unit.Deselect();
-            
+
             _unitSelection.Deselect();
             _selectionIndicator.SetActive(false);
         }
@@ -165,14 +160,14 @@ namespace Enemies
 
             EnemyDying?.Invoke(this);
             Dying?.Invoke();
-            
+
             _animator.Die(DestroySelf);
         }
 
         private void ActivateComponents()
         {
             _behavior.Activate();
-            
+
             _unitSelection.Activate();
             _behavior.Enable();
 
@@ -182,7 +177,7 @@ namespace Enemies
         private void DeactivateComponents()
         {
             _behavior.Deactivate();
-            
+
             _unitSelection.Deactivate();
             _unitAttacker.CoverUnitTarget();
             _unitAttacker.FinalizeAttackingInstantly();

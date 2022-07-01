@@ -26,7 +26,7 @@ namespace UI.Game.GameLook
 
         private VisualElement _tree;
         private VisualElement _gameLook;
-        
+
         private BuildVersionView _buildVersionView;
         private NotificationsView _notificationsView;
         private LogMessageCountsView _logMessageCountsView;
@@ -104,25 +104,17 @@ namespace UI.Game.GameLook
         public void ToggleTimeSpeedMultipliedIndicator(bool timeSpeedMultiplied)
         {
             if (timeSpeedMultiplied)
-            {
                 _gameLook.AddToClassList("time-speed-multiplied");
-            }
             else
-            {
                 _gameLook.RemoveFromClassList("time-speed-multiplied");
-            }
         }
 
         private void OnPauseChange(bool paused)
         {
             if (paused)
-            {
                 _gameLook.AddToClassList("paused");
-            }
             else
-            {
                 _gameLook.RemoveFromClassList("paused");
-            }
         }
     }
 }

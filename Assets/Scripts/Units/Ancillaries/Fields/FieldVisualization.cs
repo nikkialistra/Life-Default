@@ -11,13 +11,13 @@ namespace Units.Ancillaries.Fields
         [SerializeField] private float _oneDegreeMeshResolution;
         [SerializeField] private int _edgeResolveIterations;
         [SerializeField] private float _edgeDistanceThreshold;
-        
+
         private static readonly Vector3 TargetPositionCorrection = Vector3.up * 1.5f;
-        
+
         private MeshFilter _meshFilter;
         private MeshRenderer _meshRenderer;
         private LineRenderer _linesToTargets;
-        
+
         private Mesh _viewMesh;
 
         private float _viewAngle;
@@ -57,7 +57,7 @@ namespace Units.Ancillaries.Fields
             _viewRadius = viewRadius;
             _obstacleMask = obstacleMask;
             _targets = targets;
-            
+
             var stepCount = Mathf.RoundToInt(_viewAngle * _oneDegreeMeshResolution);
             var stepAngleSize = _viewAngle / stepCount;
 
@@ -188,14 +188,10 @@ namespace Units.Ancillaries.Fields
             var direction = DirectionFromAngle(globalAngle);
 
             if (Physics.Raycast(transform.position, direction, out var hit, _viewRadius, _obstacleMask))
-            {
                 return new ViewCastInfo(true, hit.point, hit.distance, globalAngle);
-            }
             else
-            {
                 return new ViewCastInfo(false, transform.position + direction * _viewRadius, _viewRadius,
                     globalAngle);
-            }
         }
 
         private static Vector3 DirectionFromAngle(float angleInDegrees)

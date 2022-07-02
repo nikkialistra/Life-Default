@@ -10,9 +10,9 @@ namespace Units.Humans.Animations
         private readonly HumanState _humanState;
         private readonly UnitMeshAgent _unitMeshAgent;
         private readonly HumanAnimations _humanAnimations;
-        
+
         private readonly float _waitTimeToIdle;
-        
+
         private Coroutine _lowerBodyOverwriteCoroutine;
 
         private bool _isMoving;
@@ -26,31 +26,31 @@ namespace Units.Humans.Animations
             _humanState = humanState;
             _unitMeshAgent = unitMeshAgent;
             _humanAnimations = humanAnimations;
-            
+
             _waitTimeToIdle = animationSettings.WaitTimeToIdle;
         }
 
         public void Start()
         {
-            _updatingMovingCoroutine = _humanState.StartCoroutine(UpdatingMoving());
+            _updatingMovingCoroutine = _humanState.StartCoroutine(CUpdatingMoving());
         }
 
         public void Stop()
         {
             _humanAnimations.LowerBodyOverwriteToIdle();
-            
+
             if (_updatingMovingCoroutine != null)
             {
                 _humanState.StopCoroutine(_updatingMovingCoroutine);
                 _updatingMovingCoroutine = null;
             }
         }
-        
-        private IEnumerator UpdatingMoving()
+
+        private IEnumerator CUpdatingMoving()
         {
             _isMoving = _unitMeshAgent.IsMoving;
             UpdateBaseAnimation();
-            
+
             while (true)
             {
                 UpdateMoving();
@@ -61,10 +61,7 @@ namespace Units.Humans.Animations
 
         private void UpdateMoving()
         {
-            if (_isMoving == _unitMeshAgent.IsMoving)
-            {
-                return;
-            }
+            if (_isMoving == _unitMeshAgent.IsMoving) return;
 
             _isMoving = _unitMeshAgent.IsMoving;
             UpdateBaseAnimation();
@@ -79,12 +76,12 @@ namespace Units.Humans.Animations
                     _humanState.StopCoroutine(_idleCoroutine);
                     _idleCoroutine = null;
                 }
-                
+
                 Move();
             }
             else
             {
-                _idleCoroutine = _humanState.StartCoroutine(Idle());
+                _idleCoroutine = _humanState.StartCoroutine(CIdle());
             }
         }
 
@@ -93,10 +90,10 @@ namespace Units.Humans.Animations
             _humanAnimations.LowerBodyOverwriteToMove();
         }
 
-        private IEnumerator Idle()
+        private IEnumerator CIdle()
         {
             yield return new WaitForSeconds(_waitTimeToIdle);
-            
+
             _humanAnimations.LowerBodyOverwriteToIdle();
         }
     }

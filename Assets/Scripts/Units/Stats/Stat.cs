@@ -7,12 +7,12 @@ namespace Units.Stats
     [Serializable]
     public class Stat<T>
     {
-        [SerializeField] private float _baseValue;
-        
         public float Value { get; private set; }
-        
+
         public IReadOnlyList<StatModifier<T>> StatModifiers;
-        
+
+        [SerializeField] private float _baseValue;
+
         private readonly List<StatModifier<T>> _statModifiers = new();
 
         public void Initialize()
@@ -21,7 +21,7 @@ namespace Units.Stats
 
             RecalculateValue();
         }
-        
+
         public event Action<float> ValueChange;
 
         public virtual void AddModifier(StatModifier<T> modifier)
@@ -75,9 +75,8 @@ namespace Units.Stats
                         percentAddSum += modifier.Value;
 
                         if (IsPercentAddModifiersEnd(i))
-                        {
                             finalValue *= 1 + percentAddSum;
-                        }
+
                         break;
                     }
                     case StatModifierType.PercentMultiply:
@@ -91,21 +90,17 @@ namespace Units.Stats
 
             // Workaround for float calculation errors, like displaying 12.00001 instead of 12
             Value = (float)Math.Round(finalValue, 4);
-            
+
             ValueChange?.Invoke(Value);
         }
 
         private int CompareModifierOrder(StatModifier<T> a, StatModifier<T> b)
         {
             if (a.Order < b.Order)
-            {
                 return -1;
-            }
 
             if (a.Order > b.Order)
-            {
                 return 1;
-            }
 
             return 0;
         }

@@ -8,26 +8,26 @@ namespace Units.Appearance
 {
     public class HumanAppearanceRegistry : MonoBehaviour
     {
-        [SerializeField] private HeadVariants _maleHeadVariants;
-        [SerializeField] private HeadVariants _femaleHeadVariants;
-        [Space]
-        [SerializeField] private ColorVariants _colorVariants;
-        
-        [Title("Colonist Garment Sets")]
-        [SerializeField] private GarmentSetVariants _maleColonistGarmentSetVariants;
-        [SerializeField] private GarmentSetVariants _femaleColonistGarmentSetVariants;
-        
-        [Title("Enemy Garment Sets")]
-        [SerializeField] private GarmentSetVariants _maleEnemyGarmentSetVariants;
-        [SerializeField] private GarmentSetVariants _femaleEnemyGarmentSetVariants;
-        
+        public ColorVariants ColorVariants => _colorVariants;
+
         public enum HumanType
         {
             Colonist,
             Enemy
         }
 
-        public ColorVariants ColorVariants => _colorVariants;
+        [SerializeField] private HeadVariants _maleHeadVariants;
+        [SerializeField] private HeadVariants _femaleHeadVariants;
+        [Space]
+        [SerializeField] private ColorVariants _colorVariants;
+
+        [Title("Colonist Garment Sets")]
+        [SerializeField] private GarmentSetVariants _maleColonistGarmentSetVariants;
+        [SerializeField] private GarmentSetVariants _femaleColonistGarmentSetVariants;
+
+        [Title("Enemy Garment Sets")]
+        [SerializeField] private GarmentSetVariants _maleEnemyGarmentSetVariants;
+        [SerializeField] private GarmentSetVariants _femaleEnemyGarmentSetVariants;
 
         public HeadVariants HeadVariantsFor(Gender gender)
         {
@@ -37,13 +37,13 @@ namespace Units.Appearance
         public IItemVariants<GarmentSet> GarmentSetFor(Gender gender, HumanType humanType)
         {
             if (humanType == HumanType.Colonist)
-            {
-                return gender == Gender.Male ? _maleColonistGarmentSetVariants.GarmentSets : _femaleColonistGarmentSetVariants.GarmentSets;
-            }
+                return gender == Gender.Male
+                    ? _maleColonistGarmentSetVariants.GarmentSets
+                    : _femaleColonistGarmentSetVariants.GarmentSets;
             else
-            {
-                return gender == Gender.Male ? _maleEnemyGarmentSetVariants.GarmentSets : _femaleEnemyGarmentSetVariants.GarmentSets;
-            }
+                return gender == Gender.Male
+                    ? _maleEnemyGarmentSetVariants.GarmentSets
+                    : _femaleEnemyGarmentSetVariants.GarmentSets;
         }
     }
 }

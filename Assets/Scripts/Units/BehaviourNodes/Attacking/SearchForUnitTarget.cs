@@ -11,11 +11,11 @@ namespace Units.BehaviourNodes.Attacking
     public class SearchForUnitTarget : Action
     {
         public SharedUnit Self;
-        
+
         public SharedUnit UnitTarget;
 
         public SharedBool NewCommand;
-        
+
         public FieldOfView FieldOfView;
         public FieldOfHearing FieldOfHearing;
 
@@ -35,19 +35,17 @@ namespace Units.BehaviourNodes.Attacking
         public override TaskStatus OnUpdate()
         {
             if (Time.time < _nextTimeToScan)
-            {
                 return TaskStatus.Running;
-            }
 
             _nextTimeToScan += TimeToRescan;
-            
+
             if (UnitTarget.Value != null)
             {
                 NewCommand.Value = true;
                 Self.Value.UnitEquipment.EquipWeapon();
                 return TaskStatus.Running;
             }
-            
+
             TryToFind();
             UpdateEquipment();
 
@@ -60,9 +58,7 @@ namespace Units.BehaviourNodes.Attacking
             {
                 var unit = target.GetComponent<Unit>();
                 if (IsUnitTarget(unit))
-                {
                     SetIfClosest(unit);
-                }
             }
         }
 
@@ -89,10 +85,7 @@ namespace Units.BehaviourNodes.Attacking
         {
             var distanceToEntity = Vector3.Distance(transform.position, unit.transform.position);
 
-            if (distanceToEntity > _shortestDistanceToUnit)
-            {
-                return;
-            }
+            if (distanceToEntity > _shortestDistanceToUnit) return;
 
             _shortestDistanceToUnit = distanceToEntity;
             UnitTarget.Value = unit;

@@ -94,7 +94,7 @@ namespace ColonistManagement.Targeting.Formations
             else
                 AnimateFormation();
 
-            _flashFinishCoroutine = StartCoroutine(FinishAnimation(_positionPreviewPrefab.AnimationTime));
+            _flashFinishCoroutine = StartCoroutine(CFinishAnimation(_positionPreviewPrefab.AnimationTime));
         }
 
         public void Reset()
@@ -170,7 +170,7 @@ namespace ColonistManagement.Targeting.Formations
             _directionArrow.transform.rotation = Quaternion.Euler(0, rotation, 0);
         }
 
-        private IEnumerator FinishAnimation(float fadeTime)
+        private IEnumerator CFinishAnimation(float fadeTime)
         {
             yield return new WaitForSeconds(fadeTime);
 

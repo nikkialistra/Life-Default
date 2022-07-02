@@ -6,7 +6,7 @@ namespace Units.BehaviourNodes.Attacking
     public class ResetAttacking : Action
     {
         public SharedUnit UnitTarget;
-        
+
         public UnitMeshAgent UnitMeshAgent;
         public UnitAttacker UnitAttacker;
         public UnitEquipment UnitEquipment;
@@ -15,12 +15,12 @@ namespace Units.BehaviourNodes.Attacking
         {
             UnitMeshAgent.StopRotating();
             UnitMeshAgent.ResetDestination();
-            
+
             UnitAttacker.CoverUnitTarget();
             UnitEquipment.UnequipWeapon();
-            
+
             UnitTarget.Value = null;
-            
+
             return TaskStatus.Success;
         }
     }

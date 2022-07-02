@@ -94,10 +94,10 @@ namespace UI.Game.GameLook.Components.Info.ColonistInfo
             _inputFinished = true;
 
             // cancel finish only if a user doesn't click on the name field, its event can be checked a frame later
-            StartCoroutine(TryFinishInput());
+            StartCoroutine(CTryFinishInput());
         }
 
-        private IEnumerator TryFinishInput()
+        private IEnumerator CTryFinishInput()
         {
             yield return new WaitForSeconds(0.1f);
 

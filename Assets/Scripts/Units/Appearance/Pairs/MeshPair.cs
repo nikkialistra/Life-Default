@@ -8,6 +8,10 @@ namespace Units.Appearance.Pairs
     [Serializable]
     public class MeshPair
     {
+        public Mesh FirstMesh => _firstMesh;
+
+        public Mesh SecondMesh => _secondMesh;
+
         [HorizontalGroup("Split", 100)]
         [VerticalGroup("Split/Left")]
         [HideLabel]
@@ -17,10 +21,6 @@ namespace Units.Appearance.Pairs
         [HideLabel]
         [PreviewField(70, ObjectFieldAlignment.Left)]
         [SerializeField] private Mesh _secondMesh;
-
-        public Mesh FirstMesh=> _firstMesh;
-        
-        public Mesh SecondMesh => _secondMesh;
 
         public static MeshPair Create(Mesh firstMesh, Mesh secondMesh)
         {
@@ -39,18 +39,12 @@ namespace Units.Appearance.Pairs
             var sameSecondMesh = mesh == _secondMesh;
 
             if (!sameFirstMesh && !sameSecondMesh)
-            {
                 return false;
-            }
 
             if (sameFirstMesh)
-            {
                 return takenMeshes.Contains(_secondMesh);
-            }
             else
-            {
                 return takenMeshes.Contains(_firstMesh);
-            }
         }
     }
 }

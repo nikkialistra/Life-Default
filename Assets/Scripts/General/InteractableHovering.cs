@@ -79,7 +79,7 @@ namespace General
 
         private void StartHovering()
         {
-            _hoveringCoroutine = StartCoroutine(Hovering());
+            _hoveringCoroutine = StartCoroutine(CHovering());
         }
 
         private void StopHovering()
@@ -98,16 +98,16 @@ namespace General
 
         private void OnSelectingEnd(Rect _)
         {
-            StartCoroutine(UnblockSelectionAfter());
+            StartCoroutine(CUnblockSelectionAfter());
         }
 
-        private IEnumerator UnblockSelectionAfter()
+        private IEnumerator CUnblockSelectionAfter()
         {
             yield return null;
             _canSelect = true;
         }
 
-        private IEnumerator Hovering()
+        private IEnumerator CHovering()
         {
             while (true)
             {

@@ -21,6 +21,24 @@ namespace Units
     [RequireComponent(typeof(UnitAttacker))]
     public class Unit : MonoBehaviour
     {
+        public event Action<Unit> AttackFrom;
+        public event Action<Unit> LeavingAttackFrom;
+
+        public event Action VitalityChange;
+
+        public event Action Dying;
+
+        public bool Alive => !_died;
+
+        public Faction Faction => _faction;
+
+        public UnitEquipment UnitEquipment => _unitEquipment;
+
+        public Colonist Colonist => _colonist;
+        public Enemy Enemy => _enemy;
+
+        public UnitVitality UnitVitality => _unitVitality;
+
         [SerializeField] private Faction _faction;
         
         [ShowIf(nameof(_faction), Faction.Colonists)]
@@ -69,24 +87,6 @@ namespace Units
 
             _unitFightCalculation = GetComponent<UnitFightCalculation>();
         }
-        
-        public event Action<Unit> AttackFrom;
-        public event Action<Unit> LeavingAttackFrom;
-        
-        public event Action VitalityChange;
-        
-        public event Action Dying;
-
-        public bool Alive => !_died;
-        
-        public Faction Faction => _faction;
-
-        public UnitEquipment UnitEquipment => _unitEquipment;
-        
-        public Colonist Colonist => _colonist;
-        public Enemy Enemy => _enemy;
-
-        public UnitVitality UnitVitality => _unitVitality;
 
         private void OnEnable()
         {
@@ -130,10 +130,7 @@ namespace Units
         [Button(ButtonSizes.Medium)]
         public void TakeDamage(float damage)
         {
-            if (_died)
-            {
-                return;
-            }
+            if (_died) return;
 
             if (_unitFightCalculation.Dodged())
             {
@@ -209,11 +206,8 @@ namespace Units
 
         public void Die()
         {
-            if (_died)
-            {
-                return;
-            }
-            
+            if (_died) return;
+
             _unitVitality.TakeDamage(10000f);
         }
         
@@ -247,20 +241,16 @@ namespace Units
         private bool ColonistUnitShouldHaveColonist()
         {
             if (_faction == Faction.Colonists && _colonist == null)
-            {
                 return false;
-            }
-            
+
             return true;
         }
 
         private bool EnemyUnitShouldHaveEnemy()
         {
             if (_faction == Faction.Enemies && _enemy == null)
-            {
                 return false;
-            }
-            
+
             return true;
         }
     }

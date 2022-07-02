@@ -17,7 +17,7 @@ namespace Units.Calculations
         public float CalculateDamage()
         {
             var weaponType = _unitStats.WeaponType;
-            
+
             var criticalMultiplier = CalculateCriticalMultiplier(weaponType);
             var damage = CalculateNormalDamage(weaponType) * criticalMultiplier;
 
@@ -50,14 +50,9 @@ namespace Units.Calculations
 
         private float CalculateNormalDamage(WeaponType weaponType)
         {
-            if (weaponType.IsMelee())
-            {
-                return _unitStats.MeleeCurrentDamage * _unitStats.MeleeDamageMultiplier.Value;
-            }
-            else
-            {
-                return _unitStats.RangedCurrentDamage * _unitStats.RangedDamageMultiplier.Value;
-            }
+            return weaponType.IsMelee()
+                ? _unitStats.MeleeCurrentDamage * _unitStats.MeleeDamageMultiplier.Value
+                : _unitStats.RangedCurrentDamage * _unitStats.RangedDamageMultiplier.Value;
         }
     }
 }

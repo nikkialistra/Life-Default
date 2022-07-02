@@ -9,23 +9,23 @@ namespace Units.Humans.Animations.States
     [RequireComponent(typeof(UnitEquipment))]
     public class GatherResourceState : HumanState
     {
+        public override AnimationType AnimationType => AnimationType.GatherResource;
+
         [Required]
         [SerializeField] private ClipTransition _clip;
-        
+
         [Space]
         [Required]
         [SerializeField] private ColonistGatherer _colonistGatherer;
-        
+
         private UnitEquipment _unitEquipment;
 
         private const string HitEvent = "Hit";
-        
+
         protected override void OnAwake()
         {
             _unitEquipment = GetComponent<UnitEquipment>();
         }
-
-        public override AnimationType AnimationType => AnimationType.GatherResource;
 
         private void OnEnable()
         {

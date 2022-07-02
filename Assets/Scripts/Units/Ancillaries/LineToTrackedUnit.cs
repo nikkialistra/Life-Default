@@ -60,10 +60,10 @@ namespace Units.Ancillaries
                 StopCoroutine(_showingLineCoroutine);
             }
 
-            _showingLineCoroutine = StartCoroutine(ShowingLine());
+            _showingLineCoroutine = StartCoroutine(CShowingLine());
         }
 
-        private IEnumerator ShowingLine()
+        private IEnumerator CShowingLine()
         {
             while (true)
             {

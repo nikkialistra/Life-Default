@@ -79,7 +79,7 @@ namespace ResourceManagement
         {
             _rigidbody.velocity = randomForce;
 
-            StartCoroutine(FreezeAfter(timeToFreeze));
+            StartCoroutine(CFreezeAfter(timeToFreeze));
         }
 
         public void Destroy()
@@ -90,7 +90,7 @@ namespace ResourceManagement
             Destroy(gameObject);
         }
 
-        private IEnumerator FreezeAfter(float timeToFreeze)
+        private IEnumerator CFreezeAfter(float timeToFreeze)
         {
             yield return new WaitForSeconds(timeToFreeze);
 

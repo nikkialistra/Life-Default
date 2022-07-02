@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using ResourceManagement;
 using Units.Enums;
 using Units.Equipment;
@@ -11,6 +10,8 @@ namespace Units
     [RequireComponent(typeof(UnitInventory))]
     public class UnitEquipment : MonoBehaviour
     {
+        public bool HoldingSomething { get; private set; }
+
         [SerializeField] private MeshFilter _handSlot;
         [SerializeField] private float _timeToUnequipTool = 0.5f;
         [SerializeField] private float _timeToUnequipWeapon = 1.2f;
@@ -19,7 +20,7 @@ namespace Units
         private UnitInventory _unitInventory;
 
         private Weapon _activeWeapon;
-        
+
         private Coroutine _unequipAfterCoroutine;
 
         private void Awake()
@@ -33,8 +34,6 @@ namespace Units
             _activeWeapon = _unitWeapons.ChooseWeapon(WeaponSlotType.Melee);
         }
 
-        public bool HoldingSomething { get; private set; }
-
         public void EquipWeapon()
         {
             UnequipInstantly();
@@ -47,9 +46,7 @@ namespace Units
         public bool TryEquipToolFor(ResourceType resourceType)
         {
             if (!_unitInventory.HasToolFor(resourceType))
-            {
                 return false;
-            }
 
             UnequipInstantly();
 
@@ -65,13 +62,13 @@ namespace Units
         public void UnequipTool()
         {
             ResetUnequipment();
-            _unequipAfterCoroutine = StartCoroutine(UnequipAfter(_timeToUnequipTool));
+            _unequipAfterCoroutine = StartCoroutine(CUnequipAfter(_timeToUnequipTool));
         }
 
         public void UnequipWeapon()
         {
             ResetUnequipment();
-            _unequipAfterCoroutine = StartCoroutine(UnequipAfter(_timeToUnequipWeapon));
+            _unequipAfterCoroutine = StartCoroutine(CUnequipAfter(_timeToUnequipWeapon));
         }
 
         private void UnequipInstantly()
@@ -79,12 +76,12 @@ namespace Units
             ResetUnequipment();
             Unequip();
         }
-        
+
         public bool HasWeaponOf(WeaponSlotType weaponSlotType)
         {
             return _unitWeapons.HasWeaponOf(weaponSlotType);
         }
-        
+
         public void ChooseWeapon(WeaponSlotType weaponSlotType)
         {
             _activeWeapon = _unitWeapons.ChooseWeapon(weaponSlotType);
@@ -99,21 +96,19 @@ namespace Units
             }
         }
 
-        private IEnumerator UnequipAfter(float timeToUnequip)
+        private IEnumerator CUnequipAfter(float timeToUnequip)
         {
             yield return new WaitForSeconds(timeToUnequip);
 
             Unequip();
-            
+
             _unequipAfterCoroutine = null;
         }
 
         private void Unequip()
         {
             if (_handSlot.transform.childCount > 0)
-            {
                 Destroy(_handSlot.transform.GetChild(0).gameObject);
-            }
 
             HoldingSomething = false;
         }

@@ -77,7 +77,7 @@ namespace General.TileManagement
 
         private void StartSelectingTiles()
         {
-            _selectingTilesCoroutine = StartCoroutine(SelectingTiles());
+            _selectingTilesCoroutine = StartCoroutine(CSelectingTiles());
         }
 
         private void StopSelectingTiles()
@@ -89,7 +89,7 @@ namespace General.TileManagement
             }
         }
 
-        private IEnumerator SelectingTiles()
+        private IEnumerator CSelectingTiles()
         {
             while (true)
             {

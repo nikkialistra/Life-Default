@@ -14,8 +14,26 @@ namespace Units
 {
     public class UnitVitality : MonoBehaviour, IDamageable
     {
+        public event Action VitalityChange;
+
+        public event Action Wasted;
+
+
+        public float Health { get; private set; }
+        public float MaxHealth { get; private set; }
+
+        public float RecoverySpeed { get; private set; }
+        public float MaxRecoverySpeed { get; private set; }
+
+        public bool IsFullHealth => Health == MaxHealth;
+
+        public int HealthPercent => (int)((Health / MaxHealth) * 100);
+        public int RecoverySpeedPercent => (int)((RecoverySpeed / MaxRecoverySpeed) * 100);
+
         [Required]
         [SerializeField] private HumanAnimations _humanAnimations;
+
+        private bool IsAlive => Health > 0;
 
         private VitalityCalculation _vitalityCalculation;
 
@@ -24,24 +42,6 @@ namespace Units
         private TickingRegulator _tickingRegulator;
 
         private Coroutine _takingDamageCoroutine;
-
-        public event Action VitalityChange;
-
-        public event Action Wasted;
-        
-
-        public float Health { get; private set; }
-        public float MaxHealth { get; private set; }
-
-        public float RecoverySpeed { get; private set; }
-        public float MaxRecoverySpeed { get; private set; }
-        
-        public bool IsFullHealth => Health == MaxHealth;
-
-        public int HealthPercent => (int)((Health / MaxHealth) * 100);
-        public int RecoverySpeedPercent => (int)((RecoverySpeed / MaxRecoverySpeed) * 100);
-        
-        private bool IsAlive => Health > 0;
 
         [Inject]
         public void Construct(TickingRegulator tickingRegulator, UnitsSettings unitsSettings)
@@ -60,7 +60,7 @@ namespace Units
         {
             _vitalityCalculation.HealthChange += OnHealthChange;
             _vitalityCalculation.RecoverySpeedChange += OnRecoverySpeedChange;
-            
+
             _tickingRegulator.AddToTickablesPerHour(_vitalityCalculation);
         }
 
@@ -68,24 +68,20 @@ namespace Units
         {
             _vitalityCalculation.HealthChange -= OnHealthChange;
             _vitalityCalculation.RecoverySpeedChange -= OnRecoverySpeedChange;
-            
+
             _tickingRegulator.RemoveFromTickablesPerHour(_vitalityCalculation);
         }
 
         private void OnTriggerEnter(Collider other)
         {
             if (other.TryGetComponent(out IHittable hittable))
-            {
                 TakeDamageContinuously(hittable.Damage, hittable.Interval);
-            }
         }
 
         private void OnTriggerExit(Collider other)
         {
             if (other.TryGetComponent(out IHittable _))
-            {
                 StopTakingDamage();
-            }
         }
 
         public void BindStats(Stat<UnitStat> maxHealth, Stat<UnitStat> maxRecoverySpeed)
@@ -102,7 +98,7 @@ namespace Units
             maxHealth.ValueChange -= ChangeMaxHealth;
             maxRecoverySpeed.ValueChange -= ChangeMaxRecoverySpeed;
         }
-        
+
         public void SetInitialValues()
         {
             Health = MaxHealth;
@@ -114,18 +110,16 @@ namespace Units
         public void TakeDamage(float value)
         {
             _vitalityCalculation.TakeDamage(value);
-            
+
             _humanAnimations.Hit();
         }
 
         public void TakeDamageContinuously(float value, float interval, float time = float.PositiveInfinity)
         {
             if (_takingDamageCoroutine != null)
-            {
                 StopCoroutine(_takingDamageCoroutine);
-            }
 
-            _takingDamageCoroutine = StartCoroutine(TakingDamage(value, interval, time));
+            _takingDamageCoroutine = StartCoroutine(CTakingDamage(value, interval, time));
         }
 
         public void StopTakingDamage()
@@ -136,11 +130,11 @@ namespace Units
                 _takingDamageCoroutine = null;
             }
         }
-        
+
         private void OnHealthChange(float value)
         {
             Health = value;
-            
+
             if (!IsAlive)
             {
                 StopTakingDamage();
@@ -168,7 +162,7 @@ namespace Units
             _vitalityCalculation.ChangeMaxRecoverySpeed(value);
         }
 
-        private IEnumerator TakingDamage(float value, float interval, float time)
+        private IEnumerator CTakingDamage(float value, float interval, float time)
         {
             yield return null;
 

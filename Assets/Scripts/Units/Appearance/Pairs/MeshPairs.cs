@@ -10,7 +10,6 @@ namespace Units.Appearance.Pairs
         [SerializeField] private List<MeshPair> _meshPairs;
 
         private List<Mesh> _takenMeshes = new();
-        
 
         public void ClearTaken()
         {
@@ -20,13 +19,9 @@ namespace Units.Appearance.Pairs
         public bool IsCompatibleWith(Mesh mesh)
         {
             foreach (var meshPair in _meshPairs)
-            {
                 if (meshPair.HasPairFrom(mesh, _takenMeshes))
-                {
                     return false;
-                }
-            }
-            
+
             return true;
         }
 

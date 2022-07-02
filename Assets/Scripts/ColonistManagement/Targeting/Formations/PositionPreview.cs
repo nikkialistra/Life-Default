@@ -30,9 +30,9 @@ namespace ColonistManagement.Targeting.Formations
         {
             _animateCoroutine = _animationKind switch
             {
-                AnimationKind.Collapse => StartCoroutine(Collapse()),
-                AnimationKind.Fade => StartCoroutine(Fade()),
-                AnimationKind.Hide => StartCoroutine(Hide()),
+                AnimationKind.Collapse => StartCoroutine(CCollapse()),
+                AnimationKind.Fade => StartCoroutine(CFade()),
+                AnimationKind.Hide => StartCoroutine(CHide()),
                 _ => throw new ArgumentOutOfRangeException()
             };
         }
@@ -64,7 +64,7 @@ namespace ColonistManagement.Targeting.Formations
             }
         }
 
-        private IEnumerator Collapse()
+        private IEnumerator CCollapse()
         {
             _decalProjector.transform.localScale = Vector3.one;
 
@@ -74,7 +74,7 @@ namespace ColonistManagement.Targeting.Formations
                 .WaitForCompletion();
         }
 
-        private IEnumerator Fade()
+        private IEnumerator CFade()
         {
             var timeLeft = _animationTime;
 
@@ -91,7 +91,7 @@ namespace ColonistManagement.Targeting.Formations
             _decalProjector.fadeFactor = 0f;
         }
 
-        private IEnumerator Hide()
+        private IEnumerator CHide()
         {
             yield return new WaitForSecondsRealtime(_animationTime);
 

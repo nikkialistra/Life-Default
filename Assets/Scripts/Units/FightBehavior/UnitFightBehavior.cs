@@ -54,7 +54,7 @@ namespace Units.FightBehavior
             _self.LeavingAttackFrom += RemoveOpponent;
 
             _unitAttacker.TrackingStart += TestFight;
-            
+
             _unitAttacker.AttackStart += StartFight;
             _unitAttacker.AttackEnd += StopFight;
         }
@@ -65,29 +65,26 @@ namespace Units.FightBehavior
             _self.LeavingAttackFrom -= RemoveOpponent;
 
             _unitAttacker.TrackingStart -= TestFight;
-            
+
             _unitAttacker.AttackStart -= StartFight;
             _unitAttacker.AttackEnd -= StopFight;
         }
-        
+
         public void SetManner(FightManner fightManner)
         {
-            _advanceTime = fightManner switch {
+            _advanceTime = fightManner switch
+            {
                 FightManner.Careful => _advanceTime * _carefulFightMannerMultiplier,
                 FightManner.Normal => _advanceTime,
                 FightManner.Frantic => _advanceTime * _franticFightMannerMultiplier,
-                
-                _ => throw new ArgumentOutOfRangeException(nameof(fightManner), fightManner, null)
+                _ => throw new ArgumentOutOfRangeException()
             };
         }
 
         private void AddOpponent(Unit opponent)
         {
-            if (_fighting && _opponent == opponent)
-            {
-                return;
-            }
-            
+            if (_fighting && _opponent == opponent) return;
+
             _surroundingOpponentsSpecs.Add(opponent, opponent.GetSpecs());
         }
 
@@ -99,49 +96,39 @@ namespace Units.FightBehavior
         private void TestFight()
         {
             _fighting = true;
-            
+
             _opponent = _unitAttacker.TrackedUnit;
-            
+
             _surroundingOpponentsSpecs.Clear();
 
             TryRefreshSpecs();
 
             if (WouldBeDefeated())
-            {
                 _unitAttacker.Escape();
-            }
 
             _fighting = false;
         }
 
         private void StartFight()
         {
-            if (_fighting)
-            {
-                return;
-            }
-            
+            if (_fighting) return;
+
             _fighting = true;
             _opponent = _unitAttacker.AttackedUnit;
-            
+
             _surroundingOpponentsSpecs.Remove(_opponent);
 
-            _choosingBehaviorCoroutine = StartCoroutine(ChoosingBehavior());
+            _choosingBehaviorCoroutine = StartCoroutine(CChoosingBehavior());
         }
 
-        private IEnumerator ChoosingBehavior()
+        private IEnumerator CChoosingBehavior()
         {
             while (true)
             {
-                if (!TryRefreshSpecs())
-                {
-                    break;
-                }
+                if (!TryRefreshSpecs()) break;
 
                 if (WouldBeDefeated())
-                {
                     _unitAttacker.Escape();
-                }
 
                 yield return new WaitForSeconds(_refreshTime);
             }
@@ -154,7 +141,7 @@ namespace Units.FightBehavior
                 StopCoroutine(_choosingBehaviorCoroutine);
                 _choosingBehaviorCoroutine = null;
             }
-            
+
             _fighting = false;
             _opponent = null;
         }
@@ -168,7 +155,7 @@ namespace Units.FightBehavior
                 StopFight();
                 return false;
             }
-            
+
             _opponentSpecs = _opponent.GetSpecs();
             return true;
         }

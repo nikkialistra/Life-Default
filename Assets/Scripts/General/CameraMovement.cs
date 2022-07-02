@@ -213,7 +213,7 @@ namespace General
         {
             _activated = true;
             Activate();
-            StartCoroutine(AllowMouseScrollALittleLater());
+            StartCoroutine(CAllowMouseScrollALittleLater());
         }
 
         public void FocusOn(Colonist colonist)
@@ -247,7 +247,7 @@ namespace General
             }
             else
             {
-                _focusingCoroutine = StartCoroutine(Focusing(position, eulerAngles, colonist));
+                _focusingCoroutine = StartCoroutine(CFocusing(position, eulerAngles, colonist));
             }
         }
 
@@ -260,7 +260,7 @@ namespace General
                 throw new InvalidOperationException("Camera is not above terrain");
         }
 
-        private IEnumerator Focusing(Vector3 position, Vector3 eulerAngles, Colonist colonist)
+        private IEnumerator CFocusing(Vector3 position, Vector3 eulerAngles, Colonist colonist)
         {
             _focusing = true;
 
@@ -292,10 +292,10 @@ namespace General
 
             _activated = Application.isEditor && _deactivateAtStartup ? false : true;
 
-            StartCoroutine(AllowMouseScrollALittleLater());
+            StartCoroutine(CAllowMouseScrollALittleLater());
         }
 
-        private IEnumerator AllowMouseScrollALittleLater()
+        private IEnumerator CAllowMouseScrollALittleLater()
         {
             yield return new WaitForSeconds(0.1f);
             _canMouseScroll = true;

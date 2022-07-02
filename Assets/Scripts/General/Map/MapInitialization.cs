@@ -19,10 +19,10 @@ namespace General.Map
 
         private void Start()
         {
-            StartCoroutine(GetAstarGraph());
+            StartCoroutine(CGetAstarGraph());
         }
 
-        private IEnumerator GetAstarGraph()
+        private IEnumerator CGetAstarGraph()
         {
             if (_astarPath.data.cacheStartup)
             {

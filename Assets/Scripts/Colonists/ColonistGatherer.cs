@@ -96,7 +96,7 @@ namespace Colonists
 
             _colonistAnimator.Gather(resource);
 
-            _watchForExhaustionCoroutine = StartCoroutine(WatchForExhaustion());
+            _watchForExhaustionCoroutine = StartCoroutine(CWatchForExhaustion());
             IsGathering = true;
 
             return true;
@@ -134,7 +134,7 @@ namespace Colonists
             _resourceExtractionEfficiency = value;
         }
 
-        private IEnumerator WatchForExhaustion()
+        private IEnumerator CWatchForExhaustion()
         {
             while (!_resource.Exhausted)
                 yield return new WaitForSeconds(_waitTime);
@@ -158,7 +158,7 @@ namespace Colonists
             _resource = null;
             IsGathering = false;
 
-            StartCoroutine(StopGatheringLater());
+            StartCoroutine(CStopGatheringLater());
         }
 
         public void ToggleResourceFieldOfView()
@@ -171,7 +171,7 @@ namespace Colonists
             _resourceFieldOfView.HideDebugShow();
         }
 
-        private IEnumerator StopGatheringLater()
+        private IEnumerator CStopGatheringLater()
         {
             yield return new WaitForSeconds(_waitTime);
 

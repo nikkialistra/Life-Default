@@ -101,10 +101,10 @@ namespace UI.Menus.Settings
 
         private void OnResolutionFocus(FocusInEvent evt)
         {
-            _gameSettings.StartCoroutine(RestyleScrollView());
+            _gameSettings.StartCoroutine(CRestyleScrollView());
         }
 
-        private IEnumerator RestyleScrollView()
+        private IEnumerator CRestyleScrollView()
         {
             yield return null;
             var scrollView = _uiPanel.Children().Last();

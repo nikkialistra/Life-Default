@@ -4,7 +4,7 @@
     {
         MeleeOneHand,
         MeleeTwoHand,
-        
+
         RangedBow,
         RangedGun
     }

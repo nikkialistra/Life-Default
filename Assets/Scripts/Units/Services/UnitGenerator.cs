@@ -22,7 +22,7 @@ namespace Units.Services
         [SerializeField] private float _zBounds;
         [SerializeField] private float _minHeight;
         [SerializeField] private float _maxHeight;
-        
+
         [Title("Intervals")]
         [SerializeField] private float _timeBetweenSpawns = 16f;
         [SerializeField] private float _timeBetweenSpawnsVariation = 4f;
@@ -38,13 +38,13 @@ namespace Units.Services
         [SerializeField] private float _scale;
         [SerializeField] private float _xOffset;
         [SerializeField] private float _zOffset;
-        
+
         [Title("Position Variation")]
         [Range(0, 10f)]
         [SerializeField] private float _pointVariation;
         [Range(0, 360f)]
         [SerializeField] private float _rotationVariation;
-        
+
         [Title("Testing")]
         [SerializeField] private float _gridInterval = 3f;
         [SerializeField] private Transform _cubesParent;
@@ -57,7 +57,7 @@ namespace Units.Services
         [SerializeField] private float _obstacleRadius = 5f;
 
         private Enemy.Factory _enemyFactory;
-        
+
         private EnemyRepository _enemyRepository;
 
         private bool _generateTestCubes;
@@ -85,28 +85,21 @@ namespace Units.Services
         [Button(ButtonSizes.Medium)]
         private void StartSpawning()
         {
-            if (_generateAtIntervalCoroutine != null)
-            {
-                return;
-            }
+            if (_generateAtIntervalCoroutine != null) return;
 
-            _generateAtIntervalCoroutine = StartCoroutine(GenerateAtInterval());
+            _generateAtIntervalCoroutine = StartCoroutine(CGenerateAtInterval());
         }
 
         [Button(ButtonSizes.Medium)]
         private void ShowSpawnGrid()
         {
             HideSpawnGrid();
-            
+
             _generateTestCubes = true;
-            
+
             for (float z = -_zBounds; z < _zBounds; z += _gridInterval)
-            {
                 for (float x = -_xBounds; x < _xBounds; x += _gridInterval)
-                {
                     Spawn(x, z);
-                }
-            }
 
             _generateTestCubes = false;
         }
@@ -115,21 +108,17 @@ namespace Units.Services
         private void HideSpawnGrid()
         {
             foreach (var cube in _cubes)
-            {
                 Destroy(cube);
-            }
         }
 
-        private IEnumerator GenerateAtInterval()
+        private IEnumerator CGenerateAtInterval()
         {
             while (true)
             {
                 yield return new WaitForSeconds(CalculateInterval());
 
                 if (_enemyRepository.Count <= _maxEnemyCount)
-                {
                     Generate();
-                }
             }
         }
 
@@ -144,10 +133,7 @@ namespace Units.Services
 
             while (numberOfTries < _numberOfTriesToSpawn)
             {
-                if (TrySpawn())
-                {
-                    break;
-                }
+                if (TrySpawn()) break;
 
                 numberOfTries++;
             }
@@ -157,31 +143,26 @@ namespace Units.Services
         {
             var x = Random.Range(-_xBounds, _xBounds);
             var z = Random.Range(-_zBounds, _zBounds);
-            
+
             if (!ShouldSpawn(x, z) || !InValidPlace(x, z, out var spawnPoint))
-            {
                 return false;
-            }
 
             SpawnInstances(spawnPoint);
-            
+
             return true;
         }
 
         private void Spawn(float x, float z)
         {
-            if (!ShouldSpawn(x, z) || !InValidPlace(x, z, out var spawnPoint))
-            {
-                return;
-            }
-            
+            if (!ShouldSpawn(x, z) || !InValidPlace(x, z, out var spawnPoint)) return;
+
             SpawnInstances(spawnPoint);
         }
 
         private bool ShouldSpawn(float x, float z)
         {
-            var sample = Mathf.PerlinNoise((x * ( 1 / _scale) ) + _xOffset,
-                (z * ( 1 / _scale) ) + _zOffset);
+            var sample = Mathf.PerlinNoise((x * (1 / _scale)) + _xOffset,
+                (z * (1 / _scale)) + _zOffset);
 
             return sample < _probability;
         }
@@ -206,12 +187,10 @@ namespace Units.Services
         private bool IsValidPoint(Vector3 point)
         {
             if (point.y < _minHeight || point.y > _maxHeight)
-            {
                 return false;
-            }
 
             var size = Physics.OverlapSphereNonAlloc(point, _obstacleRadius, _obstacleResults, _obstacleMask);
-            
+
             return size == 0;
         }
 
@@ -220,9 +199,7 @@ namespace Units.Services
             var count = Random.Range(1, _maxInstancesPerSpawn + 1);
 
             for (int i = 0; i < count; i++)
-            {
                 Spawn(spawnPoint);
-            }
         }
 
         private void Spawn(Vector3 spawnPoint)
@@ -232,7 +209,6 @@ namespace Units.Services
             var rotation = Quaternion.Euler(0, Random.Range(0, _rotationVariation), 0);
 
             PlaceAt(position, rotation);
-            
         }
 
         private void PlaceAt(Vector3 position, Quaternion rotation)
@@ -245,11 +221,11 @@ namespace Units.Services
             else
             {
                 var cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
-                
+
                 cube.transform.parent = _cubesParent;
                 cube.transform.localScale *= _cubeScale;
                 cube.transform.position = position;
-                
+
                 _cubes.Add(cube);
             }
         }

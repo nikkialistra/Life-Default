@@ -18,6 +18,21 @@ namespace Units
     [RequireComponent(typeof(UnitFightCalculation))]
     public class UnitAttacker : MonoBehaviour
     {
+        public event Action TrackingStart;
+
+        public event Action AttackStart;
+        public event Action AttackEnd;
+
+        public event Action WantEscape;
+
+        public bool IsAttacking { get; private set; }
+        public bool Idle => !IsAttacking && Time.time - _lastAttackTime > _timeAfterAttackToIdle;
+
+        public float AttackDistance => AttackRange * _attackRangeMultiplierToStartFight;
+
+        public Unit TrackedUnit => _trackedUnit;
+        public Unit AttackedUnit => _attackedUnit;
+
         [SerializeField] private float _timeAfterAttackToIdle = 2f;
         [Space]
         [Required]
@@ -26,22 +41,25 @@ namespace Units
         [Required]
         [SerializeField] private MessageShowing _messageShowing;
 
+        private float AttackRange =>
+            _weaponType.IsMelee() ? _unitStats.MeleeAttackRange.Value : _unitStats.RangedAttackRange.Value;
+
         private Unit _self;
-        
+
         private Unit _trackedUnit;
         private Unit _attackedUnit;
-        
+
         private Action _onInteractionFinish;
 
         private UnitStats _unitStats;
         private UnitAnimator _unitAnimator;
-        
+
         private UnitSelection _unitSelection;
 
         private UnitFightCalculation _unitFightCalculation;
 
         private WeaponType _weaponType;
-        
+
         private float _attackRangeMultiplierToStartFight;
         private float _attackAngle;
         private float _waitTime;
@@ -68,23 +86,13 @@ namespace Units
         private void Awake()
         {
             _self = GetComponent<Unit>();
-            
+
             _unitStats = GetComponent<UnitStats>();
             _unitAnimator = GetComponent<UnitAnimator>();
             _unitSelection = GetComponent<UnitSelection>();
 
             _unitFightCalculation = GetComponent<UnitFightCalculation>();
         }
-
-        public event Action TrackingStart;
-
-        public event Action AttackStart;
-        public event Action AttackEnd;
-
-        public event Action WantEscape;
-
-        public bool IsAttacking { get; private set; }
-        public bool Idle => !IsAttacking && Time.time - _lastAttackTime > _timeAfterAttackToIdle;
 
         private void OnEnable()
         {
@@ -99,18 +107,10 @@ namespace Units
         {
             _unitSelection.Hovered -= OnHovered;
             _unitSelection.Selected -= OnSelected;
-            
+
             _unitSelection.Unhovered -= OnUnhovered;
             _unitSelection.Deselected -= OnDeselected;
         }
-
-        public float AttackDistance => AttackRange * _attackRangeMultiplierToStartFight;
-
-        public Unit TrackedUnit => _trackedUnit;
-        public Unit AttackedUnit => _attackedUnit;
-        
-        private float AttackRange =>
-            _weaponType.IsMelee() ? _unitStats.MeleeAttackRange.Value : _unitStats.RangedAttackRange.Value;
 
         public void BindStats(Stat<UnitStat> meleeAttackSpeed, Stat<UnitStat> rangedAttackSpeed)
         {
@@ -137,10 +137,10 @@ namespace Units
             _attackedUnit = unit;
 
             _attackedUnit.NotifyAboutAttackFrom(_self);
-            
+
             _unitAnimator.Attack();
-            
-            _attackingCoroutine = StartCoroutine(WatchForDestroy());
+
+            _attackingCoroutine = StartCoroutine(CWatchForDestroy());
 
             IsAttacking = true;
             _finalizingAttacking = false;
@@ -179,15 +179,12 @@ namespace Units
 
         public void FinalizeAttacking()
         {
-            if (!IsAttacking || _finalizingAttacking)
-            {
-                return;
-            }
-            
+            if (!IsAttacking || _finalizingAttacking) return;
+
             _finalizingAttacking = true;
-            
+
             ResetAttacking();
-            StartCoroutine(FinishAttackingLater());
+            StartCoroutine(CFinishAttackingLater());
         }
 
         public void FinalizeAttackingInstantly()
@@ -195,7 +192,7 @@ namespace Units
             ResetAttacking();
             StopAttacking();
         }
-        
+
         private void OnMeleeAttackSpeedChange(float value)
         {
             _unitAnimator.SetMeleeAttackSpeed(value);
@@ -203,7 +200,7 @@ namespace Units
 
         private void OnRangedAttackSpeedChange(float value)
         {
-            _unitAnimator.SetRangedAttackSpeed(value); 
+            _unitAnimator.SetRangedAttackSpeed(value);
         }
 
         private void OnHovered()
@@ -240,7 +237,7 @@ namespace Units
 
             ResetUnitTarget();
         }
-        
+
         public bool OnAttackDistance(Vector3 position)
         {
             return Vector3.Distance(transform.position, position) < AttackDistance;
@@ -248,7 +245,8 @@ namespace Units
 
         public bool OnAttackRange(Vector3 position)
         {
-            return Vector3.Distance(transform.position, position) < AttackRange;;
+            return Vector3.Distance(transform.position, position) < AttackRange;
+            ;
         }
 
         public bool OnAttackAngle(Vector3 position)
@@ -257,9 +255,7 @@ namespace Units
             var targetDirection = (position - transform.position).normalized;
 
             if (targetDirection == Vector3.zero)
-            {
                 return true;
-            }
 
             var angleDifference = Quaternion.LookRotation(targetDirection).eulerAngles.y -
                                   transform.rotation.eulerAngles.y;
@@ -270,7 +266,7 @@ namespace Units
         public void SetTrackedUnit(Unit trackedUnit)
         {
             _trackedUnit = trackedUnit;
-            
+
             TrackingStart?.Invoke();
         }
 
@@ -284,23 +280,18 @@ namespace Units
             _unitTargetExposed = false;
 
             if (_trackedUnit != null)
-            {
                 _trackedUnit.HideTargetIndicator();
-            }
-            
+
             _lineToTrackedUnit.HideLine();
         }
 
-        private IEnumerator WatchForDestroy()
+        private IEnumerator CWatchForDestroy()
         {
             while (_attackedUnit.Alive)
             {
                 yield return new WaitForSeconds(_waitTime);
 
-                if (_attackedUnit == null)
-                {
-                    break;
-                }
+                if (_attackedUnit == null) break;
             }
 
             ResetUnitTarget();
@@ -308,7 +299,7 @@ namespace Units
             FinishAttacking();
         }
 
-        private IEnumerator FinishAttackingLater()
+        private IEnumerator CFinishAttackingLater()
         {
             yield return new WaitForSeconds(_waitTime);
 
@@ -317,61 +308,51 @@ namespace Units
 
         private void FinishAttacking()
         {
-            if (_attackedUnit != null)
-            {
-                return;
-            }
+            if (_attackedUnit != null) return;
 
             if (_attackingCoroutine != null)
             {
                 StopCoroutine(_attackingCoroutine);
                 _attackingCoroutine = null;
             }
-            
+
             _unitAnimator.FinishAttack();
 
             IsAttacking = false;
             _finalizingAttacking = false;
-            
+
             AttackEnd?.Invoke();
         }
 
         private void StopAttacking()
         {
             _lastAttackTime = Time.time;
-            
+
             _unitAnimator.StopAttack();
-            
+
             IsAttacking = false;
             _finalizingAttacking = false;
-            
+
             AttackEnd?.Invoke();
         }
 
         private void ResetUnitTarget()
         {
             CoverUnitTarget();
-            
+
             if (_trackedUnit != null)
-            {
                 _trackedUnit.HideTargetIndicator();
-            }
 
             if (_attackedUnit != null)
-            {
                 _attackedUnit.NotifyAboutLeavingAttackFrom(_self);
-            }
-            
+
             _trackedUnit = null;
             _attackedUnit = null;
         }
 
         private void TryExposeUnitTarget()
         {
-            if (_unitTargetExposed)
-            {
-                return;
-            }
+            if (_unitTargetExposed) return;
 
             _unitTargetExposed = true;
 
@@ -384,10 +365,7 @@ namespace Units
 
         private void TryCoverUnitTarget()
         {
-            if (!_unitTargetExposed || _hovered || _selected)
-            {
-                return;
-            }
+            if (!_unitTargetExposed || _hovered || _selected) return;
 
             CoverUnitTarget();
         }

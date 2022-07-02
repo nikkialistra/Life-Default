@@ -132,7 +132,7 @@ namespace ColonistManagement.Movement
                 {
                     PositionSet?.Invoke(hit.point, formationColor);
                     _isPositionRotating = true;
-                    _positionRotatingCoroutine = StartCoroutine(PositionRotating(hit.point));
+                    _positionRotatingCoroutine = StartCoroutine(CPositionRotating(hit.point));
                 }
             }
         }
@@ -242,7 +242,7 @@ namespace ColonistManagement.Movement
             MultiCommandReset?.Invoke();
         }
 
-        private IEnumerator PositionRotating(Vector3 position)
+        private IEnumerator CPositionRotating(Vector3 position)
         {
             while (GotSufficientMouseOffset(position) == false)
                 yield return null;

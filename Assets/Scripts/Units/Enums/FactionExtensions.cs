@@ -10,7 +10,7 @@ namespace Units.Enums
             {
                 Faction.Colonists => "colonists",
                 Faction.Enemies => "enemies",
-                _ => throw new ArgumentOutOfRangeException(nameof(faction), faction, null)
+                _ => throw new ArgumentOutOfRangeException()
             };
         }
     }

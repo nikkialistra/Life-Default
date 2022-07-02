@@ -14,24 +14,17 @@ namespace Units.BehaviourNodes.Attacking
         public override TaskStatus OnUpdate()
         {
             if (!UnitTarget.Value.Alive)
-            {
                 return TaskStatus.Failure;
-            }
-            
+
             if (OutOfReach(UnitTarget.Value.transform.position))
             {
                 if (UnitAttacker.IsAttacking)
-                {
                     UnitAttacker.FinalizeAttacking();
-                }
-                
+
                 return TaskStatus.Running;
             }
 
-            if (!UnitAttacker.IsAttacking)
-            {
-                UnitAttacker.Attack(UnitTarget.Value);
-            }
+            if (!UnitAttacker.IsAttacking) UnitAttacker.Attack(UnitTarget.Value);
 
             return TaskStatus.Running;
         }

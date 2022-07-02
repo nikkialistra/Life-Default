@@ -23,17 +23,14 @@ namespace Units.Calculations
         public int CalculateForMultiple(List<UnitStats> unitStatsList)
         {
             if (unitStatsList.Count <= 1)
-            {
-                throw new InvalidOperationException($"Power calculation for multiple units have invalid length {unitStatsList.Count}");
-            }
+                throw new InvalidOperationException(
+                    $"Power calculation for multiple units have invalid length {unitStatsList.Count}");
 
             float sumPower = 0;
 
             foreach (var unitStats in unitStatsList)
-            {
                 sumPower += CalculateForOne(unitStats, _groupDamageMultiplier);
-            }
-            
+
             return (int)Mathf.Round(sumPower);
         }
 
@@ -46,26 +43,23 @@ namespace Units.Calculations
 
         public static float CalculateAverageDps(UnitStats unitStats)
         {
-            if (unitStats.WeaponType.IsMelee())
-            {
-                return CalculateMeleeAverageDps(unitStats);
-            }
-            else
-            {
-                return CalculateRangedAverageDps(unitStats);
-            }
+            return unitStats.WeaponType.IsMelee()
+                ? CalculateMeleeAverageDps(unitStats)
+                : CalculateRangedAverageDps(unitStats);
         }
 
         private static float CalculateMeleeAverageDps(UnitStats unitStats)
         {
-            var averageDamage = unitStats.MeleeCurrentDamage * (1 + unitStats.MeleeCriticalChance.Value) * unitStats.MeleeAccuracy.Value;
+            var averageDamage = unitStats.MeleeCurrentDamage * (1 + unitStats.MeleeCriticalChance.Value) *
+                                unitStats.MeleeAccuracy.Value;
             var averageDps = averageDamage * unitStats.MeleeAttackSpeed.Value;
             return averageDps;
         }
 
         private static float CalculateRangedAverageDps(UnitStats unitStats)
         {
-            var averageDamage = unitStats.RangedCurrentDamage * (1 + unitStats.RangedCriticalChance.Value) * unitStats.RangedAccuracy.Value;
+            var averageDamage = unitStats.RangedCurrentDamage * (1 + unitStats.RangedCriticalChance.Value) *
+                                unitStats.RangedAccuracy.Value;
             var averageDps = averageDamage * unitStats.RangedAttackSpeed.Value;
             return averageDps;
         }

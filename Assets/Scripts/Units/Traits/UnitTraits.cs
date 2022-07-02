@@ -8,11 +8,11 @@ namespace Units.Traits
     [RequireComponent(typeof(UnitStats))]
     public class UnitTraits : MonoBehaviour
     {
+        public IReadOnlyList<Trait> Traits { get; private set; }
+
         [SerializeField] private List<Trait> _traits = new();
 
         private UnitStats _unitStats;
-
-        public IReadOnlyList<Trait> Traits;
 
         private void Awake()
         {
@@ -28,21 +28,15 @@ namespace Units.Traits
 
         public void AddTrait(Trait trait)
         {
-            if (_traits.Contains(trait))
-            {
-                throw new InvalidOperationException("Cannot add trait twice");
-            }
-            
+            if (_traits.Contains(trait)) throw new InvalidOperationException("Cannot add trait twice");
+
             _traits.Add(trait);
             ApplyTrait(trait);
         }
 
         public void RemoveTrait(Trait trait)
         {
-            if (!_traits.Contains(trait))
-            {
-                throw new InvalidOperationException("Cannot remove not contained trait");
-            }
+            if (!_traits.Contains(trait)) throw new InvalidOperationException("Cannot remove not contained trait");
 
             _traits.Remove(trait);
             DiscardTrait(trait);
@@ -51,25 +45,19 @@ namespace Units.Traits
         private void ApplyTraits()
         {
             foreach (var trait in _traits)
-            {
                 ApplyTrait(trait);
-            }
         }
 
         private void ApplyTrait(Trait trait)
         {
             foreach (var statModifier in trait.UnitStatModifiers)
-            {
                 _unitStats.AddStatModifier(statModifier);
-            }
         }
-        
+
         private void DiscardTrait(Trait trait)
         {
             foreach (var statModifier in trait.UnitStatModifiers)
-            {
                 _unitStats.RemoveStatModifier(statModifier);
-            }
         }
     }
 }

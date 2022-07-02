@@ -20,14 +20,10 @@ namespace Units.BehaviourNodes.Attacking
         public override TaskStatus OnUpdate()
         {
             if (!UnitTarget.Value.Alive)
-            {
                 return TaskStatus.Failure;
-            }
 
             if (!UnitMeshAgent.IsMoving && OutOfAttackDistance)
-            {
                 UnitMeshAgent.SetDestinationToUnitTarget(UnitTarget.Value, UnitAttacker.AttackDistance);
-            }
 
             return TaskStatus.Running;
         }

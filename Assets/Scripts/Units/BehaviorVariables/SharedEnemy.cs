@@ -9,7 +9,7 @@ namespace Units.BehaviorVariables
     {
         public static implicit operator SharedEnemy(Enemy value)
         {
-            return new SharedEnemy{ Value = value };
+            return new SharedEnemy { Value = value };
         }
     }
 }

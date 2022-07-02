@@ -83,10 +83,10 @@ namespace General.Selecting
             if (_areaUpdateCoroutine != null)
                 StopCoroutine(_areaUpdateCoroutine);
 
-            _areaUpdateCoroutine = StartCoroutine(UpdateArea());
+            _areaUpdateCoroutine = StartCoroutine(CUpdateArea());
         }
 
-        private IEnumerator UpdateArea()
+        private IEnumerator CUpdateArea()
         {
             _updatingArea = true;
 

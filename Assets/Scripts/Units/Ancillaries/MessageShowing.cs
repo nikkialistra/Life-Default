@@ -45,7 +45,7 @@ namespace Units.Ancillaries
             _message.text = message;
             _message.color = color;
 
-            StartCoroutine(Fade());
+            StartCoroutine(CFade());
         }
 
         private void ResetAnimation()
@@ -54,7 +54,7 @@ namespace Units.Ancillaries
             _message.alpha = 1f;
         }
 
-        private IEnumerator Fade()
+        private IEnumerator CFade()
         {
             yield return null;
 

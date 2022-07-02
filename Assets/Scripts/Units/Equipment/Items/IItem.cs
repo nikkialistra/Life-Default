@@ -6,7 +6,7 @@ namespace Units.Equipment.Items
     {
         ItemType ItemType { get; }
         object Content { get; }
-        
+
         public bool TryGetWeapon(out Weapon weapon)
         {
             if (ItemType == ItemType.Weapon)
@@ -18,7 +18,7 @@ namespace Units.Equipment.Items
             weapon = null;
             return false;
         }
-        
+
         public bool TryGetTool(out Tool tool)
         {
             if (ItemType == ItemType.Tool)
@@ -30,7 +30,7 @@ namespace Units.Equipment.Items
             tool = null;
             return false;
         }
-        
+
         public bool TryGetProperty(out Property property)
         {
             if (ItemType == ItemType.Property)
@@ -42,7 +42,7 @@ namespace Units.Equipment.Items
             property = null;
             return false;
         }
-        
+
         public bool TryGetConsumable(out Consumable consumable)
         {
             if (ItemType == ItemType.Consumable)

@@ -52,10 +52,10 @@ namespace Colonists
         private void ShowWantEscapeIndicator()
         {
             _wantEscapeIndicator.SetActive(true);
-            StartCoroutine(Escaping());
+            StartCoroutine(CEscaping());
         }
 
-        private IEnumerator Escaping()
+        private IEnumerator CEscaping()
         {
             while (IsOpponentsAround())
                 yield return new WaitForSeconds(_rescanTime);

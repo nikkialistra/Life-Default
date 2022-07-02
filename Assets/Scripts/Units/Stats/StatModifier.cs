@@ -6,6 +6,14 @@ namespace Units.Stats
     [Serializable]
     public class StatModifier<T>
     {
+        public T StatType => _statType;
+        public StatModifierType ModifierType => _modifierType;
+
+        public float Value => _value;
+
+        public int Order => (int)_modifierType;
+        public object Source => _source;
+
         [SerializeField] private T _statType;
         [SerializeField] private StatModifierType _modifierType;
 
@@ -13,7 +21,7 @@ namespace Units.Stats
         [SerializeField] private float _value;
 
         private object _source;
-        
+
         public StatModifier(T statType, StatModifierType modifierType, float value, object source = null)
         {
             _statType = statType;
@@ -22,13 +30,5 @@ namespace Units.Stats
             _value = value;
             _source = source;
         }
-
-        public T StatType => _statType;
-        public StatModifierType ModifierType => _modifierType;
-
-        public float Value => _value;
-
-        public int Order => (int)_modifierType;
-        public object Source => _source;
     }
 }

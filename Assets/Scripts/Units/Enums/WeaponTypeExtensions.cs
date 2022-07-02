@@ -12,11 +12,10 @@ namespace Units.Enums
                 WeaponType.MeleeTwoHand => true,
                 WeaponType.RangedBow => false,
                 WeaponType.RangedGun => false,
-                
-                _ => throw new ArgumentOutOfRangeException(nameof(weaponType), weaponType, null)
+                _ => throw new ArgumentOutOfRangeException()
             };
         }
-        
+
         public static bool IsRanged(this WeaponType weaponType)
         {
             return weaponType switch
@@ -25,8 +24,7 @@ namespace Units.Enums
                 WeaponType.MeleeTwoHand => false,
                 WeaponType.RangedBow => true,
                 WeaponType.RangedGun => true,
-                
-                _ => throw new ArgumentOutOfRangeException(nameof(weaponType), weaponType, null)
+                _ => throw new ArgumentOutOfRangeException()
             };
         }
     }

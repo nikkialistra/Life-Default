@@ -14,6 +14,11 @@ namespace Units
     [RequireComponent(typeof(Seeker))]
     public class UnitMeshAgent : MonoBehaviour
     {
+        public event Action DestinationReach;
+        public event Action RotationEnd;
+
+        public bool IsMoving => !_aiPath.isStopped;
+
         [SerializeField] private float _rotationSpeed = 120f;
         [SerializeField] private float _entityOffsetForPathRecalculation = 0.6f;
         [Space]
@@ -33,7 +38,7 @@ namespace Units
         private bool _movingToResource;
 
         private float _timeSetToDestination;
-        
+
         private Coroutine _movingCoroutine;
         private Coroutine _rotatingToCoroutine;
 
@@ -49,11 +54,6 @@ namespace Units
             _aiPath.isStopped = true;
         }
 
-        public event Action DestinationReach;
-        public event Action RotationEnd;
-
-        public bool IsMoving => !_aiPath.isStopped;
-        
         public void BindStats(Stat<UnitStat> movementSpeed)
         {
             _aiPath.maxSpeed = movementSpeed.Value;
@@ -68,10 +68,10 @@ namespace Units
         public void SetDestinationToPosition(Vector3 position)
         {
             _timeSetToDestination = Time.time;
-            
+
             _aiPath.isStopped = false;
             _aiPath.destination = (Vector3)AstarPath.active.GetNearest(position, NNConstraint.Default).node.position;
-            
+
             Move();
         }
 
@@ -108,17 +108,14 @@ namespace Units
         {
             _movingToResource = false;
             _movingToUnitTarget = false;
-            
+
             StopRotating();
         }
-        
+
         private void ChangeMovementSpeed(float value)
         {
-            if (value < 0)
-            {
-                throw new ArgumentException("Movement speed cannot be less than 0");
-            }
-            
+            if (value < 0) throw new ArgumentException("Movement speed cannot be less than 0");
+
             _aiPath.maxSpeed = value;
         }
 
@@ -183,28 +180,22 @@ namespace Units
 
         public void RotateTo(Vector3 position)
         {
-            if (_rotatingToCoroutine != null)
-            {
-                return;
-            }
+            if (_rotatingToCoroutine != null) return;
 
-            _rotatingToCoroutine = StartCoroutine(RotatingTo(position));
+            _rotatingToCoroutine = StartCoroutine(CRotatingTo(position));
         }
 
         public void RotateToAngle(float angle)
         {
-            if (_rotatingToCoroutine != null)
-            {
-                return;
-            }
+            if (_rotatingToCoroutine != null) return;
 
-            _rotatingToCoroutine = StartCoroutine(RotatingToAngle(angle));
+            _rotatingToCoroutine = StartCoroutine(CRotatingToAngle(angle));
         }
 
         public float GetAngleDifferenceWith(Vector3 targetPosition)
         {
             var targetRotation = Quaternion.LookRotation(targetPosition - transform.position).eulerAngles;
-            
+
             return GetAngleDifference(transform.rotation.eulerAngles.y, targetRotation.y);
         }
 
@@ -216,14 +207,12 @@ namespace Units
         private void Move()
         {
             if (_movingCoroutine != null)
-            {
                 StopCoroutine(_movingCoroutine);
-            }
 
-            _movingCoroutine = StartCoroutine(Moving());
+            _movingCoroutine = StartCoroutine(CMoving());
         }
 
-        private IEnumerator Moving()
+        private IEnumerator CMoving()
         {
             while (UpdateMoving())
             {
@@ -237,14 +226,10 @@ namespace Units
         private bool UpdateMoving()
         {
             if (_movingToUnitTarget)
-            {
                 return IsMovingToUnitTarget();
-            }
 
             if (_movingToResource)
-            {
                 return IsMovingToResource();
-            }
 
             return IsMovingToPosition();
         }
@@ -256,7 +241,7 @@ namespace Units
                 _movingToUnitTarget = false;
                 return false;
             }
-            
+
             if (Vector3.Distance(transform.position, _unitTarget.transform.position) <= _interactionDistance)
             {
                 _unitTarget = null;
@@ -264,7 +249,8 @@ namespace Units
                 return false;
             }
 
-            if (Vector3.Distance(_unitTarget.transform.position, _lastUnitTargetPosition) > _entityOffsetForPathRecalculation)
+            if (Vector3.Distance(_unitTarget.transform.position, _lastUnitTargetPosition) >
+                _entityOffsetForPathRecalculation)
             {
                 _lastUnitTargetPosition = _unitTarget.transform.position;
                 _aiPath.destination = _lastUnitTargetPosition + CalculateForwardCorrection();
@@ -281,9 +267,7 @@ namespace Units
         private bool IsMovingToResource()
         {
             if (Vector3.Distance(transform.position, _aiPath.destination) <= _interactionDistance)
-            {
                 return false;
-            }
 
             return true;
         }
@@ -291,14 +275,12 @@ namespace Units
         private bool IsMovingToPosition()
         {
             if (Time.time - _timeSetToDestination < _minMoveTime)
-            {
                 return true;
-            }
-            
+
             return _aiPath.velocity.magnitude > _velocityToStop && !_aiPath.reachedDestination;
         }
 
-        private IEnumerator RotatingTo(Vector3 targetPosition)
+        private IEnumerator CRotatingTo(Vector3 targetPosition)
         {
             var targetRotation = Quaternion.LookRotation(targetPosition - transform.position).eulerAngles;
 
@@ -308,7 +290,7 @@ namespace Units
             RotationEnd?.Invoke();
         }
 
-        private IEnumerator RotatingToAngle(float angle)
+        private IEnumerator CRotatingToAngle(float angle)
         {
             var targetRotation = new Vector3(0, angle, 0);
 
@@ -329,14 +311,10 @@ namespace Units
         {
             var difference = firstAngle - secondAngle;
             if (difference > 180)
-            {
                 difference -= 360;
-            }
 
             if (difference < -180)
-            {
                 difference += 360;
-            }
 
             return Mathf.Abs(difference);
         }

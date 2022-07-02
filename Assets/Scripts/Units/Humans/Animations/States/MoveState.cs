@@ -9,23 +9,6 @@ namespace Units.Humans.Animations.States
     [RequireComponent(typeof(UnitEquipment))]
     public class MoveState : HumanState
     {
-        [Required]
-        [SerializeField] private LinearMixerTransition _clips;
-
-        private UnitEquipment _unitEquipment;
-
-        private const int Move = 0;
-        private const int MoveWithWeapon = 1;
-
-        private Coroutine _choosingClipCoroutine;
-
-        public override AnimationType AnimationType => AnimationType.Move;
-
-        protected override void OnAwake()
-        {
-            _unitEquipment = GetComponent<UnitEquipment>();
-        }
-
         public override bool CanEnterState
         {
             get
@@ -38,11 +21,28 @@ namespace Units.Humans.Animations.States
             }
         }
 
+        public override AnimationType AnimationType => AnimationType.Move;
+
+        [Required]
+        [SerializeField] private LinearMixerTransition _clips;
+
+        private UnitEquipment _unitEquipment;
+
+        private const int Move = 0;
+        private const int MoveWithWeapon = 1;
+
+        private Coroutine _choosingClipCoroutine;
+
+        protected override void OnAwake()
+        {
+            _unitEquipment = GetComponent<UnitEquipment>();
+        }
+
         public override void OnEnterState()
         {
             _animancer.Layers[AnimationLayers.Main].Play(_clips);
 
-            _choosingClipCoroutine = StartCoroutine(ChoosingClip());
+            _choosingClipCoroutine = StartCoroutine(CChoosingClip());
         }
 
         public override void OnExitState()
@@ -54,19 +54,12 @@ namespace Units.Humans.Animations.States
             }
         }
 
-        private IEnumerator ChoosingClip()
+        private IEnumerator CChoosingClip()
         {
             while (true)
             {
-                if (_unitEquipment.HoldingSomething)
-                {
-                    _clips.State.Parameter = MoveWithWeapon;
-                }
-                else
-                {
-                    _clips.State.Parameter = Move;
-                }
-                
+                _clips.State.Parameter = _unitEquipment.HoldingSomething ? MoveWithWeapon : Move;
+
                 yield return null;
             }
         }

@@ -6,7 +6,7 @@ namespace Units.Stats
     public class UnitEquipmentStats : MonoBehaviour
     {
         public WeaponType WeaponType { get; set; }
-        
+
         public float MeleeDamage { get; set; } = 20;
         public float RangedDamage { get; set; } = 10;
 

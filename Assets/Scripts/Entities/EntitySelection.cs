@@ -44,7 +44,7 @@ namespace Entities
 
             _hovered = true;
 
-            _hoveringCoroutine ??= StartCoroutine(Hovering());
+            _hoveringCoroutine ??= StartCoroutine(CHovering());
         }
 
         public void Flash()
@@ -56,7 +56,7 @@ namespace Entities
             _hovered = false;
             _selected = true;
 
-            _hideSelectionCoroutine = StartCoroutine(HideSelectionAfter());
+            _hideSelectionCoroutine = StartCoroutine(CHideSelectionAfter());
         }
 
         public void Select()
@@ -90,7 +90,7 @@ namespace Entities
             }
         }
 
-        private IEnumerator Hovering()
+        private IEnumerator CHovering()
         {
             SetColor(_hoverColor);
 
@@ -110,7 +110,7 @@ namespace Entities
             _hoveringCoroutine = null;
         }
 
-        private IEnumerator HideSelectionAfter()
+        private IEnumerator CHideSelectionAfter()
         {
             yield return new WaitForSecondsRealtime(_timeToHideSelection);
 

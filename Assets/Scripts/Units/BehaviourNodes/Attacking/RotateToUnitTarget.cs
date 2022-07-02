@@ -6,7 +6,7 @@ namespace Units.BehaviourNodes.Attacking
     public class RotateToUnitTarget : Action
     {
         public float AngleDifferenceToRotate = 3f;
-        
+
         public SharedUnit UnitTarget;
 
         public UnitMeshAgent UnitMeshAgent;
@@ -15,9 +15,7 @@ namespace Units.BehaviourNodes.Attacking
         public override TaskStatus OnUpdate()
         {
             if (!UnitTarget.Value.Alive)
-            {
                 return TaskStatus.Failure;
-            }
 
             if (UnitAttacker.OnAttackDistance(UnitTarget.Value.transform.position) &&
                 UnitMeshAgent.GetAngleDifferenceWith(UnitTarget.Value.transform.position) > AngleDifferenceToRotate)

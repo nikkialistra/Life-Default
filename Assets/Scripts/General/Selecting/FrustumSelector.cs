@@ -59,14 +59,14 @@ namespace General.Selecting
         {
             _selectionHashSet.Clear();
             GenerateFrustumFromRect(rect);
-            StartCoroutine(FlashFrustum());
+            StartCoroutine(CFlashFrustum());
         }
 
         private void ActivateFrustumForAreaSelection()
         {
             _selectionHashSet.Clear();
             GenerateFrustumForAreaSelection();
-            StartCoroutine(FlashFrustum());
+            StartCoroutine(CFlashFrustum());
         }
 
         private void GenerateFrustumFromRect(Rect rect)
@@ -84,7 +84,7 @@ namespace General.Selecting
             frustumConfig.ExtentsMax = _extentsMaxForAreaSelection;
         }
 
-        private IEnumerator FlashFrustum()
+        private IEnumerator CFlashFrustum()
         {
             _frustumMeshCollider.DoGenerate = true;
             m_config.Active = true;

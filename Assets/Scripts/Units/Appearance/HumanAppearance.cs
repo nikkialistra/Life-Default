@@ -21,28 +21,29 @@ namespace Units.Appearance
         [SerializeField] private AgenderItems _agenderItems;
 
         private readonly int _color = Shader.PropertyToID("_BaseColor");
-        
-        public void RandomizeAppearanceWith(Gender gender, HumanType humanType, HumanAppearanceRegistry humanAppearanceRegistry)
+
+        public void RandomizeAppearanceWith(Gender gender, HumanType humanType,
+            HumanAppearanceRegistry humanAppearanceRegistry)
         {
             GenderItems genderItems;
             if (gender == Gender.Male)
             {
                 genderItems = _maleItems;
-                
+
                 _male.SetActive(true);
                 _female.SetActive(false);
             }
             else
             {
                 genderItems = _femaleItems;
-                
+
                 _male.SetActive(false);
                 _female.SetActive(true);
             }
 
             ResetComplementaryItems();
-            
-            RandomizeHeadItems(gender, genderItems,  humanAppearanceRegistry.HeadVariantsFor(gender));
+
+            RandomizeHeadItems(gender, genderItems, humanAppearanceRegistry.HeadVariantsFor(gender));
             RandomizeGarmentSet(genderItems, humanAppearanceRegistry.GarmentSetFor(gender, humanType));
             RandomizeColors(gender, genderItems, humanAppearanceRegistry.ColorVariants);
         }
@@ -50,7 +51,7 @@ namespace Units.Appearance
         private void ResetComplementaryItems()
         {
             _maleItems.FacialHair.sharedMesh = null;
-            
+
             _agenderItems.Hair.sharedMesh = null;
             _agenderItems.Ears.sharedMesh = null;
             _agenderItems.HeadCoveringHair.sharedMesh = null;
@@ -88,33 +89,31 @@ namespace Units.Appearance
             garment.ResetTakeHistory();
 
             if (garment.ShouldHeadCoveringReplaceHair())
-            {
                 SetItem(_agenderItems.HeadCoveringHair, garment.GetElement(GarmentElements.HeadCoveringHair));
-            }
             else
-            {
-                SetItemWithReplacement(_agenderItems.HeadCoveringNoHair, _agenderItems.Hair, garment.GetElement(GarmentElements.HeadCoveringNoHair));
-            }
+                SetItemWithReplacement(_agenderItems.HeadCoveringNoHair, _agenderItems.Hair,
+                    garment.GetElement(GarmentElements.HeadCoveringNoHair));
 
-            SetItemWithReplacement(_agenderItems.HeadCoveringNoFacialHair, genderItems.FacialHair, garment.GetElement(GarmentElements.HeadCoveringNoFacialHair));
+            SetItemWithReplacement(_agenderItems.HeadCoveringNoFacialHair, genderItems.FacialHair,
+                garment.GetElement(GarmentElements.HeadCoveringNoFacialHair));
 
             SetItem(genderItems.Torso, garment.GetElement(GarmentElements.Torso));
             SetItem(_agenderItems.BackAttachment, garment.GetElement(GarmentElements.BackAttachment));
 
             SetItemPair(_agenderItems.ShoulderAttachmentRight, _agenderItems.ShoulderAttachmentLeft,
                 garment.GetElementsAtSameIndex(GarmentElementPairs.ShoulderAttachments));
-            
+
             SetItemPair(genderItems.ArmUpperRight, genderItems.ArmUpperLeft,
                 garment.GetElementsAtSameIndex(GarmentElementPairs.ArmsUpper));
             SetItemPair(genderItems.ArmLowerRight, genderItems.ArmLowerLeft,
                 garment.GetElementsAtSameIndex(GarmentElementPairs.ArmsLower));
-            
+
             SetItemPair(genderItems.HandRight, genderItems.HandLeft,
                 garment.GetElementsAtSameIndex(GarmentElementPairs.Hands));
 
             SetItem(genderItems.Hips, garment.GetElement(GarmentElements.Hips));
             SetItem(_agenderItems.HipsAttachment, garment.GetElement(GarmentElements.HipsAttachment));
-            
+
             SetItemPair(genderItems.LegRight, genderItems.LegLeft,
                 garment.GetElementsAtSameIndex(GarmentElementPairs.Legs));
         }
@@ -126,18 +125,16 @@ namespace Units.Appearance
 
             SetSkinMaterial(genderItems, skinMaterial);
             SetColor(_agenderItems.Hair, color);
-            
+
             if (gender == Gender.Male)
-            {
                 SetColor(genderItems.FacialHair, color);
-            }
         }
 
         private void SetSkinMaterial(GenderItems genderItems, Material skinMaterial)
         {
             SetMaterial(genderItems.Head, skinMaterial);
             SetMaterial(_agenderItems.Ears, skinMaterial);
-            
+
             SetMaterial(genderItems.Torso, skinMaterial);
             SetMaterial(genderItems.ArmUpperRight, skinMaterial);
             SetMaterial(genderItems.ArmUpperLeft, skinMaterial);
@@ -146,9 +143,9 @@ namespace Units.Appearance
 
             SetMaterial(genderItems.HandRight, skinMaterial);
             SetMaterial(genderItems.HandLeft, skinMaterial);
-            
+
             SetMaterial(genderItems.Hips, skinMaterial);
-            
+
             SetMaterial(genderItems.LegRight, skinMaterial);
             SetMaterial(genderItems.LegLeft, skinMaterial);
         }
@@ -158,20 +155,17 @@ namespace Units.Appearance
             var mesh = meshVariants.GetRandom();
 
             if (mesh != null)
-            {
                 renderer.sharedMesh = mesh;
-            }
         }
 
         private void SetItem(SkinnedMeshRenderer renderer, Mesh mesh)
         {
             if (mesh != null)
-            {
                 renderer.sharedMesh = mesh;
-            }
         }
 
-        private void SetItemWithReplacement(SkinnedMeshRenderer renderer, SkinnedMeshRenderer rendererToReplace, Mesh mesh)
+        private void SetItemWithReplacement(SkinnedMeshRenderer renderer, SkinnedMeshRenderer rendererToReplace,
+            Mesh mesh)
         {
             if (mesh != null)
             {
@@ -180,17 +174,14 @@ namespace Units.Appearance
             }
         }
 
-        private void SetItemPair(SkinnedMeshRenderer firstRenderer, SkinnedMeshRenderer secondRenderer, MeshPair meshPair)
+        private void SetItemPair(SkinnedMeshRenderer firstRenderer, SkinnedMeshRenderer secondRenderer,
+            MeshPair meshPair)
         {
             if (meshPair.FirstMesh != null)
-            {
                 firstRenderer.sharedMesh = meshPair.FirstMesh;
-            }
-            
+
             if (meshPair.SecondMesh != null)
-            {
                 secondRenderer.sharedMesh = meshPair.SecondMesh;
-            }
         }
 
         private void SetColor(SkinnedMeshRenderer renderer, Color color)
@@ -221,7 +212,7 @@ namespace Units.Appearance
             public SkinnedMeshRenderer LegRight;
             public SkinnedMeshRenderer LegLeft;
         }
-        
+
         [Serializable]
         private class AgenderItems
         {

@@ -27,6 +27,8 @@ namespace Units.Humans.Animations
         [Required]
         [SerializeField] private List<ClipTransition> _hitClips;
 
+        private StateMachine<HumanState> StateMachine { get; } = new();
+
         private AnimancerComponent _animancer;
 
         private IdleState _idleState;
@@ -64,8 +66,6 @@ namespace Units.Humans.Animations
             _animancer.Layers[AnimationLayers.Effects].IsAdditive = true;
         }
 
-        private StateMachine<HumanState> StateMachine { get; } = new();
-
         public void Move()
         {
             TrySetState(_moveState);
@@ -90,13 +90,9 @@ namespace Units.Humans.Animations
         public void StopActions()
         {
             if (_unitMeshAgent.IsMoving)
-            {
                 ForceSetState(_moveState);
-            }
             else
-            {
                 ForceSetState(_idleState);
-            }
         }
 
         public bool TryStopIfNotAttacking()
@@ -114,7 +110,7 @@ namespace Units.Humans.Animations
         {
             _attackState.SetMeleeAttackSpeed(value);
         }
-        
+
         public void SetRangedAttackSpeed(float value)
         {
             _attackState.SetRangedAttackSpeed(value);
@@ -136,18 +132,13 @@ namespace Units.Humans.Animations
         public void LowerBodyOverwriteToIdle()
         {
             if (_animancer.Layers[AnimationLayers.LowerBodyOverwrite].IsPlayingClip(_lowerBodyOverwriteMoveClip.Clip))
-            {
                 _animancer.Layers[AnimationLayers.LowerBodyOverwrite]
                     .StartFade(0f, _lowerBodyOverwriteMoveClip.FadeDuration);
-            }
         }
 
         public void Hit()
         {
-            if (_animancer.Layers[AnimationLayers.Effects].IsAnyStatePlaying())
-            {
-                return;
-            }
+            if (_animancer.Layers[AnimationLayers.Effects].IsAnyStatePlaying()) return;
 
             _animancer.Layers[AnimationLayers.Effects].Play(_hitClips[Random.Range(0, _hitClips.Count)]);
             _animancer.Layers[AnimationLayers.Effects].StartFade(_effectsWeight);
@@ -156,17 +147,13 @@ namespace Units.Humans.Animations
         public void TrySetState(HumanState state)
         {
             if (StateMachine.CurrentState != state)
-            {
                 StateMachine.TrySetState(state);
-            }
         }
 
         private void ForceSetState(HumanState state)
         {
             if (StateMachine.CurrentState != state)
-            {
                 StateMachine.ForceSetState(state);
-            }
         }
     }
 }

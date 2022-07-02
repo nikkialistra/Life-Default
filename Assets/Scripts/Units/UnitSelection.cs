@@ -12,6 +12,11 @@ namespace Units
 {
     public class UnitSelection : MonoBehaviour, ISelectable
     {
+        public event Action Hovered;
+        public event Action Unhovered;
+        public event Action Selected;
+        public event Action Deselected;
+
         [Required]
         [SerializeField] private LandIndicator _hoverIndicator;
         [Required]
@@ -22,9 +27,9 @@ namespace Units
         private bool _hovered;
         private bool _selected;
         private bool _activated;
-        
+
         private Coroutine _hoveringCoroutine;
-        
+
         private SelectingInput _selectingInput;
 
         [Inject]
@@ -33,21 +38,13 @@ namespace Units
             _timeToHideHover = selectionSettings.TimeToHideHover;
         }
 
-        public event Action Hovered;
-        public event Action Unhovered;
-        public event Action Selected;
-        public event Action Deselected;
-
-        public void Flash()
-        {
-            
-        }
+        public void Flash() { }
 
         public void Select()
         {
             _selected = true;
             HideHovering();
-            
+
             Selected?.Invoke();
         }
 
@@ -74,13 +71,11 @@ namespace Units
             _hovered = true;
 
             if (_hoveringCoroutine == null)
-            {
-                _hoveringCoroutine = StartCoroutine(Hovering());
-            }
+                _hoveringCoroutine = StartCoroutine(CHovering());
 
             Hovered?.Invoke();
         }
-        
+
         public void Activate()
         {
             _activated = true;
@@ -92,10 +87,10 @@ namespace Units
             Unhovered?.Invoke();
         }
 
-        private IEnumerator Hovering()
+        private IEnumerator CHovering()
         {
             ShowHovering();
-            
+
             while (true)
             {
                 _hovered = false;
@@ -122,7 +117,7 @@ namespace Units
         {
             _hoverIndicator.Deactivate();
             _healthBars.Hovered = false;
-            
+
             Unhovered?.Invoke();
         }
     }

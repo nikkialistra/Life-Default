@@ -52,10 +52,10 @@ namespace General.Selecting
 
         private void UpdateSize()
         {
-            StartCoroutine(UpdateSizeAtNextFrame());
+            StartCoroutine(CUpdateSizeAtNextFrame());
         }
 
-        private IEnumerator UpdateSizeAtNextFrame()
+        private IEnumerator CUpdateSizeAtNextFrame()
         {
             yield return null;
 

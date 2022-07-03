@@ -141,6 +141,7 @@ namespace General.WeatherRegulation
         }
 
         [Serializable]
-        public class WeatherNecessaryConditionsDictionary : SerializableDictionary<Weather, WeatherNecessaryConditions> { }
+        public class WeatherNecessaryConditionsDictionary :
+            SerializableDictionary<Weather, WeatherNecessaryConditions> { }
     }
 }

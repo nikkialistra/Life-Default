@@ -55,19 +55,13 @@ namespace UI.Game.GameLook.Components.Info.ColonistTabs
             Shown = false;
         }
 
-        private void SubscribeToChanges()
-        {
-
-        }
+        private void SubscribeToChanges() { }
 
         private void UnsubscribeFromChanges()
         {
             _colonist = null;
         }
 
-        private void BindElements()
-        {
-
-        }
+        private void BindElements() { }
     }
 }

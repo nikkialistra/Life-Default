@@ -27,25 +27,25 @@ namespace Colonists
 
             _colonist = GetComponent<Colonist>();
         }
-        
+
         private void OnEnable()
         {
             _colonist.Dying += HideAllIndicators;
-            
+
             _unitAttacker.WantEscape += ShowWantEscapeIndicator;
         }
 
         private void OnDisable()
         {
             _colonist.Dying += HideAllIndicators;
-            
+
             _unitAttacker.WantEscape -= ShowWantEscapeIndicator;
         }
 
         private void HideAllIndicators()
         {
             StopAllCoroutines();
-            
+
             _wantEscapeIndicator.SetActive(false);
         }
 
@@ -66,7 +66,7 @@ namespace Colonists
         private bool IsOpponentsAround()
         {
             var colliders = Physics.OverlapSphere(transform.position, _escapeRelieveDistanceFromOpponents, _targetMask);
-            
+
             foreach (var collider in colliders)
                 if (collider.TryGetComponent(out Unit unit) && unit.Faction == Faction.Enemies)
                     return true;

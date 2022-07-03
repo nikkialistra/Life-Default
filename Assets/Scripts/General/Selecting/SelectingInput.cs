@@ -75,7 +75,9 @@ namespace General.Selecting
 
         private void StartArea(InputAction.CallbackContext context)
         {
-            if (Keyboard.current.altKey.isPressed || Keyboard.current.ctrlKey.isPressed || _gameViews.MouseOverUi ||
+            if (Keyboard.current.altKey.isPressed ||
+                Keyboard.current.ctrlKey.isPressed ||
+                _gameViews.MouseOverUi ||
                 Deactivated) return;
 
             _startPoint = _mousePositionAction.ReadValue<Vector2>();

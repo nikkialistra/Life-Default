@@ -16,7 +16,7 @@ namespace Colonists
         private ColonistMeshAgent _meshAgent;
 
         private SharedBool _newCommand;
-        
+
         private SharedPositions _positions;
         private SharedFloat _rotation;
         private SharedColonist _colonist;
@@ -69,7 +69,7 @@ namespace Colonists
             {
                 return;
             }
-            
+
             ResetParameters();
             _unitTarget.Value = unitTarget;
 
@@ -90,7 +90,7 @@ namespace Colonists
         {
             _positions.Value.Clear();
             _rotation.Value = float.NegativeInfinity;
-            
+
             _colonist.Value = null;
             _unitTarget.Value = null;
             _resource.Value = null;

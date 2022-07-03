@@ -67,8 +67,10 @@ namespace General.TileManagement.Tiles
 
         private bool PositionIsOutOfBounds(Vector2Int position)
         {
-            return position.x < -_xIndexOffset || position.x > _xIndexOffset - 1 ||
-                   position.y < -_yIndexOffset || position.y > _yIndexOffset - 1;
+            return position.x < -_xIndexOffset ||
+                   position.x > _xIndexOffset - 1 ||
+                   position.y < -_yIndexOffset ||
+                   position.y > _yIndexOffset - 1;
         }
 
         private void Initialize()

@@ -27,19 +27,10 @@ namespace Units.Humans.Animations.States
             OnAwake();
         }
 
-        protected virtual void OnAwake()
-        {
+        protected virtual void OnAwake() { }
 
-        }
+        public virtual void OnEnterState() { }
 
-        public virtual void OnEnterState()
-        {
-
-        }
-
-        public virtual void OnExitState()
-        {
-
-        }
+        public virtual void OnExitState() { }
     }
 }

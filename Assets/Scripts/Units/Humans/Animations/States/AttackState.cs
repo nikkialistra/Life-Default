@@ -12,6 +12,16 @@ namespace Units.Humans.Animations.States
     [RequireComponent(typeof(UnitEquipment))]
     public class AttackState : HumanState
     {
+        private const string HitEvent = "Hit";
+        private const string HitEndEvent = "Hit End";
+
+        private const int AttackIdle = 0;
+        private const int Attack = 1;
+
+        private const int AttackDownward = 0;
+        private const int AttackHorizontal = 1;
+        private const int AttackSlash = 2;
+
         [Title("Melee")]
         [Required]
         [SerializeField] private ClipTransition _meleeIdleClip;
@@ -30,16 +40,6 @@ namespace Units.Humans.Animations.States
 
         private float _meleeTimeBetweenStrikes;
         private float _rangedTimeBetweenStrikes;
-
-        private const string HitEvent = "Hit";
-        private const string HitEndEvent = "Hit End";
-
-        private const int AttackIdle = 0;
-        private const int Attack = 1;
-
-        private const int AttackDownward = 0;
-        private const int AttackHorizontal = 1;
-        private const int AttackSlash = 2;
 
         private LowerBodyMoving _lowerBodyMoving;
 

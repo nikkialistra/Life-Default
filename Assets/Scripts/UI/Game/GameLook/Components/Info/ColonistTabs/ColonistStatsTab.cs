@@ -32,7 +32,7 @@ namespace UI.Game.GameLook.Components.Info.ColonistTabs
         public void FillIn(Colonist colonist)
         {
             UnsubscribeFromChanges();
-            
+
             _colonist = colonist;
 
             SubscribeToChanges();
@@ -51,24 +51,18 @@ namespace UI.Game.GameLook.Components.Info.ColonistTabs
             if (!Shown) return;
 
             UnsubscribeFromChanges();
-            
+
             _parent.TabContent.Remove(Tree);
             Shown = false;
         }
 
-        private void SubscribeToChanges()
-        {
-            
-        }
+        private void SubscribeToChanges() { }
 
         private void UnsubscribeFromChanges()
         {
             _colonist = null;
         }
 
-        private void BindElements()
-        {
-            
-        }
+        private void BindElements() { }
     }
 }

@@ -104,10 +104,7 @@ namespace UI.Menus.Primary
             SceneManager.LoadScene("Test Scene", LoadSceneMode.Single);
         }
 
-        private static void LoadGame()
-        {
-
-        }
+        private static void LoadGame() { }
 
         private void Settings()
         {

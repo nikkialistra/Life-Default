@@ -246,7 +246,6 @@ namespace Units
         public bool OnAttackRange(Vector3 position)
         {
             return Vector3.Distance(transform.position, position) < AttackRange;
-            ;
         }
 
         public bool OnAttackAngle(Vector3 position)

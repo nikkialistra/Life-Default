@@ -23,7 +23,7 @@ namespace General.Selecting.Selected
 
             Enemies = enemies.ToList();
             UpdateSelectionStatuses();
-            
+
             _infoPanelView.SetEnemies(Enemies);
 
             SubscribeToEnemies();
@@ -35,7 +35,7 @@ namespace General.Selecting.Selected
 
             Enemies = Enemies.Union(enemies).ToList();
             UpdateSelectionStatuses();
-            
+
             _infoPanelView.SetEnemies(Enemies);
 
             SubscribeToEnemies();

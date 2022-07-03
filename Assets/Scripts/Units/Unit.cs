@@ -40,7 +40,7 @@ namespace Units
         public UnitVitality UnitVitality => _unitVitality;
 
         [SerializeField] private Faction _faction;
-        
+
         [ShowIf(nameof(_faction), Faction.Colonists)]
         [ValidateInput(nameof(ColonistUnitShouldHaveColonist), "Unit with fraction 'Colonists' should have colonist")]
         [SerializeField] private Colonist _colonist;
@@ -48,7 +48,7 @@ namespace Units
         [ShowIf(nameof(_faction), Faction.Enemies)]
         [ValidateInput(nameof(EnemyUnitShouldHaveEnemy), "Unit with fraction 'Enemies' should have enemy")]
         [SerializeField] private Enemy _enemy;
-        
+
         [Required]
         [SerializeField] private HealthBars _healthBars;
         [Required]
@@ -58,7 +58,7 @@ namespace Units
         [SerializeField] private FieldOfView _unitFieldOfView;
         [Required]
         [SerializeField] private FieldOfHearing _unitFieldOfHearing;
-        
+
         [Title("Hints")]
         [Required]
         [SerializeField] private LandIndicator _targetIndicator;
@@ -73,7 +73,7 @@ namespace Units
         private UnitAttacker _unitAttacker;
 
         private bool _died;
-        
+
         private UnitFightCalculation _unitFightCalculation;
 
         private void Awake()
@@ -108,9 +108,9 @@ namespace Units
         public void Initialize()
         {
             BindStatsToComponents();
-            
+
             _unitVitality.SetInitialValues();
-            
+
             _healthBars.SetHealth(_unitVitality.Health, _unitVitality.MaxHealth);
             _healthBars.SetRecoverySpeed(_unitVitality.RecoverySpeed, _unitVitality.MaxRecoverySpeed);
         }
@@ -143,11 +143,12 @@ namespace Units
             _messageShowing.Show(Mathf.Round(hitDamage).ToString(), Color.red);
             _unitVitality.TakeDamage(hitDamage);
         }
-        
+
         public FightSpecs GetSpecs()
         {
             var health = _unitVitality.Health;
-            var averageDamagePerSecond = PowerCalculation.CalculateAverageDps(_unitStats) * _unitStats.MeleeAccuracy.Value;
+            var averageDamagePerSecond =
+                PowerCalculation.CalculateAverageDps(_unitStats) * _unitStats.MeleeAccuracy.Value;
 
             return new FightSpecs(health, averageDamagePerSecond);
         }
@@ -161,12 +162,12 @@ namespace Units
         {
             _healthBars.Selected = false;
         }
-        
+
         public bool HasWeaponOf(WeaponSlotType weaponSlotType)
         {
             return _unitEquipment.HasWeaponOf(weaponSlotType);
         }
-        
+
         public void ChooseWeapon(WeaponSlotType weaponSlotType)
         {
             _unitEquipment.ChooseWeapon(weaponSlotType);
@@ -188,7 +189,7 @@ namespace Units
         {
             _targetIndicator.Activate();
         }
-        
+
         public void HideTargetIndicator()
         {
             _targetIndicator.Deactivate();
@@ -210,7 +211,7 @@ namespace Units
 
             _unitVitality.TakeDamage(10000f);
         }
-        
+
         private void BindStatsToComponents()
         {
             _unitVitality.BindStats(_unitStats.MaxHealth, _unitStats.MaxRecoverySpeed);

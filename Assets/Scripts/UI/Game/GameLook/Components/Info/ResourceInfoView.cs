@@ -14,13 +14,13 @@ namespace UI.Game.GameLook.Components.Info
 
         private InfoPanelView _parent;
         private TemplateContainer _tree;
-        
+
         private Label _name;
 
         private readonly List<VisualElement> _rows = new(2);
         private readonly List<Label> _rowNames = new(2);
         private readonly List<Label> _rowValues = new(2);
-        
+
         private Resource _resource;
 
         private bool _shown;
@@ -33,7 +33,7 @@ namespace UI.Game.GameLook.Components.Info
             _tree.pickingMode = PickingMode.Ignore;
 
             _name = _tree.Q<Label>("name");
-            
+
             BindRows();
         }
 
@@ -53,7 +53,7 @@ namespace UI.Game.GameLook.Components.Info
         {
             UnsubscribeFromResource();
         }
-        
+
         public void ShowSelf()
         {
             if (_shown) return;
@@ -67,17 +67,17 @@ namespace UI.Game.GameLook.Components.Info
             if (!_shown) return;
 
             UnsubscribeFromResource();
-            
+
             _parent.InfoPanel.Remove(_tree);
             _shown = false;
         }
-        
+
         public void FillIn(Resource resource)
         {
             UnsubscribeFromResource();
-            
+
             _resource = resource;
-            
+
             _name.text = $"{resource.Name}";
 
             ShowRows();

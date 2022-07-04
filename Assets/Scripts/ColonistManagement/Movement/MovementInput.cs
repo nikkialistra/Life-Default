@@ -34,7 +34,7 @@ namespace ColonistManagement.Movement
 
         public bool CanTarget => _selectedColonists.Colonists.Any() && !_gameViews.MouseOverUi;
 
-        public bool MultiCommand => _multiCommand;
+        public bool MultiCommand { get; private set; }
 
         [SerializeField] private float _mouseOffsetForRotationUpdate = 0.5f;
 
@@ -52,7 +52,6 @@ namespace ColonistManagement.Movement
         private Vector2 _rotationDirection;
         private Vector2 _perpendicularDirection;
 
-        private bool _multiCommand;
         private bool _firstCommand;
 
         private Coroutine _positionRotatingCoroutine;
@@ -153,7 +152,7 @@ namespace ColonistManagement.Movement
                 }
 
                 _isPositionRotating = false;
-                var additional = _multiCommand && !_firstCommand;
+                var additional = MultiCommand && !_firstCommand;
                 DestinationSet?.Invoke(additional, formationColor);
 
                 _firstCommand = false;
@@ -232,13 +231,13 @@ namespace ColonistManagement.Movement
 
         private void StartMultiCommand(InputAction.CallbackContext context)
         {
-            _multiCommand = true;
+            MultiCommand = true;
             _firstCommand = true;
         }
 
         private void StopMultiCommand(InputAction.CallbackContext context)
         {
-            _multiCommand = false;
+            MultiCommand = false;
             MultiCommandReset?.Invoke();
         }
 

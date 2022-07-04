@@ -103,9 +103,7 @@ namespace Units.Calculations
             _recoverySpeed = Mathf.Min(_recoverySpeed * (1 + _recoverySpeedRestoreSpeed), _maxRecoverySpeed);
 
             if (_recoverySpeed != oldRecoverySpeed)
-            {
                 RecoverySpeedChange?.Invoke(_recoverySpeed);
-            }
         }
 
         private void ReduceHealth(float value)

@@ -127,7 +127,7 @@ namespace UI.Game.GameLook.Components.Info.ColonistTabs
             {
                 var skillUxmlName = ((SkillType)i).GetUxmlName();
 
-                _skills[i] = new SkillElement()
+                _skills[i] = new SkillElement
                 {
                     Root = Tree.Q<VisualElement>($"{skillUxmlName}"),
                     FavoriteIcon = Tree.Q<VisualElement>($"{skillUxmlName}__favorite-icon"),

@@ -83,7 +83,7 @@ namespace UI.Game.GameLook.Components.Info
             ShowRows();
 
             FillRow(0, $"{_resource.ResourceType}:", $"~{_resource.Quantity}");
-            FillRow(1, $"Durability:", $"{_resource.Durability}");
+            FillRow(1, "Durability:", $"{_resource.Durability}");
 
             SubscribeToResource();
         }

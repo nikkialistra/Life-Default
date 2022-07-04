@@ -1,9 +1,10 @@
-﻿using BehaviorDesigner.Runtime;
+﻿using System;
+using BehaviorDesigner.Runtime;
 using ResourceManagement;
 
 namespace Units.BehaviorVariables
 {
-    [System.Serializable]
+    [Serializable]
     public class SharedResource : SharedVariable<Resource>
     {
         public static implicit operator SharedResource(Resource value)

@@ -2,7 +2,6 @@
 using Sirenix.OdinInspector;
 using Units.Enums;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Units.Stats
 {

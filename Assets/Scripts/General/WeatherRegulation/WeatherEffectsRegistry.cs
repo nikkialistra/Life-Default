@@ -16,13 +16,11 @@ namespace General.WeatherRegulation
         private bool EveryWeatherHasEffects(WeatherEffectsDictionary effects, ref string errorMessage)
         {
             foreach (var weatherValue in (Weather[])Enum.GetValues(typeof(Weather)))
-            {
                 if (!effects.ContainsKey(weatherValue))
                 {
                     errorMessage = $"{weatherValue} don't have effects";
                     return false;
                 }
-            }
 
             return true;
         }

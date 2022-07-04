@@ -1,11 +1,12 @@
 ﻿using System;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace Units.Appearance.ItemVariants.Item
 {
     [Serializable]
-    public class ItemObject<T> : IItem<T> where T : UnityEngine.Object
+    public class ItemObject<T> : IItem<T> where T : Object
     {
         public float RelativeChance
         {

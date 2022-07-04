@@ -196,12 +196,10 @@ namespace UI.Game.GameLook.Components
         private void UpdateOutlines()
         {
             foreach (var (colonist, colonistIconView) in _colonistIconViews)
-            {
                 if (_selectedColonists.Contains(colonist))
                     colonistIconView.ShowOutline();
                 else
                     colonistIconView.HideOutline();
-            }
         }
     }
 }

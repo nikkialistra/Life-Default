@@ -1,6 +1,5 @@
 ﻿using BehaviorDesigner.Runtime.Tasks;
 using Units.BehaviorVariables;
-using Action = BehaviorDesigner.Runtime.Tasks.Action;
 
 namespace Colonists.BehaviorNodes.ResourceGathering
 {

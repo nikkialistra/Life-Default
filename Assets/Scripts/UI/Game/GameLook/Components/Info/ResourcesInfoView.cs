@@ -86,7 +86,7 @@ namespace UI.Game.GameLook.Components.Info
             ShowRows();
 
             FillRow(0, $"{_resources[0].ResourceType}:", $"~{_resources.Sum(resource => resource.Quantity)}");
-            FillRow(1, $"Durability:", $"{_resources.Sum(resource => resource.Durability)}");
+            FillRow(1, "Durability:", $"{_resources.Sum(resource => resource.Durability)}");
 
             SubscribeToResources();
         }

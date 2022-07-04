@@ -5,7 +5,6 @@ using Enemies.Services;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using Zenject;
-using Random = UnityEngine.Random;
 
 namespace Units.Services
 {
@@ -77,9 +76,7 @@ namespace Units.Services
         private void Start()
         {
             if (_spawnAtStart)
-            {
                 StartSpawning();
-            }
         }
 
         [Button(ButtonSizes.Medium)]
@@ -172,13 +169,11 @@ namespace Units.Services
             var origin = new Vector3(x, 100f, z);
 
             if (Physics.Raycast(origin, Vector3.down, out var hit, Mathf.Infinity, _terrainMask))
-            {
                 if (IsValidPoint(hit.point))
                 {
                     hitPoint = hit.point;
                     return true;
                 }
-            }
 
             hitPoint = default;
             return false;

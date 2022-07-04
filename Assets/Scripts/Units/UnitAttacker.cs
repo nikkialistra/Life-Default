@@ -25,13 +25,13 @@ namespace Units
 
         public event Action WantEscape;
 
+        public Unit TrackedUnit { get; private set; }
+        public Unit AttackedUnit { get; private set; }
+
         public bool IsAttacking { get; private set; }
         public bool Idle => !IsAttacking && Time.time - _lastAttackTime > _timeAfterAttackToIdle;
 
         public float AttackDistance => AttackRange * _attackRangeMultiplierToStartFight;
-
-        public Unit TrackedUnit => _trackedUnit;
-        public Unit AttackedUnit => _attackedUnit;
 
         [SerializeField] private float _timeAfterAttackToIdle = 2f;
         [Space]
@@ -45,9 +45,6 @@ namespace Units
             _weaponType.IsMelee() ? _unitStats.MeleeAttackRange.Value : _unitStats.RangedAttackRange.Value;
 
         private Unit _self;
-
-        private Unit _trackedUnit;
-        private Unit _attackedUnit;
 
         private Action _onInteractionFinish;
 
@@ -134,9 +131,9 @@ namespace Units
 
         public void Attack(Unit unit)
         {
-            _attackedUnit = unit;
+            AttackedUnit = unit;
 
-            _attackedUnit.NotifyAboutAttackFrom(_self);
+            AttackedUnit.NotifyAboutAttackFrom(_self);
 
             _unitAnimator.Attack();
 
@@ -149,7 +146,7 @@ namespace Units
 
         public void Hit()
         {
-            if (_attackedUnit == null || !_attackedUnit.Alive)
+            if (AttackedUnit == null || !AttackedUnit.Alive)
             {
                 FinishAttacking();
                 return;
@@ -168,9 +165,9 @@ namespace Units
         {
             var damage = _unitFightCalculation.CalculateDamage();
 
-            _attackedUnit.TakeDamage(damage);
+            AttackedUnit.TakeDamage(damage);
 
-            if (!_attackedUnit.Alive)
+            if (!AttackedUnit.Alive)
             {
                 ResetUnitTarget();
                 FinishAttacking();
@@ -264,7 +261,7 @@ namespace Units
 
         public void SetTrackedUnit(Unit trackedUnit)
         {
-            _trackedUnit = trackedUnit;
+            TrackedUnit = trackedUnit;
 
             TrackingStart?.Invoke();
         }
@@ -278,19 +275,19 @@ namespace Units
         {
             _unitTargetExposed = false;
 
-            if (_trackedUnit != null)
-                _trackedUnit.HideTargetIndicator();
+            if (TrackedUnit != null)
+                TrackedUnit.HideTargetIndicator();
 
             _lineToTrackedUnit.HideLine();
         }
 
         private IEnumerator CWatchForDestroy()
         {
-            while (_attackedUnit.Alive)
+            while (AttackedUnit.Alive)
             {
                 yield return new WaitForSeconds(_waitTime);
 
-                if (_attackedUnit == null) break;
+                if (AttackedUnit == null) break;
             }
 
             ResetUnitTarget();
@@ -307,7 +304,7 @@ namespace Units
 
         private void FinishAttacking()
         {
-            if (_attackedUnit != null) return;
+            if (AttackedUnit != null) return;
 
             if (_attackingCoroutine != null)
             {
@@ -339,14 +336,14 @@ namespace Units
         {
             CoverUnitTarget();
 
-            if (_trackedUnit != null)
-                _trackedUnit.HideTargetIndicator();
+            if (TrackedUnit != null)
+                TrackedUnit.HideTargetIndicator();
 
-            if (_attackedUnit != null)
-                _attackedUnit.NotifyAboutLeavingAttackFrom(_self);
+            if (AttackedUnit != null)
+                AttackedUnit.NotifyAboutLeavingAttackFrom(_self);
 
-            _trackedUnit = null;
-            _attackedUnit = null;
+            TrackedUnit = null;
+            AttackedUnit = null;
         }
 
         private void TryExposeUnitTarget()
@@ -355,10 +352,10 @@ namespace Units
 
             _unitTargetExposed = true;
 
-            if (_trackedUnit != null)
+            if (TrackedUnit != null)
             {
-                _trackedUnit.ShowTargetIndicator();
-                _lineToTrackedUnit.ShowLineTo(_trackedUnit);
+                TrackedUnit.ShowTargetIndicator();
+                _lineToTrackedUnit.ShowLineTo(TrackedUnit);
             }
         }
 

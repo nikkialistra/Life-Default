@@ -26,12 +26,12 @@ namespace Enemies
         public event Action<Enemy> EnemyDying;
         public event Action Dying;
 
-        public Unit Unit => _unit;
+        public Unit Unit { get; private set; }
 
         public FightManner FightManner { get; private set; }
 
         public string Name => _name;
-        public bool Alive => _unit.Alive;
+        public bool Alive => Unit.Alive;
 
         [SerializeField] private string _name;
         [SerializeField] private Gender _gender;
@@ -42,7 +42,6 @@ namespace Enemies
         [Required]
         [SerializeField] private GameObject _selectionIndicator;
 
-        private Unit _unit;
         private UnitSelection _unitSelection;
         private UnitAttacker _unitAttacker;
         private UnitFightBehavior _unitFightBehavior;
@@ -63,7 +62,7 @@ namespace Enemies
 
         private void Awake()
         {
-            _unit = GetComponent<Unit>();
+            Unit = GetComponent<Unit>();
             _unitSelection = GetComponent<UnitSelection>();
             _unitAttacker = GetComponent<UnitAttacker>();
             _unitFightBehavior = GetComponent<UnitFightBehavior>();
@@ -83,14 +82,14 @@ namespace Enemies
 
         private void OnEnable()
         {
-            _unit.VitalityChange += OnVitalityChange;
-            _unit.Dying += OnDying;
+            Unit.VitalityChange += OnVitalityChange;
+            Unit.Dying += OnDying;
         }
 
         private void OnDisable()
         {
-            _unit.VitalityChange -= OnVitalityChange;
-            _unit.Dying += OnDying;
+            Unit.VitalityChange -= OnVitalityChange;
+            Unit.Dying += OnDying;
         }
 
         public void SetAt(Vector3 position)
@@ -112,7 +111,7 @@ namespace Enemies
 
         public void ToggleUnitFieldOfView()
         {
-            _unit.ToggleUnitVisibilityFields();
+            Unit.ToggleUnitVisibilityFields();
         }
 
         private void Initialize()
@@ -126,14 +125,14 @@ namespace Enemies
 
             FightManner = EnumUtils.RandomValue<FightManner>();
 
-            _unit.Initialize();
+            Unit.Initialize();
         }
 
         public void Select()
         {
-            if (!_unit.Alive) return;
+            if (!Unit.Alive) return;
 
-            _unit.Select();
+            Unit.Select();
 
             _unitSelection.Select();
             _selectionIndicator.SetActive(true);
@@ -141,7 +140,7 @@ namespace Enemies
 
         public void Deselect()
         {
-            _unit.Deselect();
+            Unit.Deselect();
 
             _unitSelection.Deselect();
             _selectionIndicator.SetActive(false);
@@ -149,7 +148,7 @@ namespace Enemies
 
         public void Die()
         {
-            _unit.Die();
+            Unit.Die();
         }
 
         private void OnDying()

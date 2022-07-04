@@ -56,9 +56,7 @@ namespace Units.Ancillaries
             _trackedUnitTransform = trackedUnit.transform;
 
             if (_showingLineCoroutine != null)
-            {
                 StopCoroutine(_showingLineCoroutine);
-            }
 
             _showingLineCoroutine = StartCoroutine(CShowingLine());
         }

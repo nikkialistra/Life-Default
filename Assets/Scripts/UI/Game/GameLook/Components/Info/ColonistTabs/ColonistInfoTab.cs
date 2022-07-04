@@ -88,12 +88,10 @@ namespace UI.Game.GameLook.Components.Info.ColonistTabs
             var traits = _colonist.Traits;
 
             for (int i = 0; i < MaxTraits; i++)
-            {
                 if (traits.Count > i)
                     FillTrait(i, traits[i]);
                 else
                     HideTrait(i);
-            }
         }
 
         private void FillTrait(int index, Trait trait)

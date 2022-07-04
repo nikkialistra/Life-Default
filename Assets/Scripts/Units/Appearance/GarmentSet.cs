@@ -21,7 +21,7 @@ namespace Units.Appearance
             Torso,
             BackAttachment,
             Hips,
-            HipsAttachment,
+            HipsAttachment
         }
 
         public enum GarmentElementPairs
@@ -129,9 +129,7 @@ namespace Units.Appearance
             }
 
             if (numberOfTries == MaxNumberOfTries)
-            {
                 Debug.Log($"Cannot find compatible mesh for {MaxNumberOfTries} tries, last mesh is returned");
-            }
 
             return mesh;
         }

@@ -249,13 +249,11 @@ namespace General.Selecting
         private bool TrySelectColonist(Vector2 point)
         {
             if (TryRaycastFromCamera(point, out var hit))
-            {
                 if (hit.transform.TryGetComponent(out Colonist colonist) && colonist.Alive)
                 {
                     _selectedColonists.Set(colonist);
                     return true;
                 }
-            }
 
             return false;
         }
@@ -263,13 +261,11 @@ namespace General.Selecting
         private bool TrySelectEnemy(Vector2 point)
         {
             if (TryRaycastFromCamera(point, out var hit))
-            {
                 if (hit.transform.TryGetComponent(out Enemy enemy) && enemy.Alive)
                 {
                     _selectedEnemies.Set(enemy);
                     return true;
                 }
-            }
 
             return false;
         }
@@ -277,13 +273,11 @@ namespace General.Selecting
         private bool TrySelectEntity(Vector2 point)
         {
             if (TryRaycastFromCamera(point, out var hit))
-            {
                 if (hit.transform.TryGetComponent(out Entity entity) && entity.Alive)
                 {
                     SelectByType(entity);
                     return true;
                 }
-            }
 
             return false;
         }

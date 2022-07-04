@@ -50,9 +50,9 @@ namespace Colonists
             }
         }
 
-        public Unit Unit => _unit;
+        public Unit Unit { get; private set; }
 
-        public bool Alive => _unit.Alive;
+        public bool Alive => Unit.Alive;
 
         public IReadOnlyList<Skill> Skills => _colonistSkills.Skills;
         public IReadOnlyList<Trait> Traits => _colonistTraits.Traits;
@@ -70,7 +70,6 @@ namespace Colonists
         [Required]
         [SerializeField] private Transform _center;
 
-        private Unit _unit;
         private UnitSelection _unitSelection;
         private UnitAttacker _unitAttacker;
 
@@ -95,7 +94,7 @@ namespace Colonists
 
         private void Awake()
         {
-            _unit = GetComponent<Unit>();
+            Unit = GetComponent<Unit>();
             _unitSelection = GetComponent<UnitSelection>();
             _unitAttacker = GetComponent<UnitAttacker>();
 
@@ -121,16 +120,16 @@ namespace Colonists
         {
             _colonistActivities.ActivityChange += OnActivityChange;
 
-            _unit.VitalityChange += OnVitalityChange;
-            _unit.Dying += OnDying;
+            Unit.VitalityChange += OnVitalityChange;
+            Unit.Dying += OnDying;
         }
 
         private void OnDisable()
         {
             _colonistActivities.ActivityChange -= OnActivityChange;
 
-            _unit.VitalityChange -= OnVitalityChange;
-            _unit.Dying -= OnDying;
+            Unit.VitalityChange -= OnVitalityChange;
+            Unit.Dying -= OnDying;
         }
 
         private void OnDestroy()
@@ -153,7 +152,7 @@ namespace Colonists
         public void AddTrait(Trait trait)
         {
             _colonistTraits.AddTrait(trait);
-            _unit.AddTrait(trait);
+            Unit.AddTrait(trait);
 
             TraitsChange?.Invoke();
         }
@@ -162,20 +161,20 @@ namespace Colonists
         public void RemoveTrait(Trait trait)
         {
             _colonistTraits.RemoveTrait(trait);
-            _unit.RemoveTrait(trait);
+            Unit.RemoveTrait(trait);
 
             TraitsChange?.Invoke();
         }
 
         public void Select()
         {
-            if (!_unit.Alive) return;
+            if (!Unit.Alive) return;
 
             _unitSelection.Select();
             _selectionIndicator.SetActive(true);
             _colonistMeshAgent.ShowLinePath();
 
-            _unit.Select();
+            Unit.Select();
         }
 
         public void Deselect()
@@ -184,7 +183,7 @@ namespace Colonists
             _selectionIndicator.SetActive(false);
             _colonistMeshAgent.HideLinePath();
 
-            _unit.Deselect();
+            Unit.Deselect();
         }
 
         public void Stop()
@@ -194,12 +193,12 @@ namespace Colonists
 
         public bool HasWeaponOf(WeaponSlotType weaponSlotType)
         {
-            return _unit.HasWeaponOf(weaponSlotType);
+            return Unit.HasWeaponOf(weaponSlotType);
         }
 
         public void ChooseWeapon(WeaponSlotType weaponSlotType)
         {
-            _unit.ChooseWeapon(weaponSlotType);
+            Unit.ChooseWeapon(weaponSlotType);
         }
 
         public void OrderTo(Colonist targetColonist)
@@ -231,12 +230,12 @@ namespace Colonists
 
         public void Die()
         {
-            _unit.Die();
+            Unit.Die();
         }
 
         public void ToggleUnitFieldOfView()
         {
-            _unit.ToggleUnitVisibilityFields();
+            Unit.ToggleUnitVisibilityFields();
         }
 
         public void ToggleResourceFieldOfView()
@@ -282,9 +281,9 @@ namespace Colonists
         private void InitializeUnit()
         {
             foreach (var trait in _colonistTraits.Traits)
-                _unit.AddTrait(trait);
+                Unit.AddTrait(trait);
 
-            _unit.Initialize();
+            Unit.Initialize();
         }
 
         private void BindStatsToComponents()
@@ -308,7 +307,7 @@ namespace Colonists
 
         private void DeactivateComponents()
         {
-            _unit.HideUnitVisibilityFields();
+            Unit.HideUnitVisibilityFields();
             _colonistGatherer.HideResourceFieldOfView();
 
             _unitSelection.Deactivate();

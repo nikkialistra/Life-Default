@@ -7,8 +7,6 @@ namespace UI.Game.GameLook.Components.Stock
 {
     public class QuestView
     {
-        private readonly VisualElement _root;
-
         private readonly Label _title;
         private readonly Label _description;
 
@@ -23,7 +21,7 @@ namespace UI.Game.GameLook.Components.Stock
         {
             var tree = asset.CloneTree();
 
-            _root = tree.Q<VisualElement>("quest");
+            Tree = tree.Q<VisualElement>("quest");
 
             _title = tree.Q<Label>("title");
             _description = tree.Q<Label>("description");
@@ -36,7 +34,7 @@ namespace UI.Game.GameLook.Components.Stock
             AddCompleteObjectiveActions();
         }
 
-        public VisualElement Tree => _root;
+        public VisualElement Tree { get; }
 
         private void AddUpdateObjectiveActions()
         {
@@ -73,7 +71,6 @@ namespace UI.Game.GameLook.Components.Stock
         private void BindObjectives()
         {
             for (int i = 0; i < 3; i++)
-            {
                 if (_quest.HasObjectiveAt(i))
                 {
                     _objectives[i].style.display = DisplayStyle.Flex;
@@ -82,7 +79,6 @@ namespace UI.Game.GameLook.Components.Stock
                     _quest.Objectives[i].Update += _updateObjectiveActions[i];
                     _quest.Objectives[i].Complete += _completeObjectiveActions[i];
                 }
-            }
         }
 
         public void Unbind()
@@ -93,13 +89,11 @@ namespace UI.Game.GameLook.Components.Stock
         private void UnbindObjectives()
         {
             for (int i = 0; i < 3; i++)
-            {
                 if (_quest.HasObjectiveAt(i))
                 {
                     _quest.Objectives[i].Update -= _updateObjectiveActions[i];
                     _quest.Objectives[i].Complete -= _completeObjectiveActions[i];
                 }
-            }
         }
     }
 }

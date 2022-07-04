@@ -1,4 +1,5 @@
 ﻿using System;
+using Random = UnityEngine.Random;
 
 namespace Common
 {
@@ -7,7 +8,7 @@ namespace Common
         public static T RandomValue<T>()
         {
             var values = Enum.GetValues(typeof(T));
-            var random = UnityEngine.Random.Range(0, values.Length);
+            var random = Random.Range(0, values.Length);
             return (T)values.GetValue(random);
         }
     }

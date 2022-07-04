@@ -86,11 +86,8 @@ namespace General.TimeCycle.Ticking
         private void CalculateTickSpeed()
         {
             if (_paused)
-            {
                 _tickSpeed = 0;
-            }
             else
-            {
                 _tickSpeed = _timeSpeed switch
                 {
                     TimeSpeed.X1 => 1,
@@ -98,7 +95,6 @@ namespace General.TimeCycle.Ticking
                     TimeSpeed.X3 => 3,
                     _ => throw new ArgumentOutOfRangeException()
                 };
-            }
         }
 
         private void Tick()

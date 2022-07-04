@@ -75,13 +75,11 @@ namespace General.WeatherRegulation
         private bool EveryWeatherHasConditions(WeatherNecessaryConditionsDictionary conditions, ref string errorMessage)
         {
             foreach (var weatherValue in (Weather[])Enum.GetValues(typeof(Weather)))
-            {
                 if (!conditions.ContainsKey(weatherValue))
                 {
                     errorMessage = $"{weatherValue} don't have conditions";
                     return false;
                 }
-            }
 
             return true;
         }

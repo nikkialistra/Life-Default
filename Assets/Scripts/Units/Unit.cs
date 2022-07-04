@@ -37,7 +37,7 @@ namespace Units
         public Colonist Colonist => _colonist;
         public Enemy Enemy => _enemy;
 
-        public UnitVitality UnitVitality => _unitVitality;
+        public UnitVitality UnitVitality { get; private set; }
 
         [SerializeField] private Faction _faction;
 
@@ -68,7 +68,6 @@ namespace Units
         private UnitStats _unitStats;
         private UnitTraits _unitTraits;
 
-        private UnitVitality _unitVitality;
         private UnitMeshAgent _unitMeshAgent;
         private UnitAttacker _unitAttacker;
 
@@ -81,7 +80,7 @@ namespace Units
             _unitStats = GetComponent<UnitStats>();
             _unitTraits = GetComponent<UnitTraits>();
 
-            _unitVitality = GetComponent<UnitVitality>();
+            UnitVitality = GetComponent<UnitVitality>();
             _unitMeshAgent = GetComponent<UnitMeshAgent>();
             _unitAttacker = GetComponent<UnitAttacker>();
 
@@ -90,14 +89,14 @@ namespace Units
 
         private void OnEnable()
         {
-            _unitVitality.VitalityChange += OnVitalityChange;
-            _unitVitality.Wasted += OnWasted;
+            UnitVitality.VitalityChange += OnVitalityChange;
+            UnitVitality.Wasted += OnWasted;
         }
 
         private void OnDisable()
         {
-            _unitVitality.VitalityChange -= OnVitalityChange;
-            _unitVitality.Wasted -= OnWasted;
+            UnitVitality.VitalityChange -= OnVitalityChange;
+            UnitVitality.Wasted -= OnWasted;
         }
 
         private void OnDestroy()
@@ -109,10 +108,10 @@ namespace Units
         {
             BindStatsToComponents();
 
-            _unitVitality.SetInitialValues();
+            UnitVitality.SetInitialValues();
 
-            _healthBars.SetHealth(_unitVitality.Health, _unitVitality.MaxHealth);
-            _healthBars.SetRecoverySpeed(_unitVitality.RecoverySpeed, _unitVitality.MaxRecoverySpeed);
+            _healthBars.SetHealth(UnitVitality.Health, UnitVitality.MaxHealth);
+            _healthBars.SetRecoverySpeed(UnitVitality.RecoverySpeed, UnitVitality.MaxRecoverySpeed);
         }
 
         [Button(ButtonSizes.Medium)]
@@ -141,12 +140,12 @@ namespace Units
             var hitDamage = _unitFightCalculation.CalculateHitDamage(damage);
 
             _messageShowing.Show(Mathf.Round(hitDamage).ToString(), Color.red);
-            _unitVitality.TakeDamage(hitDamage);
+            UnitVitality.TakeDamage(hitDamage);
         }
 
         public FightSpecs GetSpecs()
         {
-            var health = _unitVitality.Health;
+            var health = UnitVitality.Health;
             var averageDamagePerSecond =
                 PowerCalculation.CalculateAverageDps(_unitStats) * _unitStats.MeleeAccuracy.Value;
 
@@ -209,19 +208,19 @@ namespace Units
         {
             if (_died) return;
 
-            _unitVitality.TakeDamage(10000f);
+            UnitVitality.TakeDamage(10000f);
         }
 
         private void BindStatsToComponents()
         {
-            _unitVitality.BindStats(_unitStats.MaxHealth, _unitStats.MaxRecoverySpeed);
+            UnitVitality.BindStats(_unitStats.MaxHealth, _unitStats.MaxRecoverySpeed);
             _unitMeshAgent.BindStats(_unitStats.MovementSpeed);
             _unitAttacker.BindStats(_unitStats.MeleeAttackSpeed, _unitStats.RangedAttackSpeed);
         }
 
         private void UnbindStatsFromComponents()
         {
-            _unitVitality.UnbindStats(_unitStats.MaxHealth, _unitStats.MaxRecoverySpeed);
+            UnitVitality.UnbindStats(_unitStats.MaxHealth, _unitStats.MaxRecoverySpeed);
             _unitMeshAgent.UnbindStats(_unitStats.MovementSpeed);
             _unitAttacker.UnbindStats(_unitStats.MeleeAttackSpeed, _unitStats.RangedAttackSpeed);
         }
@@ -234,8 +233,8 @@ namespace Units
 
         private void OnVitalityChange()
         {
-            _healthBars.SetHealth(_unitVitality.Health, _unitVitality.MaxHealth);
-            _healthBars.SetRecoverySpeed(_unitVitality.RecoverySpeed, _unitVitality.MaxRecoverySpeed);
+            _healthBars.SetHealth(UnitVitality.Health, UnitVitality.MaxHealth);
+            _healthBars.SetRecoverySpeed(UnitVitality.RecoverySpeed, UnitVitality.MaxRecoverySpeed);
             VitalityChange?.Invoke();
         }
 

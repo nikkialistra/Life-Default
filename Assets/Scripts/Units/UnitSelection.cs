@@ -64,9 +64,7 @@ namespace Units
         public void Hover()
         {
             if (_hovered || _selected || !_activated)
-            {
                 return;
-            }
 
             _hovered = true;
 

@@ -5,11 +5,9 @@ namespace UI.Game.GameLook.Components
 {
     public class NotificationView
     {
-        public VisualElement Tree => _root;
+        public VisualElement Tree { get; }
 
         private readonly NotificationsView _parent;
-
-        private readonly VisualElement _root;
 
         private readonly Button _title;
 
@@ -21,7 +19,7 @@ namespace UI.Game.GameLook.Components
 
             var tree = asset.CloneTree();
 
-            _root = tree.Q<VisualElement>("notification");
+            Tree = tree.Q<VisualElement>("notification");
 
             _title = tree.Q<Button>("title");
         }

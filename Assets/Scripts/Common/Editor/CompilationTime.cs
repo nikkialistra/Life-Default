@@ -1,9 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
-using Sirenix.OdinInspector;
-using UnityEditor;
 using UnityEditor.Compilation;
-using UnityEngine;
 using Debug = UnityEngine.Debug;
 
 namespace Common.Editor

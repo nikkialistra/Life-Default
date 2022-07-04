@@ -103,9 +103,7 @@ namespace Testing
             var direction = transform.TransformVector(moveInput.normalized);
 
             if (Keyboard.current.leftShiftKey.isPressed)
-            {
                 return direction * (_acceleration * _accSprintMultiplier);
-            }
 
             return direction * _acceleration;
 

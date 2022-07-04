@@ -4,7 +4,6 @@ using Infrastructure.Settings;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using Zenject;
-using Random = UnityEngine.Random;
 
 namespace Units.Humans.Animations.States
 {

@@ -43,7 +43,7 @@ namespace Colonists.Services
 
                 _controlGroups.Add(number, new List<Colonist>());
 
-                _removeFromControlGroup.Add((colonist) => { _controlGroups[number].Remove(colonist); });
+                _removeFromControlGroup.Add(colonist => { _controlGroups[number].Remove(colonist); });
             }
         }
 

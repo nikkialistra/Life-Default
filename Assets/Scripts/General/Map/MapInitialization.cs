@@ -25,14 +25,10 @@ namespace General.Map
         private IEnumerator CGetAstarGraph()
         {
             if (_astarPath.data.cacheStartup)
-            {
                 // Skip one frame for monobehaviour start methods to be invoked
                 yield return null;
-            }
             else
-            {
                 yield return _astarPath.ScanAsync();
-            }
 
             Load?.Invoke();
         }

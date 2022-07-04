@@ -10,10 +10,7 @@ namespace Units.Ancillaries
 
         public void Activate()
         {
-            if (_activated)
-            {
-                return;
-            }
+            if (_activated) return;
 
             _activated = true;
             gameObject.SetActive(true);
@@ -21,10 +18,7 @@ namespace Units.Ancillaries
 
         public void Deactivate()
         {
-            if (!_activated)
-            {
-                return;
-            }
+            if (!_activated) return;
 
             _activated = false;
             gameObject.SetActive(false);

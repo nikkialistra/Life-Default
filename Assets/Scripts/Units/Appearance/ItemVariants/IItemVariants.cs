@@ -16,25 +16,18 @@ namespace Units.Appearance.ItemVariants
         [Button]
         public void CalculateRelativeChancesForVariants()
         {
-            if (!Variants.Any())
-            {
-                return;
-            }
+            if (!Variants.Any()) return;
 
             var sum = Variants.Sum(variant => variant.Chance);
 
             foreach (var variant in Variants)
-            {
                 variant.RelativeChance = (float)variant.Chance / sum;
-            }
         }
 
         public T GetRandom()
         {
             if (!Variants.Any())
-            {
                 return default;
-            }
 
             var randomValue = Random.Range(0f, 1f);
 

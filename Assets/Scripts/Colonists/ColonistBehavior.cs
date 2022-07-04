@@ -65,10 +65,7 @@ namespace Colonists
 
         public void OrderTo(Unit unitTarget)
         {
-            if (!_meshAgent.CanAcceptOrder())
-            {
-                return;
-            }
+            if (!_meshAgent.CanAcceptOrder()) return;
 
             ResetParameters();
             _unitTarget.Value = unitTarget;

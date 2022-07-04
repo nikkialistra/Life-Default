@@ -215,9 +215,7 @@ namespace Units
         private IEnumerator CMoving()
         {
             while (UpdateMoving())
-            {
                 yield return null;
-            }
 
             _aiPath.isStopped = true;
             DestinationReach?.Invoke();

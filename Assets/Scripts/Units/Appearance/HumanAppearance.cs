@@ -78,9 +78,7 @@ namespace Units.Appearance
             RandomizeItem(genderItems.Eyebrows, headVariants.Eyebrows);
 
             if (gender == Gender.Male)
-            {
                 RandomizeItem(genderItems.FacialHair, headVariants.FacialHair);
-            }
         }
 
         private void RandomizeGarmentSet(GenderItems genderItems, IItemVariants<GarmentSet> garmentSets)

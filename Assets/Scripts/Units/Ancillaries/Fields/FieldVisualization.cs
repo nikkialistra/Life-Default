@@ -90,15 +90,12 @@ namespace Units.Ancillaries.Fields
                         (oldViewCast.Hit && newViewCast.Hit && edgeDistanceThresholdExceeded))
                     {
                         var edge = FindEdge(oldViewCast, newViewCast);
+
                         if (edge.PointA != Vector3.zero)
-                        {
                             viewPoints.Add(edge.PointA);
-                        }
 
                         if (edge.PointB != Vector3.zero)
-                        {
                             viewPoints.Add(edge.PointB);
-                        }
                     }
                 }
 

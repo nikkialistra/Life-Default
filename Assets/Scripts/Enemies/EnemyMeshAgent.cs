@@ -1,6 +1,5 @@
 ﻿using Units;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 namespace Enemies
 {

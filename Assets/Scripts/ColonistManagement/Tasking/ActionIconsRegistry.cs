@@ -16,13 +16,11 @@ namespace ColonistManagement.Tasking
         private bool EveryActionHaveIcon(TaskIconsDictionary taskIcons, ref string errorMessage)
         {
             foreach (var actionType in (ActionType[])Enum.GetValues(typeof(ActionType)))
-            {
                 if (!taskIcons.ContainsKey(actionType))
                 {
                     errorMessage = $"{actionType} don't have icon";
                     return false;
                 }
-            }
 
             return true;
         }

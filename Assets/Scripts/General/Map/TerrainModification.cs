@@ -18,7 +18,7 @@ namespace General.Map
             Lower,
             Flatten,
             Sample,
-            SampleAverage,
+            SampleAverage
         }
 
         [MinValue(0)]

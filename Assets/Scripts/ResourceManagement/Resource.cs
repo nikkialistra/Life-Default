@@ -218,9 +218,7 @@ namespace ResourceManagement
         private float ApplyDestruction(float value)
         {
             if (_durability <= 0)
-            {
                 throw new InvalidOperationException("Making damage cannot be applied to the destroyed resource");
-            }
 
             var quantityToDurabilityFraction = _storedQuantity / _durability;
 

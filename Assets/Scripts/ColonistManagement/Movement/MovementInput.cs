@@ -41,7 +41,7 @@ namespace ColonistManagement.Movement
 
         private bool _firstCommand;
 
-        private Raycasting _raycasting;
+        private RayCasting _rayCasting;
 
         private PlayerInput _playerInput;
 
@@ -50,11 +50,11 @@ namespace ColonistManagement.Movement
         private InputAction _stopAction;
 
         [Inject]
-        public void Construct(PlayerInput playerInput, Raycasting raycasting, GameViews gameViews,
+        public void Construct(PlayerInput playerInput, RayCasting rayCasting, GameViews gameViews,
             SelectedColonists selectedColonists)
         {
             _playerInput = playerInput;
-            _raycasting = raycasting;
+            _rayCasting = rayCasting;
             _gameViews = gameViews;
             _selectedColonists = selectedColonists;
         }
@@ -129,7 +129,7 @@ namespace ColonistManagement.Movement
 
         private bool TryTargetUnit()
         {
-            if (Physics.Raycast(_raycasting.GetRayFromMouse(), out var hit, Mathf.Infinity, _raycasting.RayMask))
+            if (Physics.Raycast(_rayCasting.GetRayFromMouse(), out var hit, Mathf.Infinity, _rayCasting.RayMask))
             {
                 var unit = hit.transform.GetComponentInParent<Unit>();
                 if (unit != null)
@@ -145,7 +145,7 @@ namespace ColonistManagement.Movement
 
         private bool TryTargetEntity()
         {
-            if (Physics.Raycast(_raycasting.GetRayFromMouse(), out var hit, Mathf.Infinity, _raycasting.RayMask))
+            if (Physics.Raycast(_rayCasting.GetRayFromMouse(), out var hit, Mathf.Infinity, _rayCasting.RayMask))
             {
                 var entity = hit.transform.GetComponentInParent<Entity>();
                 if (entity != null)

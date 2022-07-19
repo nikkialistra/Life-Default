@@ -21,17 +21,17 @@ namespace ColonistManagement.Movement
 
         private Coroutine _positionRotatingCoroutine;
 
-        private Raycasting _raycasting;
+        private RayCasting _rayCasting;
 
         [Inject]
-        public void Construct(Raycasting raycasting)
+        public void Construct(RayCasting rayCasting)
         {
-            _raycasting = raycasting;
+            _rayCasting = rayCasting;
         }
 
         public void Target(FormationColor formationColor)
         {
-            if (Physics.Raycast(_raycasting.GetRayFromMouse(), out var hit, Mathf.Infinity, _raycasting.RayMask))
+            if (Physics.Raycast(_rayCasting.GetRayFromMouse(), out var hit, Mathf.Infinity, _rayCasting.RayMask))
             {
                 var ground = hit.transform.GetComponentInParent<Ground>();
                 if (ground != null)
@@ -75,7 +75,7 @@ namespace ColonistManagement.Movement
 
         private bool GotSufficientMouseOffset(Vector3 position)
         {
-            if (Physics.Raycast(_raycasting.GetRayFromMouse(), out var hit, Mathf.Infinity, _raycasting.TerrainMask))
+            if (Physics.Raycast(_rayCasting.GetRayFromMouse(), out var hit, Mathf.Infinity, _rayCasting.TerrainMask))
             {
                 var direction = hit.point - position;
                 var planeDirection = new Vector2(direction.x, direction.z);
@@ -93,7 +93,7 @@ namespace ColonistManagement.Movement
 
         private void UpdateAngle(Vector3 position)
         {
-            if (Physics.Raycast(_raycasting.GetRayFromMouse(), out var hit, Mathf.Infinity, _raycasting.TerrainMask))
+            if (Physics.Raycast(_rayCasting.GetRayFromMouse(), out var hit, Mathf.Infinity, _rayCasting.TerrainMask))
             {
                 var direction = hit.point - position;
                 var planeDirection = new Vector2(direction.x, direction.z);

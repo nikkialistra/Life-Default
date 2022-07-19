@@ -4,7 +4,7 @@ using Zenject;
 
 namespace ColonistManagement.Movement
 {
-    public class Raycasting : MonoBehaviour
+    public class RayCasting : MonoBehaviour
     {
         public LayerMask RayMask => _rayMask;
         public LayerMask TerrainMask => _terrainMask;

@@ -1,6 +1,5 @@
 ﻿using ColonistManagement.Targeting.Formations;
 using Colonists;
-using General.Map;
 using General.Selecting.Selected;
 using ResourceManagement;
 using Units;
@@ -10,14 +9,16 @@ using Zenject;
 namespace ColonistManagement.Movement
 {
     [RequireComponent(typeof(MovementInput))]
+    [RequireComponent(typeof(GroundTargeting))]
     [RequireComponent(typeof(FormationMovement))]
     public class MovementCommand : MonoBehaviour
     {
         private SelectedColonists _selectedColonists;
 
-        private FormationMovement _formationMovement;
-
         private MovementInput _movementInput;
+        private GroundTargeting _groundTargeting;
+
+        private FormationMovement _formationMovement;
 
         [Inject]
         public void Construct(SelectedColonists selectedColonists)
@@ -28,13 +29,14 @@ namespace ColonistManagement.Movement
         private void Awake()
         {
             _movementInput = GetComponent<MovementInput>();
+            _groundTargeting = GetComponent<GroundTargeting>();
             _formationMovement = GetComponent<FormationMovement>();
         }
 
         private void OnEnable()
         {
-            _movementInput.PositionSet += ShowFormation;
-            _movementInput.RotationUpdate += RotateFormation;
+            _groundTargeting.PositionSet += ShowFormation;
+            _groundTargeting.RotationUpdate += RotateFormation;
             _movementInput.DestinationSet += FinishFormation;
 
             _movementInput.ColonistSet += OrderToColonist;
@@ -46,8 +48,8 @@ namespace ColonistManagement.Movement
 
         private void OnDisable()
         {
-            _movementInput.PositionSet -= ShowFormation;
-            _movementInput.RotationUpdate -= RotateFormation;
+            _groundTargeting.PositionSet -= ShowFormation;
+            _groundTargeting.RotationUpdate -= RotateFormation;
             _movementInput.DestinationSet -= FinishFormation;
 
             _movementInput.ColonistSet -= OrderToColonist;

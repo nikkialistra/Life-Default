@@ -10,6 +10,7 @@ using Zenject;
 namespace ColonistManagement.Movement
 {
     [RequireComponent(typeof(MovementInput))]
+    [RequireComponent(typeof(GroundTargeting))]
     public class MovementActionInput : MonoBehaviour
     {
         private bool IfNoColonistsSelected => _selectedColonists.Count == 0;
@@ -17,6 +18,7 @@ namespace ColonistManagement.Movement
         private MovementAction _movementAction = MovementAction.None;
 
         private MovementInput _movementInput;
+        private GroundTargeting _groundTargeting;
 
         private SelectedColonists _selectedColonists;
         private SelectingInput _selectingInput;
@@ -46,6 +48,7 @@ namespace ColonistManagement.Movement
         private void Awake()
         {
             _movementInput = GetComponent<MovementInput>();
+            _groundTargeting = GetComponent<GroundTargeting>();
 
             _selectMoveAction = _playerInput.actions.FindAction("Select Move");
             _selectAttackAction = _playerInput.actions.FindAction("Select Attack");
@@ -150,7 +153,7 @@ namespace ColonistManagement.Movement
         {
             if (_movementAction == MovementAction.None || !_movementInput.CanTarget) return;
 
-            _movementInput.TargetGround(_movementAction == MovementAction.Attack
+            _groundTargeting.Target(_movementAction == MovementAction.Attack
                 ? FormationColor.Red
                 : FormationColor.White);
         }

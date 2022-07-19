@@ -12,6 +12,8 @@ namespace ColonistManagement.Movement
     [RequireComponent(typeof(MovementInput))]
     public class MovementActionInput : MonoBehaviour
     {
+        private bool IfNoColonistsSelected => _selectedColonists.Count == 0;
+
         private MovementAction _movementAction = MovementAction.None;
 
         private MovementInput _movementInput;
@@ -33,8 +35,7 @@ namespace ColonistManagement.Movement
 
         [Inject]
         public void Construct(PlayerInput playerInput, SelectedColonists selectedColonists,
-            SelectingInput selectingInput,
-            GameCursors gameCursors)
+            SelectingInput selectingInput, GameCursors gameCursors)
         {
             _playerInput = playerInput;
             _selectedColonists = selectedColonists;
@@ -85,6 +86,40 @@ namespace ColonistManagement.Movement
             _movementInput.MultiCommandReset -= Complete;
         }
 
+        public void SelectMove()
+        {
+            if (IfNoColonistsSelected) return;
+
+            _movementAction = MovementAction.Move;
+            PauseAnotherInput();
+            _gameCursors.SetMoveCursor();
+        }
+
+        public void SelectAttack()
+        {
+            if (IfNoColonistsSelected || Keyboard.current.altKey.isPressed) return;
+
+            _movementAction = MovementAction.Attack;
+            PauseAnotherInput();
+            _gameCursors.SetAttackCursor();
+        }
+
+        public void SelectHold()
+        {
+            if (IfNoColonistsSelected) return;
+
+            _movementAction = MovementAction.Hold;
+            PauseAnotherInput();
+        }
+
+        public void SelectPatrol()
+        {
+            if (IfNoColonistsSelected) return;
+
+            _movementAction = MovementAction.Patrol;
+            PauseAnotherInput();
+        }
+
         private void SelectMove(InputAction.CallbackContext context)
         {
             SelectMove();
@@ -103,45 +138,6 @@ namespace ColonistManagement.Movement
         private void SelectPatrol(InputAction.CallbackContext context)
         {
             SelectPatrol();
-        }
-
-        public void SelectMove()
-        {
-            if (IfNoColonistsSelected()) return;
-
-            _movementAction = MovementAction.Move;
-            PauseAnotherInput();
-            _gameCursors.SetMoveCursor();
-        }
-
-        public void SelectAttack()
-        {
-            if (IfNoColonistsSelected() || Keyboard.current.altKey.isPressed) return;
-
-            _movementAction = MovementAction.Attack;
-            PauseAnotherInput();
-            _gameCursors.SetAttackCursor();
-        }
-
-        public void SelectHold()
-        {
-            if (IfNoColonistsSelected()) return;
-
-            _movementAction = MovementAction.Hold;
-            PauseAnotherInput();
-        }
-
-        public void SelectPatrol()
-        {
-            if (IfNoColonistsSelected()) return;
-
-            _movementAction = MovementAction.Patrol;
-            PauseAnotherInput();
-        }
-
-        private bool IfNoColonistsSelected()
-        {
-            return _selectedColonists.Count == 0;
         }
 
         private void PauseAnotherInput()

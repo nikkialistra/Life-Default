@@ -27,7 +27,7 @@ namespace ColonistManagement.Movement
         public event Action MultiCommandReset;
 
         public event Action<Colonist> ColonistSet;
-        public event Action<Unit> UnitTarget;
+        public event Action<Unit> UnitTargetSet;
         public event Action<Resource> ResourceSet;
 
         public event Action Stop;
@@ -208,7 +208,7 @@ namespace ColonistManagement.Movement
                     ColonistSet?.Invoke(unit.Colonist);
                     break;
                 case Faction.Enemies:
-                    UnitTarget?.Invoke(unit);
+                    UnitTargetSet?.Invoke(unit);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();

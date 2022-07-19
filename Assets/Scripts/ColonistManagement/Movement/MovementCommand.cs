@@ -20,7 +20,7 @@ namespace ColonistManagement.Movement
         private MovementInput _movementInput;
 
         [Inject]
-        public void Construct(SelectedColonists selectedColonists, MapInitialization mapInitialization)
+        public void Construct(SelectedColonists selectedColonists)
         {
             _selectedColonists = selectedColonists;
         }
@@ -38,7 +38,7 @@ namespace ColonistManagement.Movement
             _movementInput.DestinationSet += FinishFormation;
 
             _movementInput.ColonistSet += OrderToColonist;
-            _movementInput.UnitTarget += OrderToUnitTarget;
+            _movementInput.UnitTargetSet += OrderToUnitTarget;
             _movementInput.ResourceSet += OrderToResource;
 
             _movementInput.Stop += Stop;
@@ -51,7 +51,7 @@ namespace ColonistManagement.Movement
             _movementInput.DestinationSet -= FinishFormation;
 
             _movementInput.ColonistSet -= OrderToColonist;
-            _movementInput.UnitTarget -= OrderToUnitTarget;
+            _movementInput.UnitTargetSet -= OrderToUnitTarget;
             _movementInput.ResourceSet -= OrderToResource;
 
             _movementInput.Stop -= Stop;

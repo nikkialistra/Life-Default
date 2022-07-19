@@ -10,14 +10,16 @@ using Zenject;
 namespace ColonistManagement.Movement
 {
     [RequireComponent(typeof(MovementInput))]
+    [RequireComponent(typeof(MoveActionInput))]
     [RequireComponent(typeof(GroundTargeting))]
-    public class MovementActionInput : MonoBehaviour
+    public class MovementActionsInput : MonoBehaviour
     {
         private bool IfNoColonistsSelected => _selectedColonists.Count == 0;
 
         private MovementAction _movementAction = MovementAction.None;
 
         private MovementInput _movementInput;
+        private MoveActionInput _moveActionInput;
         private GroundTargeting _groundTargeting;
 
         private SelectedColonists _selectedColonists;
@@ -48,6 +50,7 @@ namespace ColonistManagement.Movement
         private void Awake()
         {
             _movementInput = GetComponent<MovementInput>();
+            _moveActionInput = GetComponent<MoveActionInput>();
             _groundTargeting = GetComponent<GroundTargeting>();
 
             _selectMoveAction = _playerInput.actions.FindAction("Select Move");
@@ -146,7 +149,7 @@ namespace ColonistManagement.Movement
         private void PauseAnotherInput()
         {
             _selectingInput.Deactivated = true;
-            _movementInput.UnsubscribeFromActions();
+            _moveActionInput.UnsubscribeFromActions();
         }
 
         private void StartDo(InputAction.CallbackContext context)
@@ -199,7 +202,7 @@ namespace ColonistManagement.Movement
         private void ResumeAnotherInput()
         {
             _selectingInput.Deactivated = false;
-            _movementInput.SubscribeToActions();
+            _moveActionInput.SubscribeToActions();
             _gameCursors.SetDefaultCursor();
         }
     }

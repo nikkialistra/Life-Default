@@ -22,13 +22,13 @@ namespace UI.Game.GameLook.Components
         private TemplateContainer _tree;
 
         private MovementCommand _movementCommand;
-        private MovementActionInput _movementActionInput;
+        private MovementActionsInput _movementActionsInput;
 
         [Inject]
-        public void Construct(MovementCommand movementCommand, MovementActionInput movementActionInput)
+        public void Construct(MovementCommand movementCommand, MovementActionsInput movementActionsInput)
         {
             _movementCommand = movementCommand;
-            _movementActionInput = movementActionInput;
+            _movementActionsInput = movementActionsInput;
         }
 
         private void Awake()
@@ -83,7 +83,7 @@ namespace UI.Game.GameLook.Components
 
         private void Move()
         {
-            _movementActionInput.SelectMove();
+            _movementActionsInput.SelectMove();
         }
 
         private void Stop()
@@ -93,17 +93,17 @@ namespace UI.Game.GameLook.Components
 
         private void Attack()
         {
-            _movementActionInput.SelectAttack();
+            _movementActionsInput.SelectAttack();
         }
 
         private void Hold()
         {
-            _movementActionInput.SelectHold();
+            _movementActionsInput.SelectHold();
         }
 
         private void Patrol()
         {
-            _movementActionInput.SelectPatrol();
+            _movementActionsInput.SelectPatrol();
         }
     }
 }

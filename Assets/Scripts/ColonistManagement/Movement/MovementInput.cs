@@ -46,7 +46,6 @@ namespace ColonistManagement.Movement
         private PlayerInput _playerInput;
 
         private InputAction _multiCommandAction;
-        private InputAction _moveAction;
         private InputAction _stopAction;
 
         [Inject]
@@ -65,15 +64,11 @@ namespace ColonistManagement.Movement
 
             _multiCommandAction = _playerInput.actions.FindAction("Multi Command");
 
-            _moveAction = _playerInput.actions.FindAction("Move");
-
             _stopAction = _playerInput.actions.FindAction("Stop");
         }
 
         private void OnEnable()
         {
-            SubscribeToActions();
-
             _multiCommandAction.started += StartMultiCommand;
             _multiCommandAction.canceled += StopMultiCommand;
 
@@ -82,27 +77,13 @@ namespace ColonistManagement.Movement
 
         private void OnDisable()
         {
-            UnsubscribeFromActions();
-
             _multiCommandAction.started -= StartMultiCommand;
             _multiCommandAction.canceled -= StopMultiCommand;
 
             _stopAction.started -= OnStop;
         }
 
-        public void SubscribeToActions()
-        {
-            _moveAction.started += SetTarget;
-            _moveAction.canceled += Move;
-        }
-
-        public void UnsubscribeFromActions()
-        {
-            _moveAction.started -= SetTarget;
-            _moveAction.canceled -= Move;
-        }
-
-        private void Move(InputAction.CallbackContext context)
+        public void Move(InputAction.CallbackContext context)
         {
             Move(FormationColor.White);
         }
@@ -118,7 +99,7 @@ namespace ColonistManagement.Movement
             }
         }
 
-        private void SetTarget(InputAction.CallbackContext context)
+        public void SetTarget(InputAction.CallbackContext context)
         {
             if (!CanTarget) return;
 

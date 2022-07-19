@@ -4,6 +4,7 @@ using Colonists;
 using Colonists.Services;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Zenject;
 
 namespace Infrastructure
@@ -23,8 +24,9 @@ namespace Infrastructure
         [Title("Commands")]
         [Required]
         [SerializeField] private MovementCommand _movementCommand;
+        [FormerlySerializedAs("_movementActionInput")]
         [Required]
-        [SerializeField] private MovementActionInput _movementActionInput;
+        [SerializeField] private MovementActionsInput _movementActionsInput;
 
         [Title("Services")]
         [Required]
@@ -53,7 +55,7 @@ namespace Infrastructure
         private void BindCommands()
         {
             Container.BindInstance(_movementCommand);
-            Container.BindInstance(_movementActionInput);
+            Container.BindInstance(_movementActionsInput);
         }
 
         private void BindServices()

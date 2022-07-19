@@ -2,7 +2,7 @@
 using UnityEngine.InputSystem;
 using Zenject;
 
-namespace ColonistManagement.Movement
+namespace Controls
 {
     public class RayCasting : MonoBehaviour
     {

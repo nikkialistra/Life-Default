@@ -2,9 +2,9 @@
 using ColonistManagement.Tasking;
 using Colonists;
 using Colonists.Services;
+using Controls;
 using Sirenix.OdinInspector;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Zenject;
 
 namespace Infrastructure
@@ -21,10 +21,13 @@ namespace Infrastructure
         [Required]
         [SerializeField] private Transform _colonistsParent;
 
+        [Title("RayCasting")]
+        [Required]
+        [SerializeField] private RayCasting _rayCasting;
+
         [Title("Commands")]
         [Required]
         [SerializeField] private MovementCommand _movementCommand;
-        [FormerlySerializedAs("_movementActionInput")]
         [Required]
         [SerializeField] private MovementActionsInput _movementActionsInput;
 
@@ -36,6 +39,7 @@ namespace Infrastructure
         {
             BindActions();
             BindSpawning();
+            BindRayCasting();
             BindCommands();
             BindServices();
         }
@@ -50,6 +54,11 @@ namespace Infrastructure
             Container.BindFactory<Colonist, Colonist.Factory>()
                 .FromComponentInNewPrefab(_colonistPrefab)
                 .UnderTransform(_colonistsParent);
+        }
+
+        private void BindRayCasting()
+        {
+            Container.BindInstance(_rayCasting);
         }
 
         private void BindCommands()

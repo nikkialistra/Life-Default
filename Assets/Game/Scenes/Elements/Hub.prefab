@@ -2106,6 +2106,7 @@ GameObject:
   - component: {fileID: 3020716834434831710}
   - component: {fileID: 3020716834434831709}
   - component: {fileID: 3020716834434831708}
+  - component: {fileID: 180329228388985110}
   m_Layer: 0
   m_Name: Movement Command
   m_TagString: Untagged
@@ -2230,11 +2231,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 716cc15f8c814f4fa8e4e99f6201154b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _directionArrow: {fileID: 0}
+  _noFormationMark: {fileID: 0}
+--- !u!114 &180329228388985110
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3020716834434831714}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef1225807c834611bcc4709ca94b46e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   _positionPreviewPrefab: {fileID: 2455781365447844047, guid: 771e0f2422ae4cc4f8e01bada808b884,
     type: 3}
   _positionPreviewsParent: {fileID: 0}
-  _directionArrow: {fileID: 0}
-  _noFormationMark: {fileID: 0}
 --- !u!1 &3020716834492469545
 GameObject:
   m_ObjectHideFlags: 0

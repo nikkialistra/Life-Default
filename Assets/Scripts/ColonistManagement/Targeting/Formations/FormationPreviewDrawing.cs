@@ -1,34 +1,32 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace ColonistManagement.Targeting.Formations
 {
+    [RequireComponent(typeof(PositionPreviewsPool))]
     public class FormationPreviewDrawing : MonoBehaviour
     {
-        [Required]
-        [SerializeField] private PositionPreview _positionPreviewPrefab;
-        [Required]
-        [SerializeField] private Transform _positionPreviewsParent;
-
         [Title("Special Previews")]
         [Required]
         [SerializeField] private PositionPreview _directionArrow;
         [Required]
         [SerializeField] private PositionPreview _noFormationMark;
 
-        private readonly List<PositionPreview> _positionPreviews = new();
-
         private Coroutine _flashFinishCoroutine;
-
-        private int _nextIndex = 0;
 
         private bool _showNoFormationMark;
 
         private FormationColor _formationColor = FormationColor.White;
 
+        private PositionPreviewsPool _positionPreviewsPool;
+
         public bool ShowDirectionArrow { get; set; }
+
+        private void Awake()
+        {
+            _positionPreviewsPool = GetComponent<PositionPreviewsPool>();
+        }
 
         public void ChangeColor(FormationColor formationColor)
         {
@@ -43,7 +41,7 @@ namespace ColonistManagement.Targeting.Formations
 
             if (ShowDirectionArrow)
             {
-                PlaceDirectionArrow(formationPositions, rotation);
+                PlaceDirectionArrow(formationPositions[0], rotation);
                 startIndex = 1;
             }
             else
@@ -53,7 +51,7 @@ namespace ColonistManagement.Targeting.Formations
 
             while (startIndex < formationPositions.Length)
             {
-                var positionPreview = GetOrCreatePositionPreview();
+                var positionPreview = _positionPreviewsPool.GetOrCreatePositionPreview(_formationColor);
                 positionPreview.transform.position = formationPositions[startIndex];
 
                 startIndex++;
@@ -75,15 +73,15 @@ namespace ColonistManagement.Targeting.Formations
         {
             if (ShowDirectionArrow)
             {
-                UpdateDirectionArrow(formationPositions, rotation);
+                UpdateDirectionArrow(formationPositions[0], rotation);
 
                 for (int i = 1; i < formationPositions.Length; i++)
-                    _positionPreviews[i - 1].transform.position = formationPositions[i];
+                    _positionPreviewsPool.PositionPreviews[i - 1].transform.position = formationPositions[i];
             }
             else
             {
                 for (int i = 0; i < formationPositions.Length; i++)
-                    _positionPreviews[i].transform.position = formationPositions[i];
+                    _positionPreviewsPool.PositionPreviews[i].transform.position = formationPositions[i];
             }
         }
 
@@ -94,7 +92,7 @@ namespace ColonistManagement.Targeting.Formations
             else
                 AnimateFormation();
 
-            _flashFinishCoroutine = StartCoroutine(CFinishAnimation(_positionPreviewPrefab.AnimationTime));
+            _flashFinishCoroutine = StartCoroutine(CFinishAnimation(_positionPreviewsPool.AnimationTime));
         }
 
         public void Reset()
@@ -114,16 +112,7 @@ namespace ColonistManagement.Targeting.Formations
                 _directionArrow.gameObject.SetActive(false);
             }
 
-            foreach (var positionPreview in _positionPreviews)
-            {
-                if (positionPreview.Activated)
-                {
-                    positionPreview.Deactivate();
-                    positionPreview.gameObject.SetActive(false);
-                }
-            }
-
-            _nextIndex = 0;
+            _positionPreviewsPool.Reset();
         }
 
         private void AnimateFormation()
@@ -131,42 +120,20 @@ namespace ColonistManagement.Targeting.Formations
             if (ShowDirectionArrow)
                 _directionArrow.StartAnimation();
 
-            for (int i = 0; i < _nextIndex; i++)
-                _positionPreviews[i].StartAnimation();
+            _positionPreviewsPool.Animate();
         }
 
-        private void PlaceDirectionArrow(Vector3[] formationPositions, float rotation)
+        private void PlaceDirectionArrow(Vector3 directionArrowPosition, float rotation)
         {
             _directionArrow.gameObject.SetActive(true);
             _directionArrow.Activate(_formationColor);
-            _directionArrow.transform.position = formationPositions[0];
+            _directionArrow.transform.position = directionArrowPosition;
             _directionArrow.transform.rotation = Quaternion.Euler(0, rotation, 0);
         }
 
-        private PositionPreview GetOrCreatePositionPreview()
+        private void UpdateDirectionArrow(Vector3 directionArrowPosition, float rotation)
         {
-            PositionPreview positionPreview;
-
-            if (_positionPreviews.Count <= _nextIndex)
-            {
-                positionPreview = Instantiate(_positionPreviewPrefab, _positionPreviewsParent);
-                _positionPreviews.Add(positionPreview);
-                positionPreview.Activate(_formationColor);
-            }
-            else
-            {
-                positionPreview = _positionPreviews[_nextIndex];
-                positionPreview.gameObject.SetActive(true);
-                positionPreview.Activate(_formationColor);
-            }
-
-            _nextIndex++;
-            return positionPreview;
-        }
-
-        private void UpdateDirectionArrow(Vector3[] formationPositions, float rotation)
-        {
-            _directionArrow.transform.position = formationPositions[0];
+            _directionArrow.transform.position = directionArrowPosition;
             _directionArrow.transform.rotation = Quaternion.Euler(0, rotation, 0);
         }
 
@@ -177,8 +144,7 @@ namespace ColonistManagement.Targeting.Formations
             _noFormationMark.gameObject.SetActive(false);
             _directionArrow.gameObject.SetActive(false);
 
-            foreach (var positionPreview in _positionPreviews)
-                positionPreview.gameObject.SetActive(false);
+            _positionPreviewsPool.FinishAnimation();
         }
     }
 }

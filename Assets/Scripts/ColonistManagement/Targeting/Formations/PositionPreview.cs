@@ -9,6 +9,13 @@ namespace ColonistManagement.Targeting.Formations
 {
     public class PositionPreview : MonoBehaviour
     {
+        private enum AnimationKind
+        {
+            Collapse,
+            Fade,
+            Hide
+        }
+
         public bool Activated { get; private set; }
         public float AnimationTime => _animationTime;
 
@@ -96,13 +103,6 @@ namespace ColonistManagement.Targeting.Formations
             yield return new WaitForSecondsRealtime(_animationTime);
 
             _decalProjector.fadeFactor = 0f;
-        }
-
-        private enum AnimationKind
-        {
-            Collapse,
-            Fade,
-            Hide
         }
     }
 }

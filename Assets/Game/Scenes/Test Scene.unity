@@ -1327,6 +1327,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 180329228388985110, guid: 0802b572ad05186499c16eab7a723ffb,
+        type: 3}
+      propertyPath: _positionPreviewsParent
+      value: 
+      objectReference: {fileID: 737234870}
     - target: {fileID: 588027007046373087, guid: 0802b572ad05186499c16eab7a723ffb,
         type: 3}
       propertyPath: _activeQuests.Array.size
@@ -1488,7 +1493,7 @@ PrefabInstance:
         type: 3}
       propertyPath: _virtualFight
       value: 
-      objectReference: {fileID: 1002292259}
+      objectReference: {fileID: 0}
     - target: {fileID: 3020716834333397147, guid: 0802b572ad05186499c16eab7a723ffb,
         type: 3}
       propertyPath: _cameraMovement
@@ -1798,18 +1803,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dc0f9b7ad5174d469458aa0a7a7beca7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1002292259 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4172668061535960722, guid: 0802b572ad05186499c16eab7a723ffb,
-    type: 3}
-  m_PrefabInstance: {fileID: 872107622}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5167d5e834c0418cb5b5a098024a357d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1132375669

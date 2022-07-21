@@ -2,7 +2,7 @@
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace ColonistManagement.Targeting.Formations
+namespace ColonistManagement.Targeting.Formations.Preview
 {
     [RequireComponent(typeof(PositionPreviewsPool))]
     public class FormationPreviewDrawing : MonoBehaviour

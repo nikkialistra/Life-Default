@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using ColonistManagement.Targeting.Formations.Preview;
+using ColonistManagement.Targeting.Formations.Region;
 using Colonists;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -29,6 +31,8 @@ namespace ColonistManagement.Targeting.Formations
 
         private bool _shown;
 
+        private FormationGeneration _formationGeneration;
+
         private PlayerInput _playerInput;
 
         private InputAction _nextFormationAction;
@@ -44,6 +48,8 @@ namespace ColonistManagement.Targeting.Formations
         {
             _regionFormation = GetComponent<RegionFormation>();
             _formationPreviewDrawing = GetComponent<FormationPreviewDrawing>();
+
+            _formationGeneration = new FormationGeneration(_regionFormation);
 
             _previousFormationAction = _playerInput.actions.FindAction("Previous Formation");
             _nextFormationAction = _playerInput.actions.FindAction("Next Formation");
@@ -87,7 +93,8 @@ namespace ColonistManagement.Targeting.Formations
 
             _lastAngle = angle;
 
-            var rotatedFormationPositions = GenerateFormationWithRotation(angle);
+            var rotatedFormationPositions =
+                _formationGeneration.GenerateWithRotation(angle, _colonists, _formationPositions, FormationIsRegion);
             _formationPreviewDrawing.UpdatePositions(rotatedFormationPositions, _regionFormation.CurrentYRotation);
         }
 
@@ -99,7 +106,9 @@ namespace ColonistManagement.Targeting.Formations
 
             _formationPreviewDrawing.ChangeColor(formationColor);
 
-            _formationPositions = GenerateFormationWithRotation(_lastAngle);
+            _formationPositions =
+                _formationGeneration.GenerateWithRotation(_lastAngle, _colonists, _formationPositions,
+                    FormationIsRegion);
 
             UnsubscribeFromColonists();
 
@@ -144,7 +153,8 @@ namespace ColonistManagement.Targeting.Formations
         {
             if (!_shown) return;
 
-            _formationPositions = GenerateFormation(_targetPoint);
+            _formationPositions =
+                _formationGeneration.GenerateFormation(_targetPoint, _colonists, _colonistPositions, _formationType);
 
             if (_formationType == FormationType.None)
             {
@@ -191,13 +201,12 @@ namespace ColonistManagement.Targeting.Formations
 
         private void MoveColonistsToPositions(Vector3[] formationPositions, float? lastAngle, bool additional)
         {
-            var orderedColonists = new Colonist[formationPositions.Length];
-            var orderedFormationPositions = new Vector3[formationPositions.Length];
+            var (sortedColonists, sortedFormationPositions) =
+                FormationUtils.FindMappingBetweenColonistsAndPositions(formationPositions, _colonistPositions,
+                _colonists, _formationType);
 
-            FindMappingBetweenColonistsAndPositions(formationPositions, orderedFormationPositions, orderedColonists);
-
-            for (int i = 0; i < orderedColonists.Length; i++)
-                OrderUnit(orderedColonists[i], formationPositions[i], lastAngle, additional);
+            for (int i = 0; i < sortedColonists.Length; i++)
+                OrderUnit(sortedColonists[i], sortedFormationPositions[i], lastAngle, additional);
         }
 
         private void OrderUnit(Colonist colonist, Vector3 position, float? lastAngle, bool additional)
@@ -206,126 +215,6 @@ namespace ColonistManagement.Targeting.Formations
                 colonist.OrderToPosition(position, lastAngle);
             else
                 colonist.TryAddPositionToOrder(position, lastAngle);
-        }
-
-        private void FindMappingBetweenColonistsAndPositions(Vector3[] formationPositions,
-            Vector3[] orderedFormationPositions,
-            Colonist[] orderedColonists)
-        {
-            var assignedPositionsBitmask = new bool[formationPositions.Length];
-            var assignedColonistsBitmask = new bool[formationPositions.Length];
-
-            var middlePoint = FormationUtils.FindMiddlePoint(_colonistPositions);
-
-            for (int i = 0; i < formationPositions.Length; i++)
-            {
-                var formationIndex = _formationType == FormationType.Free
-                    ? FormationUtils.FarthestPointIndexFrom(formationPositions, assignedPositionsBitmask, middlePoint)
-                    : i;
-
-                var closestUnitIndex =
-                    FormationUtils.ClosestUnitIndexTo(_colonists, formationPositions[formationIndex],
-                        assignedColonistsBitmask);
-
-                assignedPositionsBitmask[formationIndex] = true;
-                assignedColonistsBitmask[closestUnitIndex] = true;
-
-                orderedFormationPositions[i] = formationPositions[formationIndex];
-                orderedColonists[i] = _colonists[closestUnitIndex];
-            }
-        }
-
-        private Vector3[] GenerateFormation(Vector3 targetPoint)
-        {
-            if (_colonists.Count == 0)
-                return Array.Empty<Vector3>();
-
-            return _formationType switch
-            {
-                FormationType.Area => GenerateRegionFormation(targetPoint, RegionFormationType.Area),
-                FormationType.Line => GenerateRegionFormation(targetPoint, RegionFormationType.Line),
-                FormationType.Scattered => GenerateRegionFormation(targetPoint, RegionFormationType.Scattered),
-                FormationType.Free => GenerateFreeFormation(targetPoint),
-                FormationType.None => GenerateNoFormation(targetPoint),
-                _ => throw new ArgumentOutOfRangeException()
-            };
-        }
-
-        private Vector3[] GenerateFormationWithRotation(float rotation)
-        {
-            if (_colonists.Count == 0)
-                return Array.Empty<Vector3>();
-
-            return FormationIsRegion ? RotateRegionFormation(rotation) : RotateFreeFormation(rotation);
-        }
-
-        private Vector3[] GenerateRegionFormation(Vector3 targetPoint, RegionFormationType regionFormationType)
-        {
-            _targetPoint = targetPoint;
-
-            var count = _colonists.Count;
-
-            _relativeYRotation =
-                FormationUtils.RotationFromOriginToTarget(FormationUtils.FindMiddlePoint(_colonistPositions),
-                    targetPoint);
-
-            var relativeRotation = Quaternion.Euler(0f, _relativeYRotation, 0f);
-
-            return _regionFormation.CalculatePositions(count, relativeRotation, targetPoint,
-                _targetPoint.y, regionFormationType);
-        }
-
-        private Vector3[] RotateRegionFormation(float rotation)
-        {
-            var relativeRotation = Quaternion.Euler(0f, _relativeYRotation + rotation, 0f);
-
-            return _regionFormation.RotatePositions(relativeRotation);
-        }
-
-        private Vector3[] GenerateFreeFormation(Vector3 targetPoint)
-        {
-            var originPoint = FormationUtils.FindMiddlePoint(_colonistPositions);
-
-            var difference = targetPoint - originPoint;
-
-            var freeFormationPositions = new Vector3[_colonists.Count];
-            for (int i = 0; i < _colonists.Count; i++)
-            {
-                var targetPosition = _colonists[i].transform.position + difference;
-                freeFormationPositions[i] = new Vector3(
-                    targetPosition.x, targetPoint.y, targetPosition.z
-                );
-            }
-
-            return freeFormationPositions;
-        }
-
-        private Vector3[] RotateFreeFormation(float rotation)
-        {
-            var relativeRotation = Quaternion.Euler(0f, _relativeYRotation + rotation, 0f);
-            var centerPoint = FormationUtils.FindCenterPoint(_formationPositions);
-
-            var rotatedPositions = new Vector3[_formationPositions.Length];
-            for (int i = 0; i < _formationPositions.Length; i++)
-            {
-                var targetUnitPositionRotated =
-                    centerPoint + relativeRotation * (_formationPositions[i] - centerPoint);
-
-                rotatedPositions[i] =
-                    new Vector3(targetUnitPositionRotated.x, _targetPoint.y, targetUnitPositionRotated.z);
-            }
-
-            return rotatedPositions;
-        }
-
-        private Vector3[] GenerateNoFormation(Vector3 targetPoint)
-        {
-            var noFormationPositions = new Vector3[_colonists.Count];
-
-            for (int i = 0; i < _colonists.Count; i++)
-                noFormationPositions[i] = targetPoint;
-
-            return noFormationPositions;
         }
     }
 }

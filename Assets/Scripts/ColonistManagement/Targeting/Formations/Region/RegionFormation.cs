@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace ColonistManagement.Targeting.Formations
+namespace ColonistManagement.Targeting.Formations.Region
 {
     public class RegionFormation : MonoBehaviour
     {

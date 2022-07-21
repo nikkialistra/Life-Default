@@ -1,4 +1,4 @@
-﻿namespace ColonistManagement.Targeting.Formations
+﻿namespace ColonistManagement.Targeting.Formations.Region
 {
     public enum RegionFormationType
     {

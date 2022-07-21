@@ -2,6 +2,7 @@
 using System.Collections;
 using ColonistManagement.Targeting;
 using ColonistManagement.Targeting.Formations;
+using ColonistManagement.Targeting.Formations.Preview;
 using Controls;
 using UnityEngine;
 using Zenject;

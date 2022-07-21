@@ -2,7 +2,7 @@
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace ColonistManagement.Targeting.Formations
+namespace ColonistManagement.Targeting.Formations.Preview
 {
     public class PositionPreviewsPool : MonoBehaviour
     {

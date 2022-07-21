@@ -45,7 +45,51 @@ namespace ColonistManagement.Targeting.Formations
             return centerPoint;
         }
 
-        public static int FarthestPointIndexFrom(Vector3[] formationPositions, bool[] assignedPositionsBitmask,
+        public static float RotationFromOriginToTarget(Vector3 originPoint, Vector3 targetPoint)
+        {
+            var distToTarget = Vector3.Distance(originPoint, targetPoint);
+            var differenceVector = targetPoint - originPoint;
+            differenceVector.y = 0f;
+
+            var angleBetween = Vector3.Angle(Vector3.forward * distToTarget, differenceVector);
+
+            return targetPoint.x > originPoint.x ? angleBetween : 360f - angleBetween;
+        }
+
+        public static (Colonist[] sortedColonists, Vector3[] sortedFormationPositions) FindMappingBetweenColonistsAndPositions(
+            Vector3[] formationPositions, List<Vector3> colonistPositions,
+            List<Colonist> colonists, FormationType formationType)
+        {
+            var length = formationPositions.Length;
+
+            var sortedColonists = new Colonist[length];
+            var sortedFormationPositions = new Vector3[length];
+
+            var assignedPositionsBitmask = new bool[length];
+            var assignedColonistsBitmask = new bool[length];
+
+            var middlePoint = FindMiddlePoint(colonistPositions);
+
+            for (int i = 0; i < length; i++)
+            {
+                var formationIndex = formationType == FormationType.Free
+                    ? FarthestPointIndexFrom(formationPositions, assignedPositionsBitmask, middlePoint)
+                    : i;
+
+                var closestUnitIndex =
+                    ClosestUnitIndexTo(colonists, formationPositions[formationIndex], assignedColonistsBitmask);
+
+                assignedColonistsBitmask[closestUnitIndex] = true;
+                assignedPositionsBitmask[formationIndex] = true;
+
+                sortedColonists[i] = colonists[closestUnitIndex];
+                sortedFormationPositions[i] = formationPositions[formationIndex];
+            }
+
+            return (sortedColonists, sortedFormationPositions);
+        }
+
+        private static int FarthestPointIndexFrom(Vector3[] formationPositions, bool[] assignedPositionsBitmask,
             Vector3 originPoint)
         {
             var farthestPointDistance = 0f;
@@ -66,7 +110,7 @@ namespace ColonistManagement.Targeting.Formations
             return farthestPointIndex;
         }
 
-        public static int ClosestUnitIndexTo(List<Colonist> colonists, Vector3 targetPoint,
+        private static int ClosestUnitIndexTo(List<Colonist> colonists, Vector3 targetPoint,
             bool[] assignedColonistsBitmask)
         {
             var closestUnitDistance = 1000f;
@@ -85,17 +129,6 @@ namespace ColonistManagement.Targeting.Formations
             }
 
             return closestUnitIndex;
-        }
-
-        public static float RotationFromOriginToTarget(Vector3 originPoint, Vector3 targetPoint)
-        {
-            var distToTarget = Vector3.Distance(originPoint, targetPoint);
-            var differenceVector = targetPoint - originPoint;
-            differenceVector.y = 0f;
-
-            var angleBetween = Vector3.Angle(Vector3.forward * distToTarget, differenceVector);
-
-            return targetPoint.x > originPoint.x ? angleBetween : 360f - angleBetween;
         }
     }
 }

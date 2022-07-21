@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using ColonistManagement.Targeting.Formations;
+using ColonistManagement.Targeting.Formations.Preview;
 using Colonists;
 using Controls;
 using Entities;

@@ -32,7 +32,7 @@ namespace ColonistManagement.Movement
 
         public void Target(FormationColor formationColor)
         {
-            if (Physics.Raycast(_rayCasting.GetRayFromMouse(), out var hit, Mathf.Infinity, _rayCasting.RayMask))
+            if (Physics.Raycast(_rayCasting.GetRayFromMouse(), out var hit, Mathf.Infinity, _rayCasting.TerrainMask))
             {
                 var ground = hit.transform.GetComponentInParent<Ground>();
                 if (ground != null)

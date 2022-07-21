@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Linq;
 using ColonistManagement.Targeting.Formations;
 using Colonists;
@@ -111,7 +110,7 @@ namespace ColonistManagement.Movement
 
         private bool TryTargetUnit()
         {
-            if (Physics.Raycast(_rayCasting.GetRayFromMouse(), out var hit, Mathf.Infinity, _rayCasting.RayMask))
+            if (Physics.Raycast(_rayCasting.GetRayFromMouse(), out var hit, Mathf.Infinity, _rayCasting.UnitsMask))
             {
                 var unit = hit.transform.GetComponentInParent<Unit>();
                 if (unit != null)
@@ -127,7 +126,7 @@ namespace ColonistManagement.Movement
 
         private bool TryTargetEntity()
         {
-            if (Physics.Raycast(_rayCasting.GetRayFromMouse(), out var hit, Mathf.Infinity, _rayCasting.RayMask))
+            if (Physics.Raycast(_rayCasting.GetRayFromMouse(), out var hit, Mathf.Infinity, _rayCasting.EntitiesMask))
             {
                 var entity = hit.transform.GetComponentInParent<Entity>();
                 if (entity != null)

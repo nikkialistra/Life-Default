@@ -59,6 +59,27 @@ namespace ColonistManagement.Movement
             _movementInput.Stop -= Stop;
         }
 
+        public void Stop()
+                {
+                    foreach (var colonist in _selectedColonists.Colonists)
+                        colonist.Stop();
+                }
+
+                private void ShowFormation(Vector3 position, FormationColor formationColor)
+                        {
+                            _formationMovement.ShowFormation(position, _selectedColonists.Colonists, formationColor);
+                        }
+
+                        private void RotateFormation(float angle)
+                        {
+                            _formationMovement.RotateFormation(angle);
+                        }
+
+                        private void FinishFormation(bool additional, FormationColor formationColor)
+                        {
+                            _formationMovement.MoveToFormationPositions(additional, formationColor);
+                        }
+
         private void OrderToColonist(Colonist targetColonist)
         {
             foreach (var colonist in _selectedColonists.Colonists)
@@ -75,27 +96,6 @@ namespace ColonistManagement.Movement
         {
             foreach (var colonist in _selectedColonists.Colonists)
                 colonist.OrderTo(resource);
-        }
-
-        private void ShowFormation(Vector3 position, FormationColor formationColor)
-        {
-            _formationMovement.ShowFormation(position, _selectedColonists.Colonists, formationColor);
-        }
-
-        private void RotateFormation(float angle)
-        {
-            _formationMovement.RotateFormation(angle);
-        }
-
-        private void FinishFormation(bool additional, FormationColor formationColor)
-        {
-            _formationMovement.MoveToFormationPositions(additional, formationColor);
-        }
-
-        public void Stop()
-        {
-            foreach (var colonist in _selectedColonists.Colonists)
-                colonist.Stop();
         }
     }
 }

@@ -6,13 +6,15 @@ namespace Controls
 {
     public class RayCasting : MonoBehaviour
     {
-        public LayerMask RayMask => _rayMask;
+        public LayerMask UnitsMask => _unitsMask;
+        public LayerMask EntitiesMask => _entitiesMask;
         public LayerMask TerrainMask => _terrainMask;
 
-        private Camera _camera;
+        [SerializeField] private LayerMask _unitsMask;
+        [SerializeField] private LayerMask _entitiesMask;
+        [SerializeField] private LayerMask _terrainMask;
 
-        private LayerMask _rayMask;
-        private LayerMask _terrainMask;
+        private Camera _camera;
 
         private PlayerInput _playerInput;
 
@@ -27,9 +29,6 @@ namespace Controls
 
         private void Awake()
         {
-            _rayMask = LayerMask.GetMask("Terrain", "Colonists", "Enemies", "Resources", "Buildings");
-            _terrainMask = LayerMask.GetMask("Terrain");
-
             _mousePositionAction = _playerInput.actions.FindAction("Mouse Position");
         }
 

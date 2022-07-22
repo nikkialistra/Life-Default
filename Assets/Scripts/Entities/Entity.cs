@@ -69,59 +69,6 @@ namespace Entities
             }
         }
 
-        public void Select()
-        {
-            switch (_entityType)
-            {
-                case EntityType.Resource:
-                    _resource.Select();
-                    break;
-                case EntityType.ResourceChunk:
-                    _resourceChunk.Select();
-                    break;
-                case EntityType.Building:
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
-        }
-
-        public void Deselect()
-        {
-            switch (_entityType)
-            {
-                case EntityType.Resource:
-                    _resource.Deselect();
-                    break;
-                case EntityType.ResourceChunk:
-                    _resourceChunk.Deselect();
-                    break;
-                case EntityType.Building:
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
-        }
-
-        public void Destroy()
-        {
-            if (_destroyed) return;
-
-            switch (_entityType)
-            {
-                case EntityType.Resource:
-                    _resource.Destroy();
-                    break;
-                case EntityType.ResourceChunk:
-                    _resourceChunk.Destroy();
-                    break;
-                case EntityType.Building:
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
-        }
-
         private void OnDestroying()
         {
             _destroyed = true;

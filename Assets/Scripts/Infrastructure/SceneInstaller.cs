@@ -1,6 +1,6 @@
 ﻿using Animancer;
 using Colonists;
-using Colonists.Services.Selecting;
+using Colonists.Services;
 using General;
 using General.Map;
 using General.Questing;
@@ -199,7 +199,7 @@ namespace Infrastructure
 
         private void BindMisc()
         {
-            Container.BindInstance(_pathLineParent).WhenInjectedInto<ColonistMeshAgent>();
+            Container.BindInstance(_pathLineParent).WhenInjectedInto<ColonistMeshAgentPath>();
             Container.BindInstance(_linesToTrackedUnitsParent).WhenInjectedInto<LineToTrackedUnit>();
         }
     }

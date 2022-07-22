@@ -8,9 +8,8 @@ namespace Colonists
 {
     [RequireComponent(typeof(UnitAttacker))]
     [RequireComponent(typeof(Colonist))]
-    public class ColonistNeedsIndication : MonoBehaviour
+    public class ColonistEscapeIndication : MonoBehaviour
     {
-        [Title("Want Escape")]
         [SerializeField] private float _escapeRelieveDistanceFromOpponents = 15f;
         [SerializeField] private float _rescanTime = 0.2f;
         [SerializeField] private LayerMask _targetMask;

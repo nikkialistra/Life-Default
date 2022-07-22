@@ -4,7 +4,7 @@ using UI.Game.GameLook.Components.Info;
 using UnityEngine;
 using Zenject;
 
-namespace Colonists.Services.Selecting
+namespace Colonists.Services
 {
     public class ColonistChoosing : MonoBehaviour
     {

@@ -1,18 +1,16 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using Colonists.Activities;
-using Common;
 using Infrastructure.Settings;
 using ResourceManagement;
 using Sirenix.OdinInspector;
 using Units;
 using Units.Ancillaries.Fields;
-using Units.Stats;
 using UnityEngine;
 using Zenject;
 
 namespace Colonists
 {
+    [RequireComponent(typeof(ColonistGathererParameters))]
     [RequireComponent(typeof(ColonistAnimator))]
     [RequireComponent(typeof(ColonistActivities))]
     public class ColonistGatherer : MonoBehaviour
@@ -22,21 +20,15 @@ namespace Colonists
         [Required]
         [SerializeField] private UnitEquipment _unitEquipment;
 
-        [ValidateInput(nameof(EveryResourceHasDistanceInteraction))]
-        [SerializeField] private ResourceInteractionDistanceDictionary _resourceInteractionDistances;
-
-        [SerializeField] private float _distanceCorrectionFromCenter = 2f;
-
         [Space]
         [Required]
         [SerializeField] private FieldOfView _resourceFieldOfView;
 
         private float _waitTime;
 
-        private float _resourceDestructionSpeed;
-        private float _resourceExtractionEfficiency;
-
         private Resource _resource;
+
+        private ColonistGathererParameters _parameters;
 
         private ColonistAnimator _colonistAnimator;
         private ColonistActivities _colonistActivities;
@@ -51,37 +43,17 @@ namespace Colonists
 
         private void Awake()
         {
+            _parameters = GetComponent<ColonistGathererParameters>();
+
             _colonistAnimator = GetComponent<ColonistAnimator>();
             _colonistActivities = GetComponent<ColonistActivities>();
-        }
-
-        public void BindStats(Stat<ColonistStat> resourceDestructionSpeed,
-            Stat<ColonistStat> resourceExtractionEfficiency)
-        {
-            _resourceDestructionSpeed = resourceDestructionSpeed.Value;
-            _resourceExtractionEfficiency = resourceExtractionEfficiency.Value;
-
-            resourceDestructionSpeed.ValueChange += OnResourceDestructionSpeedChange;
-            resourceExtractionEfficiency.ValueChange += OnResourceExtractionEfficiencyChange;
-        }
-
-        public void UnbindStats(Stat<ColonistStat> resourceDestructionSpeed,
-            Stat<ColonistStat> resourceExtractionEfficiency)
-        {
-            resourceDestructionSpeed.ValueChange -= OnResourceDestructionSpeedChange;
-            resourceExtractionEfficiency.ValueChange -= OnResourceExtractionEfficiencyChange;
-        }
-
-        public float InteractionDistanceFor(ResourceType resourceType)
-        {
-            return _resourceInteractionDistances[resourceType];
         }
 
         public bool AtInteractionDistance(Resource resource)
         {
             var distance = Vector3.Distance(transform.position, resource.transform.position);
 
-            return distance <= _resourceInteractionDistances[resource.ResourceType] + _distanceCorrectionFromCenter;
+            return distance <= _parameters.InteractionDistanceFor(resource.ResourceType);
         }
 
         public bool TryGather(Resource resource)
@@ -112,9 +84,9 @@ namespace Colonists
 
             _colonistActivities.Advance(ActivityType.Gathering, duration);
 
-            var extractedQuantity = _resourceDestructionSpeed * duration;
+            var extractedQuantity = _parameters.ResourceDestructionSpeed * duration;
 
-            _resource.Extract(extractedQuantity, _resourceExtractionEfficiency);
+            _resource.Extract(extractedQuantity, _parameters.ResourceExtractionEfficiency);
             _resource.Hit(transform.position);
 
             if (_resource.Exhausted)
@@ -122,16 +94,6 @@ namespace Colonists
                 _resource = null;
                 StopGathering();
             }
-        }
-
-        private void OnResourceDestructionSpeedChange(float value)
-        {
-            _resourceDestructionSpeed = value;
-        }
-
-        private void OnResourceExtractionEfficiencyChange(float value)
-        {
-            _resourceExtractionEfficiency = value;
         }
 
         private IEnumerator CWatchForExhaustion()
@@ -190,21 +152,5 @@ namespace Colonists
 
             _colonistAnimator.StopGathering();
         }
-
-        private bool EveryResourceHasDistanceInteraction(ResourceInteractionDistanceDictionary distances,
-            ref string errorMessage)
-        {
-            foreach (var resourceType in (ResourceType[])Enum.GetValues(typeof(ResourceType)))
-                if (!distances.ContainsKey(resourceType))
-                {
-                    errorMessage = $"{resourceType} don't have distance";
-                    return false;
-                }
-
-            return true;
-        }
-
-        [Serializable]
-        public class ResourceInteractionDistanceDictionary : SerializableDictionary<ResourceType, float> { }
     }
 }

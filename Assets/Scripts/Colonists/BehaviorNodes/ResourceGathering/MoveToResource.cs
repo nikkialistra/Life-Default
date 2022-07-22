@@ -9,6 +9,7 @@ namespace Colonists.BehaviorNodes.ResourceGathering
 
         public ColonistMeshAgent ColonistMeshAgent;
         public ColonistGatherer ColonistGatherer;
+        public ColonistGathererParameters ColonistGathererParameters;
 
         private bool _destinationReached;
 
@@ -16,7 +17,7 @@ namespace Colonists.BehaviorNodes.ResourceGathering
         {
             _destinationReached = false;
 
-            var interactionDistance = ColonistGatherer.InteractionDistanceFor(Resource.Value.ResourceType);
+            var interactionDistance = ColonistGathererParameters.InteractionDistanceFor(Resource.Value.ResourceType);
 
             ColonistMeshAgent.DestinationReach += OnDestinationReach;
             ColonistMeshAgent.SetDestinationToResource(Resource.Value, interactionDistance);

@@ -24,6 +24,7 @@ namespace Colonists
     [RequireComponent(typeof(ColonistAnimator))]
     [RequireComponent(typeof(ColonistMeshAgent))]
     [RequireComponent(typeof(ColonistGatherer))]
+    [RequireComponent(typeof(ColonistGathererParameters))]
     [RequireComponent(typeof(ColonistBehavior))]
     [RequireComponent(typeof(ColonistSkills))]
     [RequireComponent(typeof(ColonistActivities))]
@@ -78,6 +79,7 @@ namespace Colonists
         private ColonistAnimator _colonistAnimator;
         private ColonistMeshAgent _colonistMeshAgent;
         private ColonistGatherer _colonistGatherer;
+        private ColonistGathererParameters _colonistGathererParameters;
         private ColonistBehavior _colonistBehavior;
         private ColonistSkills _colonistSkills;
         private ColonistActivities _colonistActivities;
@@ -103,6 +105,7 @@ namespace Colonists
             _colonistAnimator = GetComponent<ColonistAnimator>();
             _colonistMeshAgent = GetComponent<ColonistMeshAgent>();
             _colonistGatherer = GetComponent<ColonistGatherer>();
+            _colonistGathererParameters = GetComponent<ColonistGathererParameters>();
             _colonistBehavior = GetComponent<ColonistBehavior>();
             _colonistSkills = GetComponent<ColonistSkills>();
             _colonistActivities = GetComponent<ColonistActivities>();
@@ -288,13 +291,13 @@ namespace Colonists
 
         private void BindStatsToComponents()
         {
-            _colonistGatherer.BindStats(_colonistStats.ResourceDestructionSpeed,
+            _colonistGathererParameters.BindStats(_colonistStats.ResourceDestructionSpeed,
                 _colonistStats.ResourceExtractionEfficiency);
         }
 
         private void UnbindStatsFromComponents()
         {
-            _colonistGatherer.UnbindStats(_colonistStats.ResourceDestructionSpeed,
+            _colonistGathererParameters.UnbindStats(_colonistStats.ResourceDestructionSpeed,
                 _colonistStats.ResourceExtractionEfficiency);
         }
 

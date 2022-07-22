@@ -53,7 +53,7 @@ namespace Colonists
         {
             var distance = Vector3.Distance(transform.position, resource.transform.position);
 
-            return distance <= _parameters.InteractionDistanceFor(resource.ResourceType);
+            return distance <= _parameters.InteractionDistanceFromColonistCenterFor(resource.ResourceType);
         }
 
         public bool TryGather(Resource resource)

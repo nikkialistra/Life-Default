@@ -10,6 +10,9 @@ namespace Colonists
     public class ColonistGathererParameters : MonoBehaviour
     {
         public float InteractionDistanceFor(ResourceType resourceType) =>
+            _resourceInteractionDistances[resourceType];
+
+        public float InteractionDistanceFromColonistCenterFor(ResourceType resourceType) =>
             _resourceInteractionDistances[resourceType] + _distanceCorrectionFromCenter;
 
         public float ResourceDestructionSpeed => _resourceDestructionSpeed;

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Entities;
 using Entities.Types;
-using General.Selecting.Selected;
+using General.Selecting.Selected.Entities;
 using ResourceManagement;
 
 namespace General.Selecting

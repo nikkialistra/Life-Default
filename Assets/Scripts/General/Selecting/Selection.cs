@@ -5,6 +5,7 @@ using Enemies;
 using Entities;
 using Entities.Types;
 using General.Selecting.Selected;
+using General.Selecting.Selected.Entities;
 using UI.Game.GameLook.Components.Info;
 using Units;
 using Units.Enums;

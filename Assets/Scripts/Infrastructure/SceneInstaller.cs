@@ -6,6 +6,7 @@ using General.Map;
 using General.Questing;
 using General.Selecting;
 using General.Selecting.Selected;
+using General.Selecting.Selected.Entities;
 using General.TemperatureRegulation;
 using General.TileManagement.Tiles;
 using General.TimeCycle.Days;

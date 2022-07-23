@@ -22,7 +22,6 @@ namespace ResourceManagement
 
         public string Name => _name;
 
-
         [SerializeField] private string _name;
 
         private Rigidbody _rigidbody;

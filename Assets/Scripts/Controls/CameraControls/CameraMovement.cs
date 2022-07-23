@@ -16,7 +16,7 @@ namespace Controls.CameraControls
     [RequireComponent(typeof(CameraFocusing))]
     [RequireComponent(typeof(CameraFollowing))]
     [RequireComponent(typeof(CameraRaising))]
-    [RequireComponent(typeof(CameraNormalizedMovement))]
+    [RequireComponent(typeof(CameraThresholdMovement))]
     public class CameraMovement : MonoBehaviour
     {
         [SerializeField] private bool _deactivateAtStartup = true;
@@ -81,7 +81,7 @@ namespace Controls.CameraControls
         private CameraFocusing _cameraFocusing;
         private CameraFollowing _cameraFollowing;
         private CameraRaising _cameraRaising;
-        private CameraNormalizedMovement _cameraNormalizedMovement;
+        private CameraThresholdMovement _cameraThresholdMovement;
 
         private SelectingInput _selectingInput;
 
@@ -113,7 +113,7 @@ namespace Controls.CameraControls
             _cameraFocusing = GetComponent<CameraFocusing>();
             _cameraFollowing = GetComponent<CameraFollowing>();
             _cameraRaising = GetComponent<CameraRaising>();
-            _cameraNormalizedMovement = GetComponent<CameraNormalizedMovement>();
+            _cameraThresholdMovement = GetComponent<CameraThresholdMovement>();
 
             _movementAction = _playerInput.actions.FindAction("Movement");
             _dragAction = _playerInput.actions.FindAction("Drag");
@@ -297,7 +297,7 @@ namespace Controls.CameraControls
 
             var position = _mousePositionAction.ReadValue<Vector2>();
 
-            var movement = _cameraNormalizedMovement.GetMovementFromPosition(position, _moveSpeed);
+            var movement = _cameraThresholdMovement.GetMovementFromPosition(position, _moveSpeed);
 
             if (movement != Vector2.zero)
                 UpdatePositionFromMouseMovement(movement);

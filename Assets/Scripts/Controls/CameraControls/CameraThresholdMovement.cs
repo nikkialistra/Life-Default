@@ -2,7 +2,7 @@
 
 namespace Controls.CameraControls
 {
-    public class CameraNormalizedMovement : MonoBehaviour
+    public class CameraThresholdMovement : MonoBehaviour
     {
         [Space]
         [Range(0.5f, 1f)]

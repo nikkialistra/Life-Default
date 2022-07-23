@@ -7,7 +7,7 @@ namespace Controls.CameraControls
 {
     [RequireComponent(typeof(Camera))]
     [RequireComponent(typeof(CameraRaising))]
-    [RequireComponent(typeof(CameraNormalizedMovement))]
+    [RequireComponent(typeof(CameraThresholdMovement))]
     public class CameraFollowing : MonoBehaviour
     {
         private bool _following;
@@ -20,7 +20,7 @@ namespace Controls.CameraControls
         private Camera _camera;
 
         private CameraRaising _cameraRaising;
-        private CameraNormalizedMovement _cameraNormalizedMovement;
+        private CameraThresholdMovement _cameraThresholdMovement;
 
         private PlayerInput _playerInput;
 
@@ -39,7 +39,7 @@ namespace Controls.CameraControls
             _camera = GetComponent<Camera>();
 
             _cameraRaising = GetComponent<CameraRaising>();
-            _cameraNormalizedMovement = GetComponent<CameraNormalizedMovement>();
+            _cameraThresholdMovement = GetComponent<CameraThresholdMovement>();
 
             _movementAction = _playerInput.actions.FindAction("Movement");
             _setFollowAction = _playerInput.actions.FindAction("Set Follow");
@@ -75,7 +75,7 @@ namespace Controls.CameraControls
 
             var position = _mousePositionAction.ReadValue<Vector2>();
 
-            var mouseMoved = _cameraNormalizedMovement.IsMouseMoved(position);
+            var mouseMoved = _cameraThresholdMovement.IsMouseMoved(position);
 
             if (keyboardMoved || mouseMoved || _dragAction.IsPressed())
             {

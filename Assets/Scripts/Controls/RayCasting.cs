@@ -27,7 +27,10 @@ namespace Controls
             _camera = camera;
         }
 
-        private void Awake() => _mousePositionAction = _playerInput.actions.FindAction("Mouse Position");
+        private void Awake()
+        {
+            _mousePositionAction = _playerInput.actions.FindAction("Mouse Position");
+        }
 
         public Ray GetRayFromMouse()
         {

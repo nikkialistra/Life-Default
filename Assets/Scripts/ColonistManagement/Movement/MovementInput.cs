@@ -30,9 +30,9 @@ namespace ColonistManagement.Movement
 
         public event Action Stop;
 
-        public bool CanTarget => _selectedColonists.Colonists.Any() && !_gameViews.MouseOverUi;
-
         public bool MultiCommand { get; private set; }
+
+        public bool CanTarget => _selectedColonists.Colonists.Any() && !_gameViews.MouseOverUi;
 
         private GroundTargeting _groundTargeting;
 

@@ -22,6 +22,8 @@ namespace General.WeatherRegulation
         [DictionaryDrawerSettings(DisplayMode = DictionaryDisplayOptions.ExpandedFoldout)]
         [SerializeField] private WeatherNecessaryConditionsDictionary _weatherNecessaryConditions;
 
+        private bool WeatherEventOccured => Random.Range(0, 1f) <= _weatherEventChancePerDay;
+
         private Weather _currentWeather;
 
         private Weather _futureWeather;
@@ -110,8 +112,6 @@ namespace General.WeatherRegulation
             _weatherBeginTime = _weatherBeginTimeRange.GetRandomHour();
             _weatherChangePending = true;
         }
-
-        private bool WeatherEventOccured => Random.Range(0, 1f) <= _weatherEventChancePerDay;
 
         private void GenerateWeather()
         {

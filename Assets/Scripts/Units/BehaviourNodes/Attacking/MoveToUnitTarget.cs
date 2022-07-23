@@ -11,6 +11,8 @@ namespace Units.BehaviourNodes.Attacking
         public UnitAttacker UnitAttacker;
         public UnitEquipment UnitEquipment;
 
+        private bool OutOfAttackDistance => !UnitAttacker.OnAttackDistance(UnitTarget.Value.transform.position);
+
         public override void OnStart()
         {
             UnitAttacker.SetTrackedUnit(UnitTarget.Value);
@@ -32,7 +34,5 @@ namespace Units.BehaviourNodes.Attacking
         {
             UnitMeshAgent.StopMovingToUnitTarget();
         }
-
-        private bool OutOfAttackDistance => !UnitAttacker.OnAttackDistance(UnitTarget.Value.transform.position);
     }
 }

@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using Colonists;
-using DG.Tweening;
 using General.Map;
 using General.Selecting;
-using Infrastructure.Settings;
 using Saving;
 using Sirenix.OdinInspector;
 using UI.Game;
@@ -13,21 +10,19 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Zenject;
 
-namespace General
+namespace Controls.CameraControls
 {
     [RequireComponent(typeof(Camera))]
+    [RequireComponent(typeof(CameraFocusing))]
+    [RequireComponent(typeof(CameraFollowing))]
+    [RequireComponent(typeof(CameraRaising))]
+    [RequireComponent(typeof(CameraNormalizedMovement))]
     public class CameraMovement : MonoBehaviour
     {
         [SerializeField] private bool _deactivateAtStartup = true;
 
         [Title("Movement")]
         [SerializeField] private float _moveSpeed;
-
-        [Space]
-        [Range(0.5f, 1f)]
-        [SerializeField] private float _positionMoveXThreshold;
-        [Range(0.5f, 1f)]
-        [SerializeField] private float _positionMoveYThreshold;
 
         [Title("Rotation")]
         [SerializeField] private float _rotateHorizontalSpeed;
@@ -50,14 +45,6 @@ namespace General
         [SerializeField] private float _minimumPositionZ;
         [SerializeField] private float _maximumPositionZ;
 
-        [Title("Focusing")]
-        [SerializeField] private float _focusFov = 40f;
-        [SerializeField] private float _focusDistance = 30f;
-        [SerializeField] private float _focusRotation = 45f;
-        [SerializeField] private float _focusDuration = .3f;
-        [Space]
-        [SerializeField] private float _minDistanceForTeleporation;
-
         [Title("Smoothing")]
         [SerializeField] private float _positionSmoothing;
         [SerializeField] private float _rotationSmoothing;
@@ -65,7 +52,6 @@ namespace General
 
         private float _horizontalRotation;
         private float _verticalRotation;
-        private float _heightAboveTerrain;
 
         private Camera _camera;
 
@@ -83,28 +69,21 @@ namespace General
         private bool _activated;
         private bool _canMouseScroll;
 
-        private Colonist _colonist;
-        private Transform _followTransform;
-        private Vector3 _offset;
-        private bool _following;
-
-        private bool _focusing;
-
         private float _cameraSensitivity;
         private bool _screenEdgeMouseScroll;
         private bool _isSelectingInput;
 
-        private LayerMask _terrainMask;
         private float _raiseDistance;
 
         private GameSettings _gameSettings;
         private GameViews _gameViews;
 
-        private Coroutine _focusingCoroutine;
+        private CameraFocusing _cameraFocusing;
+        private CameraFollowing _cameraFollowing;
+        private CameraRaising _cameraRaising;
+        private CameraNormalizedMovement _cameraNormalizedMovement;
 
         private SelectingInput _selectingInput;
-
-        private Vector3 _raycastToTerrainCorrection;
 
         private PlayerInput _playerInput;
 
@@ -113,13 +92,11 @@ namespace General
         private InputAction _mousePositionAction;
         private InputAction _zoomScrollAction;
 
-        private InputAction _setFollowAction;
-
         private InputAction _toggleCameraMovementAction;
 
         [Inject]
         public void Construct(MapInitialization mapInitialization, GameSettings gameSettings, GameViews gameViews,
-            SelectingInput selectingInput, PlayerInput playerInput, RaycastingSettings raycastingSettings)
+            SelectingInput selectingInput, PlayerInput playerInput)
         {
             _mapInitialization = mapInitialization;
 
@@ -127,22 +104,21 @@ namespace General
             _gameViews = gameViews;
             _selectingInput = selectingInput;
             _playerInput = playerInput;
-
-            _raycastToTerrainCorrection = raycastingSettings.RaycastToTerrainCorrection;
         }
 
         private void Awake()
         {
             _camera = GetComponent<Camera>();
 
-            _terrainMask = LayerMask.GetMask("Terrain");
+            _cameraFocusing = GetComponent<CameraFocusing>();
+            _cameraFollowing = GetComponent<CameraFollowing>();
+            _cameraRaising = GetComponent<CameraRaising>();
+            _cameraNormalizedMovement = GetComponent<CameraNormalizedMovement>();
 
             _movementAction = _playerInput.actions.FindAction("Movement");
             _dragAction = _playerInput.actions.FindAction("Drag");
             _mousePositionAction = _playerInput.actions.FindAction("Mouse Position");
             _zoomScrollAction = _playerInput.actions.FindAction("Zoom Scroll");
-
-            _setFollowAction = _playerInput.actions.FindAction("Set Follow");
 
             _toggleCameraMovementAction = _playerInput.actions.FindAction("Toggle Camera Movement");
         }
@@ -167,8 +143,6 @@ namespace General
         {
             _mapInitialization.Load += OnMapInitializationLoad;
 
-            _heightAboveTerrain = GetDistanceAboveTerrain();
-
             _newPosition = transform.position;
             _newRotation = transform.rotation;
             _newFieldOfView = _camera.fieldOfView;
@@ -183,12 +157,7 @@ namespace General
 
             CalculateDeltas();
 
-            UpdateFollowing();
-            if (_following)
-            {
-                UpdateFollow();
-            }
-            else
+            if (!_cameraFollowing.TryUpdateFollow())
             {
                 UpdatePosition();
                 UpdatePositionFromMouseThresholdMovement();
@@ -218,72 +187,7 @@ namespace General
 
         public void FocusOn(Colonist colonist)
         {
-            ResetFollow();
-
-            var yRotation = Quaternion.Euler(new Vector3(0, transform.rotation.eulerAngles.y, 0));
-            var forward = yRotation * Vector3.forward;
-
-            var position = colonist.Center + (forward * -_focusDistance);
-            position = RaiseAboveTerrain(position);
-
-            var eulerAngles = new Vector3(_focusRotation, _newRotation.eulerAngles.y, _newRotation.eulerAngles.z);
-
-            StartFocusing(colonist, position, eulerAngles);
-        }
-
-        private void StartFocusing(Colonist colonist, Vector3 position, Vector3 eulerAngles)
-        {
-            if (_focusingCoroutine != null)
-            {
-                StopCoroutine(_focusingCoroutine);
-                _focusingCoroutine = null;
-            }
-
-            if (Vector3.Distance(transform.position, colonist.Center) > _minDistanceForTeleporation)
-            {
-                transform.position = position;
-                _newPosition = position;
-                SetFocusRotation(eulerAngles);
-            }
-            else
-            {
-                _focusingCoroutine = StartCoroutine(CFocusing(position, eulerAngles, colonist));
-            }
-        }
-
-        private float GetDistanceAboveTerrain()
-        {
-            if (Physics.Raycast(new Ray(transform.position + _raycastToTerrainCorrection, Vector3.down), out var hit,
-                100f, _terrainMask))
-                return hit.distance;
-            else
-                throw new InvalidOperationException("Camera is not above terrain");
-        }
-
-        private IEnumerator CFocusing(Vector3 position, Vector3 eulerAngles, Colonist colonist)
-        {
-            _focusing = true;
-
-            transform.DOMove(position, _focusDuration * Time.timeScale);
-
-            yield return new WaitForSecondsRealtime(_focusDuration / 2f);
-
-            // Start to change fov and rotation in the middle of movement
-            SetFocusRotation(eulerAngles);
-
-            yield return new WaitForSecondsRealtime(_focusDuration / 2f);
-
-            _newPosition = transform.position;
-
-            SetFollow(colonist);
-
-            _focusing = false;
-        }
-
-        private void SetFocusRotation(Vector3 eulerAngles)
-        {
-            _newFieldOfView = _focusFov;
-            _newRotation.eulerAngles = eulerAngles;
+            _cameraFocusing.FocusOn(colonist);
         }
 
         private void OnMapInitializationLoad()
@@ -330,14 +234,9 @@ namespace General
             _gameSettings.ScreenEdgeMouseScroll.Subscribe(value => _screenEdgeMouseScroll = value);
         }
 
-        private void Deactivate()
-        {
-            _setFollowAction.started -= TryFollow;
-        }
-
         private void Activate()
         {
-            _setFollowAction.started += TryFollow;
+            _cameraFollowing.Activate();
 
             var mousePosition = _mousePositionAction.ReadValue<Vector2>();
 
@@ -345,60 +244,9 @@ namespace General
             _lastMousePositionY = mousePosition.y;
         }
 
-        private void UpdateFollowing()
+        private void Deactivate()
         {
-            var keyboardMoved = _movementAction.ReadValue<Vector2>() != Vector2.zero;
-
-            var position = _mousePositionAction.ReadValue<Vector2>();
-            var normalisedPosition = GetNormalisedPosition(position);
-            var mouseMoved = Mathf.Abs(normalisedPosition.x) > _positionMoveXThreshold ||
-                             Mathf.Abs(normalisedPosition.y) > _positionMoveYThreshold;
-
-            if (keyboardMoved || mouseMoved || _dragAction.IsPressed())
-                _following = false;
-        }
-
-        private void UpdateFollow()
-        {
-            transform.position = RaiseAboveTerrain(_followTransform.position + _offset);
-            _newPosition = transform.position;
-        }
-
-        private void TryFollow(InputAction.CallbackContext context)
-        {
-            var screenPoint = _mousePositionAction.ReadValue<Vector2>();
-            var ray = _camera.ScreenPointToRay(screenPoint);
-
-            if (Physics.Raycast(ray, out var hit))
-                if (hit.transform.gameObject.TryGetComponent<Colonist>(out var colonist))
-                    SetFollow(colonist);
-                else
-                    ResetFollow();
-        }
-
-        private void SetFollow(Colonist colonist)
-        {
-            UnsubscribeFromLastUnit();
-
-            _colonist = colonist;
-            _followTransform = colonist.transform;
-            _offset = _newPosition - _followTransform.position;
-
-            colonist.Dying += ResetFollow;
-
-            _following = true;
-        }
-
-        private void ResetFollow()
-        {
-            _followTransform = null;
-            _following = false;
-        }
-
-        private void UnsubscribeFromLastUnit()
-        {
-            if (_colonist != null)
-                _colonist.Dying -= ResetFollow;
+            _cameraFollowing.Deactivate();
         }
 
         private void CalculateDeltas()
@@ -448,25 +296,11 @@ namespace General
             if (!_canMouseScroll || !_screenEdgeMouseScroll || _isSelectingInput) return;
 
             var position = _mousePositionAction.ReadValue<Vector2>();
-            var normalisedPosition = GetNormalisedPosition(position);
-            var movement = Vector2.zero;
 
-            if (Mathf.Abs(normalisedPosition.x) > _positionMoveXThreshold)
-                movement.x = Mathf.Sign(normalisedPosition.x) * _moveSpeed * Time.unscaledDeltaTime;
-
-            if (Mathf.Abs(normalisedPosition.y) > _positionMoveYThreshold)
-                movement.y = Mathf.Sign(normalisedPosition.y) * _moveSpeed * Time.unscaledDeltaTime;
+            var movement = _cameraNormalizedMovement.GetMovementFromPosition(position, _moveSpeed);
 
             if (movement != Vector2.zero)
                 UpdatePositionFromMouseMovement(movement);
-        }
-
-        //Result between -1 and 1 is the result between 0 and 1 subtracted with 0.5 and multiplied by 2
-        private Vector2 GetNormalisedPosition(Vector2 position)
-        {
-            var result = new Vector2(((position.x / Screen.width) - 0.5f) * 2f,
-                ((position.y / Screen.height) - 0.5f) * 2f);
-            return result;
         }
 
         private void UpdatePositionFromMouseMovement(Vector2 movement)
@@ -479,7 +313,7 @@ namespace General
         {
             var position = _newPosition;
 
-            position = RaiseAboveTerrain(position);
+            position = _cameraRaising.RaiseAboveTerrain(position);
 
             if (position.x < _minimumPositionX)
                 position.x = _minimumPositionX;
@@ -496,18 +330,9 @@ namespace General
             _newPosition = position;
         }
 
-        private Vector3 RaiseAboveTerrain(Vector3 position)
-        {
-            if (Physics.Raycast(new Ray(position + _raycastToTerrainCorrection, Vector3.down), out var hit,
-                100f, _terrainMask))
-                position.y = hit.point.y + _heightAboveTerrain;
-
-            return position;
-        }
-
         private void SmoothUpdate()
         {
-            if (!_focusing)
+            if (!_cameraFocusing.Focusing)
                 transform.position = Vector3.Lerp(transform.position, _newPosition,
                     _positionSmoothing * Time.unscaledDeltaTime) + new Vector3(0, _raiseDistance, 0);
 

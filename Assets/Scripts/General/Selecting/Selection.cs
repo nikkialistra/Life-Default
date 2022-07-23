@@ -16,6 +16,11 @@ namespace General.Selecting
 {
     public class Selection : MonoBehaviour
     {
+        private bool NothingSelected =>
+            _selectedColonists.Count == 0 &&
+            _selectedEnemies.Count == 0 &&
+            _selectedEntities.Count == 0;
+
         private readonly List<Colonist> _colonists = new();
         private readonly List<Enemy> _enemies = new();
         private readonly List<Entity> _entities = new();
@@ -171,7 +176,7 @@ namespace General.Selecting
                 return;
             }
 
-            if (NothingSelected())
+            if (NothingSelected)
             {
                 OnSelected(colliders);
                 return;
@@ -198,13 +203,6 @@ namespace General.Selecting
             }
 
             OnSelected(colliders);
-        }
-
-        private bool NothingSelected()
-        {
-            return _selectedColonists.Count == 0 &&
-                   _selectedEnemies.Count == 0 &&
-                   _selectedEntities.Count == 0;
         }
 
         private void SplitByType(List<Collider> colliders)

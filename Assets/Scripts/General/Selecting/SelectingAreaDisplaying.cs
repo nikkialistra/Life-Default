@@ -41,13 +41,11 @@ namespace General.Selecting
         }
 
 #if UNITY_EDITOR
-
         private void Update()
         {
             _width = Screen.width;
             _height = Screen.height;
         }
-
 #endif
 
         private void UpdateSize()

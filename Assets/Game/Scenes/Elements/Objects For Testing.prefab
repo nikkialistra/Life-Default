@@ -166,6 +166,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Hit Sphere
       objectReference: {fileID: 0}
+    - target: {fileID: 1011788162527028480, guid: 257674d53c49a0c4ebe421ac06a96ad0,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1011788162527028492, guid: 257674d53c49a0c4ebe421ac06a96ad0,
         type: 3}
       propertyPath: m_RootOrder

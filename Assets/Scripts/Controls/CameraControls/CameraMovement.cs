@@ -15,9 +15,14 @@ namespace Controls.CameraControls
     [RequireComponent(typeof(CameraFollowing))]
     [RequireComponent(typeof(CameraRaising))]
     [RequireComponent(typeof(CameraThresholdMovement))]
+    [RequireComponent(typeof(CameraMovementApplying))]
     [RequireComponent(typeof(CameraMovementParameters))]
     public class CameraMovement : MonoBehaviour
     {
+        public Vector3 NewPosition => _newPosition;
+        public Quaternion NewRotation => Quaternion.Euler(_newRotation);
+        public float NewFieldOfView => _newFieldOfView;
+
         [SerializeField] private bool _deactivateAtStartup = true;
 
         [Title("Movement")]
@@ -36,19 +41,6 @@ namespace Controls.CameraControls
         [SerializeField] private float _minFov;
         [SerializeField] private float _maxFov;
 
-        [Title("Boundaries")]
-        [SerializeField] private float _minimumPositionX;
-        [SerializeField] private float _maximumPositionX;
-
-        [Space]
-        [SerializeField] private float _minimumPositionZ;
-        [SerializeField] private float _maximumPositionZ;
-
-        [Title("Smoothing")]
-        [SerializeField] private float _positionSmoothing;
-        [SerializeField] private float _rotationSmoothing;
-        [SerializeField] private float _zoomSmoothing;
-
         private float _horizontalRotation;
         private float _verticalRotation;
 
@@ -61,7 +53,7 @@ namespace Controls.CameraControls
         private float _deltaMousePositionY;
 
         private Vector3 _newPosition;
-        private Quaternion _newRotation;
+        private Vector3 _newRotation;
         private float _newFieldOfView;
 
         private MapInitialization _mapInitialization;
@@ -74,8 +66,8 @@ namespace Controls.CameraControls
 
         private CameraFocusing _cameraFocusing;
         private CameraFollowing _cameraFollowing;
-        private CameraRaising _cameraRaising;
         private CameraThresholdMovement _cameraThresholdMovement;
+        private CameraMovementApplying _cameraMovementApplying;
         private CameraMovementParameters _parameters;
 
         private SelectingInput _selectingInput;
@@ -106,8 +98,8 @@ namespace Controls.CameraControls
 
             _cameraFocusing = GetComponent<CameraFocusing>();
             _cameraFollowing = GetComponent<CameraFollowing>();
-            _cameraRaising = GetComponent<CameraRaising>();
             _cameraThresholdMovement = GetComponent<CameraThresholdMovement>();
+            _cameraMovementApplying = GetComponent<CameraMovementApplying>();
             _parameters = GetComponent<CameraMovementParameters>();
 
             _movementAction = _playerInput.actions.FindAction("Movement");
@@ -139,7 +131,7 @@ namespace Controls.CameraControls
             _mapInitialization.Load += OnMapInitializationLoad;
 
             _newPosition = transform.position;
-            _newRotation = transform.rotation;
+            _newRotation = transform.rotation.eulerAngles;
             _newFieldOfView = _camera.fieldOfView;
 
             Activate();
@@ -192,8 +184,7 @@ namespace Controls.CameraControls
             UpdateRotation();
             UpdateZoom();
 
-            ClampPositionByConstraints();
-            SmoothUpdate();
+            ApplyMovement();
         }
 
         private void OnMapInitializationLoad()
@@ -249,10 +240,10 @@ namespace Controls.CameraControls
         private void UpdateFromFocusing()
         {
             _newPosition = _cameraFocusing.NewPosition;
-            _newRotation.eulerAngles = _cameraFocusing.NewRotation;
+            _newRotation = _cameraFocusing.NewRotation;
             _newFieldOfView = _cameraFocusing.NewFieldOfView;
 
-            SmoothUpdate();
+            _cameraMovementApplying.SmoothUpdate();
         }
 
         private void CalculateDeltas()
@@ -296,14 +287,13 @@ namespace Controls.CameraControls
         {
             if (!_dragAction.IsPressed()) return;
 
-            _verticalRotation = _newRotation.eulerAngles.x;
-            _horizontalRotation = _newRotation.eulerAngles.y;
+            _verticalRotation = _newRotation.x;
+            _horizontalRotation = _newRotation.y;
 
             _verticalRotation -= _rotateVerticalSpeed * _parameters.CameraSensitivity * _deltaMousePositionY;
             _horizontalRotation += _rotateHorizontalSpeed * _parameters.CameraSensitivity * _deltaMousePositionX;
-            _newRotation.eulerAngles =
-                new Vector3(Mathf.Clamp(_verticalRotation, _minVerticalRotation, _maxVerticalRotation),
-                    _horizontalRotation, 0.0f);
+            _newRotation = new Vector3(Mathf.Clamp(_verticalRotation, _minVerticalRotation, _maxVerticalRotation),
+                _horizontalRotation, 0.0f);
         }
 
         private void UpdateZoom()
@@ -315,37 +305,11 @@ namespace Controls.CameraControls
                 _minFov, _maxFov);
         }
 
-        private void ClampPositionByConstraints()
+        private void ApplyMovement()
         {
-            var position = _newPosition;
+            _newPosition = _cameraMovementApplying.ClampPositionByConstraints();
 
-            position = _cameraRaising.RaiseAboveTerrain(position);
-
-            if (position.x < _minimumPositionX)
-                position.x = _minimumPositionX;
-
-            if (position.x > _maximumPositionX)
-                position.x = _maximumPositionX;
-
-            if (position.z < _minimumPositionZ)
-                position.z = _minimumPositionZ;
-
-            if (position.z > _maximumPositionZ)
-                position.z = _maximumPositionZ;
-
-            _newPosition = position;
-        }
-
-        private void SmoothUpdate()
-        {
-            transform.position = Vector3.Lerp(transform.position, _newPosition,
-                _positionSmoothing * Time.unscaledDeltaTime);
-
-            transform.rotation = Quaternion.Lerp(transform.rotation, _newRotation,
-                _rotationSmoothing * Time.unscaledDeltaTime);
-
-            _camera.fieldOfView =
-                Mathf.Lerp(_camera.fieldOfView, _newFieldOfView, _zoomSmoothing * Time.unscaledDeltaTime);
+            _cameraMovementApplying.SmoothUpdate();
         }
     }
 }

@@ -37,7 +37,7 @@ namespace Controls.CameraControls
             _cameraRaising = GetComponent<CameraRaising>();
         }
 
-        public void FocusOn(Colonist colonist, Quaternion rotation)
+        public void FocusOn(Colonist colonist, Vector3 rotation)
         {
             _focusing = true;
 
@@ -49,7 +49,7 @@ namespace Controls.CameraControls
             var position = colonist.Center + (forward * -_focusDistance);
             position = _cameraRaising.RaiseAboveTerrain(position);
 
-            var eulerAngles = new Vector3(_focusRotation, rotation.eulerAngles.y, rotation.eulerAngles.z);
+            var eulerAngles = new Vector3(_focusRotation, rotation.y, rotation.z);
 
             StartFocusing(colonist, position, eulerAngles);
         }

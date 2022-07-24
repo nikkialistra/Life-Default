@@ -1,6 +1,6 @@
 ﻿using System;
-using General.TimeCycle.Ticking;
 using Infrastructure.Settings;
+using Medium.TimeCycle.Ticking;
 using UnityEngine;
 
 namespace Units.Calculations

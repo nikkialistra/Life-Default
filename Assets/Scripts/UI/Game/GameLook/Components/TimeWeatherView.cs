@@ -1,5 +1,5 @@
-﻿using General.TimeCycle.Seasons;
-using General.WeatherRegulation;
+﻿using Medium.TimeCycle.Seasons;
+using Medium.WeatherRegulation;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.UIElements;

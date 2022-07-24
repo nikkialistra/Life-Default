@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections;
-using General.TimeCycle.Ticking;
 using Infrastructure.Settings;
+using Medium.TimeCycle.Ticking;
 using Sirenix.OdinInspector;
 using Units.Calculations;
 using Units.Humans.Animations;

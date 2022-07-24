@@ -1,4 +1,4 @@
-﻿using General.TileManagement.Tiles;
+﻿using Medium.TileManagement.Tiles;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.UIElements;

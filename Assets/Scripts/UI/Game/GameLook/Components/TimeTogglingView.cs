@@ -1,5 +1,5 @@
 ﻿using System;
-using General.TimeCycle.TimeRegulation;
+using Medium.TimeCycle.TimeRegulation;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.InputSystem;

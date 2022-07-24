@@ -1,8 +1,7 @@
 ﻿using System;
 using Controls;
 using Controls.CameraControls;
-using General;
-using General.TimeCycle.TimeRegulation;
+using Medium.TimeCycle.TimeRegulation;
 using Saving;
 using UnityEngine;
 using UnityEngine.InputSystem;

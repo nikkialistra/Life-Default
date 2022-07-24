@@ -51,7 +51,10 @@ namespace Controls.CameraControls.Input
         public Vector3 UpdateRotation(Vector3 rotation)
         {
             if (!_dragAction.IsPressed())
+            {
+                ResetDeltas();
                 return rotation;
+            }
 
             CalculateDeltas();
 

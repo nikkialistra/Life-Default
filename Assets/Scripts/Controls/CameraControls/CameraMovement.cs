@@ -96,7 +96,7 @@ namespace Controls.CameraControls
 
             if (_cameraFollowing.TryUpdateFollow())
             {
-                NewPosition = transform.position;
+                UpdateLocation();
                 return;
             }
 
@@ -165,6 +165,12 @@ namespace Controls.CameraControls
         {
             _positionInput.Deactivate();
             _cameraFollowing.Deactivate();
+        }
+
+        private void UpdateLocation()
+        {
+            NewPosition = transform.position;
+            NewRotation = transform.rotation.eulerAngles;
         }
 
         private void UpdateFromFocusing()

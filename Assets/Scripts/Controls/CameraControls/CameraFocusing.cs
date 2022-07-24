@@ -11,6 +11,10 @@ namespace Controls.CameraControls
     {
         public bool Focusing => _focusing;
 
+        public Vector3 NewPosition => _newPosition;
+        public Vector3 NewRotation => _newRotation;
+        public float NewFieldOfView => _newFieldOfView;
+
         [SerializeField] private float _focusFov = 40f;
         [SerializeField] private float _focusDistance = 30f;
         [SerializeField] private float _focusRotation = 45f;
@@ -19,6 +23,10 @@ namespace Controls.CameraControls
         [SerializeField] private float _minDistanceForTeleporation;
 
         private bool _focusing;
+
+        private Vector3 _newPosition;
+        private Vector3 _newRotation;
+        private float _newFieldOfView;
 
         private Coroutine _focusingCoroutine;
 
@@ -31,7 +39,7 @@ namespace Controls.CameraControls
             _cameraRaising = GetComponent<CameraRaising>();
         }
 
-        public void FocusOn(Colonist colonist)
+        public void FocusOn(Colonist colonist, Quaternion rotation)
         {
             _cameraFollowing.ResetFollow();
 
@@ -41,7 +49,7 @@ namespace Controls.CameraControls
             var position = colonist.Center + (forward * -_focusDistance);
             position = _cameraRaising.RaiseAboveTerrain(position);
 
-            var eulerAngles = new Vector3(_focusRotation, _newRotation.eulerAngles.y, _newRotation.eulerAngles.z);
+            var eulerAngles = new Vector3(_focusRotation, rotation.eulerAngles.y, rotation.eulerAngles.z);
 
             StartFocusing(colonist, position, eulerAngles);
         }
@@ -66,12 +74,6 @@ namespace Controls.CameraControls
             }
         }
 
-        private void SetFocusRotation(Vector3 eulerAngles)
-        {
-            _newFieldOfView = _focusFov;
-            _newRotation.eulerAngles = eulerAngles;
-        }
-
         private IEnumerator CFocusing(Vector3 position, Vector3 eulerAngles, Colonist colonist)
         {
             _focusing = true;
@@ -90,6 +92,12 @@ namespace Controls.CameraControls
             _cameraFollowing.SetFollow(colonist);
 
             _focusing = false;
+        }
+
+        private void SetFocusRotation(Vector3 eulerAngles)
+        {
+            _newFieldOfView = _focusFov;
+            _newRotation = eulerAngles;
         }
     }
 }

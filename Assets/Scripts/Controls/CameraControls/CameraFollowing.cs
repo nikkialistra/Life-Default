@@ -25,6 +25,7 @@ namespace Controls.CameraControls
         private PlayerInput _playerInput;
 
         private InputAction _movementAction;
+        private InputAction _dragAction;
         private InputAction _setFollowAction;
         private InputAction _mousePositionAction;
 
@@ -42,6 +43,7 @@ namespace Controls.CameraControls
             _cameraThresholdMovement = GetComponent<CameraThresholdMovement>();
 
             _movementAction = _playerInput.actions.FindAction("Movement");
+            _dragAction = _playerInput.actions.FindAction("Drag");
             _setFollowAction = _playerInput.actions.FindAction("Set Follow");
             _mousePositionAction = _playerInput.actions.FindAction("Mouse Position");
         }
@@ -62,7 +64,7 @@ namespace Controls.CameraControls
 
             _colonist = colonist;
             _followTransform = colonist.transform;
-            _offset = _newPosition - _followTransform.position;
+            _offset = transform.position - _followTransform.position;
 
             colonist.Dying += ResetFollow;
 
@@ -71,10 +73,11 @@ namespace Controls.CameraControls
 
         public bool TryUpdateFollow()
         {
+            if (!_following)
+                return false;
+
             var keyboardMoved = _movementAction.ReadValue<Vector2>() != Vector2.zero;
-
             var position = _mousePositionAction.ReadValue<Vector2>();
-
             var mouseMoved = _cameraThresholdMovement.IsMouseMoved(position);
 
             if (keyboardMoved || mouseMoved || _dragAction.IsPressed())
@@ -98,7 +101,6 @@ namespace Controls.CameraControls
         private void UpdateFollow()
         {
             transform.position = _cameraRaising.RaiseAboveTerrain(_followTransform.position + _offset);
-            _newPosition = transform.position;
         }
 
         private void TryFollow(InputAction.CallbackContext context)

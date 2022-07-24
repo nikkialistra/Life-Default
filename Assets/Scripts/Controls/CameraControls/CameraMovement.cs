@@ -155,20 +155,19 @@ namespace Controls.CameraControls
         {
             if (!_activated) return;
 
-            CalculateDeltas();
-
-            if (!_cameraFollowing.TryUpdateFollow())
+            if (_cameraFollowing.TryUpdateFollow())
             {
-                UpdatePosition();
-                UpdatePositionFromMouseThresholdMovement();
-                UpdateRotation();
+                _newPosition = transform.position;
+                return;
             }
 
-            UpdateZoom();
+            if (_cameraFocusing.Focusing)
+            {
+                UpdateFromFocusing();
+                return;
+            }
 
-            ClampPositionByConstraints();
-
-            SmoothUpdate();
+            UpdateMovement();
         }
 
         public void DeactivateMovement()
@@ -187,7 +186,24 @@ namespace Controls.CameraControls
 
         public void FocusOn(Colonist colonist)
         {
-            _cameraFocusing.FocusOn(colonist);
+            _cameraFocusing.FocusOn(colonist, _newRotation);
+        }
+
+        private void UpdateMovement()
+        {
+            CalculateDeltas();
+
+            {
+                UpdatePosition();
+                UpdatePositionFromMouseThresholdMovement();
+                UpdateRotation();
+            }
+
+            UpdateZoom();
+
+            ClampPositionByConstraints();
+
+            SmoothUpdate();
         }
 
         private void OnMapInitializationLoad()
@@ -330,11 +346,19 @@ namespace Controls.CameraControls
             _newPosition = position;
         }
 
+        private void UpdateFromFocusing()
+        {
+            _newPosition = _cameraFocusing.NewPosition;
+            _newRotation.eulerAngles = _cameraFocusing.NewRotation;
+            _newFieldOfView = _cameraFocusing.NewFieldOfView;
+
+            SmoothUpdate();
+        }
+
         private void SmoothUpdate()
         {
-            if (!_cameraFocusing.Focusing)
-                transform.position = Vector3.Lerp(transform.position, _newPosition,
-                    _positionSmoothing * Time.unscaledDeltaTime) + new Vector3(0, _raiseDistance, 0);
+            transform.position = Vector3.Lerp(transform.position, _newPosition,
+                _positionSmoothing * Time.unscaledDeltaTime) + new Vector3(0, _raiseDistance, 0);
 
             transform.rotation = Quaternion.Lerp(transform.rotation, _newRotation,
                 _rotationSmoothing * Time.unscaledDeltaTime);

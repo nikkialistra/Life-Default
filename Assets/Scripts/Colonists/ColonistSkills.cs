@@ -4,7 +4,7 @@ using System.Linq;
 using Colonists.Activities;
 using Colonists.Skills;
 using Common;
-using Infrastructure.Settings;
+using CompositionRoot.Settings;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using Zenject;

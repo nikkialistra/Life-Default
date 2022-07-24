@@ -7,7 +7,7 @@ using Sirenix.OdinInspector;
 using UnityEngine;
 using Zenject;
 
-namespace Infrastructure
+namespace CompositionRoot
 {
     public class ColonistsInstaller : MonoInstaller
     {

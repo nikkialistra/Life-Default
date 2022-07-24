@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 using Colonists.Activities;
-using Infrastructure.Settings;
+using CompositionRoot.Settings;
 using ResourceManagement;
 using Sirenix.OdinInspector;
 using Units;

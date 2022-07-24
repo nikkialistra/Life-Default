@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using Zenject;
 
-namespace Infrastructure.Settings
+namespace CompositionRoot.Settings
 {
     [CreateAssetMenu(fileName = "GameSettingsInstaller", menuName = "Installers/Game Settings Installer")]
     public class GameSettingsInstaller : ScriptableObjectInstaller<GameSettingsInstaller>

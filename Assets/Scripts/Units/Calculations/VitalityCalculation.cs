@@ -1,5 +1,5 @@
 ﻿using System;
-using Infrastructure.Settings;
+using CompositionRoot.Settings;
 using Medium.TimeCycle.Ticking;
 using UnityEngine;
 

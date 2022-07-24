@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Infrastructure.Settings;
+using CompositionRoot.Settings;
 using Units.Enums;
 using UnityEngine;
 using Zenject;

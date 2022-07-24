@@ -1,7 +1,6 @@
 ﻿using Animancer;
 using Colonists;
 using Colonists.Services;
-using Controls;
 using Controls.CameraControls;
 using Controls.CameraControls.Input;
 using Humans;
@@ -27,7 +26,7 @@ using Units.Appearance;
 using UnityEngine;
 using Zenject;
 
-namespace Infrastructure
+namespace CompositionRoot
 {
     public class SceneInstaller : MonoInstaller
     {

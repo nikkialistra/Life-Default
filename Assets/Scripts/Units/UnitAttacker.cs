@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections;
-using Infrastructure.Settings;
+using CompositionRoot.Settings;
 using Sirenix.OdinInspector;
 using Units.Ancillaries;
 using Units.Calculations;

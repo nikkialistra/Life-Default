@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 using Animancer;
-using Infrastructure.Settings;
+using CompositionRoot.Settings;
 using Sirenix.OdinInspector;
 using Units;
 using UnityEngine;

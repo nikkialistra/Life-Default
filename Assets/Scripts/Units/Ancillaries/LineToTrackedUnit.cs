@@ -1,5 +1,5 @@
 ﻿using System.Collections;
-using Infrastructure.Settings;
+using CompositionRoot.Settings;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using Zenject;

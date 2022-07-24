@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections;
+using CompositionRoot.Settings;
 using DG.Tweening;
-using Infrastructure.Settings;
 using Pathfinding;
 using ResourceManagement;
 using Units.Stats;

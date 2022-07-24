@@ -3,7 +3,7 @@ using Units;
 using UnityEngine;
 using Zenject;
 
-namespace Infrastructure.GameObjects
+namespace CompositionRoot.GameObjects
 {
     public class UnitInstaller : MonoInstaller
     {

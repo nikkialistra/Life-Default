@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Zenject;
 
-namespace Infrastructure
+namespace CompositionRoot
 {
     public class BootstrapInstaller : MonoInstaller
     {

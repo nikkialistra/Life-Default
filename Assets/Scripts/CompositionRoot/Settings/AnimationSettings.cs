@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Infrastructure.Settings
+namespace CompositionRoot.Settings
 {
     [Serializable]
     public class AnimationSettings

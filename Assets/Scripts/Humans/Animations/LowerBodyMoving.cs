@@ -1,6 +1,6 @@
 ﻿using System.Collections;
+using CompositionRoot.Settings;
 using Humans.Animations.States;
-using Infrastructure.Settings;
 using Units;
 using UnityEngine;
 

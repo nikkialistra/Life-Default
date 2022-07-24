@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Infrastructure.Settings
+namespace CompositionRoot.Settings
 {
     [Serializable]
     public class SkillsSettings

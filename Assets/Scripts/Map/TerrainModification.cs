@@ -2,7 +2,7 @@
 
 using System;
 using System.Linq;
-using Infrastructure.Settings;
+using CompositionRoot.Settings;
 using ResourceManagement;
 using Sirenix.OdinInspector;
 using UnityEngine;

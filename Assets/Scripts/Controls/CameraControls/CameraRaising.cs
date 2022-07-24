@@ -1,5 +1,5 @@
 ﻿using System;
-using Infrastructure.Settings;
+using CompositionRoot.Settings;
 using UnityEngine;
 using Zenject;
 

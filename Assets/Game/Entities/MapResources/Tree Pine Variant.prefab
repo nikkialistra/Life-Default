@@ -67,6 +67,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tree Pine Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 2470194710209123020, guid: 168e596dd842595449cb6e83ba31c249,
+        type: 3}
+      propertyPath: _durability
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2470194710209123020, guid: 168e596dd842595449cb6e83ba31c249,
+        type: 3}
+      propertyPath: _storedQuantity
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2470194710209123020, guid: 168e596dd842595449cb6e83ba31c249,
+        type: 3}
+      propertyPath: _maxExtractedQuantityForDrop
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2470194710209123020, guid: 168e596dd842595449cb6e83ba31c249,
+        type: 3}
+      propertyPath: _minExtractedQuantityForDrop
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4273545882290183830, guid: 168e596dd842595449cb6e83ba31c249,
         type: 3}
       propertyPath: m_Materials.Array.data[0]

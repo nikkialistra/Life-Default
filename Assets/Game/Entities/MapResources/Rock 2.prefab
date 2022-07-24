@@ -14,9 +14,9 @@ GameObject:
   - component: {fileID: 8017277939745412035}
   - component: {fileID: 1221772295278586055}
   - component: {fileID: 8716837362799385936}
+  - component: {fileID: 2470194710209123020}
   - component: {fileID: 5233371057614656679}
   - component: {fileID: 312266991892323227}
-  - component: {fileID: 2470194710209123020}
   m_Layer: 17
   m_Name: Rock 2
   m_TagString: Untagged
@@ -135,6 +135,22 @@ MonoBehaviour:
         _minRotationAngle: 1
         _oneDirectionRotationTime: 0.2
         _collapseTime: 0.5
+--- !u!114 &2470194710209123020
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1620543646530389056}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 237e50ff0d4f4cf0898925c1b63bd9af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _storedQuantity: 10
+  _durability: 100
+  _minExtractedQuantityForDrop: 2
+  _maxExtractedQuantityForDrop: 3
 --- !u!114 &5233371057614656679
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -175,22 +191,6 @@ MonoBehaviour:
   _maxUpForce: 2
   _minTimeToFreeze: 1
   _maxTimeToFreeze: 2
---- !u!114 &2470194710209123020
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1620543646530389056}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 237e50ff0d4f4cf0898925c1b63bd9af, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _minExtractedQuantityForDrop: 1
-  _maxExtractedQuantityForDrop: 1
-  _durability: 1
-  _storedQuantity: 1
 --- !u!1 &1729001641254944972
 GameObject:
   m_ObjectHideFlags: 0

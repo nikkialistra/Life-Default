@@ -24,14 +24,15 @@ namespace ResourceManagement
         public int Durability => (int)Mathf.Round(_durability);
 
         [MinValue(1)]
+        [SerializeField] private float _storedQuantity;
+        [MinValue(1)]
+        [SerializeField] private float _durability;
+
+        [Space]
+        [MinValue(1)]
         [SerializeField] private int _minExtractedQuantityForDrop;
         [MinValue(1)]
         [SerializeField] private int _maxExtractedQuantityForDrop;
-
-        [MinValue(1)]
-        [SerializeField] private float _durability;
-        [MinValue(1)]
-        [SerializeField] private float _storedQuantity;
 
         private int _quantityToDrop;
         private float _preservedExtractedQuantity;

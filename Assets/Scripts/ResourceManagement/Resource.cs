@@ -39,7 +39,6 @@ namespace ResourceManagement
         [SerializeField] private ResourceType _resourceType;
         [Space]
         [SerializeField] private string _name;
-        [Space]
         [Title("Configuration")]
         [Required]
         [SerializeField] private Transform _holder;

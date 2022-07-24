@@ -28,8 +28,6 @@ namespace Controls.CameraControls
         private Vector3 _newRotation;
         private float _newFieldOfView;
 
-        private Coroutine _focusingCoroutine;
-
         private CameraFollowing _cameraFollowing;
         private CameraRaising _cameraRaising;
 
@@ -41,6 +39,8 @@ namespace Controls.CameraControls
 
         public void FocusOn(Colonist colonist, Quaternion rotation)
         {
+            _focusing = true;
+
             _cameraFollowing.ResetFollow();
 
             var yRotation = Quaternion.Euler(new Vector3(0, transform.rotation.eulerAngles.y, 0));
@@ -56,28 +56,27 @@ namespace Controls.CameraControls
 
         private void StartFocusing(Colonist colonist, Vector3 position, Vector3 eulerAngles)
         {
-            if (_focusingCoroutine != null)
-            {
-                StopCoroutine(_focusingCoroutine);
-                _focusingCoroutine = null;
-            }
+            StopAllCoroutines();
 
             if (Vector3.Distance(transform.position, colonist.Center) > _minDistanceForTeleporation)
-            {
-                transform.position = position;
-                _newPosition = position;
-                SetFocusRotation(eulerAngles);
-            }
+                StartCoroutine(TeleporationFocusing(position, eulerAngles));
             else
-            {
-                _focusingCoroutine = StartCoroutine(CFocusing(position, eulerAngles, colonist));
-            }
+                StartCoroutine(CFocusing(position, eulerAngles, colonist));
+        }
+
+        private IEnumerator TeleporationFocusing(Vector3 position, Vector3 eulerAngles)
+        {
+            transform.position = position;
+            _newPosition = position;
+            SetFocusRotation(eulerAngles);
+
+            yield return new WaitForSecondsRealtime(_focusDuration / 5f);
+
+            _focusing = false;
         }
 
         private IEnumerator CFocusing(Vector3 position, Vector3 eulerAngles, Colonist colonist)
         {
-            _focusing = true;
-
             transform.DOMove(position, _focusDuration * Time.timeScale);
 
             yield return new WaitForSecondsRealtime(_focusDuration / 2f);

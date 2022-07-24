@@ -78,6 +78,8 @@ namespace Infrastructure
         [Required]
         [SerializeField] private CameraMovement _cameraMovement;
         [Required]
+        [SerializeField] private CameraMovementParameters _cameraMovementParameters;
+        [Required]
         [SerializeField] private FlyCamera _flyCamera;
 
         [Title("Entities")]
@@ -174,6 +176,7 @@ namespace Infrastructure
 
             Container.BindInstance(_cameraMovement);
             Container.BindInstance(_isSetUpSession).WhenInjectedInto<CameraMovement>();
+            Container.BindInstance(_cameraMovementParameters);
 
             Container.BindInstance(_flyCamera);
             Container.BindInstance(_isSetUpSession).WhenInjectedInto<FlyCamera>();

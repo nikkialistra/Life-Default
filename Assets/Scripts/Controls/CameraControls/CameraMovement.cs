@@ -2,10 +2,8 @@
 using Colonists;
 using General.Map;
 using General.Selecting;
-using Saving;
 using Sirenix.OdinInspector;
 using UI.Game;
-using UniRx;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Zenject;
@@ -17,6 +15,7 @@ namespace Controls.CameraControls
     [RequireComponent(typeof(CameraFollowing))]
     [RequireComponent(typeof(CameraRaising))]
     [RequireComponent(typeof(CameraThresholdMovement))]
+    [RequireComponent(typeof(CameraMovementParameters))]
     public class CameraMovement : MonoBehaviour
     {
         [SerializeField] private bool _deactivateAtStartup = true;
@@ -69,19 +68,15 @@ namespace Controls.CameraControls
         private bool _activated;
         private bool _canMouseScroll;
 
-        private float _cameraSensitivity;
-        private bool _screenEdgeMouseScroll;
         private bool _isSelectingInput;
 
-        private float _raiseDistance;
-
-        private GameSettings _gameSettings;
         private GameViews _gameViews;
 
         private CameraFocusing _cameraFocusing;
         private CameraFollowing _cameraFollowing;
         private CameraRaising _cameraRaising;
         private CameraThresholdMovement _cameraThresholdMovement;
+        private CameraMovementParameters _parameters;
 
         private SelectingInput _selectingInput;
 
@@ -95,12 +90,11 @@ namespace Controls.CameraControls
         private InputAction _toggleCameraMovementAction;
 
         [Inject]
-        public void Construct(MapInitialization mapInitialization, GameSettings gameSettings, GameViews gameViews,
+        public void Construct(MapInitialization mapInitialization, GameViews gameViews,
             SelectingInput selectingInput, PlayerInput playerInput)
         {
             _mapInitialization = mapInitialization;
 
-            _gameSettings = gameSettings;
             _gameViews = gameViews;
             _selectingInput = selectingInput;
             _playerInput = playerInput;
@@ -114,6 +108,7 @@ namespace Controls.CameraControls
             _cameraFollowing = GetComponent<CameraFollowing>();
             _cameraRaising = GetComponent<CameraRaising>();
             _cameraThresholdMovement = GetComponent<CameraThresholdMovement>();
+            _parameters = GetComponent<CameraMovementParameters>();
 
             _movementAction = _playerInput.actions.FindAction("Movement");
             _dragAction = _playerInput.actions.FindAction("Drag");
@@ -147,7 +142,6 @@ namespace Controls.CameraControls
             _newRotation = transform.rotation;
             _newFieldOfView = _camera.fieldOfView;
 
-            LoadSettings();
             Activate();
         }
 
@@ -193,11 +187,9 @@ namespace Controls.CameraControls
         {
             CalculateDeltas();
 
-            {
-                UpdatePosition();
-                UpdatePositionFromMouseThresholdMovement();
-                UpdateRotation();
-            }
+            UpdatePosition();
+            UpdatePositionFromMouseThresholdMovement();
+            UpdateRotation();
 
             UpdateZoom();
 
@@ -241,15 +233,6 @@ namespace Controls.CameraControls
             _isSelectingInput = false;
         }
 
-        private void LoadSettings()
-        {
-            _cameraSensitivity = _gameSettings.CameraSensitivity.Value;
-            _screenEdgeMouseScroll = _gameSettings.ScreenEdgeMouseScroll.Value;
-
-            _gameSettings.CameraSensitivity.Subscribe(value => _cameraSensitivity = value);
-            _gameSettings.ScreenEdgeMouseScroll.Subscribe(value => _screenEdgeMouseScroll = value);
-        }
-
         private void Activate()
         {
             _cameraFollowing.Activate();
@@ -291,8 +274,8 @@ namespace Controls.CameraControls
             _verticalRotation = _newRotation.eulerAngles.x;
             _horizontalRotation = _newRotation.eulerAngles.y;
 
-            _verticalRotation -= _rotateVerticalSpeed * _cameraSensitivity * _deltaMousePositionY;
-            _horizontalRotation += _rotateHorizontalSpeed * _cameraSensitivity * _deltaMousePositionX;
+            _verticalRotation -= _rotateVerticalSpeed * _parameters.CameraSensitivity * _deltaMousePositionY;
+            _horizontalRotation += _rotateHorizontalSpeed * _parameters.CameraSensitivity * _deltaMousePositionX;
             _newRotation.eulerAngles =
                 new Vector3(Mathf.Clamp(_verticalRotation, _minVerticalRotation, _maxVerticalRotation),
                     _horizontalRotation, 0.0f);
@@ -309,7 +292,7 @@ namespace Controls.CameraControls
 
         private void UpdatePositionFromMouseThresholdMovement()
         {
-            if (!_canMouseScroll || !_screenEdgeMouseScroll || _isSelectingInput) return;
+            if (!_canMouseScroll || !_parameters.ScreenEdgeMouseScroll || _isSelectingInput) return;
 
             var position = _mousePositionAction.ReadValue<Vector2>();
 
@@ -358,7 +341,7 @@ namespace Controls.CameraControls
         private void SmoothUpdate()
         {
             transform.position = Vector3.Lerp(transform.position, _newPosition,
-                _positionSmoothing * Time.unscaledDeltaTime) + new Vector3(0, _raiseDistance, 0);
+                _positionSmoothing * Time.unscaledDeltaTime);
 
             transform.rotation = Quaternion.Lerp(transform.rotation, _newRotation,
                 _rotationSmoothing * Time.unscaledDeltaTime);

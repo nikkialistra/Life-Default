@@ -3,6 +3,7 @@ using Colonists;
 using Colonists.Services;
 using Controls;
 using Controls.CameraControls;
+using Controls.CameraControls.Input;
 using General;
 using General.Map;
 using General.Questing;
@@ -78,7 +79,13 @@ namespace Infrastructure
         [Required]
         [SerializeField] private CameraMovement _cameraMovement;
         [Required]
-        [SerializeField] private CameraMovementParameters _cameraMovementParameters;
+        [SerializeField] private CameraPositionInput _cameraPositionInput;
+        [Required]
+        [SerializeField] private CameraRotationInput _cameraRotationInput;
+        [Required]
+        [SerializeField] private CameraZoomInput _cameraZoomInput;
+        [Required]
+        [SerializeField] private CameraParameters _cameraParameters;
         [Required]
         [SerializeField] private FlyCamera _flyCamera;
 
@@ -176,7 +183,12 @@ namespace Infrastructure
 
             Container.BindInstance(_cameraMovement);
             Container.BindInstance(_isSetUpSession).WhenInjectedInto<CameraMovement>();
-            Container.BindInstance(_cameraMovementParameters);
+
+            Container.BindInstance(_cameraPositionInput);
+            Container.BindInstance(_cameraRotationInput);
+            Container.BindInstance(_cameraZoomInput);
+
+            Container.BindInstance(_cameraParameters);
 
             Container.BindInstance(_flyCamera);
             Container.BindInstance(_isSetUpSession).WhenInjectedInto<FlyCamera>();

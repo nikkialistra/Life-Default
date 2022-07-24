@@ -57,7 +57,7 @@ namespace Controls.CameraControls
             transform.position = Vector3.Lerp(transform.position, _cameraMovement.NewPosition,
                 _positionSmoothing * Time.unscaledDeltaTime);
 
-            transform.rotation = Quaternion.Lerp(transform.rotation, _cameraMovement.NewRotation,
+            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(_cameraMovement.NewRotation),
                 _rotationSmoothing * Time.unscaledDeltaTime);
 
             _camera.fieldOfView =

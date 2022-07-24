@@ -164,18 +164,18 @@ namespace Controls.CameraControls
             UpdateMovement();
         }
 
-        public void DeactivateMovement()
-        {
-            _activated = false;
-            _canMouseScroll = false;
-            Deactivate();
-        }
-
         public void ActivateMovement()
         {
             _activated = true;
             Activate();
             StartCoroutine(CAllowMouseScrollALittleLater());
+        }
+
+        public void DeactivateMovement()
+        {
+            _activated = false;
+            _canMouseScroll = false;
+            Deactivate();
         }
 
         public void FocusOn(Colonist colonist)
@@ -190,11 +190,9 @@ namespace Controls.CameraControls
             UpdatePosition();
             UpdatePositionFromMouseThresholdMovement();
             UpdateRotation();
-
             UpdateZoom();
 
             ClampPositionByConstraints();
-
             SmoothUpdate();
         }
 
@@ -248,6 +246,15 @@ namespace Controls.CameraControls
             _cameraFollowing.Deactivate();
         }
 
+        private void UpdateFromFocusing()
+        {
+            _newPosition = _cameraFocusing.NewPosition;
+            _newRotation.eulerAngles = _cameraFocusing.NewRotation;
+            _newFieldOfView = _cameraFocusing.NewFieldOfView;
+
+            SmoothUpdate();
+        }
+
         private void CalculateDeltas()
         {
             var mousePosition = _mousePositionAction.ReadValue<Vector2>();
@@ -265,6 +272,24 @@ namespace Controls.CameraControls
 
             _newPosition += transform.right * (_moveSpeed * Time.unscaledDeltaTime * movement.x);
             _newPosition += transform.forward * (_moveSpeed * Time.unscaledDeltaTime * movement.y);
+        }
+
+        private void UpdatePositionFromMouseThresholdMovement()
+        {
+            if (!_canMouseScroll || !_parameters.ScreenEdgeMouseScroll || _isSelectingInput) return;
+
+            var position = _mousePositionAction.ReadValue<Vector2>();
+
+            var movement = _cameraThresholdMovement.GetMovementFromPosition(position, _moveSpeed);
+
+            if (movement != Vector2.zero)
+                UpdatePositionFromMouseMovement(movement);
+        }
+
+        private void UpdatePositionFromMouseMovement(Vector2 movement)
+        {
+            _newPosition += transform.right * movement.x;
+            _newPosition += transform.up * movement.y + transform.forward * movement.y;
         }
 
         private void UpdateRotation()
@@ -290,24 +315,6 @@ namespace Controls.CameraControls
                 _minFov, _maxFov);
         }
 
-        private void UpdatePositionFromMouseThresholdMovement()
-        {
-            if (!_canMouseScroll || !_parameters.ScreenEdgeMouseScroll || _isSelectingInput) return;
-
-            var position = _mousePositionAction.ReadValue<Vector2>();
-
-            var movement = _cameraThresholdMovement.GetMovementFromPosition(position, _moveSpeed);
-
-            if (movement != Vector2.zero)
-                UpdatePositionFromMouseMovement(movement);
-        }
-
-        private void UpdatePositionFromMouseMovement(Vector2 movement)
-        {
-            _newPosition += transform.right * movement.x;
-            _newPosition += transform.up * movement.y + transform.forward * movement.y;
-        }
-
         private void ClampPositionByConstraints()
         {
             var position = _newPosition;
@@ -327,15 +334,6 @@ namespace Controls.CameraControls
                 position.z = _maximumPositionZ;
 
             _newPosition = position;
-        }
-
-        private void UpdateFromFocusing()
-        {
-            _newPosition = _cameraFocusing.NewPosition;
-            _newRotation.eulerAngles = _cameraFocusing.NewRotation;
-            _newFieldOfView = _cameraFocusing.NewFieldOfView;
-
-            SmoothUpdate();
         }
 
         private void SmoothUpdate()

@@ -341,10 +341,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _focusFov: 40
-  _focusDistance: 30
+  _focusDistance: 8
   _focusRotation: 45
-  _focusDuration: 0.3
-  _minDistanceForTeleporation: 10
+  _focusDuration: 0.18
+  _minDistanceForTeleporation: 30
 --- !u!114 &2023242688419007497
 MonoBehaviour:
   m_ObjectHideFlags: 0

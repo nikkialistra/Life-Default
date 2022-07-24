@@ -1,7 +1,7 @@
 ﻿using Colonists;
 using Controls.CameraControls.Input;
-using General.Map;
-using General.Selecting;
+using Map;
+using Selecting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Zenject;

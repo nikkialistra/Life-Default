@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using General.Selecting.Selected;
+using Selecting.Selected;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Zenject;

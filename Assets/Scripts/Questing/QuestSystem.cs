@@ -4,7 +4,7 @@ using UI.Game.GameLook.Components.Stock;
 using UnityEngine;
 using Zenject;
 
-namespace General.Questing
+namespace Questing
 {
     public class QuestSystem : MonoBehaviour
     {

@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Zenject;
 
-namespace General.Selecting
+namespace Selecting
 {
     public class SelectingInput : MonoBehaviour
     {

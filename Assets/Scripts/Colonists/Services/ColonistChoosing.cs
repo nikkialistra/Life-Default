@@ -1,5 +1,5 @@
 ﻿using System.Linq;
-using General.Selecting.Selected;
+using Selecting.Selected;
 using UI.Game.GameLook.Components.Info;
 using UnityEngine;
 using Zenject;

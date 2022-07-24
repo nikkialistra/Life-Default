@@ -1,4 +1,4 @@
-﻿namespace General.Interfaces
+﻿namespace Units.Interfaces
 {
     public interface IHittable
     {

@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using General.Questing;
+using Questing;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.UIElements;

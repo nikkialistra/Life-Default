@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using General.Questing.Objectives;
+using Questing.Objectives;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace General.Questing
+namespace Questing
 {
     [CreateAssetMenu(fileName = "Quest", menuName = "Quest")]
     public class Quest : ScriptableObject

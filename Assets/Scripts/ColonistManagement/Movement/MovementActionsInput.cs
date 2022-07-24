@@ -1,8 +1,8 @@
 ﻿using System;
 using ColonistManagement.Targeting.Formations;
 using ColonistManagement.Targeting.Formations.Preview;
-using General.Selecting;
-using General.Selecting.Selected;
+using Selecting;
+using Selecting.Selected;
 using UI;
 using UnityEngine;
 using UnityEngine.InputSystem;

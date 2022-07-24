@@ -1,7 +1,7 @@
 ﻿using Enemies.Services;
 using ResourceManagement;
 
-namespace General.Questing
+namespace Questing
 {
     public class QuestServices
     {

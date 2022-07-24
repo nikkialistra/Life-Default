@@ -2,7 +2,7 @@
 using ResourceManagement;
 using UnityEngine;
 
-namespace General.Questing.Objectives
+namespace Questing.Objectives
 {
     [Serializable]
     public class CollectObjective : IObjective

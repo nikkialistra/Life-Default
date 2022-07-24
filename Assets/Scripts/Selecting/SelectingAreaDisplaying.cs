@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using Zenject;
 
-namespace General.Selecting
+namespace Selecting
 {
     [RequireComponent(typeof(UIDocument))]
     public class SelectingAreaDisplaying : MonoBehaviour

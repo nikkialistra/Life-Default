@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using Entities;
 using Entities.Types;
-using General.Selecting.Selected.Entities;
 using ResourceManagement;
+using Selecting.Selected.Entities;
 
-namespace General.Selecting
+namespace Selecting
 {
     public class EntitySelection
     {

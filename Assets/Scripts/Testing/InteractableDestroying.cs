@@ -1,5 +1,5 @@
-﻿using General.Selecting.Selected;
-using General.Selecting.Selected.Entities;
+﻿using Selecting.Selected;
+using Selecting.Selected.Entities;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Zenject;

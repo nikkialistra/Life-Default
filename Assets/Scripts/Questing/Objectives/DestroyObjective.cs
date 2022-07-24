@@ -4,7 +4,7 @@ using Enemies.Services;
 using Units.Enums;
 using UnityEngine;
 
-namespace General.Questing.Objectives
+namespace Questing.Objectives
 {
     [Serializable]
     public class DestroyObjective : IObjective

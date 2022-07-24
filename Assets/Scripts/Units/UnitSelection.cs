@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections;
-using General.Interfaces;
-using General.Selecting;
 using Infrastructure.Settings;
+using Selecting;
 using Sirenix.OdinInspector;
 using Units.Ancillaries;
 using UnityEngine;

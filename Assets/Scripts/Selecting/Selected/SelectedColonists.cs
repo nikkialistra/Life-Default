@@ -4,7 +4,7 @@ using System.Linq;
 using Colonists;
 using UI.Game.GameLook.Components.Info;
 
-namespace General.Selecting.Selected
+namespace Selecting.Selected
 {
     public class SelectedColonists
     {

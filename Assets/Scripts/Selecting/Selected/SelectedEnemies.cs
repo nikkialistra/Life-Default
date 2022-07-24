@@ -3,7 +3,7 @@ using System.Linq;
 using Enemies;
 using UI.Game.GameLook.Components.Info;
 
-namespace General.Selecting.Selected
+namespace Selecting.Selected
 {
     public class SelectedEnemies
     {

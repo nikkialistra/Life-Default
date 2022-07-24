@@ -1,5 +1,5 @@
-﻿using General.Interfaces;
-using Sirenix.OdinInspector;
+﻿using Sirenix.OdinInspector;
+using Units.Interfaces;
 using UnityEngine;
 
 namespace Testing

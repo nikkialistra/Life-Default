@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine;
 using Zenject;
 
-namespace General.Map
+namespace Map
 {
     public class MapInitialization : MonoBehaviour
     {

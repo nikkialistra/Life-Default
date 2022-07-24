@@ -1,4 +1,4 @@
-﻿namespace General.Interfaces
+﻿namespace Selecting
 {
     public interface ISelectable
     {

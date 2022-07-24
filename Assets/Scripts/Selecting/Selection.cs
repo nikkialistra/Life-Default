@@ -4,15 +4,15 @@ using Colonists;
 using Enemies;
 using Entities;
 using Entities.Types;
-using General.Selecting.Selected;
-using General.Selecting.Selected.Entities;
+using Selecting.Selected;
+using Selecting.Selected.Entities;
 using UI.Game.GameLook.Components.Info;
 using Units;
 using Units.Enums;
 using UnityEngine;
 using Zenject;
 
-namespace General.Selecting
+namespace Selecting
 {
     public class Selection : MonoBehaviour
     {

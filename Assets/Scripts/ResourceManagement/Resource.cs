@@ -1,12 +1,13 @@
 ﻿using System;
 using Entities;
-using General.Interfaces;
-using General.Map;
+using Map;
 using ResourceManagement.Animations;
+using Selecting;
 using Sirenix.OdinInspector;
 using UI.Game.GameLook.Components.Info;
 using UnityEngine;
 using Zenject;
+using EntitySelection = Entities.EntitySelection;
 using Random = UnityEngine.Random;
 
 namespace ResourceManagement

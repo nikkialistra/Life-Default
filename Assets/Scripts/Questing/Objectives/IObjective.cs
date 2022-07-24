@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace General.Questing.Objectives
+namespace Questing.Objectives
 {
     public interface IObjective
     {

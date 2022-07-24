@@ -4,7 +4,7 @@ using Entities;
 using ResourceManagement;
 using UI.Game.GameLook.Components.Info;
 
-namespace General.Selecting.Selected.Entities
+namespace Selecting.Selected.Entities
 {
     public class SelectedEntities
     {

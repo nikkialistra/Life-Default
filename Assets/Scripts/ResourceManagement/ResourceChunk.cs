@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections;
 using Entities;
-using General.Interfaces;
+using Selecting;
 using UI.Game.GameLook.Components.Info;
 using UnityEngine;
+using EntitySelection = Entities.EntitySelection;
 
 namespace ResourceManagement
 {

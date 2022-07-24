@@ -1,4 +1,4 @@
-﻿using General.Map;
+﻿using Map;
 using Pathfinding;
 using UI.Game.GameLook.Components;
 using UnityEngine;

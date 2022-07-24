@@ -2,7 +2,7 @@
 using UnityEngine;
 using Zenject;
 
-namespace General.Selecting
+namespace Selecting
 {
     public class SelectingOperation : MonoBehaviour
     {

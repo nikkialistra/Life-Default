@@ -8,7 +8,7 @@ using Sirenix.OdinInspector;
 using UnityEngine;
 using Zenject;
 
-namespace General.Map
+namespace Map
 {
     public class TerrainModification : MonoBehaviour
     {

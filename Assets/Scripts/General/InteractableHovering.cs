@@ -1,6 +1,5 @@
 ﻿using System.Collections;
-using General.Interfaces;
-using General.Selecting;
+using Selecting;
 using UI.Game;
 using UI.Menus.Primary;
 using UnityEngine;

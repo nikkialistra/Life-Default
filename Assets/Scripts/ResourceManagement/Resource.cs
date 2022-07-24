@@ -8,14 +8,14 @@ using UI.Game.GameLook.Components.Info;
 using UnityEngine;
 using Zenject;
 using EntitySelection = Entities.EntitySelection;
-using Random = UnityEngine.Random;
 
 namespace ResourceManagement
 {
     [RequireComponent(typeof(Entity))]
-    [RequireComponent(typeof(Collider))]
+    [RequireComponent(typeof(ResourceStorage))]
     [RequireComponent(typeof(EntitySelection))]
     [RequireComponent(typeof(ResourceChunkScattering))]
+    [RequireComponent(typeof(Collider))]
     public class Resource : MonoBehaviour, ISelectable
     {
         public event Action<Resource> ResourceDestroying;
@@ -26,37 +26,20 @@ namespace ResourceManagement
 
         public Entity Entity { get; private set; }
 
-        public int Quantity
-        {
-            get
-            {
-                var quantity = _storedQuantity + _preservedExtractedQuantity;
-                return quantity >= 1f ? (int)Mathf.Floor(_storedQuantity + _preservedExtractedQuantity) : 0;
-            }
-        }
+        public int Quantity => _storage.Quantity;
 
         public ResourceType ResourceType => _resourceType;
 
         public string Name => _name;
 
-        public int Durability => (int)Mathf.Round(_durability);
+        public int Durability => _storage.Durability;
 
-        public bool Exhausted => _durability == 0;
+        public bool Exhausted => Durability == 0;
 
         [SerializeField] private ResourceType _resourceType;
         [Space]
         [SerializeField] private string _name;
         [Space]
-        [MinValue(1)]
-        [SerializeField] private float _storedQuantity;
-        [MinValue(1)]
-        [SerializeField] private float _durability;
-        [Space]
-        [MinValue(1)]
-        [SerializeField] private int _minExtractedQuantityForDrop;
-        [MinValue(1)]
-        [SerializeField] private int _maxExtractedQuantityForDrop;
-
         [Title("Configuration")]
         [Required]
         [SerializeField] private Transform _holder;
@@ -65,8 +48,7 @@ namespace ResourceManagement
         [Title("Animations")]
         [SerializeReference] private IAnimations _animations;
 
-        private int _quantityToDrop;
-        private float _preservedExtractedQuantity;
+        private ResourceStorage _storage;
 
         private EntitySelection _entitySelection;
 
@@ -95,20 +77,34 @@ namespace ResourceManagement
         private void Awake()
         {
             Entity = GetComponent<Entity>();
+
+            _storage = GetComponent<ResourceStorage>();
+
             _collider = GetComponent<Collider>();
             _entitySelection = GetComponent<EntitySelection>();
             _resourceChunkScattering = GetComponent<ResourceChunkScattering>();
+        }
+
+        private void OnEnable()
+        {
+            _storage.ChunkDrop += SpawnChunk;
+
+            _storage.QuantityChange += OnQuantityChange;
+            _storage.DurabilityChange += OnDurabilityChange;
+        }
+
+        private void OnDisable()
+        {
+            _storage.ChunkDrop -= SpawnChunk;
+
+            _storage.QuantityChange -= OnQuantityChange;
+            _storage.DurabilityChange -= OnDurabilityChange;
         }
 
         [Button(ButtonSizes.Medium)]
         public void ClearDetailsAround()
         {
             _terrainModification.ClearDetailsAt(transform.position, _clearDetailsRadius);
-        }
-
-        private void Start()
-        {
-            _quantityToDrop = CalculateNextQuantityToDrop();
         }
 
         public void Hover()
@@ -161,52 +157,12 @@ namespace ResourceManagement
 
         public void Extract(float destructionValue, float extractionEfficiency)
         {
-            _preservedExtractedQuantity += ApplyDestruction(destructionValue) * extractionEfficiency;
-
-            if (_preservedExtractedQuantity > _quantityToDrop)
-                DropPreservedQuantity();
-            else if (Exhausted && _preservedExtractedQuantity >= 1f)
-                DropRemainingQuantity();
-        }
-
-        private void DropPreservedQuantity()
-        {
-            var sizeMultiplier = CalculateSizeMultiplier(_quantityToDrop, _maxExtractedQuantityForDrop);
-
-            _resourceChunkScattering.Spawn(_resourceType, _quantityToDrop, sizeMultiplier);
-
-            _preservedExtractedQuantity -= _quantityToDrop;
-            _resourceCounts.ChangeResourceTypeCount(_resourceType, _quantityToDrop);
-
-            _quantityToDrop = CalculateNextQuantityToDrop();
-
-            QuantityChange?.Invoke(Quantity);
-        }
-
-        private void DropRemainingQuantity()
-        {
-            var sizeMultiplier = CalculateSizeMultiplier(_preservedExtractedQuantity, _maxExtractedQuantityForDrop);
-
-            _resourceChunkScattering.Spawn(_resourceType, (int)_preservedExtractedQuantity, sizeMultiplier);
-
-            _resourceCounts.ChangeResourceTypeCount(_resourceType, (int)_preservedExtractedQuantity);
-
-            QuantityChange?.Invoke(Quantity);
-        }
-
-        private float CalculateSizeMultiplier(float quantity, int maxQuantity)
-        {
-            return Mathf.Sqrt(quantity / maxQuantity);
-        }
-
-        private int CalculateNextQuantityToDrop()
-        {
-            return Random.Range(_minExtractedQuantityForDrop, _maxExtractedQuantityForDrop + 1);
+            _storage.Extract(destructionValue, extractionEfficiency);
         }
 
         public void Destroy()
         {
-            _durability = 0;
+            _storage.Reset();
 
             ResourceDestroying?.Invoke(this);
             Destroying?.Invoke();
@@ -216,31 +172,21 @@ namespace ResourceManagement
             Destroy(_holder.gameObject);
         }
 
-        private float ApplyDestruction(float value)
+        private void SpawnChunk(int quantity, float sizeMultiplier)
         {
-            if (_durability <= 0)
-                throw new InvalidOperationException("Making damage cannot be applied to the destroyed resource");
+            _resourceChunkScattering.Spawn(_resourceType, quantity, sizeMultiplier);
 
-            var quantityToDurabilityFraction = _storedQuantity / _durability;
+            _resourceCounts.ChangeResourceTypeCount(_resourceType, quantity);
+        }
 
-            float extractedQuantity;
+        private void OnQuantityChange(int quantity)
+        {
+            QuantityChange?.Invoke(quantity);
+        }
 
-            if (_durability > value)
-            {
-                extractedQuantity = value * quantityToDurabilityFraction;
-                _durability -= value;
-            }
-            else
-            {
-                extractedQuantity = _durability * quantityToDurabilityFraction;
-                _durability = 0;
-            }
-
-            _storedQuantity -= extractedQuantity;
-
+        private void OnDurabilityChange(int durability)
+        {
             DurabilityChange?.Invoke(Durability);
-
-            return extractedQuantity;
         }
     }
 }

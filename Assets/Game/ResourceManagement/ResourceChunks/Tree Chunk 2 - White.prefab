@@ -1,0 +1,117 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &4627389677023425093
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3100290707218011283, guid: d2a6cce7fb564de4c84fb8bdba059be7,
+        type: 3}
+      propertyPath: _renderer
+      value: 
+      objectReference: {fileID: 7991295991618168000}
+    - target: {fileID: 3100290707218011283, guid: d2a6cce7fb564de4c84fb8bdba059be7,
+        type: 3}
+      propertyPath: _hoverColor.b
+      value: 0.27450982
+      objectReference: {fileID: 0}
+    - target: {fileID: 3100290707218011283, guid: d2a6cce7fb564de4c84fb8bdba059be7,
+        type: 3}
+      propertyPath: _hoverColor.g
+      value: 0.27450982
+      objectReference: {fileID: 0}
+    - target: {fileID: 3100290707218011283, guid: d2a6cce7fb564de4c84fb8bdba059be7,
+        type: 3}
+      propertyPath: _hoverColor.r
+      value: 0.27450982
+      objectReference: {fileID: 0}
+    - target: {fileID: 3100290707218011283, guid: d2a6cce7fb564de4c84fb8bdba059be7,
+        type: 3}
+      propertyPath: _selectionColor.b
+      value: 0.39215687
+      objectReference: {fileID: 0}
+    - target: {fileID: 3100290707218011283, guid: d2a6cce7fb564de4c84fb8bdba059be7,
+        type: 3}
+      propertyPath: _selectionColor.g
+      value: 0.39215687
+      objectReference: {fileID: 0}
+    - target: {fileID: 3100290707218011283, guid: d2a6cce7fb564de4c84fb8bdba059be7,
+        type: 3}
+      propertyPath: _selectionColor.r
+      value: 0.39215687
+      objectReference: {fileID: 0}
+    - target: {fileID: 3373481142097090181, guid: d2a6cce7fb564de4c84fb8bdba059be7,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 45f78d57c831abe43a9f7102116e69af, type: 2}
+    - target: {fileID: 5147966332902633002, guid: d2a6cce7fb564de4c84fb8bdba059be7,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5147966332902633002, guid: d2a6cce7fb564de4c84fb8bdba059be7,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5147966332902633002, guid: d2a6cce7fb564de4c84fb8bdba059be7,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5147966332902633002, guid: d2a6cce7fb564de4c84fb8bdba059be7,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5147966332902633002, guid: d2a6cce7fb564de4c84fb8bdba059be7,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5147966332902633002, guid: d2a6cce7fb564de4c84fb8bdba059be7,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5147966332902633002, guid: d2a6cce7fb564de4c84fb8bdba059be7,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5147966332902633002, guid: d2a6cce7fb564de4c84fb8bdba059be7,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5147966332902633002, guid: d2a6cce7fb564de4c84fb8bdba059be7,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5147966332902633002, guid: d2a6cce7fb564de4c84fb8bdba059be7,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5147966332902633002, guid: d2a6cce7fb564de4c84fb8bdba059be7,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5147966332902633005, guid: d2a6cce7fb564de4c84fb8bdba059be7,
+        type: 3}
+      propertyPath: m_Name
+      value: Tree Chunk 2 - White
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: d2a6cce7fb564de4c84fb8bdba059be7, type: 3}
+--- !u!23 &7991295991618168000 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 3373481142097090181, guid: d2a6cce7fb564de4c84fb8bdba059be7,
+    type: 3}
+  m_PrefabInstance: {fileID: 4627389677023425093}
+  m_PrefabAsset: {fileID: 0}

@@ -2,7 +2,7 @@
 using Units.Stats;
 using UnityEngine;
 
-namespace Colonists
+namespace Colonists.Stats
 {
     public class ColonistStats : MonoBehaviour
     {

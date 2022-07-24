@@ -2,9 +2,10 @@
 using Animancer;
 using Animancer.FSM;
 using Sirenix.OdinInspector;
+using Units;
 using UnityEngine;
 
-namespace Units.Humans.Animations.States
+namespace Humans.Animations.States
 {
     [RequireComponent(typeof(UnitEquipment))]
     public class MoveState : HumanState

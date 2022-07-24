@@ -1,9 +1,10 @@
 ﻿using Animancer;
 using Colonists;
 using Sirenix.OdinInspector;
+using Units;
 using UnityEngine;
 
-namespace Units.Humans.Animations.States
+namespace Humans.Animations.States
 {
     [EventNames(HitEvent)]
     [RequireComponent(typeof(UnitEquipment))]

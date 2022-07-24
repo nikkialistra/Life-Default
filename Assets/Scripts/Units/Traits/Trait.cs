@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Colonists.Stats;
 using Sirenix.OdinInspector;
 using Units.Stats;
 using UnityEngine;

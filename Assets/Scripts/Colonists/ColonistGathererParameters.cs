@@ -1,4 +1,5 @@
 ﻿using System;
+using Colonists.Stats;
 using Common;
 using ResourceManagement;
 using Sirenix.OdinInspector;

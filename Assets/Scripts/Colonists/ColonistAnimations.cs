@@ -1,6 +1,6 @@
-﻿using Sirenix.OdinInspector;
-using Units.Humans.Animations;
-using Units.Humans.Animations.States;
+﻿using Humans.Animations;
+using Humans.Animations.States;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Colonists

@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
-using Units.Enums;
 using UnityEngine;
 
-namespace Units.Ancillaries
+namespace Humans
 {
     public class HumanNames : MonoBehaviour
     {

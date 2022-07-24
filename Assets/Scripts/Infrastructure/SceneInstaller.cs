@@ -4,6 +4,7 @@ using Colonists.Services;
 using Controls;
 using Controls.CameraControls;
 using Controls.CameraControls.Input;
+using Humans;
 using Map;
 using Medium;
 using Medium.TemperatureRegulation;

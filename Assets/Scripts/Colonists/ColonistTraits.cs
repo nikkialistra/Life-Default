@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using Colonists;
+using Colonists.Stats;
+using Units.Traits;
 using UnityEngine;
 
-namespace Units.Traits
+namespace Colonists
 {
     [RequireComponent(typeof(ColonistStats))]
     public class ColonistTraits : MonoBehaviour

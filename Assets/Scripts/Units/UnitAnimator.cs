@@ -1,6 +1,6 @@
 ﻿using System;
+using Humans.Animations;
 using Sirenix.OdinInspector;
-using Units.Humans.Animations;
 using UnityEngine;
 
 namespace Units

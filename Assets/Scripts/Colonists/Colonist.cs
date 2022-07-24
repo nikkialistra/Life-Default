@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using Colonists.Activities;
 using Colonists.Skills;
+using Colonists.Stats;
 using Common;
+using Humans;
 using ResourceManagement;
 using Sirenix.OdinInspector;
 using Units;

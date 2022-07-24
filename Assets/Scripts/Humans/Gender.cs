@@ -1,4 +1,4 @@
-﻿namespace Units.Enums
+﻿namespace Humans
 {
     public enum Gender
     {

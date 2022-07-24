@@ -1,5 +1,6 @@
 ﻿using System;
 using Common;
+using Humans;
 using Sirenix.OdinInspector;
 using Units;
 using Units.Ancillaries;

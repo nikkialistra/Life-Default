@@ -1,4 +1,5 @@
-﻿using Sirenix.OdinInspector;
+﻿using Humans;
+using Sirenix.OdinInspector;
 using Units.Appearance.ItemVariants;
 using Units.Appearance.Variants;
 using Units.Enums;

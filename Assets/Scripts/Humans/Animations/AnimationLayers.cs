@@ -1,4 +1,4 @@
-﻿namespace Units.Humans.Animations
+﻿namespace Humans.Animations
 {
     public class AnimationLayers
     {

@@ -1,4 +1,4 @@
-﻿namespace Units.Stats
+﻿namespace Colonists.Stats
 {
     public enum ColonistStat
     {

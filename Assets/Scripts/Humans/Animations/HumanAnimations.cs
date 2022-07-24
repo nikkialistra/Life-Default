@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using Animancer;
 using Animancer.FSM;
+using Humans.Animations.States;
 using Sirenix.OdinInspector;
-using Units.Humans.Animations.States;
+using Units;
 using UnityEngine;
 using Zenject;
 using Random = UnityEngine.Random;
 
-namespace Units.Humans.Animations
+namespace Humans.Animations
 {
     [RequireComponent(typeof(AnimancerComponent))]
     [RequireComponent(typeof(IdleState))]

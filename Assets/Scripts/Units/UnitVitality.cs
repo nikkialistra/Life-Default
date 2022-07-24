@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections;
+using Humans.Animations;
 using Infrastructure.Settings;
 using Medium.TimeCycle.Ticking;
 using Sirenix.OdinInspector;
 using Units.Calculations;
-using Units.Humans.Animations;
 using Units.Interfaces;
 using Units.Stats;
 using UnityEngine;

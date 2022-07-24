@@ -3,7 +3,7 @@ using Animancer.FSM;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace Units.Humans.Animations.States
+namespace Humans.Animations.States
 {
     public class IdleState : HumanState
     {

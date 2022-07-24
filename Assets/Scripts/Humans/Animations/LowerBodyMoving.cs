@@ -1,9 +1,10 @@
 ﻿using System.Collections;
+using Humans.Animations.States;
 using Infrastructure.Settings;
-using Units.Humans.Animations.States;
+using Units;
 using UnityEngine;
 
-namespace Units.Humans.Animations
+namespace Humans.Animations
 {
     public class LowerBodyMoving
     {

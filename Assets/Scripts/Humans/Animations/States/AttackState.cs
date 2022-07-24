@@ -2,10 +2,11 @@
 using Animancer;
 using Infrastructure.Settings;
 using Sirenix.OdinInspector;
+using Units;
 using UnityEngine;
 using Zenject;
 
-namespace Units.Humans.Animations.States
+namespace Humans.Animations.States
 {
     [EventNames(HitEvent, HitEndEvent)]
     [RequireComponent(typeof(UnitEquipment))]

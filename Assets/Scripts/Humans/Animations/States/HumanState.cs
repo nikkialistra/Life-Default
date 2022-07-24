@@ -3,7 +3,7 @@ using Animancer;
 using Animancer.FSM;
 using UnityEngine;
 
-namespace Units.Humans.Animations.States
+namespace Humans.Animations.States
 {
     [RequireComponent(typeof(HumanAnimations))]
     [RequireComponent(typeof(AnimancerComponent))]

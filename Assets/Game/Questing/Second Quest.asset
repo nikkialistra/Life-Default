@@ -15,12 +15,12 @@ MonoBehaviour:
   _title: Make the place safe
   _description: Inhabitant raids disturb and threaten our people.
   _objectives:
-  - rid: 6879816466476826630
+  - rid: 4457882490432126978
   references:
     version: 2
     RefIds:
-    - rid: 6879816466476826630
-      type: {class: DestroyObjective, ns: General.Questing.Objectives, asm: Scripts}
+    - rid: 4457882490432126978
+      type: {class: DestroyObjective, ns: Questing.Objectives, asm: Scripts}
       data:
         _type: 1
         _quantity: 15

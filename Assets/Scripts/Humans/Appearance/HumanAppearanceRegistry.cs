@@ -1,11 +1,9 @@
-﻿using Humans;
+﻿using Humans.Appearance.ItemVariants;
+using Humans.Appearance.Variants;
 using Sirenix.OdinInspector;
-using Units.Appearance.ItemVariants;
-using Units.Appearance.Variants;
-using Units.Enums;
 using UnityEngine;
 
-namespace Units.Appearance
+namespace Humans.Appearance
 {
     public class HumanAppearanceRegistry : MonoBehaviour
     {

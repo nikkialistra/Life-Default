@@ -4,6 +4,7 @@ using Colonists.Services;
 using Controls.CameraControls;
 using Controls.CameraControls.Input;
 using Humans;
+using Humans.Appearance;
 using Map;
 using Medium;
 using Medium.TemperatureRegulation;
@@ -22,7 +23,6 @@ using Sirenix.OdinInspector;
 using Testing;
 using UI;
 using Units.Ancillaries;
-using Units.Appearance;
 using UnityEngine;
 using Zenject;
 

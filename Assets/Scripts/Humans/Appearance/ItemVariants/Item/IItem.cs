@@ -1,4 +1,4 @@
-﻿namespace Units.Appearance.ItemVariants.Item
+﻿namespace Humans.Appearance.ItemVariants.Item
 {
     public interface IItem<T>
     {

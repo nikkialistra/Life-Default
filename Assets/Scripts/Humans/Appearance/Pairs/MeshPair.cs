@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace Units.Appearance.Pairs
+namespace Humans.Appearance.Pairs
 {
     [Serializable]
     public class MeshPair

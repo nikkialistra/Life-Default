@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Humans.Appearance.ItemVariants.Item;
 using Sirenix.OdinInspector;
-using Units.Appearance.ItemVariants.Item;
 using Random = UnityEngine.Random;
 
-namespace Units.Appearance.ItemVariants
+namespace Humans.Appearance.ItemVariants
 {
     public interface IItemVariants<T>
     {

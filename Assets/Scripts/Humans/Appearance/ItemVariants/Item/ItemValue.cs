@@ -1,12 +1,11 @@
 ﻿using System;
 using Sirenix.OdinInspector;
 using UnityEngine;
-using Object = UnityEngine.Object;
 
-namespace Units.Appearance.ItemVariants.Item
+namespace Humans.Appearance.ItemVariants.Item
 {
     [Serializable]
-    public class ItemObject<T> : IItem<T> where T : Object
+    public class ItemValue<T> : IItem<T>
     {
         public float RelativeChance
         {
@@ -17,10 +16,9 @@ namespace Units.Appearance.ItemVariants.Item
         public T Value => _value;
         public int Chance => _chance;
 
+        [HideLabel]
         [HorizontalGroup("Split", 100)]
         [VerticalGroup("Split/Left")]
-        [HideLabel]
-        [PreviewField(70, ObjectFieldAlignment.Left)]
         [SerializeField] private T _value;
 
         [VerticalGroup("Split/Right")]

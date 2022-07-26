@@ -1,15 +1,13 @@
 ﻿using System;
-using Humans;
+using Humans.Appearance.ItemVariants;
+using Humans.Appearance.Pairs;
+using Humans.Appearance.Variants;
 using Sirenix.OdinInspector;
-using Units.Appearance.ItemVariants;
-using Units.Appearance.Pairs;
-using Units.Appearance.Variants;
-using Units.Enums;
 using UnityEngine;
-using static Units.Appearance.GarmentSet;
-using static Units.Appearance.HumanAppearanceRegistry;
+using static Humans.Appearance.GarmentSet;
+using static Humans.Appearance.HumanAppearanceRegistry;
 
-namespace Units.Appearance
+namespace Humans.Appearance
 {
     public class HumanAppearance : MonoBehaviour
     {

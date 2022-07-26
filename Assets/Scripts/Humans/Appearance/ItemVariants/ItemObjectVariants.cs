@@ -1,17 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using Humans.Appearance.ItemVariants.Item;
 using Sirenix.OdinInspector;
-using Units.Appearance.ItemVariants.Item;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
-namespace Units.Appearance.ItemVariants
+namespace Humans.Appearance.ItemVariants
 {
     [Serializable]
-    public class ItemValueVariants<T> : IItemVariants<T>
+    public class ItemObjectVariants<T> : IItemVariants<T> where T : Object
     {
         public IEnumerable<IItem<T>> Variants => _variants;
 
-        [SerializeField] private List<ItemValue<T>> _variants;
+        [SerializeField] private List<ItemObject<T>> _variants;
 
         [Button]
         private void CalculateRelativeChances()

@@ -1,15 +1,15 @@
 ﻿using System;
 using Common;
 using Humans;
+using Humans.Appearance;
 using Sirenix.OdinInspector;
 using Units;
 using Units.Ancillaries;
-using Units.Appearance;
 using Units.Enums;
 using Units.FightBehavior;
 using UnityEngine;
 using Zenject;
-using static Units.Appearance.HumanAppearanceRegistry;
+using static Humans.Appearance.HumanAppearanceRegistry;
 
 namespace Enemies
 {

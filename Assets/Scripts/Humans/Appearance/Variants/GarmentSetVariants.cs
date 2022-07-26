@@ -1,7 +1,7 @@
-﻿using Units.Appearance.ItemVariants;
+﻿using Humans.Appearance.ItemVariants;
 using UnityEngine;
 
-namespace Units.Appearance.Variants
+namespace Humans.Appearance.Variants
 {
     [CreateAssetMenu(fileName = "Human Garment Set Variants", menuName = "Human Appearance/Garment Set Variants",
         order = 2)]

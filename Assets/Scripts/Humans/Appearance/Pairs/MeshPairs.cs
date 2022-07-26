@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Units.Appearance.Pairs
+namespace Humans.Appearance.Pairs
 {
     [Serializable]
     public class MeshPairs

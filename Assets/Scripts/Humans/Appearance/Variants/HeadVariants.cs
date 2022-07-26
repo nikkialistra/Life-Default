@@ -1,8 +1,8 @@
-﻿using Sirenix.OdinInspector;
-using Units.Appearance.ItemVariants;
+﻿using Humans.Appearance.ItemVariants;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace Units.Appearance.Variants
+namespace Humans.Appearance.Variants
 {
     [CreateAssetMenu(fileName = "Human Head Variants", menuName = "Human Appearance/Head Variants", order = 0)]
     public class HeadVariants : ScriptableObject

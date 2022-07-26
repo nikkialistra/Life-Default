@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Linq;
+using Humans.Appearance.ItemVariants;
+using Humans.Appearance.Pairs;
 using Sirenix.OdinInspector;
-using Units.Appearance.ItemVariants;
-using Units.Appearance.Pairs;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace Units.Appearance
+namespace Humans.Appearance
 {
     [CreateAssetMenu(fileName = "Human Garment Set", menuName = "Human Appearance/Garment Set", order = 3)]
     public class GarmentSet : ScriptableObject

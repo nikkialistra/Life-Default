@@ -5,16 +5,16 @@ using Colonists.Skills;
 using Colonists.Stats;
 using Common;
 using Humans;
+using Humans.Appearance;
 using ResourceManagement;
 using Sirenix.OdinInspector;
 using Units;
 using Units.Ancillaries;
-using Units.Appearance;
 using Units.Enums;
 using Units.Traits;
 using UnityEngine;
 using Zenject;
-using static Units.Appearance.HumanAppearanceRegistry;
+using static Humans.Appearance.HumanAppearanceRegistry;
 
 namespace Colonists
 {

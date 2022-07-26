@@ -1,8 +1,8 @@
-﻿using Sirenix.OdinInspector;
-using Units.Appearance.ItemVariants;
+﻿using Humans.Appearance.ItemVariants;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace Units.Appearance.Variants
+namespace Humans.Appearance.Variants
 {
     [CreateAssetMenu(fileName = "Human Color Variants", menuName = "Human Appearance/Color Variants", order = 1)]
     public class ColorVariants : ScriptableObject

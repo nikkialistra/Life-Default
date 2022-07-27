@@ -86,16 +86,16 @@ namespace Humans.Appearance
             garment.ResetTakeHistory();
 
             if (garment.ShouldHeadCoveringReplaceHair())
-                SetItem(_agenderItems.HeadCoveringHair, garment.GetElement(GarmentElements.HeadCoveringHair));
+                SetItem(_agenderItems.HeadCoveringHair, garment.GetElement(GarmentElement.HeadCoveringHair));
             else
                 SetItemWithReplacement(_agenderItems.HeadCoveringNoHair, _agenderItems.Hair,
-                    garment.GetElement(GarmentElements.HeadCoveringNoHair));
+                    garment.GetElement(GarmentElement.HeadCoveringNoHair));
 
             SetItemWithReplacement(_agenderItems.HeadCoveringNoFacialHair, genderItems.FacialHair,
-                garment.GetElement(GarmentElements.HeadCoveringNoFacialHair));
+                garment.GetElement(GarmentElement.HeadCoveringNoFacialHair));
 
-            SetItem(genderItems.Torso, garment.GetElement(GarmentElements.Torso));
-            SetItem(_agenderItems.BackAttachment, garment.GetElement(GarmentElements.BackAttachment));
+            SetItem(genderItems.Torso, garment.GetElement(GarmentElement.Torso));
+            SetItem(_agenderItems.BackAttachment, garment.GetElement(GarmentElement.BackAttachment));
 
             SetItemPair(_agenderItems.ShoulderAttachmentRight, _agenderItems.ShoulderAttachmentLeft,
                 garment.GetElementsAtSameIndex(GarmentElementPairs.ShoulderAttachments));
@@ -108,8 +108,8 @@ namespace Humans.Appearance
             SetItemPair(genderItems.HandRight, genderItems.HandLeft,
                 garment.GetElementsAtSameIndex(GarmentElementPairs.Hands));
 
-            SetItem(genderItems.Hips, garment.GetElement(GarmentElements.Hips));
-            SetItem(_agenderItems.HipsAttachment, garment.GetElement(GarmentElements.HipsAttachment));
+            SetItem(genderItems.Hips, garment.GetElement(GarmentElement.Hips));
+            SetItem(_agenderItems.HipsAttachment, garment.GetElement(GarmentElement.HipsAttachment));
 
             SetItemPair(genderItems.LegRight, genderItems.LegLeft,
                 garment.GetElementsAtSameIndex(GarmentElementPairs.Legs));

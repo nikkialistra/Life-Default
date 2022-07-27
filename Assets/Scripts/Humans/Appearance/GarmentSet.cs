@@ -13,7 +13,7 @@ namespace Humans.Appearance
     {
         private const int MaxNumberOfTries = 20;
 
-        public enum GarmentElements
+        public enum GarmentElement
         {
             HeadCoveringHair,
             HeadCoveringNoHair,
@@ -113,7 +113,7 @@ namespace Humans.Appearance
             _notCombinablePairs.ClearTaken();
         }
 
-        public Mesh GetElement(GarmentElements garmentElements)
+        public Mesh GetElement(GarmentElement garmentElement)
         {
             Mesh mesh = null;
 
@@ -121,7 +121,7 @@ namespace Humans.Appearance
 
             while (numberOfTries < MaxNumberOfTries)
             {
-                mesh = GetMeshFor(garmentElements);
+                mesh = GetMeshFor(garmentElement);
 
                 if (TryTakeMesh(mesh)) break;
 
@@ -176,17 +176,17 @@ namespace Humans.Appearance
             return false;
         }
 
-        private Mesh GetMeshFor(GarmentElements garmentElements)
+        private Mesh GetMeshFor(GarmentElement garmentElement)
         {
-            return garmentElements switch
+            return garmentElement switch
             {
-                GarmentElements.HeadCoveringHair => HeadCoveringHair.GetRandom(),
-                GarmentElements.HeadCoveringNoHair => HeadCoveringNoHair.GetRandom(),
-                GarmentElements.HeadCoveringNoFacialHair => HeadCoveringNoFacialHair.GetRandom(),
-                GarmentElements.Torso => Torso.GetRandom(),
-                GarmentElements.BackAttachment => BackAttachment.GetRandom(),
-                GarmentElements.Hips => Hips.GetRandom(),
-                GarmentElements.HipsAttachment => HipsAttachment.GetRandom(),
+                GarmentElement.HeadCoveringHair => HeadCoveringHair.GetRandom(),
+                GarmentElement.HeadCoveringNoHair => HeadCoveringNoHair.GetRandom(),
+                GarmentElement.HeadCoveringNoFacialHair => HeadCoveringNoFacialHair.GetRandom(),
+                GarmentElement.Torso => Torso.GetRandom(),
+                GarmentElement.BackAttachment => BackAttachment.GetRandom(),
+                GarmentElement.Hips => Hips.GetRandom(),
+                GarmentElement.HipsAttachment => HipsAttachment.GetRandom(),
                 _ => throw new ArgumentOutOfRangeException()
             };
         }

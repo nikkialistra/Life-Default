@@ -8,7 +8,6 @@ namespace Units.BehaviourNodes.Attacking
     {
         public SharedUnit UnitTarget;
 
-        public UnitMeshAgent UnitMeshAgent;
         public UnitAttacker UnitAttacker;
 
         public override TaskStatus OnUpdate()

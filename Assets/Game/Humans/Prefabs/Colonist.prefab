@@ -235,7 +235,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: e9e1e0fd9fedf62489fb4c8897051285, type: 2}
+  - {fileID: 2100000, guid: 639ba09dbd54ea44c9155c110ff85e70, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -694,7 +694,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _faction: 0
   _colonist: {fileID: 2081193202370333819}
-  _enemy: {fileID: 0}
+  _aborigine: {fileID: 0}
   _healthBars: {fileID: 1935489896466272434}
   _unitEquipment: {fileID: 1616301658998035332}
   _unitFieldOfView: {fileID: 6010963258427484487}

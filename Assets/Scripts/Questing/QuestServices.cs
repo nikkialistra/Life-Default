@@ -1,17 +1,17 @@
-﻿using Enemies.Services;
+﻿using Aborigines.Services;
 using ResourceManagement;
 
 namespace Questing
 {
     public class QuestServices
     {
-        public QuestServices(ResourceCounts resourceCounts, EnemyRepository enemyRepository)
+        public QuestServices(ResourceCounts resourceCounts, AborigineRepository aborigineRepository)
         {
             ResourceCounts = resourceCounts;
-            EnemyRepository = enemyRepository;
+            AborigineRepository = aborigineRepository;
         }
 
         public ResourceCounts ResourceCounts { get; }
-        public EnemyRepository EnemyRepository { get; }
+        public AborigineRepository AborigineRepository { get; }
     }
 }

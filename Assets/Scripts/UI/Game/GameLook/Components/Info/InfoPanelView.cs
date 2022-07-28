@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
+using Aborigines;
 using Colonists;
-using Enemies;
 using ResourceManagement;
 using Sirenix.OdinInspector;
 using UI.Game.GameLook.Components.Info.ColonistInfo;
@@ -11,8 +11,8 @@ namespace UI.Game.GameLook.Components.Info
 {
     [RequireComponent(typeof(ColonistInfoView))]
     [RequireComponent(typeof(ColonistsInfoView))]
-    [RequireComponent(typeof(EnemyInfoView))]
-    [RequireComponent(typeof(EnemiesInfoView))]
+    [RequireComponent(typeof(AborigineInfoView))]
+    [RequireComponent(typeof(AboriginesInfoView))]
     [RequireComponent(typeof(ResourceInfoView))]
     [RequireComponent(typeof(ResourcesInfoView))]
     [RequireComponent(typeof(ResourceChunkInfoView))]
@@ -29,8 +29,8 @@ namespace UI.Game.GameLook.Components.Info
         private ColonistInfoView _colonistInfoView;
         private ColonistsInfoView _colonistsInfoView;
 
-        private EnemyInfoView _enemyInfoView;
-        private EnemiesInfoView _enemiesInfoView;
+        private AborigineInfoView _aborigineInfoView;
+        private AboriginesInfoView _aboriginesInfoView;
 
         private ResourceInfoView _resourceInfoView;
         private ResourcesInfoView _resourcesInfoView;
@@ -39,7 +39,7 @@ namespace UI.Game.GameLook.Components.Info
         private ResourceChunksInfoView _resourceChunksInfoView;
 
         private Colonist _shownColonist;
-        private Enemy _shownEnemy;
+        private Aborigine _shownAborigine;
         private Resource _shownResource;
         private ResourceChunk _shownResourceChunk;
 
@@ -48,8 +48,8 @@ namespace UI.Game.GameLook.Components.Info
             _colonistInfoView = GetComponent<ColonistInfoView>();
             _colonistsInfoView = GetComponent<ColonistsInfoView>();
 
-            _enemyInfoView = GetComponent<EnemyInfoView>();
-            _enemiesInfoView = GetComponent<EnemiesInfoView>();
+            _aborigineInfoView = GetComponent<AborigineInfoView>();
+            _aboriginesInfoView = GetComponent<AboriginesInfoView>();
 
             _resourceInfoView = GetComponent<ResourceInfoView>();
             _resourcesInfoView = GetComponent<ResourcesInfoView>();
@@ -83,18 +83,18 @@ namespace UI.Game.GameLook.Components.Info
             }
         }
 
-        public void SetEnemies(List<Enemy> enemies)
+        public void SetAborigines(List<Aborigine> aborigines)
         {
-            switch (enemies.Count)
+            switch (aborigines.Count)
             {
                 case 0:
                     break;
                 case 1:
-                    SetEnemy(enemies[0]);
+                    SetAborigine(aborigines[0]);
                     break;
                 default:
                     PrepareEmptyPanel();
-                    ShowEnemiesInfo(enemies.Count);
+                    ShowAboriginesInfo(aborigines.Count);
                     break;
             }
         }
@@ -139,11 +139,11 @@ namespace UI.Game.GameLook.Components.Info
             ShowColonistInfo();
         }
 
-        public void SetEnemy(Enemy enemy)
+        public void SetAborigine(Aborigine aborigine)
         {
             PrepareEmptyPanel();
-            _shownEnemy = enemy;
-            ShowEnemyInfo();
+            _shownAborigine = aborigine;
+            ShowAborigineInfo();
         }
 
         public void SetResource(Resource resource)
@@ -170,12 +170,12 @@ namespace UI.Game.GameLook.Components.Info
             }
         }
 
-        public void UnsetEnemy(Enemy enemy)
+        public void UnsetAborigine(Aborigine aborigine)
         {
-            if (_shownEnemy == enemy)
+            if (_shownAborigine == aborigine)
             {
-                _shownEnemy = null;
-                _enemiesInfoView.HideSelf();
+                _shownAborigine = null;
+                _aboriginesInfoView.HideSelf();
                 HideSelf();
             }
         }
@@ -212,10 +212,10 @@ namespace UI.Game.GameLook.Components.Info
             HideSelf();
         }
 
-        private void ShowEnemiesInfo(int count)
+        private void ShowAboriginesInfo(int count)
         {
-            _enemiesInfoView.ShowSelf();
-            _enemiesInfoView.SetCount(count);
+            _aboriginesInfoView.ShowSelf();
+            _aboriginesInfoView.SetCount(count);
         }
 
         private void ShowResourcesInfo(List<Resource> resources)
@@ -236,10 +236,10 @@ namespace UI.Game.GameLook.Components.Info
             _colonistInfoView.FillIn(_shownColonist);
         }
 
-        private void ShowEnemyInfo()
+        private void ShowAborigineInfo()
         {
-            _enemyInfoView.ShowSelf();
-            _enemyInfoView.FillIn(_shownEnemy);
+            _aborigineInfoView.ShowSelf();
+            _aborigineInfoView.FillIn(_shownAborigine);
         }
 
         private void ShowResourceInfo()
@@ -274,7 +274,7 @@ namespace UI.Game.GameLook.Components.Info
         private void UnsetAll()
         {
             _shownColonist = null;
-            _shownEnemy = null;
+            _shownAborigine = null;
             _shownResource = null;
             _shownResourceChunk = null;
         }
@@ -284,8 +284,8 @@ namespace UI.Game.GameLook.Components.Info
             _colonistInfoView.HideSelf();
             _colonistsInfoView.HideSelf();
 
-            _enemyInfoView.HideSelf();
-            _enemiesInfoView.HideSelf();
+            _aborigineInfoView.HideSelf();
+            _aboriginesInfoView.HideSelf();
 
             _resourceInfoView.HideSelf();
             _resourcesInfoView.HideSelf();

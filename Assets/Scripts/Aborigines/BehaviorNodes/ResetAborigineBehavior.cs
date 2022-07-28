@@ -2,13 +2,13 @@
 using BehaviorDesigner.Runtime.Tasks;
 using Units;
 
-namespace Enemies.BehaviorNodes
+namespace Aborigines.BehaviorNodes
 {
-    public class ResetEnemyBehavior : Action
+    public class ResetAborigineBehavior : Action
     {
         public SharedBool NewCommand;
 
-        public EnemyMeshAgent EnemyMeshAgent;
+        public AborigineMeshAgent AborigineMeshAgent;
 
         public UnitAttacker UnitAttacker;
 
@@ -16,7 +16,7 @@ namespace Enemies.BehaviorNodes
         {
             NewCommand.Value = false;
 
-            EnemyMeshAgent.StopMoving();
+            AborigineMeshAgent.StopMoving();
 
             UnitAttacker.FinalizeAttacking();
 

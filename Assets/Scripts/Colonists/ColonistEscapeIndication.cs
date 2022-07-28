@@ -67,7 +67,7 @@ namespace Colonists
             var colliders = Physics.OverlapSphere(transform.position, _escapeRelieveDistanceFromOpponents, _targetMask);
 
             foreach (var collider in colliders)
-                if (collider.TryGetComponent(out Unit unit) && unit.Faction == Faction.Enemies)
+                if (collider.TryGetComponent(out Unit unit) && unit.Faction == Faction.Aborigines)
                     return true;
 
             return false;

@@ -2,10 +2,10 @@
 using Units;
 using UnityEngine;
 
-namespace Enemies
+namespace Aborigines
 {
     [RequireComponent(typeof(UnitAnimator))]
-    public class EnemyAnimator : MonoBehaviour
+    public class AborigineAnimator : MonoBehaviour
     {
         private UnitAnimator _unitAnimator;
 

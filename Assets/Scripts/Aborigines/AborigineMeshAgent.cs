@@ -1,21 +1,21 @@
 ﻿using Units;
 using UnityEngine;
 
-namespace Enemies
+namespace Aborigines
 {
     [RequireComponent(typeof(UnitMeshAgent))]
-    [RequireComponent(typeof(EnemyAnimator))]
-    public class EnemyMeshAgent : MonoBehaviour
+    [RequireComponent(typeof(AborigineAnimator))]
+    public class AborigineMeshAgent : MonoBehaviour
     {
         public bool Idle { get; private set; } = true;
 
         private UnitMeshAgent _unitMeshAgent;
-        private EnemyAnimator _animator;
+        private AborigineAnimator _animator;
 
         private void Awake()
         {
             _unitMeshAgent = GetComponent<UnitMeshAgent>();
-            _animator = GetComponent<EnemyAnimator>();
+            _animator = GetComponent<AborigineAnimator>();
         }
 
         private void OnEnable()

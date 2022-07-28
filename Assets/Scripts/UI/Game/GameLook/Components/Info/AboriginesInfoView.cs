@@ -6,7 +6,7 @@ namespace UI.Game.GameLook.Components.Info
 {
     [RequireComponent(typeof(InfoPanelView))]
     [RequireComponent(typeof(CommandsView))]
-    public class EnemiesInfoView : MonoBehaviour
+    public class AboriginesInfoView : MonoBehaviour
     {
         [Required]
         [SerializeField] private VisualTreeAsset _asset;
@@ -48,7 +48,7 @@ namespace UI.Game.GameLook.Components.Info
 
         public void SetCount(int count)
         {
-            _name.text = $"Enemies ({count})";
+            _name.text = $"Aborigines ({count})";
         }
     }
 }

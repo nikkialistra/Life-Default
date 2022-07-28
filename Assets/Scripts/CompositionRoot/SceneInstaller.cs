@@ -150,7 +150,7 @@ namespace CompositionRoot
             Container.BindInstance(_selection).AsSingle();
 
             Container.Bind<SelectedColonists>().AsSingle();
-            Container.Bind<SelectedEnemies>().AsSingle();
+            Container.Bind<SelectedAborigines>().AsSingle();
             Container.Bind<SelectedEntities>().AsSingle();
 
             Container.BindInstance(_selectingOperation);

@@ -2,7 +2,7 @@
 using Units;
 using UnityEngine;
 
-namespace Enemies.BehaviorNodes
+namespace Aborigines.BehaviorNodes
 {
     public class Wander : Action
     {
@@ -14,7 +14,7 @@ namespace Enemies.BehaviorNodes
         public float MinPauseDuration = 0;
         public float MaxPauseDuration = 0;
 
-        public EnemyMeshAgent EnemyMeshAgent;
+        public AborigineMeshAgent AborigineMeshAgent;
         public UnitAttacker UnitAttacker;
 
         private float _setTargetTime = float.PositiveInfinity;
@@ -23,7 +23,7 @@ namespace Enemies.BehaviorNodes
 
         public override void OnStart()
         {
-            EnemyMeshAgent.StopMoving();
+            AborigineMeshAgent.StopMoving();
 
             if (MaxPauseDuration < MinPauseDuration)
                 MaxPauseDuration = MinPauseDuration;
@@ -38,7 +38,7 @@ namespace Enemies.BehaviorNodes
 
         private void WanderIfIdle()
         {
-            if (EnemyMeshAgent.Idle && UnitAttacker.Idle)
+            if (AborigineMeshAgent.Idle && UnitAttacker.Idle)
             {
                 if (MaxPauseDuration > 0)
                 {
@@ -74,7 +74,7 @@ namespace Enemies.BehaviorNodes
             var destination = transform.position +
                               wanderDirection.normalized * Random.Range(MinWanderDistance, MaxWanderDistance);
 
-            EnemyMeshAgent.GoToPosition(destination);
+            AborigineMeshAgent.GoToPosition(destination);
         }
     }
 }

@@ -20,7 +20,7 @@ namespace Colonists
         private SharedPositions _positions;
         private SharedFloat _rotation;
         private SharedColonist _colonist;
-        private SharedEnemy _enemy;
+        private SharedAborigine _aborigine;
         private SharedResource _resource;
         private SharedUnit _unitTarget;
 

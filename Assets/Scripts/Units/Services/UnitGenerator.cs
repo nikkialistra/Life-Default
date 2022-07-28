@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using Enemies;
-using Enemies.Services;
+using Aborigines;
+using Aborigines.Services;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using Zenject;
@@ -12,7 +12,7 @@ namespace Units.Services
     {
         [SerializeField] private bool _spawnAtStart = true;
         [Space]
-        [SerializeField] private int _maxEnemyCount = 20;
+        [SerializeField] private int _maxAborigineCount = 20;
 
         [Title("Boundaries")]
         [MinValue(0)]
@@ -55,9 +55,9 @@ namespace Units.Services
         [Space]
         [SerializeField] private float _obstacleRadius = 5f;
 
-        private Enemy.Factory _enemyFactory;
+        private Aborigine.Factory _aborigineFactory;
 
-        private EnemyRepository _enemyRepository;
+        private AborigineRepository _aborigineRepository;
 
         private bool _generateTestCubes;
         private readonly List<GameObject> _cubes = new();
@@ -67,10 +67,10 @@ namespace Units.Services
         private readonly Collider[] _obstacleResults = new Collider[1];
 
         [Inject]
-        public void Construct(Enemy.Factory enemyFactory, EnemyRepository enemyRepository)
+        public void Construct(Aborigine.Factory aborigineFactory, AborigineRepository aborigineRepository)
         {
-            _enemyFactory = enemyFactory;
-            _enemyRepository = enemyRepository;
+            _aborigineFactory = aborigineFactory;
+            _aborigineRepository = aborigineRepository;
         }
 
         private void Start()
@@ -114,7 +114,7 @@ namespace Units.Services
             {
                 yield return new WaitForSeconds(CalculateInterval());
 
-                if (_enemyRepository.Count <= _maxEnemyCount)
+                if (_aborigineRepository.Count <= _maxAborigineCount)
                     Generate();
             }
         }
@@ -210,8 +210,8 @@ namespace Units.Services
         {
             if (!_generateTestCubes)
             {
-                var enemy = _enemyFactory.Create();
-                enemy.SetAt(position, rotation);
+                var aborigine = _aborigineFactory.Create();
+                aborigine.SetAt(position, rotation);
             }
             else
             {

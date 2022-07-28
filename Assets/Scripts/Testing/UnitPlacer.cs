@@ -1,5 +1,5 @@
-﻿using Colonists;
-using Enemies;
+﻿using Aborigines;
+using Colonists;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Zenject;
@@ -10,7 +10,7 @@ namespace Testing
     {
         private LayerMask _terrainMask;
         private Colonist.Factory _colonistFactory;
-        private Enemy.Factory _enemyFactory;
+        private Aborigine.Factory _aborigineFactory;
 
         private Camera _camera;
 
@@ -20,11 +20,11 @@ namespace Testing
         private InputAction _mousePositionAction;
 
         [Inject]
-        public void Construct(Colonist.Factory colonistFactory, Enemy.Factory enemyFactory, Camera camera,
+        public void Construct(Colonist.Factory colonistFactory, Aborigine.Factory aborigineFactory, Camera camera,
             PlayerInput playerInput)
         {
             _colonistFactory = colonistFactory;
-            _enemyFactory = enemyFactory;
+            _aborigineFactory = aborigineFactory;
             _camera = camera;
             _playerInput = playerInput;
         }
@@ -73,8 +73,8 @@ namespace Testing
             }
             else if (Keyboard.current.ctrlKey.isPressed)
             {
-                var enemy = _enemyFactory.Create();
-                enemy.SetAt(hit.point);
+                var aborigine = _aborigineFactory.Create();
+                aborigine.SetAt(hit.point);
             }
         }
     }

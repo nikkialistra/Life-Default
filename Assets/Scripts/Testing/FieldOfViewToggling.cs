@@ -8,48 +8,48 @@ namespace Testing
     public class FieldOfViewToggling : MonoBehaviour
     {
         private SelectedColonists _selectedColonists;
-        private SelectedEnemies _selectedEnemies;
+        private SelectedAborigines _selectedAborigines;
 
         private PlayerInput _playerInput;
 
-        private InputAction _toggleEnemyFieldOfViewAction;
+        private InputAction _toggleUnitFieldOfViewAction;
         private InputAction _toggleResourceFieldOfViewAction;
 
         [Inject]
-        public void Construct(SelectedColonists selectedColonists, SelectedEnemies selectedEnemies,
+        public void Construct(SelectedColonists selectedColonists, SelectedAborigines selectedAborigines,
             PlayerInput playerInput)
         {
             _selectedColonists = selectedColonists;
-            _selectedEnemies = selectedEnemies;
+            _selectedAborigines = selectedAborigines;
 
             _playerInput = playerInput;
         }
 
         private void Awake()
         {
-            _toggleEnemyFieldOfViewAction = _playerInput.actions.FindAction("Toggle Unit Field Of View");
+            _toggleUnitFieldOfViewAction = _playerInput.actions.FindAction("Toggle Unit Field Of View");
             _toggleResourceFieldOfViewAction = _playerInput.actions.FindAction("Toggle Resource Field Of View");
         }
 
         private void OnEnable()
         {
-            _toggleEnemyFieldOfViewAction.started += ToggleEnemyFieldOfView;
+            _toggleUnitFieldOfViewAction.started += ToggleUnitFieldOfView;
             _toggleResourceFieldOfViewAction.started += ToggleResourceFieldOfView;
         }
 
         private void OnDisable()
         {
-            _toggleEnemyFieldOfViewAction.started -= ToggleEnemyFieldOfView;
+            _toggleUnitFieldOfViewAction.started -= ToggleUnitFieldOfView;
             _toggleResourceFieldOfViewAction.started -= ToggleResourceFieldOfView;
         }
 
-        private void ToggleEnemyFieldOfView(InputAction.CallbackContext context)
+        private void ToggleUnitFieldOfView(InputAction.CallbackContext context)
         {
             foreach (var colonist in _selectedColonists.Colonists)
                 colonist.ToggleUnitFieldOfView();
 
-            foreach (var enemy in _selectedEnemies.Enemies)
-                enemy.ToggleUnitFieldOfView();
+            foreach (var aborigine in _selectedAborigines.Aborigines)
+                aborigine.ToggleUnitFieldOfView();
         }
 
         private void ToggleResourceFieldOfView(InputAction.CallbackContext context)

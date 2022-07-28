@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Enemies;
+using Aborigines;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -7,7 +7,7 @@ using UnityEngine.UIElements;
 namespace UI.Game.GameLook.Components.Info
 {
     [RequireComponent(typeof(InfoPanelView))]
-    public class EnemyInfoView : MonoBehaviour
+    public class AborigineInfoView : MonoBehaviour
     {
         [Required]
         [SerializeField] private VisualTreeAsset _asset;
@@ -21,7 +21,7 @@ namespace UI.Game.GameLook.Components.Info
         private readonly List<Label> _rowNames = new(2);
         private readonly List<Label> _rowValues = new(2);
 
-        private Enemy _enemy;
+        private Aborigine _aborigine;
 
         private bool _shown;
 
@@ -54,7 +54,7 @@ namespace UI.Game.GameLook.Components.Info
 
         private void OnDestroy()
         {
-            UnsubscribeFromEnemy();
+            UnsubscribeFromAborigine();
         }
 
         public void ShowSelf()
@@ -69,46 +69,46 @@ namespace UI.Game.GameLook.Components.Info
         {
             if (!_shown) return;
 
-            UnsubscribeFromEnemy();
+            UnsubscribeFromAborigine();
 
             _parent.InfoPanel.Remove(_tree);
             _shown = false;
         }
 
-        public void FillIn(Enemy enemy)
+        public void FillIn(Aborigine aborigine)
         {
-            UnsubscribeFromEnemy();
+            UnsubscribeFromAborigine();
 
-            _enemy = enemy;
+            _aborigine = aborigine;
 
-            _name.text = $"{enemy.Name}";
+            _name.text = $"{aborigine.Name}";
 
             ShowRows();
 
-            FillRow(0, "Health:", $"{_enemy.Unit.UnitVitality.Health}");
-            FillRow(1, "Recovery Speed:", $"{_enemy.Unit.UnitVitality.RecoverySpeed}");
-            FillRow(2, "Behavior:", $"{_enemy.FightManner.ToString()}");
+            FillRow(0, "Health:", $"{_aborigine.Unit.UnitVitality.Health}");
+            FillRow(1, "Recovery Speed:", $"{_aborigine.Unit.UnitVitality.RecoverySpeed}");
+            FillRow(2, "Behavior:", $"{_aborigine.FightManner.ToString()}");
 
-            SubscribeToEnemy();
+            SubscribeToAborigine();
         }
 
         private void HidePanel()
         {
-            _parent.UnsetEnemy(_enemy);
+            _parent.UnsetAborigine(_aborigine);
         }
 
-        private void SubscribeToEnemy()
+        private void SubscribeToAborigine()
         {
-            _enemy.HealthChange += UpdateRows;
-            _enemy.Dying += HidePanel;
+            _aborigine.HealthChange += UpdateRows;
+            _aborigine.Dying += HidePanel;
         }
 
-        private void UnsubscribeFromEnemy()
+        private void UnsubscribeFromAborigine()
         {
-            if (_enemy != null)
+            if (_aborigine != null)
             {
-                _enemy.HealthChange -= UpdateRows;
-                _enemy.Dying -= HidePanel;
+                _aborigine.HealthChange -= UpdateRows;
+                _aborigine.Dying -= HidePanel;
             }
         }
 
@@ -121,8 +121,8 @@ namespace UI.Game.GameLook.Components.Info
 
         private void UpdateRows()
         {
-            _rowValues[0].text = $"{_enemy.Unit.UnitVitality.Health}";
-            _rowValues[0].text = $"{_enemy.Unit.UnitVitality.RecoverySpeed}";
+            _rowValues[0].text = $"{_aborigine.Unit.UnitVitality.Health}";
+            _rowValues[0].text = $"{_aborigine.Unit.UnitVitality.RecoverySpeed}";
         }
 
         private void FillRow(int index, string name, string value)

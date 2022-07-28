@@ -1,6 +1,6 @@
 ﻿using System;
-using Enemies;
-using Enemies.Services;
+using Aborigines;
+using Aborigines.Services;
 using Units.Enums;
 using UnityEngine;
 
@@ -17,20 +17,20 @@ namespace Questing.Objectives
 
         private int _destroyed;
 
-        private EnemyRepository _enemyRepository;
+        private AborigineRepository _aborigineRepository;
 
         public void Activate(QuestServices questServices)
         {
             _destroyed = 0;
 
-            _enemyRepository = questServices.EnemyRepository;
+            _aborigineRepository = questServices.AborigineRepository;
 
-            _enemyRepository.Remove += IncrementCounter;
+            _aborigineRepository.Remove += IncrementCounter;
         }
 
         public void Deactivate()
         {
-            _enemyRepository.Remove -= IncrementCounter;
+            _aborigineRepository.Remove -= IncrementCounter;
         }
 
         public string ToText()
@@ -38,7 +38,7 @@ namespace Questing.Objectives
             return $"Get rid of {_quantity} {_type.GetStringForMultiple()}  –  {_destroyed}/{_quantity}";
         }
 
-        private void IncrementCounter(Enemy _)
+        private void IncrementCounter(Aborigine _)
         {
             _destroyed++;
 

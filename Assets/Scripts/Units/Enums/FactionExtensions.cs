@@ -9,7 +9,7 @@ namespace Units.Enums
             return faction switch
             {
                 Faction.Colonists => "colonists",
-                Faction.Enemies => "enemies",
+                Faction.Aborigines => "aborigines",
                 _ => throw new ArgumentOutOfRangeException()
             };
         }

@@ -5,7 +5,7 @@ using Units;
 using Units.Enums;
 using UnityEngine;
 
-namespace Enemies.BehaviorNodes
+namespace Aborigines.BehaviorNodes
 {
     public class EscapeToSafety : Action
     {
@@ -16,7 +16,7 @@ namespace Enemies.BehaviorNodes
         public LayerMask TargetMask;
         public float TimeToRescan = 0.2f;
 
-        public EnemyMeshAgent EnemyMeshAgent;
+        public AborigineMeshAgent AborigineMeshAgent;
 
         public SharedBool Escape;
 
@@ -24,8 +24,8 @@ namespace Enemies.BehaviorNodes
 
         public override void OnStart()
         {
-            EnemyMeshAgent.StopMoving();
-            EnemyMeshAgent.StopRotating();
+            AborigineMeshAgent.StopMoving();
+            AborigineMeshAgent.StopRotating();
 
             _nextTimeToScan = Time.time;
         }
@@ -76,7 +76,7 @@ namespace Enemies.BehaviorNodes
 
             foreach (var opponent in opponents)
             {
-                var distance = Vector3.Distance(EnemyMeshAgent.transform.position, opponent.transform.position);
+                var distance = Vector3.Distance(AborigineMeshAgent.transform.position, opponent.transform.position);
 
                 if (distance < shortestDistance)
                 {
@@ -87,7 +87,7 @@ namespace Enemies.BehaviorNodes
 
             if (closestOpponent == null) return;
 
-            EnemyMeshAgent.RunFrom(closestOpponent, DistanceForOneRetreat, RandomizationRadius);
+            AborigineMeshAgent.RunFrom(closestOpponent, DistanceForOneRetreat, RandomizationRadius);
         }
     }
 }

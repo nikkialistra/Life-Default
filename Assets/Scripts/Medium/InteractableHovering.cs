@@ -47,7 +47,7 @@ namespace Medium
 
         private void Awake()
         {
-            _entitiesMask = LayerMask.GetMask("Colonists", "Enemies", "Buildings", "Resources", "Items");
+            _entitiesMask = LayerMask.GetMask("Colonists", "Aborigines", "Buildings", "Resources", "Items");
 
             _mousePositionAction = _playerInput.actions.FindAction("Mouse Position");
         }

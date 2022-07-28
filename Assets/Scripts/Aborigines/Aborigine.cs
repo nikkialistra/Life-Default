@@ -4,27 +4,26 @@ using Humans;
 using Humans.Appearance;
 using Sirenix.OdinInspector;
 using Units;
-using Units.Ancillaries;
 using Units.Enums;
 using Units.FightBehavior;
 using UnityEngine;
 using Zenject;
 using static Humans.Appearance.HumanAppearanceRegistry;
 
-namespace Enemies
+namespace Aborigines
 {
     [RequireComponent(typeof(Unit))]
     [RequireComponent(typeof(UnitSelection))]
     [RequireComponent(typeof(UnitAttacker))]
     [RequireComponent(typeof(UnitFightBehavior))]
-    [RequireComponent(typeof(EnemyAnimator))]
-    [RequireComponent(typeof(EnemyMeshAgent))]
-    [RequireComponent(typeof(EnemyBehavior))]
-    public class Enemy : MonoBehaviour
+    [RequireComponent(typeof(AborigineAnimator))]
+    [RequireComponent(typeof(AborigineMeshAgent))]
+    [RequireComponent(typeof(AborigineBehavior))]
+    public class Aborigine : MonoBehaviour
     {
         public event Action Spawn;
         public event Action HealthChange;
-        public event Action<Enemy> EnemyDying;
+        public event Action<Aborigine> AborigineDying;
         public event Action Dying;
 
         public Unit Unit { get; private set; }
@@ -47,9 +46,9 @@ namespace Enemies
         private UnitAttacker _unitAttacker;
         private UnitFightBehavior _unitFightBehavior;
 
-        private EnemyAnimator _animator;
-        private EnemyMeshAgent _meshAgent;
-        private EnemyBehavior _behavior;
+        private AborigineAnimator _animator;
+        private AborigineMeshAgent _meshAgent;
+        private AborigineBehavior _behavior;
 
         private HumanAppearanceRegistry _humanAppearanceRegistry;
         private HumanNames _humanNames;
@@ -68,9 +67,9 @@ namespace Enemies
             _unitAttacker = GetComponent<UnitAttacker>();
             _unitFightBehavior = GetComponent<UnitFightBehavior>();
 
-            _animator = GetComponent<EnemyAnimator>();
-            _meshAgent = GetComponent<EnemyMeshAgent>();
-            _behavior = GetComponent<EnemyBehavior>();
+            _animator = GetComponent<AborigineAnimator>();
+            _meshAgent = GetComponent<AborigineMeshAgent>();
+            _behavior = GetComponent<AborigineBehavior>();
         }
 
         private void Start()
@@ -107,7 +106,7 @@ namespace Enemies
         [Button(ButtonSizes.Medium)]
         public void RandomizeAppearance()
         {
-            _humanAppearance.RandomizeAppearanceWith(_gender, HumanType.Enemy, _humanAppearanceRegistry);
+            _humanAppearance.RandomizeAppearanceWith(_gender, HumanType.Aborigine, _humanAppearanceRegistry);
         }
 
         public void ToggleUnitFieldOfView()
@@ -122,7 +121,7 @@ namespace Enemies
             if (_name == "")
                 _name = _humanNames.GetRandomNameFor(_gender);
 
-            _humanAppearance.RandomizeAppearanceWith(_gender, HumanType.Enemy, _humanAppearanceRegistry);
+            _humanAppearance.RandomizeAppearanceWith(_gender, HumanType.Aborigine, _humanAppearanceRegistry);
 
             FightManner = EnumUtils.RandomValue<FightManner>();
 
@@ -158,7 +157,7 @@ namespace Enemies
 
             Deselect();
 
-            EnemyDying?.Invoke(this);
+            AborigineDying?.Invoke(this);
             Dying?.Invoke();
 
             _animator.Die(DestroySelf);
@@ -196,6 +195,6 @@ namespace Enemies
             HealthChange?.Invoke();
         }
 
-        public class Factory : PlaceholderFactory<Enemy> { }
+        public class Factory : PlaceholderFactory<Aborigine> { }
     }
 }

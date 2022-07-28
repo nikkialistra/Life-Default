@@ -148,7 +148,7 @@ namespace ColonistManagement.Movement
                 case Faction.Colonists:
                     ColonistSet?.Invoke(unit.Colonist);
                     break;
-                case Faction.Enemies:
+                case Faction.Aborigines:
                     UnitTargetSet?.Invoke(unit);
                     break;
                 default:

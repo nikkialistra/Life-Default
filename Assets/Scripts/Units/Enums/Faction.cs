@@ -3,6 +3,6 @@
     public enum Faction
     {
         Colonists,
-        Enemies
+        Aborigines
     }
 }

@@ -9,7 +9,7 @@ namespace Testing
     public class InteractableDestroying : MonoBehaviour
     {
         private SelectedColonists _selectedColonists;
-        private SelectedEnemies _selectedEnemies;
+        private SelectedAborigines _selectedAborigines;
         private SelectedEntities _selectedEntities;
 
         private PlayerInput _playerInput;
@@ -20,11 +20,11 @@ namespace Testing
         private InputAction _destroyInteractableAction;
 
         [Inject]
-        public void Construct(SelectedColonists selectedColonists, SelectedEnemies selectedEnemies,
+        public void Construct(SelectedColonists selectedColonists, SelectedAborigines selectedAborigines,
             SelectedEntities selectedEntities, PlayerInput playerInput)
         {
             _selectedColonists = selectedColonists;
-            _selectedEnemies = selectedEnemies;
+            _selectedAborigines = selectedAborigines;
             _selectedEntities = selectedEntities;
 
             _playerInput = playerInput;
@@ -48,7 +48,7 @@ namespace Testing
         private void DestroyInteractable(InputAction.CallbackContext context)
         {
             _selectedColonists.Destroy();
-            _selectedEnemies.Destroy();
+            _selectedAborigines.Destroy();
             _selectedEntities.Destroy();
         }
     }

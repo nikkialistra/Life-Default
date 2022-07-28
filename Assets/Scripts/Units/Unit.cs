@@ -1,6 +1,6 @@
 ﻿using System;
+using Aborigines;
 using Colonists;
-using Enemies;
 using Sirenix.OdinInspector;
 using Units.Ancillaries;
 using Units.Ancillaries.Fields;
@@ -35,7 +35,7 @@ namespace Units
         public UnitEquipment UnitEquipment => _unitEquipment;
 
         public Colonist Colonist => _colonist;
-        public Enemy Enemy => _enemy;
+        public Aborigine Aborigine => _aborigine;
 
         public UnitVitality UnitVitality { get; private set; }
 
@@ -45,9 +45,9 @@ namespace Units
         [ValidateInput(nameof(ColonistUnitShouldHaveColonist), "Unit with fraction 'Colonists' should have colonist")]
         [SerializeField] private Colonist _colonist;
 
-        [ShowIf(nameof(_faction), Faction.Enemies)]
-        [ValidateInput(nameof(EnemyUnitShouldHaveEnemy), "Unit with fraction 'Enemies' should have enemy")]
-        [SerializeField] private Enemy _enemy;
+        [ShowIf(nameof(_faction), Faction.Aborigines)]
+        [ValidateInput(nameof(AborigineUnitShouldHaveAborigine), "Unit with fraction 'Aborigines' should have aborigine")]
+        [SerializeField] private Aborigine _aborigine;
 
         [Required]
         [SerializeField] private HealthBars _healthBars;
@@ -246,9 +246,9 @@ namespace Units
             return true;
         }
 
-        private bool EnemyUnitShouldHaveEnemy()
+        private bool AborigineUnitShouldHaveAborigine()
         {
-            if (_faction == Faction.Enemies && _enemy == null)
+            if (_faction == Faction.Aborigines && _aborigine == null)
                 return false;
 
             return true;

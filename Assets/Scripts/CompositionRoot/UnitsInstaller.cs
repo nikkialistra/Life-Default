@@ -1,5 +1,5 @@
-﻿using Enemies;
-using Enemies.Services;
+﻿using Aborigines;
+using Aborigines.Services;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using Zenject;
@@ -9,24 +9,24 @@ namespace CompositionRoot
     public class UnitsInstaller : MonoInstaller
     {
         [Required]
-        [SerializeField] private GameObject _enemyPrefab;
+        [SerializeField] private GameObject _aboriginePrefab;
         [Required]
-        [SerializeField] private Transform _enemiesParent;
+        [SerializeField] private Transform _aboriginesParent;
         [Required]
-        [SerializeField] private EnemyRepository _enemyRepository;
+        [SerializeField] private AborigineRepository _aborigineRepository;
 
         public override void InstallBindings()
         {
             BindSpawning();
 
-            Container.BindInstance(_enemyRepository);
+            Container.BindInstance(_aborigineRepository);
         }
 
         private void BindSpawning()
         {
-            Container.BindFactory<Enemy, Enemy.Factory>()
-                .FromComponentInNewPrefab(_enemyPrefab)
-                .UnderTransform(_enemiesParent);
+            Container.BindFactory<Aborigine, Aborigine.Factory>()
+                .FromComponentInNewPrefab(_aboriginePrefab)
+                .UnderTransform(_aboriginesParent);
         }
     }
 }

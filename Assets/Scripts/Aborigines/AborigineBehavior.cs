@@ -2,11 +2,11 @@
 using Units;
 using UnityEngine;
 
-namespace Enemies
+namespace Aborigines
 {
     [RequireComponent(typeof(BehaviorTree))]
     [RequireComponent(typeof(UnitAttacker))]
-    public class EnemyBehavior : MonoBehaviour
+    public class AborigineBehavior : MonoBehaviour
     {
         private bool _initialized;
 

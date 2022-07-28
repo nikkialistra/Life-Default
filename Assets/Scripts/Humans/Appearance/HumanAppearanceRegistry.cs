@@ -12,7 +12,7 @@ namespace Humans.Appearance
         public enum HumanType
         {
             Colonist,
-            Enemy
+            Aborigine
         }
 
         [SerializeField] private HeadVariants _maleHeadVariants;
@@ -24,9 +24,9 @@ namespace Humans.Appearance
         [SerializeField] private GarmentSetVariants _maleColonistGarmentSetVariants;
         [SerializeField] private GarmentSetVariants _femaleColonistGarmentSetVariants;
 
-        [Title("Enemy Garment Sets")]
-        [SerializeField] private GarmentSetVariants _maleEnemyGarmentSetVariants;
-        [SerializeField] private GarmentSetVariants _femaleEnemyGarmentSetVariants;
+        [Title("Aborigine Garment Sets")]
+        [SerializeField] private GarmentSetVariants _maleAborigineGarmentSetVariants;
+        [SerializeField] private GarmentSetVariants _femaleAborigineGarmentSetVariants;
 
         public HeadVariants HeadVariantsFor(Gender gender)
         {
@@ -41,8 +41,8 @@ namespace Humans.Appearance
                     : _femaleColonistGarmentSetVariants.GarmentSets;
             else
                 return gender == Gender.Male
-                    ? _maleEnemyGarmentSetVariants.GarmentSets
-                    : _femaleEnemyGarmentSetVariants.GarmentSets;
+                    ? _maleAborigineGarmentSetVariants.GarmentSets
+                    : _femaleAborigineGarmentSetVariants.GarmentSets;
         }
     }
 }

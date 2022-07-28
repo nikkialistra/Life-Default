@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using Aborigines;
 using Colonists;
-using Enemies;
 using Entities;
 using Entities.Types;
 using Selecting.Selected;
@@ -18,11 +18,11 @@ namespace Selecting
     {
         private bool NothingSelected =>
             _selectedColonists.Count == 0 &&
-            _selectedEnemies.Count == 0 &&
+            _selectedAborigines.Count == 0 &&
             _selectedEntities.Count == 0;
 
         private readonly List<Colonist> _colonists = new();
-        private readonly List<Enemy> _enemies = new();
+        private readonly List<Aborigine> _aborigines = new();
         private readonly List<Entity> _entities = new();
 
         private Camera _camera;
@@ -31,7 +31,7 @@ namespace Selecting
         private InfoPanelView _infoPanelView;
 
         private SelectedColonists _selectedColonists;
-        private SelectedEnemies _selectedEnemies;
+        private SelectedAborigines _selectedAborigines;
         private SelectedEntities _selectedEntities;
 
         private EntitySelection _entitySelection;
@@ -40,14 +40,14 @@ namespace Selecting
 
         [Inject]
         public void Construct(Camera camera, FrustumSelector frustumSelector, InfoPanelView infoPanelView,
-            SelectedColonists selectedColonists, SelectedEnemies selectedEnemies, SelectedEntities selectedEntities)
+            SelectedColonists selectedColonists, SelectedAborigines selectedAborigines, SelectedEntities selectedEntities)
         {
             _camera = camera;
             _frustumSelector = frustumSelector;
             _infoPanelView = infoPanelView;
 
             _selectedColonists = selectedColonists;
-            _selectedEnemies = selectedEnemies;
+            _selectedAborigines = selectedAborigines;
             _selectedEntities = selectedEntities;
         }
 
@@ -84,7 +84,7 @@ namespace Selecting
 
             if (TrySelectColonist(point)) return;
 
-            if (TrySelectEnemy(point)) return;
+            if (TrySelectAborigine(point)) return;
 
             if (TrySelectEntity(point)) return;
 
@@ -99,9 +99,9 @@ namespace Selecting
                 return;
             }
 
-            if (_selectedEnemies.Count > 0)
+            if (_selectedAborigines.Count > 0)
             {
-                SelectEnemyAdditive(point);
+                SelectAborigineAdditive(point);
                 return;
             }
 
@@ -153,9 +153,9 @@ namespace Selecting
                 return;
             }
 
-            if (_enemies.Count > 0)
+            if (_aborigines.Count > 0)
             {
-                _selectedEnemies.Set(_enemies);
+                _selectedAborigines.Set(_aborigines);
                 return;
             }
 
@@ -190,9 +190,9 @@ namespace Selecting
                 return;
             }
 
-            if (_selectedEnemies.Count > 0 && _enemies.Count > 0)
+            if (_selectedAborigines.Count > 0 && _aborigines.Count > 0)
             {
-                _selectedEnemies.Add(_enemies);
+                _selectedAborigines.Add(_aborigines);
                 return;
             }
 
@@ -208,7 +208,7 @@ namespace Selecting
         private void SplitByType(List<Collider> colliders)
         {
             _colonists.Clear();
-            _enemies.Clear();
+            _aborigines.Clear();
             _entities.Clear();
 
             foreach (var collider in colliders)
@@ -218,7 +218,7 @@ namespace Selecting
                     if (unit.Faction == Faction.Colonists)
                         AddIfAlive(unit.Colonist);
                     else
-                        AddIfAlive(unit.Enemy);
+                        AddIfAlive(unit.Aborigine);
                     continue;
                 }
 
@@ -233,10 +233,10 @@ namespace Selecting
                 _colonists.Add(entity);
         }
 
-        private void AddIfAlive(Enemy enemy)
+        private void AddIfAlive(Aborigine aborigine)
         {
-            if (enemy.Alive)
-                _enemies.Add(enemy);
+            if (aborigine.Alive)
+                _aborigines.Add(aborigine);
         }
 
         private void AddIfAlive(Entity entity)
@@ -257,12 +257,12 @@ namespace Selecting
             return false;
         }
 
-        private bool TrySelectEnemy(Vector2 point)
+        private bool TrySelectAborigine(Vector2 point)
         {
             if (TryRaycastFromCamera(point, out var hit))
-                if (hit.transform.TryGetComponent(out Enemy enemy) && enemy.Alive)
+                if (hit.transform.TryGetComponent(out Aborigine aborigine) && aborigine.Alive)
                 {
-                    _selectedEnemies.Set(enemy);
+                    _selectedAborigines.Set(aborigine);
                     return true;
                 }
 
@@ -288,11 +288,11 @@ namespace Selecting
                     _selectedColonists.Add(colonist);
         }
 
-        private void SelectEnemyAdditive(Vector2 point)
+        private void SelectAborigineAdditive(Vector2 point)
         {
             if (TryRaycastFromCamera(point, out var hit))
-                if (hit.transform.TryGetComponent(out Enemy enemy) && enemy.Alive)
-                    _selectedEnemies.Add(enemy);
+                if (hit.transform.TryGetComponent(out Aborigine aborigine) && aborigine.Alive)
+                    _selectedAborigines.Add(aborigine);
         }
 
         private void SelectEntityAdditive(Vector2 point)
@@ -336,13 +336,13 @@ namespace Selecting
         private void DeselectAll()
         {
             _selectedColonists.Deselect();
-            _selectedEnemies.Deselect();
+            _selectedAborigines.Deselect();
             _selectedEntities.Deselect();
         }
 
         private void DeselectAllWithoutColonists()
         {
-            _selectedEnemies.Deselect();
+            _selectedAborigines.Deselect();
             _selectedEntities.Deselect();
         }
     }

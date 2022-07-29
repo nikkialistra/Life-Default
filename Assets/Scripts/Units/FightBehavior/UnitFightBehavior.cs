@@ -15,8 +15,6 @@ namespace Units.FightBehavior
     {
         [SerializeField] private float _advanceTime = 3f;
         [SerializeField] private float _refreshTime = 1f;
-        [Space]
-        [SerializeField] private bool _useMinimax;
 
         private bool _fighting;
 

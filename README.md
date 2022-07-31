@@ -19,6 +19,7 @@
 - [Behavior Designer](https://assetstore.unity.com/packages/tools/visual-scripting/behavior-designer-behavior-trees-for-everyone-15277)
 - [Animancer Pro](https://assetstore.unity.com/packages/tools/animation/animancer-pro-116514)
 - [DOTween](https://assetstore.unity.com/packages/tools/visual-scripting/dotween-pro-32416)
+- [UniTask](https://github.com/Cysharp/UniTask)
 - [UniRx](https://github.com/neuecc/UniRx)
 - [Easy Performant Outline](https://assetstore.unity.com/packages/vfx/shaders/fullscreen-camera-effects/easy-performant-outline-2d-3d-urp-hdrp-and-built-in-renderer-157187)
 - [Extenject](https://github.com/Mathijs-Bakker/Extenject)
